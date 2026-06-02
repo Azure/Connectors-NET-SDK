@@ -187,7 +187,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>Pass-through Native Queries</summary>
         [JsonPropertyName("query")]
         [JsonInclude]
-        public List<PassThroughNativeQuery> Query { get; internal set; }
+        public List<PassThroughNativeQuery> Query { get; init; }
     }
 
     /// <summary>
@@ -226,7 +226,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -283,7 +283,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -300,7 +300,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -335,7 +335,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -352,7 +352,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -383,7 +383,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -400,7 +400,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -508,7 +508,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public object DynamicProperties { get; set; }
+        public JsonElement? DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -655,7 +655,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>ETag of the item after the approval status was set</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>A link to the item that needs approval</summary>
         [JsonPropertyName("ApprovalLink")]
@@ -726,7 +726,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>When this item was deleted</summary>
         [JsonPropertyName("TimeDeleted")]
         [JsonInclude]
-        public DateTime? TimeDeleted { get; internal set; }
+        public DateTime? TimeDeleted { get; init; }
 
         /// <summary>A true/false value to indicate if the item is a folder</summary>
         [JsonPropertyName("IsFolder")]
@@ -752,6 +752,92 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     /// </summary>
     [DynamicSchema("GetAgreementsSolutionTemplateFields")]
     public class CreateAgreementsSolutionDocumentInput
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Get form metadata (preview)
+    /// </summary>
+    public class TableForm
+    {
+        /// <summary>Gets or sets the form ID</summary>
+        [JsonPropertyName("FormID")]
+        public string FormId { get; set; }
+
+        /// <summary>Gets or sets the form display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Gets or sets the form type</summary>
+        [JsonPropertyName("Type")]
+        public string Type { get; set; }
+
+        /// <summary>Gets or sets the form link/URL</summary>
+        [JsonPropertyName("Link")]
+        public string Link { get; set; }
+
+        /// <summary>Gets or sets the user who created the form</summary>
+        [JsonPropertyName("CreatedBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>Gets or sets the date the form was created</summary>
+        [JsonPropertyName("Created")]
+        public DateTime? Created { get; set; }
+
+        /// <summary>Gets or sets the date the form was last modified</summary>
+        [JsonPropertyName("Modified")]
+        public DateTime? Modified { get; set; }
+
+        /// <summary>Gets or sets the user who last modified the form</summary>
+        [JsonPropertyName("ModifiedBy")]
+        public string ModifiedBy { get; set; }
+
+        /// <summary>Gets or sets the output format (e.g. &quot;Word document&quot;, &quot;PDF document&quot;, &quot;None&quot;)</summary>
+        [JsonPropertyName("OutputFormat")]
+        public string OutputFormat { get; set; }
+
+        /// <summary>Gets or sets Form Fields</summary>
+        [JsonPropertyName("FieldsMetadata")]
+        public List<FormFieldMetadata> FieldsMetadata { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Gets or sets Form Fields
+    /// </summary>
+    public class FormFieldMetadata
+    {
+        /// <summary>Gets or sets the field ID</summary>
+        [JsonPropertyName("ID")]
+        public string Id { get; set; }
+
+        /// <summary>Gets or sets the field Name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether the field is required</summary>
+        [JsonPropertyName("IsRequired")]
+        public bool? IsRequired { get; set; }
+
+        /// <summary>Gets or sets the field data type</summary>
+        [JsonPropertyName("DataType")]
+        public string DataType { get; set; }
+
+        /// <summary>Gets or sets the default value</summary>
+        [JsonPropertyName("DefaultValue")]
+        public string DefaultValue { get; set; }
+    }
+
+    /// <summary>
+    /// Generate a document from a form (preview)
+    /// </summary>
+    [DynamicSchema("GetDocGenFormFields")]
+    public class SubmitDocGenFormInput
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -820,7 +906,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>DynamicProperties</summary>
         [JsonPropertyName("DynamicProperties")]
-        public object DynamicProperties { get; set; }
+        public JsonElement? DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -960,7 +1046,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>Enter JSON object of request headers</summary>
         [JsonPropertyName("headers")]
-        public object Headers { get; set; }
+        public JsonElement? Headers { get; set; }
 
         /// <summary>Enter request content in JSON</summary>
         [JsonPropertyName("body")]
@@ -1035,7 +1121,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     /// <summary>
     /// Model factory for creating instances of SharePointOnline models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class SharePointOnlineModelFactory
     {
@@ -1199,7 +1285,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Table
             {
@@ -1391,7 +1477,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Item
             {
@@ -1482,6 +1568,56 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="TableForm"/>.
+        /// </summary>
+        public static TableForm TableForm(
+            string formId = default,
+            string displayName = default,
+            string type = default,
+            string link = default,
+            string createdBy = default,
+            DateTime? created = default,
+            DateTime? modified = default,
+            string modifiedBy = default,
+            string outputFormat = default,
+            List<FormFieldMetadata> fieldsMetadata = default)
+        {
+            return new TableForm
+            {
+                FormId = formId,
+                DisplayName = displayName,
+                Type = type,
+                Link = link,
+                CreatedBy = createdBy,
+                Created = created,
+                Modified = modified,
+                ModifiedBy = modifiedBy,
+                OutputFormat = outputFormat,
+                FieldsMetadata = fieldsMetadata,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FormFieldMetadata"/>.
+        /// </summary>
+        public static FormFieldMetadata FormFieldMetadata(
+            string id = default,
+            string name = default,
+            bool? isRequired = default,
+            string dataType = default,
+            string defaultValue = default)
+        {
+            return new FormFieldMetadata
+            {
+                Id = id,
+                Name = name,
+                IsRequired = isRequired,
+                DataType = dataType,
+                DefaultValue = defaultValue,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="CopyFileParameters"/>.
         /// </summary>
         public static CopyFileParameters CopyFileParameters(
@@ -1523,7 +1659,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static CreateNewDocumentSetParameters CreateNewDocumentSetParameters(
             string documentSetPath = default,
             string contentTypeId = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new CreateNewDocumentSetParameters
             {
@@ -1649,7 +1785,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static SharePointHttpRequestBodyParameters SharePointHttpRequestBodyParameters(
             Method? method = default,
             string uri = default,
-            object headers = default,
+            JsonElement? headers = default,
             string body = default)
         {
             return new SharePointHttpRequestBodyParameters
@@ -1707,6 +1843,14 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
+    /// Typed trigger payload for the OnNewItemsFromForm trigger (SharePointOnline "When a form is submitted (preview)", operationId: GetOnNewItemsFromForm).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnNewItemsFromFormTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class SharePointOnlineOnNewItemsFromFormTriggerPayload : TriggerCallbackPayload<Item>
+    {
+    }
+
+    /// <summary>
     /// Typed trigger payload for the OnUpdatedFileClassifiedTimes trigger (SharePointOnline "When a file is classified by a Microsoft Syntex model", operationId: GetOnUpdatedFileClassifiedTimes).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
     /// </summary>
@@ -1751,6 +1895,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 ["GetOnDeletedItems"] = typeof(SharePointOnlineOnDeletedItemsTriggerPayload),
                 ["GetOnNewFileItems"] = typeof(SharePointOnlineOnNewFileItemsTriggerPayload),
                 ["GetOnNewItems"] = typeof(SharePointOnlineOnNewItemsTriggerPayload),
+                ["GetOnNewItemsFromForm"] = typeof(SharePointOnlineOnNewItemsFromFormTriggerPayload),
                 ["GetOnUpdatedFileClassifiedTimes"] = typeof(SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload),
                 ["GetOnUpdatedFileItems"] = typeof(SharePointOnlineOnUpdatedFileItemsTriggerPayload),
                 ["GetOnUpdatedItems"] = typeof(SharePointOnlineOnUpdatedItemsTriggerPayload),
@@ -1802,6 +1947,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// Payload type: <see cref="SharePointOnlineOnNewItemsTriggerPayload"/>.
         /// </summary>
         public const string OnNewItems = "GetOnNewItems";
+
+        /// <summary>
+        /// When a form is submitted (preview).
+        /// Payload type: <see cref="SharePointOnlineOnNewItemsFromFormTriggerPayload"/>.
+        /// </summary>
+        public const string OnNewItemsFromForm = "GetOnNewItemsFromForm";
 
         /// <summary>
         /// When a file is classified by a Microsoft Syntex model.
@@ -1896,6 +2047,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnNewItems
         {
+            /// <summary>
+            /// Avoid column threshold issues by only using columns defined in a view
+            /// Dynamic values from: GetTableViews.
+            /// </summary>
+            public const string View = "view";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewItemsFromForm trigger operation (operationId: GetOnNewItemsFromForm).
+        /// </summary>
+        public static class OnNewItemsFromForm
+        {
+            /// <summary>
+            /// Form identifier
+            /// Required.
+            /// Dynamic values from: GetTableForms.
+            /// </summary>
+            public const string Form = "form";
+
             /// <summary>
             /// Avoid column threshold issues by only using columns defined in a view
             /// Dynamic values from: GetTableViews.
@@ -2065,6 +2236,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
 
         public override string ConnectorName => "sharepointonline";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.sharepointonline");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2089,15 +2262,29 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get list metadata response.</returns>
         public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, string limitColumnsByContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            if (limitColumnsByContentType != default)
-                queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
-            var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                if (limitColumnsByContentType != default)
+                    queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2110,10 +2297,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get metadata about the return type of the GetItemChanges operation response.</returns>
         public virtual async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
-            return await this
-                .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemChangesMetadataAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
+                return await this
+                    .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2124,10 +2325,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get datasets response.</returns>
         public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets";
-            return await this
-                .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDataSetsAsync");
+            try
+            {
+                var path = $"/datasets";
+                return await this
+                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2139,10 +2350,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get all lists and libraries response.</returns>
         public virtual async Task<TablesList> GetAllTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAllTablesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2155,12 +2378,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Approve hub site join request response.</returns>
         public virtual async Task<ApproveHubSiteJoinResponse> ApproveHubSiteJoinAsync([DynamicValues("GetDataSets")] string hubSiteAddress, string requestingSiteId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(hubSiteAddress.ToString())}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.ApproveHubSiteJoinAsync");
+            try
+            {
+                if (hubSiteAddress is null)
+                    throw new ArgumentNullException(nameof(hubSiteAddress));
+                var queryParams = new List<string>();
+                if (requestingSiteId is null)
+                    throw new ArgumentNullException(nameof(requestingSiteId));
+                queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(hubSiteAddress.ToString())}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2172,13 +2409,25 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CancelHubSiteJoinApprovalAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (approvalCorrelationId != default)
-                queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CancelHubSiteJoinApprovalAsync");
+            try
+            {
+                if (requestingSiteAddress is null)
+                    throw new ArgumentNullException(nameof(requestingSiteAddress));
+                var queryParams = new List<string>();
+                if (approvalCorrelationId != default)
+                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2193,10 +2442,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Create sharing link for a file or folder response.</returns>
         public virtual async Task<SharingLinkPermission> CreateSharingLinkAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int itemId, ItemPermissionCreateLinkBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
-            return await this
-                .CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateSharingLinkAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
+                return await this
+                    .CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2211,16 +2474,32 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Copy file (deprecated) response.</returns>
         public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFilePath, bool? overwriteFlag = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwriteFlag.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CopyFileAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceFilePath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                if (overwriteFlag.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2233,10 +2512,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Copy file response.</returns>
         public virtual async Task<SPBlobMetadataResponse> CopyFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFileParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CopyFileAsync");
+            try
+            {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2249,10 +2540,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Copy folder response.</returns>
         public virtual async Task<SPBlobMetadataResponse> CopyFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, CopyFolderParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CopyFolderAsync");
+            try
+            {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2267,14 +2570,30 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Create file response.</returns>
         public virtual async Task<SPBlobMetadataResponse> CreateFileAsync([DynamicValues("GetDataSets")] string siteAddress, byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateFileAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2287,10 +2606,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get file metadata response.</returns>
         public virtual async Task<SPBlobMetadataResponse> GetFileMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileMetadataAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2304,10 +2637,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Update file response.</returns>
         public virtual async Task<BlobMetadataResponse> UpdateFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.UpdateFileAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2319,10 +2666,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DeleteFileAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2336,13 +2697,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get file content response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileContentAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var queryParams = new List<string>();
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2355,13 +2730,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get file metadata using path response.</returns>
         public virtual async Task<SPBlobMetadataResponse> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileMetadataByPathAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2375,15 +2764,29 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get file content using path response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileContentByPathAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2396,12 +2799,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get folder metadata response.</returns>
         public virtual async Task<SPBlobMetadataResponse> GetFolderMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFolderMetadataAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2414,13 +2831,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get folder metadata using path response.</returns>
         public virtual async Task<SPBlobMetadataResponse> GetFolderMetadataByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string folderPath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFolderMetadataByPathAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
+                queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2432,10 +2863,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task HttpRequestAsync([DynamicValues("GetDataSets")] string siteAddress, SharePointHttpRequestBodyParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.HttpRequestAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2449,16 +2892,30 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task JoinHubSiteAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string hubSiteId, string approvalToken = default, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hubSiteId={Uri.EscapeDataString(hubSiteId.ToString())}");
-            if (approvalToken != default)
-                queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
-            if (approvalCorrelationId != default)
-                queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.JoinHubSiteAsync");
+            try
+            {
+                if (requestingSiteAddress is null)
+                    throw new ArgumentNullException(nameof(requestingSiteAddress));
+                var queryParams = new List<string>();
+                if (hubSiteId is null)
+                    throw new ArgumentNullException(nameof(hubSiteId));
+                queryParams.Add($"hubSiteId={Uri.EscapeDataString(hubSiteId.ToString())}");
+                if (approvalToken != default)
+                    queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
+                if (approvalCorrelationId != default)
+                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2471,10 +2928,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Move file response.</returns>
         public virtual async Task<SPBlobMetadataResponse> MoveFileAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFileParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.MoveFileAsync");
+            try
+            {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2487,10 +2956,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Move folder response.</returns>
         public virtual async Task<SPBlobMetadataResponse> MoveFolderAsync([DynamicValues("GetDataSets")] string currentSiteAddress, MoveFolderParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.MoveFolderAsync");
+            try
+            {
+                if (currentSiteAddress is null)
+                    throw new ArgumentNullException(nameof(currentSiteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2502,13 +2983,25 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task NotifyHubSiteJoinApprovalStartedAsync([DynamicValues("GetDataSets")] string requestingSiteAddress, string approvalCorrelationId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (approvalCorrelationId != default)
-                queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.NotifyHubSiteJoinApprovalStartedAsync");
+            try
+            {
+                if (requestingSiteAddress is null)
+                    throw new ArgumentNullException(nameof(requestingSiteAddress));
+                var queryParams = new List<string>();
+                if (approvalCorrelationId != default)
+                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2520,10 +3013,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get lists response.</returns>
         public virtual async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2537,10 +3042,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Create new document set response.</returns>
         public virtual async Task<CreateNewDocumentSetResponse> CreateNewDocumentSetAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string library, CreateNewDocumentSetParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
-            return await this
-                .CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateNewDocumentSetAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (library is null)
+                    throw new ArgumentNullException(nameof(library));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
+                return await this
+                    .CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2555,13 +3074,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Create new folder response.</returns>
         public virtual async Task<CreateNewFolderResponse> CreateNewFolderAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, CreateNewFolderParameters input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateNewFolderAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibrary is null)
+                    throw new ArgumentNullException(nameof(listOrLibrary));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2577,14 +3110,32 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Resolve person response.</returns>
         public virtual async Task<SPListExpandedUser> SearchForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibrary, [DynamicValues("GetEntitiesForUser")] string column, string emailOrName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/entities/{Uri.EscapeDataString(column.ToString())}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SearchForUserAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibrary is null)
+                    throw new ArgumentNullException(nameof(listOrLibrary));
+                if (column is null)
+                    throw new ArgumentNullException(nameof(column));
+                var queryParams = new List<string>();
+                if (emailOrName is null)
+                    throw new ArgumentNullException(nameof(emailOrName));
+                queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/entities/{Uri.EscapeDataString(column.ToString())}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2598,13 +3149,57 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Returns User fields for a list response.</returns>
         public virtual async Task<List<SPListEntity>> GetEntitiesForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetEntitiesForUserAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get list forms
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listName">List Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get list forms response.</returns>
+        public virtual async Task<List<Table>> GetTableFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/forms";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2623,23 +3218,37 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get files (properties only) response.</returns>
         public virtual async Task<ItemsList> GetFileItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, string filterQuery = default, string orderBy = default, int? topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (limitEntriesToFolder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
-            if (includeNestedItems != default)
-                queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileItemsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (limitEntriesToFolder != default)
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
+                if (includeNestedItems != default)
+                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2652,10 +3261,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get list image fields response.</returns>
         public virtual async Task<List<Table>> GetListImageFieldsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
-            return await this
-                .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetListImageFieldsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2674,23 +3297,37 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get items response.</returns>
         public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string filterQuery = default, string orderBy = default, int? topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (limitEntriesToFolder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
-            if (includeNestedItems != default)
-                queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (limitEntriesToFolder != default)
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
+                if (includeNestedItems != default)
+                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2705,13 +3342,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Create item response.</returns>
         public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, PostItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PostItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2726,13 +3377,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get item response.</returns>
         public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2745,10 +3410,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DeleteItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2764,13 +3443,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Update item response.</returns>
         public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, PatchItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PatchItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2786,12 +3479,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Create an approval request for an item or file response.</returns>
         public virtual async Task<ApprovalData> CreateApprovalRequestAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLightweightApproval")] string listOrLibrary, int id, CreateApprovalRequestInput input, [DynamicValues("GetApprovalTypes")] int approvalType, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateApprovalRequestAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibrary is null)
+                    throw new ArgumentNullException(nameof(listOrLibrary));
+                var queryParams = new List<string>();
+                queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2809,18 +3516,34 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get changes for an item or a file (properties only) response.</returns>
         public virtual async Task<GetItemChangesResponse> GetItemChangesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, string since, string until = default, bool? includeMinorVersions = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
-            if (until != default)
-                queryParams.Add($"until={Uri.EscapeDataString(until.ToString())}");
-            if (includeMinorVersions.HasValue)
-                queryParams.Add($"includeDrafts={Uri.EscapeDataString(includeMinorVersions.Value.ToString())}");
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemChangesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                var queryParams = new List<string>();
+                if (since is null)
+                    throw new ArgumentNullException(nameof(since));
+                queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                if (until != default)
+                    queryParams.Add($"until={Uri.EscapeDataString(until.ToString())}");
+                if (includeMinorVersions.HasValue)
+                    queryParams.Add($"includeDrafts={Uri.EscapeDataString(includeMinorVersions.Value.ToString())}");
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2834,10 +3557,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CheckInFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, FileCheckInParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CheckInFileAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2850,10 +3587,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CheckOutFileAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CheckOutFileAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2866,10 +3617,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DiscardFileCheckOutAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DiscardFileCheckOutAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2884,13 +3649,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get file properties response.</returns>
         public virtual async Task<Item> GetFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2904,10 +3683,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GrantAccessAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, ItemGrantAccessBody input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GrantAccessAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2923,13 +3716,27 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Update file properties response.</returns>
         public virtual async Task<PatchFileItemResponse> PatchFileItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemInput input, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limitColumnsByView != default)
-                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PatchFileItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2944,10 +3751,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Update file properties using AI Builder model results response.</returns>
         public virtual async Task<Item> PatchFileItemWithPredictedValuesAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, int id, PatchFileItemWithPredictedValuesParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.PatchFileItemWithPredictedValuesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2964,16 +3785,32 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Set content approval status response.</returns>
         public virtual async Task<SetApprovalStatusOutput> SetApprovalStatusAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForApproval")] string libraryName, int id, string action, string comments = default, string eTag = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"approvalAction={Uri.EscapeDataString(action.ToString())}");
-            if (comments != default)
-                queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
-            if (eTag != default)
-                queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SetApprovalStatusAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (libraryName is null)
+                    throw new ArgumentNullException(nameof(libraryName));
+                var queryParams = new List<string>();
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
+                queryParams.Add($"approvalAction={Uri.EscapeDataString(action.ToString())}");
+                if (comments != default)
+                    queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
+                if (eTag != default)
+                    queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2986,10 +3823,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UnshareItemAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, int id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.UnshareItemAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3003,10 +3854,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get attachments response.</returns>
         public virtual async Task<List<SPListItemAttachment>> GetItemAttachmentsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
-            return await this
-                .CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemAttachmentsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
+                return await this
+                    .CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3022,12 +3889,28 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Add attachment response.</returns>
         public virtual async Task<SPListItemAttachment> CreateAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, byte[] input, string fileName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateAttachmentAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3041,10 +3924,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteAttachmentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.DeleteAttachmentAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3059,10 +3958,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get attachment content response.</returns>
         public virtual async Task<byte[]> GetAttachmentContentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, int id, string fileIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAttachmentContentAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3075,10 +3990,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get document library templates response.</returns>
         public virtual async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
-            return await this
-                .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyTemplatesAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointDocumentLibraryName is null)
+                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3096,17 +4025,33 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Generate document using Microsoft Syntex (preview) response.</returns>
         public virtual async Task<SPBlobMetadataResponse> CreateContentAssemblyDocumentAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetContentAssemblyTemplates")] string documentTemplate, CreateContentAssemblyDocumentInput input, string folderPath = default, string fileName = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (folderPath != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            if (fileName != default)
-                queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
-            if (viewNoEffect != default)
-                queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateContentAssemblyDocumentAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                if (documentTemplate is null)
+                    throw new ArgumentNullException(nameof(documentTemplate));
+                var queryParams = new List<string>();
+                if (folderPath != default)
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                if (fileName != default)
+                    queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
+                if (viewNoEffect != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3120,10 +4065,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get placeholders from template response.</returns>
         public virtual async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyPlaceholdersAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointDocumentLibraryName is null)
+                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
+                if (documentTemplate is null)
+                    throw new ArgumentNullException(nameof(documentTemplate));
+                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3136,10 +4097,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get list views response.</returns>
         public virtual async Task<List<Table>> GetTableViewsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
-            return await this
-                .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableViewsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3151,10 +4126,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get libraries where Content Approval is supported response.</returns>
         public virtual async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForApprovalAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3166,10 +4153,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get libraries response.</returns>
         public virtual async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLibrariesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3181,10 +4180,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get lists and libraries where lightweight approvals is enabled response.</returns>
         public virtual async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLightweightApprovalAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3196,10 +4207,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get lists and libraries response.</returns>
         public virtual async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForListsAndLibrariesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3211,10 +4234,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Agreements Solution - Get Templates response.</returns>
         public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
-            return await this
-                .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplatesAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3231,17 +4266,31 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Agreements Solution - Generate document within Agreements Solution workspace response.</returns>
         public virtual async Task<SPBlobMetadataResponse> CreateAgreementsSolutionDocumentAsync([DynamicValues("GetDataSets")] string agreementsSolutionWorkspace, [DynamicValues("GetAgreementsSolutionTemplates")] string agreementsSolutionTemplate, CreateAgreementsSolutionDocumentInput input, string fileName = default, string tableNoEffect = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fileName != default)
-                queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
-            if (tableNoEffect != default)
-                queryParams.Add($"table={Uri.EscapeDataString(tableNoEffect.ToString())}");
-            if (viewNoEffect != default)
-                queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(agreementsSolutionWorkspace.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateAgreementsSolutionDocumentAsync");
+            try
+            {
+                if (agreementsSolutionWorkspace is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionWorkspace));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
+                var queryParams = new List<string>();
+                if (fileName != default)
+                    queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
+                if (tableNoEffect != default)
+                    queryParams.Add($"table={Uri.EscapeDataString(tableNoEffect.ToString())}");
+                if (viewNoEffect != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(agreementsSolutionWorkspace.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3254,10 +4303,24 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Agreements Solution - Get template fields response.</returns>
         public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplateFieldsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
+                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3269,12 +4332,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get the appropriate creation schema for the approval request type response.</returns>
         public virtual async Task<ObjectEntity> GetApprovalSchemaAsync(int approvalType, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
-            var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetApprovalSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
+                var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3285,10 +4358,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get available approval request types response.</returns>
         public virtual async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/getApprovalTypes";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetApprovalTypesAsync");
+            try
+            {
+                var path = $"/getApprovalTypes";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3299,10 +4382,154 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Get SPViewScope options to use for folder querying behavior response.</returns>
         public virtual async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/getViewScopeOptions";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetViewScopeOptionsAsync");
+            try
+            {
+                var path = $"/getViewScopeOptions";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get form metadata (preview)
+        /// </summary>
+        /// <remarks>Use this action to get the form metadata, which includes the form ID, title, link, form type, and the output format. It also gets the form questions used to collect information.             Document generation forms is a part of AI in SharePoint Public Preview. For more info on getting started, see: https://learn.microsoft.com/sharepoint/dev/declarative-customization/structured-documents.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listOrLibraryName">List or Library Name</param>
+        /// <param name="formName">Form Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get form metadata (preview) response.</returns>
+        public virtual async Task<TableForm> GetTableFormAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, [DynamicValues("GetTableForms")] string formName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                if (formName is null)
+                    throw new ArgumentNullException(nameof(formName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/forms/{Uri.EscapeDataString(formName.ToString())}";
+                return await this
+                    .CallConnectorAsync<TableForm>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation form fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="sharePointListName">SharePoint list name</param>
+        /// <param name="formIdentifier">Form identifier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation form fields response.</returns>
+        public virtual async Task<TableMetadata> GetDocGenFormFieldsAsync(string dataset, string sharePointListName, string formIdentifier, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormFieldsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointListName is null)
+                    throw new ArgumentNullException(nameof(sharePointListName));
+                if (formIdentifier is null)
+                    throw new ArgumentNullException(nameof(formIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointListName.ToString())}/docgenforms/{Uri.EscapeDataString(formIdentifier.ToString())}/fields";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generate a document from a form (preview)
+        /// </summary>
+        /// <remarks>Use this action to create documents from a document generation template. Map the template fields to the corresponding content in the data source.             Document generation forms is a part of AI in SharePoint Public Preview. For more info on getting started, see: https://learn.microsoft.com/sharepoint/dev/declarative-customization/structured-documents.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="documentLibraryName">Document Library Name</param>
+        /// <param name="formName">Form Name</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="viewNoEffect">View (no effect)</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Generate a document from a form (preview) response.</returns>
+        public virtual async Task<SPBlobMetadataResponse> SubmitDocGenFormAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetDocGenForms")] string formName, SubmitDocGenFormInput input, string viewNoEffect = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SubmitDocGenFormAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                if (formName is null)
+                    throw new ArgumentNullException(nameof(formName));
+                var queryParams = new List<string>();
+                if (viewNoEffect != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/forms/{Uri.EscapeDataString(formName.ToString())}/submitdocgenform" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation forms
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="documentLibraryName">Document Library Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation forms response.</returns>
+        public virtual async Task<List<Table>> GetDocGenFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/docgenforms";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3317,16 +4544,32 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <returns>The Extract folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string sourceFilePath, string destinationFolderPath, bool? overwriteFlag = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-            if (overwriteFlag.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.ExtractFolderAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceFilePath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                if (overwriteFlag.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

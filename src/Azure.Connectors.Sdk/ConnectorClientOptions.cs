@@ -33,9 +33,19 @@ namespace Azure.Connectors.Sdk
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectorClientOptions"/> class.
         /// </summary>
-        /// <param name="version">The service version.</param>
+        /// <param name="version">The service version. Defaults to the latest supported version.</param>
+        /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="version"/> is the reserved default value <c>0</c>.
+        /// </exception>
         public ConnectorClientOptions(ServiceVersion version = ServiceVersion.V1)
         {
+            if (version == default)
+            {
+                throw new ArgumentException(
+                    message: $"The service version '{version}' is not supported by this library.",
+                    paramName: nameof(version));
+            }
+
             this.Version = version;
         }
 

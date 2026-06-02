@@ -79,31 +79,31 @@ namespace Azure.Connectors.Sdk.Todo.Models
         /// <summary>YYYY-MM-DDThh:mm:ssZ (UTC format)</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreatedDateTime { get; internal set; }
+        public DateTime? CreatedDateTime { get; init; }
 
         /// <summary>YYYY-MM-DDThh:mm:ssZ (UTC format)</summary>
         [JsonPropertyName("lastModifiedDateTime")]
         [JsonInclude]
-        public DateTime? LastModifiedDateTime { get; internal set; }
+        public DateTime? LastModifiedDateTime { get; init; }
 
         /// <summary>To-do body that typically contains information about the to-do.</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>YYYY-MM-DDThh:mm:ssZ (UTC format)</summary>
         [JsonPropertyName("bodyLastModifiedDateTime")]
         [JsonInclude]
-        public DateTime? BodyLastModifiedDateTime { get; internal set; }
+        public DateTime? BodyLastModifiedDateTime { get; init; }
 
         /// <summary>The date in the specified time zone that the task was finished.</summary>
         [JsonPropertyName("completedDateTime")]
         [JsonInclude]
-        public object CompletedDateTime { get; internal set; }
+        public JsonElement? CompletedDateTime { get; init; }
 
         /// <summary>The date in the specified time zone that the task is to be finished.</summary>
         [JsonPropertyName("dueDateTime")]
         [JsonInclude]
-        public object DueDateTime { get; internal set; }
+        public JsonElement? DueDateTime { get; init; }
 
         /// <summary>Low, normal or high.</summary>
         [JsonPropertyName("importance")]
@@ -116,7 +116,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
         /// <summary>The date and time for a reminder alert of the task to occur.</summary>
         [JsonPropertyName("reminderDateTime")]
         [JsonInclude]
-        public object ReminderDateTime { get; internal set; }
+        public JsonElement? ReminderDateTime { get; init; }
 
         /// <summary>Indicates state or progress of the to-do - not started, in progress, completed, waiting on others or deferred.</summary>
         [JsonPropertyName("status")]
@@ -135,12 +135,12 @@ namespace Azure.Connectors.Sdk.Todo.Models
         /// <summary>Date in the UTC time zone when the to-do is to be finished (note the time portion will be ignored).</summary>
         [JsonPropertyName("dueDateTime")]
         [JsonInclude]
-        public object DueDateTime { get; internal set; }
+        public JsonElement? DueDateTime { get; init; }
 
         /// <summary>Date-time in UTC time zone for a reminder alert of the to-do to occur.</summary>
         [JsonPropertyName("reminderDateTime")]
         [JsonInclude]
-        public object ReminderDateTime { get; internal set; }
+        public JsonElement? ReminderDateTime { get; init; }
 
         /// <summary>Low, normal or high.</summary>
         [JsonPropertyName("importance")]
@@ -156,7 +156,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
 
         /// <summary>To-do body that typically contains information about the to-do.</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>True if an alert is set to remind the user of the to-do.</summary>
         [JsonPropertyName("isReminderOn")]
@@ -171,12 +171,12 @@ namespace Azure.Connectors.Sdk.Todo.Models
         /// <summary>Date in the UTC time zone when the to-do is to be finished (note the time portion will be ignored).</summary>
         [JsonPropertyName("dueDateTime")]
         [JsonInclude]
-        public object DueDateTime { get; internal set; }
+        public JsonElement? DueDateTime { get; init; }
 
         /// <summary>Date-time in UTC time zone for a reminder alert of the to-do to occur.</summary>
         [JsonPropertyName("reminderDateTime")]
         [JsonInclude]
-        public object ReminderDateTime { get; internal set; }
+        public JsonElement? ReminderDateTime { get; init; }
 
         /// <summary>Low, normal or high.</summary>
         [JsonPropertyName("importance")]
@@ -192,7 +192,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
 
         /// <summary>To-do body that typically contains information about the to-do.</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>True if an alert is set to remind the user of the to-do.</summary>
         [JsonPropertyName("isReminderOn")]
@@ -332,7 +332,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
     /// <summary>
     /// Model factory for creating instances of Todo models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class TodoModelFactory
     {
@@ -367,13 +367,13 @@ namespace Azure.Connectors.Sdk.Todo.Models
             string id = default,
             DateTime? createdDateTime = default,
             DateTime? lastModifiedDateTime = default,
-            object body = default,
+            JsonElement? body = default,
             DateTime? bodyLastModifiedDateTime = default,
-            object completedDateTime = default,
-            object dueDateTime = default,
+            JsonElement? completedDateTime = default,
+            JsonElement? dueDateTime = default,
             Importance? importance = default,
             bool? isReminderOn = default,
-            object reminderDateTime = default,
+            JsonElement? reminderDateTime = default,
             Status? status = default,
             string title = default)
         {
@@ -400,12 +400,12 @@ namespace Azure.Connectors.Sdk.Todo.Models
         /// Creates a new instance of <see cref="CreateToDo"/>.
         /// </summary>
         public static CreateToDo CreateToDo(
-            object dueDateTime = default,
-            object reminderDateTime = default,
+            JsonElement? dueDateTime = default,
+            JsonElement? reminderDateTime = default,
             Importance? importance = default,
             string title = default,
             Status? status = default,
-            object body = default,
+            JsonElement? body = default,
             bool? isReminderOn = default)
         {
             return new CreateToDo
@@ -424,12 +424,12 @@ namespace Azure.Connectors.Sdk.Todo.Models
         /// Creates a new instance of <see cref="UpdateToDo"/>.
         /// </summary>
         public static UpdateToDo UpdateToDo(
-            object dueDateTime = default,
-            object reminderDateTime = default,
+            JsonElement? dueDateTime = default,
+            JsonElement? reminderDateTime = default,
             Importance? importance = default,
             string title = default,
             Status? status = default,
-            object body = default,
+            JsonElement? body = default,
             bool? isReminderOn = default)
         {
             return new UpdateToDo
@@ -582,6 +582,8 @@ namespace Azure.Connectors.Sdk.Todo
 
         public override string ConnectorName => "todo";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.todo");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -604,10 +606,22 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The Update a to-do list response.</returns>
         public virtual async Task<TodoList> UpdateToDoListAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, CreateToDoList input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
-            return await this
-                .CallConnectorAsync<TodoList>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.UpdateToDoListAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
+                return await this
+                    .CallConnectorAsync<TodoList>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -618,10 +632,22 @@ namespace Azure.Connectors.Sdk.Todo
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteToDoListAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.DeleteToDoListAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -634,10 +660,22 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The Add a to-do (V3) response.</returns>
         public virtual async Task<ToDo> CreateToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, CreateToDo input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks";
-            return await this
-                .CallConnectorAsync<ToDo>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.CreateToDoAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks";
+                return await this
+                    .CallConnectorAsync<ToDo>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -649,10 +687,20 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The Create a to-do list (V2) response.</returns>
         public virtual async Task<TodoList> CreateToDoListAsync(CreateToDoList input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists";
-            return await this
-                .CallConnectorAsync<TodoList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.CreateToDoListAsync");
+            try
+            {
+                var path = $"/lists";
+                return await this
+                    .CallConnectorAsync<TodoList>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -664,10 +712,24 @@ namespace Azure.Connectors.Sdk.Todo
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, [DynamicValues("ListToDosByFolderV2")] string toDoTask, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.DeleteToDoAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                if (toDoTask is null)
+                    throw new ArgumentNullException(nameof(toDoTask));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -678,10 +740,20 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The List all to-do lists (V2) response.</returns>
         public virtual async Task<List<TodoList>> GetAllTodoListsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/lists";
-            return await this
-                .CallConnectorAsync<List<TodoList>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetAllTodoListsAsync");
+            try
+            {
+                var path = $"/lists";
+                return await this
+                    .CallConnectorAsync<List<TodoList>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -694,10 +766,24 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The Get a to-do (V3) response.</returns>
         public virtual async Task<ToDo> GetToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, [DynamicValues("ListToDosByFolderV2")] string toDoTask, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
-            return await this
-                .CallConnectorAsync<ToDo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetToDoAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                if (toDoTask is null)
+                    throw new ArgumentNullException(nameof(toDoTask));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
+                return await this
+                    .CallConnectorAsync<ToDo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -709,10 +795,22 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The Get a to-do list (V2) response.</returns>
         public virtual async Task<TodoList> GetToDoListAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
-            return await this
-                .CallConnectorAsync<TodoList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetToDoListAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
+                return await this
+                    .CallConnectorAsync<TodoList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -725,13 +823,25 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The List to-dos by folder (V2) response.</returns>
         public virtual async Task<List<ToDo>> ListToDosByFolderAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, int? topCount = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<ToDo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.ListToDosByFolderAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<ToDo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -745,10 +855,24 @@ namespace Azure.Connectors.Sdk.Todo
         /// <returns>The Update to-do (V2) response.</returns>
         public virtual async Task<ToDo> UpdateToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, [DynamicValues("ListToDosByFolderV2")] string toDoTask, UpdateToDo input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
-            return await this
-                .CallConnectorAsync<ToDo>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.UpdateToDoAsync");
+            try
+            {
+                if (toDoList is null)
+                    throw new ArgumentNullException(nameof(toDoList));
+                if (toDoTask is null)
+                    throw new ArgumentNullException(nameof(toDoTask));
+                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
+                return await this
+                    .CallConnectorAsync<ToDo>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

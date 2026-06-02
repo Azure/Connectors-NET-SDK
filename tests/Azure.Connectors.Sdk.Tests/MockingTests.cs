@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Office365;
@@ -51,11 +52,9 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task TeamsClient_MockVirtualMethod_ReturnsSetupValue()
         {
-            // Arrange
-            var expectedTeams = new GetAllTeamsResponse
-            {
-                TeamsList = new List<object> { "Engineering" }
-            };
+            // Arrange — construct via JSON deserialization so List<JsonElement?> has actual items
+            var expectedTeams = JsonSerializer.Deserialize<GetAllTeamsResponse>(
+                "{\"value\":[{\"displayName\":\"Engineering\"}]}")!;
 
             var mock = new Mock<TeamsClient>();
             mock.Setup(client => client.GetAllTeamsAsync(It.IsAny<CancellationToken>()))
@@ -71,7 +70,8 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.TeamsList.Count);
-            Assert.AreEqual("Engineering", result.TeamsList[0]);
+            Assert.IsTrue(result.TeamsList[0].HasValue);
+            Assert.AreEqual("Engineering", result.TeamsList[0]!.Value.GetProperty("displayName").GetString());
         }
 
         [TestMethod]

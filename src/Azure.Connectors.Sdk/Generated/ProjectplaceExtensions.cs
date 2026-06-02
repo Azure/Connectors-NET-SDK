@@ -147,7 +147,7 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
 
         /// <summary>The person who is assigned to the card</summary>
         [JsonPropertyName("assignee")]
-        public object Assignee { get; set; }
+        public JsonElement? Assignee { get; set; }
 
         /// <summary>The id of the person who is assigned the card</summary>
         [JsonPropertyName("assignee_id")]
@@ -321,7 +321,7 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
     /// <summary>
     /// Model factory for creating instances of Projectplace models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class ProjectplaceModelFactory
     {
@@ -412,7 +412,7 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
         /// </summary>
         public static CreateCardResponse CreateCardResponse(
             string access = default,
-            object assignee = default,
+            JsonElement? assignee = default,
             int? assigneeId = default,
             long? boardId = default,
             string boardName = default,
@@ -605,6 +605,8 @@ namespace Azure.Connectors.Sdk.Projectplace
 
         public override string ConnectorName => "projectplace";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.projectplace");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -627,10 +629,20 @@ namespace Azure.Connectors.Sdk.Projectplace
         /// <returns>The Create Card response.</returns>
         public virtual async Task<CreateCardResponse> CreateCardAsync([DynamicValues("list_boards")] int board, CreateCardInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/external_notifications/{Uri.EscapeDataString(board.ToString())}/create_card";
-            return await this
-                .CallConnectorAsync<CreateCardResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ProjectplaceClient.ConnectorActivitySource.StartActivity("ProjectplaceClient.CreateCardAsync");
+            try
+            {
+                var path = $"/v1/external_notifications/{Uri.EscapeDataString(board.ToString())}/create_card";
+                return await this
+                    .CallConnectorAsync<CreateCardResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -643,10 +655,20 @@ namespace Azure.Connectors.Sdk.Projectplace
         /// <returns>The Move card to another column response.</returns>
         public virtual async Task<MoveCardResponse> MoveCardAsync([DynamicValues("list_boards")] int board, MoveCardInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/external_notifications/{Uri.EscapeDataString(board.ToString())}/move_card";
-            return await this
-                .CallConnectorAsync<MoveCardResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ProjectplaceClient.ConnectorActivitySource.StartActivity("ProjectplaceClient.MoveCardAsync");
+            try
+            {
+                var path = $"/v1/external_notifications/{Uri.EscapeDataString(board.ToString())}/move_card";
+                return await this
+                    .CallConnectorAsync<MoveCardResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -655,12 +677,22 @@ namespace Azure.Connectors.Sdk.Projectplace
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists the boards the user have access to response.</returns>
-        public virtual async Task<List<object>> ListBoardsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ListBoardsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/external_notifications/lists/list_boards";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ProjectplaceClient.ConnectorActivitySource.StartActivity("ProjectplaceClient.ListBoardsAsync");
+            try
+            {
+                var path = $"/v1/external_notifications/lists/list_boards";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

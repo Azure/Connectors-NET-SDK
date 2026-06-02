@@ -67,7 +67,7 @@ namespace Azure.Connectors.Sdk.FormstackForms.Models
     {
         /// <summary>forms</summary>
         [JsonPropertyName("forms")]
-        public List<object> Forms { get; set; }
+        public List<JsonElement?> Forms { get; set; }
 
         /// <summary>total</summary>
         [JsonPropertyName("total")]
@@ -81,7 +81,7 @@ namespace Azure.Connectors.Sdk.FormstackForms.Models
     /// <summary>
     /// Model factory for creating instances of FormstackForms models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class FormstackFormsModelFactory
     {
@@ -119,7 +119,7 @@ namespace Azure.Connectors.Sdk.FormstackForms.Models
         /// Creates a new instance of <see cref="GetAvailableFormsResponse"/>.
         /// </summary>
         public static GetAvailableFormsResponse GetAvailableFormsResponse(
-            List<object> forms = default,
+            List<JsonElement?> forms = default,
             int? total = default)
         {
             return new GetAvailableFormsResponse
@@ -207,6 +207,8 @@ namespace Azure.Connectors.Sdk.FormstackForms
 
         public override string ConnectorName => "formstackforms";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.formstackforms");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -227,10 +229,20 @@ namespace Azure.Connectors.Sdk.FormstackForms
         /// <returns>The Get Available Forms response.</returns>
         public virtual async Task<GetAvailableFormsResponse> GetAvailableFormsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v2/form/";
-            return await this
-                .CallConnectorAsync<GetAvailableFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = FormstackFormsClient.ConnectorActivitySource.StartActivity("FormstackFormsClient.GetAvailableFormsAsync");
+            try
+            {
+                var path = $"/api/v2/form/";
+                return await this
+                    .CallConnectorAsync<GetAvailableFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

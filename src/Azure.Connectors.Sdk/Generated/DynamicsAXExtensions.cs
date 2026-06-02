@@ -292,7 +292,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// <summary>Output parameter values</summary>
         [JsonPropertyName("OutputParameters")]
         [JsonInclude]
-        public object OutputParameters { get; internal set; }
+        public JsonElement? OutputParameters { get; init; }
     }
 
     /// <summary>
@@ -321,7 +321,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// <summary>Pass-through Native Queries</summary>
         [JsonPropertyName("query")]
         [JsonInclude]
-        public List<PassThroughNativeQuery> Query { get; internal set; }
+        public List<PassThroughNativeQuery> Query { get; init; }
     }
 
     /// <summary>
@@ -359,7 +359,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public object DynamicProperties { get; set; }
+        public JsonElement? DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -458,7 +458,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -478,7 +478,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     /// <summary>
     /// Model factory for creating instances of DynamicsAX models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class DynamicsAXModelFactory
     {
@@ -691,7 +691,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// </summary>
         public static AxOnlineProcedureResult AxOnlineProcedureResult(
             string value = default,
-            object outputParameters = default)
+            JsonElement? outputParameters = default)
         {
             return new AxOnlineProcedureResult
             {
@@ -756,7 +756,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Item
             {
@@ -782,7 +782,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Table
             {
@@ -914,6 +914,8 @@ namespace Azure.Connectors.Sdk.DynamicsAX
 
         public override string ConnectorName => "dynamicsax";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.dynamicsax");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -936,10 +938,24 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get actions metadata response.</returns>
         public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetProcedures")] string action, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
-            return await this
-                .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProcedureAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
+                return await this
+                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -952,10 +968,24 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get metadata of a exportable table response.</returns>
         public virtual async Task<TableMetadata> GetExportableTableAsync([DynamicValues("GetDataSets")] string datasetName, [DynamicValues("GetExportableTables")] string tableName, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables/{Uri.EscapeDataString(tableName.ToString())}";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetExportableTableAsync");
+            try
+            {
+                if (datasetName is null)
+                    throw new ArgumentNullException(nameof(datasetName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables/{Uri.EscapeDataString(tableName.ToString())}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -968,10 +998,24 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get entity metadata response.</returns>
         public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetTableAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -985,13 +1029,29 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Gets legal entities response.</returns>
         public virtual async Task<TriggerFieldDataList> GetLegalEntitiesAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetBusinessEventCategories")] string category, [DynamicValues("GetBusinessEvents")] string businessEvent, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"businesseventcategory={Uri.EscapeDataString(category.ToString())}");
-            queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetLegalEntitiesAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var queryParams = new List<string>();
+                if (category is null)
+                    throw new ArgumentNullException(nameof(category));
+                queryParams.Add($"businesseventcategory={Uri.EscapeDataString(category.ToString())}");
+                if (businessEvent is null)
+                    throw new ArgumentNullException(nameof(businessEvent));
+                queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1003,10 +1063,22 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Gets business events categories response.</returns>
         public virtual async Task<TriggerFieldDataList> GetBusinessEventCategoriesAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories";
-            return await this
-                .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventCategoriesAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories";
+                return await this
+                    .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1019,10 +1091,24 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Gets business events response.</returns>
         public virtual async Task<BusinessEventsList> GetBusinessEventsAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetBusinessEventCategories")] string businessEventCategory, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories/{Uri.EscapeDataString(businessEventCategory.ToString())}/businessevents";
-            return await this
-                .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventsAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (businessEventCategory is null)
+                    throw new ArgumentNullException(nameof(businessEventCategory));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories/{Uri.EscapeDataString(businessEventCategory.ToString())}/businessevents";
+                return await this
+                    .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1034,10 +1120,22 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get actions response.</returns>
         public virtual async Task<ProceduresList> GetProceduresAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures";
-            return await this
-                .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProceduresAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures";
+                return await this
+                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1051,10 +1149,24 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Execute action response.</returns>
         public virtual async Task<AxOnlineProcedureResult> ExecuteProcedureAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetProcedures")] string action, ExecuteProcedureInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
-            return await this
-                .CallConnectorAsync<AxOnlineProcedureResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.ExecuteProcedureAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
+                return await this
+                    .CallConnectorAsync<AxOnlineProcedureResult>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1065,10 +1177,20 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get instances response.</returns>
         public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets";
-            return await this
-                .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetDataSetsAsync");
+            try
+            {
+                var path = $"/datasets";
+                return await this
+                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1088,25 +1210,39 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Lists items present in table response.</returns>
         public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, bool? crossCompany = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (aggregationTransformation != default)
-                queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            if (crossCompany.HasValue)
-                queryParams.Add($"cross-company={Uri.EscapeDataString(crossCompany.Value.ToString())}");
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetItemsAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                var queryParams = new List<string>();
+                if (aggregationTransformation != default)
+                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                if (crossCompany.HasValue)
+                    queryParams.Add($"cross-company={Uri.EscapeDataString(crossCompany.Value.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1120,10 +1256,24 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Create record response.</returns>
         public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, PostItemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items";
-            return await this
-                .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.PostItemAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1137,10 +1287,26 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get a record response.</returns>
         public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, string objectId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetItemAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                if (objectId is null)
+                    throw new ArgumentNullException(nameof(objectId));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1153,10 +1319,26 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteItemAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, string objectId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.DeleteItemAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                if (objectId is null)
+                    throw new ArgumentNullException(nameof(objectId));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1171,10 +1353,26 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Update a record response.</returns>
         public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, string objectId, PatchItemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
-            return await this
-                .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.PatchItemAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                if (objectId is null)
+                    throw new ArgumentNullException(nameof(objectId));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1186,10 +1384,22 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Lists exportable tables response.</returns>
         public virtual async Task<TablesList> GetExportableTablesAsync([DynamicValues("GetDataSets")] string datasetName, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetExportableTablesAsync");
+            try
+            {
+                if (datasetName is null)
+                    throw new ArgumentNullException(nameof(datasetName));
+                var path = $"/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1201,10 +1411,22 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <returns>The Get list of entities response.</returns>
         public virtual async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetTablesAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

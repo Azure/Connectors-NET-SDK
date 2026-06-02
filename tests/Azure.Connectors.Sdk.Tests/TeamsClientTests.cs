@@ -94,17 +94,11 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetAllTeamsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            // Arrange
-            var expectedResponse = new GetAllTeamsResponse
-            {
-                Context = "https://graph.microsoft.com/beta/$metadata#teams",
-                TeamsList = new List<object> { "team1", "team2", "team3" }
-            };
-
+            // Arrange — use JSON string so List<JsonElement?> deserializes with actual items
             using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/beta/$metadata#teams\",\"value\":[{\"id\":\"1\"},{\"id\":\"2\"},{\"id\":\"3\"}]}")
             });
 
             // Act

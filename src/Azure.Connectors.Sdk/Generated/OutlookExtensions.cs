@@ -135,7 +135,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The date and time when the attachment was last modified</summary>
         [JsonPropertyName("LastModifiedDateTime")]
         [JsonInclude]
-        public DateTime? LastModifiedDateTime { get; internal set; }
+        public DateTime? LastModifiedDateTime { get; init; }
 
         /// <summary>Content Id</summary>
         [JsonPropertyName("ContentId")]
@@ -264,7 +264,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -417,12 +417,12 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The time the contact was created</summary>
         [JsonPropertyName("DateTimeCreated")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>The time the contact was modified</summary>
         [JsonPropertyName("DateTimeLastModified")]
         [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        public DateTime? LastModifiedTime { get; init; }
     }
 
     /// <summary>
@@ -501,7 +501,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("ResponseTime")]
         [JsonInclude]
-        public DateTime? ResponseTime { get; internal set; }
+        public DateTime? ResponseTime { get; init; }
 
         /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
         [JsonPropertyName("ICalUId")]
@@ -514,12 +514,12 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The date and time that the event was created</summary>
         [JsonPropertyName("DateTimeCreated")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>The date and time that the event was last modified</summary>
         [JsonPropertyName("DateTimeLastModified")]
         [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        public DateTime? LastModifiedTime { get; init; }
 
         /// <summary>The organizer of the event</summary>
         [JsonPropertyName("Organizer")]
@@ -628,7 +628,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("ResponseTime")]
         [JsonInclude]
-        public DateTime? ResponseTime { get; internal set; }
+        public DateTime? ResponseTime { get; init; }
 
         /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
         [JsonPropertyName("ICalUId")]
@@ -645,12 +645,12 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The date and time that the event was created</summary>
         [JsonPropertyName("DateTimeCreated")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>The date and time that the event was last modified</summary>
         [JsonPropertyName("DateTimeLastModified")]
         [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        public DateTime? LastModifiedTime { get; init; }
 
         /// <summary>The organizer of the event</summary>
         [JsonPropertyName("Organizer")]
@@ -771,7 +771,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The response time of the event</summary>
         [JsonPropertyName("ResponseTime")]
         [JsonInclude]
-        public DateTime? ResponseTime { get; internal set; }
+        public DateTime? ResponseTime { get; init; }
 
         /// <summary>A unique identifier that is shared by all instances of an event across different calendars</summary>
         [JsonPropertyName("ICalUId")]
@@ -788,12 +788,12 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The date and time that the event was created</summary>
         [JsonPropertyName("DateTimeCreated")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>The date and time that the event was last modified</summary>
         [JsonPropertyName("DateTimeLastModified")]
         [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        public DateTime? LastModifiedTime { get; init; }
 
         /// <summary>The organizer of the event</summary>
         [JsonPropertyName("Organizer")]
@@ -868,7 +868,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>A list of the response objects</summary>
         [JsonPropertyName("value")]
         [JsonInclude]
-        public List<ClientReceiveMessage> Value { get; internal set; }
+        public List<ClientReceiveMessage> Value { get; init; }
     }
 
     /// <summary>
@@ -1327,12 +1327,12 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>The time the contact was created</summary>
         [JsonPropertyName("DateTimeCreated")]
         [JsonInclude]
-        public DateTime? CreatedTime { get; internal set; }
+        public DateTime? CreatedTime { get; init; }
 
         /// <summary>The time the contact was modified</summary>
         [JsonPropertyName("DateTimeLastModified")]
         [JsonInclude]
-        public DateTime? LastModifiedTime { get; internal set; }
+        public DateTime? LastModifiedTime { get; init; }
     }
 
     /// <summary>
@@ -2123,7 +2123,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     /// <summary>
     /// Model factory for creating instances of Outlook models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class OutlookModelFactory
     {
@@ -2277,7 +2277,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Table
             {
@@ -3475,6 +3475,8 @@ namespace Azure.Connectors.Sdk.Outlook
 
         public override string ConnectorName => "outlook";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.outlook");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -3498,15 +3500,27 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get email response.</returns>
         public virtual async Task<ClientReceiveMessage> GetEmailAsync(string messageId, bool? includeAttachments = default, string internetMessageId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeAttachments.HasValue)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
-            if (internetMessageId != default)
-                queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
-            var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEmailAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var queryParams = new List<string>();
+                if (includeAttachments.HasValue)
+                    queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
+                if (internetMessageId != default)
+                    queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId.ToString())}");
+                var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3517,10 +3531,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteEmailAsync(string messageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.DeleteEmailAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3533,12 +3559,26 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Move email response.</returns>
         public virtual async Task<ClientReceiveMessageStringEnums> MoveAsync(string messageId, string folder, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-            var path = $"/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ClientReceiveMessageStringEnums>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.MoveAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var queryParams = new List<string>();
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+                var path = $"/Mail/Move/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ClientReceiveMessageStringEnums>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3549,10 +3589,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlagAsync(string messageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Mail/Flag/{Uri.EscapeDataString(messageId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.FlagAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var path = $"/Mail/Flag/{Uri.EscapeDataString(messageId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3563,10 +3615,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task MarkAsReadAsync(string messageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Mail/MarkAsRead/{Uri.EscapeDataString(messageId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.MarkAsReadAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var path = $"/Mail/MarkAsRead/{Uri.EscapeDataString(messageId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3579,10 +3643,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get attachment response.</returns>
         public virtual async Task<byte[]> GetAttachmentAsync(string messageId, string attachmentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}/Attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetAttachmentAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                if (attachmentId is null)
+                    throw new ArgumentNullException(nameof(attachmentId));
+                var path = $"/Mail/{Uri.EscapeDataString(messageId.ToString())}/Attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3594,10 +3672,20 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Send email with options response.</returns>
         public virtual async Task<SubscriptionResponse> SendMailWithOptionsAsync(OptionsEmailSubscription input, CancellationToken cancellationToken = default)
         {
-            var path = $"/mailwithoptions/$subscriptions";
-            return await this
-                .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.SendMailWithOptionsAsync");
+            try
+            {
+                var path = $"/mailwithoptions/$subscriptions";
+                return await this
+                    .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3609,10 +3697,20 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Send approval email response.</returns>
         public virtual async Task<SubscriptionResponse> SendApprovalMailAsync(ApprovalEmailSubscription input, CancellationToken cancellationToken = default)
         {
-            var path = $"/approvalmail/$subscriptions";
-            return await this
-                .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.SendApprovalMailAsync");
+            try
+            {
+                var path = $"/approvalmail/$subscriptions";
+                return await this
+                    .CallConnectorAsync<SubscriptionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3623,10 +3721,20 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get calendars response.</returns>
         public virtual async Task<EntityListResponseTable> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/calendars/tables";
-            return await this
-                .CallConnectorAsync<EntityListResponseTable>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetTablesAsync");
+            try
+            {
+                var path = $"/datasets/calendars/tables";
+                return await this
+                    .CallConnectorAsync<EntityListResponseTable>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3638,10 +3746,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CalendarDeleteItemAsync([DynamicValues("CalendarGetTables")] string calendarId, string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/calendars/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarDeleteItemAsync");
+            try
+            {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/datasets/calendars/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3652,10 +3774,20 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get contact folders response.</returns>
         public virtual async Task<EntityListResponseTable> ContactGetTablesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/contacts/tables";
-            return await this
-                .CallConnectorAsync<EntityListResponseTable>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactGetTablesAsync");
+            try
+            {
+                var path = $"/datasets/contacts/tables";
+                return await this
+                    .CallConnectorAsync<EntityListResponseTable>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3671,19 +3803,31 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get contacts response.</returns>
         public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTables")] string folderId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactGetItemsAsync");
+            try
+            {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3696,10 +3840,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Create contact response.</returns>
         public virtual async Task<ContactResponse> ContactPostItemAsync([DynamicValues("ContactGetTables")] string folderId, Contact input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items";
-            return await this
-                .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactPostItemAsync");
+            try
+            {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3712,10 +3868,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get contact response.</returns>
         public virtual async Task<ContactResponse> ContactGetItemAsync([DynamicValues("ContactGetTables")] string folderId, string itemId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
-            return await this
-                .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactGetItemAsync");
+            try
+            {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3727,10 +3897,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ContactDeleteItemAsync([DynamicValues("ContactGetTables")] string folderId, string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactDeleteItemAsync");
+            try
+            {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3744,10 +3928,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Update contact response.</returns>
         public virtual async Task<ContactResponse> ContactPatchItemAsync([DynamicValues("ContactGetTables")] string folderId, string id, Contact input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ContactPatchItemAsync");
+            try
+            {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                return await this
+                    .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3760,10 +3958,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RespondToEventAsync(string eventId, string response, ResponseToEventInvite input, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/api/v2.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.RespondToEventAsync");
+            try
+            {
+                if (eventId is null)
+                    throw new ArgumentNullException(nameof(eventId));
+                if (response is null)
+                    throw new ArgumentNullException(nameof(response));
+                var path = $"/codeless/api/v2.0/me/events/{Uri.EscapeDataString(eventId.ToString())}/{Uri.EscapeDataString(response.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3775,10 +3987,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ForwardEmailAsync(string messageId, DirectForwardMessage input, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/api/v2.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ForwardEmailAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var path = $"/codeless/api/v2.0/me/messages/{Uri.EscapeDataString(messageId.ToString())}/forward";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3791,10 +4015,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get event (V2) response.</returns>
         public virtual async Task<CalendarEventClientReceiveStringEnums> CalendarGetItemAsync([DynamicValues("CalendarGetTables")] string calendarId, string itemId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/calendars/v2/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
-            return await this
-                .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetItemAsync");
+            try
+            {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
+                var path = $"/datasets/calendars/v2/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3810,19 +4048,31 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get events (V3) response.</returns>
         public virtual async Task<CalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables")] string calendarId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetItemsAsync");
+            try
+            {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3836,10 +4086,24 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Update event (V3) response.</returns>
         public virtual async Task<CalendarEventClientReceiveStringEnums> CalendarPatchItemAsync([DynamicValues("CalendarGetTables")] string calendarId, string id, CalendarEventHtmlClient input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarPatchItemAsync");
+            try
+            {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                return await this
+                    .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3852,10 +4116,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Create event (V3) response.</returns>
         public virtual async Task<CalendarEventClientReceiveStringEnums> CalendarPostItemAsync([DynamicValues("CalendarGetTables")] string calendarId, CalendarEventHtmlClient input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
-            return await this
-                .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarPostItemAsync");
+            try
+            {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3878,36 +4154,46 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get emails (V2) response.</returns>
         public virtual async Task<BatchResponseClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("fetchOnlyFlagged=false");
-            if (folder != default)
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
-            if (to != default)
-                queryParams.Add($"to={Uri.EscapeDataString(to.ToString())}");
-            if (cC != default)
-                queryParams.Add($"cc={Uri.EscapeDataString(cC.ToString())}");
-            if (toOrCC != default)
-                queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC.ToString())}");
-            if (from != default)
-                queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
-            if (importance != default)
-                queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
-            if (onlyWithAttachments.HasValue)
-                queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.Value.ToString())}");
-            if (subjectFilter != default)
-                queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
-            if (fetchOnlyUnreadMessages.HasValue)
-                queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.Value.ToString())}");
-            if (includeAttachments.HasValue)
-                queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
-            if (searchQuery != default)
-                queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
-            if (top.HasValue)
-                queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/v2/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BatchResponseClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEmailsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("fetchOnlyFlagged=false");
+                if (folder != default)
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(folder.ToString())}");
+                if (to != default)
+                    queryParams.Add($"to={Uri.EscapeDataString(to.ToString())}");
+                if (cC != default)
+                    queryParams.Add($"cc={Uri.EscapeDataString(cC.ToString())}");
+                if (toOrCC != default)
+                    queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC.ToString())}");
+                if (from != default)
+                    queryParams.Add($"from={Uri.EscapeDataString(from.ToString())}");
+                if (importance != default)
+                    queryParams.Add($"importance={Uri.EscapeDataString(importance.ToString())}");
+                if (onlyWithAttachments.HasValue)
+                    queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(onlyWithAttachments.Value.ToString())}");
+                if (subjectFilter != default)
+                    queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter.ToString())}");
+                if (fetchOnlyUnreadMessages.HasValue)
+                    queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(fetchOnlyUnreadMessages.Value.ToString())}");
+                if (includeAttachments.HasValue)
+                    queryParams.Add($"includeAttachments={Uri.EscapeDataString(includeAttachments.Value.ToString())}");
+                if (searchQuery != default)
+                    queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery.ToString())}");
+                if (top.HasValue)
+                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
+                var path = $"/v2/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BatchResponseClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3926,24 +4212,40 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <returns>The Get calendar view of events (V2) response.</returns>
         public virtual async Task<EntityListResponseCalendarEventClientReceiveStringEnums> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string search = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
-            queryParams.Add($"startDateTimeOffset={Uri.EscapeDataString(startTime.ToString())}");
-            queryParams.Add($"endDateTimeOffset={Uri.EscapeDataString(endTime.ToString())}");
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (search != default)
-                queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
-            var path = $"/datasets/calendars/v2/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<EntityListResponseCalendarEventClientReceiveStringEnums>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEventsCalendarViewAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId.ToString())}");
+                if (startTime is null)
+                    throw new ArgumentNullException(nameof(startTime));
+                queryParams.Add($"startDateTimeOffset={Uri.EscapeDataString(startTime.ToString())}");
+                if (endTime is null)
+                    throw new ArgumentNullException(nameof(endTime));
+                queryParams.Add($"endDateTimeOffset={Uri.EscapeDataString(endTime.ToString())}");
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (search != default)
+                    queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+                var path = $"/datasets/calendars/v2/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<EntityListResponseCalendarEventClientReceiveStringEnums>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3955,10 +4257,22 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ReplyToAsync(string messageId, ReplyHtmlMessage input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.ReplyToAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3969,10 +4283,20 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendEmailAsync(ClientSendHtmlMessage input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/Mail";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.SendEmailAsync");
+            try
+            {
+                var path = $"/v2/Mail";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

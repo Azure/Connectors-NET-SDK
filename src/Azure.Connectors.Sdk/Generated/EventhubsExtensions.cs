@@ -48,7 +48,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
 
         /// <summary>Key-value pairs for each application property</summary>
         [JsonPropertyName("Properties")]
-        public object Properties { get; set; }
+        public JsonElement? Properties { get; set; }
 
         /// <summary>SystemProperties</summary>
         [JsonPropertyName("SystemProperties")]
@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
 
         /// <summary>Key-value pairs for each application property</summary>
         [JsonPropertyName("Properties")]
-        public object Properties { get; set; }
+        public JsonElement? Properties { get; set; }
     }
 
     #endregion Types
@@ -110,7 +110,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
     /// <summary>
     /// Model factory for creating instances of Eventhubs models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class EventHubsModelFactory
     {
@@ -119,7 +119,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
         /// </summary>
         public static Event Event(
             ObjectEntity contentData = default,
-            object properties = default,
+            JsonElement? properties = default,
             SystemProperties systemProperties = default)
         {
             return new Event
@@ -153,7 +153,7 @@ namespace Azure.Connectors.Sdk.Eventhubs.Models
         /// </summary>
         public static SendEvent SendEvent(
             string content = default,
-            object properties = default)
+            JsonElement? properties = default)
         {
             return new SendEvent
             {
@@ -329,6 +329,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
 
         public override string ConnectorName => "eventhubs";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.eventhubs");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -349,10 +351,20 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <returns>The Get all Event Hubs in a namespace response.</returns>
         public virtual async Task<List<string>> GetEventHubsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/eventhubs";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GetEventHubsAsync");
+            try
+            {
+                var path = $"/eventhubs";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -364,12 +376,24 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <returns>The Get all the consumer groups for an event hub response.</returns>
         public virtual async Task<List<string>> GetConsumerGroupsAsync(string theEventHubName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
-            var path = $"/consumergroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GetConsumerGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (theEventHubName is null)
+                    throw new ArgumentNullException(nameof(theEventHubName));
+                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
+                var path = $"/consumergroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -380,10 +404,20 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <returns>The Get all content types response.</returns>
         public virtual async Task<List<string>> GetContentTypesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/contenttypes";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GetContentTypesAsync");
+            try
+            {
+                var path = $"/contenttypes";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -395,12 +429,24 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <returns>The Get all partition keys in an Event Hub response.</returns>
         public virtual async Task<List<string>> GetPartitionKeysAsync(string theEventHubName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
-            var path = $"/partitions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GetPartitionKeysAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (theEventHubName is null)
+                    throw new ArgumentNullException(nameof(theEventHubName));
+                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
+                var path = $"/partitions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -413,13 +459,25 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendEventAsync([DynamicValues("GetEventHubs")] string eventHubName, SendEvent input, string partitionKey = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (partitionKey != default)
-                queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
-            var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.SendEventAsync");
+            try
+            {
+                if (eventHubName is null)
+                    throw new ArgumentNullException(nameof(eventHubName));
+                var queryParams = new List<string>();
+                if (partitionKey != default)
+                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
+                var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -432,13 +490,25 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendEventsAsync([DynamicValues("GetEventHubs")] string eventHubName, List<SendEvent> input, string partitionKey = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (partitionKey != default)
-                queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
-            var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.SendEventsAsync");
+            try
+            {
+                if (eventHubName is null)
+                    throw new ArgumentNullException(nameof(eventHubName));
+                var queryParams = new List<string>();
+                if (partitionKey != default)
+                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
+                var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -451,15 +521,25 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <returns>The Generate event schema V2 response.</returns>
         public virtual async Task<ObjectEntity> GenerateEventSchemaAsync([DynamicValues("GetContentTypes")] string contentType = default, string contentSchemaOfTheEvent = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (contentType != default)
-                queryParams.Add($"contentType={Uri.EscapeDataString(contentType.ToString())}");
-            if (contentSchemaOfTheEvent != default)
-                queryParams.Add($"contentSchema={Uri.EscapeDataString(contentSchemaOfTheEvent.ToString())}");
-            var path = $"/eventschemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GenerateEventSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (contentType != default)
+                    queryParams.Add($"contentType={Uri.EscapeDataString(contentType.ToString())}");
+                if (contentSchemaOfTheEvent != default)
+                    queryParams.Add($"contentSchema={Uri.EscapeDataString(contentSchemaOfTheEvent.ToString())}");
+                var path = $"/eventschemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

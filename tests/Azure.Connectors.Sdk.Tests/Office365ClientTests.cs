@@ -246,15 +246,11 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetRoomsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            // Arrange
-            var expectedResponse = new GetRoomsResponse
-            {
-                Value = new List<object> { "room-1", "room-2" }
-            };
+            // Arrange — use JSON string so List<JsonElement?> has actual items
             using var client = CreateMockedClient(() => new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+                Content = new StringContent("{\"value\":[{\"name\":\"room-1\"},{\"name\":\"room-2\"}]}")
             });
 
             // Act

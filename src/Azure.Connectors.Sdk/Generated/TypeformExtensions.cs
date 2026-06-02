@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.Typeform.Models
 
         /// <summary>Forms in response.</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ namespace Azure.Connectors.Sdk.Typeform.Models
     /// <summary>
     /// Model factory for creating instances of Typeform models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class TypeformModelFactory
     {
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.Typeform.Models
         public static ListFormsResponse ListFormsResponse(
             int? totalItems = default,
             int? pageCount = default,
-            List<object> items = default)
+            List<JsonElement?> items = default)
         {
             return new ListFormsResponse
             {
@@ -237,6 +237,8 @@ namespace Azure.Connectors.Sdk.Typeform
 
         public override string ConnectorName => "typeform";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.typeform");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -261,19 +263,29 @@ namespace Azure.Connectors.Sdk.Typeform
         /// <returns>The List forms response.</returns>
         public virtual async Task<ListFormsResponse> ListFormsAsync(string search = default, int? page = default, int? pageSize = default, string workspaceId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (search != default)
-                queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
-            if (page.HasValue)
-                queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-            if (pageSize.HasValue)
-                queryParams.Add($"page_size={Uri.EscapeDataString(pageSize.Value.ToString())}");
-            if (workspaceId != default)
-                queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId.ToString())}");
-            var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TypeformClient.ConnectorActivitySource.StartActivity("TypeformClient.ListFormsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (search != default)
+                    queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+                if (page.HasValue)
+                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
+                if (pageSize.HasValue)
+                    queryParams.Add($"page_size={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                if (workspaceId != default)
+                    queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId.ToString())}");
+                var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

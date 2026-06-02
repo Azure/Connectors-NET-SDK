@@ -47,32 +47,32 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The fully qualified Id of the location. For example, /subscriptions/00000000-0000-0000-0000-000000000000/locations/westus.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The subscription Id.</summary>
         [JsonPropertyName("subscriptionId")]
         [JsonInclude]
-        public string SubscriptionId { get; internal set; }
+        public string SubscriptionId { get; init; }
 
         /// <summary>The location name.</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string LocationName { get; internal set; }
+        public string LocationName { get; init; }
 
         /// <summary>The display name of the location.</summary>
         [JsonPropertyName("displayName")]
         [JsonInclude]
-        public string DisplayName { get; internal set; }
+        public string DisplayName { get; init; }
 
         /// <summary>The latitude of the location.</summary>
         [JsonPropertyName("latitude")]
         [JsonInclude]
-        public string Latitude { get; internal set; }
+        public string Latitude { get; init; }
 
         /// <summary>The longitude of the location.</summary>
         [JsonPropertyName("longitude")]
         [JsonInclude]
-        public string Longitude { get; internal set; }
+        public string Longitude { get; init; }
     }
 
     /// <summary>
@@ -83,27 +83,27 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The subscription Id.</summary>
         [JsonPropertyName("subscriptionId")]
         [JsonInclude]
-        public string SubscriptionId { get; internal set; }
+        public string SubscriptionId { get; init; }
 
         /// <summary>The tenant Id.</summary>
         [JsonPropertyName("tenantId")]
         [JsonInclude]
-        public string TenantId { get; internal set; }
+        public string TenantId { get; init; }
 
         /// <summary>The subscription display name.</summary>
         [JsonPropertyName("displayName")]
         [JsonInclude]
-        public string DisplayName { get; internal set; }
+        public string DisplayName { get; init; }
 
         /// <summary>The subscription state.</summary>
         [JsonPropertyName("state")]
         [JsonInclude]
-        public State? State { get; internal set; }
+        public State? State { get; init; }
 
         /// <summary>subscriptionPolicies</summary>
         [JsonPropertyName("subscriptionPolicies")]
@@ -122,17 +122,17 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The subscription location placement Id. The Id indicates which regions are visible for a subscription. For example, a subscription with a location placement Id of Public_2014-09-01 has access to Azure public regions.</summary>
         [JsonPropertyName("locationPlacementId")]
         [JsonInclude]
-        public string LocationPlacementId { get; internal set; }
+        public string LocationPlacementId { get; init; }
 
         /// <summary>The subscription quota Id.</summary>
         [JsonPropertyName("quotaId")]
         [JsonInclude]
-        public string QuotaId { get; internal set; }
+        public string QuotaId { get; init; }
 
         /// <summary>The subscription spending limit.</summary>
         [JsonPropertyName("spendingLimit")]
         [JsonInclude]
-        public SpendingLimit? SpendingLimit { get; internal set; }
+        public SpendingLimit? SpendingLimit { get; init; }
     }
 
     /// <summary>
@@ -157,7 +157,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The ID of the deployment.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The name of the deployment.</summary>
         [JsonPropertyName("name")]
@@ -176,36 +176,36 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The state of the provisioning.</summary>
         [JsonPropertyName("provisioningState")]
         [JsonInclude]
-        public string ProvisioningState { get; internal set; }
+        public string ProvisioningState { get; init; }
 
         /// <summary>The correlation ID of the deployment.</summary>
         [JsonPropertyName("correlationId")]
         [JsonInclude]
-        public string CorrelationId { get; internal set; }
+        public string CorrelationId { get; init; }
 
         /// <summary>The timestamp of the template deployment.</summary>
         [JsonPropertyName("timestamp")]
         [JsonInclude]
-        public DateTime? Timestamp { get; internal set; }
+        public DateTime? Timestamp { get; init; }
 
         /// <summary>Key/value pairs that represent deploymentoutput.</summary>
         [JsonPropertyName("outputs")]
         [JsonInclude]
-        public object Outputs { get; internal set; }
+        public JsonElement? Outputs { get; init; }
 
         /// <summary>The list of resource providers needed for the deployment.</summary>
         [JsonPropertyName("providers")]
         [JsonInclude]
-        public List<Provider> Providers { get; internal set; }
+        public List<Provider> Providers { get; init; }
 
         /// <summary>The list of deployment dependencies.</summary>
         [JsonPropertyName("dependencies")]
         [JsonInclude]
-        public List<Dependency> Dependencies { get; internal set; }
+        public List<Dependency> Dependencies { get; init; }
 
         /// <summary>The template content. Use only one of Template or TemplateLink.</summary>
         [JsonPropertyName("template")]
-        public object Template { get; set; }
+        public JsonElement? Template { get; set; }
 
         /// <summary>templateLink</summary>
         [JsonPropertyName("templateLink")]
@@ -213,7 +213,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Deployment parameters. Use only one of Parameters or ParametersLink.</summary>
         [JsonPropertyName("parameters")]
-        public object Parameters { get; set; }
+        public JsonElement? Parameters { get; set; }
 
         /// <summary>parametersLink</summary>
         [JsonPropertyName("parametersLink")]
@@ -236,7 +236,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The provider id.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The namespace of the provider.</summary>
         [JsonPropertyName("namespace")]
@@ -245,12 +245,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The registration state of the provider.</summary>
         [JsonPropertyName("registrationState")]
         [JsonInclude]
-        public string RegistrationState { get; internal set; }
+        public string RegistrationState { get; init; }
 
         /// <summary>The collection of provider resource types.</summary>
         [JsonPropertyName("resourceTypes")]
         [JsonInclude]
-        public List<ProviderResourceType> ResourceType { get; internal set; }
+        public List<ProviderResourceType> ResourceType { get; init; }
     }
 
     /// <summary>
@@ -276,7 +276,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The properties.</summary>
         [JsonPropertyName("properties")]
-        public object Properties { get; set; }
+        public JsonElement? Properties { get; set; }
     }
 
     /// <summary>
@@ -419,22 +419,22 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The error code returned from the server.</summary>
         [JsonPropertyName("code")]
         [JsonInclude]
-        public string Code { get; internal set; }
+        public string Code { get; init; }
 
         /// <summary>The error message returned from the server.</summary>
         [JsonPropertyName("message")]
         [JsonInclude]
-        public string Message { get; internal set; }
+        public string Message { get; init; }
 
         /// <summary>The target of the error.</summary>
         [JsonPropertyName("target")]
         [JsonInclude]
-        public string Target { get; internal set; }
+        public string Target { get; init; }
 
         /// <summary>Validation error.</summary>
         [JsonPropertyName("details")]
         [JsonInclude]
-        public List<object> Details { get; internal set; }
+        public List<JsonElement?> Details { get; init; }
     }
 
     /// <summary>
@@ -444,7 +444,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The template content.</summary>
         [JsonPropertyName("template")]
-        public object Template { get; set; }
+        public JsonElement? Template { get; set; }
     }
 
     /// <summary>
@@ -459,7 +459,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -470,12 +470,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>Full deployment operation id.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>Deployment operation id.</summary>
         [JsonPropertyName("operationId")]
         [JsonInclude]
-        public string OperationId { get; internal set; }
+        public string OperationId { get; init; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -490,27 +490,27 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The state of the provisioning.</summary>
         [JsonPropertyName("provisioningState")]
         [JsonInclude]
-        public string ProvisioningState { get; internal set; }
+        public string ProvisioningState { get; init; }
 
         /// <summary>The date and time of the operation.</summary>
         [JsonPropertyName("timestamp")]
         [JsonInclude]
-        public DateTime? Timestamp { get; internal set; }
+        public DateTime? Timestamp { get; init; }
 
         /// <summary>Deployment operation service request id.</summary>
         [JsonPropertyName("serviceRequestId")]
         [JsonInclude]
-        public string ServiceRequestId { get; internal set; }
+        public string ServiceRequestId { get; init; }
 
         /// <summary>Operation status code.</summary>
         [JsonPropertyName("statusCode")]
         [JsonInclude]
-        public string StatusCode { get; internal set; }
+        public string StatusCode { get; init; }
 
         /// <summary>Operation status message.</summary>
         [JsonPropertyName("statusMessage")]
         [JsonInclude]
-        public object StatusMessage { get; internal set; }
+        public JsonElement? StatusMessage { get; init; }
 
         /// <summary>targetResource</summary>
         [JsonPropertyName("targetResource")]
@@ -550,7 +550,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>HTTP message content.</summary>
         [JsonPropertyName("content")]
-        public object Content { get; set; }
+        public JsonElement? Content { get; set; }
     }
 
     /// <summary>
@@ -565,7 +565,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -580,7 +580,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -595,7 +595,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -606,17 +606,17 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>Resource Id</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>Resource name</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
 
         /// <summary>Resource type</summary>
         [JsonPropertyName("type")]
         [JsonInclude]
-        public string Type { get; internal set; }
+        public string Type { get; init; }
 
         /// <summary>Resource location</summary>
         [JsonPropertyName("location")]
@@ -624,7 +624,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Resource tags</summary>
         [JsonPropertyName("tags")]
-        public object Tags { get; set; }
+        public JsonElement? Tags { get; set; }
 
         /// <summary>plan</summary>
         [JsonPropertyName("plan")]
@@ -637,7 +637,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>Id of the resource that manages this resource.</summary>
         [JsonPropertyName("managedBy")]
         [JsonInclude]
-        public string ManagedBy { get; internal set; }
+        public string ManagedBy { get; init; }
 
         /// <summary>sku</summary>
         [JsonPropertyName("sku")]
@@ -649,7 +649,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The resource properties.</summary>
         [JsonPropertyName("properties")]
-        public object Properties { get; set; }
+        public JsonElement? Properties { get; set; }
     }
 
     /// <summary>
@@ -712,12 +712,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The principal id of resource identity.</summary>
         [JsonPropertyName("principalId")]
         [JsonInclude]
-        public string PrincipalId { get; internal set; }
+        public string PrincipalId { get; init; }
 
         /// <summary>The tenant id of resource.</summary>
         [JsonPropertyName("tenantId")]
         [JsonInclude]
-        public string TenantId { get; internal set; }
+        public string TenantId { get; init; }
 
         /// <summary>The identity type.</summary>
         [JsonPropertyName("type")]
@@ -732,12 +732,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY).</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The Name of the resource group.</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
 
         /// <summary>The location of the resource group. It cannot be changed after the resource group has been created. Has to be one of the supported Azure Locations, such as West US, East US, West Europe, East Asia, etc.</summary>
         [JsonPropertyName("location")]
@@ -746,11 +746,11 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>Id of the resource that manages this resource group.</summary>
         [JsonPropertyName("managedBy")]
         [JsonInclude]
-        public string ManagedBy { get; internal set; }
+        public string ManagedBy { get; init; }
 
         /// <summary>The tags attached to the resource group.</summary>
         [JsonPropertyName("tags")]
-        public object Tags { get; set; }
+        public JsonElement? Tags { get; set; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -765,7 +765,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The provisioning state.</summary>
         [JsonPropertyName("provisioningState")]
         [JsonInclude]
-        public string ProvisioningState { get; internal set; }
+        public string ProvisioningState { get; init; }
     }
 
     /// <summary>
@@ -775,7 +775,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The template content.</summary>
         [JsonPropertyName("template")]
-        public object Template { get; set; }
+        public JsonElement? Template { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
@@ -794,7 +794,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -911,7 +911,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -921,7 +921,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>The template content. It can be a JObject or a well formed JSON string. Use only one of Template or TemplateLink.</summary>
         [JsonPropertyName("template")]
-        public object TemplateContent { get; set; }
+        public JsonElement? TemplateContent { get; set; }
 
         /// <summary>templateLink</summary>
         [JsonPropertyName("templateLink")]
@@ -929,7 +929,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Deployment parameters. It can be a JObject or a well formed JSON string. Use only one of Parameters or ParametersLink.</summary>
         [JsonPropertyName("parameters")]
-        public object Parameters { get; set; }
+        public JsonElement? Parameters { get; set; }
 
         /// <summary>parametersLink</summary>
         [JsonPropertyName("parametersLink")]
@@ -1198,7 +1198,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     /// <summary>
     /// Model factory for creating instances of Arm models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class ArmModelFactory
     {
@@ -1313,12 +1313,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
             string provisioningState = default,
             string correlationId = default,
             DateTime? timestamp = default,
-            object outputs = default,
+            JsonElement? outputs = default,
             List<Provider> providers = default,
             List<Dependency> dependencies = default,
-            object template = default,
+            JsonElement? template = default,
             TemplateLink templateLink = default,
-            object parameters = default,
+            JsonElement? parameters = default,
             ParametersLink parametersLink = default,
             Mode? deploymentMode = default,
             DebugSetting debugSetting = default)
@@ -1366,7 +1366,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             List<ObjectWithoutType> locations = default,
             List<AliasType> aliases = default,
             List<string> apiVersions = default,
-            object properties = default)
+            JsonElement? properties = default)
         {
             return new ProviderResourceType
             {
@@ -1501,7 +1501,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             string code = default,
             string message = default,
             string target = default,
-            List<object> details = default)
+            List<JsonElement?> details = default)
         {
             return new ResourceManagementErrorWithDetails
             {
@@ -1516,7 +1516,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// Creates a new instance of <see cref="DeploymentExportResult"/>.
         /// </summary>
         public static DeploymentExportResult DeploymentExportResult(
-            object template = default)
+            JsonElement? template = default)
         {
             return new DeploymentExportResult
             {
@@ -1562,7 +1562,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             DateTime? timestamp = default,
             string serviceRequestId = default,
             string statusCode = default,
-            object statusMessage = default,
+            JsonElement? statusMessage = default,
             TargetResource targetResource = default,
             HttpMessage request = default,
             HttpMessage response = default)
@@ -1600,7 +1600,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// Creates a new instance of <see cref="HttpMessage"/>.
         /// </summary>
         public static HttpMessage HttpMessage(
-            object content = default)
+            JsonElement? content = default)
         {
             return new HttpMessage
             {
@@ -1658,13 +1658,13 @@ namespace Azure.Connectors.Sdk.Arm.Models
             string name = default,
             string type = default,
             string location = default,
-            object tags = default,
+            JsonElement? tags = default,
             Plan plan = default,
             string kind = default,
             string managedBy = default,
             Sku sku = default,
             Identity identity = default,
-            object properties = default)
+            JsonElement? properties = default)
         {
             return new GenericResource
             {
@@ -1746,7 +1746,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             string name = default,
             string location = default,
             string managedBy = default,
-            object tags = default,
+            JsonElement? tags = default,
             ResourceGroupProperties properties = default)
         {
             return new ResourceGroup
@@ -1776,7 +1776,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// Creates a new instance of <see cref="ResourceGroupExportResult"/>.
         /// </summary>
         public static ResourceGroupExportResult ResourceGroupExportResult(
-            object template = default,
+            JsonElement? template = default,
             ResourceManagementErrorWithDetails error = default)
         {
             return new ResourceGroupExportResult
@@ -1866,9 +1866,9 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// Creates a new instance of <see cref="DeploymentProperties"/>.
         /// </summary>
         public static DeploymentProperties DeploymentProperties(
-            object templateContent = default,
+            JsonElement? templateContent = default,
             TemplateLink templateLink = default,
-            object parameters = default,
+            JsonElement? parameters = default,
             ParametersLink parametersLink = default,
             Mode? deploymentMode = default,
             DebugSetting debugSetting = default)
@@ -1970,6 +1970,8 @@ namespace Azure.Connectors.Sdk.Arm
 
         public override string ConnectorName => "arm";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.arm");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1991,12 +1993,24 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Lists the subscription locations response.</returns>
         public virtual async Task<LocationListResult> SubscriptionsListLocationsAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.SubscriptionsListLocationsAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2008,12 +2022,24 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read a subscription response.</returns>
         public virtual async Task<Subscription> SubscriptionsGetAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.SubscriptionsGetAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2045,14 +2071,30 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read a template deployment response.</returns>
         public virtual async Task<DeploymentExtended> DeploymentsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, bool? waitForDeployment = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            if (waitForDeployment.HasValue)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsGetAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                if (waitForDeployment.HasValue)
+                    queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2068,14 +2110,30 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Create or update a template deployment response.</returns>
         public virtual async Task<DeploymentExtended> DeploymentsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string deploymentName, Deployment input, bool? waitForDeployment = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            if (waitForDeployment.HasValue)
-                queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsCreateOrUpdateAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                if (waitForDeployment.HasValue)
+                    queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2088,12 +2146,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeploymentsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsDeleteAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2106,12 +2180,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeploymentsCancelAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsCancelAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2126,12 +2216,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Validate a template deployment response.</returns>
         public virtual async Task<DeploymentValidateResult> DeploymentsValidateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, Deployment input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsValidateAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2145,12 +2251,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Export deployment template response.</returns>
         public virtual async Task<DeploymentExportResult> DeploymentsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentsExportTemplateAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2165,6 +2287,10 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="DeploymentExtended"/> items across all pages.</returns>
         public virtual AsyncPageable<DeploymentExtended> DeploymentsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2190,12 +2316,30 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read a template deployment operation response.</returns>
         public virtual async Task<DeploymentOperation> DeploymentOperationsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, string operationId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.DeploymentOperationsGetAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (deploymentName is null)
+                    throw new ArgumentNullException(nameof(deploymentName));
+                if (operationId is null)
+                    throw new ArgumentNullException(nameof(operationId));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2210,6 +2354,12 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="DeploymentOperation"/> items across all pages.</returns>
         public virtual AsyncPageable<DeploymentOperation> DeploymentOperationsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Deployments_List")] string deploymentName, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            if (deploymentName is null)
+                throw new ArgumentNullException(nameof(deploymentName));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (top.HasValue)
@@ -2231,12 +2381,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Unregister resource provider response.</returns>
         public virtual async Task<Provider> ProvidersUnregisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProvidersUnregisterAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2249,12 +2413,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Register resource provider response.</returns>
         public virtual async Task<Provider> ProvidersRegisterAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProvidersRegisterAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2268,6 +2446,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="Provider"/> items across all pages.</returns>
         public virtual AsyncPageable<Provider> ProvidersListAsync([DynamicValues("Subscriptions_List")] string subscription, int? top = default, string expand = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (top.HasValue)
@@ -2292,14 +2472,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read resource provider response.</returns>
         public virtual async Task<Provider> ProvidersGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string expand = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProvidersGetAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                if (expand != default)
+                    queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2315,6 +2509,10 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
         public virtual AsyncPageable<GenericResource> ResourceGroupsListResourcesAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, string filter = default, string expand = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2340,12 +2538,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read a resource group response.</returns>
         public virtual async Task<ResourceGroup> ResourceGroupsGetAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsGetAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2359,12 +2571,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Create or update a resource group response.</returns>
         public virtual async Task<ResourceGroup> ResourceGroupsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string resourceGroupName, ResourceGroup input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsCreateOrUpdateAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroupName is null)
+                    throw new ArgumentNullException(nameof(resourceGroupName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2376,12 +2602,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ResourceGroupsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsDeleteAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2395,12 +2635,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Update an existing resource group response.</returns>
         public virtual async Task<ResourceGroup> ResourceGroupsPatchAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ResourceGroup input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsPatchAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2414,12 +2668,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Export a resource group template response.</returns>
         public virtual async Task<ResourceGroupExportResult> ResourceGroupsExportTemplateAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, ExportTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourceGroupsExportTemplateAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2433,6 +2701,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
         public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2458,6 +2728,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="GenericResource"/> items across all pages.</returns>
         public virtual AsyncPageable<GenericResource> ResourcesListAsync([DynamicValues("Subscriptions_List")] string subscription, string filter = default, string expand = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
@@ -2486,12 +2758,32 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read a resource response.</returns>
         public virtual async Task<GenericResource> ResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesGetByIdAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                var queryParams = new List<string>();
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2508,12 +2800,32 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Create or update a resource response.</returns>
         public virtual async Task<GenericResource> ResourcesCreateOrUpdateByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, GenericResource input, string clientApiVersion, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesCreateOrUpdateByIdAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                var queryParams = new List<string>();
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2528,12 +2840,32 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ResourcesDeleteByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesDeleteByIdAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                var queryParams = new List<string>();
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2551,12 +2883,34 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Invoke resource operation response.</returns>
         public virtual async Task<ResourcesInvokeResponse> ResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string actionName, ResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ResourcesInvokeAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                if (actionName is null)
+                    throw new ArgumentNullException(nameof(actionName));
+                var queryParams = new List<string>();
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2571,12 +2925,30 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Read a resource in provider response.</returns>
         public virtual async Task<GenericResource> ProviderResourcesGetByIdAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, string clientApiVersion, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProviderResourcesGetByIdAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                var queryParams = new List<string>();
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2592,12 +2964,30 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Invoke resource operation in provider response.</returns>
         public virtual async Task<ProviderResourcesInvokeResponse> ProviderResourcesInvokeAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Providers_List")] string resourceProvider, string shortResourceId, ProviderResourcesInvokeInput input, string clientApiVersion, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.ProviderResourcesInvokeAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceProvider is null)
+                    throw new ArgumentNullException(nameof(resourceProvider));
+                if (shortResourceId is null)
+                    throw new ArgumentNullException(nameof(shortResourceId));
+                var queryParams = new List<string>();
+                if (clientApiVersion is null)
+                    throw new ArgumentNullException(nameof(clientApiVersion));
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2611,12 +3001,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Create or update a subscription resource tag value response.</returns>
         public virtual async Task<TagValue> TagsCreateOrUpdateValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsCreateOrUpdateValueAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
+                if (tagValue is null)
+                    throw new ArgumentNullException(nameof(tagValue));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2629,12 +3035,28 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task TagsDeleteValueAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, string tagValue, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsDeleteValueAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
+                if (tagValue is null)
+                    throw new ArgumentNullException(nameof(tagValue));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2647,12 +3069,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>The Create or update a subscription resource tag name response.</returns>
         public virtual async Task<TagDetails> TagsCreateOrUpdateAsync([DynamicValues("Subscriptions_List")] string subscription, string tagName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsCreateOrUpdateAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2664,12 +3100,26 @@ namespace Azure.Connectors.Sdk.Arm
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task TagsDeleteAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("Tags_List")] string tagName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ArmClient.ConnectorActivitySource.StartActivity("ArmClient.TagsDeleteAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (tagName is null)
+                    throw new ArgumentNullException(nameof(tagName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2016-06-01");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2681,6 +3131,8 @@ namespace Azure.Connectors.Sdk.Arm
         /// <returns>An async enumerable of <see cref="TagDetails"/> items across all pages.</returns>
         public virtual AsyncPageable<TagDetails> TagsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

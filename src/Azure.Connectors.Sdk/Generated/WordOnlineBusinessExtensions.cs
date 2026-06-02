@@ -61,7 +61,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
     /// <summary>
     /// Model factory for creating instances of WordOnlineBusiness models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class WordOnlineBusinessModelFactory
     {
@@ -99,7 +99,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
         /// Creates a new instance of <see cref="GetSourcesResponse"/>.
         /// </summary>
         public static GetSourcesResponse GetSourcesResponse(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new GetSourcesResponse
             {
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
         /// Creates a new instance of <see cref="GetDrivesResponse"/>.
         /// </summary>
         public static GetDrivesResponse GetDrivesResponse(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new GetDrivesResponse
             {
@@ -191,6 +191,8 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
 
         public override string ConnectorName => "wordonlinebusiness";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.wordonlinebusiness");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -214,14 +216,30 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Fetches the schema of the selected file response.</returns>
         public virtual async Task<GetFileSchemaResponse> GetFileSchemaAsync(string source, string drive, string @file, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-            queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
-            queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
-            var path = $"/api/templates/schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetFileSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFileSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (source is null)
+                    throw new ArgumentNullException(nameof(source));
+                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (drive is null)
+                    throw new ArgumentNullException(nameof(drive));
+                queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+                var path = $"/api/templates/schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetFileSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -236,14 +254,30 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Populate a Microsoft Word template response.</returns>
         public virtual async Task<byte[]> CreateFileItemAsync(CreateFileItemInput input, [DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-            queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
-            queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
-            var path = $"/api/templates/getFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.CreateFileItemAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
+                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+                var path = $"/api/templates/getFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -256,13 +290,23 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Create a Microsoft Word document with the given content response.</returns>
         public virtual async Task<string> CreateWordFileWithContentAsync(ContentBody input, string fileName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (fileName != default)
-                queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/api/templates/createWordFileWithContent" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.CreateWordFileWithContentAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (fileName != default)
+                    queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/api/templates/createWordFileWithContent" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -273,10 +317,20 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Get sources response.</returns>
         public virtual async Task<GetSourcesResponse> GetSourcesAsync(CancellationToken cancellationToken = default)
         {
-            var path = "/codeless/v1.0/sources";
-            return await this
-                .CallConnectorAsync<GetSourcesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetSourcesAsync");
+            try
+            {
+                var path = "/codeless/v1.0/sources";
+                return await this
+                    .CallConnectorAsync<GetSourcesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -288,12 +342,22 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Get drives response.</returns>
         public virtual async Task<GetDrivesResponse> GetDrivesAsync([DynamicValues("GetSources")] string source = "me", CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"source={Uri.EscapeDataString(source)}");
-            var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetDrivesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"source={Uri.EscapeDataString(source)}");
+                var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -309,19 +373,35 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <returns>The Convert Word Document to PDF response.</returns>
         public virtual async Task<byte[]> GetFilePDFAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("format=pdf");
-            queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-            queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
-            queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
-            if (extractSensitivityLabel.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
-            if (sensitivityLabelMetadata.HasValue)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
-            var path = $"/api/templates/convertFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFilePDFAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("format=pdf");
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
+                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+                if (extractSensitivityLabel.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                if (sensitivityLabelMetadata.HasValue)
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
+                var path = $"/api/templates/convertFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

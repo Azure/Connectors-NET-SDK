@@ -127,15 +127,15 @@ namespace Azure.Connectors.Sdk.Kusto.Models
 
         /// <summary>params</summary>
         [JsonPropertyName("params")]
-        public object Params { get; set; }
+        public JsonElement? Params { get; set; }
 
         /// <summary>result</summary>
         [JsonPropertyName("result")]
-        public object Result { get; set; }
+        public JsonElement? Result { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
-        public object Error { get; set; }
+        public JsonElement? Error { get; set; }
     }
 
     /// <summary>
@@ -237,15 +237,15 @@ namespace Azure.Connectors.Sdk.Kusto.Models
 
         /// <summary>params</summary>
         [JsonPropertyName("params")]
-        public object Params { get; set; }
+        public JsonElement? Params { get; set; }
 
         /// <summary>result</summary>
         [JsonPropertyName("result")]
-        public object Result { get; set; }
+        public JsonElement? Result { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
-        public object Error { get; set; }
+        public JsonElement? Error { get; set; }
 
         /// <summary>callbackEndpoint</summary>
         [JsonPropertyName("callbackEndpoint")]
@@ -259,7 +259,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
     /// <summary>
     /// Model factory for creating instances of Kusto models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class KustoModelFactory
     {
@@ -318,9 +318,9 @@ namespace Azure.Connectors.Sdk.Kusto.Models
             string jsonrpc = default,
             string id = default,
             string method = default,
-            object @params = default,
-            object result = default,
-            object error = default)
+            JsonElement? @params = default,
+            JsonElement? result = default,
+            JsonElement? error = default)
         {
             return new MCPQueryResponse
             {
@@ -408,9 +408,9 @@ namespace Azure.Connectors.Sdk.Kusto.Models
             string jsonrpc = default,
             string id = default,
             string method = default,
-            object @params = default,
-            object result = default,
-            object error = default,
+            JsonElement? @params = default,
+            JsonElement? result = default,
+            JsonElement? error = default,
             string callbackEndpoint = default)
         {
             return new MCPQueryRequest
@@ -485,6 +485,8 @@ namespace Azure.Connectors.Sdk.Kusto
 
         public override string ConnectorName => "kusto";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.kusto");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -506,10 +508,20 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Run KQL query response.</returns>
         public virtual async Task<Table> ListKustoResultsAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/ListKustoResults/false";
-            return await this
-                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.ListKustoResultsAsync");
+            try
+            {
+                var path = $"/ListKustoResults/false";
+                return await this
+                    .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -521,10 +533,20 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Run show control command response.</returns>
         public virtual async Task<Table> ListKustoShowCommandResultsAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/ListKustoShowCommandResults";
-            return await this
-                .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.ListKustoShowCommandResultsAsync");
+            try
+            {
+                var path = $"/ListKustoShowCommandResults";
+                return await this
+                    .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -536,10 +558,20 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Query schema response.</returns>
         public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/ListKustoResultsSchema";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.ListKustoResultsSchemaAsync");
+            try
+            {
+                var path = $"/ListKustoResultsSchema";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -551,10 +583,20 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Run KQL query and render a chart response.</returns>
         public virtual async Task<VisualizeResults> RunKustoQueryAndVisualizeResultsAsync(QueryAndVisualizeSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/RunKustoAndVisualizeResults/false";
-            return await this
-                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.RunKustoQueryAndVisualizeResultsAsync");
+            try
+            {
+                var path = $"/RunKustoAndVisualizeResults/false";
+                return await this
+                    .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -566,10 +608,20 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Run control command and render a chart response.</returns>
         public virtual async Task<VisualizeResults> RunKustoCommandAndVisualizeResultsAsync(CommandAndVisualizeSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/RunKustoAndVisualizeResults/true";
-            return await this
-                .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.RunKustoCommandAndVisualizeResultsAsync");
+            try
+            {
+                var path = $"/RunKustoAndVisualizeResults/true";
+                return await this
+                    .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -581,10 +633,20 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Run async control command response.</returns>
         public virtual async Task<AsyncCommandResult> RunAsyncControlCommandAndWaitAsync(ControlCommandAndListSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/RunAsyncControlCommandAndWait";
-            return await this
-                .CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.RunAsyncControlCommandAndWaitAsync");
+            try
+            {
+                var path = $"/RunAsyncControlCommandAndWait";
+                return await this
+                    .CallConnectorAsync<AsyncCommandResult>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -597,13 +659,23 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <returns>The Kusto Query MCP Server response.</returns>
         public virtual async Task<MCPQueryResponse> McpKustoQueryManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.McpKustoQueryManagementAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

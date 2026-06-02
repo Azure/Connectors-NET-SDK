@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -56,17 +56,17 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
         /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The subscription Id.</summary>
         [JsonPropertyName("subscriptionId")]
         [JsonInclude]
-        public string SubscriptionId { get; internal set; }
+        public string SubscriptionId { get; init; }
 
         /// <summary>The subscription display name.</summary>
         [JsonPropertyName("displayName")]
         [JsonInclude]
-        public string DisplayName { get; internal set; }
+        public string DisplayName { get; init; }
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     {
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
-        public object Properties { get; set; }
+        public JsonElement? Properties { get; set; }
     }
 
     #endregion Types
@@ -86,7 +86,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     /// <summary>
     /// Model factory for creating instances of AzureEventGrid models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class AzureEventGridModelFactory
     {
@@ -94,7 +94,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
         /// Creates a new instance of <see cref="TopicTypesResponse"/>.
         /// </summary>
         public static TopicTypesResponse TopicTypesResponse(
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new TopicTypesResponse
             {
@@ -134,7 +134,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
         /// Creates a new instance of <see cref="EventRequest"/>.
         /// </summary>
         public static EventRequest EventRequest(
-            object properties = default)
+            JsonElement? properties = default)
         {
             return new EventRequest
             {
@@ -251,6 +251,8 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
 
         public override string ConnectorName => "azureeventgrid";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azureeventgrid");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -271,12 +273,22 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         /// <returns>The TopicTypes_List response.</returns>
         public virtual async Task<TopicTypesResponse> TopicTypesListAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2017-09-15-preview");
-            var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureEventGridClient.ConnectorActivitySource.StartActivity("AzureEventGridClient.TopicTypesListAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2017-09-15-preview");
+                var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -287,12 +299,22 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         /// <returns>The List subscriptions response.</returns>
         public virtual async Task<SubscriptionListResult> SubscriptionsListAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2015-11-01");
-            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureEventGridClient.ConnectorActivitySource.StartActivity("AzureEventGridClient.SubscriptionsListAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2015-11-01");
+                var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

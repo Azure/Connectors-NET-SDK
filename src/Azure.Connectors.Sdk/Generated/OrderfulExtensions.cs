@@ -55,7 +55,7 @@ namespace Azure.Connectors.Sdk.Orderful.Models
 
         /// <summary>Configuration of the Trigger</summary>
         [JsonPropertyName("config")]
-        public object Config { get; set; }
+        public JsonElement? Config { get; set; }
 
         /// <summary>Owner of the Orderful account.</summary>
         [JsonPropertyName("ownerId")]
@@ -79,7 +79,7 @@ namespace Azure.Connectors.Sdk.Orderful.Models
     /// <summary>
     /// Model factory for creating instances of Orderful models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class OrderfulModelFactory
     {
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.Orderful.Models
         public static CommunicationChannelInput CommunicationChannelInput(
             bool? isActive = default,
             string name = default,
-            object config = default,
+            JsonElement? config = default,
             int? ownerId = default)
         {
             return new CommunicationChannelInput
@@ -191,6 +191,8 @@ namespace Azure.Connectors.Sdk.Orderful
 
         public override string ConnectorName => "orderful";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.orderful");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -210,10 +212,20 @@ namespace Azure.Connectors.Sdk.Orderful
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ListTransactionsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/transactions";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OrderfulClient.ConnectorActivitySource.StartActivity("OrderfulClient.ListTransactionsAsync");
+            try
+            {
+                var path = $"/v2/transactions";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -224,10 +236,20 @@ namespace Azure.Connectors.Sdk.Orderful
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CreateTransactionAsync(CreateTransactionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/transactions";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OrderfulClient.ConnectorActivitySource.StartActivity("OrderfulClient.CreateTransactionAsync");
+            try
+            {
+                var path = $"/v2/transactions";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -238,10 +260,20 @@ namespace Azure.Connectors.Sdk.Orderful
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetTransactionByIdAsync(int transactionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = OrderfulClient.ConnectorActivitySource.StartActivity("OrderfulClient.GetTransactionByIdAsync");
+            try
+            {
+                var path = $"/v2/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -20,7 +20,7 @@ namespace Azure.Connectors.Sdk
     /// JSON serialization, URL resolution with SSRF protection, and configurable retry/diagnostics
     /// through <see cref="ConnectorClientOptions"/>.
     /// </summary>
-    public abstract class ConnectorClientBase : IConnectorClient
+    public abstract class ConnectorClientBase : IDisposable
     {
         /// <summary>
         /// The default OAuth scopes for API Hub authentication.

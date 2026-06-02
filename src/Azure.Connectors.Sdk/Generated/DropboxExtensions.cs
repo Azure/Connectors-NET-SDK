@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.Dropbox.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -70,7 +70,7 @@ namespace Azure.Connectors.Sdk.Dropbox.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -84,7 +84,7 @@ namespace Azure.Connectors.Sdk.Dropbox.Models
     /// <summary>
     /// Model factory for creating instances of Dropbox models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class DropboxModelFactory
     {
@@ -360,6 +360,8 @@ namespace Azure.Connectors.Sdk.Dropbox
 
         public override string ConnectorName => "dropbox";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.dropbox");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -381,10 +383,22 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Get file metadata response.</returns>
         public virtual async Task<BlobMetadata> GetFileMetadataAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.GetFileMetadataAsync");
+            try
+            {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -397,10 +411,22 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Update file response.</returns>
         public virtual async Task<BlobMetadata> UpdateFileAsync(string @file, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.UpdateFileAsync");
+            try
+            {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -411,10 +437,22 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteFileAsync(string @file, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.DeleteFileAsync");
+            try
+            {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -426,13 +464,25 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Get file metadata using path response.</returns>
         public virtual async Task<BlobMetadata> GetFileMetadataByPathAsync(string filePath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.GetFileMetadataByPathAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -445,15 +495,27 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Get file content using path response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync(string filePath, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.GetFileContentByPathAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (filePath is null)
+                    throw new ArgumentNullException(nameof(filePath));
+                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -466,13 +528,25 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Get file content response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync(string @file, bool? inferContentType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.GetFileContentAsync");
+            try
+            {
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                var queryParams = new List<string>();
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -486,14 +560,28 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Create file response.</returns>
         public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-            var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.CreateFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -507,16 +595,30 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Copy file response.</returns>
         public virtual async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceURL.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.CopyFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceURL is null)
+                    throw new ArgumentNullException(nameof(sourceURL));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceURL.ToString())}");
+                if (destinationFilePath is null)
+                    throw new ArgumentNullException(nameof(destinationFilePath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -530,16 +632,30 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// <returns>The Extract archive to folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.ExtractFolderAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceArchiveFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceArchiveFilePath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

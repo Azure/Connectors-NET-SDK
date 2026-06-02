@@ -74,7 +74,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     {
         /// <summary>Collection of tasks.</summary>
         [JsonPropertyName("tasks")]
-        public List<object> Tasks { get; set; }
+        public List<JsonElement?> Tasks { get; set; }
     }
 
     /// <summary>
@@ -174,7 +174,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     /// <summary>
     /// Model factory for creating instances of Infusionsoft models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class InfusionsoftModelFactory
     {
@@ -208,7 +208,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
         /// Creates a new instance of <see cref="ListTasksResponse"/>.
         /// </summary>
         public static ListTasksResponse ListTasksResponse(
-            List<object> tasks = default)
+            List<JsonElement?> tasks = default)
         {
             return new ListTasksResponse
             {
@@ -253,7 +253,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     /// Typed trigger payload for the OnNewOrder trigger (Infusionsoft "When there is a new order", operationId: OnNewOrder).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewOrderTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class InfusionsoftOnNewOrderTriggerPayload : TriggerCallbackPayload<object>
+    public class InfusionsoftOnNewOrderTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -388,6 +388,8 @@ namespace Azure.Connectors.Sdk.Infusionsoft
 
         public override string ConnectorName => "infusionsoft";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.infusionsoft");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -409,10 +411,20 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The Create a task response.</returns>
         public virtual async Task<TaskResponse> CreateTaskAsync(CreateTaskRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/crm/rest/v1/tasks/";
-            return await this
-                .CallConnectorAsync<TaskResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.CreateTaskAsync");
+            try
+            {
+                var path = $"/crm/rest/v1/tasks/";
+                return await this
+                    .CallConnectorAsync<TaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -425,10 +437,20 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The Update a task response.</returns>
         public virtual async Task<TaskResponse> UpdateTaskAsync([DynamicValues("ListTasks")] int id, CreateTaskRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(id.ToString())}";
-            return await this
-                .CallConnectorAsync<TaskResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.UpdateTaskAsync");
+            try
+            {
+                var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(id.ToString())}";
+                return await this
+                    .CallConnectorAsync<TaskResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -439,12 +461,22 @@ namespace Azure.Connectors.Sdk.Infusionsoft
         /// <returns>The List tasks response.</returns>
         public virtual async Task<ListTasksResponse> ListTasksAsync(CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("order=-due_date");
-            var path = $"/crm/rest/v1/tasks/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.ListTasksAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("order=-due_date");
+                var path = $"/crm/rest/v1/tasks/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

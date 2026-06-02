@@ -35,11 +35,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
     {
         /// <summary>customLocationCollection</summary>
         [JsonPropertyName("customLocationCollection")]
-        public List<object> CustomLocationCollection { get; set; }
+        public List<JsonElement?> CustomLocationCollection { get; set; }
 
         /// <summary>mapImage</summary>
         [JsonPropertyName("mapImage")]
-        public object MapImage { get; set; }
+        public JsonElement? MapImage { get; set; }
     }
 
     /// <summary>
@@ -49,11 +49,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
     {
         /// <summary>image</summary>
         [JsonPropertyName("image")]
-        public object Image { get; set; }
+        public JsonElement? Image { get; set; }
 
         /// <summary>attachedOfficeLocations</summary>
         [JsonPropertyName("attachedOfficeLocations")]
-        public List<object> AttachedOfficeLocations { get; set; }
+        public List<JsonElement?> AttachedOfficeLocations { get; set; }
     }
 
     /// <summary>
@@ -63,11 +63,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
     {
         /// <summary>officeLocationMap</summary>
         [JsonPropertyName("officeLocationMap")]
-        public object OfficeLocationMap { get; set; }
+        public JsonElement? OfficeLocationMap { get; set; }
 
         /// <summary>mapImage</summary>
         [JsonPropertyName("mapImage")]
-        public object MapImage { get; set; }
+        public JsonElement? MapImage { get; set; }
     }
 
     /// <summary>
@@ -101,11 +101,11 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
     {
         /// <summary>meetingRoomCollection</summary>
         [JsonPropertyName("meetingRoomCollection")]
-        public object MeetingRoomCollection { get; set; }
+        public JsonElement? MeetingRoomCollection { get; set; }
 
         /// <summary>mapImage</summary>
         [JsonPropertyName("mapImage")]
-        public object MapImage { get; set; }
+        public JsonElement? MapImage { get; set; }
     }
 
     /// <summary>
@@ -139,7 +139,7 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
     /// <summary>
     /// Model factory for creating instances of MeetingRoomMap models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class MeetingRoomMapModelFactory
     {
@@ -147,8 +147,8 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
         /// Creates a new instance of <see cref="GetCustomLocationsByImageNameResponse"/>.
         /// </summary>
         public static GetCustomLocationsByImageNameResponse GetCustomLocationsByImageNameResponse(
-            List<object> customLocationCollection = default,
-            object mapImage = default)
+            List<JsonElement?> customLocationCollection = default,
+            JsonElement? mapImage = default)
         {
             return new GetCustomLocationsByImageNameResponse
             {
@@ -161,8 +161,8 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
         /// Creates a new instance of <see cref="GetOfficeLocationsByImageResponse"/>.
         /// </summary>
         public static GetOfficeLocationsByImageResponse GetOfficeLocationsByImageResponse(
-            object image = default,
-            List<object> attachedOfficeLocations = default)
+            JsonElement? image = default,
+            List<JsonElement?> attachedOfficeLocations = default)
         {
             return new GetOfficeLocationsByImageResponse
             {
@@ -175,8 +175,8 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
         /// Creates a new instance of <see cref="GetRoomWithPersonsDetailsResponse"/>.
         /// </summary>
         public static GetRoomWithPersonsDetailsResponse GetRoomWithPersonsDetailsResponse(
-            object officeLocationMap = default,
-            object mapImage = default)
+            JsonElement? officeLocationMap = default,
+            JsonElement? mapImage = default)
         {
             return new GetRoomWithPersonsDetailsResponse
             {
@@ -215,8 +215,8 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
         /// Creates a new instance of <see cref="GetRoomsByImageNameResponse"/>.
         /// </summary>
         public static GetRoomsByImageNameResponse GetRoomsByImageNameResponse(
-            object meetingRoomCollection = default,
-            object mapImage = default)
+            JsonElement? meetingRoomCollection = default,
+            JsonElement? mapImage = default)
         {
             return new GetRoomsByImageNameResponse
             {
@@ -311,6 +311,8 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
 
         public override string ConnectorName => "meetingroommap";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.meetingroommap");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -331,10 +333,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetCustomLocationsAsync(GetCustomLocationsByCategoriesQuery input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/CustomLocations/GetCustomLocations";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetCustomLocationsAsync");
+            try
+            {
+                var path = $"/api/CustomLocations/GetCustomLocations";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -346,10 +358,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get locations by image response.</returns>
         public virtual async Task<GetCustomLocationsByImageNameResponse> GetCustomLocationsByImageNameAsync(GetCustomLocationListByImageNameQuery input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/CustomLocations/GetCustomLocationsByImageName";
-            return await this
-                .CallConnectorAsync<GetCustomLocationsByImageNameResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetCustomLocationsByImageNameAsync");
+            try
+            {
+                var path = $"/api/CustomLocations/GetCustomLocationsByImageName";
+                return await this
+                    .CallConnectorAsync<GetCustomLocationsByImageNameResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -360,10 +382,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The GetCategories response.</returns>
         public virtual async Task<List<string>> GetCategoriesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/api/CustomLocations/categories";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetCategoriesAsync");
+            try
+            {
+                var path = $"/api/CustomLocations/categories";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -374,10 +406,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task LocationDetailsAsync(string theUniqueStringIdentifyingTheLocation, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/CustomLocations/{Uri.EscapeDataString(theUniqueStringIdentifyingTheLocation.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.LocationDetailsAsync");
+            try
+            {
+                if (theUniqueStringIdentifyingTheLocation is null)
+                    throw new ArgumentNullException(nameof(theUniqueStringIdentifyingTheLocation));
+                var path = $"/api/CustomLocations/{Uri.EscapeDataString(theUniqueStringIdentifyingTheLocation.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -388,15 +432,27 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory">Provide a category name to only return locations filtered by this category</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Search location by name response.</returns>
-        public virtual async Task<List<object>> SearchLocationsAsync(string providePartOfNameForLocationSToSearchFor, string provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SearchLocationsAsync(string providePartOfNameForLocationSToSearchFor, string provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory != default)
-                queryParams.Add($"Category={Uri.EscapeDataString(provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory.ToString())}");
-            var path = $"/api/CustomLocations/findbyname/{Uri.EscapeDataString(providePartOfNameForLocationSToSearchFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.SearchLocationsAsync");
+            try
+            {
+                if (providePartOfNameForLocationSToSearchFor is null)
+                    throw new ArgumentNullException(nameof(providePartOfNameForLocationSToSearchFor));
+                var queryParams = new List<string>();
+                if (provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory != default)
+                    queryParams.Add($"Category={Uri.EscapeDataString(provideACategoryNameToOnlyReturnLocationsFilteredByThisCategory.ToString())}");
+                var path = $"/api/CustomLocations/findbyname/{Uri.EscapeDataString(providePartOfNameForLocationSToSearchFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -409,13 +465,25 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get image for location response.</returns>
         public virtual async Task<byte[]> GetCustomLocationImageAsync(string theUniqueStringIdentifierForALocation, bool? ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
-                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
-            var path = $"/api/CustomLocations/createimage/{Uri.EscapeDataString(theUniqueStringIdentifierForALocation.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetCustomLocationImageAsync");
+            try
+            {
+                if (theUniqueStringIdentifierForALocation is null)
+                    throw new ArgumentNullException(nameof(theUniqueStringIdentifierForALocation));
+                var queryParams = new List<string>();
+                if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
+                    queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
+                var path = $"/api/CustomLocations/createimage/{Uri.EscapeDataString(theUniqueStringIdentifierForALocation.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -424,12 +492,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <remarks>Get list of all floorplans/images</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all images response.</returns>
-        public virtual async Task<List<object>> ImagesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ImagesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/api/MapImage/thumbnails";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.ImagesAsync");
+            try
+            {
+                var path = $"/api/MapImage/thumbnails";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -442,13 +520,25 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get image for meeting room response.</returns>
         public virtual async Task<byte[]> GetMeetingRoomImageAsync(string theExactNameOfTheRoomToReturnTheImageFor, bool? ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
-                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
-            var path = $"/api/MapImage/create/{Uri.EscapeDataString(theExactNameOfTheRoomToReturnTheImageFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetMeetingRoomImageAsync");
+            try
+            {
+                if (theExactNameOfTheRoomToReturnTheImageFor is null)
+                    throw new ArgumentNullException(nameof(theExactNameOfTheRoomToReturnTheImageFor));
+                var queryParams = new List<string>();
+                if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
+                    queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
+                var path = $"/api/MapImage/create/{Uri.EscapeDataString(theExactNameOfTheRoomToReturnTheImageFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -459,10 +549,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task NextMeetingsAsync(int theNumberOfFutureMeetingsToReturn, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/MapImage/meetings/{Uri.EscapeDataString(theNumberOfFutureMeetingsToReturn.ToString())}/roomdetails";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.NextMeetingsAsync");
+            try
+            {
+                var path = $"/api/MapImage/meetings/{Uri.EscapeDataString(theNumberOfFutureMeetingsToReturn.ToString())}/roomdetails";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -473,10 +573,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetMeetingRoomDetailsAsync(string theExactNameOfTheRoomToReturnDetailsInformationAbout, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/MapImage/roomdetails_v2/{Uri.EscapeDataString(theExactNameOfTheRoomToReturnDetailsInformationAbout.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetMeetingRoomDetailsAsync");
+            try
+            {
+                if (theExactNameOfTheRoomToReturnDetailsInformationAbout is null)
+                    throw new ArgumentNullException(nameof(theExactNameOfTheRoomToReturnDetailsInformationAbout));
+                var path = $"/api/MapImage/roomdetails_v2/{Uri.EscapeDataString(theExactNameOfTheRoomToReturnDetailsInformationAbout.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -486,10 +598,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetOfficeLocationsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/api/officelocations";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetOfficeLocationsAsync");
+            try
+            {
+                var path = $"/api/officelocations";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -499,12 +621,24 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="theStringToUseForSearchingUsersSearchesInUserSEmailAndName">The string to use for searching users. Searches in user&apos;s email and name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Search coworker response.</returns>
-        public virtual async Task<List<object>> SearchCoworkersAsync(string theStringToUseForSearchingUsersSearchesInUserSEmailAndName, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SearchCoworkersAsync(string theStringToUseForSearchingUsersSearchesInUserSEmailAndName, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/officelocations/searchCoworkers/{Uri.EscapeDataString(theStringToUseForSearchingUsersSearchesInUserSEmailAndName.ToString())}";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.SearchCoworkersAsync");
+            try
+            {
+                if (theStringToUseForSearchingUsersSearchesInUserSEmailAndName is null)
+                    throw new ArgumentNullException(nameof(theStringToUseForSearchingUsersSearchesInUserSEmailAndName));
+                var path = $"/api/officelocations/searchCoworkers/{Uri.EscapeDataString(theStringToUseForSearchingUsersSearchesInUserSEmailAndName.ToString())}";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -516,10 +650,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get office locations on image response.</returns>
         public virtual async Task<GetOfficeLocationsByImageResponse> GetOfficeLocationsByImageAsync(string theUniqueImageIdentifierToUseForGettingMappedOfficeLocations, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/officelocations/bymapimage/{Uri.EscapeDataString(theUniqueImageIdentifierToUseForGettingMappedOfficeLocations.ToString())}";
-            return await this
-                .CallConnectorAsync<GetOfficeLocationsByImageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetOfficeLocationsByImageAsync");
+            try
+            {
+                if (theUniqueImageIdentifierToUseForGettingMappedOfficeLocations is null)
+                    throw new ArgumentNullException(nameof(theUniqueImageIdentifierToUseForGettingMappedOfficeLocations));
+                var path = $"/api/officelocations/bymapimage/{Uri.EscapeDataString(theUniqueImageIdentifierToUseForGettingMappedOfficeLocations.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetOfficeLocationsByImageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -532,13 +678,25 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get office location details response.</returns>
         public virtual async Task<GetRoomWithPersonsDetailsResponse> GetRoomWithPersonsDetailsAsync(string theUniqueOfficeLocationNameToLookUpImageAndPeopleBy, bool? ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.HasValue)
-                queryParams.Add($"InludeUserInfo={Uri.EscapeDataString(ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.Value.ToString())}");
-            var path = $"/api/officelocations/mapimagewithpersoninfo/{Uri.EscapeDataString(theUniqueOfficeLocationNameToLookUpImageAndPeopleBy.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetRoomWithPersonsDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetRoomWithPersonsDetailsAsync");
+            try
+            {
+                if (theUniqueOfficeLocationNameToLookUpImageAndPeopleBy is null)
+                    throw new ArgumentNullException(nameof(theUniqueOfficeLocationNameToLookUpImageAndPeopleBy));
+                var queryParams = new List<string>();
+                if (ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.HasValue)
+                    queryParams.Add($"InludeUserInfo={Uri.EscapeDataString(ifTrueThenListOfUsersWithThisOfficeLocationWillBeReturnedAsWell.Value.ToString())}");
+                var path = $"/api/officelocations/mapimagewithpersoninfo/{Uri.EscapeDataString(theUniqueOfficeLocationNameToLookUpImageAndPeopleBy.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetRoomWithPersonsDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -551,13 +709,25 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get image of office location response.</returns>
         public virtual async Task<byte[]> GetOfficeLocationImageAsync(string theUniqueNameOfTheOfficeLocationToGetImageFor, bool? ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
-                queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
-            var path = $"/api/officelocationimage/create/{Uri.EscapeDataString(theUniqueNameOfTheOfficeLocationToGetImageFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetOfficeLocationImageAsync");
+            try
+            {
+                if (theUniqueNameOfTheOfficeLocationToGetImageFor is null)
+                    throw new ArgumentNullException(nameof(theUniqueNameOfTheOfficeLocationToGetImageFor));
+                var queryParams = new List<string>();
+                if (ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.HasValue)
+                    queryParams.Add($"Large={Uri.EscapeDataString(ifSetToTrueALargeVersionOfTheImageWidth900pxWillBeReturned.Value.ToString())}");
+                var path = $"/api/officelocationimage/create/{Uri.EscapeDataString(theUniqueNameOfTheOfficeLocationToGetImageFor.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -568,10 +738,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get all rooms response.</returns>
         public virtual async Task<AADMeetingRoomCollection> GetRoomsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/api/rooms";
-            return await this
-                .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetRoomsAsync");
+            try
+            {
+                var path = $"/api/rooms";
+                return await this
+                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -583,10 +763,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Search for meeting room response.</returns>
         public virtual async Task<AADMeetingRoomCollection> SearchMeetingRoomsAsync(string theSearchStringToUseToLookUpMeetingRoomsByName, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/rooms/findbyname/{Uri.EscapeDataString(theSearchStringToUseToLookUpMeetingRoomsByName.ToString())}";
-            return await this
-                .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.SearchMeetingRoomsAsync");
+            try
+            {
+                if (theSearchStringToUseToLookUpMeetingRoomsByName is null)
+                    throw new ArgumentNullException(nameof(theSearchStringToUseToLookUpMeetingRoomsByName));
+                var path = $"/api/rooms/findbyname/{Uri.EscapeDataString(theSearchStringToUseToLookUpMeetingRoomsByName.ToString())}";
+                return await this
+                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -597,10 +789,20 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get meeting rooms lists response.</returns>
         public virtual async Task<AADMeetingRoomCollection> RoomListsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/api/rooms/lists";
-            return await this
-                .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.RoomListsAsync");
+            try
+            {
+                var path = $"/api/rooms/lists";
+                return await this
+                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -612,10 +814,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get meeting rooms by list response.</returns>
         public virtual async Task<AADMeetingRoomCollection> RoomsByListAddressAsync(string nameOfRoomListAsDefinedInAzureADRoomLists, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/rooms/{Uri.EscapeDataString(nameOfRoomListAsDefinedInAzureADRoomLists.ToString())}";
-            return await this
-                .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.RoomsByListAddressAsync");
+            try
+            {
+                if (nameOfRoomListAsDefinedInAzureADRoomLists is null)
+                    throw new ArgumentNullException(nameof(nameOfRoomListAsDefinedInAzureADRoomLists));
+                var path = $"/api/rooms/{Uri.EscapeDataString(nameOfRoomListAsDefinedInAzureADRoomLists.ToString())}";
+                return await this
+                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -627,10 +841,22 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <returns>The Get all meeting rooms by image response.</returns>
         public virtual async Task<GetRoomsByImageNameResponse> GetRoomsByImageNameAsync(string theUniqueImageNameToGetMappedMeetingRoomsBy, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/rooms/GetRoomsByImageName/{Uri.EscapeDataString(theUniqueImageNameToGetMappedMeetingRoomsBy.ToString())}";
-            return await this
-                .CallConnectorAsync<GetRoomsByImageNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetRoomsByImageNameAsync");
+            try
+            {
+                if (theUniqueImageNameToGetMappedMeetingRoomsBy is null)
+                    throw new ArgumentNullException(nameof(theUniqueImageNameToGetMappedMeetingRoomsBy));
+                var path = $"/api/rooms/GetRoomsByImageName/{Uri.EscapeDataString(theUniqueImageNameToGetMappedMeetingRoomsBy.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetRoomsByImageNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

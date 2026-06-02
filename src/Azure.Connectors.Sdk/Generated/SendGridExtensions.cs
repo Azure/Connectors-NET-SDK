@@ -231,7 +231,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     /// <summary>
     /// Model factory for creating instances of SendGrid models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class SendGridModelFactory
     {
@@ -457,6 +457,8 @@ namespace Azure.Connectors.Sdk.SendGrid
 
         public override string ConnectorName => "sendgrid";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.sendgrid");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -478,10 +480,20 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The Add a global suppression response.</returns>
         public virtual async Task<AddGlobalSuppressRequestAndResponse> AddGlobalSuppressionAsync(AddGlobalSuppressRequestAndResponse input, CancellationToken cancellationToken = default)
         {
-            var path = $"/suppressions/global";
-            return await this
-                .CallConnectorAsync<AddGlobalSuppressRequestAndResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.AddGlobalSuppressionAsync");
+            try
+            {
+                var path = $"/suppressions/global";
+                return await this
+                    .CallConnectorAsync<AddGlobalSuppressRequestAndResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -493,10 +505,22 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The Get the global suppression response.</returns>
         public virtual async Task<GetGlobalSuppressResponse> GetGlobalSuppressionAsync(string email, CancellationToken cancellationToken = default)
         {
-            var path = $"/suppressions/global/{Uri.EscapeDataString(email.ToString())}";
-            return await this
-                .CallConnectorAsync<GetGlobalSuppressResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.GetGlobalSuppressionAsync");
+            try
+            {
+                if (email is null)
+                    throw new ArgumentNullException(nameof(email));
+                var path = $"/suppressions/global/{Uri.EscapeDataString(email.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetGlobalSuppressResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -507,10 +531,22 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteGlobalSuppressionAsync(string email, CancellationToken cancellationToken = default)
         {
-            var path = $"/suppressions/global/{Uri.EscapeDataString(email.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.DeleteGlobalSuppressionAsync");
+            try
+            {
+                if (email is null)
+                    throw new ArgumentNullException(nameof(email));
+                var path = $"/suppressions/global/{Uri.EscapeDataString(email.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -523,10 +559,24 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The Add recipient to list response.</returns>
         public virtual async Task<ObjectEntity> AddRecipientToListAsync([DynamicValues("ListRecipientLists")] string listId, [DynamicValues("ListRecipients")] string recipientId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/contactdb/lists/{Uri.EscapeDataString(listId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.AddRecipientToListAsync");
+            try
+            {
+                if (listId is null)
+                    throw new ArgumentNullException(nameof(listId));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
+                var path = $"/v3/contactdb/lists/{Uri.EscapeDataString(listId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -537,10 +587,20 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The List Recipient Lists response.</returns>
         public virtual async Task<RecipientLists> ListRecipientListsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/contactdb/lists";
-            return await this
-                .CallConnectorAsync<RecipientLists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.ListRecipientListsAsync");
+            try
+            {
+                var path = $"/v3/contactdb/lists";
+                return await this
+                    .CallConnectorAsync<RecipientLists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -551,10 +611,20 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The List Recipients response.</returns>
         public virtual async Task<Recipients> ListRecipientsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/contactdb/recipients";
-            return await this
-                .CallConnectorAsync<Recipients>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.ListRecipientsAsync");
+            try
+            {
+                var path = $"/v3/contactdb/recipients";
+                return await this
+                    .CallConnectorAsync<Recipients>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -566,10 +636,22 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The Get bounce for an email response.</returns>
         public virtual async Task<List<Bounce>> GetBounceAsync(string email, CancellationToken cancellationToken = default)
         {
-            var path = $"/suppression/bounces/{Uri.EscapeDataString(email.ToString())}";
-            return await this
-                .CallConnectorAsync<List<Bounce>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.GetBounceAsync");
+            try
+            {
+                if (email is null)
+                    throw new ArgumentNullException(nameof(email));
+                var path = $"/suppression/bounces/{Uri.EscapeDataString(email.ToString())}";
+                return await this
+                    .CallConnectorAsync<List<Bounce>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -580,10 +662,22 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteBounceAsync(string email, CancellationToken cancellationToken = default)
         {
-            var path = $"/suppression/bounces/{Uri.EscapeDataString(email.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.DeleteBounceAsync");
+            try
+            {
+                if (email is null)
+                    throw new ArgumentNullException(nameof(email));
+                var path = $"/suppression/bounces/{Uri.EscapeDataString(email.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -595,10 +689,22 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The Check if email is in unsubscribed email list response.</returns>
         public virtual async Task<EmailIsUnsubscribedResponse> CheckEmailIsInUnsubscribesListAsync(string email, CancellationToken cancellationToken = default)
         {
-            var path = $"/unsubscribes/{Uri.EscapeDataString(email.ToString())}";
-            return await this
-                .CallConnectorAsync<EmailIsUnsubscribedResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.CheckEmailIsInUnsubscribesListAsync");
+            try
+            {
+                if (email is null)
+                    throw new ArgumentNullException(nameof(email));
+                var path = $"/unsubscribes/{Uri.EscapeDataString(email.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmailIsUnsubscribedResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -610,10 +716,20 @@ namespace Azure.Connectors.Sdk.SendGrid
         /// <returns>The Send email (V4) response.</returns>
         public virtual async Task<ObjectEntity> SendEmailAsync(EmailRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/mail/send";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.SendEmailAsync");
+            try
+            {
+                var path = $"/v4/mail/send";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

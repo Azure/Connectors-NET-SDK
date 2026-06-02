@@ -99,7 +99,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
     {
         /// <summary>items</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -235,7 +235,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
     {
         /// <summary>items</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
 
         /// <summary>notFoundIds</summary>
         [JsonPropertyName("notFoundIds")]
@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
 
         /// <summary>phoneNumbers</summary>
         [JsonPropertyName("phoneNumbers")]
-        public List<object> PhoneNumbers { get; set; }
+        public List<JsonElement?> PhoneNumbers { get; set; }
 
         /// <summary>status</summary>
         [JsonPropertyName("status")]
@@ -307,7 +307,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
     {
         /// <summary>items</summary>
         [JsonPropertyName("items")]
-        public List<object> Items { get; set; }
+        public List<JsonElement?> Items { get; set; }
     }
 
     /// <summary>
@@ -907,7 +907,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
     /// <summary>
     /// Model factory for creating instances of Webex models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class WebexModelFactory
     {
@@ -961,7 +961,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
         /// Creates a new instance of <see cref="GetMessagesResponse"/>.
         /// </summary>
         public static GetMessagesResponse GetMessagesResponse(
-            List<object> items = default)
+            List<JsonElement?> items = default)
         {
             return new GetMessagesResponse
             {
@@ -1057,7 +1057,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
         /// Creates a new instance of <see cref="GetPeopleResponse"/>.
         /// </summary>
         public static GetPeopleResponse GetPeopleResponse(
-            List<object> items = default,
+            List<JsonElement?> items = default,
             List<string> notFoundIds = default)
         {
             return new GetPeopleResponse
@@ -1081,7 +1081,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
             string lastName = default,
             string nickName = default,
             string orgId = default,
-            List<object> phoneNumbers = default,
+            List<JsonElement?> phoneNumbers = default,
             string status = default,
             string type = default)
         {
@@ -1107,7 +1107,7 @@ namespace Azure.Connectors.Sdk.Webex.Models
         /// Creates a new instance of <see cref="GetSpacesResponse"/>.
         /// </summary>
         public static GetSpacesResponse GetSpacesResponse(
-            List<object> items = default)
+            List<JsonElement?> items = default)
         {
             return new GetSpacesResponse
             {
@@ -1651,6 +1651,8 @@ namespace Azure.Connectors.Sdk.Webex
 
         public override string ConnectorName => "webex";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.webex");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1672,10 +1674,20 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Add Member to Space response.</returns>
         public virtual async Task<CreateSpaceMemberResponse> CreateSpaceMemberAsync(CreateSpaceMemberInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/memberships";
-            return await this
-                .CallConnectorAsync<CreateSpaceMemberResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.CreateSpaceMemberAsync");
+            try
+            {
+                var path = $"/v1/memberships";
+                return await this
+                    .CallConnectorAsync<CreateSpaceMemberResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1691,20 +1703,32 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Get Messages response.</returns>
         public virtual async Task<GetMessagesResponse> GetMessagesAsync([DynamicValues("GetSpaces")] string space, string mentionedPeople = default, string beforeMessage = default, string before = default, int? max = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"roomId={Uri.EscapeDataString(space.ToString())}");
-            if (mentionedPeople != default)
-                queryParams.Add($"mentionedPeople={Uri.EscapeDataString(mentionedPeople.ToString())}");
-            if (beforeMessage != default)
-                queryParams.Add($"beforeMessage={Uri.EscapeDataString(beforeMessage.ToString())}");
-            if (before != default)
-                queryParams.Add($"before={Uri.EscapeDataString(before.ToString())}");
-            if (max.HasValue)
-                queryParams.Add($"max={Uri.EscapeDataString(max.Value.ToString())}");
-            var path = $"/v1/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetMessagesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (space is null)
+                    throw new ArgumentNullException(nameof(space));
+                queryParams.Add($"roomId={Uri.EscapeDataString(space.ToString())}");
+                if (mentionedPeople != default)
+                    queryParams.Add($"mentionedPeople={Uri.EscapeDataString(mentionedPeople.ToString())}");
+                if (beforeMessage != default)
+                    queryParams.Add($"beforeMessage={Uri.EscapeDataString(beforeMessage.ToString())}");
+                if (before != default)
+                    queryParams.Add($"before={Uri.EscapeDataString(before.ToString())}");
+                if (max.HasValue)
+                    queryParams.Add($"max={Uri.EscapeDataString(max.Value.ToString())}");
+                var path = $"/v1/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1716,10 +1740,20 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Send a Message response.</returns>
         public virtual async Task<SendMessageResponse> SendMessageAsync(SendMessageInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/messages";
-            return await this
-                .CallConnectorAsync<SendMessageResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.SendMessageAsync");
+            try
+            {
+                var path = $"/v1/messages";
+                return await this
+                    .CallConnectorAsync<SendMessageResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1731,10 +1765,22 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Get Message Details response.</returns>
         public virtual async Task<GetMessageDetailsResponse> GetMessageDetailsAsync(string messageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/messages/{Uri.EscapeDataString(messageId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetMessageDetailsAsync");
+            try
+            {
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                var path = $"/v1/messages/{Uri.EscapeDataString(messageId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1747,15 +1793,25 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Get People response.</returns>
         public virtual async Task<GetPeopleResponse> GetPeopleAsync(string personId = default, string email = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (personId != default)
-                queryParams.Add($"id={Uri.EscapeDataString(personId.ToString())}");
-            if (email != default)
-                queryParams.Add($"email={Uri.EscapeDataString(email.ToString())}");
-            var path = $"/v1/people" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetPeopleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetPeopleAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (personId != default)
+                    queryParams.Add($"id={Uri.EscapeDataString(personId.ToString())}");
+                if (email != default)
+                    queryParams.Add($"email={Uri.EscapeDataString(email.ToString())}");
+                var path = $"/v1/people" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetPeopleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1766,10 +1822,20 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Get My Own Details response.</returns>
         public virtual async Task<GetMyOwnDetailsResponse> GetMyOwnDetailsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/people/me";
-            return await this
-                .CallConnectorAsync<GetMyOwnDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetMyOwnDetailsAsync");
+            try
+            {
+                var path = $"/v1/people/me";
+                return await this
+                    .CallConnectorAsync<GetMyOwnDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1783,17 +1849,27 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Get Spaces List response.</returns>
         public virtual async Task<GetSpacesResponse> GetSpacesAsync(int? maxResults = default, string typeOfSpace = default, string sortBy = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maxResults.HasValue)
-                queryParams.Add($"max={Uri.EscapeDataString(maxResults.Value.ToString())}");
-            if (typeOfSpace != default)
-                queryParams.Add($"type={Uri.EscapeDataString(typeOfSpace.ToString())}");
-            if (sortBy != default)
-                queryParams.Add($"sortBy={Uri.EscapeDataString(sortBy.ToString())}");
-            var path = $"/v1/rooms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSpacesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetSpacesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (maxResults.HasValue)
+                    queryParams.Add($"max={Uri.EscapeDataString(maxResults.Value.ToString())}");
+                if (typeOfSpace != default)
+                    queryParams.Add($"type={Uri.EscapeDataString(typeOfSpace.ToString())}");
+                if (sortBy != default)
+                    queryParams.Add($"sortBy={Uri.EscapeDataString(sortBy.ToString())}");
+                var path = $"/v1/rooms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSpacesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1805,10 +1881,20 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Create Space response.</returns>
         public virtual async Task<CreateSpaceResponse> CreateSpaceAsync(CreateSpaceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/rooms";
-            return await this
-                .CallConnectorAsync<CreateSpaceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.CreateSpaceAsync");
+            try
+            {
+                var path = $"/v1/rooms";
+                return await this
+                    .CallConnectorAsync<CreateSpaceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1820,10 +1906,22 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Get Space Details response.</returns>
         public virtual async Task<GetSpaceDetailResponse> GetSpaceDetailAsync([DynamicValues("GetSpaces")] string space, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/rooms/{Uri.EscapeDataString(space.ToString())}";
-            return await this
-                .CallConnectorAsync<GetSpaceDetailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.GetSpaceDetailAsync");
+            try
+            {
+                if (space is null)
+                    throw new ArgumentNullException(nameof(space));
+                var path = $"/v1/rooms/{Uri.EscapeDataString(space.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetSpaceDetailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1835,10 +1933,20 @@ namespace Azure.Connectors.Sdk.Webex
         /// <returns>The Add Member to Team response.</returns>
         public virtual async Task<CreateTeamMemberResponse> CreateTeamMemberAsync(CreateTeamMemberInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/team/memberships";
-            return await this
-                .CallConnectorAsync<CreateTeamMemberResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WebexClient.ConnectorActivitySource.StartActivity("WebexClient.CreateTeamMemberAsync");
+            try
+            {
+                var path = $"/v1/team/memberships";
+                return await this
+                    .CallConnectorAsync<CreateTeamMemberResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

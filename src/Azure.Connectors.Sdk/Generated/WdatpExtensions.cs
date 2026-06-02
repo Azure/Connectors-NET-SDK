@@ -47,11 +47,11 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     {
         /// <summary>Stats</summary>
         [JsonPropertyName("Stats")]
-        public object Stats { get; set; }
+        public JsonElement? Stats { get; set; }
 
         /// <summary>Results</summary>
         [JsonPropertyName("Results")]
-        public List<object> Results { get; set; }
+        public List<JsonElement?> Results { get; set; }
     }
 
     /// <summary>
@@ -313,7 +313,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
 
         /// <summary>relatedFileInfo</summary>
         [JsonPropertyName("relatedFileInfo")]
-        public object RelatedFileInfo { get; set; }
+        public JsonElement? RelatedFileInfo { get; set; }
 
         /// <summary>Live response machine action commands</summary>
         [JsonPropertyName("commands")]
@@ -361,7 +361,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
 
         /// <summary>List of command parameters.</summary>
         [JsonPropertyName("params")]
-        public List<object> Params { get; set; }
+        public List<JsonElement?> Params { get; set; }
     }
 
     /// <summary>
@@ -918,7 +918,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
         /// <summary>Specifies the date and time when the webhook subscription expires.</summary>
         [JsonPropertyName("expirationDateTime")]
         [JsonInclude]
-        public DateTime? ExpirationDateTime { get; internal set; }
+        public DateTime? ExpirationDateTime { get; init; }
 
         /// <summary>Gets or sets the web hook callback URL.</summary>
         [JsonPropertyName("notificationUrl")]
@@ -1658,7 +1658,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     /// <summary>
     /// Model factory for creating instances of Wdatp models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class WdatpModelFactory
     {
@@ -1678,8 +1678,8 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
         /// Creates a new instance of <see cref="AdvancedHuntingResponse"/>.
         /// </summary>
         public static AdvancedHuntingResponse AdvancedHuntingResponse(
-            object stats = default,
-            List<object> results = default)
+            JsonElement? stats = default,
+            List<JsonElement?> results = default)
         {
             return new AdvancedHuntingResponse
             {
@@ -1866,7 +1866,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
             string machineId = default,
             DateTime? creationDateTimeUtc = default,
             DateTime? lastUpdateDateTimeUtc = default,
-            object relatedFileInfo = default,
+            JsonElement? relatedFileInfo = default,
             List<LiveResponseCommandStatus> commands = default)
         {
             return new MachineAction
@@ -1911,7 +1911,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
         /// </summary>
         public static LiveResponseCommand LiveResponseCommand(
             string type = default,
-            List<object> @params = default)
+            List<JsonElement?> @params = default)
         {
             return new LiveResponseCommand
             {
@@ -2515,6 +2515,8 @@ namespace Azure.Connectors.Sdk.Wdatp
 
         public override string ConnectorName => "wdatp";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.wdatp");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2536,10 +2538,20 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Advanced Hunting (Deprecated) response.</returns>
         public virtual async Task<AdvancedHuntingResponse> AdvancedHuntingAsync(AdvancedHuntingInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/advancedqueries/run";
-            return await this
-                .CallConnectorAsync<AdvancedHuntingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.AdvancedHuntingAsync");
+            try
+            {
+                var path = $"/api/advancedqueries/run";
+                return await this
+                    .CallConnectorAsync<AdvancedHuntingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2551,10 +2563,20 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Alerts - Create alert response.</returns>
         public virtual async Task<Alert> CreateAlertByReferenceAsync(CreateAlertByReferenceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/alerts/createAlertByReference";
-            return await this
-                .CallConnectorAsync<Alert>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.CreateAlertByReferenceAsync");
+            try
+            {
+                var path = $"/api/alerts/createAlertByReference";
+                return await this
+                    .CallConnectorAsync<Alert>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2603,10 +2625,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Alerts - Get single alert response.</returns>
         public virtual async Task<Alert> GetSingleAlertAsync(string idOfTheAlert, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
-            return await this
-                .CallConnectorAsync<Alert>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleAlertAsync");
+            try
+            {
+                if (idOfTheAlert is null)
+                    throw new ArgumentNullException(nameof(idOfTheAlert));
+                var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
+                return await this
+                    .CallConnectorAsync<Alert>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2619,10 +2653,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Alerts - Update alert response.</returns>
         public virtual async Task<Alert> PatchAlertAsync(string idOfTheAlert, PatchAlertInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
-            return await this
-                .CallConnectorAsync<Alert>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.PatchAlertAsync");
+            try
+            {
+                if (idOfTheAlert is null)
+                    throw new ArgumentNullException(nameof(idOfTheAlert));
+                var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
+                return await this
+                    .CallConnectorAsync<Alert>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2635,10 +2681,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Initiate investigation on a machine (to be deprecated) response.</returns>
         public virtual async Task<InitiateInvestigationResponse> InitiateInvestigationAsync(string machineId, InitiateInvestigationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/initiateInvestigation";
-            return await this
-                .CallConnectorAsync<InitiateInvestigationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.InitiateInvestigationAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/initiateInvestigation";
+                return await this
+                    .CallConnectorAsync<InitiateInvestigationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2651,10 +2709,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Start automated investigation on a machine response.</returns>
         public virtual async Task<Investigation> StartInvestigationAsync(string machineId, StartInvestigationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/startInvestigation";
-            return await this
-                .CallConnectorAsync<Investigation>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.StartInvestigationAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/startInvestigation";
+                return await this
+                    .CallConnectorAsync<Investigation>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2666,10 +2736,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Get single machine action response.</returns>
         public virtual async Task<MachineAction> GetSingleMachineActionAsync(string idOfTheMachineAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleMachineActionAsync");
+            try
+            {
+                if (idOfTheMachineAction is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachineAction));
+                var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2682,10 +2764,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Cancel a single machine action response.</returns>
         public virtual async Task<MachineAction> CancelSingleMachineActionAsync(string idOfTheMachineAction, CancelSingleMachineActionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/cancel";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.CancelSingleMachineActionAsync");
+            try
+            {
+                if (idOfTheMachineAction is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachineAction));
+                var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/cancel";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2698,10 +2792,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Get live response command result download URI response.</returns>
         public virtual async Task<GetLiveResponseDownloadLinkResponse> GetLiveResponseDownloadLinkAsync(string idOfTheMachineAction, int indexOfTheLiveResponseCommand, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/GetLiveResponseResultDownloadLink(index={Uri.EscapeDataString(indexOfTheLiveResponseCommand.ToString())})";
-            return await this
-                .CallConnectorAsync<GetLiveResponseDownloadLinkResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetLiveResponseDownloadLinkAsync");
+            try
+            {
+                if (idOfTheMachineAction is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachineAction));
+                var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/GetLiveResponseResultDownloadLink(index={Uri.EscapeDataString(indexOfTheLiveResponseCommand.ToString())})";
+                return await this
+                    .CallConnectorAsync<GetLiveResponseDownloadLinkResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2748,13 +2854,25 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Files - Get the statistics for the given file response.</returns>
         public virtual async Task<FileStats> GetFileStatsAsync(string theFileIdentifierSha1OrSha256, int? theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
-                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
-            var path = $"/api/files/{Uri.EscapeDataString(theFileIdentifierSha1OrSha256.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FileStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetFileStatsAsync");
+            try
+            {
+                if (theFileIdentifierSha1OrSha256 is null)
+                    throw new ArgumentNullException(nameof(theFileIdentifierSha1OrSha256));
+                var queryParams = new List<string>();
+                if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
+                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
+                var path = $"/api/files/{Uri.EscapeDataString(theFileIdentifierSha1OrSha256.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FileStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2767,13 +2885,25 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Domains - Get the statistics for the given domain name response.</returns>
         public virtual async Task<DomainStats> GetDomainStatsAsync(string theDomainName, int? theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
-                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
-            var path = $"/api/domains/{Uri.EscapeDataString(theDomainName.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DomainStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetDomainStatsAsync");
+            try
+            {
+                if (theDomainName is null)
+                    throw new ArgumentNullException(nameof(theDomainName));
+                var queryParams = new List<string>();
+                if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
+                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
+                var path = $"/api/domains/{Uri.EscapeDataString(theDomainName.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DomainStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2786,13 +2916,25 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Ips - Get the statistics for the given ip address response.</returns>
         public virtual async Task<IpStats> GetIpStatsAsync(string theIpAddress, int? theLookBackPeriodInHoursToLookByTheDefaultIs24Hours = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
-                queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
-            var path = $"/api/ips/{Uri.EscapeDataString(theIpAddress.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IpStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetIpStatsAsync");
+            try
+            {
+                if (theIpAddress is null)
+                    throw new ArgumentNullException(nameof(theIpAddress));
+                var queryParams = new List<string>();
+                if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
+                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
+                var path = $"/api/ips/{Uri.EscapeDataString(theIpAddress.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IpStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2804,10 +2946,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Get single investigation response.</returns>
         public virtual async Task<Investigation> GetSingleInvestigationAsync(string idOfTheInvestigation, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/investigations/{Uri.EscapeDataString(idOfTheInvestigation.ToString())}";
-            return await this
-                .CallConnectorAsync<Investigation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleInvestigationAsync");
+            try
+            {
+                if (idOfTheInvestigation is null)
+                    throw new ArgumentNullException(nameof(idOfTheInvestigation));
+                var path = $"/api/investigations/{Uri.EscapeDataString(idOfTheInvestigation.ToString())}";
+                return await this
+                    .CallConnectorAsync<Investigation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2854,10 +3008,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Collect investigation package response.</returns>
         public virtual async Task<MachineAction> CollectInvestigationPackageAsync(string machineId, CollectInvestigationPackageInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/collectInvestigationPackage";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.CollectInvestigationPackageAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/collectInvestigationPackage";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2869,10 +3035,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Get investigation package download URI response.</returns>
         public virtual async Task<GetInvestigationPackageUriResponse> GetInvestigationPackageUriAsync(string actionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machineactions/{Uri.EscapeDataString(actionId.ToString())}/getPackageUri";
-            return await this
-                .CallConnectorAsync<GetInvestigationPackageUriResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetInvestigationPackageUriAsync");
+            try
+            {
+                if (actionId is null)
+                    throw new ArgumentNullException(nameof(actionId));
+                var path = $"/api/machineactions/{Uri.EscapeDataString(actionId.ToString())}/getPackageUri";
+                return await this
+                    .CallConnectorAsync<GetInvestigationPackageUriResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2885,10 +3063,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Isolate machine response.</returns>
         public virtual async Task<MachineAction> IsolateMachineAsync(string machineId, IsolateMachineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/isolate";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.IsolateMachineAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/isolate";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2901,10 +3091,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Unisolate machine response.</returns>
         public virtual async Task<MachineAction> UnisolateMachineAsync(string machineId, UnisolateMachineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unisolate";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.UnisolateMachineAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unisolate";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2917,10 +3119,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Restrict app execution response.</returns>
         public virtual async Task<MachineAction> RestrictAppExecutionAsync(string machineId, RestrictAppExecutionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/restrictCodeExecution";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.RestrictAppExecutionAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/restrictCodeExecution";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2933,10 +3147,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Remove app execution restriction response.</returns>
         public virtual async Task<MachineAction> UnrestrictAppExecutionAsync(string machineId, UnrestrictAppExecutionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unrestrictCodeExecution";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.UnrestrictAppExecutionAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unrestrictCodeExecution";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2949,10 +3175,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Run antivirus scan response.</returns>
         public virtual async Task<MachineAction> RunAntivirusScanAsync(string machineId, RunAntivirusScanInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runAntiVirusScan";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.RunAntivirusScanAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runAntiVirusScan";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2965,10 +3203,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Actions - Run live response response.</returns>
         public virtual async Task<MachineAction> RunLiveResponseAsync(string machineId, RunLiveResponseInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runliveresponse";
-            return await this
-                .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.RunLiveResponseAsync");
+            try
+            {
+                if (machineId is null)
+                    throw new ArgumentNullException(nameof(machineId));
+                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runliveresponse";
+                return await this
+                    .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3014,10 +3264,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The RemediationActivities - Get single remediation activity (Preview) response.</returns>
         public virtual async Task<RemediationActivity> GetSingleRemediationActivityAsync(string idOfTheRemediationActivity, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}";
-            return await this
-                .CallConnectorAsync<RemediationActivity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleRemediationActivityAsync");
+            try
+            {
+                if (idOfTheRemediationActivity is null)
+                    throw new ArgumentNullException(nameof(idOfTheRemediationActivity));
+                var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}";
+                return await this
+                    .CallConnectorAsync<RemediationActivity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3029,6 +3291,8 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>An async enumerable of <see cref="Machine"/> items across all pages.</returns>
         public virtual AsyncPageable<Machine> GetRemediationActivityMachineListAsync(string idOfTheRemediationActivity, CancellationToken cancellationToken = default)
         {
+            if (idOfTheRemediationActivity is null)
+                throw new ArgumentNullException(nameof(idOfTheRemediationActivity));
             var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}/machinereferences";
             return this.CreatePageable<GetRemediationActivityMachineListResponse, Machine>(
                 ct => this.CallConnectorAsync<GetRemediationActivityMachineListResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3079,10 +3343,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Machines - Get single machine response.</returns>
         public virtual async Task<Machine> GetSingleMachineAsync(string idOfTheMachine, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}";
-            return await this
-                .CallConnectorAsync<Machine>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.GetSingleMachineAsync");
+            try
+            {
+                if (idOfTheMachine is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachine));
+                var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}";
+                return await this
+                    .CallConnectorAsync<Machine>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3095,10 +3371,22 @@ namespace Azure.Connectors.Sdk.Wdatp
         /// <returns>The Machines - Tag machine response.</returns>
         public virtual async Task<Machine> MachineTagAsync(string idOfTheMachine, MachineTagInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}/tags";
-            return await this
-                .CallConnectorAsync<Machine>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.MachineTagAsync");
+            try
+            {
+                if (idOfTheMachine is null)
+                    throw new ArgumentNullException(nameof(idOfTheMachine));
+                var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}/tags";
+                return await this
+                    .CallConnectorAsync<Machine>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

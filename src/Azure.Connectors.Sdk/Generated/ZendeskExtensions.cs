@@ -44,7 +44,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public object DynamicProperties { get; set; }
+        public JsonElement? DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     {
         /// <summary>results</summary>
         [JsonPropertyName("results")]
-        public List<object> Results { get; set; }
+        public List<JsonElement?> Results { get; set; }
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     /// <summary>
     /// Model factory for creating instances of Zendesk models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class ZendeskModelFactory
     {
@@ -82,7 +82,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Item
             {
@@ -94,7 +94,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
         /// Creates a new instance of <see cref="SearchResult"/>.
         /// </summary>
         public static SearchResult SearchResult(
-            List<object> results = default)
+            List<JsonElement?> results = default)
         {
             return new SearchResult
             {
@@ -264,6 +264,8 @@ namespace Azure.Connectors.Sdk.Zendesk
 
         public override string ConnectorName => "zendesk";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.zendesk");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -286,10 +288,22 @@ namespace Azure.Connectors.Sdk.Zendesk
         /// <returns>The Create Item response.</returns>
         public virtual async Task<Item> PostItemAsync([DynamicValues("GetTables")] string tableName, Item input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.PostItemAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -301,10 +315,24 @@ namespace Azure.Connectors.Sdk.Zendesk
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteItemAsync([DynamicValues("GetTables")] string tableName, string itemKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.DeleteItemAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (itemKey is null)
+                    throw new ArgumentNullException(nameof(itemKey));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -318,10 +346,24 @@ namespace Azure.Connectors.Sdk.Zendesk
         /// <returns>The Update item response.</returns>
         public virtual async Task<Item> PatchItemAsync([DynamicValues("GetTables")] string tableName, string itemKey, Item input, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
-            return await this
-                .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.PatchItemAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (itemKey is null)
+                    throw new ArgumentNullException(nameof(itemKey));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -339,24 +381,36 @@ namespace Azure.Connectors.Sdk.Zendesk
         /// <returns>The Search Articles response.</returns>
         public virtual async Task<SearchResult> SearchArticlesAsync(string query, string locale = default, int? brandId = default, int? category = default, int? section = default, string labelNames = default, bool? multibrand = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"query={Uri.EscapeDataString(query.ToString())}");
-            if (locale != default)
-                queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
-            if (brandId.HasValue)
-                queryParams.Add($"brand_id={Uri.EscapeDataString(brandId.Value.ToString())}");
-            if (category.HasValue)
-                queryParams.Add($"category={Uri.EscapeDataString(category.Value.ToString())}");
-            if (section.HasValue)
-                queryParams.Add($"section={Uri.EscapeDataString(section.Value.ToString())}");
-            if (labelNames != default)
-                queryParams.Add($"label_names={Uri.EscapeDataString(labelNames.ToString())}");
-            if (multibrand.HasValue)
-                queryParams.Add($"multibrand={Uri.EscapeDataString(multibrand.Value.ToString())}");
-            var path = $"/api/v2/help_center/articles/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SearchResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.SearchArticlesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (query is null)
+                    throw new ArgumentNullException(nameof(query));
+                queryParams.Add($"query={Uri.EscapeDataString(query.ToString())}");
+                if (locale != default)
+                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                if (brandId.HasValue)
+                    queryParams.Add($"brand_id={Uri.EscapeDataString(brandId.Value.ToString())}");
+                if (category.HasValue)
+                    queryParams.Add($"category={Uri.EscapeDataString(category.Value.ToString())}");
+                if (section.HasValue)
+                    queryParams.Add($"section={Uri.EscapeDataString(section.Value.ToString())}");
+                if (labelNames != default)
+                    queryParams.Add($"label_names={Uri.EscapeDataString(labelNames.ToString())}");
+                if (multibrand.HasValue)
+                    queryParams.Add($"multibrand={Uri.EscapeDataString(multibrand.Value.ToString())}");
+                var path = $"/api/v2/help_center/articles/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SearchResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

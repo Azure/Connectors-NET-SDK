@@ -41,7 +41,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -52,22 +52,22 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The resource identifier.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The resource name of the pipeline.</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
 
         /// <summary>The pipeline properties.</summary>
         [JsonPropertyName("properties")]
         [JsonInclude]
-        public object Properties { get; internal set; }
+        public JsonElement? Properties { get; init; }
 
         /// <summary>Etag identifies change in the resource.</summary>
         [JsonPropertyName("etag")]
         [JsonInclude]
-        public string Etag { get; internal set; }
+        public string Etag { get; init; }
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -103,37 +103,37 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The resource name.</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
 
         /// <summary>The resource tags.</summary>
         [JsonPropertyName("tags")]
         [JsonInclude]
-        public object Tags { get; internal set; }
+        public JsonElement? Tags { get; init; }
 
         /// <summary>Data Factory additional properties.</summary>
         [JsonPropertyName("properties")]
         [JsonInclude]
-        public object Properties { get; internal set; }
+        public JsonElement? Properties { get; init; }
 
         /// <summary>Managed service identity of the factory.</summary>
         [JsonPropertyName("identity")]
         [JsonInclude]
-        public object Identity { get; internal set; }
+        public JsonElement? Identity { get; init; }
 
         /// <summary>The resource identitfier.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The resource type.</summary>
         [JsonPropertyName("type")]
         [JsonInclude]
-        public string Type { get; internal set; }
+        public string Type { get; init; }
 
         /// <summary>The resource location</summary>
         [JsonPropertyName("location")]
         [JsonInclude]
-        public string Location { get; internal set; }
+        public string Location { get; init; }
     }
 
     /// <summary>
@@ -144,57 +144,57 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>Identifier of a run</summary>
         [JsonPropertyName("runId")]
         [JsonInclude]
-        public string RunId { get; internal set; }
+        public string RunId { get; init; }
 
         /// <summary>The pipeline name</summary>
         [JsonPropertyName("pipelineName")]
         [JsonInclude]
-        public string PipelineName { get; internal set; }
+        public string PipelineName { get; init; }
 
         /// <summary>The full of partial list of parameter name, value pair used in the pipeline run.</summary>
         [JsonPropertyName("parameters")]
         [JsonInclude]
-        public object Parameters { get; internal set; }
+        public JsonElement? Parameters { get; init; }
 
         /// <summary>Entity that started the pipeline.</summary>
         [JsonPropertyName("invokedBy")]
         [JsonInclude]
-        public object InvokedBy { get; internal set; }
+        public JsonElement? InvokedBy { get; init; }
 
         /// <summary>The start time of a pipeline run in ISO8601 format.</summary>
         [JsonPropertyName("runStart")]
         [JsonInclude]
-        public DateTime? RunStart { get; internal set; }
+        public DateTime? RunStart { get; init; }
 
         /// <summary>The end time of a pipeline run in ISO8601 format.</summary>
         [JsonPropertyName("runEnd")]
         [JsonInclude]
-        public DateTime? RunEnd { get; internal set; }
+        public DateTime? RunEnd { get; init; }
 
         /// <summary>The duration of a pipeline run in milliseconds.</summary>
         [JsonPropertyName("durationInMs")]
         [JsonInclude]
-        public int? Duration { get; internal set; }
+        public int? Duration { get; init; }
 
         /// <summary>The status of the pipeline run.</summary>
         [JsonPropertyName("status")]
         [JsonInclude]
-        public string Status { get; internal set; }
+        public string Status { get; init; }
 
         /// <summary>The message from a pipeline run.</summary>
         [JsonPropertyName("message")]
         [JsonInclude]
-        public string Message { get; internal set; }
+        public string Message { get; init; }
 
         /// <summary>The last updated timestamp for the pipeline run event in ISO8601 format.</summary>
         [JsonPropertyName("lastUpdated")]
         [JsonInclude]
-        public DateTime? LastUpdated { get; internal set; }
+        public DateTime? LastUpdated { get; init; }
 
         /// <summary>The annotations for the pipeline run.</summary>
         [JsonPropertyName("annotations")]
         [JsonInclude]
-        public List<string> Annotations { get; internal set; }
+        public List<string> Annotations { get; init; }
     }
 
     /// <summary>
@@ -219,27 +219,27 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The subscription Id.</summary>
         [JsonPropertyName("subscriptionId")]
         [JsonInclude]
-        public string SubscriptionId { get; internal set; }
+        public string SubscriptionId { get; init; }
 
         /// <summary>The tenant Id.</summary>
         [JsonPropertyName("tenantId")]
         [JsonInclude]
-        public string TenantId { get; internal set; }
+        public string TenantId { get; init; }
 
         /// <summary>The subscription display name.</summary>
         [JsonPropertyName("displayName")]
         [JsonInclude]
-        public string DisplayName { get; internal set; }
+        public string DisplayName { get; init; }
 
         /// <summary>The subscription state.</summary>
         [JsonPropertyName("state")]
         [JsonInclude]
-        public State? State { get; internal set; }
+        public State? State { get; init; }
 
         /// <summary>subscriptionPolicies</summary>
         [JsonPropertyName("subscriptionPolicies")]
@@ -258,17 +258,17 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The subscription location placement Id. The Id indicates which regions are visible for a subscription. For example, a subscription with a location placement Id of Public_2014-09-01 has access to Azure public regions.</summary>
         [JsonPropertyName("locationPlacementId")]
         [JsonInclude]
-        public string LocationPlacementId { get; internal set; }
+        public string LocationPlacementId { get; init; }
 
         /// <summary>The subscription quota Id.</summary>
         [JsonPropertyName("quotaId")]
         [JsonInclude]
-        public string QuotaId { get; internal set; }
+        public string QuotaId { get; init; }
 
         /// <summary>The subscription spending limit.</summary>
         [JsonPropertyName("spendingLimit")]
         [JsonInclude]
-        public SpendingLimit? SpendingLimit { get; internal set; }
+        public SpendingLimit? SpendingLimit { get; init; }
     }
 
     /// <summary>
@@ -283,7 +283,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The URL to get the next set of results.</summary>
         [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string NextLink { get; internal set; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -294,12 +294,12 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The ID of the resource group (e.g. /subscriptions/XXX/resourceGroups/YYY).</summary>
         [JsonPropertyName("id")]
         [JsonInclude]
-        public string Id { get; internal set; }
+        public string Id { get; init; }
 
         /// <summary>The Name of the resource group.</summary>
         [JsonPropertyName("name")]
         [JsonInclude]
-        public string Name { get; internal set; }
+        public string Name { get; init; }
 
         /// <summary>The location of the resource group. It cannot be changed after the resource group has been created. Has to be one of the supported Azure Locations, such as West US, East US, West Europe, East Asia, etc.</summary>
         [JsonPropertyName("location")]
@@ -308,11 +308,11 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>Id of the resource that manages this resource group.</summary>
         [JsonPropertyName("managedBy")]
         [JsonInclude]
-        public string ManagedBy { get; internal set; }
+        public string ManagedBy { get; init; }
 
         /// <summary>The tags attached to the resource group.</summary>
         [JsonPropertyName("tags")]
-        public object Tags { get; set; }
+        public JsonElement? Tags { get; set; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -327,7 +327,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// <summary>The provisioning state.</summary>
         [JsonPropertyName("provisioningState")]
         [JsonInclude]
-        public string ProvisioningState { get; internal set; }
+        public string ProvisioningState { get; init; }
     }
 
     /// <summary>
@@ -477,7 +477,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     /// <summary>
     /// Model factory for creating instances of AzureDataFactory models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class AzureDataFactoryModelFactory
     {
@@ -501,7 +501,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         public static Pipeline Pipeline(
             string id = default,
             string name = default,
-            object properties = default,
+            JsonElement? properties = default,
             string etag = default)
         {
             return new Pipeline
@@ -544,9 +544,9 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         /// </summary>
         public static DataFactory DataFactory(
             string name = default,
-            object tags = default,
-            object properties = default,
-            object identity = default,
+            JsonElement? tags = default,
+            JsonElement? properties = default,
+            JsonElement? identity = default,
             string id = default,
             string type = default,
             string location = default)
@@ -569,8 +569,8 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
         public static PipelineRun PipelineRun(
             string runId = default,
             string pipelineName = default,
-            object parameters = default,
-            object invokedBy = default,
+            JsonElement? parameters = default,
+            JsonElement? invokedBy = default,
             DateTime? runStart = default,
             DateTime? runEnd = default,
             int? duration = default,
@@ -671,7 +671,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
             string name = default,
             string location = default,
             string managedBy = default,
-            object tags = default,
+            JsonElement? tags = default,
             ResourceGroupProperties properties = default)
         {
             return new ResourceGroup
@@ -757,6 +757,8 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
 
         public override string ConnectorName => "azuredatafactory";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azuredatafactory");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -780,6 +782,12 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>An async enumerable of <see cref="Pipeline"/> items across all pages.</returns>
         public virtual AsyncPageable<Pipeline> ListPipelinesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            if (dataFactoryName is null)
+                throw new ArgumentNullException(nameof(dataFactoryName));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -803,14 +811,32 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>The Create a pipeline run response.</returns>
         public virtual async Task<CreatePipelineRunResponse> CreatePipelineRunAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, [DynamicValues("ListPipelines")] string dataFactoryPipelineName, ParameterValueSpecification input, string referencePipelineRunId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            if (referencePipelineRunId != default)
-                queryParams.Add($"referencePipelineRunId={Uri.EscapeDataString(referencePipelineRunId.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines/{Uri.EscapeDataString(dataFactoryPipelineName.ToString())}/CreateRun" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreatePipelineRunResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureDataFactoryClient.ConnectorActivitySource.StartActivity("AzureDataFactoryClient.CreatePipelineRunAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (dataFactoryName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryName));
+                if (dataFactoryPipelineName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryPipelineName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2017-09-01-preview");
+                if (referencePipelineRunId != default)
+                    queryParams.Add($"referencePipelineRunId={Uri.EscapeDataString(referencePipelineRunId.ToString())}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines/{Uri.EscapeDataString(dataFactoryPipelineName.ToString())}/CreateRun" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreatePipelineRunResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -824,12 +850,30 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CancelPipelineRunAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, string dataFactoryPipelineRunId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/cancelpipelineRun/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureDataFactoryClient.ConnectorActivitySource.StartActivity("AzureDataFactoryClient.CancelPipelineRunAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (dataFactoryName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryName));
+                if (dataFactoryPipelineRunId is null)
+                    throw new ArgumentNullException(nameof(dataFactoryPipelineRunId));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2017-09-01-preview");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/cancelpipelineRun/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -842,6 +886,10 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>An async enumerable of <see cref="DataFactory"/> items across all pages.</returns>
         public virtual AsyncPageable<DataFactory> ListDataFactoriesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -863,12 +911,30 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>The Get a pipeline run response.</returns>
         public virtual async Task<PipelineRun> GetPipelineRunAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, string dataFactoryPipelineRunId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelineRuns/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PipelineRun>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureDataFactoryClient.ConnectorActivitySource.StartActivity("AzureDataFactoryClient.GetPipelineRunAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (dataFactoryName is null)
+                    throw new ArgumentNullException(nameof(dataFactoryName));
+                if (dataFactoryPipelineRunId is null)
+                    throw new ArgumentNullException(nameof(dataFactoryPipelineRunId));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2017-09-01-preview");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelineRuns/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PipelineRun>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -899,6 +965,8 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
         public virtual AsyncPageable<ResourceGroup> ListResourceGroupsAsync([DynamicValues("ListSubscriptions")] string subscription, string filter = default, int? top = default, CancellationToken cancellationToken = default)
         {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             if (filter != default)

@@ -78,7 +78,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -95,7 +95,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -166,7 +166,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
-        public DateTime? LastModified { get; internal set; }
+        public DateTime? LastModified { get; init; }
 
         /// <summary>The size of the file or folder.</summary>
         [JsonPropertyName("Size")]
@@ -183,7 +183,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>The etag of the file or folder.</summary>
         [JsonPropertyName("ETag")]
         [JsonInclude]
-        public string ETag { get; internal set; }
+        public string ETag { get; init; }
 
         /// <summary>The filelocator of the file or folder.</summary>
         [JsonPropertyName("FileLocator")]
@@ -258,7 +258,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>Blob metadata collection.</summary>
         [JsonPropertyName("value")]
         [JsonInclude]
-        public List<BlobMetadata> Value { get; internal set; }
+        public List<BlobMetadata> Value { get; init; }
 
         /// <summary>An Url which can be used to retrieve the next page.</summary>
         [JsonPropertyName("nextLink")]
@@ -401,7 +401,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     /// <summary>
     /// Model factory for creating instances of AzureBlob models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class AzureBlobModelFactory
     {
@@ -733,6 +733,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
 
         public override string ConnectorName => "azureblob";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azureblob");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -753,10 +755,20 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Get storage accounts response.</returns>
         public virtual async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/codeless/GetDataSets";
-            return await this
-                .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetDataSetsAsync");
+            try
+            {
+                var path = $"/v2/codeless/GetDataSets";
+                return await this
+                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -771,16 +783,32 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Copy blob (V2) response.</returns>
         public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationBlobPath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CopyFileAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceUrl is null)
+                    throw new ArgumentNullException(nameof(sourceUrl));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
+                if (destinationBlobPath is null)
+                    throw new ArgumentNullException(nameof(destinationBlobPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationBlobPath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -794,13 +822,29 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CreateBlockBlobAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string specifyFolderPathToUpload, string specifyNameOfTheBlobToCreate, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"folderPath={Uri.EscapeDataString(specifyFolderPathToUpload.ToString())}");
-            queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate.ToString())}");
-            var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateBlockBlobAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                if (specifyFolderPathToUpload is null)
+                    throw new ArgumentNullException(nameof(specifyFolderPathToUpload));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(specifyFolderPathToUpload.ToString())}");
+                if (specifyNameOfTheBlobToCreate is null)
+                    throw new ArgumentNullException(nameof(specifyNameOfTheBlobToCreate));
+                queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate.ToString())}");
+                var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -815,14 +859,30 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Create blob (V2) response.</returns>
         public virtual async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
-            queryParams.Add($"name={Uri.EscapeDataString(blobName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateFileAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folderPath is null)
+                    throw new ArgumentNullException(nameof(folderPath));
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                if (blobName is null)
+                    throw new ArgumentNullException(nameof(blobName));
+                queryParams.Add($"name={Uri.EscapeDataString(blobName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -836,12 +896,26 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Create SAS URI by path (V2) response.</returns>
         public virtual async Task<SharedAccessSignature> CreateShareLinkByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, SharedAccessSignatureBlobPolicy input, string blobPath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SharedAccessSignature>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateShareLinkByPathAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SharedAccessSignature>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -853,10 +927,24 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.DeleteFileAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -871,16 +959,32 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Extract archive to folder (V2) response.</returns>
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath.ToString())}");
-            queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-            if (overwrite.HasValue)
-                queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ExtractFolderAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceArchiveBlobPath is null)
+                    throw new ArgumentNullException(nameof(sourceArchiveBlobPath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath.ToString())}");
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -893,12 +997,26 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Get available access policies (V2) response.</returns>
         public virtual async Task<List<SharedAccessSignatureBlobPolicy>> GetAccessPoliciesAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<SharedAccessSignatureBlobPolicy>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetAccessPoliciesAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<SharedAccessSignatureBlobPolicy>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -914,17 +1032,31 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Get blob content (V2) response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
+                var queryParams = new List<string>();
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -940,19 +1072,33 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Get blob content using path (V2) response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-            if (inferContentType.HasValue)
-                queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentByPathAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+                if (inferContentType.HasValue)
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -967,15 +1113,29 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Get Blob Metadata (V2) response.</returns>
         public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
+                var queryParams = new List<string>();
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -990,17 +1150,31 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Get Blob Metadata using path (V2) response.</returns>
         public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("queryParametersSingleEncoded=true");
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataByPathAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1017,19 +1191,33 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Lists blobs (V2) response.</returns>
         public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool? flatListing = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (pagingMarker != default)
-                queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
-            if (flatListing.HasValue)
-                queryParams.Add($"useFlatListing={Uri.EscapeDataString(flatListing.Value.ToString())}");
-            if (extractMIPLabels.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-            if (purviewAcccountName != default)
-                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2/{Uri.EscapeDataString(folder.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOfBlobsWithSensitivityLabels>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ListFolderAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
+                var queryParams = new List<string>();
+                if (pagingMarker != default)
+                    queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker.ToString())}");
+                if (flatListing.HasValue)
+                    queryParams.Add($"useFlatListing={Uri.EscapeDataString(flatListing.Value.ToString())}");
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/foldersV2/{Uri.EscapeDataString(folder.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOfBlobsWithSensitivityLabels>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1042,6 +1230,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>An async enumerable of <see cref="BlobMetadata"/> items across all pages.</returns>
         public virtual AsyncPageable<BlobMetadata> ListRootFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string pagingMarker = default, CancellationToken cancellationToken = default)
         {
+            if (storageAccountNameOrBlobEndpoint is null)
+                throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
             var queryParams = new List<string>();
             queryParams.Add("useFlatListing=false");
             if (pagingMarker != default)
@@ -1063,13 +1253,29 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SetBlobTierByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, string blobTier, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
-            queryParams.Add($"newTier={Uri.EscapeDataString(blobTier.ToString())}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.SetBlobTierByPathAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                var queryParams = new List<string>();
+                if (blobPath is null)
+                    throw new ArgumentNullException(nameof(blobPath));
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
+                if (blobTier is null)
+                    throw new ArgumentNullException(nameof(blobTier));
+                queryParams.Add($"newTier={Uri.EscapeDataString(blobTier.ToString())}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1083,10 +1289,24 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <returns>The Update blob (V2) response.</returns>
         public virtual async Task<BlobMetadata> UpdateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
-            return await this
-                .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.UpdateFileAsync");
+            try
+            {
+                if (storageAccountNameOrBlobEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
+                if (blob is null)
+                    throw new ArgumentNullException(nameof(blob));
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/files/{Uri.EscapeDataString(blob.ToString())}";
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

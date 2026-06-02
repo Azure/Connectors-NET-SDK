@@ -279,7 +279,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -299,7 +299,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -309,7 +309,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -319,7 +319,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -369,7 +369,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -437,7 +437,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -473,7 +473,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -501,7 +501,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -551,7 +551,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -587,7 +587,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -619,7 +619,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -647,7 +647,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -683,7 +683,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -693,7 +693,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -703,7 +703,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>Schema of the requested schema type</summary>
         [JsonPropertyName("schema")]
-        public object Schema { get; set; }
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -753,7 +753,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -791,7 +791,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -815,7 +815,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -825,7 +825,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -835,7 +835,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -1036,7 +1036,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
     /// <summary>
     /// Model factory for creating instances of Monday models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class MondayModelFactory
     {
@@ -1174,7 +1174,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetColumnNamesSchemaResponse"/>.
         /// </summary>
         public static GetColumnNamesSchemaResponse GetColumnNamesSchemaResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetColumnNamesSchemaResponse
             {
@@ -1186,7 +1186,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetSingleColumnSchemaResponse"/>.
         /// </summary>
         public static GetSingleColumnSchemaResponse GetSingleColumnSchemaResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetSingleColumnSchemaResponse
             {
@@ -1198,7 +1198,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetColumnNamesSchemaForWebhookResponse"/>.
         /// </summary>
         public static GetColumnNamesSchemaForWebhookResponse GetColumnNamesSchemaForWebhookResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetColumnNamesSchemaForWebhookResponse
             {
@@ -1210,7 +1210,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetSchemaForGetItemsActionResponse"/>.
         /// </summary>
         public static GetSchemaForGetItemsActionResponse GetSchemaForGetItemsActionResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetSchemaForGetItemsActionResponse
             {
@@ -1222,7 +1222,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetColumnNamesSchemaForUpdateWebhookResponse"/>.
         /// </summary>
         public static GetColumnNamesSchemaForUpdateWebhookResponse GetColumnNamesSchemaForUpdateWebhookResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetColumnNamesSchemaForUpdateWebhookResponse
             {
@@ -1254,7 +1254,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateItemResponse"/>.
         /// </summary>
         public static CreateItemResponse CreateItemResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateItemResponse
             {
@@ -1316,7 +1316,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateBoardResponse"/>.
         /// </summary>
         public static CreateBoardResponse CreateBoardResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateBoardResponse
             {
@@ -1348,7 +1348,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateColumnResponse"/>.
         /// </summary>
         public static CreateColumnResponse CreateColumnResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateColumnResponse
             {
@@ -1376,7 +1376,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateGroupResponse"/>.
         /// </summary>
         public static CreateGroupResponse CreateGroupResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateGroupResponse
             {
@@ -1408,7 +1408,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="UpdateItemColumnResponse"/>.
         /// </summary>
         public static UpdateItemColumnResponse UpdateItemColumnResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new UpdateItemColumnResponse
             {
@@ -1440,7 +1440,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="UpdateMultipleItemColumnsResponse"/>.
         /// </summary>
         public static UpdateMultipleItemColumnsResponse UpdateMultipleItemColumnsResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new UpdateMultipleItemColumnsResponse
             {
@@ -1470,7 +1470,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="MoveItemToGroupResponse"/>.
         /// </summary>
         public static MoveItemToGroupResponse MoveItemToGroupResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new MoveItemToGroupResponse
             {
@@ -1498,7 +1498,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateNotificationResponse"/>.
         /// </summary>
         public static CreateNotificationResponse CreateNotificationResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateNotificationResponse
             {
@@ -1530,7 +1530,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateSubitemResponse"/>.
         /// </summary>
         public static CreateSubitemResponse CreateSubitemResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateSubitemResponse
             {
@@ -1542,7 +1542,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetSubitemColumnNamesResponse"/>.
         /// </summary>
         public static GetSubitemColumnNamesResponse GetSubitemColumnNamesResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetSubitemColumnNamesResponse
             {
@@ -1554,7 +1554,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetSubitemSchemaResponse"/>.
         /// </summary>
         public static GetSubitemSchemaResponse GetSubitemSchemaResponse(
-            object schema = default)
+            JsonElement? schema = default)
         {
             return new GetSubitemSchemaResponse
             {
@@ -1586,7 +1586,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateUpdateResponse"/>.
         /// </summary>
         public static CreateUpdateResponse CreateUpdateResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateUpdateResponse
             {
@@ -1612,7 +1612,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="CreateWorkspaceResponse"/>.
         /// </summary>
         public static CreateWorkspaceResponse CreateWorkspaceResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateWorkspaceResponse
             {
@@ -1624,7 +1624,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetTagsResponse"/>.
         /// </summary>
         public static GetTagsResponse GetTagsResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new GetTagsResponse
             {
@@ -1636,7 +1636,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetUsersResponse"/>.
         /// </summary>
         public static GetUsersResponse GetUsersResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new GetUsersResponse
             {
@@ -1648,7 +1648,7 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// Creates a new instance of <see cref="GetWorkspacesResponse"/>.
         /// </summary>
         public static GetWorkspacesResponse GetWorkspacesResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new GetWorkspacesResponse
             {
@@ -1769,6 +1769,8 @@ namespace Azure.Connectors.Sdk.Monday
 
         public override string ConnectorName => "monday";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.monday");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1788,15 +1790,25 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="workspaceId">workspaceId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get boards response.</returns>
-        public virtual async Task<List<object>> GetBoardsAsync(string workspaceId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetBoardsAsync(string workspaceId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (workspaceId != default)
-                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspaceId.ToString())}");
-            var path = $"/getData/getBoards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetBoardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (workspaceId != default)
+                    queryParams.Add($"workspaceId={Uri.EscapeDataString(workspaceId.ToString())}");
+                var path = $"/getData/getBoards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1806,14 +1818,26 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="boardId">boardId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get groups for the Get Items operation response.</returns>
-        public virtual async Task<List<object>> GetGroupsForGetItemsAsync(string boardId, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetGroupsForGetItemsAsync(string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetGroupsForGetItemsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1823,14 +1847,26 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="boardId">boardId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get columns for item filtering response.</returns>
-        public virtual async Task<List<object>> GetColumnsForItemFilteringAsync(string boardId, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetColumnsForItemFilteringAsync(string boardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnsForItemFilteringAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1841,16 +1877,28 @@ namespace Azure.Connectors.Sdk.Monday
         /// <param name="columnId">columnId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get column filter operator response.</returns>
-        public virtual async Task<List<object>> GetColumnFilterOperatorAsync(string boardId, string columnId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> GetColumnFilterOperatorAsync(string boardId, string columnId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            if (columnId != default)
-                queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
-            var path = $"/getData/getColumnFilterOperator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnFilterOperatorAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                if (columnId != default)
+                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
+                var path = $"/getData/getColumnFilterOperator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1862,13 +1910,23 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get column names for a board ID response.</returns>
         public virtual async Task<GetColumnNamesSchemaResponse> GetColumnNamesSchemaAsync(string boardId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (boardId != default)
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/getSchema/getColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetColumnNamesSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1881,15 +1939,25 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Gets single column schema for a board ID response.</returns>
         public virtual async Task<GetSingleColumnSchemaResponse> GetSingleColumnSchemaAsync(string boardId = default, string columnId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (boardId != default)
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            if (columnId != default)
-                queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
-            var path = $"/getSchema/getSingleColumnSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSingleColumnSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSingleColumnSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                if (columnId != default)
+                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
+                var path = $"/getSchema/getSingleColumnSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSingleColumnSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1901,13 +1969,23 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get column names for a board ID for a webhook response.</returns>
         public virtual async Task<GetColumnNamesSchemaForWebhookResponse> GetColumnNamesSchemaForWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (boardId != default)
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/getSchema/getColumnNamesForWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetColumnNamesSchemaForWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1919,13 +1997,23 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get column names for a board ID for a webhook response.</returns>
         public virtual async Task<GetSchemaForGetItemsActionResponse> GetSchemaForGetItemsActionAsync(string boardId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (boardId != default)
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/getSchema/getSchemaForGetItemsAction" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSchemaForGetItemsActionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSchemaForGetItemsActionAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getSchemaForGetItemsAction" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSchemaForGetItemsActionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1937,13 +2025,23 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get column names for a board ID for an update webhook response.</returns>
         public virtual async Task<GetColumnNamesSchemaForUpdateWebhookResponse> GetColumnNamesSchemaForUpdateWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (boardId != default)
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-            var path = $"/getSchema/getColumnNamesForUpdateWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetColumnNamesSchemaForUpdateWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForUpdateWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForUpdateWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForUpdateWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1955,10 +2053,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create an item response.</returns>
         public virtual async Task<CreateItemResponse> CreateItemAsync(CreateItemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateItem";
-            return await this
-                .CallConnectorAsync<CreateItemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateItemAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateItem";
+                return await this
+                    .CallConnectorAsync<CreateItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1970,10 +2078,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Duplicate a board response.</returns>
         public virtual async Task<DuplicateBoardResponse> DuplicateBoardAsync(DuplicateBoardInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/DuplicateBoard";
-            return await this
-                .CallConnectorAsync<DuplicateBoardResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.DuplicateBoardAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/DuplicateBoard";
+                return await this
+                    .CallConnectorAsync<DuplicateBoardResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1985,10 +2103,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create a board response.</returns>
         public virtual async Task<CreateBoardResponse> CreateBoardAsync(CreateBoardInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateBoard";
-            return await this
-                .CallConnectorAsync<CreateBoardResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateBoardAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateBoard";
+                return await this
+                    .CallConnectorAsync<CreateBoardResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2000,10 +2128,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create a column response.</returns>
         public virtual async Task<CreateColumnResponse> CreateColumnAsync(CreateColumnInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateColumn";
-            return await this
-                .CallConnectorAsync<CreateColumnResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateColumnAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateColumn";
+                return await this
+                    .CallConnectorAsync<CreateColumnResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2015,10 +2153,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create a group response.</returns>
         public virtual async Task<CreateGroupResponse> CreateGroupAsync(CreateGroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateGroup";
-            return await this
-                .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateGroupAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateGroup";
+                return await this
+                    .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2030,10 +2178,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Update an item&apos;s column value response.</returns>
         public virtual async Task<UpdateItemColumnResponse> UpdateItemColumnAsync(UpdateItemColumnInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/UpdateItemColumn";
-            return await this
-                .CallConnectorAsync<UpdateItemColumnResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.UpdateItemColumnAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/UpdateItemColumn";
+                return await this
+                    .CallConnectorAsync<UpdateItemColumnResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2045,10 +2203,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Update multiple item column values response.</returns>
         public virtual async Task<UpdateMultipleItemColumnsResponse> UpdateMultipleItemColumnsAsync(UpdateMultipleItemColumnsInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/UpdateMultipleItemColumns";
-            return await this
-                .CallConnectorAsync<UpdateMultipleItemColumnsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.UpdateMultipleItemColumnsAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/UpdateMultipleItemColumns";
+                return await this
+                    .CallConnectorAsync<UpdateMultipleItemColumnsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2060,10 +2228,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Move an item to a group response.</returns>
         public virtual async Task<MoveItemToGroupResponse> MoveItemToGroupAsync(MoveItemToGroupInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/MoveItemToGroup";
-            return await this
-                .CallConnectorAsync<MoveItemToGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.MoveItemToGroupAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/MoveItemToGroup";
+                return await this
+                    .CallConnectorAsync<MoveItemToGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2075,10 +2253,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create a notification response.</returns>
         public virtual async Task<CreateNotificationResponse> CreateNotificationAsync(CreateNotificationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateNotification";
-            return await this
-                .CallConnectorAsync<CreateNotificationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateNotificationAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateNotification";
+                return await this
+                    .CallConnectorAsync<CreateNotificationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2090,10 +2278,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create a subitem response.</returns>
         public virtual async Task<CreateSubitemResponse> CreateSubitemAsync(CreateSubitemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateSubitem";
-            return await this
-                .CallConnectorAsync<CreateSubitemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateSubitemAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateSubitem";
+                return await this
+                    .CallConnectorAsync<CreateSubitemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2105,12 +2303,24 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get subitem column names response.</returns>
         public virtual async Task<GetSubitemColumnNamesResponse> GetSubitemColumnNamesAsync(string parentBoardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
-            var path = $"/getSchema/getSubitemColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSubitemColumnNamesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemColumnNamesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                var path = $"/getSchema/getSubitemColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSubitemColumnNamesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2122,12 +2332,24 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get subitem column names response.</returns>
         public virtual async Task<GetSubitemSchemaResponse> GetSubitemSchemaAsync(string parentBoardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
-            var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSubitemSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSubitemSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2141,14 +2363,30 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get subitems response.</returns>
         public virtual async Task<GetSubitemColumnNamesForGetSubitems> GetSubitemsAsync([DynamicValues("GetWorkspaces_V2")] string workspace, [DynamicValues("GetBoards")] string board, string itemId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
-            queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
-            queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
-            var path = $"/getData/getSubitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetSubitemColumnNamesForGetSubitems>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
+                if (board is null)
+                    throw new ArgumentNullException(nameof(board));
+                queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
+                queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
+                var path = $"/getData/getSubitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSubitemColumnNamesForGetSubitems>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2160,10 +2398,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create an update response.</returns>
         public virtual async Task<CreateUpdateResponse> CreateUpdateAsync(CreateUpdateInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateUpdate";
-            return await this
-                .CallConnectorAsync<CreateUpdateResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateUpdateAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateUpdate";
+                return await this
+                    .CallConnectorAsync<CreateUpdateResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2177,14 +2425,30 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get an item by ID response.</returns>
         public virtual async Task<DynamicResponseGetListSchemaGet> GetItemByIdAsync(string itemId, [DynamicValues("GetWorkspaces_V2")] string workspace, [DynamicValues("GetBoards")] string board, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
-            queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
-            queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
-            var path = $"/getData/getItemById" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DynamicResponseGetListSchemaGet>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetItemByIdAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (itemId is null)
+                    throw new ArgumentNullException(nameof(itemId));
+                queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
+                if (board is null)
+                    throw new ArgumentNullException(nameof(board));
+                queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
+                var path = $"/getData/getItemById" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DynamicResponseGetListSchemaGet>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2196,10 +2460,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Create a workspace response.</returns>
         public virtual async Task<CreateWorkspaceResponse> CreateWorkspaceAsync(CreateWorkspaceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/executePowerAutomateAction/CreateWorkspaceV2";
-            return await this
-                .CallConnectorAsync<CreateWorkspaceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.CreateWorkspaceAsync");
+            try
+            {
+                var path = $"/executePowerAutomateAction/CreateWorkspaceV2";
+                return await this
+                    .CallConnectorAsync<CreateWorkspaceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2225,38 +2499,54 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get items response.</returns>
         public virtual async Task<DynamicGetGetItemsSchema> GetItemsAsync([DynamicValues("GetWorkspaces_V2")] string workspace, [DynamicValues("GetBoards")] string board, [DynamicValues("GetGroupsForGetItems")] string group, [DynamicValues("GetColumnsForItemFiltering")] string filter1Column = default, [DynamicValues("GetColumnFilterOperator")] string filter1Operator = default, string filter1Value = default, [DynamicValues("GetColumnsForItemFiltering")] string filter2Column = default, [DynamicValues("GetColumnFilterOperator")] string filter2Operator = default, string filter2Value = default, [DynamicValues("GetColumnsForItemFiltering")] string filter3Column = default, [DynamicValues("GetColumnFilterOperator")] string filter3Operator = default, string filter3Value = default, [DynamicValues("GetColumnsForItemFiltering")] string filter4Column = default, [DynamicValues("GetColumnFilterOperator")] string filter4Operator = default, string filter4Value = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
-            queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
-            queryParams.Add($"groupId={Uri.EscapeDataString(group.ToString())}");
-            if (filter1Column != default)
-                queryParams.Add($"filter1Column={Uri.EscapeDataString(filter1Column.ToString())}");
-            if (filter1Operator != default)
-                queryParams.Add($"filter1Operator={Uri.EscapeDataString(filter1Operator.ToString())}");
-            if (filter1Value != default)
-                queryParams.Add($"filter1Value={Uri.EscapeDataString(filter1Value.ToString())}");
-            if (filter2Column != default)
-                queryParams.Add($"filter2Column={Uri.EscapeDataString(filter2Column.ToString())}");
-            if (filter2Operator != default)
-                queryParams.Add($"filter2Operator={Uri.EscapeDataString(filter2Operator.ToString())}");
-            if (filter2Value != default)
-                queryParams.Add($"filter2Value={Uri.EscapeDataString(filter2Value.ToString())}");
-            if (filter3Column != default)
-                queryParams.Add($"filter3Column={Uri.EscapeDataString(filter3Column.ToString())}");
-            if (filter3Operator != default)
-                queryParams.Add($"filter3Operator={Uri.EscapeDataString(filter3Operator.ToString())}");
-            if (filter3Value != default)
-                queryParams.Add($"filter3Value={Uri.EscapeDataString(filter3Value.ToString())}");
-            if (filter4Column != default)
-                queryParams.Add($"filter4Column={Uri.EscapeDataString(filter4Column.ToString())}");
-            if (filter4Operator != default)
-                queryParams.Add($"filter4Operator={Uri.EscapeDataString(filter4Operator.ToString())}");
-            if (filter4Value != default)
-                queryParams.Add($"filter4Value={Uri.EscapeDataString(filter4Value.ToString())}");
-            var path = $"/getData/getItemsV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DynamicGetGetItemsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetItemsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (workspace is null)
+                    throw new ArgumentNullException(nameof(workspace));
+                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
+                if (board is null)
+                    throw new ArgumentNullException(nameof(board));
+                queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
+                if (group is null)
+                    throw new ArgumentNullException(nameof(group));
+                queryParams.Add($"groupId={Uri.EscapeDataString(group.ToString())}");
+                if (filter1Column != default)
+                    queryParams.Add($"filter1Column={Uri.EscapeDataString(filter1Column.ToString())}");
+                if (filter1Operator != default)
+                    queryParams.Add($"filter1Operator={Uri.EscapeDataString(filter1Operator.ToString())}");
+                if (filter1Value != default)
+                    queryParams.Add($"filter1Value={Uri.EscapeDataString(filter1Value.ToString())}");
+                if (filter2Column != default)
+                    queryParams.Add($"filter2Column={Uri.EscapeDataString(filter2Column.ToString())}");
+                if (filter2Operator != default)
+                    queryParams.Add($"filter2Operator={Uri.EscapeDataString(filter2Operator.ToString())}");
+                if (filter2Value != default)
+                    queryParams.Add($"filter2Value={Uri.EscapeDataString(filter2Value.ToString())}");
+                if (filter3Column != default)
+                    queryParams.Add($"filter3Column={Uri.EscapeDataString(filter3Column.ToString())}");
+                if (filter3Operator != default)
+                    queryParams.Add($"filter3Operator={Uri.EscapeDataString(filter3Operator.ToString())}");
+                if (filter3Value != default)
+                    queryParams.Add($"filter3Value={Uri.EscapeDataString(filter3Value.ToString())}");
+                if (filter4Column != default)
+                    queryParams.Add($"filter4Column={Uri.EscapeDataString(filter4Column.ToString())}");
+                if (filter4Operator != default)
+                    queryParams.Add($"filter4Operator={Uri.EscapeDataString(filter4Operator.ToString())}");
+                if (filter4Value != default)
+                    queryParams.Add($"filter4Value={Uri.EscapeDataString(filter4Value.ToString())}");
+                var path = $"/getData/getItemsV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DynamicGetGetItemsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2267,10 +2557,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get tags response.</returns>
         public virtual async Task<GetTagsResponse> GetTagsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/getData/getTagsV2";
-            return await this
-                .CallConnectorAsync<GetTagsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetTagsAsync");
+            try
+            {
+                var path = $"/getData/getTagsV2";
+                return await this
+                    .CallConnectorAsync<GetTagsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2281,10 +2581,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get users response.</returns>
         public virtual async Task<GetUsersResponse> GetUsersAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/getData/getUsersV2";
-            return await this
-                .CallConnectorAsync<GetUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetUsersAsync");
+            try
+            {
+                var path = $"/getData/getUsersV2";
+                return await this
+                    .CallConnectorAsync<GetUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2295,10 +2605,20 @@ namespace Azure.Connectors.Sdk.Monday
         /// <returns>The Get workspaces response.</returns>
         public virtual async Task<GetWorkspacesResponse> GetWorkspacesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/getData/getWorkspacesV2";
-            return await this
-                .CallConnectorAsync<GetWorkspacesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetWorkspacesAsync");
+            try
+            {
+                var path = $"/getData/getWorkspacesV2";
+                return await this
+                    .CallConnectorAsync<GetWorkspacesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

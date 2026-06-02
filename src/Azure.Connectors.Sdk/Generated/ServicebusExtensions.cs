@@ -58,7 +58,7 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
 
         /// <summary>Key-value pairs for each brokered property</summary>
         [JsonPropertyName("Properties")]
-        public object Properties { get; set; }
+        public JsonElement? Properties { get; set; }
 
         /// <summary>This is a user-defined value that Service Bus can use to identify duplicate messages, if enabled.</summary>
         [JsonPropertyName("MessageId")]
@@ -99,7 +99,7 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
         /// <summary>The lock token of the message as a string.</summary>
         [JsonPropertyName("LockToken")]
         [JsonInclude]
-        public string LockToken { get; internal set; }
+        public string LockToken { get; init; }
 
         /// <summary>This is the duration, in ticks, that a message is valid.  The duration starts from when the message is sent to the Service Bus.</summary>
         [JsonPropertyName("TimeToLive")]
@@ -149,7 +149,7 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
     /// <summary>
     /// Model factory for creating instances of Servicebus models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class ServiceBusModelFactory
     {
@@ -173,7 +173,7 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
         public static ServiceBusMessage ServiceBusMessage(
             string content = default,
             string contentType = default,
-            object properties = default,
+            JsonElement? properties = default,
             string messageId = default,
             string to = default,
             string replyTo = default,
@@ -569,6 +569,8 @@ namespace Azure.Connectors.Sdk.Servicebus
 
         public override string ConnectorName => "servicebus";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.servicebus");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -589,10 +591,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get all queues response.</returns>
         public virtual async Task<List<string>> GetQueuesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/queues";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetQueuesAsync");
+            try
+            {
+                var path = $"/queues";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -603,10 +615,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get all topics response.</returns>
         public virtual async Task<List<string>> GetTopicsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/topics";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetTopicsAsync");
+            try
+            {
+                var path = $"/topics";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -618,10 +640,22 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get the subscriptions for a topic response.</returns>
         public virtual async Task<List<string>> GetSubscriptionsAsync(string topicName, CancellationToken cancellationToken = default)
         {
-            var path = $"/topics/{Uri.EscapeDataString(topicName.ToString())}/subscriptions";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSubscriptionsAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                var path = $"/topics/{Uri.EscapeDataString(topicName.ToString())}/subscriptions";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -632,10 +666,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get all entities response.</returns>
         public virtual async Task<List<ServiceBusEntity>> GetEntitiesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/entities";
-            return await this
-                .CallConnectorAsync<List<ServiceBusEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetEntitiesAsync");
+            try
+            {
+                var path = $"/entities";
+                return await this
+                    .CallConnectorAsync<List<ServiceBusEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -646,10 +690,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get the list of system properties response.</returns>
         public virtual async Task<List<string>> GetSystemPropertiesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/systemproperties";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSystemPropertiesAsync");
+            try
+            {
+                var path = $"/systemproperties";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -660,10 +714,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get session options response.</returns>
         public virtual async Task<List<string>> GetSessionOptionsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/sessionoptions";
-            return await this
-                .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSessionOptionsAsync");
+            try
+            {
+                var path = $"/sessionoptions";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -676,13 +740,25 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendMessageAsync([DynamicValues("GetEntities")] string queueTopicName, ServiceBusMessage input, [DynamicValues("GetSystemProperties")] string systemProperties = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (systemProperties != default)
-                queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueTopicName.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.SendMessageAsync");
+            try
+            {
+                if (queueTopicName is null)
+                    throw new ArgumentNullException(nameof(queueTopicName));
+                var queryParams = new List<string>();
+                if (systemProperties != default)
+                    queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueTopicName.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -695,13 +771,25 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendMessagesAsync([DynamicValues("GetEntities")] string queueTopicName, List<ServiceBusMessage> input, [DynamicValues("GetSystemProperties")] string systemProperties = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (systemProperties != default)
-                queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueTopicName.ToString())}/messages/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.SendMessagesAsync");
+            try
+            {
+                if (queueTopicName is null)
+                    throw new ArgumentNullException(nameof(queueTopicName));
+                var queryParams = new List<string>();
+                if (systemProperties != default)
+                    queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueTopicName.ToString())}/messages/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -715,16 +803,30 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CompleteMessageInQueueAsync([DynamicValues("GetQueues")] string queueName, string lockTokenOfTheMessage, string queueType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (queueType != default)
-                queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CompleteMessageInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (queueType != default)
+                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -738,16 +840,30 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AbandonMessageInQueueAsync([DynamicValues("GetQueues")] string queueName, string lockTokenOfTheMessage, string queueType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (queueType != default)
-                queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.AbandonMessageInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (queueType != default)
+                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -762,16 +878,28 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get deferred message from a queue response.</returns>
         public virtual async Task<ServiceBusMessage> GetDeferredMessageFromQueueAsync([DynamicValues("GetQueues")] string queueName, int sequenceNumberOfMessage, string queueType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
-            if (queueType != default)
-                queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ServiceBusMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetDeferredMessageFromQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
+                if (queueType != default)
+                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ServiceBusMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -785,16 +913,30 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeferMessageInQueueAsync([DynamicValues("GetQueues")] string queueName, string lockTokenOfTheMessage, string queueType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (queueType != default)
-                queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeferMessageInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (queueType != default)
+                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -809,18 +951,32 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeadLetterMessageInQueueAsync([DynamicValues("GetQueues")] string queueName, string lockTokenOfTheMessage, string sessionId = default, string deadLetterReason = default, string deadLetterErrorDescription = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            if (deadLetterReason != default)
-                queryParams.Add($"deadLetterReason={Uri.EscapeDataString(deadLetterReason.ToString())}");
-            if (deadLetterErrorDescription != default)
-                queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(deadLetterErrorDescription.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeadLetterMessageInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                if (deadLetterReason != default)
+                    queryParams.Add($"deadLetterReason={Uri.EscapeDataString(deadLetterReason.ToString())}");
+                if (deadLetterErrorDescription != default)
+                    queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(deadLetterErrorDescription.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -833,14 +989,28 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RenewLockOnMessageInQueueAsync([DynamicValues("GetQueues")] string queueName, string lockTokenOfTheMessage, string queueType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (queueType != default)
-                queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnMessageInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (queueType != default)
+                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -855,17 +1025,29 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get messages from a queue (peek-lock) response.</returns>
         public virtual async Task<List<ServiceBusMessage>> GetMessagesFromQueueWithPeekLockAsync([DynamicValues("GetQueues")] string queueName, int? maximumMessageCount = default, string queueType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumMessageCount.HasValue)
-                queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
-            if (queueType != default)
-                queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<ServiceBusMessage>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetMessagesFromQueueWithPeekLockAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                var queryParams = new List<string>();
+                if (maximumMessageCount.HasValue)
+                    queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
+                if (queueType != default)
+                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<ServiceBusMessage>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -877,10 +1059,24 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CloseSessionInQueueAsync([DynamicValues("GetQueues")] string queueName, string sessionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CloseSessionInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -892,10 +1088,24 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RenewLockOnSessionInQueueAsync([DynamicValues("GetQueues")] string queueName, string sessionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/{Uri.EscapeDataString(queueName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnSessionInQueueAsync");
+            try
+            {
+                if (queueName is null)
+                    throw new ArgumentNullException(nameof(queueName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
+                var path = $"/{Uri.EscapeDataString(queueName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -910,16 +1120,32 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CompleteMessageInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string lockTokenOfTheMessage, string subscriptionType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (subscriptionType != default)
-                queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CompleteMessageInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (subscriptionType != default)
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -934,16 +1160,32 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AbandonMessageInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string lockTokenOfTheMessage, string subscriptionType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (subscriptionType != default)
-                queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.AbandonMessageInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (subscriptionType != default)
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -959,16 +1201,30 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get deferred message from a topic subscription response.</returns>
         public virtual async Task<ServiceBusMessage> GetDeferredMessageFromTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, int sequenceNumberOfMessage, string subscriptionType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
-            if (subscriptionType != default)
-                queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ServiceBusMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetDeferredMessageFromTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
+                if (subscriptionType != default)
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ServiceBusMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -983,16 +1239,32 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeferMessageInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string lockTokenOfTheMessage, string subscriptionType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (subscriptionType != default)
-                queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeferMessageInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (subscriptionType != default)
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1008,18 +1280,34 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeadLetterMessageInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string lockTokenOfTheMessage, string sessionId = default, string deadLetterReason = default, string deadLetterErrorDescription = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            if (deadLetterReason != default)
-                queryParams.Add($"deadLetterReason={Uri.EscapeDataString(deadLetterReason.ToString())}");
-            if (deadLetterErrorDescription != default)
-                queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(deadLetterErrorDescription.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeadLetterMessageInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                if (deadLetterReason != default)
+                    queryParams.Add($"deadLetterReason={Uri.EscapeDataString(deadLetterReason.ToString())}");
+                if (deadLetterErrorDescription != default)
+                    queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(deadLetterErrorDescription.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1033,14 +1321,30 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RenewLockOnMessageInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string lockTokenOfTheMessage, string subscriptionType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
-            if (subscriptionType != default)
-                queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnMessageInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (lockTokenOfTheMessage is null)
+                    throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
+                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                if (subscriptionType != default)
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1055,13 +1359,27 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Create a topic subscription response.</returns>
         public virtual async Task<Subscription> CreateTopicSubscriptionAsync([DynamicValues("GetTopics")] string topicName, string topicSubscriptionName, CreateTopicSubscriptionInput input, string filterType = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterType != default)
-                queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(filterType.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Subscription>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CreateTopicSubscriptionAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (filterType != default)
+                    queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(filterType.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Subscription>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1073,10 +1391,24 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteTopicSubscriptionAsync([DynamicValues("GetTopics")] string topicName, string topicSubscriptionName, CancellationToken cancellationToken = default)
         {
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.DeleteTopicSubscriptionAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1092,17 +1424,31 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get messages from a topic subscription (peek-lock) response.</returns>
         public virtual async Task<List<ServiceBusMessage>> GetMessagesFromTopicWithPeekLockAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, int? maximumMessageCount = default, string subscriptionType = default, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (maximumMessageCount.HasValue)
-                queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
-            if (subscriptionType != default)
-                queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<ServiceBusMessage>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetMessagesFromTopicWithPeekLockAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                var queryParams = new List<string>();
+                if (maximumMessageCount.HasValue)
+                    queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
+                if (subscriptionType != default)
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<ServiceBusMessage>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1115,10 +1461,26 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task CloseSessionInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string sessionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.CloseSessionInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1131,10 +1493,26 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RenewLockOnSessionInTopicAsync([DynamicValues("GetTopics")] string topicName, [DynamicValues("GetSubscriptions")] string topicSubscriptionName, string sessionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.RenewLockOnSessionInTopicAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                if (topicSubscriptionName is null)
+                    throw new ArgumentNullException(nameof(topicSubscriptionName));
+                if (sessionId is null)
+                    throw new ArgumentNullException(nameof(sessionId));
+                var path = $"/{Uri.EscapeDataString(topicName.ToString())}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1146,12 +1524,24 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <returns>The Get metadata of a filter response.</returns>
         public virtual async Task<ObjectEntity> GetSubscriptionFilterAsync(string subscriptionFilterType, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(subscriptionFilterType.ToString())}");
-            var path = $"/subscriptionfilterV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSubscriptionFilterAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (subscriptionFilterType is null)
+                    throw new ArgumentNullException(nameof(subscriptionFilterType));
+                queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(subscriptionFilterType.ToString())}");
+                var path = $"/subscriptionfilterV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

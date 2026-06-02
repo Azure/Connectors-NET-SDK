@@ -42,11 +42,11 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
     /// <summary>
     /// Response for Get entities
     /// </summary>
-    public class GetEntitiesResponse : IPageable<object>
+    public class GetEntitiesResponse : IPageable<JsonElement?>
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
 
         /// <summary>Link to get next page of results</summary>
         [JsonPropertyName("@odata.nextLink")]
@@ -144,7 +144,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
     /// <summary>
     /// Model factory for creating instances of ElfsquadData models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class ElfsquadDataModelFactory
     {
@@ -164,7 +164,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
         /// Creates a new instance of <see cref="GetEntitiesResponse"/>.
         /// </summary>
         public static GetEntitiesResponse GetEntitiesResponse(
-            List<object> value = default,
+            List<JsonElement?> value = default,
             string nextLink = default)
         {
             return new GetEntitiesResponse
@@ -252,6 +252,8 @@ namespace Azure.Connectors.Sdk.ElfsquadData
 
         public override string ConnectorName => "elfsquaddata";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.elfsquaddata");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -271,10 +273,20 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetSchemasAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetSchemasAsync");
+            try
+            {
+                var path = $"/data/1";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -284,10 +296,20 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetTriggersAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/$triggers";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetTriggersAsync");
+            try
+            {
+                var path = $"/data/1/$triggers";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -297,10 +319,20 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetFunctionsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/$functions";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetFunctionsAsync");
+            try
+            {
+                var path = $"/data/1/$functions";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -311,10 +343,22 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetFunctionDefinitionAsync(string functionPath, CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/$functions/$schema/{Uri.EscapeDataString(functionPath.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetFunctionDefinitionAsync");
+            try
+            {
+                if (functionPath is null)
+                    throw new ArgumentNullException(nameof(functionPath));
+                var path = $"/data/1/$functions/$schema/{Uri.EscapeDataString(functionPath.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -325,10 +369,22 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetSchemaAsync(string entityName, CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/{Uri.EscapeDataString(entityName.ToString())}/$schema";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetSchemaAsync");
+            try
+            {
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                var path = $"/data/1/{Uri.EscapeDataString(entityName.ToString())}/$schema";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -340,13 +396,15 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="skipTheFirstNItems">Skip the first n items</param>
         /// <param name="orderResults">Order results</param>
         /// <param name="filterItemsByPropertyValues">Filter items by property values</param>
-        /// <param name="commaSeperatedPropertyNamesYouWantToSelect">Comma-seperated property names you want to select</param>
+        /// <param name="commaSeperatedPropertyNamesYouWantToSelect">Comma-separated property names you want to select</param>
         /// <param name="expandRelatedEntities">Expand related entities</param>
         /// <param name="includeCountOfItems">Include count of items</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="object"/> items across all pages.</returns>
-        public virtual AsyncPageable<object> GetEntitiesAsync([DynamicValues("get_schemas")] string nameOfTheEntity, int? showOnlyTheFirstNItems = default, int? skipTheFirstNItems = default, string orderResults = default, string filterItemsByPropertyValues = default, string commaSeperatedPropertyNamesYouWantToSelect = default, string expandRelatedEntities = default, bool? includeCountOfItems = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> GetEntitiesAsync([DynamicValues("get_schemas")] string nameOfTheEntity, int? showOnlyTheFirstNItems = default, int? skipTheFirstNItems = default, string orderResults = default, string filterItemsByPropertyValues = default, string commaSeperatedPropertyNamesYouWantToSelect = default, string expandRelatedEntities = default, bool? includeCountOfItems = default, CancellationToken cancellationToken = default)
         {
+            if (nameOfTheEntity is null)
+                throw new ArgumentNullException(nameof(nameOfTheEntity));
             var queryParams = new List<string>();
             if (showOnlyTheFirstNItems.HasValue)
                 queryParams.Add($"$top={Uri.EscapeDataString(showOnlyTheFirstNItems.Value.ToString())}");
@@ -363,7 +421,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             if (includeCountOfItems.HasValue)
                 queryParams.Add($"$count={Uri.EscapeDataString(includeCountOfItems.Value.ToString())}");
             var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<GetEntitiesResponse, object>(
+            return this.CreatePageable<GetEntitiesResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -379,10 +437,22 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <returns>The Create entity response.</returns>
         public virtual async Task<PostEntityByIdResponse> PostEntityByIdAsync([DynamicValues("get_schemas")] string nameOfTheEntity, PostEntityByIdInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}";
-            return await this
-                .CallConnectorAsync<PostEntityByIdResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.PostEntityByIdAsync");
+            try
+            {
+                if (nameOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(nameOfTheEntity));
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostEntityByIdResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -395,10 +465,24 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <returns>The Get entity by id response.</returns>
         public virtual async Task<GetEntityByIdResponse> GetEntityByIdAsync([DynamicValues("get_schemas")] string nameOfTheEntity, string identifierOfTheEntity, CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}({Uri.EscapeDataString(identifierOfTheEntity.ToString())})";
-            return await this
-                .CallConnectorAsync<GetEntityByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetEntityByIdAsync");
+            try
+            {
+                if (nameOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(nameOfTheEntity));
+                if (identifierOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(identifierOfTheEntity));
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}({Uri.EscapeDataString(identifierOfTheEntity.ToString())})";
+                return await this
+                    .CallConnectorAsync<GetEntityByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -410,10 +494,24 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteEntityByIdAsync([DynamicValues("get_schemas")] string nameOfTheEntity, string identifierOfTheEntity, CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}({Uri.EscapeDataString(identifierOfTheEntity.ToString())})";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.DeleteEntityByIdAsync");
+            try
+            {
+                if (nameOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(nameOfTheEntity));
+                if (identifierOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(identifierOfTheEntity));
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}({Uri.EscapeDataString(identifierOfTheEntity.ToString())})";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -426,10 +524,24 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task PutEntityByIdAsync([DynamicValues("get_schemas")] string nameOfTheEntity, string identifierOfTheEntity, PutEntityByIdInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}({Uri.EscapeDataString(identifierOfTheEntity.ToString())})";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.PutEntityByIdAsync");
+            try
+            {
+                if (nameOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(nameOfTheEntity));
+                if (identifierOfTheEntity is null)
+                    throw new ArgumentNullException(nameof(identifierOfTheEntity));
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity.ToString())}({Uri.EscapeDataString(identifierOfTheEntity.ToString())})";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -442,10 +554,22 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <returns>The Invoke function response.</returns>
         public virtual async Task<InvokeFunctionResponse> InvokeFunctionAsync([DynamicValues("get_functions")] string pathOfTheFunction, InvokeFunctionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/{Uri.EscapeDataString(pathOfTheFunction.ToString())}";
-            return await this
-                .CallConnectorAsync<InvokeFunctionResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.InvokeFunctionAsync");
+            try
+            {
+                if (pathOfTheFunction is null)
+                    throw new ArgumentNullException(nameof(pathOfTheFunction));
+                var path = $"/{Uri.EscapeDataString(pathOfTheFunction.ToString())}";
+                return await this
+                    .CallConnectorAsync<InvokeFunctionResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

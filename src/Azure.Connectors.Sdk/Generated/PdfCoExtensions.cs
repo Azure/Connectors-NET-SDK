@@ -649,7 +649,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public List<object> Body { get; set; }
+        public List<JsonElement?> Body { get; set; }
 
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -737,7 +737,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary></summary>
         [JsonPropertyName("pageCount")]
@@ -953,7 +953,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>barcodes</summary>
         [JsonPropertyName("barcodes")]
-        public List<object> Barcodes { get; set; }
+        public List<JsonElement?> Barcodes { get; set; }
 
         /// <summary>pageCount</summary>
         [JsonPropertyName("pageCount")]
@@ -1017,7 +1017,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>info</summary>
         [JsonPropertyName("info")]
-        public object Info { get; set; }
+        public JsonElement? Info { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
@@ -1077,7 +1077,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>info</summary>
         [JsonPropertyName("info")]
-        public object Info { get; set; }
+        public JsonElement? Info { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
@@ -1149,7 +1149,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>pageCount</summary>
         [JsonPropertyName("pageCount")]
@@ -1749,7 +1749,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -1849,7 +1849,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2805,7 +2805,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// </summary>
     public class PDFFromImagesInput
     {
-        /// <summary>URL to the source file. Provide multiple URLS in comma seperated format. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
+        /// <summary>URL to the source file. Provide multiple URLS in comma separated format. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
         public string Url { get; set; }
 
@@ -3905,7 +3905,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>jobId</summary>
         [JsonPropertyName("jobId")]
@@ -4053,7 +4053,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>jobId</summary>
         [JsonPropertyName("jobId")]
@@ -4113,7 +4113,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>jobId</summary>
         [JsonPropertyName("jobId")]
@@ -4795,7 +4795,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Model factory for creating instances of PdfCo models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class PdfCoModelFactory
     {
@@ -5215,7 +5215,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// Creates a new instance of <see cref="PDFSerarchTextResponse"/>.
         /// </summary>
         public static PDFSerarchTextResponse PDFSerarchTextResponse(
-            List<object> body = default,
+            List<JsonElement?> body = default,
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -5272,7 +5272,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// </summary>
         public static DocumentParserResponse DocumentParserResponse(
             string url = default,
-            object body = default,
+            JsonElement? body = default,
             int? pageCount = default,
             bool? error = default,
             string jobId = default,
@@ -5421,7 +5421,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         public static BarcodeReaderResponse BarcodeReaderResponse(
             string jobId = default,
             string url = default,
-            List<object> barcodes = default,
+            List<JsonElement?> barcodes = default,
             int? pageCount = default,
             bool? error = default,
             int? status = default,
@@ -5467,7 +5467,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         public static PDFInfoReaderResponse PDFInfoReaderResponse(
             string jobId = default,
             string url = default,
-            object info = default,
+            JsonElement? info = default,
             bool? error = default,
             int? status = default,
             int? credits = default,
@@ -5511,7 +5511,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         public static PDFFormsInfoReaderResponse PDFFormsInfoReaderResponse(
             string jobId = default,
             string url = default,
-            object info = default,
+            JsonElement? info = default,
             bool? error = default,
             int? status = default,
             int? credits = default,
@@ -5561,7 +5561,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         public static PDFFindTableResponse PDFFindTableResponse(
             string jobId = default,
             string url = default,
-            object body = default,
+            JsonElement? body = default,
             int? pageCount = default,
             bool? error = default,
             int? status = default,
@@ -5961,7 +5961,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// Creates a new instance of <see cref="PDFToJSONResponse"/>.
         /// </summary>
         public static PDFToJSONResponse PDFToJSONResponse(
-            object body = default,
+            JsonElement? body = default,
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6025,7 +6025,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// Creates a new instance of <see cref="PDFToJSONMetaResponse"/>.
         /// </summary>
         public static PDFToJSONMetaResponse PDFToJSONMetaResponse(
-            object body = default,
+            JsonElement? body = default,
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -7416,7 +7416,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// </summary>
         public static PDFClassifierResponse PDFClassifierResponse(
             string url = default,
-            object body = default,
+            JsonElement? body = default,
             string jobId = default,
             int? pageCount = default,
             bool? error = default,
@@ -7518,7 +7518,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// </summary>
         public static EmailDecodeResponse EmailDecodeResponse(
             string url = default,
-            object body = default,
+            JsonElement? body = default,
             string jobId = default,
             bool? error = default,
             int? status = default,
@@ -7562,7 +7562,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         /// </summary>
         public static EmailAttachmentExtractionResponse EmailAttachmentExtractionResponse(
             string url = default,
-            object body = default,
+            JsonElement? body = default,
             string jobId = default,
             bool? error = default,
             int? status = default,
@@ -7697,6 +7697,8 @@ namespace Azure.Connectors.Sdk.PdfCo
 
         public override string ConnectorName => "pdfco";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.pdfco");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -7718,10 +7720,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The HTML to PDF response.</returns>
         public virtual async Task<HtmlToPdfResponse> HtmlToPdfAsync(HtmlToPdfInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/from/html";
-            return await this
-                .CallConnectorAsync<HtmlToPdfResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.HtmlToPdfAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/from/html";
+                return await this
+                    .CallConnectorAsync<HtmlToPdfResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7733,10 +7745,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The URL to PDF response.</returns>
         public virtual async Task<UrlToPdfResponse> UrlToPdfAsync(UrlToPdfInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/from/url";
-            return await this
-                .CallConnectorAsync<UrlToPdfResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.UrlToPdfAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/from/url";
+                return await this
+                    .CallConnectorAsync<UrlToPdfResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7748,10 +7770,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Add Text, Images, Form Fields to PDF response.</returns>
         public virtual async Task<PdfFillerResponse> PdfFillerAsync(PdfFillerInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/add";
-            return await this
-                .CallConnectorAsync<PdfFillerResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFillerAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/add";
+                return await this
+                    .CallConnectorAsync<PdfFillerResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7763,10 +7795,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Merge PDF response.</returns>
         public virtual async Task<MergePdfSimplifiedResponse> MergePdfSimplifiedAsync(MergePdfSimplifiedInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/merge";
-            return await this
-                .CallConnectorAsync<MergePdfSimplifiedResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.MergePdfSimplifiedAsync");
+            try
+            {
+                var path = $"/v1/pdf/merge";
+                return await this
+                    .CallConnectorAsync<MergePdfSimplifiedResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7778,10 +7820,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Merge PDF (Advanced) response.</returns>
         public virtual async Task<MergePdfResponse> MergePdfAsync(MergePdfInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/merge2";
-            return await this
-                .CallConnectorAsync<MergePdfResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.MergePdfAsync");
+            try
+            {
+                var path = $"/v1/pdf/merge2";
+                return await this
+                    .CallConnectorAsync<MergePdfResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7793,10 +7845,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Split PDF response.</returns>
         public virtual async Task<SplitPdfResponse> SplitPdfAsync(SplitPdfInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/split";
-            return await this
-                .CallConnectorAsync<SplitPdfResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.SplitPdfAsync");
+            try
+            {
+                var path = $"/v1/pdf/split";
+                return await this
+                    .CallConnectorAsync<SplitPdfResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7808,10 +7870,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Split PDF (Advanced) response.</returns>
         public virtual async Task<SplitPdf2Response> SplitPdf2Async(SplitPdf2Input input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/split2";
-            return await this
-                .CallConnectorAsync<SplitPdf2Response>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.SplitPdf2Async");
+            try
+            {
+                var path = $"/v1/pdf/split2";
+                return await this
+                    .CallConnectorAsync<SplitPdf2Response>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7823,10 +7895,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Search Text response.</returns>
         public virtual async Task<PDFSerarchTextResponse> PDFSerarchTextAsync(PDFSerarchTextInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/find";
-            return await this
-                .CallConnectorAsync<PDFSerarchTextResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSerarchTextAsync");
+            try
+            {
+                var path = $"/v1/pdf/find";
+                return await this
+                    .CallConnectorAsync<PDFSerarchTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7838,10 +7920,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Document Parser response.</returns>
         public virtual async Task<DocumentParserResponse> DocumentParserAsync(DocumentParserInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/documentparser";
-            return await this
-                .CallConnectorAsync<DocumentParserResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.DocumentParserAsync");
+            try
+            {
+                var path = $"/v1/pdf/documentparser";
+                return await this
+                    .CallConnectorAsync<DocumentParserResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7853,10 +7945,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Background Jobs Check response.</returns>
         public virtual async Task<JobCheckResponse> JobCheckAsync(JobCheckInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/job/check";
-            return await this
-                .CallConnectorAsync<JobCheckResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.JobCheckAsync");
+            try
+            {
+                var path = $"/v1/job/check";
+                return await this
+                    .CallConnectorAsync<JobCheckResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7868,10 +7970,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Barcode Generator response.</returns>
         public virtual async Task<BarcodeGeneratorResponse> BarcodeGeneratorAsync(BarcodeGeneratorInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/barcode/generate";
-            return await this
-                .CallConnectorAsync<BarcodeGeneratorResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.BarcodeGeneratorAsync");
+            try
+            {
+                var path = $"/v1/barcode/generate";
+                return await this
+                    .CallConnectorAsync<BarcodeGeneratorResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7883,10 +7995,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Barcode Reader response.</returns>
         public virtual async Task<BarcodeReaderResponse> BarcodeReaderAsync(BarcodeReaderInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/barcode/read/from/url";
-            return await this
-                .CallConnectorAsync<BarcodeReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.BarcodeReaderAsync");
+            try
+            {
+                var path = $"/v1/barcode/read/from/url";
+                return await this
+                    .CallConnectorAsync<BarcodeReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7898,10 +8020,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Info Reader response.</returns>
         public virtual async Task<PDFInfoReaderResponse> PDFInfoReaderAsync(PDFInfoReaderInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/info";
-            return await this
-                .CallConnectorAsync<PDFInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFInfoReaderAsync");
+            try
+            {
+                var path = $"/v1/pdf/info";
+                return await this
+                    .CallConnectorAsync<PDFInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7913,10 +8045,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Forms Info Reader response.</returns>
         public virtual async Task<PDFFormsInfoReaderResponse> PDFFormsInfoReaderAsync(PDFFormsInfoReaderInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/info/fields";
-            return await this
-                .CallConnectorAsync<PDFFormsInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFormsInfoReaderAsync");
+            try
+            {
+                var path = $"/v1/pdf/info/fields";
+                return await this
+                    .CallConnectorAsync<PDFFormsInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7928,10 +8070,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Find Table response.</returns>
         public virtual async Task<PDFFindTableResponse> PDFFindTableAsync(PDFFindTableInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/find/table";
-            return await this
-                .CallConnectorAsync<PDFFindTableResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFindTableAsync");
+            try
+            {
+                var path = $"/v1/pdf/find/table";
+                return await this
+                    .CallConnectorAsync<PDFFindTableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7943,10 +8095,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Search and Replace Text response.</returns>
         public virtual async Task<SearchAndReplaceResponse> SearchAndReplaceAsync(SearchAndReplaceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/replace-text";
-            return await this
-                .CallConnectorAsync<SearchAndReplaceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.SearchAndReplaceAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/replace-text";
+                return await this
+                    .CallConnectorAsync<SearchAndReplaceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7958,10 +8120,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Search and Replace Text with Image response.</returns>
         public virtual async Task<SearchAndReplaceWithImageResponse> SearchAndReplaceWithImageAsync(SearchAndReplaceWithImageInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/replace-text-with-image";
-            return await this
-                .CallConnectorAsync<SearchAndReplaceWithImageResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.SearchAndReplaceWithImageAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/replace-text-with-image";
+                return await this
+                    .CallConnectorAsync<SearchAndReplaceWithImageResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7973,10 +8145,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Search and Delete Text from PDF response.</returns>
         public virtual async Task<SearchAndDeleteTextResponse> SearchAndDeleteTextAsync(SearchAndDeleteTextInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/delete-text";
-            return await this
-                .CallConnectorAsync<SearchAndDeleteTextResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.SearchAndDeleteTextAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/delete-text";
+                return await this
+                    .CallConnectorAsync<SearchAndDeleteTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7988,10 +8170,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Make Scanned PDF to Text Searchable response.</returns>
         public virtual async Task<PDFSearchableResponse> PDFSearchableAsync(PDFSearchableInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/makesearchable";
-            return await this
-                .CallConnectorAsync<PDFSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSearchableAsync");
+            try
+            {
+                var path = $"/v1/pdf/makesearchable";
+                return await this
+                    .CallConnectorAsync<PDFSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8003,10 +8195,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF to Scanned PDF response.</returns>
         public virtual async Task<PDFUnSearchableResponse> PDFUnSearchableAsync(PDFUnSearchableInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/makeunsearchable";
-            return await this
-                .CallConnectorAsync<PDFUnSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFUnSearchableAsync");
+            try
+            {
+                var path = $"/v1/pdf/makeunsearchable";
+                return await this
+                    .CallConnectorAsync<PDFUnSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8018,10 +8220,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To CSV response.</returns>
         public virtual async Task<PDFToCSVResponse> PDFToCSVAsync(PDFToCSVInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/csv";
-            return await this
-                .CallConnectorAsync<PDFToCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToCSVAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/csv";
+                return await this
+                    .CallConnectorAsync<PDFToCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8033,10 +8245,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To JSON response.</returns>
         public virtual async Task<PDFToJSONResponse> PDFToJSONAsync(PDFToJSONInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/json2";
-            return await this
-                .CallConnectorAsync<PDFToJSONResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToJSONAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/json2";
+                return await this
+                    .CallConnectorAsync<PDFToJSONResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8048,10 +8270,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To JSON (AI Powered) response.</returns>
         public virtual async Task<PDFToJSONMetaResponse> PDFToJSONMetaAsync(PDFToJSONMetaInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/json-meta";
-            return await this
-                .CallConnectorAsync<PDFToJSONMetaResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToJSONMetaAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/json-meta";
+                return await this
+                    .CallConnectorAsync<PDFToJSONMetaResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8063,10 +8295,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To Text (with layout and ocr) response.</returns>
         public virtual async Task<PDFToTextResponse> PDFToTextAsync(PDFToTextInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/text";
-            return await this
-                .CallConnectorAsync<PDFToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToTextAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/text";
+                return await this
+                    .CallConnectorAsync<PDFToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8078,10 +8320,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To Text (without layout and ocr) response.</returns>
         public virtual async Task<PDFToTextSimpleResponse> PDFToTextSimpleAsync(PDFToTextSimpleInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/text-simple";
-            return await this
-                .CallConnectorAsync<PDFToTextSimpleResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToTextSimpleAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/text-simple";
+                return await this
+                    .CallConnectorAsync<PDFToTextSimpleResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8093,10 +8345,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To XLS response.</returns>
         public virtual async Task<PDFToXLSResponse> PDFToXLSAsync(PDFToXLSInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/xls";
-            return await this
-                .CallConnectorAsync<PDFToXLSResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToXLSAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/xls";
+                return await this
+                    .CallConnectorAsync<PDFToXLSResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8108,10 +8370,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To XLSX response.</returns>
         public virtual async Task<PDFToXLSXResponse> PDFToXLSXAsync(PDFToXLSXInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/xlsx";
-            return await this
-                .CallConnectorAsync<PDFToXLSXResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToXLSXAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/xlsx";
+                return await this
+                    .CallConnectorAsync<PDFToXLSXResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8123,10 +8395,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF To XML response.</returns>
         public virtual async Task<PDFToXMLResponse> PDFToXMLAsync(PDFToXMLInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/xml";
-            return await this
-                .CallConnectorAsync<PDFToXMLResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToXMLAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/xml";
+                return await this
+                    .CallConnectorAsync<PDFToXMLResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8138,10 +8420,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF to JPG response.</returns>
         public virtual async Task<PDFToJPGResponse> PDFToJPGAsync(PDFToJPGInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/jpg";
-            return await this
-                .CallConnectorAsync<PDFToJPGResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToJPGAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/jpg";
+                return await this
+                    .CallConnectorAsync<PDFToJPGResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8153,10 +8445,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF to PNG response.</returns>
         public virtual async Task<PDFToPNGResponse> PDFToPNGAsync(PDFToPNGInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/png";
-            return await this
-                .CallConnectorAsync<PDFToPNGResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToPNGAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/png";
+                return await this
+                    .CallConnectorAsync<PDFToPNGResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8168,10 +8470,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF to WEBP response.</returns>
         public virtual async Task<PDFToWEBPResponse> PDFToWEBPAsync(PDFToWEBPInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/webp";
-            return await this
-                .CallConnectorAsync<PDFToWEBPResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToWEBPAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/webp";
+                return await this
+                    .CallConnectorAsync<PDFToWEBPResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8183,10 +8495,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF to TIFF response.</returns>
         public virtual async Task<PDFToTIFFResponse> PDFToTIFFAsync(PDFToTIFFInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/to/tiff";
-            return await this
-                .CallConnectorAsync<PDFToTIFFResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToTIFFAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/to/tiff";
+                return await this
+                    .CallConnectorAsync<PDFToTIFFResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8198,10 +8520,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF from CSV response.</returns>
         public virtual async Task<PDFFromCSVResponse> PDFFromCSVAsync(PDFFromCSVInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/from/csv";
-            return await this
-                .CallConnectorAsync<PDFFromCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromCSVAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/from/csv";
+                return await this
+                    .CallConnectorAsync<PDFFromCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8213,10 +8545,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF from Document (Doc, DocX, RTF, TXT, XPS) response.</returns>
         public virtual async Task<PDFFromDocResponse> PDFFromDocAsync(PDFFromDocInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/from/doc";
-            return await this
-                .CallConnectorAsync<PDFFromDocResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromDocAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/from/doc";
+                return await this
+                    .CallConnectorAsync<PDFFromDocResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8228,10 +8570,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF from Image response.</returns>
         public virtual async Task<PDFFromImagesResponse> PDFFromImagesAsync(PDFFromImagesInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/from/image";
-            return await this
-                .CallConnectorAsync<PDFFromImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromImagesAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/from/image";
+                return await this
+                    .CallConnectorAsync<PDFFromImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8243,10 +8595,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF from Email response.</returns>
         public virtual async Task<PDFFromEmailResponse> PDFFromEmailAsync(PDFFromEmailInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/convert/from/email";
-            return await this
-                .CallConnectorAsync<PDFFromEmailResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromEmailAsync");
+            try
+            {
+                var path = $"/v1/pdf/convert/from/email";
+                return await this
+                    .CallConnectorAsync<PDFFromEmailResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8258,10 +8620,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Add Security response.</returns>
         public virtual async Task<PDFAddSecurityResponse> PDFAddSecurityAsync(PDFAddSecurityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/security/add";
-            return await this
-                .CallConnectorAsync<PDFAddSecurityResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFAddSecurityAsync");
+            try
+            {
+                var path = $"/v1/pdf/security/add";
+                return await this
+                    .CallConnectorAsync<PDFAddSecurityResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8273,10 +8645,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Remove Security response.</returns>
         public virtual async Task<PDFSecurityRemoveResponse> PDFSecurityRemoveAsync(PDFSecurityRemoveInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/security/remove";
-            return await this
-                .CallConnectorAsync<PDFSecurityRemoveResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSecurityRemoveAsync");
+            try
+            {
+                var path = $"/v1/pdf/security/remove";
+                return await this
+                    .CallConnectorAsync<PDFSecurityRemoveResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8288,10 +8670,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF From Spreadsheet response.</returns>
         public virtual async Task<PDFFromXLSXLSXResponse> PDFFromXLSXLSXAsync(PDFFromXLSXLSXInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/xls/convert/to/pdf";
-            return await this
-                .CallConnectorAsync<PDFFromXLSXLSXResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromXLSXLSXAsync");
+            try
+            {
+                var path = $"/v1/xls/convert/to/pdf";
+                return await this
+                    .CallConnectorAsync<PDFFromXLSXLSXResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8303,10 +8695,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Spreadsheet to CSV response.</returns>
         public virtual async Task<XLStoCSVResponse> XLStoCSVAsync(XLStoCSVInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/xls/convert/to/csv";
-            return await this
-                .CallConnectorAsync<XLStoCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoCSVAsync");
+            try
+            {
+                var path = $"/v1/xls/convert/to/csv";
+                return await this
+                    .CallConnectorAsync<XLStoCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8318,10 +8720,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Spreadsheet to JSON response.</returns>
         public virtual async Task<XLStoJSONResponse> XLStoJSONAsync(XLStoJSONInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/xls/convert/to/json";
-            return await this
-                .CallConnectorAsync<XLStoJSONResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoJSONAsync");
+            try
+            {
+                var path = $"/v1/xls/convert/to/json";
+                return await this
+                    .CallConnectorAsync<XLStoJSONResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8333,10 +8745,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Spreadsheet to HTML response.</returns>
         public virtual async Task<XLStoHTMLResponse> XLStoHTMLAsync(XLStoHTMLInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/xls/convert/to/html";
-            return await this
-                .CallConnectorAsync<XLStoHTMLResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoHTMLAsync");
+            try
+            {
+                var path = $"/v1/xls/convert/to/html";
+                return await this
+                    .CallConnectorAsync<XLStoHTMLResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8348,10 +8770,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Spreadsheet to TXT response.</returns>
         public virtual async Task<XLStoTXTResponse> XLStoTXTAsync(XLStoTXTInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/xls/convert/to/txt";
-            return await this
-                .CallConnectorAsync<XLStoTXTResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoTXTAsync");
+            try
+            {
+                var path = $"/v1/xls/convert/to/txt";
+                return await this
+                    .CallConnectorAsync<XLStoTXTResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8363,10 +8795,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Spreadsheet to XML response.</returns>
         public virtual async Task<XLStoXMLResponse> XLStoXMLAsync(XLStoXMLInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/xls/convert/to/xml";
-            return await this
-                .CallConnectorAsync<XLStoXMLResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoXMLAsync");
+            try
+            {
+                var path = $"/v1/xls/convert/to/xml";
+                return await this
+                    .CallConnectorAsync<XLStoXMLResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8378,10 +8820,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Rotate PDF Pages response.</returns>
         public virtual async Task<PDFRotatePagesResponse> PDFRotatePagesAsync(PDFRotatePagesInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/rotate";
-            return await this
-                .CallConnectorAsync<PDFRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFRotatePagesAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/rotate";
+                return await this
+                    .CallConnectorAsync<PDFRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8393,10 +8845,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Rotate PDF Pages (Auto) response.</returns>
         public virtual async Task<PDFAutoRotatePagesResponse> PDFAutoRotatePagesAsync(PDFAutoRotatePagesInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/rotate/auto";
-            return await this
-                .CallConnectorAsync<PDFAutoRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFAutoRotatePagesAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/rotate/auto";
+                return await this
+                    .CallConnectorAsync<PDFAutoRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8408,10 +8870,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Delete Pages response.</returns>
         public virtual async Task<PDFDeletePagesResponse> PDFDeletePagesAsync(PDFDeletePagesInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/edit/delete-pages";
-            return await this
-                .CallConnectorAsync<PDFDeletePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFDeletePagesAsync");
+            try
+            {
+                var path = $"/v1/pdf/edit/delete-pages";
+                return await this
+                    .CallConnectorAsync<PDFDeletePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8423,10 +8895,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Compress and Optimize response.</returns>
         public virtual async Task<PDFCompressResponse> PDFCompressAsync(PDFCompressInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/optimize";
-            return await this
-                .CallConnectorAsync<PDFCompressResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFCompressAsync");
+            try
+            {
+                var path = $"/v1/pdf/optimize";
+                return await this
+                    .CallConnectorAsync<PDFCompressResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8438,10 +8920,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Document Classifier response.</returns>
         public virtual async Task<PDFClassifierResponse> PDFClassifierAsync(PDFClassifierInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/classifier";
-            return await this
-                .CallConnectorAsync<PDFClassifierResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFClassifierAsync");
+            try
+            {
+                var path = $"/v1/pdf/classifier";
+                return await this
+                    .CallConnectorAsync<PDFClassifierResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8453,10 +8945,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Send Email with Attachments response.</returns>
         public virtual async Task<EmailSendResponse> EmailSendAsync(EmailSendInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/email/send";
-            return await this
-                .CallConnectorAsync<EmailSendResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.EmailSendAsync");
+            try
+            {
+                var path = $"/v1/email/send";
+                return await this
+                    .CallConnectorAsync<EmailSendResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8468,10 +8970,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Email Information response.</returns>
         public virtual async Task<EmailDecodeResponse> EmailDecodeAsync(EmailDecodeInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/email/decode";
-            return await this
-                .CallConnectorAsync<EmailDecodeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.EmailDecodeAsync");
+            try
+            {
+                var path = $"/v1/email/decode";
+                return await this
+                    .CallConnectorAsync<EmailDecodeResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8483,10 +8995,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The Email Attachment Extraction response.</returns>
         public virtual async Task<EmailAttachmentExtractionResponse> EmailAttachmentExtractionAsync(EmailAttachmentExtractionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/email/extract-attachments";
-            return await this
-                .CallConnectorAsync<EmailAttachmentExtractionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.EmailAttachmentExtractionAsync");
+            try
+            {
+                var path = $"/v1/email/extract-attachments";
+                return await this
+                    .CallConnectorAsync<EmailAttachmentExtractionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8498,10 +9020,20 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <returns>The PDF Attachment Extraction response.</returns>
         public virtual async Task<PDFAttachmentExtractionResponse> PDFAttachmentExtractionAsync(PDFAttachmentExtractionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/pdf/attachments/extract";
-            return await this
-                .CallConnectorAsync<PDFAttachmentExtractionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFAttachmentExtractionAsync");
+            try
+            {
+                var path = $"/v1/pdf/attachments/extract";
+                return await this
+                    .CallConnectorAsync<PDFAttachmentExtractionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

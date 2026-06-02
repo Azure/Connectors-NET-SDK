@@ -79,11 +79,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateCreated</summary>
         [JsonPropertyName("DateCreated")]
-        public object DateCreated { get; set; }
+        public JsonElement? DateCreated { get; set; }
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Determines if the entry has elected to remain private.</summary>
         [JsonPropertyName("DirectoryFlagPrivacy")]
@@ -91,7 +91,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DOB</summary>
         [JsonPropertyName("DOB")]
-        public object DOB { get; set; }
+        public JsonElement? DOB { get; set; }
 
         /// <summary>Pointer to the active application record.</summary>
         [JsonPropertyName("EntryApplicationID")]
@@ -135,7 +135,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>LastCheckInOutDate</summary>
         [JsonPropertyName("LastCheckInOutDate")]
-        public object LastCheckInOutDate { get; set; }
+        public JsonElement? LastCheckInOutDate { get; set; }
 
         /// <summary>The first or given name of the entry.</summary>
         [JsonPropertyName("NameFirst")]
@@ -821,7 +821,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Unique ID for this entry custom field record.</summary>
         [JsonPropertyName("EntryCustomFieldID")]
@@ -841,7 +841,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ValueDate</summary>
         [JsonPropertyName("ValueDate")]
-        public object ValueDate { get; set; }
+        public JsonElement? ValueDate { get; set; }
 
         /// <summary>Integer value.</summary>
         [JsonPropertyName("ValueInteger")]
@@ -967,11 +967,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ActiveDateClose</summary>
         [JsonPropertyName("ActiveDateClose")]
-        public object ActiveDateClose { get; set; }
+        public JsonElement? ActiveDateClose { get; set; }
 
         /// <summary>ActiveDateOpen</summary>
         [JsonPropertyName("ActiveDateOpen")]
-        public object ActiveDateOpen { get; set; }
+        public JsonElement? ActiveDateOpen { get; set; }
 
         /// <summary>Pointer to the category record.</summary>
         [JsonPropertyName("CategoryID")]
@@ -983,7 +983,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Term description.</summary>
         [JsonPropertyName("Description")]
@@ -1033,11 +1033,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ActiveDateEnd</summary>
         [JsonPropertyName("ActiveDateEnd")]
-        public object ActiveDateEnd { get; set; }
+        public JsonElement? ActiveDateEnd { get; set; }
 
         /// <summary>ActiveDateStart</summary>
         [JsonPropertyName("ActiveDateStart")]
-        public object ActiveDateStart { get; set; }
+        public JsonElement? ActiveDateStart { get; set; }
 
         /// <summary>Pointer to the address type record.</summary>
         [JsonPropertyName("AddressTypeID")]
@@ -1065,7 +1065,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Email</summary>
         [JsonPropertyName("Email")]
@@ -1339,7 +1339,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ApplicationDate</summary>
         [JsonPropertyName("ApplicationDate")]
-        public object ApplicationDate { get; set; }
+        public JsonElement? ApplicationDate { get; set; }
 
         /// <summary>Pointer to the application status record.</summary>
         [JsonPropertyName("ApplicationStatusID")]
@@ -1347,7 +1347,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CancelDate</summary>
         [JsonPropertyName("CancelDate")]
-        public object CancelDate { get; set; }
+        public JsonElement? CancelDate { get; set; }
 
         /// <summary>Pointer to the classification record.</summary>
         [JsonPropertyName("ClassificationID")]
@@ -1363,11 +1363,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CompleteDate</summary>
         [JsonPropertyName("CompleteDate")]
-        public object CompleteDate { get; set; }
+        public JsonElement? CompleteDate { get; set; }
 
         /// <summary>ContractSignedDate</summary>
         [JsonPropertyName("ContractSignedDate")]
-        public object ContractSignedDate { get; set; }
+        public JsonElement? ContractSignedDate { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
         [JsonPropertyName("CustomBit1")]
@@ -1387,31 +1387,31 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CustomDate1</summary>
         [JsonPropertyName("CustomDate1")]
-        public object CustomDate1 { get; set; }
+        public JsonElement? CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
         [JsonPropertyName("CustomDate2")]
-        public object CustomDate2 { get; set; }
+        public JsonElement? CustomDate2 { get; set; }
 
         /// <summary>CustomDate3</summary>
         [JsonPropertyName("CustomDate3")]
-        public object CustomDate3 { get; set; }
+        public JsonElement? CustomDate3 { get; set; }
 
         /// <summary>CustomDate4</summary>
         [JsonPropertyName("CustomDate4")]
-        public object CustomDate4 { get; set; }
+        public JsonElement? CustomDate4 { get; set; }
 
         /// <summary>DateCreated</summary>
         [JsonPropertyName("DateCreated")]
-        public object DateCreated { get; set; }
+        public JsonElement? DateCreated { get; set; }
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>EnquiryDate</summary>
         [JsonPropertyName("EnquiryDate")]
-        public object EnquiryDate { get; set; }
+        public JsonElement? EnquiryDate { get; set; }
 
         /// <summary>Unique ID for this entry application record.</summary>
         [JsonPropertyName("EntryApplicationID")]
@@ -1423,23 +1423,23 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ExpectedArrivalDate</summary>
         [JsonPropertyName("ExpectedArrivalDate")]
-        public object ExpectedArrivalDate { get; set; }
+        public JsonElement? ExpectedArrivalDate { get; set; }
 
         /// <summary>ExpectedArrivalDateLatest</summary>
         [JsonPropertyName("ExpectedArrivalDateLatest")]
-        public object ExpectedArrivalDateLatest { get; set; }
+        public JsonElement? ExpectedArrivalDateLatest { get; set; }
 
         /// <summary>ExpectedDepartureDate</summary>
         [JsonPropertyName("ExpectedDepartureDate")]
-        public object ExpectedDepartureDate { get; set; }
+        public JsonElement? ExpectedDepartureDate { get; set; }
 
         /// <summary>OfferedDate</summary>
         [JsonPropertyName("OfferedDate")]
-        public object OfferedDate { get; set; }
+        public JsonElement? OfferedDate { get; set; }
 
         /// <summary>OfferReplyDate</summary>
         [JsonPropertyName("OfferReplyDate")]
-        public object OfferReplyDate { get; set; }
+        public JsonElement? OfferReplyDate { get; set; }
 
         /// <summary>Offer reply.</summary>
         [JsonPropertyName("OfferReplyEnum")]
@@ -1451,7 +1451,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>OfferSentDate</summary>
         [JsonPropertyName("OfferSentDate")]
-        public object OfferSentDate { get; set; }
+        public JsonElement? OfferSentDate { get; set; }
 
         /// <summary>Whether this application is just for the portal to track progress.</summary>
         [JsonPropertyName("PortalTrackingOnly")]
@@ -1467,7 +1467,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ReceivedDate</summary>
         [JsonPropertyName("ReceivedDate")]
-        public object ReceivedDate { get; set; }
+        public JsonElement? ReceivedDate { get; set; }
 
         /// <summary>Indicates if the deposit has been received.</summary>
         [JsonPropertyName("ReceivedDeposit")]
@@ -1491,7 +1491,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ReceivedDepositDate</summary>
         [JsonPropertyName("ReceivedDepositDate")]
-        public object ReceivedDepositDate { get; set; }
+        public JsonElement? ReceivedDepositDate { get; set; }
 
         /// <summary>Indicates if the fee has been received.</summary>
         [JsonPropertyName("ReceivedFee")]
@@ -1511,11 +1511,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ReceivedFeeDate</summary>
         [JsonPropertyName("ReceivedFeeDate")]
-        public object ReceivedFeeDate { get; set; }
+        public JsonElement? ReceivedFeeDate { get; set; }
 
         /// <summary>ReceivedPhotoDate</summary>
         [JsonPropertyName("ReceivedPhotoDate")]
-        public object ReceivedPhotoDate { get; set; }
+        public JsonElement? ReceivedPhotoDate { get; set; }
 
         /// <summary>Indicates if the entry has been here before and is returning.</summary>
         [JsonPropertyName("Returning")]
@@ -2501,7 +2501,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CheckInDate</summary>
         [JsonPropertyName("CheckInDate")]
-        public object CheckInDate { get; set; }
+        public JsonElement? CheckInDate { get; set; }
 
         /// <summary>Update CheckInDateActual if check-in date moves backward (in the past).</summary>
         [JsonPropertyName("CheckInDateActualDecrease_BooleanAskEnum")]
@@ -2521,7 +2521,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CheckOutDate</summary>
         [JsonPropertyName("CheckOutDate")]
-        public object CheckOutDate { get; set; }
+        public JsonElement? CheckOutDate { get; set; }
 
         /// <summary>Update CheckOutDateActual if check-in date moves backward (in the past).</summary>
         [JsonPropertyName("CheckOutDateActualDecrease_BooleanAskEnum")]
@@ -2557,11 +2557,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ContractDateEnd</summary>
         [JsonPropertyName("ContractDateEnd")]
-        public object ContractDateEnd { get; set; }
+        public JsonElement? ContractDateEnd { get; set; }
 
         /// <summary>ContractDateStart</summary>
         [JsonPropertyName("ContractDateStart")]
-        public object ContractDateStart { get; set; }
+        public JsonElement? ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
         [JsonPropertyName("CustomBit1")]
@@ -2573,11 +2573,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CustomDate1</summary>
         [JsonPropertyName("CustomDate1")]
-        public object CustomDate1 { get; set; }
+        public JsonElement? CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
         [JsonPropertyName("CustomDate2")]
-        public object CustomDate2 { get; set; }
+        public JsonElement? CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
         [JsonPropertyName("CustomString1")]
@@ -2605,7 +2605,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Term description.</summary>
         [JsonPropertyName("Description")]
@@ -2747,7 +2747,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>AccountDueDate</summary>
         [JsonPropertyName("AccountDueDate")]
-        public object AccountDueDate { get; set; }
+        public JsonElement? AccountDueDate { get; set; }
 
         /// <summary>Indicates if the athlete flag has been set.</summary>
         [JsonPropertyName("Athlete")]
@@ -2819,15 +2819,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateEntry</summary>
         [JsonPropertyName("DateEntry")]
-        public object DateEntry { get; set; }
+        public JsonElement? DateEntry { get; set; }
 
         /// <summary>DateExit</summary>
         [JsonPropertyName("DateExit")]
-        public object DateExit { get; set; }
+        public JsonElement? DateExit { get; set; }
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Indicates if the Entry is deceased.</summary>
         [JsonPropertyName("Deceased")]
@@ -2835,7 +2835,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DeceasedDate</summary>
         [JsonPropertyName("DeceasedDate")]
-        public object DeceasedDate { get; set; }
+        public JsonElement? DeceasedDate { get; set; }
 
         /// <summary>Dietary requirements.</summary>
         [JsonPropertyName("Dietary")]
@@ -2887,7 +2887,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ExpectedGraduationDate</summary>
         [JsonPropertyName("ExpectedGraduationDate")]
-        public object ExpectedGraduationDate { get; set; }
+        public JsonElement? ExpectedGraduationDate { get; set; }
 
         /// <summary>Financial support comments.</summary>
         [JsonPropertyName("FinancialComments")]
@@ -3007,11 +3007,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>SituationResponseExpiryDate</summary>
         [JsonPropertyName("SituationResponseExpiryDate")]
-        public object SituationResponseExpiryDate { get; set; }
+        public JsonElement? SituationResponseExpiryDate { get; set; }
 
         /// <summary>SituationResponseModifiedDate</summary>
         [JsonPropertyName("SituationResponseModifiedDate")]
-        public object SituationResponseModifiedDate { get; set; }
+        public JsonElement? SituationResponseModifiedDate { get; set; }
 
         /// <summary>Situation response situation.</summary>
         [JsonPropertyName("SituationResponseSituation")]
@@ -3817,11 +3817,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CustomDate1</summary>
         [JsonPropertyName("CustomDate1")]
-        public object CustomDate1 { get; set; }
+        public JsonElement? CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
         [JsonPropertyName("CustomDate2")]
-        public object CustomDate2 { get; set; }
+        public JsonElement? CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
         [JsonPropertyName("CustomString1")]
@@ -3849,15 +3849,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateEnd</summary>
         [JsonPropertyName("DateEnd")]
-        public object DateEnd { get; set; }
+        public JsonElement? DateEnd { get; set; }
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>DateStart</summary>
         [JsonPropertyName("DateStart")]
-        public object DateStart { get; set; }
+        public JsonElement? DateStart { get; set; }
 
         /// <summary>Department entry is enrolled in.</summary>
         [JsonPropertyName("Department")]
@@ -3893,7 +3893,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>GraduationDate</summary>
         [JsonPropertyName("GraduationDate")]
-        public object GraduationDate { get; set; }
+        public JsonElement? GraduationDate { get; set; }
 
         /// <summary>Course institution.</summary>
         [JsonPropertyName("Institution")]
@@ -4547,19 +4547,19 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CheckInDate</summary>
         [JsonPropertyName("CheckInDate")]
-        public object CheckInDate { get; set; }
+        public JsonElement? CheckInDate { get; set; }
 
         /// <summary>CheckInDateActual</summary>
         [JsonPropertyName("CheckInDateActual")]
-        public object CheckInDateActual { get; set; }
+        public JsonElement? CheckInDateActual { get; set; }
 
         /// <summary>CheckOutDate</summary>
         [JsonPropertyName("CheckOutDate")]
-        public object CheckOutDate { get; set; }
+        public JsonElement? CheckOutDate { get; set; }
 
         /// <summary>CheckOutDateActual</summary>
         [JsonPropertyName("CheckOutDateActual")]
-        public object CheckOutDateActual { get; set; }
+        public JsonElement? CheckOutDateActual { get; set; }
 
         /// <summary>Comments</summary>
         [JsonPropertyName("Comments")]
@@ -4567,11 +4567,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ContractDateEnd</summary>
         [JsonPropertyName("ContractDateEnd")]
-        public object ContractDateEnd { get; set; }
+        public JsonElement? ContractDateEnd { get; set; }
 
         /// <summary>ContractDateStart</summary>
         [JsonPropertyName("ContractDateStart")]
-        public object ContractDateStart { get; set; }
+        public JsonElement? ContractDateStart { get; set; }
 
         /// <summary>Custom boolean field value.</summary>
         [JsonPropertyName("CustomBit1")]
@@ -4591,19 +4591,19 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CustomDate1</summary>
         [JsonPropertyName("CustomDate1")]
-        public object CustomDate1 { get; set; }
+        public JsonElement? CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
         [JsonPropertyName("CustomDate2")]
-        public object CustomDate2 { get; set; }
+        public JsonElement? CustomDate2 { get; set; }
 
         /// <summary>CustomDate3</summary>
         [JsonPropertyName("CustomDate3")]
-        public object CustomDate3 { get; set; }
+        public JsonElement? CustomDate3 { get; set; }
 
         /// <summary>CustomDate4</summary>
         [JsonPropertyName("CustomDate4")]
-        public object CustomDate4 { get; set; }
+        public JsonElement? CustomDate4 { get; set; }
 
         /// <summary>Custom string field value.</summary>
         [JsonPropertyName("CustomString1")]
@@ -4647,23 +4647,23 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateBilled</summary>
         [JsonPropertyName("DateBilled")]
-        public object DateBilled { get; set; }
+        public JsonElement? DateBilled { get; set; }
 
         /// <summary>DateChargedTo</summary>
         [JsonPropertyName("DateChargedTo")]
-        public object DateChargedTo { get; set; }
+        public JsonElement? DateChargedTo { get; set; }
 
         /// <summary>DateCreated</summary>
         [JsonPropertyName("DateCreated")]
-        public object DateCreated { get; set; }
+        public JsonElement? DateCreated { get; set; }
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>DateModifiedBilling</summary>
         [JsonPropertyName("DateModifiedBilling")]
-        public object DateModifiedBilling { get; set; }
+        public JsonElement? DateModifiedBilling { get; set; }
 
         /// <summary>The number of additional Emotional Support Animal occupants in this booking.</summary>
         [JsonPropertyName("EmotionalSupportAnimalCount")]
@@ -4723,7 +4723,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>PaidTo</summary>
         [JsonPropertyName("PaidTo")]
-        public object PaidTo { get; set; }
+        public JsonElement? PaidTo { get; set; }
 
         /// <summary>The number of additional pet occupants in this booking.</summary>
         [JsonPropertyName("PetCount")]
@@ -5813,7 +5813,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>The actual room name.</summary>
         [JsonPropertyName("Description")]
@@ -6111,11 +6111,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CustomDate1</summary>
         [JsonPropertyName("CustomDate1")]
-        public object CustomDate1 { get; set; }
+        public JsonElement? CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
         [JsonPropertyName("CustomDate2")]
-        public object CustomDate2 { get; set; }
+        public JsonElement? CustomDate2 { get; set; }
 
         /// <summary>Custom string field value.</summary>
         [JsonPropertyName("CustomString1")]
@@ -6143,7 +6143,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Room location description.</summary>
         [JsonPropertyName("Description")]
@@ -6253,7 +6253,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>Transaction description.</summary>
         [JsonPropertyName("Description")]
@@ -6261,7 +6261,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DueDate</summary>
         [JsonPropertyName("DueDate")]
-        public object DueDate { get; set; }
+        public JsonElement? DueDate { get; set; }
 
         /// <summary>Phone call duration in seconds.</summary>
         [JsonPropertyName("Duration")]
@@ -6297,11 +6297,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>PaidFrom</summary>
         [JsonPropertyName("PaidFrom")]
-        public object PaidFrom { get; set; }
+        public JsonElement? PaidFrom { get; set; }
 
         /// <summary>PaidTo</summary>
         [JsonPropertyName("PaidTo")]
-        public object PaidTo { get; set; }
+        public JsonElement? PaidTo { get; set; }
 
         /// <summary>Pointer to the payment record.</summary>
         [JsonPropertyName("PaymentID")]
@@ -6309,7 +6309,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ProcessedDate</summary>
         [JsonPropertyName("ProcessedDate")]
-        public object ProcessedDate { get; set; }
+        public JsonElement? ProcessedDate { get; set; }
 
         /// <summary>The booking (if any) that this transaction relates to.</summary>
         [JsonPropertyName("Reference_BookingID")]
@@ -6353,7 +6353,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>TransactionDate</summary>
         [JsonPropertyName("TransactionDate")]
-        public object TransactionDate { get; set; }
+        public JsonElement? TransactionDate { get; set; }
 
         /// <summary>Unique ID for this transaction record.</summary>
         [JsonPropertyName("TransactionID")]
@@ -6687,7 +6687,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CompleteDate</summary>
         [JsonPropertyName("CompleteDate")]
-        public object CompleteDate { get; set; }
+        public JsonElement? CompleteDate { get; set; }
 
         /// <summary>Pointer to the contact record.</summary>
         [JsonPropertyName("ContactID")]
@@ -6695,7 +6695,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ContractDate</summary>
         [JsonPropertyName("ContractDate")]
-        public object ContractDate { get; set; }
+        public JsonElement? ContractDate { get; set; }
 
         /// <summary>Contractor cost.</summary>
         [JsonPropertyName("ContractorCost")]
@@ -6707,7 +6707,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>ContractorDate</summary>
         [JsonPropertyName("ContractorDate")]
-        public object ContractorDate { get; set; }
+        public JsonElement? ContractorDate { get; set; }
 
         /// <summary>Contractor ETA.</summary>
         [JsonPropertyName("ContractorETA")]
@@ -6731,11 +6731,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>CustomDate1</summary>
         [JsonPropertyName("CustomDate1")]
-        public object CustomDate1 { get; set; }
+        public JsonElement? CustomDate1 { get; set; }
 
         /// <summary>CustomDate2</summary>
         [JsonPropertyName("CustomDate2")]
-        public object CustomDate2 { get; set; }
+        public JsonElement? CustomDate2 { get; set; }
 
         /// <summary>Custom string 1.</summary>
         [JsonPropertyName("CustomString1")]
@@ -6763,19 +6763,19 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>DateCreated</summary>
         [JsonPropertyName("DateCreated")]
-        public object DateCreated { get; set; }
+        public JsonElement? DateCreated { get; set; }
 
         /// <summary>DateDue</summary>
         [JsonPropertyName("DateDue")]
-        public object DateDue { get; set; }
+        public JsonElement? DateDue { get; set; }
 
         /// <summary>DateModified</summary>
         [JsonPropertyName("DateModified")]
-        public object DateModified { get; set; }
+        public JsonElement? DateModified { get; set; }
 
         /// <summary>DateReported</summary>
         [JsonPropertyName("DateReported")]
-        public object DateReported { get; set; }
+        public JsonElement? DateReported { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("Description")]
@@ -6855,7 +6855,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
 
         /// <summary>StartDate</summary>
         [JsonPropertyName("StartDate")]
-        public object StartDate { get; set; }
+        public JsonElement? StartDate { get; set; }
 
         /// <summary>Status.</summary>
         [JsonPropertyName("Status")]
@@ -9467,7 +9467,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
     /// <summary>
     /// Model factory for creating instances of StarrezRestV1 models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class StarrezRestV1ModelFactory
     {
@@ -9486,10 +9486,10 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string conferenceEmail = default,
             int? contactId = default,
             int? createdBySecurityUserId = default,
-            object dateCreated = default,
-            object dateModified = default,
+            JsonElement? dateCreated = default,
+            JsonElement? dateModified = default,
             bool? directoryFlagPrivacy = default,
-            object dob = default,
+            JsonElement? dob = default,
             int? entryApplicationId = default,
             int? entryId = default,
             EntryStatusEnum? entryStatusEnum = default,
@@ -9500,7 +9500,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string iD3 = default,
             int? iD4 = default,
             int? iD5 = default,
-            object lastCheckInOutDate = default,
+            JsonElement? lastCheckInOutDate = default,
             string nameFirst = default,
             string nameInitials = default,
             string nameLast = default,
@@ -9892,12 +9892,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageIndex = default,
             string orderby = default,
             int? customFieldDefinitionId = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             int? entryCustomFieldId = default,
             int? entryId = default,
             FieldDataTypeEnum? fieldDataTypeEnum = default,
             bool? valueBoolean = default,
-            object valueDate = default,
+            JsonElement? valueDate = default,
             int? valueInteger = default,
             double? valueMoney = default,
             string valueString = default)
@@ -9986,11 +9986,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageIndex = default,
             string orderby = default,
             bool? active = default,
-            object activeDateClose = default,
-            object activeDateOpen = default,
+            JsonElement? activeDateClose = default,
+            JsonElement? activeDateOpen = default,
             int? categoryId = default,
             string comments = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             string description = default,
             RecordTypeEnum? recordTypeEnum = default,
             string termCode = default,
@@ -10027,15 +10027,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageSize = default,
             int? pageIndex = default,
             string orderby = default,
-            object activeDateEnd = default,
-            object activeDateStart = default,
+            JsonElement? activeDateEnd = default,
+            JsonElement? activeDateStart = default,
             int? addressTypeId = default,
             string city = default,
             string comments = default,
             string contactName = default,
             string contactName2 = default,
             int? countryId = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             string email = default,
             int? entryAddressId = default,
             int? entryId = default,
@@ -10200,51 +10200,51 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? pageIndex = default,
             string orderby = default,
             AllocateOptionEnum? allocateOptionEnum = default,
-            object applicationDate = default,
+            JsonElement? applicationDate = default,
             int? applicationStatusId = default,
-            object cancelDate = default,
+            JsonElement? cancelDate = default,
             int? classificationId = default,
             string comments = default,
             string commentsInternal = default,
-            object completeDate = default,
-            object contractSignedDate = default,
+            JsonElement? completeDate = default,
+            JsonElement? contractSignedDate = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             bool? customBit3 = default,
             bool? customBit4 = default,
-            object customDate1 = default,
-            object customDate2 = default,
-            object customDate3 = default,
-            object customDate4 = default,
-            object dateCreated = default,
-            object dateModified = default,
-            object enquiryDate = default,
+            JsonElement? customDate1 = default,
+            JsonElement? customDate2 = default,
+            JsonElement? customDate3 = default,
+            JsonElement? customDate4 = default,
+            JsonElement? dateCreated = default,
+            JsonElement? dateModified = default,
+            JsonElement? enquiryDate = default,
             int? entryApplicationId = default,
             int? entryId = default,
-            object expectedArrivalDate = default,
-            object expectedArrivalDateLatest = default,
-            object expectedDepartureDate = default,
-            object offeredDate = default,
-            object offerReplyDate = default,
+            JsonElement? expectedArrivalDate = default,
+            JsonElement? expectedArrivalDateLatest = default,
+            JsonElement? expectedDepartureDate = default,
+            JsonElement? offeredDate = default,
+            JsonElement? offerReplyDate = default,
             OfferReplyEnum? offerReplyEnum = default,
             string offerReplyReason = default,
-            object offerSentDate = default,
+            JsonElement? offerSentDate = default,
             bool? portalTrackingOnly = default,
             string preferenceComments = default,
             string rating = default,
-            object receivedDate = default,
+            JsonElement? receivedDate = default,
             bool? receivedDeposit = default,
             bool? receivedDepositWaived = default,
             int? receivedDepositPaymentId = default,
             int? receivedDepositWebPaymentId = default,
             double? receivedDepositAmount = default,
-            object receivedDepositDate = default,
+            JsonElement? receivedDepositDate = default,
             bool? receivedFee = default,
             int? receivedFeePaymentId = default,
             int? receivedFeeWebPaymentId = default,
             double? receivedFeeAmount = default,
-            object receivedFeeDate = default,
-            object receivedPhotoDate = default,
+            JsonElement? receivedFeeDate = default,
+            JsonElement? receivedPhotoDate = default,
             bool? returning = default,
             string roomMateDescription = default,
             int? roommateGroupId = default,
@@ -10814,12 +10814,12 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? bookingTypeId = default,
             int? cancelBookingDefaultEndBookingReasonId = default,
             CancelBookingUpdateEndBookingReasonBooleanAskEnum? cancelBookingUpdateEndBookingReasonBooleanAskEnum = default,
-            object checkInDate = default,
+            JsonElement? checkInDate = default,
             CheckInDateActualDecreaseBooleanAskEnum? checkInDateActualDecreaseBooleanAskEnum = default,
             CheckInDateActualIncreaseBooleanAskEnum? checkInDateActualIncreaseBooleanAskEnum = default,
             int? checkInDefaultStartBookingReasonId = default,
             CheckInUpdateStartBookingReasonBooleanAskEnum? checkInUpdateStartBookingReasonBooleanAskEnum = default,
-            object checkOutDate = default,
+            JsonElement? checkOutDate = default,
             CheckOutDateActualDecreaseBooleanAskEnum? checkOutDateActualDecreaseBooleanAskEnum = default,
             CheckOutDateActualIncreaseBooleanAskEnum? checkOutDateActualIncreaseBooleanAskEnum = default,
             int? checkOutDefaultEndBookingReasonId = default,
@@ -10828,19 +10828,19 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             ContractDateCheckInIncreaseBooleanAskEnum? contractDateCheckInIncreaseBooleanAskEnum = default,
             ContractDateCheckOutDecreaseBooleanAskEnum? contractDateCheckOutDecreaseBooleanAskEnum = default,
             ContractDateCheckOutIncreaseBooleanAskEnum? contractDateCheckOutIncreaseBooleanAskEnum = default,
-            object contractDateEnd = default,
-            object contractDateStart = default,
+            JsonElement? contractDateEnd = default,
+            JsonElement? contractDateStart = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
-            object customDate1 = default,
-            object customDate2 = default,
+            JsonElement? customDate1 = default,
+            JsonElement? customDate2 = default,
             string customString1 = default,
             string customString2 = default,
             string customString3 = default,
             string customString4 = default,
             string customString5 = default,
             string customString6 = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             string description = default,
             int? endBookingReasonId = default,
             EntryStatusEnum? entryStatusEnum = default,
@@ -10936,7 +10936,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string accountDetail2 = default,
             string accountDetail3 = default,
             string accountDetail4 = default,
-            object accountDueDate = default,
+            JsonElement? accountDueDate = default,
             bool? athlete = default,
             string athleteTeam = default,
             AttendeeStatusEnum? attendeeStatusEnum = default,
@@ -10954,11 +10954,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             double? currentHours = default,
             string currentMajor = default,
             string currentMinor = default,
-            object dateEntry = default,
-            object dateExit = default,
-            object dateModified = default,
+            JsonElement? dateEntry = default,
+            JsonElement? dateExit = default,
+            JsonElement? dateModified = default,
             bool? deceased = default,
-            object deceasedDate = default,
+            JsonElement? deceasedDate = default,
             string dietary = default,
             string disability = default,
             string employmentDetails = default,
@@ -10971,7 +10971,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? entryId = default,
             string ethnicity = default,
             int? eventRegistrationFeeId = default,
-            object expectedGraduationDate = default,
+            JsonElement? expectedGraduationDate = default,
             string financialComments = default,
             int? financialSupportId = default,
             string hearAboutUs = default,
@@ -11001,8 +11001,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string situationResponseComments = default,
             string situationResponseDetail = default,
             SituationResponseEnum? situationResponseEnum = default,
-            object situationResponseExpiryDate = default,
-            object situationResponseModifiedDate = default,
+            JsonElement? situationResponseExpiryDate = default,
+            JsonElement? situationResponseModifiedDate = default,
             string situationResponseSituation = default,
             string specialNeeds = default,
             int? staffId = default,
@@ -11498,17 +11498,17 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? courseId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
-            object customDate1 = default,
-            object customDate2 = default,
+            JsonElement? customDate1 = default,
+            JsonElement? customDate2 = default,
             string customString1 = default,
             string customString2 = default,
             string customString3 = default,
             string customString4 = default,
             string customString5 = default,
             string customString6 = default,
-            object dateEnd = default,
-            object dateModified = default,
-            object dateStart = default,
+            JsonElement? dateEnd = default,
+            JsonElement? dateModified = default,
+            JsonElement? dateStart = default,
             string department = default,
             string enrollmentField = default,
             int? enrollmentOrder = default,
@@ -11517,7 +11517,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? entryId = default,
             string faculty = default,
             bool? fullTime = default,
-            object graduationDate = default,
+            JsonElement? graduationDate = default,
             string institution = default,
             bool? isEnrolled = default,
             string major = default,
@@ -11898,21 +11898,21 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? bookingId = default,
             BookingLinkTypeEnum? bookingLinkTypeEnum = default,
             int? bookingTypeId = default,
-            object checkInDate = default,
-            object checkInDateActual = default,
-            object checkOutDate = default,
-            object checkOutDateActual = default,
+            JsonElement? checkInDate = default,
+            JsonElement? checkInDateActual = default,
+            JsonElement? checkOutDate = default,
+            JsonElement? checkOutDateActual = default,
             string comments = default,
-            object contractDateEnd = default,
-            object contractDateStart = default,
+            JsonElement? contractDateEnd = default,
+            JsonElement? contractDateStart = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
             bool? customBit3 = default,
             bool? customBit4 = default,
-            object customDate1 = default,
-            object customDate2 = default,
-            object customDate3 = default,
-            object customDate4 = default,
+            JsonElement? customDate1 = default,
+            JsonElement? customDate2 = default,
+            JsonElement? customDate3 = default,
+            JsonElement? customDate4 = default,
             string customString1 = default,
             string customString2 = default,
             string customString3 = default,
@@ -11923,11 +11923,11 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             string customString8 = default,
             string customString9 = default,
             string customString10 = default,
-            object dateBilled = default,
-            object dateChargedTo = default,
-            object dateCreated = default,
-            object dateModified = default,
-            object dateModifiedBilling = default,
+            JsonElement? dateBilled = default,
+            JsonElement? dateChargedTo = default,
+            JsonElement? dateCreated = default,
+            JsonElement? dateModified = default,
+            JsonElement? dateModifiedBilling = default,
             int? emotionalSupportAnimalCount = default,
             int? endBookingReasonId = default,
             int? entryId = default,
@@ -11942,7 +11942,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? numberOfChildrenFree = default,
             int? numberOfGuests = default,
             int? numberOfGuestsFree = default,
-            object paidTo = default,
+            JsonElement? paidTo = default,
             int? petCount = default,
             bool? resvChargeToEntry = default,
             bool? roomLocationFixed = default,
@@ -12566,7 +12566,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? bathrooms = default,
             int? bedCapacity = default,
             string comments = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             string description = default,
             int? extensionId = default,
             bool? hold = default,
@@ -12734,15 +12734,15 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? countryId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
-            object customDate1 = default,
-            object customDate2 = default,
+            JsonElement? customDate1 = default,
+            JsonElement? customDate2 = default,
             string customString1 = default,
             string customString2 = default,
             string customString3 = default,
             string customString4 = default,
             string customString5 = default,
             string customString6 = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             string description = default,
             GenderTypeEnum? genderTypeEnum = default,
             bool? lease = default,
@@ -12813,9 +12813,9 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? chargeItemId = default,
             string comments = default,
             int? createdBySecurityUserId = default,
-            object dateModified = default,
+            JsonElement? dateModified = default,
             string description = default,
-            object dueDate = default,
+            JsonElement? dueDate = default,
             int? duration = default,
             int? endOfSessionId = default,
             int? entryId = default,
@@ -12824,10 +12824,10 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? externalId = default,
             string externalReceiptId = default,
             int? invoiceId = default,
-            object paidFrom = default,
-            object paidTo = default,
+            JsonElement? paidFrom = default,
+            JsonElement? paidTo = default,
             int? paymentId = default,
-            object processedDate = default,
+            JsonElement? processedDate = default,
             int? referenceBookingId = default,
             int? securityUserId = default,
             int? tableId = default,
@@ -12838,7 +12838,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             double? taxAmount2 = default,
             double? taxAmount3 = default,
             int? termSessionId = default,
-            object transactionDate = default,
+            JsonElement? transactionDate = default,
             int? transactionId = default,
             TransactionTypeEnum? transactionTypeEnum = default)
         {
@@ -13049,29 +13049,29 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             bool? chargeInvoiced = default,
             string chargeInvoiceNumber = default,
             string chargeType = default,
-            object completeDate = default,
+            JsonElement? completeDate = default,
             int? contactId = default,
-            object contractDate = default,
+            JsonElement? contractDate = default,
             double? contractorCost = default,
             double? contractorCostEstimate = default,
-            object contractorDate = default,
+            JsonElement? contractorDate = default,
             string contractorETA = default,
             string contractorOrderNumber = default,
             int? createdBySecurityUserId = default,
             bool? customBit1 = default,
             bool? customBit2 = default,
-            object customDate1 = default,
-            object customDate2 = default,
+            JsonElement? customDate1 = default,
+            JsonElement? customDate2 = default,
             string customString1 = default,
             string customString2 = default,
             string customString3 = default,
             string customString4 = default,
             string customString5 = default,
             string customString6 = default,
-            object dateCreated = default,
-            object dateDue = default,
-            object dateModified = default,
-            object dateReported = default,
+            JsonElement? dateCreated = default,
+            JsonElement? dateDue = default,
+            JsonElement? dateModified = default,
+            JsonElement? dateReported = default,
             string description = default,
             bool? jobSent = default,
             string jobStatus = default,
@@ -13091,7 +13091,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1.Models
             int? roomSpaceMaintenanceId = default,
             int? roomSpaceMaintenanceItemId = default,
             int? securityUserId = default,
-            object startDate = default,
+            JsonElement? startDate = default,
             string status = default,
             string technician = default,
             bool? viewOnWeb = default)
@@ -13679,6 +13679,8 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
 
         public override string ConnectorName => "starrezrestv1";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.starrezrestv1");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -13698,12 +13700,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry response.</returns>
-        public virtual async Task<List<object>> SelectEntryAsync(SelectEntryInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryAsync(SelectEntryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/entry.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryAsync");
+            try
+            {
+                var path = $"/select/entry.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13715,10 +13727,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Entry response.</returns>
         public virtual async Task<CreateEntryResponse> CreateEntryAsync(CreateEntryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/entry.json";
-            return await this
-                .CallConnectorAsync<CreateEntryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateEntryAsync");
+            try
+            {
+                var path = $"/create/entry.json";
+                return await this
+                    .CallConnectorAsync<CreateEntryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13731,10 +13753,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Entry response.</returns>
         public virtual async Task<UpdateEntryResponse> UpdateEntryAsync(int entryId, UpdateEntryInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entry.json/{Uri.EscapeDataString(entryId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateEntryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryAsync");
+            try
+            {
+                var path = $"/update/entry.json/{Uri.EscapeDataString(entryId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateEntryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13747,10 +13779,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Delete response.</returns>
         public virtual async Task<DeleteResponse> DeleteAsync(string tableName, int rowId, CancellationToken cancellationToken = default)
         {
-            var path = $"/delete/{Uri.EscapeDataString(tableName.ToString())}.json/{Uri.EscapeDataString(rowId.ToString())}";
-            return await this
-                .CallConnectorAsync<DeleteResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.DeleteAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/delete/{Uri.EscapeDataString(tableName.ToString())}.json/{Uri.EscapeDataString(rowId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DeleteResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13760,12 +13804,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Custom Field response.</returns>
-        public virtual async Task<List<object>> SelectEntryCustomFieldAsync(SelectEntryCustomFieldInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryCustomFieldAsync(SelectEntryCustomFieldInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/EntryCustomField.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryCustomFieldAsync");
+            try
+            {
+                var path = $"/select/EntryCustomField.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13778,10 +13832,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Entry Custom Field response.</returns>
         public virtual async Task<UpdateEntryCustomFieldResponse> UpdateEntryCustomFieldAsync(int entryCustomFieldId, UpdateEntryCustomFieldInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryCustomField.json/{Uri.EscapeDataString(entryCustomFieldId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateEntryCustomFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryCustomFieldAsync");
+            try
+            {
+                var path = $"/update/entryCustomField.json/{Uri.EscapeDataString(entryCustomFieldId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateEntryCustomFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13791,12 +13855,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Term response.</returns>
-        public virtual async Task<List<object>> SelectTermAsync(SelectTermInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectTermAsync(SelectTermInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/Term.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectTermAsync");
+            try
+            {
+                var path = $"/select/Term.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13806,12 +13880,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Address response.</returns>
-        public virtual async Task<List<object>> SelectEntryAddressAsync(SelectEntryAddressInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryAddressAsync(SelectEntryAddressInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/EntryAddress.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryAddressAsync");
+            try
+            {
+                var path = $"/select/EntryAddress.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13824,10 +13908,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Entry Address response.</returns>
         public virtual async Task<UpdateEntryAddressResponse> UpdateEntryAddressAsync(int entryAddressId, UpdateEntryAddressInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryAddress.json/{Uri.EscapeDataString(entryAddressId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateEntryAddressResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryAddressAsync");
+            try
+            {
+                var path = $"/update/entryAddress.json/{Uri.EscapeDataString(entryAddressId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateEntryAddressResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13837,12 +13931,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Application response.</returns>
-        public virtual async Task<List<object>> SelectEntryApplicationAsync(SelectEntryApplicationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryApplicationAsync(SelectEntryApplicationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/EntryApplication.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryApplicationAsync");
+            try
+            {
+                var path = $"/select/EntryApplication.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13854,10 +13958,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Entry Application response.</returns>
         public virtual async Task<CreateEntryApplicationResponse> CreateEntryApplicationAsync(CreateEntryApplicationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/entryapplication.json";
-            return await this
-                .CallConnectorAsync<CreateEntryApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateEntryApplicationAsync");
+            try
+            {
+                var path = $"/create/entryapplication.json";
+                return await this
+                    .CallConnectorAsync<CreateEntryApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13870,10 +13984,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Entry Application response.</returns>
         public virtual async Task<UpdateEntryApplicationResponse> UpdateEntryApplicationAsync(int entryApplicationId, UpdateEntryApplicationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryapplication.json/{Uri.EscapeDataString(entryApplicationId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateEntryApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryApplicationAsync");
+            try
+            {
+                var path = $"/update/entryapplication.json/{Uri.EscapeDataString(entryApplicationId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateEntryApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13883,12 +14007,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Term Session response.</returns>
-        public virtual async Task<List<object>> SelectTermSessionAsync(SelectTermSessionInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectTermSessionAsync(SelectTermSessionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/TermSession.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectTermSessionAsync");
+            try
+            {
+                var path = $"/select/TermSession.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13898,12 +14032,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Detail response.</returns>
-        public virtual async Task<List<object>> SelectEntryDetailAsync(SelectEntryDetailInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryDetailAsync(SelectEntryDetailInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/EntryDetail.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryDetailAsync");
+            try
+            {
+                var path = $"/select/EntryDetail.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13916,10 +14060,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Entry Detail response.</returns>
         public virtual async Task<UpdateEntryDetailResponse> UpdateEntryDetailAsync(int entryDetailId, UpdateEntryDetailInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entrydetail.json/{Uri.EscapeDataString(entryDetailId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateEntryDetailResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryDetailAsync");
+            try
+            {
+                var path = $"/update/entrydetail.json/{Uri.EscapeDataString(entryDetailId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateEntryDetailResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13929,12 +14083,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Entry Enrollment response.</returns>
-        public virtual async Task<List<object>> SelectEntryEnrollmentAsync(SelectEntryEnrollmentInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectEntryEnrollmentAsync(SelectEntryEnrollmentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/EntryEnrollment.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectEntryEnrollmentAsync");
+            try
+            {
+                var path = $"/select/EntryEnrollment.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13946,10 +14110,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Entry Enrollment response.</returns>
         public virtual async Task<CreateEntryEnrollmentResponse> CreateEntryEnrollmentAsync(CreateEntryEnrollmentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/entryenrollment.json";
-            return await this
-                .CallConnectorAsync<CreateEntryEnrollmentResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateEntryEnrollmentAsync");
+            try
+            {
+                var path = $"/create/entryenrollment.json";
+                return await this
+                    .CallConnectorAsync<CreateEntryEnrollmentResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13962,10 +14136,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Entry Enrollment response.</returns>
         public virtual async Task<UpdateEntryEnrollmentResponse> UpdateEntryEnrollmentAsync(int entryEnrollmentId, UpdateEntryEnrollmentInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/entryenrollment.json/{Uri.EscapeDataString(entryEnrollmentId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateEntryEnrollmentResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryEnrollmentAsync");
+            try
+            {
+                var path = $"/update/entryenrollment.json/{Uri.EscapeDataString(entryEnrollmentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateEntryEnrollmentResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13975,12 +14159,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Booking response.</returns>
-        public virtual async Task<List<object>> SelectBookingAsync(SelectBookingInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectBookingAsync(SelectBookingInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/Booking.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectBookingAsync");
+            try
+            {
+                var path = $"/select/Booking.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -13992,10 +14186,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Booking response.</returns>
         public virtual async Task<CreateBookingResponse> CreateBookingAsync(CreateBookingInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/booking.json";
-            return await this
-                .CallConnectorAsync<CreateBookingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateBookingAsync");
+            try
+            {
+                var path = $"/create/booking.json";
+                return await this
+                    .CallConnectorAsync<CreateBookingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14008,10 +14212,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Booking response.</returns>
         public virtual async Task<UpdateBookingResponse> UpdateBookingAsync(int bookingId, UpdateBookingInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/booking.json/{Uri.EscapeDataString(bookingId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateBookingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateBookingAsync");
+            try
+            {
+                var path = $"/update/booking.json/{Uri.EscapeDataString(bookingId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateBookingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14021,12 +14235,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Room Space response.</returns>
-        public virtual async Task<List<object>> SelectRoomSpaceAsync(SelectRoomSpaceInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectRoomSpaceAsync(SelectRoomSpaceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/RoomSpace.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectRoomSpaceAsync");
+            try
+            {
+                var path = $"/select/RoomSpace.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14038,10 +14262,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Room Space response.</returns>
         public virtual async Task<CreateRoomSpaceResponse> CreateRoomSpaceAsync(CreateRoomSpaceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/roomspace.json";
-            return await this
-                .CallConnectorAsync<CreateRoomSpaceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateRoomSpaceAsync");
+            try
+            {
+                var path = $"/create/roomspace.json";
+                return await this
+                    .CallConnectorAsync<CreateRoomSpaceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14051,12 +14285,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Room Location response.</returns>
-        public virtual async Task<List<object>> SelectRoomLocationAsync(SelectRoomLocationInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectRoomLocationAsync(SelectRoomLocationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/RoomLocation.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectRoomLocationAsync");
+            try
+            {
+                var path = $"/select/RoomLocation.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14066,12 +14310,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Transaction response.</returns>
-        public virtual async Task<List<object>> SelectTransactionAsync(SelectTransactionInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectTransactionAsync(SelectTransactionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/Transaction.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectTransactionAsync");
+            try
+            {
+                var path = $"/select/Transaction.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14083,10 +14337,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Transaction response.</returns>
         public virtual async Task<CreateTransactionResponse> CreateTransactionAsync(CreateTransactionInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/transaction.json";
-            return await this
-                .CallConnectorAsync<CreateTransactionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateTransactionAsync");
+            try
+            {
+                var path = $"/create/transaction.json";
+                return await this
+                    .CallConnectorAsync<CreateTransactionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14096,12 +14360,22 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Room Space Maintenance response.</returns>
-        public virtual async Task<List<object>> SelectRoomSpaceMaintenanceAsync(SelectRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SelectRoomSpaceMaintenanceAsync(SelectRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/select/RoomSpaceMaintenance.json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.SelectRoomSpaceMaintenanceAsync");
+            try
+            {
+                var path = $"/select/RoomSpaceMaintenance.json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14113,10 +14387,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Create Room Space Maintenance response.</returns>
         public virtual async Task<CreateRoomSpaceMaintenanceResponse> CreateRoomSpaceMaintenanceAsync(CreateRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/create/roomspacemaintenance.json";
-            return await this
-                .CallConnectorAsync<CreateRoomSpaceMaintenanceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.CreateRoomSpaceMaintenanceAsync");
+            try
+            {
+                var path = $"/create/roomspacemaintenance.json";
+                return await this
+                    .CallConnectorAsync<CreateRoomSpaceMaintenanceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -14129,10 +14413,20 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
         /// <returns>The Update Room Space Maintenance response.</returns>
         public virtual async Task<UpdateRoomSpaceMaintenanceResponse> UpdateRoomSpaceMaintenanceAsync(int roomSpaceMaintenanceId, UpdateRoomSpaceMaintenanceInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/update/roomspacemaintenance.json/{Uri.EscapeDataString(roomSpaceMaintenanceId.ToString())}";
-            return await this
-                .CallConnectorAsync<UpdateRoomSpaceMaintenanceResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateRoomSpaceMaintenanceAsync");
+            try
+            {
+                var path = $"/update/roomspacemaintenance.json/{Uri.EscapeDataString(roomSpaceMaintenanceId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UpdateRoomSpaceMaintenanceResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

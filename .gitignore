@@ -37,3 +37,6 @@ Thumbs.db
 *.graphql
 samples/generated/*.cs
 _generated/
+
+# Generator failure log (transient build artifact, may contain subscription details)
+failed.txt

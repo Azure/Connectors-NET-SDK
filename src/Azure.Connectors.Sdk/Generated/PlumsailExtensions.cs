@@ -265,7 +265,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
-        public object TemplateData { get; set; }
+        public JsonElement? TemplateData { get; set; }
 
         /// <summary>The required document type</summary>
         [JsonPropertyName("outputType")]
@@ -295,7 +295,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
-        public object TemplateData { get; set; }
+        public JsonElement? TemplateData { get; set; }
 
         /// <summary>The locale that will be applyed to the document</summary>
         [JsonPropertyName("locale")]
@@ -317,7 +317,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
-        public object TemplateData { get; set; }
+        public JsonElement? TemplateData { get; set; }
 
         /// <summary>The required document type</summary>
         [JsonPropertyName("outputType")]
@@ -343,7 +343,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
-        public object TemplateData { get; set; }
+        public JsonElement? TemplateData { get; set; }
 
         /// <summary>The required document type</summary>
         [JsonPropertyName("outputType")]
@@ -519,7 +519,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>The data that will be used to fill out the form</summary>
         [JsonPropertyName("jsonData")]
-        public object JSONData { get; set; }
+        public JsonElement? JSONData { get; set; }
 
         /// <summary>Disable fields editing after filling them</summary>
         [JsonPropertyName("lockFormFields")]
@@ -743,7 +743,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
-        public object TemplateData { get; set; }
+        public JsonElement? TemplateData { get; set; }
     }
 
     /// <summary>
@@ -895,7 +895,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("jsonContent")]
-        public object TemplateData { get; set; }
+        public JsonElement? TemplateData { get; set; }
     }
 
     /// <summary>
@@ -5103,7 +5103,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     /// <summary>
     /// Model factory for creating instances of Plumsail models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class PlumsailModelFactory
     {
@@ -5262,7 +5262,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static ApplyDocxTemplateRequest ApplyDocxTemplateRequest(
             byte[] templateFile = default,
-            object templateData = default,
+            JsonElement? templateData = default,
             string documentOutputType = default,
             Locale? locale = default,
             Timezone? timeZone = default,
@@ -5284,7 +5284,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static ApplyHtmlFlowTemplateRequest ApplyHtmlFlowTemplateRequest(
             string sourceHTML = default,
-            object templateData = default,
+            JsonElement? templateData = default,
             Locale? locale = default,
             Timezone? timeZone = default)
         {
@@ -5302,7 +5302,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static ApplyPptxTemplateRequest ApplyPptxTemplateRequest(
             byte[] templateFile = default,
-            object templateData = default,
+            JsonElement? templateData = default,
             string documentOutputType = default,
             Locale? locale = default,
             Timezone? timeZone = default)
@@ -5322,7 +5322,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static ApplyXlsxTemplateRequest ApplyXlsxTemplateRequest(
             byte[] templateFile = default,
-            object templateData = default,
+            JsonElement? templateData = default,
             string documentOutputType = default,
             Locale? locale = default,
             Timezone? timeZone = default)
@@ -5480,7 +5480,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static FillInPdfFormRequest FillInPdfFormRequest(
             string documentContent = default,
-            object jsonData = default,
+            JsonElement? jsonData = default,
             bool? lockFormFields = default,
             string password = default)
         {
@@ -5662,7 +5662,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static MergeFieldsTemplateRequest MergeFieldsTemplateRequest(
             string docxDocumentContent = default,
-            object templateData = default)
+            JsonElement? templateData = default)
         {
             return new MergeFieldsTemplateRequest
             {
@@ -5791,7 +5791,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="ProcessJsonData"/>.
         /// </summary>
         public static ProcessJsonData ProcessJsonData(
-            object templateData = default)
+            JsonElement? templateData = default)
         {
             return new ProcessJsonData
             {
@@ -5971,6 +5971,8 @@ namespace Azure.Connectors.Sdk.Plumsail
 
         public override string ConnectorName => "plumsail";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.plumsail");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -5991,12 +5993,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync(string type, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
-            var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (type is null)
+                    throw new ArgumentNullException(nameof(type));
+                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6007,12 +6021,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1DocumentsFlowSchemaRegExpMatchAsync(string pattern, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
-            var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaRegExpMatchAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pattern is null)
+                    throw new ArgumentNullException(nameof(pattern));
+                queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6023,12 +6049,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1DocumentsFlowSchemaParseCsvAsync(string headers, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
-            var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaParseCsvAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (headers is null)
+                    throw new ArgumentNullException(nameof(headers));
+                queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6039,12 +6077,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1DocumentsFlowSchemaSplitPdfAsync(string typeOfSplit, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
-            var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaSplitPdfAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (typeOfSplit is null)
+                    throw new ArgumentNullException(nameof(typeOfSplit));
+                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6054,10 +6104,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1ProcessesFlowSchemaGetProcessesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/ProcessesFlow/Schema/GetProcesses";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetProcessesAsync");
+            try
+            {
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetProcesses";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6068,12 +6128,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1ProcessesFlowSchemaGetJsonDataAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
-            var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetJsonDataAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
+                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6084,10 +6156,22 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync(string processId, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId.ToString())}/schema";
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync");
+            try
+            {
+                if (processId is null)
+                    throw new ArgumentNullException(nameof(processId));
+                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId.ToString())}/schema";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6098,10 +6182,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Get Profile Info response.</returns>
         public virtual async Task<ProfileInfo> ProfilesMeGetAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/profiles/me";
-            return await this
-                .CallConnectorAsync<ProfileInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.ProfilesMeGetAsync");
+            try
+            {
+                var path = $"/profiles/me";
+                return await this
+                    .CallConnectorAsync<ProfileInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6113,10 +6207,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Create document from DOCX template response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsApplyDocxTemplateAsync(ApplyDocxTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ApplyDocxTemplate";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsApplyDocxTemplateAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ApplyDocxTemplate";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6128,10 +6232,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Create document from XLSX template response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsApplyXlsxTemplateAsync(ApplyXlsxTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ApplyXlsxTemplate";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsApplyXlsxTemplateAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ApplyXlsxTemplate";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6143,10 +6257,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Create document from PPTX template response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsApplyPptxAsync(ApplyPptxTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ApplyPptx";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsApplyPptxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ApplyPptx";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6158,10 +6282,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Fill merge fields in DOCX document response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsApplyDocxAsync(MergeFieldsTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ApplyDocx";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsApplyDocxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ApplyDocx";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6173,10 +6307,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Create HTML from template response.</returns>
         public virtual async Task<ApplyHtmlTemplateResponse> FlowV1DocumentsJobsApplyHtmlAsync(ApplyHtmlFlowTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ApplyHtml";
-            return await this
-                .CallConnectorAsync<ApplyHtmlTemplateResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsApplyHtmlAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ApplyHtml";
+                return await this
+                    .CallConnectorAsync<ApplyHtmlTemplateResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6188,10 +6332,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert HTML to PDF response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsHtml2PdfAsync(Html2PdfFlowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Html2Pdf";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsHtml2PdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Html2Pdf";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6203,10 +6357,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert HTML to DOCX response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsHtml2DocxAsync(Html2DocxFlowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Html2Docx";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsHtml2DocxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Html2Docx";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6218,10 +6382,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert DOCX to PDF response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsDocx2PdfAsync(Docx2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Docx2Pdf";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsDocx2PdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Docx2Pdf";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6233,10 +6407,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert XLSX to PDF response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsXslx2PdfAsync(Xlsx2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Xslx2Pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsXslx2PdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Xslx2Pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6248,10 +6432,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert PPTX to PDF response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsPptx2PdfAsync(Pptx2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Pptx2Pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsPptx2PdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Pptx2Pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6263,10 +6457,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert to PDF response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsAny2PdfV2Async(Any2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Any2PdfV2";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsAny2PdfV2Async");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Any2PdfV2";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6278,10 +6482,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert Email to PDF response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsEmail2PdfAsync(Email2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Email2Pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsEmail2PdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Email2Pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6293,10 +6507,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert DOC to DOCX response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsDoc2DocxAsync(Doc2DocxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Doc2Docx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsDoc2DocxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Doc2Docx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6308,10 +6532,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert XLS to XLSX response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsXls2XlsxAsync(Xls2XlsxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Xls2Xlsx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsXls2XlsxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Xls2Xlsx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6323,10 +6557,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert PPT to PPTX response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsPpt2PptxAsync(Ppt2PptxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Ppt2Pptx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsPpt2PptxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Ppt2Pptx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6339,12 +6583,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Split PDF response.</returns>
         public virtual async Task<DocumentsWithFilenamesResponse> FlowV1DocumentsJobsSplitPdfV2Async(FlowV1DocumentsJobsSplitPdfV2Input input, string typeOfSplit, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
-            var path = $"/flow/v1/Documents/jobs/SplitPdfV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsSplitPdfV2Async");
+            try
+            {
+                var queryParams = new List<string>();
+                if (typeOfSplit is null)
+                    throw new ArgumentNullException(nameof(typeOfSplit));
+                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
+                var path = $"/flow/v1/Documents/jobs/SplitPdfV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6356,10 +6612,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Merge any files into PDF response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsMergeAnyToPdfV2Async(MergeAny2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/MergeAnyToPdfV2";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsMergeAnyToPdfV2Async");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/MergeAnyToPdfV2";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6371,10 +6637,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Extract text from PDF document response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsExtractTextFromPdfAsync(Pdf2TextRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ExtractTextFromPdf";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsExtractTextFromPdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ExtractTextFromPdf";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6386,10 +6662,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert PDF to Image response.</returns>
         public virtual async Task<DocumentsWithFilenamesResponse> FlowV1DocumentsJobsPdf2ImageV2Async(Pdf2ImageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Pdf2ImageV2";
-            return await this
-                .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsPdf2ImageV2Async");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Pdf2ImageV2";
+                return await this
+                    .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6401,10 +6687,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert Images to PDF response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsImage2PdfAsync(Image2PdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Image2Pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsImage2PdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Image2Pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6416,10 +6712,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Fill in PDF Form response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsFillInPdfFormAsync(FillInPdfFormRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/FillInPdfForm";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsFillInPdfFormAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/FillInPdfForm";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6431,10 +6737,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Get Form from PDF response.</returns>
         public virtual async Task<FlowDocumentsJobsGetPdfFormPostResponse> FlowV1DocumentsJobsGetPdfFormAsync(GetPdfFormRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/GetPdfForm";
-            return await this
-                .CallConnectorAsync<FlowDocumentsJobsGetPdfFormPostResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsGetPdfFormAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/GetPdfForm";
+                return await this
+                    .CallConnectorAsync<FlowDocumentsJobsGetPdfFormPostResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6446,10 +6762,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Protect PDF document response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsProtectPdfAsync(ProtectPdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ProtectPdf";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsProtectPdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ProtectPdf";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6461,10 +6787,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Get information about PDF protection response.</returns>
         public virtual async Task<GetPdfProtectionInfoResponse> FlowV1DocumentsJobsGetPdfProtectionInfoAsync(PdfProtectionInfoRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/GetPdfProtectionInfo";
-            return await this
-                .CallConnectorAsync<GetPdfProtectionInfoResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsGetPdfProtectionInfoAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/GetPdfProtectionInfo";
+                return await this
+                    .CallConnectorAsync<GetPdfProtectionInfoResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6476,10 +6812,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Compress PDF document response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsCompressPdfAsync(CompressPdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/CompressPdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsCompressPdfAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/CompressPdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6492,12 +6838,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Add a watermark to PDF response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsAddWatermarkToPdfAsync(FlowV1DocumentsJobsAddWatermarkToPdfInput input, string type, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
-            var path = $"/flow/v1/Documents/jobs/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsAddWatermarkToPdfAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (type is null)
+                    throw new ArgumentNullException(nameof(type));
+                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                var path = $"/flow/v1/Documents/jobs/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6509,10 +6867,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Merge DOCX files response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsMergeDocxAsync(MergeDocxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/MergeDocx";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsMergeDocxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/MergeDocx";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6524,10 +6892,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Parse CSV response.</returns>
         public virtual async Task<ParseCsvSchemaResponse> FlowV1DocumentsJobsParseCsvAsync(ParseCsvFlowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ParseCsv";
-            return await this
-                .CallConnectorAsync<ParseCsvSchemaResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsParseCsvAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ParseCsv";
+                return await this
+                    .CallConnectorAsync<ParseCsvSchemaResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6539,10 +6917,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert CSV to Excel response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsCsv2XlsxAsync(Csv2XlsxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Csv2Xlsx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsCsv2XlsxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Csv2Xlsx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6554,10 +6942,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert JSON to Excel response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsJson2XlsxAsync(Json2XlsxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Json2Xlsx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsJson2XlsxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Json2Xlsx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6569,10 +6967,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Convert JSON to CSV response.</returns>
         public virtual async Task<byte[]> FlowV1DocumentsJobsJson2CsvAsync(Json2CsvRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/Json2Csv";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsJson2CsvAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/Json2Csv";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6584,10 +6992,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Regular Expression Match response.</returns>
         public virtual async Task<RegExpMatchSchemaResponseClass> FlowV1DocumentsJobsRegExpMatchAsync(RegExpMatchRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/RegExpMatch";
-            return await this
-                .CallConnectorAsync<RegExpMatchSchemaResponseClass>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsRegExpMatchAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/RegExpMatch";
+                return await this
+                    .CallConnectorAsync<RegExpMatchSchemaResponseClass>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6599,10 +7017,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Regular Expression Replace response.</returns>
         public virtual async Task<StringResultResponse> FlowV1DocumentsJobsRegExpReplaceAsync(RegExpReplaceRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/RegExpReplace";
-            return await this
-                .CallConnectorAsync<StringResultResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsRegExpReplaceAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/RegExpReplace";
+                return await this
+                    .CallConnectorAsync<StringResultResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6614,10 +7042,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Regular Expression Test response.</returns>
         public virtual async Task<BooleanResultResponse> FlowV1DocumentsJobsRegExpTestAsync(RegExpTestRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/RegExpTest";
-            return await this
-                .CallConnectorAsync<BooleanResultResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsRegExpTestAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/RegExpTest";
+                return await this
+                    .CallConnectorAsync<BooleanResultResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6629,10 +7067,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Create Archive response.</returns>
         public virtual async Task<DocumentContentWithFilenameResponse> FlowV1DocumentsJobsCreateArchiveAsync(CreateArchiveRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/CreateArchive";
-            return await this
-                .CallConnectorAsync<DocumentContentWithFilenameResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsCreateArchiveAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/CreateArchive";
+                return await this
+                    .CallConnectorAsync<DocumentContentWithFilenameResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6644,10 +7092,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Extract Archive response.</returns>
         public virtual async Task<DocumentsWithFilenamesResponse> FlowV1DocumentsJobsExtractArchiveAsync(ExtractArchiveRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/ExtractArchive";
-            return await this
-                .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsExtractArchiveAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/ExtractArchive";
+                return await this
+                    .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6659,10 +7117,20 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Merge XLSX files response.</returns>
         public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsMergeXlsxAsync(MergeXlsxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flow/v1/Documents/jobs/MergeXlsx";
-            return await this
-                .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsMergeXlsxAsync");
+            try
+            {
+                var path = $"/flow/v1/Documents/jobs/MergeXlsx";
+                return await this
+                    .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6675,12 +7143,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Start document generation process with json response.</returns>
         public virtual async Task<byte[]> FlowV1ProcessesFlowJobsExecuteProcessAsync(FlowV1ProcessesFlowJobsExecuteProcessInput input, [DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
-            var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcess" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowJobsExecuteProcessAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
+                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+                var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcess" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6693,12 +7173,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <returns>The Start document generation process response.</returns>
         public virtual async Task<byte[]> FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataAsync(ProcessJsonData input, [DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
-            var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
+                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+                var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

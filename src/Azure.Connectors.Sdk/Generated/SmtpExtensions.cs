@@ -158,7 +158,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     /// <summary>
     /// Model factory for creating instances of Smtp models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class SmtpModelFactory
     {
@@ -270,6 +270,8 @@ namespace Azure.Connectors.Sdk.Smtp
 
         public override string ConnectorName => "smtp";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.smtp");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -290,10 +292,20 @@ namespace Azure.Connectors.Sdk.Smtp
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SendEmailAsync(Email input, CancellationToken cancellationToken = default)
         {
-            var path = $"/SendEmailV3";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SmtpClient.ConnectorActivitySource.StartActivity("SmtpClient.SendEmailAsync");
+            try
+            {
+                var path = $"/SendEmailV3";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

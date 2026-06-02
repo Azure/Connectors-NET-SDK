@@ -88,7 +88,7 @@ namespace Azure.Connectors.Sdk.Rss.Models
     /// <summary>
     /// Model factory for creating instances of Rss models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class RssModelFactory
     {
@@ -275,6 +275,8 @@ namespace Azure.Connectors.Sdk.Rss
 
         public override string ConnectorName => "rss";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.rss");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -298,16 +300,28 @@ namespace Azure.Connectors.Sdk.Rss
         /// <returns>The List all RSS feed items response.</returns>
         public virtual async Task<List<FeedItem>> ListFeedItemsAsync(string theRSSFeedURL, string since = default, string chosenPropertyWillBeUsedToDetermineWhichItemsAreNew = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"feedUrl={Uri.EscapeDataString(theRSSFeedURL.ToString())}");
-            if (since != default)
-                queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
-            if (chosenPropertyWillBeUsedToDetermineWhichItemsAreNew != default)
-                queryParams.Add($"sinceProperty={Uri.EscapeDataString(chosenPropertyWillBeUsedToDetermineWhichItemsAreNew.ToString())}");
-            var path = $"/ListFeedItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<FeedItem>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RssClient.ConnectorActivitySource.StartActivity("RssClient.ListFeedItemsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (theRSSFeedURL is null)
+                    throw new ArgumentNullException(nameof(theRSSFeedURL));
+                queryParams.Add($"feedUrl={Uri.EscapeDataString(theRSSFeedURL.ToString())}");
+                if (since != default)
+                    queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                if (chosenPropertyWillBeUsedToDetermineWhichItemsAreNew != default)
+                    queryParams.Add($"sinceProperty={Uri.EscapeDataString(chosenPropertyWillBeUsedToDetermineWhichItemsAreNew.ToString())}");
+                var path = $"/ListFeedItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<FeedItem>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

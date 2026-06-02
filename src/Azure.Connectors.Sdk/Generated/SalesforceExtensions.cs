@@ -177,7 +177,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public object DynamicProperties { get; internal set; }
+        public JsonElement? DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -243,7 +243,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public object DynamicProperties { get; set; }
+        public JsonElement? DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -423,7 +423,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>Metadata of the result returned from the query</summary>
         [JsonPropertyName("metadata")]
-        public object Metadata { get; set; }
+        public JsonElement? Metadata { get; set; }
     }
 
     /// <summary>
@@ -433,7 +433,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     {
         /// <summary>Attributes of a search record</summary>
         [JsonPropertyName("attributes")]
-        public object Attributes { get; set; }
+        public JsonElement? Attributes { get; set; }
 
         /// <summary>Unique identifier of the record</summary>
         [JsonPropertyName("Id")]
@@ -471,15 +471,15 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>params</summary>
         [JsonPropertyName("params")]
-        public object Params { get; set; }
+        public JsonElement? Params { get; set; }
 
         /// <summary>result</summary>
         [JsonPropertyName("result")]
-        public object Result { get; set; }
+        public JsonElement? Result { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
-        public object Error { get; set; }
+        public JsonElement? Error { get; set; }
     }
 
     /// <summary>
@@ -687,7 +687,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>SOQL Query dynamic parameters. Key is parameter name (without &apos;@&apos; at sign), value is parameter value.</summary>
         [JsonPropertyName("parameters")]
-        public object QueryParameters { get; set; }
+        public JsonElement? QueryParameters { get; set; }
     }
 
     /// <summary>
@@ -719,15 +719,15 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>params</summary>
         [JsonPropertyName("params")]
-        public object Params { get; set; }
+        public JsonElement? Params { get; set; }
 
         /// <summary>result</summary>
         [JsonPropertyName("result")]
-        public object Result { get; set; }
+        public JsonElement? Result { get; set; }
 
         /// <summary>error</summary>
         [JsonPropertyName("error")]
-        public object Error { get; set; }
+        public JsonElement? Error { get; set; }
 
         /// <summary>callbackEndpoint</summary>
         [JsonPropertyName("callbackEndpoint")]
@@ -1022,7 +1022,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     /// <summary>
     /// Model factory for creating instances of Salesforce models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class SalesforceModelFactory
     {
@@ -1134,7 +1134,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Table
             {
@@ -1186,7 +1186,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            object dynamicProperties = default)
+            JsonElement? dynamicProperties = default)
         {
             return new Item
             {
@@ -1303,7 +1303,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// </summary>
         public static SOSLSearchQueryResponse SOSLSearchQueryResponse(
             List<SearchRecordObject> searchRecords = default,
-            object metadata = default)
+            JsonElement? metadata = default)
         {
             return new SOSLSearchQueryResponse
             {
@@ -1316,7 +1316,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// Creates a new instance of <see cref="SearchRecordObject"/>.
         /// </summary>
         public static SearchRecordObject SearchRecordObject(
-            object attributes = default,
+            JsonElement? attributes = default,
             string id = default)
         {
             return new SearchRecordObject
@@ -1333,9 +1333,9 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
             string jsonrpc = default,
             string id = default,
             string method = default,
-            object @params = default,
-            object result = default,
-            object error = default)
+            JsonElement? @params = default,
+            JsonElement? result = default,
+            JsonElement? error = default)
         {
             return new MCPQueryResponse
             {
@@ -1415,7 +1415,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// </summary>
         public static ExecuteSoqlQueryParameters ExecuteSoqlQueryParameters(
             string soqlQuery = default,
-            object queryParameters = default)
+            JsonElement? queryParameters = default)
         {
             return new ExecuteSoqlQueryParameters
             {
@@ -1443,9 +1443,9 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
             string jsonrpc = default,
             string id = default,
             string method = default,
-            object @params = default,
-            object result = default,
-            object error = default,
+            JsonElement? @params = default,
+            JsonElement? result = default,
+            JsonElement? error = default,
             string callbackEndpoint = default)
         {
             return new MCPQueryRequest
@@ -1642,6 +1642,8 @@ namespace Azure.Connectors.Sdk.Salesforce
 
         public override string ConnectorName => "salesforce";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.salesforce");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -1663,10 +1665,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get object metadata response.</returns>
         public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetTables")] string salesforceObjectType, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetTableAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1678,10 +1692,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The GetMetadataForGetItem response.</returns>
         public virtual async Task<TableMetadata> GetMetadataForGetItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/getitem";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForGetItemAsync");
+            try
+            {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/getitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1693,10 +1719,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The GetMetadataForPatchItem response.</returns>
         public virtual async Task<TableMetadata> GetMetadataForPatchItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/patchitem";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPatchItemAsync");
+            try
+            {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/patchitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1708,10 +1746,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The GetMetadataForPostItem response.</returns>
         public virtual async Task<TableMetadata> GetMetadataForPostItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/postitem";
-            return await this
-                .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPostItemAsync");
+            try
+            {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/postitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1722,10 +1772,20 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get object types response.</returns>
         public virtual async Task<TablesList> GetTablesAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables";
-            return await this
-                .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetTablesAsync");
+            try
+            {
+                var path = $"/datasets/default/tables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1737,10 +1797,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get External ID Fields response.</returns>
         public virtual async Task<ExternalIdFieldsList> GetExternalIdFieldsAsync([DynamicValues("GetTables")] string salesforceObjectType, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields";
-            return await this
-                .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetExternalIdFieldsAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields";
+                return await this
+                    .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1754,10 +1826,26 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get a Record by External ID response.</returns>
         public virtual async Task<GetItemByExternalIdResponse> GetItemByExternalIdAsync([DynamicValues("GetTables")] string salesforceObjectType, [DynamicValues("GetExternalIdFields")] string externalIdField, string externalId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
-            return await this
-                .CallConnectorAsync<GetItemByExternalIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemByExternalIdAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (externalIdField is null)
+                    throw new ArgumentNullException(nameof(externalIdField));
+                if (externalId is null)
+                    throw new ArgumentNullException(nameof(externalId));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetItemByExternalIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1774,21 +1862,33 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get records response.</returns>
         public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetTables")] string salesforceObjectType, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1804,21 +1904,31 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get Account records from Salesforce response.</returns>
         public virtual async Task<ItemsList> GetItemsTableAccountAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/account/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableAccountAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/account/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1834,21 +1944,31 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get User records from Salesforce response.</returns>
         public virtual async Task<ItemsList> GetItemsTableUserAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/user/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableUserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/user/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1864,21 +1984,31 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get Case records from Salesforce response.</returns>
         public virtual async Task<ItemsList> GetItemsTableCaseAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/case/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableCaseAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/case/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1894,21 +2024,31 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get Opportunity records from Salesforce response.</returns>
         public virtual async Task<ItemsList> GetItemsTableOpportunityAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/opportunity/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableOpportunityAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/opportunity/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1924,21 +2064,31 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get Product records from Salesforce response.</returns>
         public virtual async Task<ItemsList> GetItemsTableProduct2Async(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/product2/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableProduct2Async");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/product2/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1954,21 +2104,31 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get Contact records from Salesforce response.</returns>
         public virtual async Task<ItemsList> GetItemsTableContactAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/datasets/default/tables/contact/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableContactAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/contact/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1980,10 +2140,24 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteItemAsync([DynamicValues("GetTables")] string salesforceObjectType, string recordId, CancellationToken cancellationToken = default)
         {
-            var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.DeleteItemAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1995,10 +2169,20 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Execute a SOQL query response.</returns>
         public virtual async Task<ObjectEntity> ExecuteSoqlQueryAsync(ExecuteSoqlQueryParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/soql/executesoqlquery";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.ExecuteSoqlQueryAsync");
+            try
+            {
+                var path = $"/soql/executesoqlquery";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2013,19 +2197,29 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get all jobs response.</returns>
         public virtual async Task<GetAllJobsResponse> GetAllJobsAsync(string concurrencyMode = default, bool? isPKChunkingEnabled = default, string jobType = default, string queryLocator = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (concurrencyMode != default)
-                queryParams.Add($"concurrenyMode={Uri.EscapeDataString(concurrencyMode.ToString())}");
-            if (isPKChunkingEnabled.HasValue)
-                queryParams.Add($"isPkChunkingEnabled={Uri.EscapeDataString(isPKChunkingEnabled.Value.ToString())}");
-            if (jobType != default)
-                queryParams.Add($"jobType={Uri.EscapeDataString(jobType.ToString())}");
-            if (queryLocator != default)
-                queryParams.Add($"queryLocator={Uri.EscapeDataString(queryLocator.ToString())}");
-            var path = $"/codeless/jobs/ingest" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllJobsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetAllJobsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (concurrencyMode != default)
+                    queryParams.Add($"concurrenyMode={Uri.EscapeDataString(concurrencyMode.ToString())}");
+                if (isPKChunkingEnabled.HasValue)
+                    queryParams.Add($"isPkChunkingEnabled={Uri.EscapeDataString(isPKChunkingEnabled.Value.ToString())}");
+                if (jobType != default)
+                    queryParams.Add($"jobType={Uri.EscapeDataString(jobType.ToString())}");
+                if (queryLocator != default)
+                    queryParams.Add($"queryLocator={Uri.EscapeDataString(queryLocator.ToString())}");
+                var path = $"/codeless/jobs/ingest" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllJobsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2037,10 +2231,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UploadJobDataAsync([DynamicValues("GetAllJobs")] string jobId, byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/batches";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.UploadJobDataAsync");
+            try
+            {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/batches";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2052,10 +2258,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get job info response.</returns>
         public virtual async Task<CheckJobResponse> GetJobInfoAsync([DynamicValues("GetAllJobs")] string jobId, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
-            return await this
-                .CallConnectorAsync<CheckJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetJobInfoAsync");
+            try
+            {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CheckJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2068,10 +2286,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Close or abort a job response.</returns>
         public virtual async Task<JobInfo> CloseJobAsync([DynamicValues("GetAllJobs")] string jobId, CloseJobRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
-            return await this
-                .CallConnectorAsync<JobInfo>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.CloseJobAsync");
+            try
+            {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
+                return await this
+                    .CallConnectorAsync<JobInfo>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2082,10 +2312,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteJobAsync([DynamicValues("GetAllJobs")] string jobId, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.DeleteJobAsync");
+            try
+            {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2098,12 +2340,26 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get job results response.</returns>
         public virtual async Task<string> GetJobRecordResultsAsync([DynamicValues("GetAllJobs")] string jobId, string resultType, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"resultType={Uri.EscapeDataString(resultType.ToString())}");
-            var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/results" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetJobRecordResultsAsync");
+            try
+            {
+                if (jobId is null)
+                    throw new ArgumentNullException(nameof(jobId));
+                var queryParams = new List<string>();
+                if (resultType is null)
+                    throw new ArgumentNullException(nameof(resultType));
+                queryParams.Add($"resultType={Uri.EscapeDataString(resultType.ToString())}");
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/results" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2115,12 +2371,24 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Execute SOSL search query response.</returns>
         public virtual async Task<SOSLSearchQueryResponse> ExecuteSOSLQueryAsync(string sOSLSearchString, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"q={Uri.EscapeDataString(sOSLSearchString.ToString())}");
-            var path = $"/codeless/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SOSLSearchQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.ExecuteSOSLQueryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sOSLSearchString is null)
+                    throw new ArgumentNullException(nameof(sOSLSearchString));
+                queryParams.Add($"q={Uri.EscapeDataString(sOSLSearchString.ToString())}");
+                var path = $"/codeless/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SOSLSearchQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2132,10 +2400,20 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Send an HTTP request response.</returns>
         public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/codeless/httprequest";
-            return await this
-                .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.HttpRequestAsync");
+            try
+            {
+                var path = $"/codeless/httprequest";
+                return await this
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2148,13 +2426,23 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The MCP server for Salesforce response.</returns>
         public virtual async Task<MCPQueryResponse> McpSalesforceManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sessionId != default)
-                queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-            var path = $"/mcp/SalesforceManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.McpSalesforceManagementAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sessionId != default)
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                var path = $"/mcp/SalesforceManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2166,10 +2454,20 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Create a job (V2) response.</returns>
         public virtual async Task<CreateJobResponse> CreateJobAsync(CreateJobParameters input, CancellationToken cancellationToken = default)
         {
-            var path = $"/bulk/createjob";
-            return await this
-                .CallConnectorAsync<CreateJobResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.CreateJobAsync");
+            try
+            {
+                var path = $"/bulk/createjob";
+                return await this
+                    .CallConnectorAsync<CreateJobResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2183,13 +2481,27 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Get record response.</returns>
         public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetTables")] string salesforceObjectType, string recordId, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
+                var queryParams = new List<string>();
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2204,13 +2516,27 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Update record (V3) response.</returns>
         public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetTables")] string salesforceObjectType, string recordId, PatchItemInput input, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/v3/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PatchItemAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (recordId is null)
+                    throw new ArgumentNullException(nameof(recordId));
+                var queryParams = new List<string>();
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/v3/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2225,10 +2551,26 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Insert or Update (Upsert) a Record by External ID (V2) response.</returns>
         public virtual async Task<PatchItemByExternalIdResponse> PatchItemByExternalIdAsync([DynamicValues("GetTables")] string salesforceObjectType, [DynamicValues("GetExternalIdFields")] string externalIdField, string externalId, PatchItemByExternalIdInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
-            return await this
-                .CallConnectorAsync<PatchItemByExternalIdResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PatchItemByExternalIdAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                if (externalIdField is null)
+                    throw new ArgumentNullException(nameof(externalIdField));
+                if (externalId is null)
+                    throw new ArgumentNullException(nameof(externalId));
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PatchItemByExternalIdResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2241,10 +2583,22 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <returns>The Create record response.</returns>
         public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetTables")] string salesforceObjectType, PostItemInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items";
-            return await this
-                .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PostItemAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

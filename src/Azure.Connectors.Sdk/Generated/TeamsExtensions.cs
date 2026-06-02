@@ -42,16 +42,16 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>Timestamp the event was created</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public string CreatedTimestamp { get; internal set; }
+        public string CreatedTimestamp { get; init; }
 
         /// <summary>Timestamp the event was last modified</summary>
         [JsonPropertyName("lastModifiedDateTime")]
         [JsonInclude]
-        public string LastModifiedTimestamp { get; internal set; }
+        public string LastModifiedTimestamp { get; init; }
 
         /// <summary>The categories associated with the event</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Time zone of the event</summary>
         [JsonPropertyName("timeZone")]
@@ -123,39 +123,39 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The recurrence pattern for the event</summary>
         [JsonPropertyName("recurrence")]
-        public object Recurrence { get; set; }
+        public JsonElement? Recurrence { get; set; }
 
         /// <summary>Indicates the type of response sent in response to an event message</summary>
         [JsonPropertyName("responseStatus")]
-        public object ResponseStatus { get; set; }
+        public JsonElement? ResponseStatus { get; set; }
 
         /// <summary>The body of the message associated with the event</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>The start date, time, and time zone of the event</summary>
         [JsonPropertyName("start")]
-        public object Start { get; set; }
+        public JsonElement? Start { get; set; }
 
         /// <summary>The date, time, and time zone that the event ends</summary>
         [JsonPropertyName("end")]
-        public object End { get; set; }
+        public JsonElement? End { get; set; }
 
         /// <summary>The location of the event</summary>
         [JsonPropertyName("location")]
-        public object Location { get; set; }
+        public JsonElement? Location { get; set; }
 
         /// <summary>The collection of attendees for the event</summary>
         [JsonPropertyName("attendees")]
-        public List<object> Attendee { get; set; }
+        public List<JsonElement?> Attendee { get; set; }
 
         /// <summary>Organizer</summary>
         [JsonPropertyName("organizer")]
-        public object Organizer { get; set; }
+        public JsonElement? Organizer { get; set; }
 
         /// <summary>Details for an attendee to join the meeting online.</summary>
         [JsonPropertyName("onlineMeeting")]
-        public object OnlineMeeting { get; set; }
+        public JsonElement? OnlineMeeting { get; set; }
     }
 
     /// <summary>
@@ -169,7 +169,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of the teams you are a member of</summary>
         [JsonPropertyName("value")]
-        public List<object> TeamsList { get; set; }
+        public List<JsonElement?> TeamsList { get; set; }
     }
 
     /// <summary>
@@ -254,11 +254,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>Timestamp at which the channel was created. Read only</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? ChannelCreationTime { get; internal set; }
+        public DateTime? ChannelCreationTime { get; init; }
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public MembershipType? TheTypeOfTheChannel { get; set; }
+        public string TheTypeOfTheChannel { get; set; }
     }
 
     /// <summary>
@@ -273,6 +273,10 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>Channel name as it appears in Microsoft Teams</summary>
         [JsonPropertyName("displayName")]
         public string Name { get; set; }
+
+        /// <summary>The type of channel. Private channels are accessible only to specific members. Shared channels can be shared with users outside the team. Defaults to standard.</summary>
+        [JsonPropertyName("membershipType")]
+        public string MembershipType { get; set; }
     }
 
     /// <summary>
@@ -291,6 +295,10 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>The channel&apos;s unique identifier</summary>
         [JsonPropertyName("id")]
         public string Id { get; set; }
+
+        /// <summary>The type of channel membership</summary>
+        [JsonPropertyName("membershipType")]
+        public string MembershipType { get; set; }
     }
 
     /// <summary>
@@ -343,11 +351,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>Timestamp at which the channel was created. Read only</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? ChannelCreationTime { get; internal set; }
+        public DateTime? ChannelCreationTime { get; init; }
 
         /// <summary>The channel membership type</summary>
         [JsonPropertyName("membershipType")]
-        public MembershipType? TheTypeOfTheChannel { get; set; }
+        public string TheTypeOfTheChannel { get; set; }
 
         /// <summary>The ID of the team that owns the channel</summary>
         [JsonPropertyName("ownerTeamId")]
@@ -365,91 +373,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of one or more chats you are a part of</summary>
         [JsonPropertyName("value")]
-        public List<object> ChatsList { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List all tags for a team
-    /// </summary>
-    public class GetTagsResponseSchema
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Create a tag for a team
-    /// </summary>
-    public class CreateTagInput
-    {
-        /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>List of users&apos; IDs separated by semi-colons, identifier must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
-        [JsonPropertyName("members")]
-        public string MembersIDs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create a tag for a team
-    /// </summary>
-    public class CreateTagResponseSchema
-    {
-        /// <summary>@odata.type</summary>
-        [JsonPropertyName("@odata.type")]
-        public string Type { get; set; }
-
-        /// <summary>Unique identifier of the tag</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-
-        /// <summary>ID of the team in which the tag is defined</summary>
-        [JsonPropertyName("teamId")]
-        public string TeamId { get; set; }
-
-        /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
-        [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>The number of users assigned to the tag</summary>
-        [JsonPropertyName("memberCount")]
-        public int? MemberCount { get; set; }
-    }
-
-    /// <summary>
-    /// Add a member to a team tag
-    /// </summary>
-    public class AddMemberToTagInput
-    {
-        /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
-        [JsonPropertyName("userId")]
-        public string UserSId { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Add a member to a team tag
-    /// </summary>
-    public class AddMemberToTagResponseSchema
-    {
-        /// <summary>User ID of the member added to the tag</summary>
-        [JsonPropertyName("userId")]
-        public string Id { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List the members of a team tag
-    /// </summary>
-    public class GetTagMembersResponseSchema
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> ChatsList { get; set; }
     }
 
     /// <summary>
@@ -505,17 +429,17 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>List replies response</summary>
         [JsonPropertyName("value")]
-        public List<object> ListOfMessageReplies { get; set; }
+        public List<JsonElement?> ListOfMessageReplies { get; set; }
     }
 
     /// <summary>
-    /// Response for List members
+    /// Response for List chat or channel members
     /// </summary>
     public class ListMembersResponseSchema
     {
         /// <summary>List members response</summary>
         [JsonPropertyName("value")]
-        public List<object> ListOfMembers { get; set; }
+        public List<JsonElement?> ListOfMembers { get; set; }
     }
 
     /// <summary>
@@ -525,16 +449,16 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>attachments</summary>
         [JsonPropertyName("attachments")]
-        public List<object> Attachments { get; set; }
+        public List<JsonElement?> Attachments { get; set; }
 
         /// <summary>Plaintext representation of the content of the message</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>Timestamp of when the chat message was created</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public DateTime? CreationTimestamp { get; internal set; }
+        public DateTime? CreationTimestamp { get; init; }
 
         /// <summary>deleted</summary>
         [JsonPropertyName("deleted")]
@@ -546,7 +470,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The message sender</summary>
         [JsonPropertyName("from")]
-        public object From { get; set; }
+        public JsonElement? From { get; set; }
 
         /// <summary>Unique ID of the message</summary>
         [JsonPropertyName("id")]
@@ -559,7 +483,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>Timestamp when the chat message is created (initial setting) or modified, including when a reaction is added or removed</summary>
         [JsonPropertyName("lastModifiedDateTime")]
         [JsonInclude]
-        public string LastModifiedTimestamp { get; internal set; }
+        public string LastModifiedTimestamp { get; init; }
 
         /// <summary>Locale of the chat message set by the client.</summary>
         [JsonPropertyName("locale")]
@@ -567,7 +491,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of entities mentioned in the chat message. Supported entities are: user, bot, team, and channel.</summary>
         [JsonPropertyName("mentions")]
-        public List<object> Mentions { get; set; }
+        public List<JsonElement?> Mentions { get; set; }
 
         /// <summary>The type of chat message</summary>
         [JsonPropertyName("messageType")]
@@ -575,7 +499,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>Reactions for this chat message (for example, Like)</summary>
         [JsonPropertyName("reactions")]
-        public List<object> Reactions { get; set; }
+        public List<JsonElement?> Reactions { get; set; }
 
         /// <summary>ID of the parent message of the thread</summary>
         [JsonPropertyName("replyToId")]
@@ -945,7 +869,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>body</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
     }
 
     /// <summary>
@@ -999,7 +923,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>valid locations to post a message or reply, make verbose</summary>
         [JsonPropertyName("locations")]
-        public List<object> Locations { get; set; }
+        public List<JsonElement?> Locations { get; set; }
     }
 
     /// <summary>
@@ -1022,6 +946,487 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Add a user to a chat
+    /// </summary>
+    public class AddMemberToChatInput
+    {
+        /// <summary>User principal name or Microsoft Entra ID to add</summary>
+        [JsonPropertyName("userId")]
+        public string User { get; set; }
+
+        /// <summary>True, if the user should be a chat owner</summary>
+        [JsonPropertyName("owner")]
+        public bool? SetUserAsChatOwner { get; set; }
+
+        /// <summary>Timestamp that represents how far back in the chat history the new member can see. If not specified, no history is shared.</summary>
+        [JsonPropertyName("visibleHistoryStartDateTime")]
+        [JsonInclude]
+        public DateTime? VisibleHistoryStartDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// Response for Get an online meeting
+    /// </summary>
+    public class GetOnlineMeetingResponse
+    {
+        /// <summary>The unique identifier of the online meeting</summary>
+        [JsonPropertyName("id")]
+        public string MeetingId { get; set; }
+
+        /// <summary>The subject of the online meeting</summary>
+        [JsonPropertyName("subject")]
+        public string Subject { get; set; }
+
+        /// <summary>The start time of the meeting in UTC</summary>
+        [JsonPropertyName("startDateTime")]
+        public DateTime? StartTime { get; set; }
+
+        /// <summary>The end time of the meeting in UTC</summary>
+        [JsonPropertyName("endDateTime")]
+        public DateTime? EndTime { get; set; }
+
+        /// <summary>The creation time of the meeting in UTC</summary>
+        [JsonPropertyName("creationDateTime")]
+        public DateTime? CreationTime { get; set; }
+
+        /// <summary>The URL used to join the meeting online</summary>
+        [JsonPropertyName("joinWebUrl")]
+        public string JoinWebURL { get; set; }
+
+        /// <summary>Settings related to the join meeting ID</summary>
+        [JsonPropertyName("joinMeetingIdSettings")]
+        public JsonElement? JoinMeetingIdSettings { get; set; }
+
+        /// <summary>The participants of the meeting</summary>
+        [JsonPropertyName("participants")]
+        public JsonElement? Participants { get; set; }
+
+        /// <summary>Phone call-in information for the meeting</summary>
+        [JsonPropertyName("audioConferencing")]
+        public JsonElement? AudioConferencing { get; set; }
+
+        /// <summary>Whether announce notifications are enabled for callers joining or leaving the meeting</summary>
+        [JsonPropertyName("isEntryExitAnnounced")]
+        public bool? AnnounceOnEntryExit { get; set; }
+
+        /// <summary>Specifies who can be a presenter in the meeting</summary>
+        [JsonPropertyName("allowedPresenters")]
+        public string AllowedPresenters { get; set; }
+
+        /// <summary>Specifies which participants can bypass the meeting lobby</summary>
+        [JsonPropertyName("lobbyBypassSettings")]
+        public JsonElement? LobbyBypassSettings { get; set; }
+
+        /// <summary>Indicates whether to record the meeting automatically</summary>
+        [JsonPropertyName("recordAutomatically")]
+        public bool? RecordAutomatically { get; set; }
+
+        /// <summary>Specifies the mode of meeting chat</summary>
+        [JsonPropertyName("allowMeetingChat")]
+        public string AllowMeetingChat { get; set; }
+
+        /// <summary>A URL for the organizer to change settings for the meeting</summary>
+        [JsonPropertyName("meetingOptionsWebUrl")]
+        public string MeetingOptionsWebURL { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List meeting transcripts
+    /// </summary>
+    public class CallTranscriptCollectionResponse
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>List of transcripts</summary>
+        [JsonPropertyName("value")]
+        public List<CallTranscriptResponse> Transcripts { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of transcripts
+    /// </summary>
+    public class CallTranscriptResponse
+    {
+        /// <summary>The transcript ID</summary>
+        [JsonPropertyName("id")]
+        public string TranscriptId { get; set; }
+
+        /// <summary>The date and time when the transcript was created</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>The URL to access the transcript content</summary>
+        [JsonPropertyName("transcriptContentUrl")]
+        public string TranscriptContentURL { get; set; }
+
+        /// <summary>The meeting ID</summary>
+        [JsonPropertyName("meetingId")]
+        public string MeetingId { get; set; }
+
+        /// <summary>The meeting organizer&apos;s user ID</summary>
+        [JsonPropertyName("meetingOrganizerId")]
+        public string MeetingOrganizerId { get; set; }
+
+        /// <summary>The call ID</summary>
+        [JsonPropertyName("callId")]
+        public string CallId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List meeting recordings
+    /// </summary>
+    public class CallRecordingCollectionResponse
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>List of recordings</summary>
+        [JsonPropertyName("value")]
+        public List<CallRecordingResponse> Recordings { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of recordings
+    /// </summary>
+    public class CallRecordingResponse
+    {
+        /// <summary>The recording ID</summary>
+        [JsonPropertyName("id")]
+        public string RecordingId { get; set; }
+
+        /// <summary>The date and time when the recording was created</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>The URL to access the recording content</summary>
+        [JsonPropertyName("recordingContentUrl")]
+        public string RecordingContentURL { get; set; }
+
+        /// <summary>The meeting ID</summary>
+        [JsonPropertyName("meetingId")]
+        public string MeetingId { get; set; }
+
+        /// <summary>The meeting organizer&apos;s user ID</summary>
+        [JsonPropertyName("meetingOrganizerId")]
+        public string MeetingOrganizerId { get; set; }
+
+        /// <summary>The call ID</summary>
+        [JsonPropertyName("callId")]
+        public string CallId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List sections
+    /// </summary>
+    public class ListSectionsResponse
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>Version identifier for the sections hierarchy. Pass as If-Match on Create, Update, Delete, Add Item, Remove Item, and Move Item operations.</summary>
+        [JsonPropertyName("@microsoft.graph.sectionsVersion")]
+        public string SectionsVersion { get; set; }
+
+        /// <summary>List of sections</summary>
+        [JsonPropertyName("value")]
+        public List<SectionResponse> Sections { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of sections
+    /// </summary>
+    public class SectionResponse
+    {
+        /// <summary>ETag for the sections collection. Pass as If-Match on Create, Update, and Delete.</summary>
+        [JsonPropertyName("@odata.etag")]
+        [JsonInclude]
+        public string ETag { get; init; }
+
+        /// <summary>The section ID</summary>
+        [JsonPropertyName("id")]
+        public string SectionId { get; set; }
+
+        /// <summary>The display name of the section</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>The display icon for the section</summary>
+        [JsonPropertyName("displayIcon")]
+        public JsonElement? DisplayIcon { get; set; }
+
+        /// <summary>Whether the section is expanded</summary>
+        [JsonPropertyName("isExpanded")]
+        public bool? IsExpanded { get; set; }
+
+        /// <summary>The sort type for the section</summary>
+        [JsonPropertyName("sortType")]
+        public SortType? SortType { get; set; }
+
+        /// <summary>The type of section</summary>
+        [JsonPropertyName("sectionType")]
+        public SectionType? SectionType { get; set; }
+
+        /// <summary>The date and time when the section was created</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>The date and time when the section was last modified</summary>
+        [JsonPropertyName("lastModifiedDateTime")]
+        [JsonInclude]
+        public DateTime? LastModifiedDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// Create a section
+    /// </summary>
+    public class CreateSectionInput
+    {
+        /// <summary>The display name of the section</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>The display icon for the section. Only iconType is writable; other fields are populated by the service.</summary>
+        [JsonPropertyName("displayIcon")]
+        public JsonElement? DisplayIcon { get; set; }
+
+        /// <summary>Whether the section is expanded</summary>
+        [JsonPropertyName("isExpanded")]
+        public bool? IsExpanded { get; set; }
+
+        /// <summary>The sort type for the section</summary>
+        [JsonPropertyName("sortType")]
+        public SortType? SortType { get; set; }
+    }
+
+    /// <summary>
+    /// Update a section
+    /// </summary>
+    public class UpdateSectionInput
+    {
+        /// <summary>The display name of the section</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>The display icon for the section. Only iconType is writable; other fields are populated by the service.</summary>
+        [JsonPropertyName("displayIcon")]
+        public JsonElement? DisplayIcon { get; set; }
+
+        /// <summary>Whether the section is expanded</summary>
+        [JsonPropertyName("isExpanded")]
+        public bool? IsExpanded { get; set; }
+
+        /// <summary>The sort type for the section</summary>
+        [JsonPropertyName("sortType")]
+        public SortType? SortType { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List section items
+    /// </summary>
+    public class ListSectionItemsResponse
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>List of section items</summary>
+        [JsonPropertyName("value")]
+        public List<SectionItemResponse> SectionItems { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of section items
+    /// </summary>
+    public class SectionItemResponse
+    {
+        /// <summary>ETag for the section items collection. Pass as If-Match on Add, Remove, and Move.</summary>
+        [JsonPropertyName("@odata.etag")]
+        [JsonInclude]
+        public string ETag { get; init; }
+
+        /// <summary>The unique identifier of the item. Corresponds to the conversation ID of the underlying chat, channel, meeting, or community.</summary>
+        [JsonPropertyName("id")]
+        public string ItemId { get; set; }
+
+        /// <summary>The type of the item</summary>
+        [JsonPropertyName("itemType")]
+        public ItemType? ItemType { get; set; }
+
+        /// <summary>The date and time when the item was added to the section</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>The date and time when the item was last modified</summary>
+        [JsonPropertyName("lastModifiedDateTime")]
+        [JsonInclude]
+        public DateTime? LastModifiedDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// Add an item to a section
+    /// </summary>
+    public class AddSectionItemInput
+    {
+        /// <summary>The conversation ID of the chat, channel, meeting, or community to add to the section. For community items, the service automatically normalizes the ID to the 19:{id}@EngageCommunity format.</summary>
+        [JsonPropertyName("id")]
+        public string ItemId { get; set; }
+    }
+
+    /// <summary>
+    /// Move a section item
+    /// </summary>
+    public class MoveSectionItemInput
+    {
+        /// <summary>The ID of the section to move the item to</summary>
+        [JsonPropertyName("targetSectionId")]
+        public string TargetSectionId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List all tags for a team
+    /// </summary>
+    public class GetTagsResponseSchema
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Create a tag for a team
+    /// </summary>
+    public class CreateTagInput
+    {
+        /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>List of users&apos; IDs separated by semi-colons, identifier must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
+        [JsonPropertyName("members")]
+        public string MembersIDs { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Create a tag for a team
+    /// </summary>
+    public class CreateTagResponseSchema
+    {
+        /// <summary>@odata.type</summary>
+        [JsonPropertyName("@odata.type")]
+        public string Type { get; set; }
+
+        /// <summary>Unique identifier of the tag</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>ID of the team in which the tag is defined</summary>
+        [JsonPropertyName("teamId")]
+        public string TeamId { get; set; }
+
+        /// <summary>The name of the tag as it appears to the user in Microsoft Teams.</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>The number of users assigned to the tag</summary>
+        [JsonPropertyName("memberCount")]
+        public int? MemberCount { get; set; }
+    }
+
+    /// <summary>
+    /// Update a team tag
+    /// </summary>
+    public class UpdateTagInput
+    {
+        /// <summary>The new name of the tag as it appears to the user in Microsoft Teams.</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Add a member to a team tag
+    /// </summary>
+    public class AddMemberToTagInput
+    {
+        /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
+        [JsonPropertyName("userId")]
+        public string UserSId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Add a member to a team tag
+    /// </summary>
+    public class AddMemberToTagResponseSchema
+    {
+        /// <summary>User ID of the member added to the tag</summary>
+        [JsonPropertyName("userId")]
+        public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List the members of a team tag
+    /// </summary>
+    public class GetTagMembersResponseSchema
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List AI insights
+    /// </summary>
+    public class AiInsightCollectionResponse
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>List of AI insights</summary>
+        [JsonPropertyName("value")]
+        public List<AiInsightResponse> AIInsights { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of AI insights
+    /// </summary>
+    public class AiInsightResponse
+    {
+        /// <summary>The AI insight ID</summary>
+        [JsonPropertyName("id")]
+        public string AIInsightId { get; set; }
+
+        /// <summary>The call ID</summary>
+        [JsonPropertyName("callId")]
+        public string CallId { get; set; }
+
+        /// <summary>The content correlation ID</summary>
+        [JsonPropertyName("contentCorrelationId")]
+        public string ContentCorrelationId { get; set; }
+
+        /// <summary>The date and time when the AI insight was created</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>The date and time when the AI insight ended</summary>
+        [JsonPropertyName("endDateTime")]
+        [JsonInclude]
+        public DateTime? EndDateTime { get; init; }
     }
 
     /// <summary>
@@ -1179,6 +1584,16 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// PostMessageToSelfRequest
+    /// </summary>
+    public class PostMessageToSelfRequest
+    {
+        /// <summary>body</summary>
+        [JsonPropertyName("body")]
+        public JsonElement? Body { get; set; }
+    }
+
+    /// <summary>
     /// NewChat
     /// </summary>
     public class NewChat
@@ -1203,7 +1618,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The body of the message associated with the event</summary>
         [JsonPropertyName("body")]
-        public object Body { get; set; }
+        public JsonElement? Body { get; set; }
 
         /// <summary>Time zone of the event</summary>
         [JsonPropertyName("timeZone")]
@@ -1211,11 +1626,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>start</summary>
         [JsonPropertyName("start")]
-        public object Start { get; set; }
+        public JsonElement? Start { get; set; }
 
         /// <summary>end</summary>
         [JsonPropertyName("end")]
-        public object End { get; set; }
+        public JsonElement? End { get; set; }
 
         /// <summary>Required attendees for the event separated by semicolons</summary>
         [JsonPropertyName("requiredAttendees")]
@@ -1227,7 +1642,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The location of the event</summary>
         [JsonPropertyName("location")]
-        public object Location { get; set; }
+        public JsonElement? Location { get; set; }
 
         /// <summary>The importance of the event: low, normal or high</summary>
         [JsonPropertyName("importance")]
@@ -1235,7 +1650,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The recurrence pattern for the meeting</summary>
         [JsonPropertyName("recurrence")]
-        public object Recurrence { get; set; }
+        public JsonElement? Recurrence { get; set; }
 
         /// <summary>Set to true if the event lasts all day</summary>
         [JsonPropertyName("isAllDay")]
@@ -1264,6 +1679,42 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>Represents the online meeting service provider</summary>
         [JsonPropertyName("onlineMeetingProvider")]
         public string OnlineMeetingProvider { get; set; }
+    }
+
+    /// <summary>
+    /// DynamicTranscriptTriggerRequest
+    /// </summary>
+    [DynamicSchema("GetSubscriptionScopeSchema")]
+    public class DynamicTranscriptTriggerRequest
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
+        /// <summary>Webhook callback URL</summary>
+        [JsonPropertyName("callbackUrl")]
+        public string CallbackUrl { get; set; }
+    }
+
+    /// <summary>
+    /// DynamicRecordingTriggerRequest
+    /// </summary>
+    [DynamicSchema("GetSubscriptionScopeSchema")]
+    public class DynamicRecordingTriggerRequest
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
+        /// <summary>Webhook callback URL</summary>
+        [JsonPropertyName("callbackUrl")]
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -1322,60 +1773,112 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Extensible enum for known MembershipType values.
+    /// Extensible enum for known ItemType values.
     /// </summary>
-    [JsonConverter(typeof(MembershipType.MembershipTypeJsonConverter))]
-    public readonly struct MembershipType : IEquatable<MembershipType>
+    [JsonConverter(typeof(ItemType.ItemTypeJsonConverter))]
+    public readonly struct ItemType : IEquatable<ItemType>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MembershipType"/> struct.
+        /// Initializes a new instance of the <see cref="ItemType"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public MembershipType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public ItemType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
-        /// <summary>standard</summary>
-        public static MembershipType Standard { get; } = new("standard");
+        /// <summary>chat</summary>
+        public static ItemType Chat { get; } = new("chat");
 
-        /// <summary>private</summary>
-        public static MembershipType Private { get; } = new("private");
+        /// <summary>channel</summary>
+        public static ItemType Channel { get; } = new("channel");
 
-        /// <summary>unknownFutureValue</summary>
-        public static MembershipType UnknownFutureValue { get; } = new("unknownFutureValue");
+        /// <summary>meeting</summary>
+        public static ItemType Meeting { get; } = new("meeting");
 
-        /// <summary>shared</summary>
-        public static MembershipType Shared { get; } = new("shared");
+        /// <summary>community</summary>
+        public static ItemType Community { get; } = new("community");
 
-        /// <summary>Converts a string to <see cref="MembershipType"/>.</summary>
-        public static implicit operator MembershipType(string value) => new(value);
+        /// <summary>Converts a string to <see cref="ItemType"/>.</summary>
+        public static implicit operator ItemType(string value) => new(value);
 
-        /// <summary>Converts a <see cref="MembershipType"/> to its string representation.</summary>
-        public static implicit operator string(MembershipType value) => value.ToString();
+        /// <summary>Converts a <see cref="ItemType"/> to its string representation.</summary>
+        public static implicit operator string(ItemType value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(MembershipType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(ItemType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is MembershipType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is ItemType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(MembershipType left, MembershipType right) => left.Equals(right);
+        public static bool operator ==(ItemType left, ItemType right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(MembershipType left, MembershipType right) => !left.Equals(right);
+        public static bool operator !=(ItemType left, ItemType right) => !left.Equals(right);
 
-        internal sealed class MembershipTypeJsonConverter : JsonConverter<MembershipType>
+        internal sealed class ItemTypeJsonConverter : JsonConverter<ItemType>
         {
-            public MembershipTypeJsonConverter() { }
-            public override MembershipType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MembershipType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, MembershipType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public ItemTypeJsonConverter() { }
+            public override ItemType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ItemType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ItemType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known SectionType values.
+    /// </summary>
+    [JsonConverter(typeof(SectionType.SectionTypeJsonConverter))]
+    public readonly struct SectionType : IEquatable<SectionType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SectionType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public SectionType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>userDefined</summary>
+        public static SectionType UserDefined { get; } = new("userDefined");
+
+        /// <summary>systemDefined</summary>
+        public static SectionType SystemDefined { get; } = new("systemDefined");
+
+        /// <summary>Converts a string to <see cref="SectionType"/>.</summary>
+        public static implicit operator SectionType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="SectionType"/> to its string representation.</summary>
+        public static implicit operator string(SectionType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(SectionType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is SectionType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(SectionType left, SectionType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(SectionType left, SectionType right) => !left.Equals(right);
+
+        internal sealed class SectionTypeJsonConverter : JsonConverter<SectionType>
+        {
+            public SectionTypeJsonConverter() { }
+            public override SectionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SectionType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, SectionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -1444,6 +1947,64 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// Extensible enum for known SortType values.
+    /// </summary>
+    [JsonConverter(typeof(SortType.SortTypeJsonConverter))]
+    public readonly struct SortType : IEquatable<SortType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SortType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public SortType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>mostRecent</summary>
+        public static SortType MostRecent { get; } = new("mostRecent");
+
+        /// <summary>unreadThenMostRecent</summary>
+        public static SortType UnreadThenMostRecent { get; } = new("unreadThenMostRecent");
+
+        /// <summary>nameAlphabetical</summary>
+        public static SortType NameAlphabetical { get; } = new("nameAlphabetical");
+
+        /// <summary>userDefinedCustomOrder</summary>
+        public static SortType UserDefinedCustomOrder { get; } = new("userDefinedCustomOrder");
+
+        /// <summary>Converts a string to <see cref="SortType"/>.</summary>
+        public static implicit operator SortType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="SortType"/> to its string representation.</summary>
+        public static implicit operator string(SortType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(SortType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is SortType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(SortType left, SortType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(SortType left, SortType right) => !left.Equals(right);
+
+        internal sealed class SortTypeJsonConverter : JsonConverter<SortType>
+        {
+            public SortTypeJsonConverter() { }
+            public override SortType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SortType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, SortType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known Visibility values.
     /// </summary>
     [JsonConverter(typeof(Visibility.VisibilityJsonConverter))]
@@ -1502,7 +2063,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// <summary>
     /// Model factory for creating instances of Teams models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class TeamsModelFactory
     {
@@ -1513,7 +2074,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string id = default,
             string createdTimestamp = default,
             string lastModifiedTimestamp = default,
-            List<object> categories = default,
+            List<JsonElement?> categories = default,
             string timeZone = default,
             int? preEventReminderTime = default,
             bool? remindersEnabled = default,
@@ -1531,15 +2092,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string webLast = default,
             string onlineMeetingURL = default,
             bool? allowNewTimeProposals = default,
-            object recurrence = default,
-            object responseStatus = default,
-            object body = default,
-            object start = default,
-            object end = default,
-            object location = default,
-            List<object> attendee = default,
-            object organizer = default,
-            object onlineMeeting = default)
+            JsonElement? recurrence = default,
+            JsonElement? responseStatus = default,
+            JsonElement? body = default,
+            JsonElement? start = default,
+            JsonElement? end = default,
+            JsonElement? location = default,
+            List<JsonElement?> attendee = default,
+            JsonElement? organizer = default,
+            JsonElement? onlineMeeting = default)
         {
             return new NewMeetingResponse
             {
@@ -1581,7 +2142,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static GetAllTeamsResponse GetAllTeamsResponse(
             string context = default,
-            List<object> teamsList = default)
+            List<JsonElement?> teamsList = default)
         {
             return new GetAllTeamsResponse
             {
@@ -1646,7 +2207,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string aHyperlinkForTheChannelInMicrosoftTeams = default,
             string sharePointFolderURLForChannel = default,
             DateTime? channelCreationTime = default,
-            MembershipType? theTypeOfTheChannel = default)
+            string theTypeOfTheChannel = default)
         {
             return new GetChannelResponse
             {
@@ -1667,12 +2228,14 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static CreateChannelInput CreateChannelInput(
             string description = default,
-            string name = default)
+            string name = default,
+            string membershipType = default)
         {
             return new CreateChannelInput
             {
                 Description = description,
                 Name = name,
+                MembershipType = membershipType,
             };
         }
 
@@ -1682,13 +2245,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static CreateChannelResponse CreateChannelResponse(
             string description = default,
             string displayName = default,
-            string id = default)
+            string id = default,
+            string membershipType = default)
         {
             return new CreateChannelResponse
             {
                 Description = description,
                 DisplayName = displayName,
                 Id = id,
+                MembershipType = membershipType,
             };
         }
 
@@ -1718,7 +2283,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string aHyperlinkForTheChannelInMicrosoftTeams = default,
             string sharePointFolderURLForChannel = default,
             DateTime? channelCreationTime = default,
-            MembershipType? theTypeOfTheChannel = default,
+            string theTypeOfTheChannel = default,
             string ownerTeamId = default)
         {
             return new ChannelWithOwnerTeamId
@@ -1741,96 +2306,12 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static GetChatsResponse GetChatsResponse(
             string context = default,
-            List<object> chatsList = default)
+            List<JsonElement?> chatsList = default)
         {
             return new GetChatsResponse
             {
                 Context = context,
                 ChatsList = chatsList,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetTagsResponseSchema"/>.
-        /// </summary>
-        public static GetTagsResponseSchema GetTagsResponseSchema(
-            string context = default,
-            List<object> value = default)
-        {
-            return new GetTagsResponseSchema
-            {
-                Context = context,
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateTagInput"/>.
-        /// </summary>
-        public static CreateTagInput CreateTagInput(
-            string displayName = default,
-            string membersIDs = default)
-        {
-            return new CreateTagInput
-            {
-                DisplayName = displayName,
-                MembersIDs = membersIDs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateTagResponseSchema"/>.
-        /// </summary>
-        public static CreateTagResponseSchema CreateTagResponseSchema(
-            string type = default,
-            string id = default,
-            string teamId = default,
-            string displayName = default,
-            int? memberCount = default)
-        {
-            return new CreateTagResponseSchema
-            {
-                Type = type,
-                Id = id,
-                TeamId = teamId,
-                DisplayName = displayName,
-                MemberCount = memberCount,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
-        /// </summary>
-        public static AddMemberToTagInput AddMemberToTagInput(
-            string userSId = default)
-        {
-            return new AddMemberToTagInput
-            {
-                UserSId = userSId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AddMemberToTagResponseSchema"/>.
-        /// </summary>
-        public static AddMemberToTagResponseSchema AddMemberToTagResponseSchema(
-            string id = default)
-        {
-            return new AddMemberToTagResponseSchema
-            {
-                Id = id,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetTagMembersResponseSchema"/>.
-        /// </summary>
-        public static GetTagMembersResponseSchema GetTagMembersResponseSchema(
-            List<object> value = default)
-        {
-            return new GetTagMembersResponseSchema
-            {
-                Value = value,
             };
         }
 
@@ -1868,7 +2349,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="ListRepliesResponseSchema"/>.
         /// </summary>
         public static ListRepliesResponseSchema ListRepliesResponseSchema(
-            List<object> listOfMessageReplies = default)
+            List<JsonElement?> listOfMessageReplies = default)
         {
             return new ListRepliesResponseSchema
             {
@@ -1880,7 +2361,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="ListMembersResponseSchema"/>.
         /// </summary>
         public static ListMembersResponseSchema ListMembersResponseSchema(
-            List<object> listOfMembers = default)
+            List<JsonElement?> listOfMembers = default)
         {
             return new ListMembersResponseSchema
             {
@@ -1892,19 +2373,19 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="ChatMessage"/>.
         /// </summary>
         public static ChatMessage ChatMessage(
-            List<object> attachments = default,
-            object body = default,
+            List<JsonElement?> attachments = default,
+            JsonElement? body = default,
             DateTime? creationTimestamp = default,
             bool? deleted = default,
             string etag = default,
-            object from = default,
+            JsonElement? from = default,
             string id = default,
             string importance = default,
             string lastModifiedTimestamp = default,
             string locale = default,
-            List<object> mentions = default,
+            List<JsonElement?> mentions = default,
             string messageType = default,
-            List<object> reactions = default,
+            List<JsonElement?> reactions = default,
             string replyToId = default,
             string subject = default,
             string summary = default)
@@ -2241,7 +2722,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static PostCardAndWaitForResponseInput PostCardAndWaitForResponseInput(
             string notificationUrl = default,
-            object body = default)
+            JsonElement? body = default)
         {
             return new PostCardAndWaitForResponseInput
             {
@@ -2290,7 +2771,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="GetMessageLocationsResponse"/>.
         /// </summary>
         public static GetMessageLocationsResponse GetMessageLocationsResponse(
-            List<object> locations = default)
+            List<JsonElement?> locations = default)
         {
             return new GetMessageLocationsResponse
             {
@@ -2307,6 +2788,414 @@ namespace Azure.Connectors.Sdk.Teams.Models
             return new PostFeedSchema
             {
                 Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToChatInput"/>.
+        /// </summary>
+        public static AddMemberToChatInput AddMemberToChatInput(
+            string user = default,
+            bool? setUserAsChatOwner = default,
+            DateTime? visibleHistoryStartDateTime = default)
+        {
+            return new AddMemberToChatInput
+            {
+                User = user,
+                SetUserAsChatOwner = setUserAsChatOwner,
+                VisibleHistoryStartDateTime = visibleHistoryStartDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetOnlineMeetingResponse"/>.
+        /// </summary>
+        public static GetOnlineMeetingResponse GetOnlineMeetingResponse(
+            string meetingId = default,
+            string subject = default,
+            DateTime? startTime = default,
+            DateTime? endTime = default,
+            DateTime? creationTime = default,
+            string joinWebURL = default,
+            JsonElement? joinMeetingIdSettings = default,
+            JsonElement? participants = default,
+            JsonElement? audioConferencing = default,
+            bool? announceOnEntryExit = default,
+            string allowedPresenters = default,
+            JsonElement? lobbyBypassSettings = default,
+            bool? recordAutomatically = default,
+            string allowMeetingChat = default,
+            string meetingOptionsWebURL = default)
+        {
+            return new GetOnlineMeetingResponse
+            {
+                MeetingId = meetingId,
+                Subject = subject,
+                StartTime = startTime,
+                EndTime = endTime,
+                CreationTime = creationTime,
+                JoinWebURL = joinWebURL,
+                JoinMeetingIdSettings = joinMeetingIdSettings,
+                Participants = participants,
+                AudioConferencing = audioConferencing,
+                AnnounceOnEntryExit = announceOnEntryExit,
+                AllowedPresenters = allowedPresenters,
+                LobbyBypassSettings = lobbyBypassSettings,
+                RecordAutomatically = recordAutomatically,
+                AllowMeetingChat = allowMeetingChat,
+                MeetingOptionsWebURL = meetingOptionsWebURL,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CallTranscriptCollectionResponse"/>.
+        /// </summary>
+        public static CallTranscriptCollectionResponse CallTranscriptCollectionResponse(
+            string context = default,
+            List<CallTranscriptResponse> transcripts = default)
+        {
+            return new CallTranscriptCollectionResponse
+            {
+                Context = context,
+                Transcripts = transcripts,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CallTranscriptResponse"/>.
+        /// </summary>
+        public static CallTranscriptResponse CallTranscriptResponse(
+            string transcriptId = default,
+            DateTime? createdDateTime = default,
+            string transcriptContentURL = default,
+            string meetingId = default,
+            string meetingOrganizerId = default,
+            string callId = default)
+        {
+            return new CallTranscriptResponse
+            {
+                TranscriptId = transcriptId,
+                CreatedDateTime = createdDateTime,
+                TranscriptContentURL = transcriptContentURL,
+                MeetingId = meetingId,
+                MeetingOrganizerId = meetingOrganizerId,
+                CallId = callId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CallRecordingCollectionResponse"/>.
+        /// </summary>
+        public static CallRecordingCollectionResponse CallRecordingCollectionResponse(
+            string context = default,
+            List<CallRecordingResponse> recordings = default)
+        {
+            return new CallRecordingCollectionResponse
+            {
+                Context = context,
+                Recordings = recordings,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CallRecordingResponse"/>.
+        /// </summary>
+        public static CallRecordingResponse CallRecordingResponse(
+            string recordingId = default,
+            DateTime? createdDateTime = default,
+            string recordingContentURL = default,
+            string meetingId = default,
+            string meetingOrganizerId = default,
+            string callId = default)
+        {
+            return new CallRecordingResponse
+            {
+                RecordingId = recordingId,
+                CreatedDateTime = createdDateTime,
+                RecordingContentURL = recordingContentURL,
+                MeetingId = meetingId,
+                MeetingOrganizerId = meetingOrganizerId,
+                CallId = callId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListSectionsResponse"/>.
+        /// </summary>
+        public static ListSectionsResponse ListSectionsResponse(
+            string context = default,
+            string sectionsVersion = default,
+            List<SectionResponse> sections = default)
+        {
+            return new ListSectionsResponse
+            {
+                Context = context,
+                SectionsVersion = sectionsVersion,
+                Sections = sections,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SectionResponse"/>.
+        /// </summary>
+        public static SectionResponse SectionResponse(
+            string eTag = default,
+            string sectionId = default,
+            string displayName = default,
+            JsonElement? displayIcon = default,
+            bool? isExpanded = default,
+            SortType? sortType = default,
+            SectionType? sectionType = default,
+            DateTime? createdDateTime = default,
+            DateTime? lastModifiedDateTime = default)
+        {
+            return new SectionResponse
+            {
+                ETag = eTag,
+                SectionId = sectionId,
+                DisplayName = displayName,
+                DisplayIcon = displayIcon,
+                IsExpanded = isExpanded,
+                SortType = sortType,
+                SectionType = sectionType,
+                CreatedDateTime = createdDateTime,
+                LastModifiedDateTime = lastModifiedDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateSectionInput"/>.
+        /// </summary>
+        public static CreateSectionInput CreateSectionInput(
+            string displayName = default,
+            JsonElement? displayIcon = default,
+            bool? isExpanded = default,
+            SortType? sortType = default)
+        {
+            return new CreateSectionInput
+            {
+                DisplayName = displayName,
+                DisplayIcon = displayIcon,
+                IsExpanded = isExpanded,
+                SortType = sortType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UpdateSectionInput"/>.
+        /// </summary>
+        public static UpdateSectionInput UpdateSectionInput(
+            string displayName = default,
+            JsonElement? displayIcon = default,
+            bool? isExpanded = default,
+            SortType? sortType = default)
+        {
+            return new UpdateSectionInput
+            {
+                DisplayName = displayName,
+                DisplayIcon = displayIcon,
+                IsExpanded = isExpanded,
+                SortType = sortType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListSectionItemsResponse"/>.
+        /// </summary>
+        public static ListSectionItemsResponse ListSectionItemsResponse(
+            string context = default,
+            List<SectionItemResponse> sectionItems = default)
+        {
+            return new ListSectionItemsResponse
+            {
+                Context = context,
+                SectionItems = sectionItems,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SectionItemResponse"/>.
+        /// </summary>
+        public static SectionItemResponse SectionItemResponse(
+            string eTag = default,
+            string itemId = default,
+            ItemType? itemType = default,
+            DateTime? createdDateTime = default,
+            DateTime? lastModifiedDateTime = default)
+        {
+            return new SectionItemResponse
+            {
+                ETag = eTag,
+                ItemId = itemId,
+                ItemType = itemType,
+                CreatedDateTime = createdDateTime,
+                LastModifiedDateTime = lastModifiedDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddSectionItemInput"/>.
+        /// </summary>
+        public static AddSectionItemInput AddSectionItemInput(
+            string itemId = default)
+        {
+            return new AddSectionItemInput
+            {
+                ItemId = itemId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MoveSectionItemInput"/>.
+        /// </summary>
+        public static MoveSectionItemInput MoveSectionItemInput(
+            string targetSectionId = default)
+        {
+            return new MoveSectionItemInput
+            {
+                TargetSectionId = targetSectionId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetTagsResponseSchema"/>.
+        /// </summary>
+        public static GetTagsResponseSchema GetTagsResponseSchema(
+            string context = default,
+            List<JsonElement?> value = default)
+        {
+            return new GetTagsResponseSchema
+            {
+                Context = context,
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateTagInput"/>.
+        /// </summary>
+        public static CreateTagInput CreateTagInput(
+            string displayName = default,
+            string membersIDs = default)
+        {
+            return new CreateTagInput
+            {
+                DisplayName = displayName,
+                MembersIDs = membersIDs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateTagResponseSchema"/>.
+        /// </summary>
+        public static CreateTagResponseSchema CreateTagResponseSchema(
+            string type = default,
+            string id = default,
+            string teamId = default,
+            string displayName = default,
+            int? memberCount = default)
+        {
+            return new CreateTagResponseSchema
+            {
+                Type = type,
+                Id = id,
+                TeamId = teamId,
+                DisplayName = displayName,
+                MemberCount = memberCount,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UpdateTagInput"/>.
+        /// </summary>
+        public static UpdateTagInput UpdateTagInput(
+            string displayName = default)
+        {
+            return new UpdateTagInput
+            {
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
+        /// </summary>
+        public static AddMemberToTagInput AddMemberToTagInput(
+            string userSId = default)
+        {
+            return new AddMemberToTagInput
+            {
+                UserSId = userSId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AddMemberToTagResponseSchema"/>.
+        /// </summary>
+        public static AddMemberToTagResponseSchema AddMemberToTagResponseSchema(
+            string id = default)
+        {
+            return new AddMemberToTagResponseSchema
+            {
+                Id = id,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetTagMembersResponseSchema"/>.
+        /// </summary>
+        public static GetTagMembersResponseSchema GetTagMembersResponseSchema(
+            List<JsonElement?> value = default)
+        {
+            return new GetTagMembersResponseSchema
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AiInsightCollectionResponse"/>.
+        /// </summary>
+        public static AiInsightCollectionResponse AiInsightCollectionResponse(
+            string context = default,
+            List<AiInsightResponse> aiInsights = default)
+        {
+            return new AiInsightCollectionResponse
+            {
+                Context = context,
+                AIInsights = aiInsights,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AiInsightResponse"/>.
+        /// </summary>
+        public static AiInsightResponse AiInsightResponse(
+            string aiInsightId = default,
+            string callId = default,
+            string contentCorrelationId = default,
+            DateTime? createdDateTime = default,
+            DateTime? endDateTime = default)
+        {
+            return new AiInsightResponse
+            {
+                AIInsightId = aiInsightId,
+                CallId = callId,
+                ContentCorrelationId = contentCorrelationId,
+                CreatedDateTime = createdDateTime,
+                EndDateTime = endDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostMessageToSelfRequest"/>.
+        /// </summary>
+        public static PostMessageToSelfRequest PostMessageToSelfRequest(
+            JsonElement? body = default)
+        {
+            return new PostMessageToSelfRequest
+            {
+                Body = body,
             };
         }
 
@@ -2329,15 +3218,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static NewMeeting NewMeeting(
             string subject = default,
-            object body = default,
+            JsonElement? body = default,
             string timeZone = default,
-            object start = default,
-            object end = default,
+            JsonElement? start = default,
+            JsonElement? end = default,
             string requiredAttendees = default,
             string optionalAttendees = default,
-            object location = default,
+            JsonElement? location = default,
             Importance? importance = default,
-            object recurrence = default,
+            JsonElement? recurrence = default,
             bool? allDayEvent = default,
             int? preEventReminderTime = default,
             bool? enableReminders = default,
@@ -2367,6 +3256,30 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 OnlineMeetingProvider = onlineMeetingProvider,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DynamicTranscriptTriggerRequest"/>.
+        /// </summary>
+        public static DynamicTranscriptTriggerRequest DynamicTranscriptTriggerRequest(
+            string callbackUrl = default)
+        {
+            return new DynamicTranscriptTriggerRequest
+            {
+                CallbackUrl = callbackUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DynamicRecordingTriggerRequest"/>.
+        /// </summary>
+        public static DynamicRecordingTriggerRequest DynamicRecordingTriggerRequest(
+            string callbackUrl = default)
+        {
+            return new DynamicRecordingTriggerRequest
+            {
+                CallbackUrl = callbackUrl,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -2393,7 +3306,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// Typed trigger payload for the OnTeamMemberRemoved trigger (Teams "When a new team member is removed", operationId: OnGroupMembershipRemoval).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberRemovedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<object>
+    public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -2401,7 +3314,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// Typed trigger payload for the OnTeamMemberAdded trigger (Teams "When a new team member is added", operationId: OnGroupMembershipAdd).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberAddedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnTeamMemberAddedTriggerPayload : TriggerCallbackPayload<object>
+    public class TeamsOnTeamMemberAddedTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -2465,6 +3378,16 @@ namespace Azure.Connectors.Sdk.Teams
         /// When someone reacted to a message in chat.
         /// </summary>
         public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
+
+        /// <summary>
+        /// When a transcript is available.
+        /// </summary>
+        public const string OnTranscriptTrigger = "TranscriptTrigger";
+
+        /// <summary>
+        /// When a recording is available.
+        /// </summary>
+        public const string OnRecordingTrigger = "RecordingTrigger";
 
         /// <summary>
         /// When a new chat message is added.
@@ -2555,6 +3478,34 @@ namespace Azure.Connectors.Sdk.Teams
             /// Allowed values: Myself, Everyone.
             /// </summary>
             public const string RunningPolicy = "runningPolicy";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTranscriptTrigger trigger operation (operationId: TranscriptTrigger).
+        /// </summary>
+        public static class OnTranscriptTrigger
+        {
+            /// <summary>
+            /// The scope of transcripts to monitor
+            /// Required.
+            /// Allowed values: user, meeting, adhocCallUser.
+            /// </summary>
+            public const string ScopeType = "scopeType";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnRecordingTrigger trigger operation (operationId: RecordingTrigger).
+        /// </summary>
+        public static class OnRecordingTrigger
+        {
+            /// <summary>
+            /// The scope of recordings to monitor
+            /// Required.
+            /// Allowed values: user, meeting, adhocCallUser.
+            /// </summary>
+            public const string ScopeType = "scopeType";
 
         }
 
@@ -2667,6 +3618,8 @@ namespace Azure.Connectors.Sdk.Teams
 
         public override string ConnectorName => "teams";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.teams");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2689,10 +3642,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Create a Teams meeting response.</returns>
         public virtual async Task<NewMeetingResponse> CreateTeamsMeetingAsync(string calendarId, NewMeeting input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
-            return await this
-                .CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateTeamsMeetingAsync");
+            try
+            {
+                if (calendarId is null)
+                    throw new ArgumentNullException(nameof(calendarId));
+                var path = $"/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
+                return await this
+                    .CallConnectorAsync<NewMeetingResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2703,10 +3668,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List joined teams response.</returns>
         public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/me/joinedTeams";
-            return await this
-                .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAllTeamsAsync");
+            try
+            {
+                var path = $"/beta/me/joinedTeams";
+                return await this
+                    .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2717,10 +3692,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List associated teams response.</returns>
         public virtual async Task<GetAllAssociatedTeamsResponse> GetAllAssociatedTeamsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/me/teamwork/associatedTeams";
-            return await this
-                .CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAllAssociatedTeamsAsync");
+            try
+            {
+                var path = $"/v1.0/me/teamwork/associatedTeams";
+                return await this
+                    .CallConnectorAsync<GetAllAssociatedTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2734,15 +3719,27 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List channels response.</returns>
         public virtual async Task<GetChannelsForGroupResponse> GetChannelsForGroupAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetChannelsForGroupAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetChannelsForGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2755,10 +3752,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Create a channel response.</returns>
         public virtual async Task<CreateChannelResponse> CreateChannelAsync([DynamicValues("GetAllTeams")] string team, CreateChannelInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
-            return await this
-                .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateChannelAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var path = $"/beta/groups/{Uri.EscapeDataString(team.ToString())}/channels";
+                return await this
+                    .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2771,10 +3780,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get details for a specific channel in a team response.</returns>
         public virtual async Task<GetChannelResponse> GetChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
-            return await this
-                .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetChannelAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2788,15 +3811,27 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List all channels response.</returns>
         public virtual async Task<GetAllChannelsForTeamResponse> GetAllChannelsForTeamAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string orderBy = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (orderBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/allChannels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAllChannelsForTeamAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/allChannels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllChannelsForTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2809,90 +3844,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List chats response.</returns>
         public virtual async Task<GetChatsResponse> GetChatsAsync(string chatTypes, string topic, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
-            return await this
-                .CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetChatsAsync");
+            try
+            {
+                if (chatTypes is null)
+                    throw new ArgumentNullException(nameof(chatTypes));
+                if (topic is null)
+                    throw new ArgumentNullException(nameof(topic));
+                var path = $"/flowbot/actions/listchats/chattypes/{Uri.EscapeDataString(chatTypes.ToString())}/topic/{Uri.EscapeDataString(topic.ToString())}/expandmembers/false";
+                return await this
+                    .CallConnectorAsync<GetChatsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
 
-        /// <summary>
-        /// List all tags for a team
-        /// </summary>
-        /// <remarks>Lists the team&apos;s tags</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all tags for a team response.</returns>
-        public virtual async Task<GetTagsResponseSchema> GetTagsAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-            return await this
-                .CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Create a tag for a team
-        /// </summary>
-        /// <remarks>Creates a tag in a team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a tag for a team response.</returns>
-        public virtual async Task<CreateTagResponseSchema> CreateTagAsync([DynamicValues("GetAllTeams")] string team, CreateTagInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags";
-            return await this
-                .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Add a member to a team tag
-        /// </summary>
-        /// <remarks>Adds a user to a team tag</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add a member to a team tag response.</returns>
-        public virtual async Task<AddMemberToTagResponseSchema> AddMemberToTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, AddMemberToTagInput input, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-            return await this
-                .CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// List the members of a team tag
-        /// </summary>
-        /// <remarks>Lists the members of a team tag</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List the members of a team tag response.</returns>
-        public virtual async Task<GetTagMembersResponseSchema> GetTagMembersAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
-            return await this
-                .CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        /// <summary>
-        /// Delete a member from a team tag
-        /// </summary>
-        /// <remarks>Deletes a member from a team tag</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="tagMemberId">Tag Member ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberId, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2905,10 +3874,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task PostFeedNotificationAsync(string postAs, string notificationType, DynamicPostFeedNotificationRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostFeedNotificationAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (notificationType is null)
+                    throw new ArgumentNullException(nameof(notificationType));
+                var path = $"/flowbot/feednotification/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2921,25 +3904,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get an @mention token for a team tag response.</returns>
         public virtual async Task<AtMentionTagResponse> AtMentionTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-            return await this
-                .CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AtMentionTagAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
+                return await this
+                    .CallConnectorAsync<AtMentionTagResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
 
-        /// <summary>
-        /// Delete a team tag
-        /// </summary>
-        /// <remarks>Deletes a tag from a team</remarks>
-        /// <param name="team">Team</param>
-        /// <param name="tag">Tag</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
-        {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2952,6 +3934,10 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
         public virtual AsyncPageable<ChatMessage> GetMessagesFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, CancellationToken cancellationToken = default)
         {
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            if (channel is null)
+                throw new ArgumentNullException(nameof(channel));
             var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages";
             return this.CreatePageable<GetMessagesFromConversationResponse, ChatMessage>(
                 ct => this.CallConnectorAsync<GetMessagesFromConversationResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2970,10 +3956,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get message details response.</returns>
         public virtual async Task<DynamicGetMessageDetailsResponseSchema> GetMessageDetailsAsync(string message, string messageType, DynamicGetMessageDetailsSchema input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsAsync");
+            try
+            {
+                if (message is null)
+                    throw new ArgumentNullException(nameof(message));
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/beta/teams/messages/{Uri.EscapeDataString(message.ToString())}/messageType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<DynamicGetMessageDetailsResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2988,33 +3988,61 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List replies of a channel message response.</returns>
         public virtual async Task<ListRepliesResponseSchema> ListRepliesToMessageAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string message, int? latestRepliesCount = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (latestRepliesCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.Value.ToString())}");
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages/{Uri.EscapeDataString(message.ToString())}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListRepliesToMessageAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                if (message is null)
+                    throw new ArgumentNullException(nameof(message));
+                var queryParams = new List<string>();
+                if (latestRepliesCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(latestRepliesCount.Value.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/messages/{Uri.EscapeDataString(message.ToString())}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListRepliesResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
-        /// List members
+        /// List chat or channel members
         /// </summary>
         /// <remarks>List direct members of a group chat or a channel</remarks>
         /// <param name="threadType">Thread type</param>
         /// <param name="input">The request body.</param>
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List members response.</returns>
+        /// <returns>The List chat or channel members response.</returns>
         public virtual async Task<ListMembersResponseSchema> ListMembersAsync(string threadType, DynamicListMembersSchema input, string filterQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            var path = $"/v1.0/teams/listmembers/threadType/{Uri.EscapeDataString(threadType.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMembersAsync");
+            try
+            {
+                if (threadType is null)
+                    throw new ArgumentNullException(nameof(threadType));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                var path = $"/v1.0/teams/listmembers/threadType/{Uri.EscapeDataString(threadType.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3028,10 +4056,26 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get unified action input metadata response.</returns>
         public virtual async Task<UnifiedActionSchema> GetUnifiedActionSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
-            return await this
-                .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetUnifiedActionSchemaAsync");
+            try
+            {
+                if (unifiedAction is null)
+                    throw new ArgumentNullException(nameof(unifiedAction));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
+                return await this
+                    .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3045,10 +4089,26 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get response schema response.</returns>
         public virtual async Task<DynamicResponseSchema> GetPostToConversationResponseSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
-            return await this
-                .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetPostToConversationResponseSchemaAsync");
+            try
+            {
+                if (unifiedAction is null)
+                    throw new ArgumentNullException(nameof(unifiedAction));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
+                return await this
+                    .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3060,10 +4120,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get adaptive card input metadata response.</returns>
         public virtual async Task<ConnectorMetadata> GetAdaptiveCardInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAdaptiveCardInputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3075,10 +4147,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get notification input metadata response.</returns>
         public virtual async Task<ConnectorMetadata> GetNotificationInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetNotificationInputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3089,10 +4173,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SubscribeUserMessageWithOptionsAsync(DynamicUserMessageWithOptionsSubscriptionRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.SubscribeUserMessageWithOptionsAsync");
+            try
+            {
+                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3104,10 +4198,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get message with options subscription input metadata response.</returns>
         public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionInputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3119,10 +4225,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get message with options subscription output metadata response.</returns>
         public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionOutputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3135,10 +4253,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get flow continuation subscription output metadata response.</returns>
         public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionOutputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3152,10 +4282,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get flow continuation subscription output metadata response.</returns>
         public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync(string postAs, string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-            return await this
-                .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3167,10 +4311,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get selected message hybrid trigger output metadata response.</returns>
         public virtual async Task<SelectedMessageTriggerMetadata> GetSelectedMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
-            return await this
-                .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSelectedMessageTriggerOutputsMetadataAsync");
+            try
+            {
+                var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
+                return await this
+                    .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3182,10 +4336,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
         public virtual async Task<ComposeMessageTriggerMetadata> GetComposeMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
-            return await this
-                .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetComposeMessageTriggerOutputsMetadataAsync");
+            try
+            {
+                var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
+                return await this
+                    .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3197,10 +4361,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
         public virtual async Task<CardResponseTriggerMetadata> GetCardResponseTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
-            return await this
-                .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCardResponseTriggerOutputsMetadataAsync");
+            try
+            {
+                var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
+                return await this
+                    .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3212,10 +4386,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get a team response.</returns>
         public virtual async Task<GetTeamResponse> GetTeamAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
-            return await this
-                .CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTeamAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3227,10 +4413,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get an @mention token for a user response.</returns>
         public virtual async Task<AtMentionUser> AtMentionUserAsync(string user, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
-            return await this
-                .CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AtMentionUserAsync");
+            try
+            {
+                if (user is null)
+                    throw new ArgumentNullException(nameof(user));
+                var path = $"/v1.0/users/{Uri.EscapeDataString(user.ToString())}";
+                return await this
+                    .CallConnectorAsync<AtMentionUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3242,10 +4440,20 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Create a chat response.</returns>
         public virtual async Task<NewChatResponse> CreateChatAsync(NewChat input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/chats";
-            return await this
-                .CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateChatAsync");
+            try
+            {
+                var path = $"/beta/chats";
+                return await this
+                    .CallConnectorAsync<NewChatResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3260,6 +4468,8 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>An async enumerable of <see cref="ChatMessage"/> items across all pages.</returns>
         public virtual AsyncPageable<ChatMessage> GetMessagesFromChatAsync([DynamicValues("GetChats")] string conversationId, string filterQuery = default, string orderBy = default, string top = default, CancellationToken cancellationToken = default)
         {
+            if (conversationId is null)
+                throw new ArgumentNullException(nameof(conversationId));
             var queryParams = new List<string>();
             if (filterQuery != default)
                 queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
@@ -3275,6 +4485,31 @@ namespace Azure.Connectors.Sdk.Teams
         }
 
         /// <summary>
+        /// Post a message to myself
+        /// </summary>
+        /// <remarks>Sends a message to the signed-in user&apos;s own Notes chat in Microsoft Teams.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Post a message to myself response.</returns>
+        public virtual async Task<ChatMessage> PostMessageToSelfAsync(PostMessageToSelfRequest input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostMessageToSelfAsync");
+            try
+            {
+                var path = $"/v1.0/chats/48:notes/messages";
+                return await this
+                    .CallConnectorAsync<ChatMessage>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Create a team
         /// </summary>
         /// <remarks>Creates a new team in Microsoft Teams</remarks>
@@ -3283,10 +4518,54 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Create a team response.</returns>
         public virtual async Task<CreateATeamResponse> CreateATeamAsync(CreateATeamInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams";
-            return await this
-                .CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateATeamAsync");
+            try
+            {
+                var path = $"/beta/teams";
+                return await this
+                    .CallConnectorAsync<CreateATeamResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List team members
+        /// </summary>
+        /// <remarks>Lists the members of a team in Microsoft Teams</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="filterQuery">Filter Query</param>
+        /// <param name="top">Top</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List team members response.</returns>
+        public virtual async Task<ListMembersResponseSchema> ListTeamMembersAsync([DynamicValues("GetAllTeams")] string team, string filterQuery = default, string top = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListTeamMembersAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (top != default)
+                    queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3298,42 +4577,113 @@ namespace Azure.Connectors.Sdk.Teams
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddMemberToTeamAsync([DynamicValues("GetAllTeams")] string team, AddMemberToTeamInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/members";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToTeamAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/members";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove a member from a team
+        /// </summary>
+        /// <remarks>Removes a member from a team in Microsoft Teams</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="membershipId">Membership ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task RemoveMemberFromTeamAsync([DynamicValues("GetAllTeams")] string team, string membershipId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveMemberFromTeamAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (membershipId is null)
+                    throw new ArgumentNullException(nameof(membershipId));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
         /// Add a member to a channel
         /// </summary>
-        /// <remarks>Adds a member to a channel in Microsoft Teams</remarks>
+        /// <remarks>Adds a member to a channel in Microsoft Teams. The channel must be a private or shared channel.</remarks>
         /// <param name="team">Team</param>
         /// <param name="channel">Channel</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddMemberToChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, AddMemberToChannelInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToChannelAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
         /// Remove a direct member from a channel
         /// </summary>
-        /// <remarks>Removes a direct member from a channel in Microsoft Teams</remarks>
+        /// <remarks>Removes a direct member from a channel in Microsoft Teams. The channel must be a private or shared channel.</remarks>
         /// <param name="team">Team</param>
         /// <param name="channel">Channel</param>
         /// <param name="membershipId">Membership ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RemoveMemberFromChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, string membershipId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveMemberFromChannelAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                if (membershipId is null)
+                    throw new ArgumentNullException(nameof(membershipId));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3347,10 +4697,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Post message in a chat or channel response.</returns>
         public virtual async Task<PostToConversationResponse> PostMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostMessageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostMessageToConversationAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
+                var path = $"/beta/teams/conversation/message/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3364,10 +4728,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Reply with a message in a channel response.</returns>
         public virtual async Task<PostToConversationResponse> ReplyWithMessageToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyMessageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ReplyWithMessageToConversationAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
+                var path = $"/v1.0/teams/conversation/replyWithMessage/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3381,10 +4759,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Post card in a chat or channel response.</returns>
         public virtual async Task<PostToConversationResponse> PostCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicPostCardRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostCardToConversationAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
+                var path = $"/v1.0/teams/conversation/adaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3398,10 +4790,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Post adaptive card and wait for a response response.</returns>
         public virtual async Task<DynamicPostGatherInputToConversationResponse> PostCardAndWaitForResponseAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, PostCardAndWaitForResponseInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
-            return await this
-                .CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.PostCardAndWaitForResponseAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
+                var path = $"/v1.0/teams/conversation/gatherinput/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}/$subscriptions";
+                return await this
+                    .CallConnectorAsync<DynamicPostGatherInputToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3415,10 +4821,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Reply with an adaptive card in a channel response.</returns>
         public virtual async Task<PostToConversationResponse> ReplyWithCardToConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicReplyCardRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ReplyWithCardToConversationAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
+                var path = $"/v1.0/teams/conversation/replyWithAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3432,10 +4852,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Update an adaptive card in a chat or channel response.</returns>
         public virtual async Task<PostToConversationResponse> UpdateCardInConversationAsync(string postAs, [DynamicValues("GetMessageLocations")] string postIn, DynamicUpdateCardRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
-            return await this
-                .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateCardInConversationAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (postIn is null)
+                    throw new ArgumentNullException(nameof(postIn));
+                var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3447,10 +4881,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get message details response schema response.</returns>
         public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsInputSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3462,10 +4908,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get message details input metadata response.</returns>
         public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsResponseSchemaAsync(string messageType, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsResponseSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3477,10 +4935,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The List members input schema response.</returns>
         public virtual async Task<ListMembersSchema> ListMembersInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMembersInputSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3492,10 +4962,22 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Input schema for webhook trigger response.</returns>
         public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerRequestSchemaAsync(string messageType, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerRequestSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3508,10 +4990,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Response schema for webhook trigger response.</returns>
         public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerResponseSchemaAsync(string triggerType, string messageType, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-            return await this
-                .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerResponseSchemaAsync");
+            try
+            {
+                if (triggerType is null)
+                    throw new ArgumentNullException(nameof(triggerType));
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3524,10 +5020,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Conversation location for where to post response.</returns>
         public virtual async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
-            return await this
-                .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageLocationsAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3540,10 +5050,24 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Get feed notification input metadata response.</returns>
         public virtual async Task<PostFeedSchema> GetFeedNotificationInputSchemaAsync(string postAs, string notificationType, CancellationToken cancellationToken = default)
         {
-            var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-            return await this
-                .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFeedNotificationInputSchemaAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (notificationType is null)
+                    throw new ArgumentNullException(nameof(notificationType));
+                var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -3555,10 +5079,1075 @@ namespace Azure.Connectors.Sdk.Teams
         /// <returns>The Send a Microsoft Graph HTTP request response.</returns>
         public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
         {
-            var path = $"/httprequest";
-            return await this
-                .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.HttpRequestAsync");
+            try
+            {
+                var path = $"/httprequest";
+                return await this
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add a user to a chat
+        /// </summary>
+        /// <remarks>Adds a user to a chat in Microsoft Teams.</remarks>
+        /// <param name="conversationId">Conversation ID</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task AddMemberToChatAsync([DynamicValues("GetChats")] string conversationId, AddMemberToChatInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToChatAsync");
+            try
+            {
+                if (conversationId is null)
+                    throw new ArgumentNullException(nameof(conversationId));
+                var path = $"/v1.0/chats/{Uri.EscapeDataString(conversationId.ToString())}/members";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get an online meeting
+        /// </summary>
+        /// <remarks>Retrieves the properties and relationships of an online meeting. You can look up a meeting by meeting ID, join web URL, or join meeting ID.</remarks>
+        /// <param name="lookupBy">Lookup by</param>
+        /// <param name="lookupValue">Lookup value</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get an online meeting response.</returns>
+        public virtual async Task<GetOnlineMeetingResponse> GetOnlineMeetingAsync(string lookupBy, string lookupValue, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetOnlineMeetingAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (lookupBy is null)
+                    throw new ArgumentNullException(nameof(lookupBy));
+                queryParams.Add($"lookupType={Uri.EscapeDataString(lookupBy.ToString())}");
+                if (lookupValue is null)
+                    throw new ArgumentNullException(nameof(lookupValue));
+                queryParams.Add($"lookupValue={Uri.EscapeDataString(lookupValue.ToString())}");
+                var path = $"/v1.0/me/onlineMeetings/lookup" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetOnlineMeetingResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List meeting transcripts
+        /// </summary>
+        /// <remarks>Lists all transcripts for an online meeting</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List meeting transcripts response.</returns>
+        public virtual async Task<CallTranscriptCollectionResponse> ListMeetingTranscriptsAsync(string meetingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMeetingTranscriptsAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/transcripts";
+                return await this
+                    .CallConnectorAsync<CallTranscriptCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get meeting transcript
+        /// </summary>
+        /// <remarks>Gets a specific transcript for an online meeting</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="transcriptId">Transcript ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get meeting transcript response.</returns>
+        public virtual async Task<CallTranscriptResponse> GetMeetingTranscriptAsync(string meetingId, string transcriptId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingTranscriptAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
+                var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CallTranscriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get meeting transcript content
+        /// </summary>
+        /// <remarks>Gets the content of a meeting transcript</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="transcriptId">Transcript ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get meeting transcript content response.</returns>
+        public virtual async Task<string> GetMeetingTranscriptContentAsync(string meetingId, string transcriptId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingTranscriptContentAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
+                var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}/content";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List meeting recordings
+        /// </summary>
+        /// <remarks>Lists all recordings for an online meeting</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List meeting recordings response.</returns>
+        public virtual async Task<CallRecordingCollectionResponse> ListMeetingRecordingsAsync(string meetingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMeetingRecordingsAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/recordings";
+                return await this
+                    .CallConnectorAsync<CallRecordingCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get meeting recording
+        /// </summary>
+        /// <remarks>Gets a specific recording for an online meeting</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="recordingId">Recording ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get meeting recording response.</returns>
+        public virtual async Task<CallRecordingResponse> GetMeetingRecordingAsync(string meetingId, string recordingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingRecordingAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
+                var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CallRecordingResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get meeting recording content
+        /// </summary>
+        /// <remarks>Gets the content stream of a meeting recording</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="recordingId">Recording ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get meeting recording content response.</returns>
+        public virtual async Task<byte[]> GetMeetingRecordingContentAsync(string meetingId, string recordingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMeetingRecordingContentAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
+                var path = $"/v1.0/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}/content";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List sections
+        /// </summary>
+        /// <remarks>Lists the current user&apos;s teamwork sections</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List sections response.</returns>
+        public virtual async Task<ListSectionsResponse> ListSectionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListSectionsAsync");
+            try
+            {
+                var path = $"/beta/me/teamwork/sections";
+                return await this
+                    .CallConnectorAsync<ListSectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a section
+        /// </summary>
+        /// <remarks>Creates a new teamwork section for the current user</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create a section response.</returns>
+        public virtual async Task<SectionResponse> CreateSectionAsync(CreateSectionInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateSectionAsync");
+            try
+            {
+                var path = $"/beta/me/teamwork/sections";
+                return await this
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a section
+        /// </summary>
+        /// <remarks>Gets a specific teamwork section by ID</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get a section response.</returns>
+        public virtual async Task<SectionResponse> GetSectionAsync(string sectionId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSectionAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}";
+                return await this
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a section
+        /// </summary>
+        /// <remarks>Updates a teamwork section for the current user</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Update a section response.</returns>
+        public virtual async Task<SectionResponse> UpdateSectionAsync(string sectionId, UpdateSectionInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateSectionAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}";
+                return await this
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a section
+        /// </summary>
+        /// <remarks>Deletes a teamwork section for the current user</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task DeleteSectionAsync(string sectionId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.DeleteSectionAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List section items
+        /// </summary>
+        /// <remarks>Lists the items (chats, channels, meetings, communities) in a teamwork section. Each item belongs to exactly one section at a time.</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List section items response.</returns>
+        public virtual async Task<ListSectionItemsResponse> ListSectionItemsAsync(string sectionId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListSectionItemsAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<ListSectionItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add an item to a section
+        /// </summary>
+        /// <remarks>Adds an item (chat, channel, meeting, or community) currently in a system-defined section to a user-defined teamwork section. Use Move Section Item to relocate items already in another user-defined section.</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Add an item to a section response.</returns>
+        public virtual async Task<SectionItemResponse> AddSectionItemAsync(string sectionId, AddSectionItemInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddSectionItemAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items";
+                return await this
+                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove an item from a section
+        /// </summary>
+        /// <remarks>Removes an item from a user-defined teamwork section. The underlying chat, channel, meeting, or community is not deleted; the item returns to its default system-defined section.</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="sectionItemId">Section Item ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task RemoveSectionItemAsync(string sectionId, string sectionItemId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveSectionItemAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                if (sectionItemId is null)
+                    throw new ArgumentNullException(nameof(sectionItemId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items/{Uri.EscapeDataString(sectionItemId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Move a section item
+        /// </summary>
+        /// <remarks>Atomically moves an item from one user-defined teamwork section to another user-defined section. Each item can belong to only one section at a time. This action removes the item from its current section and adds it to the target section.</remarks>
+        /// <param name="sectionId">Section ID</param>
+        /// <param name="sectionItemId">Section Item ID</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Move a section item response.</returns>
+        public virtual async Task<SectionItemResponse> MoveSectionItemAsync(string sectionId, string sectionItemId, MoveSectionItemInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.MoveSectionItemAsync");
+            try
+            {
+                if (sectionId is null)
+                    throw new ArgumentNullException(nameof(sectionId));
+                if (sectionItemId is null)
+                    throw new ArgumentNullException(nameof(sectionItemId));
+                var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items/{Uri.EscapeDataString(sectionItemId.ToString())}/move";
+                return await this
+                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get subscription scope input schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="scopeType">scopeType</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get subscription scope input schema response.</returns>
+        public virtual async Task<ObjectEntity> GetSubscriptionScopeSchemaAsync(string scopeType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSubscriptionScopeSchemaAsync");
+            try
+            {
+                if (scopeType is null)
+                    throw new ArgumentNullException(nameof(scopeType));
+                var path = $"/internalparameters/triggers/subscriptionscope/{Uri.EscapeDataString(scopeType.ToString())}/schema";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List all tags for a team
+        /// </summary>
+        /// <remarks>Lists the team&apos;s tags</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List all tags for a team response.</returns>
+        public virtual async Task<GetTagsResponseSchema> GetTagsAsync([DynamicValues("GetAllTeams")] string team, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTagsAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags";
+                return await this
+                    .CallConnectorAsync<GetTagsResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a tag for a team
+        /// </summary>
+        /// <remarks>Creates a tag in a team</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create a tag for a team response.</returns>
+        public virtual async Task<CreateTagResponseSchema> CreateTagAsync([DynamicValues("GetAllTeams")] string team, CreateTagInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.CreateTagAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags";
+                return await this
+                    .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get a team tag
+        /// </summary>
+        /// <remarks>Gets a specific tag by ID from a team</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="tag">Tag</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get a team tag response.</returns>
+        public virtual async Task<CreateTagResponseSchema> GetTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTagAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
+                return await this
+                    .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update a team tag
+        /// </summary>
+        /// <remarks>Updates the display name of a tag in a team</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="tag">Tag</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Update a team tag response.</returns>
+        public virtual async Task<CreateTagResponseSchema> UpdateTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, UpdateTagInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateTagAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
+                return await this
+                    .CallConnectorAsync<CreateTagResponseSchema>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a team tag
+        /// </summary>
+        /// <remarks>Deletes a tag from a team</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="tag">Tag</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task DeleteTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.DeleteTagAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Add a member to a team tag
+        /// </summary>
+        /// <remarks>Adds a user to a team tag</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="tag">Tag</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Add a member to a team tag response.</returns>
+        public virtual async Task<AddMemberToTagResponseSchema> AddMemberToTagAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, AddMemberToTagInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.AddMemberToTagAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
+                return await this
+                    .CallConnectorAsync<AddMemberToTagResponseSchema>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List the members of a team tag
+        /// </summary>
+        /// <remarks>Lists the members of a team tag</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="tag">Tag</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List the members of a team tag response.</returns>
+        public virtual async Task<GetTagMembersResponseSchema> GetTagMembersAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetTagMembersAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members";
+                return await this
+                    .CallConnectorAsync<GetTagMembersResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a member from a team tag
+        /// </summary>
+        /// <remarks>Deletes a member from a team tag</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="tag">Tag</param>
+        /// <param name="tagMemberId">Tag Member ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task DeleteTagMemberAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetTags")] string tag, string tagMemberId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.DeleteTagMemberAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (tag is null)
+                    throw new ArgumentNullException(nameof(tag));
+                if (tagMemberId is null)
+                    throw new ArgumentNullException(nameof(tagMemberId));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/tags/{Uri.EscapeDataString(tag.ToString())}/members/{Uri.EscapeDataString(tagMemberId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List call recordings
+        /// </summary>
+        /// <remarks>Lists all recordings for an ad-hoc call</remarks>
+        /// <param name="callId">Call ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List call recordings response.</returns>
+        public virtual async Task<CallRecordingCollectionResponse> ListCallRecordingsAsync(string callId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListCallRecordingsAsync");
+            try
+            {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/recordings";
+                return await this
+                    .CallConnectorAsync<CallRecordingCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get call recording
+        /// </summary>
+        /// <remarks>Gets a specific recording for an ad-hoc call</remarks>
+        /// <param name="callId">Call ID</param>
+        /// <param name="recordingId">Recording ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get call recording response.</returns>
+        public virtual async Task<CallRecordingResponse> GetCallRecordingAsync(string callId, string recordingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallRecordingAsync");
+            try
+            {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
+                var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CallRecordingResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get call recording content
+        /// </summary>
+        /// <remarks>Gets the content of a call recording</remarks>
+        /// <param name="callId">Call ID</param>
+        /// <param name="recordingId">Recording ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get call recording content response.</returns>
+        public virtual async Task<byte[]> GetCallRecordingContentAsync(string callId, string recordingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallRecordingContentAsync");
+            try
+            {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (recordingId is null)
+                    throw new ArgumentNullException(nameof(recordingId));
+                var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/recordings/{Uri.EscapeDataString(recordingId.ToString())}/content";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List call transcripts
+        /// </summary>
+        /// <remarks>Lists all transcripts for an ad-hoc call</remarks>
+        /// <param name="callId">Call ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List call transcripts response.</returns>
+        public virtual async Task<CallTranscriptCollectionResponse> ListCallTranscriptsAsync(string callId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListCallTranscriptsAsync");
+            try
+            {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/transcripts";
+                return await this
+                    .CallConnectorAsync<CallTranscriptCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get call transcript
+        /// </summary>
+        /// <remarks>Gets a specific transcript for an ad-hoc call</remarks>
+        /// <param name="callId">Call ID</param>
+        /// <param name="transcriptId">Transcript ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get call transcript response.</returns>
+        public virtual async Task<CallTranscriptResponse> GetCallTranscriptAsync(string callId, string transcriptId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallTranscriptAsync");
+            try
+            {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
+                var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CallTranscriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get call transcript content
+        /// </summary>
+        /// <remarks>Gets the content of a call transcript</remarks>
+        /// <param name="callId">Call ID</param>
+        /// <param name="transcriptId">Transcript ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get call transcript content response.</returns>
+        public virtual async Task<string> GetCallTranscriptContentAsync(string callId, string transcriptId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCallTranscriptContentAsync");
+            try
+            {
+                if (callId is null)
+                    throw new ArgumentNullException(nameof(callId));
+                if (transcriptId is null)
+                    throw new ArgumentNullException(nameof(transcriptId));
+                var path = $"/v1.0/me/adhocCalls/{Uri.EscapeDataString(callId.ToString())}/transcripts/{Uri.EscapeDataString(transcriptId.ToString())}/content";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all ad-hoc call recordings
+        /// </summary>
+        /// <remarks>Gets all recordings from ad-hoc calls for the signed-in user</remarks>
+        /// <param name="startDateTime">Start Date Time</param>
+        /// <param name="endDateTime">End Date Time</param>
+        /// <param name="top">Top</param>
+        /// <param name="skipToken">Skip Token</param>
+        /// <param name="deltaToken">Delta Token</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all ad-hoc call recordings response.</returns>
+        public virtual async Task<CallRecordingCollectionResponse> GetAllAdhocCallRecordingsAsync(string startDateTime = default, string endDateTime = default, int? top = default, string skipToken = default, string deltaToken = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAllAdhocCallRecordingsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (startDateTime != default)
+                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDateTime.ToString())}");
+                if (endDateTime != default)
+                    queryParams.Add($"endDateTime={Uri.EscapeDataString(endDateTime.ToString())}");
+                if (top.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
+                if (skipToken != default)
+                    queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken.ToString())}");
+                if (deltaToken != default)
+                    queryParams.Add($"$deltatoken={Uri.EscapeDataString(deltaToken.ToString())}");
+                var path = $"/v1.0/me/adhocCalls/getAllRecordings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CallRecordingCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all ad-hoc call transcripts
+        /// </summary>
+        /// <remarks>Gets all transcripts from ad-hoc calls for the signed-in user</remarks>
+        /// <param name="startDateTime">Start Date Time</param>
+        /// <param name="endDateTime">End Date Time</param>
+        /// <param name="top">Top</param>
+        /// <param name="skipToken">Skip Token</param>
+        /// <param name="deltaToken">Delta Token</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all ad-hoc call transcripts response.</returns>
+        public virtual async Task<CallTranscriptCollectionResponse> GetAllAdhocCallTranscriptsAsync(string startDateTime = default, string endDateTime = default, int? top = default, string skipToken = default, string deltaToken = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAllAdhocCallTranscriptsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (startDateTime != default)
+                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDateTime.ToString())}");
+                if (endDateTime != default)
+                    queryParams.Add($"endDateTime={Uri.EscapeDataString(endDateTime.ToString())}");
+                if (top.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
+                if (skipToken != default)
+                    queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken.ToString())}");
+                if (deltaToken != default)
+                    queryParams.Add($"$deltatoken={Uri.EscapeDataString(deltaToken.ToString())}");
+                var path = $"/v1.0/me/adhocCalls/getAllTranscripts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CallTranscriptCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List AI insights
+        /// </summary>
+        /// <remarks>Lists AI-generated insights for an online meeting. Requires Microsoft 365 Copilot license.</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List AI insights response.</returns>
+        public virtual async Task<AiInsightCollectionResponse> ListAiInsightsAsync(string meetingId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListAiInsightsAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/aiInsights";
+                return await this
+                    .CallConnectorAsync<AiInsightCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get AI insight
+        /// </summary>
+        /// <remarks>Gets a specific AI-generated insight for an online meeting. Requires Microsoft 365 Copilot license.</remarks>
+        /// <param name="meetingId">Meeting ID</param>
+        /// <param name="aIInsightId">AI Insight ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get AI insight response.</returns>
+        public virtual async Task<AiInsightResponse> GetAiInsightAsync(string meetingId, string aIInsightId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAiInsightAsync");
+            try
+            {
+                if (meetingId is null)
+                    throw new ArgumentNullException(nameof(meetingId));
+                if (aIInsightId is null)
+                    throw new ArgumentNullException(nameof(aIInsightId));
+                var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/aiInsights/{Uri.EscapeDataString(aIInsightId.ToString())}";
+                return await this
+                    .CallConnectorAsync<AiInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

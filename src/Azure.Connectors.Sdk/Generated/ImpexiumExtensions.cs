@@ -61,11 +61,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>customer</summary>
         [JsonPropertyName("customer")]
-        public object Customer { get; set; }
+        public JsonElement? Customer { get; set; }
 
         /// <summary>Line Items</summary>
         [JsonPropertyName("lineItems")]
-        public List<object> LineItems { get; set; }
+        public List<JsonElement?> LineItems { get; set; }
     }
 
     /// <summary>
@@ -89,11 +89,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     {
         /// <summary>Organization</summary>
         [JsonPropertyName("organization")]
-        public object Organization { get; set; }
+        public JsonElement? Organization { get; set; }
 
         /// <summary>Booths</summary>
         [JsonPropertyName("booths")]
-        public List<object> Booths { get; set; }
+        public List<JsonElement?> Booths { get; set; }
     }
 
     /// <summary>
@@ -129,19 +129,19 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Education Credits</summary>
         [JsonPropertyName("educationCredits")]
-        public List<object> EducationCredits { get; set; }
+        public List<JsonElement?> EducationCredits { get; set; }
 
         /// <summary>categories</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Active Prices</summary>
         [JsonPropertyName("activePrices")]
-        public List<object> ActivePrices { get; set; }
+        public List<JsonElement?> ActivePrices { get; set; }
 
         /// <summary>Related Products</summary>
         [JsonPropertyName("relatedProducts")]
-        public List<object> RelatedProducts { get; set; }
+        public List<JsonElement?> RelatedProducts { get; set; }
 
         /// <summary>Tags.</summary>
         [JsonPropertyName("tags")]
@@ -237,11 +237,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>sessions</summary>
         [JsonPropertyName("sessions")]
-        public List<object> Sessions { get; set; }
+        public List<JsonElement?> Sessions { get; set; }
 
         /// <summary>Itemized Custom Fields</summary>
         [JsonPropertyName("itemizedCustomFields")]
-        public List<object> ItemizedCustomFields { get; set; }
+        public List<JsonElement?> ItemizedCustomFields { get; set; }
 
         /// <summary>Guest Of Record Number.</summary>
         [JsonPropertyName("guestOfRecordNumber")]
@@ -261,7 +261,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>boughtTogetherWith</summary>
         [JsonPropertyName("boughtTogetherWith")]
-        public List<object> BoughtTogetherWith { get; set; }
+        public List<JsonElement?> BoughtTogetherWith { get; set; }
 
         /// <summary>First Name.</summary>
         [JsonPropertyName("firstName")]
@@ -297,7 +297,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>ID.</summary>
         [JsonPropertyName("id")]
@@ -317,15 +317,15 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>addresses</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>phones</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>emails</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
     }
 
     /// <summary>
@@ -361,7 +361,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Itemized Custom Fields</summary>
         [JsonPropertyName("itemizedCustomFields")]
-        public List<object> ItemizedCustomFields { get; set; }
+        public List<JsonElement?> ItemizedCustomFields { get; set; }
 
         /// <summary>First Name.</summary>
         [JsonPropertyName("firstName")]
@@ -397,7 +397,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>ID.</summary>
         [JsonPropertyName("id")]
@@ -417,15 +417,15 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Emails.</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Phones.</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
     }
 
     /// <summary>
@@ -487,7 +487,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>addresses</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Image Uri.</summary>
         [JsonPropertyName("imageUri")]
@@ -503,11 +503,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>emails</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>phones</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>Website.</summary>
         [JsonPropertyName("webSite")]
@@ -515,7 +515,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Memberships.</summary>
         [JsonPropertyName("memberships")]
-        public List<object> Memberships { get; set; }
+        public List<JsonElement?> Memberships { get; set; }
 
         /// <summary>Category.</summary>
         [JsonPropertyName("category")]
@@ -523,11 +523,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Categories</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Custom Fields</summary>
         [JsonPropertyName("customFields")]
-        public List<object> CustomFields { get; set; }
+        public List<JsonElement?> CustomFields { get; set; }
 
         /// <summary>Show In Directory.</summary>
         [JsonPropertyName("showInDirectory")]
@@ -535,7 +535,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Links</summary>
         [JsonPropertyName("links")]
-        public List<object> Links { get; set; }
+        public List<JsonElement?> Links { get; set; }
 
         /// <summary>Old ID.</summary>
         [JsonPropertyName("oldId")]
@@ -591,11 +591,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Itemized Custom Fields</summary>
         [JsonPropertyName("itemizedCustomFields")]
-        public List<object> ItemizedCustomFields { get; set; }
+        public List<JsonElement?> ItemizedCustomFields { get; set; }
 
         /// <summary>Product Categories</summary>
         [JsonPropertyName("productCategories")]
-        public List<object> ProductCategories { get; set; }
+        public List<JsonElement?> ProductCategories { get; set; }
     }
 
     /// <summary>
@@ -671,7 +671,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Cancelled Sessions.</summary>
         [JsonPropertyName("cancelledSessions")]
-        public List<object> CancelledSessions { get; set; }
+        public List<JsonElement?> CancelledSessions { get; set; }
 
         /// <summary>First Name.</summary>
         [JsonPropertyName("firstName")]
@@ -707,7 +707,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>ID.</summary>
         [JsonPropertyName("id")]
@@ -727,15 +727,15 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Emails</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Phones.</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
     }
 
     /// <summary>
@@ -771,7 +771,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>lineItems</summary>
         [JsonPropertyName("lineItems")]
-        public List<object> LineItems { get; set; }
+        public List<JsonElement?> LineItems { get; set; }
 
         /// <summary>Type.</summary>
         [JsonPropertyName("type")]
@@ -1015,7 +1015,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Categories</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Short Description.</summary>
         [JsonPropertyName("shortDescription")]
@@ -1027,7 +1027,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>featuredListing</summary>
         [JsonPropertyName("featuredListing")]
-        public object FeaturedListing { get; set; }
+        public JsonElement? FeaturedListing { get; set; }
     }
 
     /// <summary>
@@ -1191,7 +1191,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Terms List</summary>
         [JsonPropertyName("termsList")]
-        public List<object> TermsList { get; set; }
+        public List<JsonElement?> TermsList { get; set; }
     }
 
     /// <summary>
@@ -1233,31 +1233,31 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>Committees.</summary>
         [JsonPropertyName("committees")]
-        public List<object> Committees { get; set; }
+        public List<JsonElement?> Committees { get; set; }
 
         /// <summary>Security Roles.</summary>
         [JsonPropertyName("securityRoles")]
-        public List<object> SecurityRoles { get; set; }
+        public List<JsonElement?> SecurityRoles { get; set; }
 
         /// <summary>user</summary>
         [JsonPropertyName("user")]
-        public object User { get; set; }
+        public JsonElement? User { get; set; }
 
         /// <summary>Designations.</summary>
         [JsonPropertyName("designationData")]
-        public List<object> DesignationData { get; set; }
+        public List<JsonElement?> DesignationData { get; set; }
 
         /// <summary>Relationships.</summary>
         [JsonPropertyName("relationships")]
-        public List<object> Relationships { get; set; }
+        public List<JsonElement?> Relationships { get; set; }
 
         /// <summary>Job Roles.</summary>
         [JsonPropertyName("jobRoles")]
-        public List<object> JobRoles { get; set; }
+        public List<JsonElement?> JobRoles { get; set; }
 
         /// <summary>Tags.</summary>
         [JsonPropertyName("tags")]
@@ -1285,7 +1285,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Email.</summary>
         [JsonPropertyName("email")]
@@ -1305,11 +1305,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Emails.</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Phones.</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>Website.</summary>
         [JsonPropertyName("webSite")]
@@ -1317,7 +1317,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Memberships.</summary>
         [JsonPropertyName("memberships")]
-        public List<object> Memberships { get; set; }
+        public List<JsonElement?> Memberships { get; set; }
 
         /// <summary>Category.</summary>
         [JsonPropertyName("category")]
@@ -1325,11 +1325,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Categories.</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Custom Fields.</summary>
         [JsonPropertyName("customFields")]
-        public List<object> CustomFields { get; set; }
+        public List<JsonElement?> CustomFields { get; set; }
 
         /// <summary>Show In Directory.</summary>
         [JsonPropertyName("showInDirectory")]
@@ -1337,7 +1337,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Links.</summary>
         [JsonPropertyName("links")]
-        public List<object> Links { get; set; }
+        public List<JsonElement?> Links { get; set; }
 
         /// <summary>Old Id.</summary>
         [JsonPropertyName("oldId")]
@@ -1409,7 +1409,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Email.</summary>
         [JsonPropertyName("email")]
@@ -1429,11 +1429,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Emails.</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Phones.</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>Website.</summary>
         [JsonPropertyName("webSite")]
@@ -1441,7 +1441,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Memberships.</summary>
         [JsonPropertyName("memberships")]
-        public List<object> Memberships { get; set; }
+        public List<JsonElement?> Memberships { get; set; }
 
         /// <summary>Category.</summary>
         [JsonPropertyName("category")]
@@ -1449,11 +1449,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Categories.</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Custom Fields.</summary>
         [JsonPropertyName("customFields")]
-        public List<object> CustomFields { get; set; }
+        public List<JsonElement?> CustomFields { get; set; }
 
         /// <summary>Show In Directory.</summary>
         [JsonPropertyName("showInDirectory")]
@@ -1461,7 +1461,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Links.</summary>
         [JsonPropertyName("links")]
-        public List<object> Links { get; set; }
+        public List<JsonElement?> Links { get; set; }
 
         /// <summary>Old Id.</summary>
         [JsonPropertyName("oldId")]
@@ -1689,7 +1689,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>country</summary>
         [JsonPropertyName("country")]
-        public object Country { get; set; }
+        public JsonElement? Country { get; set; }
 
         /// <summary>Show In Directory.</summary>
         [JsonPropertyName("showInDirectory")]
@@ -1789,27 +1789,27 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>organizationRepresenting</summary>
         [JsonPropertyName("organizationRepresenting")]
-        public object OrganizationRepresenting { get; set; }
+        public JsonElement? OrganizationRepresenting { get; set; }
 
         /// <summary>nominatedByCustomer</summary>
         [JsonPropertyName("nominatedByCustomer")]
-        public object NominatedByCustomer { get; set; }
+        public JsonElement? NominatedByCustomer { get; set; }
 
         /// <summary>addresses</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>phones</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>emails</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Rank.</summary>
         [JsonPropertyName("rank")]
@@ -1905,7 +1905,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Related To Customer.</summary>
         [JsonPropertyName("relatedToCustomer")]
-        public object RelatedToCustomer { get; set; }
+        public JsonElement? RelatedToCustomer { get; set; }
 
         /// <summary>Reciprocal Relationship Name.</summary>
         [JsonPropertyName("reciprocalRelationshipName")]
@@ -2063,23 +2063,23 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Event Locations.</summary>
         [JsonPropertyName("eventLocations")]
-        public List<object> EventLocations { get; set; }
+        public List<JsonElement?> EventLocations { get; set; }
 
         /// <summary>Event Locations - Categories.</summary>
         [JsonPropertyName("categories")]
-        public List<object> Categories { get; set; }
+        public List<JsonElement?> Categories { get; set; }
 
         /// <summary>Event Locations - Education Credits.</summary>
         [JsonPropertyName("educationCredits")]
-        public List<object> EducationCredits { get; set; }
+        public List<JsonElement?> EducationCredits { get; set; }
 
         /// <summary>Event Locations - Uploads Data</summary>
         [JsonPropertyName("uploadsData")]
-        public List<object> UploadsData { get; set; }
+        public List<JsonElement?> UploadsData { get; set; }
 
         /// <summary>Event Locations - Related Products.</summary>
         [JsonPropertyName("relatedProducts")]
-        public List<object> RelatedProducts { get; set; }
+        public List<JsonElement?> RelatedProducts { get; set; }
 
         /// <summary>Event Locations - Tags</summary>
         [JsonPropertyName("tags")]
@@ -2107,7 +2107,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     {
         /// <summary>committee</summary>
         [JsonPropertyName("committee")]
-        public object Committee { get; set; }
+        public JsonElement? Committee { get; set; }
 
         /// <summary>Position.</summary>
         [JsonPropertyName("position")]
@@ -2169,11 +2169,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Event.</summary>
         [JsonPropertyName("event")]
-        public object Event { get; set; }
+        public JsonElement? Event { get; set; }
 
         /// <summary>Sessions.</summary>
         [JsonPropertyName("sessions")]
-        public List<object> Sessions { get; set; }
+        public List<JsonElement?> Sessions { get; set; }
 
         /// <summary>Badge Name.</summary>
         [JsonPropertyName("badgeName")]
@@ -2193,7 +2193,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>boughtTogetherWith</summary>
         [JsonPropertyName("boughtTogetherWith")]
-        public List<object> BoughtTogetherWith { get; set; }
+        public List<JsonElement?> BoughtTogetherWith { get; set; }
 
         /// <summary>Registrant Type Code.</summary>
         [JsonPropertyName("registrantTypeCode")]
@@ -2489,7 +2489,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>Individual Id.</summary>
         [JsonPropertyName("id")]
@@ -2543,27 +2543,27 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>organizationRepresenting</summary>
         [JsonPropertyName("organizationRepresenting")]
-        public object OrganizationRepresenting { get; set; }
+        public JsonElement? OrganizationRepresenting { get; set; }
 
         /// <summary>nominatedByCustomer</summary>
         [JsonPropertyName("nominatedByCustomer")]
-        public object NominatedByCustomer { get; set; }
+        public JsonElement? NominatedByCustomer { get; set; }
 
         /// <summary>addresses</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>phones</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>emails</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Rank.</summary>
         [JsonPropertyName("rank")]
@@ -2667,7 +2667,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
     }
 
     /// <summary>
@@ -2735,7 +2735,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Term.</summary>
         [JsonPropertyName("term")]
-        public object Term { get; set; }
+        public JsonElement? Term { get; set; }
 
         /// <summary>Tags.</summary>
         [JsonPropertyName("tags")]
@@ -2835,7 +2835,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>dataList</summary>
         [JsonPropertyName("dataList")]
-        public List<object> DataList { get; set; }
+        public List<JsonElement?> DataList { get; set; }
     }
 
     /// <summary>
@@ -2895,7 +2895,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>primaryOrganization</summary>
         [JsonPropertyName("primaryOrganization")]
-        public object PrimaryOrganization { get; set; }
+        public JsonElement? PrimaryOrganization { get; set; }
 
         /// <summary>Individual Id.</summary>
         [JsonPropertyName("id")]
@@ -2915,15 +2915,15 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Emails.</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Phones.</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
 
         /// <summary>Show In Directory.</summary>
         [JsonPropertyName("showInDirectory")]
@@ -2991,15 +2991,15 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Addresses.</summary>
         [JsonPropertyName("addresses")]
-        public List<object> Addresses { get; set; }
+        public List<JsonElement?> Addresses { get; set; }
 
         /// <summary>Emails.</summary>
         [JsonPropertyName("emails")]
-        public List<object> Emails { get; set; }
+        public List<JsonElement?> Emails { get; set; }
 
         /// <summary>Phones.</summary>
         [JsonPropertyName("phones")]
-        public List<object> Phones { get; set; }
+        public List<JsonElement?> Phones { get; set; }
     }
 
     /// <summary>
@@ -4037,7 +4037,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     /// <summary>
     /// Model factory for creating instances of Impexium models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class ImpexiumModelFactory
     {
@@ -4062,8 +4062,8 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string createdOn = default,
             string createdByEmailAddress = default,
             string currency = default,
-            object customer = default,
-            List<object> lineItems = default)
+            JsonElement? customer = default,
+            List<JsonElement?> lineItems = default)
         {
             return new AbandonedCheckoutData
             {
@@ -4093,8 +4093,8 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// Creates a new instance of <see cref="ExhibitorData"/>.
         /// </summary>
         public static ExhibitorData ExhibitorData(
-            object organization = default,
-            List<object> booths = default)
+            JsonElement? organization = default,
+            List<JsonElement?> booths = default)
         {
             return new ExhibitorData
             {
@@ -4124,10 +4124,10 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             DateTime? examStartDate = default,
             DateTime? examEndDate = default,
             string examNumber = default,
-            List<object> educationCredits = default,
-            List<object> categories = default,
-            List<object> activePrices = default,
-            List<object> relatedProducts = default,
+            List<JsonElement?> educationCredits = default,
+            List<JsonElement?> categories = default,
+            List<JsonElement?> activePrices = default,
+            List<JsonElement?> relatedProducts = default,
             List<string> tags = default,
             string id = default,
             string code = default,
@@ -4189,13 +4189,13 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string badgeCity = default,
             string badgeState = default,
             DateTime? attendedDate = default,
-            List<object> sessions = default,
-            List<object> itemizedCustomFields = default,
+            List<JsonElement?> sessions = default,
+            List<JsonElement?> itemizedCustomFields = default,
             string guestOfRecordNumber = default,
             string registrantTypeCode = default,
             string registrantTypeName = default,
             string registrationNumber = default,
-            List<object> boughtTogetherWith = default,
+            List<JsonElement?> boughtTogetherWith = default,
             string firstName = default,
             string lastName = default,
             string middleName = default,
@@ -4204,14 +4204,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string prefix = default,
             string suffix = default,
             string gender = default,
-            object primaryOrganization = default,
+            JsonElement? primaryOrganization = default,
             string id = default,
             string customerType = default,
             string recordNumber = default,
             bool? showInDirectory = default,
-            List<object> addresses = default,
-            List<object> phones = default,
-            List<object> emails = default)
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> phones = default,
+            List<JsonElement?> emails = default)
         {
             return new RegistrantData
             {
@@ -4268,7 +4268,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string title = default,
             DateTime? registeredDate = default,
             DateTime? attendedDate = default,
-            List<object> itemizedCustomFields = default,
+            List<JsonElement?> itemizedCustomFields = default,
             string firstName = default,
             string lastName = default,
             string middleName = default,
@@ -4277,14 +4277,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string prefix = default,
             string suffix = default,
             string gender = default,
-            object primaryOrganization = default,
+            JsonElement? primaryOrganization = default,
             string id = default,
             string customerType = default,
             string recordNumber = default,
             bool? showInDirectory = default,
-            List<object> addresses = default,
-            List<object> emails = default,
-            List<object> phones = default)
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default)
         {
             return new CourseAttendeeData
             {
@@ -4350,19 +4350,19 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string recordNumber = default,
             string title = default,
             string name = default,
-            List<object> addresses = default,
+            List<JsonElement?> addresses = default,
             string imageUri = default,
             string twitter = default,
             string linkedIn = default,
-            List<object> emails = default,
-            List<object> phones = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default,
             string webSite = default,
-            List<object> memberships = default,
+            List<JsonElement?> memberships = default,
             string category = default,
-            List<object> categories = default,
-            List<object> customFields = default,
+            List<JsonElement?> categories = default,
+            List<JsonElement?> customFields = default,
             bool? showInDirectory = default,
-            List<object> links = default,
+            List<JsonElement?> links = default,
             string oldId = default)
         {
             return new ContactData
@@ -4414,8 +4414,8 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             DateTime? purchaseDate = default,
             string additionalInfo = default,
             int? quantity = default,
-            List<object> itemizedCustomFields = default,
-            List<object> productCategories = default)
+            List<JsonElement?> itemizedCustomFields = default,
+            List<JsonElement?> productCategories = default)
         {
             return new PurchasedItemData
             {
@@ -4485,7 +4485,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string registrationNumber = default,
             DateTime? eventCancellationDate = default,
             string guestOfRecordNumber = default,
-            List<object> cancelledSessions = default,
+            List<JsonElement?> cancelledSessions = default,
             string firstName = default,
             string lastName = default,
             string middleName = default,
@@ -4494,14 +4494,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string prefix = default,
             string suffix = default,
             string gender = default,
-            object primaryOrganization = default,
+            JsonElement? primaryOrganization = default,
             string id = default,
             string customerType = default,
             string recordNumber = default,
             bool? showInDirectory = default,
-            List<object> addresses = default,
-            List<object> emails = default,
-            List<object> phones = default)
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default)
         {
             return new RegistrantCancellationData
             {
@@ -4550,7 +4550,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string number = default,
             DateTime? date = default,
             float? balance = default,
-            List<object> lineItems = default,
+            List<JsonElement?> lineItems = default,
             string type = default,
             string id = default,
             string customerId = default,
@@ -4739,10 +4739,10 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string startTime = default,
             DateTime? endDate = default,
             string endTime = default,
-            List<object> categories = default,
+            List<JsonElement?> categories = default,
             string shortDescription = default,
             string longDescription = default,
-            object featuredListing = default)
+            JsonElement? featuredListing = default)
         {
             return new ExhibitData
             {
@@ -4864,7 +4864,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             DateTime? terminateDate = default,
             DateTime? effectiveDate = default,
             string membershipUniqueId = default,
-            List<object> termsList = default)
+            List<JsonElement?> termsList = default)
         {
             return new MembershipData
             {
@@ -4895,33 +4895,33 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string prefix = default,
             string suffix = default,
             string gender = default,
-            object primaryOrganization = default,
-            List<object> committees = default,
-            List<object> securityRoles = default,
-            object user = default,
-            List<object> designationData = default,
-            List<object> relationships = default,
-            List<object> jobRoles = default,
+            JsonElement? primaryOrganization = default,
+            List<JsonElement?> committees = default,
+            List<JsonElement?> securityRoles = default,
+            JsonElement? user = default,
+            List<JsonElement?> designationData = default,
+            List<JsonElement?> relationships = default,
+            List<JsonElement?> jobRoles = default,
             List<string> tags = default,
             string id = default,
             string customerType = default,
             string recordNumber = default,
             string title = default,
             string name = default,
-            List<object> addresses = default,
+            List<JsonElement?> addresses = default,
             string email = default,
             string imageUri = default,
             string twitter = default,
             string linkedIn = default,
-            List<object> emails = default,
-            List<object> phones = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default,
             string webSite = default,
-            List<object> memberships = default,
+            List<JsonElement?> memberships = default,
             string category = default,
-            List<object> categories = default,
-            List<object> customFields = default,
+            List<JsonElement?> categories = default,
+            List<JsonElement?> customFields = default,
             bool? showInDirectory = default,
-            List<object> links = default,
+            List<JsonElement?> links = default,
             string oldId = default,
             bool? isDeceased = default)
         {
@@ -4995,20 +4995,20 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string recordNumber = default,
             string title = default,
             string name = default,
-            List<object> addresses = default,
+            List<JsonElement?> addresses = default,
             string email = default,
             string imageUri = default,
             string twitter = default,
             string linkedIn = default,
-            List<object> emails = default,
-            List<object> phones = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default,
             string webSite = default,
-            List<object> memberships = default,
+            List<JsonElement?> memberships = default,
             string category = default,
-            List<object> categories = default,
-            List<object> customFields = default,
+            List<JsonElement?> categories = default,
+            List<JsonElement?> customFields = default,
             bool? showInDirectory = default,
-            List<object> links = default,
+            List<JsonElement?> links = default,
             string oldId = default)
         {
             return new OrganizationData
@@ -5226,7 +5226,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string id = default,
             bool? primary = default,
             int? type = default,
-            object country = default,
+            JsonElement? country = default,
             bool? showInDirectory = default,
             string number = default,
             string extension = default,
@@ -5299,12 +5299,12 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string positionCode = default,
             DateTime? startDate = default,
             DateTime? endDate = default,
-            object primaryOrganization = default,
-            object organizationRepresenting = default,
-            object nominatedByCustomer = default,
-            List<object> addresses = default,
-            List<object> phones = default,
-            List<object> emails = default,
+            JsonElement? primaryOrganization = default,
+            JsonElement? organizationRepresenting = default,
+            JsonElement? nominatedByCustomer = default,
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> phones = default,
+            List<JsonElement?> emails = default,
             int? rank = default)
         {
             return new CommitteeNomineeData
@@ -5406,7 +5406,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// </summary>
         public static RelationshipData RelationshipData(
             string relationshipName = default,
-            object relatedToCustomer = default,
+            JsonElement? relatedToCustomer = default,
             string reciprocalRelationshipName = default,
             bool? isPrimary = default,
             DateTime? startDate = default,
@@ -5493,11 +5493,11 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             List<string> imageUrl = default,
             string externalUrl = default,
             string externalCode = default,
-            List<object> eventLocations = default,
-            List<object> categories = default,
-            List<object> educationCredits = default,
-            List<object> uploadsData = default,
-            List<object> relatedProducts = default,
+            List<JsonElement?> eventLocations = default,
+            List<JsonElement?> categories = default,
+            List<JsonElement?> educationCredits = default,
+            List<JsonElement?> uploadsData = default,
+            List<JsonElement?> relatedProducts = default,
             List<string> tags = default)
         {
             return new EventData
@@ -5543,7 +5543,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// Creates a new instance of <see cref="CommitteeMemberData"/>.
         /// </summary>
         public static CommitteeMemberData CommitteeMemberData(
-            object committee = default,
+            JsonElement? committee = default,
             string position = default,
             string positionCode = default,
             string code = default,
@@ -5594,13 +5594,13 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// </summary>
         public static RegistrationData RegistrationData(
             string individualId = default,
-            object @event = default,
-            List<object> sessions = default,
+            JsonElement? @event = default,
+            List<JsonElement?> sessions = default,
             string badgeName = default,
             string badgeOrganization = default,
             string badgeCity = default,
             string badgeState = default,
-            List<object> boughtTogetherWith = default,
+            List<JsonElement?> boughtTogetherWith = default,
             string registrantTypeCode = default,
             string registrantTypeName = default,
             string registrationNumber = default)
@@ -5830,7 +5830,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string suffix = default,
             string gender = default,
             string title = default,
-            object primaryOrganization = default,
+            JsonElement? primaryOrganization = default,
             string id = default,
             string recordNumber = default)
         {
@@ -5864,12 +5864,12 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string positionCode = default,
             DateTime? startDate = default,
             DateTime? endDate = default,
-            object primaryOrganization = default,
-            object organizationRepresenting = default,
-            object nominatedByCustomer = default,
-            List<object> addresses = default,
-            List<object> phones = default,
-            List<object> emails = default,
+            JsonElement? primaryOrganization = default,
+            JsonElement? organizationRepresenting = default,
+            JsonElement? nominatedByCustomer = default,
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> phones = default,
+            List<JsonElement?> emails = default,
             int? rank = default)
         {
             return new AddToCommitteeResponse
@@ -5957,7 +5957,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string employeeRangeId = default,
             string id = default,
             string recordNumber = default,
-            List<object> addresses = default)
+            List<JsonElement?> addresses = default)
         {
             return new OrganizationLookupBasicData
             {
@@ -6000,7 +6000,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             DateTime? startDate = default,
             DateTime? endDate = default,
             bool? showInDirectory = default,
-            object term = default,
+            JsonElement? term = default,
             List<string> tags = default)
         {
             return new CommitteeData
@@ -6102,7 +6102,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// </summary>
         public static FindCustomerPhoneResponse FindCustomerPhoneResponse(
             int? pageNumber = default,
-            List<object> dataList = default)
+            List<JsonElement?> dataList = default)
         {
             return new FindCustomerPhoneResponse
             {
@@ -6138,14 +6138,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string prefix = default,
             string suffix = default,
             string gender = default,
-            object primaryOrganization = default,
+            JsonElement? primaryOrganization = default,
             string id = default,
             string customerType = default,
             string recordNumber = default,
             string title = default,
-            List<object> addresses = default,
-            List<object> emails = default,
-            List<object> phones = default,
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default,
             bool? showInDirectory = default)
         {
             return new AwardRecipientIndividualData
@@ -6199,9 +6199,9 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string customerType = default,
             string recordNumber = default,
             bool? showInDirectory = default,
-            List<object> addresses = default,
-            List<object> emails = default,
-            List<object> phones = default)
+            List<JsonElement?> addresses = default,
+            List<JsonElement?> emails = default,
+            List<JsonElement?> phones = default)
         {
             return new AwardRecipientOrganizationData
             {
@@ -7262,6 +7262,8 @@ namespace Azure.Connectors.Sdk.Impexium
 
         public override string ConnectorName => "impexium";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.impexium");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -7286,16 +7288,28 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Abandoned Checkouts response.</returns>
         public virtual async Task<GetAbandonedCheckoutsResponse> GetAbandonedCheckoutsAsync(int pageNumber, string abandonedFrom, string productCode = default, string customerRecordNumber = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"abandonedFrom={Uri.EscapeDataString(abandonedFrom.ToString())}");
-            if (productCode != default)
-                queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
-            if (customerRecordNumber != default)
-                queryParams.Add($"customerRecordNumber={Uri.EscapeDataString(customerRecordNumber.ToString())}");
-            var path = $"/api/v1/Shopping/AbandonedCheckOuts/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAbandonedCheckoutsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAbandonedCheckoutsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (abandonedFrom is null)
+                    throw new ArgumentNullException(nameof(abandonedFrom));
+                queryParams.Add($"abandonedFrom={Uri.EscapeDataString(abandonedFrom.ToString())}");
+                if (productCode != default)
+                    queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
+                if (customerRecordNumber != default)
+                    queryParams.Add($"customerRecordNumber={Uri.EscapeDataString(customerRecordNumber.ToString())}");
+                var path = $"/api/v1/Shopping/AbandonedCheckOuts/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAbandonedCheckoutsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7308,10 +7322,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List All Exhibitors response.</returns>
         public virtual async Task<ListAllExhibitorsResponse> ListAllExhibitorsAsync(string exhibitCode, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(exhibitCode.ToString())}/Exhibitors/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListAllExhibitorsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllExhibitorsAsync");
+            try
+            {
+                if (exhibitCode is null)
+                    throw new ArgumentNullException(nameof(exhibitCode));
+                var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(exhibitCode.ToString())}/Exhibitors/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListAllExhibitorsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7329,23 +7355,33 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List of Exams response.</returns>
         public virtual async Task<ListOfExamsResponse> ListOfExamsAsync(int pageNumber, string code = default, string categoryName = default, bool? isPublic = default, string changedSince = default, string tag = default, bool? includePrices = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (code != default)
-                queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
-            if (categoryName != default)
-                queryParams.Add($"categoryName={Uri.EscapeDataString(categoryName.ToString())}");
-            if (isPublic.HasValue)
-                queryParams.Add($"isPublic={Uri.EscapeDataString(isPublic.Value.ToString())}");
-            if (changedSince != default)
-                queryParams.Add($"changedSince={Uri.EscapeDataString(changedSince.ToString())}");
-            if (tag != default)
-                queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            if (includePrices.HasValue)
-                queryParams.Add($"includePrices={Uri.EscapeDataString(includePrices.Value.ToString())}");
-            var path = $"/api/v1/Products/Exams/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOfExamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfExamsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (code != default)
+                    queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
+                if (categoryName != default)
+                    queryParams.Add($"categoryName={Uri.EscapeDataString(categoryName.ToString())}");
+                if (isPublic.HasValue)
+                    queryParams.Add($"isPublic={Uri.EscapeDataString(isPublic.Value.ToString())}");
+                if (changedSince != default)
+                    queryParams.Add($"changedSince={Uri.EscapeDataString(changedSince.ToString())}");
+                if (tag != default)
+                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                if (includePrices.HasValue)
+                    queryParams.Add($"includePrices={Uri.EscapeDataString(includePrices.Value.ToString())}");
+                var path = $"/api/v1/Products/Exams/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOfExamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7361,17 +7397,29 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Registrants response.</returns>
         public virtual async Task<ListRegistrantsResponse> ListRegistrantsAsync(string eventCode, int pageNumber, string sessionCode = default, bool? includeDetails = default, string registeredSince = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sessionCode != default)
-                queryParams.Add($"sessionCode={Uri.EscapeDataString(sessionCode.ToString())}");
-            if (includeDetails.HasValue)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
-            if (registeredSince != default)
-                queryParams.Add($"registeredSince={Uri.EscapeDataString(registeredSince.ToString())}");
-            var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListRegistrantsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListRegistrantsAsync");
+            try
+            {
+                if (eventCode is null)
+                    throw new ArgumentNullException(nameof(eventCode));
+                var queryParams = new List<string>();
+                if (sessionCode != default)
+                    queryParams.Add($"sessionCode={Uri.EscapeDataString(sessionCode.ToString())}");
+                if (includeDetails.HasValue)
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                if (registeredSince != default)
+                    queryParams.Add($"registeredSince={Uri.EscapeDataString(registeredSince.ToString())}");
+                var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListRegistrantsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7384,10 +7432,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Course Attendees response.</returns>
         public virtual async Task<GetCourseAttendeesResponse> GetCourseAttendeesAsync(string courseCode, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Courses/{Uri.EscapeDataString(courseCode.ToString())}/Attendees/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetCourseAttendeesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetCourseAttendeesAsync");
+            try
+            {
+                if (courseCode is null)
+                    throw new ArgumentNullException(nameof(courseCode));
+                var path = $"/api/v1/Courses/{Uri.EscapeDataString(courseCode.ToString())}/Attendees/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetCourseAttendeesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7400,10 +7460,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Exam Scores response.</returns>
         public virtual async Task<List<ExamScoreResultData>> AddExamScoresAsync(string examCode, List<ExamScoreData> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Exams/{Uri.EscapeDataString(examCode.ToString())}/Scores";
-            return await this
-                .CallConnectorAsync<List<ExamScoreResultData>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddExamScoresAsync");
+            try
+            {
+                if (examCode is null)
+                    throw new ArgumentNullException(nameof(examCode));
+                var path = $"/api/v1/Exams/{Uri.EscapeDataString(examCode.ToString())}/Scores";
+                return await this
+                    .CallConnectorAsync<List<ExamScoreResultData>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7416,10 +7488,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Members by Name response.</returns>
         public virtual async Task<FindMembersByNameResponse> FindMembersByNameAsync(string name, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Customers/Members/FindByName/{Uri.EscapeDataString(name.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<FindMembersByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindMembersByNameAsync");
+            try
+            {
+                if (name is null)
+                    throw new ArgumentNullException(nameof(name));
+                var path = $"/api/v1/Customers/Members/FindByName/{Uri.EscapeDataString(name.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<FindMembersByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7435,17 +7519,29 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Purchases for an Individual response.</returns>
         public virtual async Task<GetPurchasesForAnIndividualResponse> GetPurchasesForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, string productCode = default, string purchasedSince = default, string productCategoryCode = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (productCode != default)
-                queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
-            if (purchasedSince != default)
-                queryParams.Add($"purchasedSince={Uri.EscapeDataString(purchasedSince.ToString())}");
-            if (productCategoryCode != default)
-                queryParams.Add($"productCategoryCode={Uri.EscapeDataString(productCategoryCode.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Purchases/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetPurchasesForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetPurchasesForAnIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var queryParams = new List<string>();
+                if (productCode != default)
+                    queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
+                if (purchasedSince != default)
+                    queryParams.Add($"purchasedSince={Uri.EscapeDataString(purchasedSince.ToString())}");
+                if (productCategoryCode != default)
+                    queryParams.Add($"productCategoryCode={Uri.EscapeDataString(productCategoryCode.ToString())}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Purchases/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetPurchasesForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7458,10 +7554,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add or Update a List of Custom Fields Per Organization response.</returns>
         public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerOrganizationAsync(string organizationIdOrRecordNumber, List<CustomFieldValueData> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/CustomFieldsList";
-            return await this
-                .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddOrUpdateAListOfCustomFieldsPerOrganizationAsync");
+            try
+            {
+                if (organizationIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/CustomFieldsList";
+                return await this
+                    .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7473,10 +7581,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddNomineeAsync(string committeeCode, CommitteeNomineeSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Nominations";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddNomineeAsync");
+            try
+            {
+                if (committeeCode is null)
+                    throw new ArgumentNullException(nameof(committeeCode));
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Nominations";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7488,10 +7608,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Individual Custom Field Values response.</returns>
         public virtual async Task<List<CustomFieldData>> GetIndividualCustomFieldValuesAsync(string individualId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/CustomFields";
-            return await this
-                .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetIndividualCustomFieldValuesAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/CustomFields";
+                return await this
+                    .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7503,10 +7635,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateCustomFieldValueAsync(string customerId, CustomFieldData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(customerId.ToString())}/CustomFields";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateCustomFieldValueAsync");
+            try
+            {
+                if (customerId is null)
+                    throw new ArgumentNullException(nameof(customerId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(customerId.ToString())}/CustomFields";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7521,15 +7665,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List All Event Cancellations by Event response.</returns>
         public virtual async Task<ListAllEventCancellationsByEventResponse> ListAllEventCancellationsByEventAsync(string eventCode, int pageNumber, bool? includeDetails = default, string cancelledSince = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeDetails.HasValue)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
-            if (cancelledSince != default)
-                queryParams.Add($"cancelledSince={Uri.EscapeDataString(cancelledSince.ToString())}");
-            var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Cancellations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListAllEventCancellationsByEventResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllEventCancellationsByEventAsync");
+            try
+            {
+                if (eventCode is null)
+                    throw new ArgumentNullException(nameof(eventCode));
+                var queryParams = new List<string>();
+                if (includeDetails.HasValue)
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                if (cancelledSince != default)
+                    queryParams.Add($"cancelledSince={Uri.EscapeDataString(cancelledSince.ToString())}");
+                var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Cancellations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListAllEventCancellationsByEventResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7545,17 +7701,29 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get All Open Orders for an Individual response.</returns>
         public virtual async Task<GetAllOpenOrdersForAnIndividualResponse> GetAllOpenOrdersForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, bool? includeLineItems = default, string fromDate = default, string toDate = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeLineItems.HasValue)
-                queryParams.Add($"includeLineItems={Uri.EscapeDataString(includeLineItems.Value.ToString())}");
-            if (fromDate != default)
-                queryParams.Add($"fromDate={Uri.EscapeDataString(fromDate.ToString())}");
-            if (toDate != default)
-                queryParams.Add($"toDate={Uri.EscapeDataString(toDate.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Orders/Open/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllOpenOrdersForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAllOpenOrdersForAnIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var queryParams = new List<string>();
+                if (includeLineItems.HasValue)
+                    queryParams.Add($"includeLineItems={Uri.EscapeDataString(includeLineItems.Value.ToString())}");
+                if (fromDate != default)
+                    queryParams.Add($"fromDate={Uri.EscapeDataString(fromDate.ToString())}");
+                if (toDate != default)
+                    queryParams.Add($"toDate={Uri.EscapeDataString(toDate.ToString())}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Orders/Open/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllOpenOrdersForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7568,10 +7736,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Completed User Tasks by User ID or Email response.</returns>
         public virtual async Task<ListCompletedUserTasksByUserIdOrEmailResponse> ListCompletedUserTasksByUserIdOrEmailAsync(string userIdOrEmail, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Completed/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListCompletedUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListCompletedUserTasksByUserIdOrEmailAsync");
+            try
+            {
+                if (userIdOrEmail is null)
+                    throw new ArgumentNullException(nameof(userIdOrEmail));
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Completed/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListCompletedUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7584,10 +7764,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Pending User Tasks by User ID or Email response.</returns>
         public virtual async Task<ListPendingUserTasksByUserIdOrEmailResponse> ListPendingUserTasksByUserIdOrEmailAsync(string userIdOrEmail, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Pending/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListPendingUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListPendingUserTasksByUserIdOrEmailAsync");
+            try
+            {
+                if (userIdOrEmail is null)
+                    throw new ArgumentNullException(nameof(userIdOrEmail));
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Pending/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListPendingUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7599,10 +7791,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddNoteToSalesOpportunityAsync(string id, BaseNoteData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Notes";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddNoteToSalesOpportunityAsync");
+            try
+            {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Notes";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7614,10 +7818,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddActivityToSalesOpportunityAsync(string id, ActivityData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Activities";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddActivityToSalesOpportunityAsync");
+            try
+            {
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Activities";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7630,10 +7846,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Update Task by Task Number response.</returns>
         public virtual async Task<TaskData> UpdateTaskByTaskNumberAsync(string taskNumber, TaskSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/{Uri.EscapeDataString(taskNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<TaskData>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateTaskByTaskNumberAsync");
+            try
+            {
+                if (taskNumber is null)
+                    throw new ArgumentNullException(nameof(taskNumber));
+                var path = $"/api/v1/tasks/{Uri.EscapeDataString(taskNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<TaskData>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7645,10 +7873,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List All Countries response.</returns>
         public virtual async Task<ListAllCountriesResponse> ListAllCountriesAsync(int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Countries/All/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListAllCountriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllCountriesAsync");
+            try
+            {
+                var path = $"/api/v1/Countries/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListAllCountriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7661,10 +7899,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get All States by Country response.</returns>
         public virtual async Task<GetAllStatesByCountryResponse> GetAllStatesByCountryAsync(string countryId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Countries/{Uri.EscapeDataString(countryId.ToString())}/States/All/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetAllStatesByCountryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAllStatesByCountryAsync");
+            try
+            {
+                if (countryId is null)
+                    throw new ArgumentNullException(nameof(countryId));
+                var path = $"/api/v1/Countries/{Uri.EscapeDataString(countryId.ToString())}/States/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetAllStatesByCountryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7676,10 +7926,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List All Exhibits response.</returns>
         public virtual async Task<ListAllExhibitsResponse> ListAllExhibitsAsync(int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListAllExhibitsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllExhibitsAsync");
+            try
+            {
+                var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListAllExhibitsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7691,10 +7951,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteACategoryForAnOrganizationAsync(string recordNumber, string categoryCode, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(recordNumber.ToString())}/Categories/{Uri.EscapeDataString(categoryCode.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.DeleteACategoryForAnOrganizationAsync");
+            try
+            {
+                if (recordNumber is null)
+                    throw new ArgumentNullException(nameof(recordNumber));
+                if (categoryCode is null)
+                    throw new ArgumentNullException(nameof(categoryCode));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(recordNumber.ToString())}/Categories/{Uri.EscapeDataString(categoryCode.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7705,10 +7979,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddCustomerRequestAsync(RequestSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Requests";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddCustomerRequestAsync");
+            try
+            {
+                var path = $"/api/v1/Requests";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7720,10 +8004,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Update Customer Request response.</returns>
         public virtual async Task<RequestUpdateData> UpdateCustomerRequestAsync(RequestUpdateData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Requests";
-            return await this
-                .CallConnectorAsync<RequestUpdateData>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateCustomerRequestAsync");
+            try
+            {
+                var path = $"/api/v1/Requests";
+                return await this
+                    .CallConnectorAsync<RequestUpdateData>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7735,10 +8029,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddCategoriesForAnOrganizationAsync(string recordNumber, List<SaveCategoryBasicData> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(recordNumber.ToString())}/Categories";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddCategoriesForAnOrganizationAsync");
+            try
+            {
+                if (recordNumber is null)
+                    throw new ArgumentNullException(nameof(recordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(recordNumber.ToString())}/Categories";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7750,10 +8056,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List of Customer Relationships response.</returns>
         public virtual async Task<ListOfCustomerRelationshipsResponse> ListOfCustomerRelationshipsAsync(int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Customers/RelationshipTypes/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListOfCustomerRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfCustomerRelationshipsAsync");
+            try
+            {
+                var path = $"/api/v1/Customers/RelationshipTypes/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListOfCustomerRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7765,10 +8081,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List All Open Customer Request response.</returns>
         public virtual async Task<ListAllOpenCustomerRequestResponse> ListAllOpenCustomerRequestAsync(int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Requests/Open/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<ListAllOpenCustomerRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllOpenCustomerRequestAsync");
+            try
+            {
+                var path = $"/api/v1/Requests/Open/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListAllOpenCustomerRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7780,10 +8106,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Organization Inactive Memberships response.</returns>
         public virtual async Task<MembershipData> GetOrganizationInactiveMembershipsAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Inactive";
-            return await this
-                .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetOrganizationInactiveMembershipsAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Inactive";
+                return await this
+                    .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7795,10 +8133,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteRecordFromCustomDataTableAsync(string tableName, string id, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/CustomData/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(id.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.DeleteRecordFromCustomDataTableAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/api/v1/CustomData/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(id.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7811,10 +8163,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Update User Task Progress or Mark as Completed response.</returns>
         public virtual async Task<UserTaskData> UpdateUserTaskProgressOrMarkAsCompletedAsync(string userIdOrEmail, UserTaskData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}";
-            return await this
-                .CallConnectorAsync<UserTaskData>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateUserTaskProgressOrMarkAsCompletedAsync");
+            try
+            {
+                if (userIdOrEmail is null)
+                    throw new ArgumentNullException(nameof(userIdOrEmail));
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}";
+                return await this
+                    .CallConnectorAsync<UserTaskData>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7828,13 +8192,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Members (Individuals) by First Name response.</returns>
         public virtual async Task<IndividualData> FindMembersOrIndividualsByFirstNameAsync(string firstName, int pageNumber, bool? includeEmail = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeEmail.HasValue)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
-            var path = $"/api/v1/Individuals/Members/FindByFirstName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindMembersOrIndividualsByFirstNameAsync");
+            try
+            {
+                if (firstName is null)
+                    throw new ArgumentNullException(nameof(firstName));
+                var queryParams = new List<string>();
+                if (includeEmail.HasValue)
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+                var path = $"/api/v1/Individuals/Members/FindByFirstName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7848,13 +8224,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Members (Individuals) by Last Name response.</returns>
         public virtual async Task<IndividualData> FindMembersOrIndividualsByLastNameAsync(string lastName, int pageNumber, bool? includeEmail = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeEmail.HasValue)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
-            var path = $"/api/v1/Individuals/Members/FindByLastName/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindMembersOrIndividualsByLastNameAsync");
+            try
+            {
+                if (lastName is null)
+                    throw new ArgumentNullException(nameof(lastName));
+                var queryParams = new List<string>();
+                if (includeEmail.HasValue)
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+                var path = $"/api/v1/Individuals/Members/FindByLastName/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7866,10 +8254,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AssignTaskToAUserAsync(string userIdOrEmail, UserTaskData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Task";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AssignTaskToAUserAsync");
+            try
+            {
+                if (userIdOrEmail is null)
+                    throw new ArgumentNullException(nameof(userIdOrEmail));
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Task";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7881,10 +8281,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteACategoryForAnIndividualAsync(string recordNumber, string categoryCode, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(recordNumber.ToString())}/Categories/{Uri.EscapeDataString(categoryCode.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.DeleteACategoryForAnIndividualAsync");
+            try
+            {
+                if (recordNumber is null)
+                    throw new ArgumentNullException(nameof(recordNumber));
+                if (categoryCode is null)
+                    throw new ArgumentNullException(nameof(categoryCode));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(recordNumber.ToString())}/Categories/{Uri.EscapeDataString(categoryCode.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7896,10 +8310,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddNotificationToIndividualAsync(string individualId, NotificationData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notifications";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddNotificationToIndividualAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notifications";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7911,10 +8337,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddCategoriesForAnIndividualAsync(string individualRecordNumber, List<SaveCategoryBasicData> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualRecordNumber.ToString())}/Categories";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddCategoriesForAnIndividualAsync");
+            try
+            {
+                if (individualRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualRecordNumber.ToString())}/Categories";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7926,10 +8364,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add a New Task response.</returns>
         public virtual async Task<TaskData> AddANewTaskAsync(TaskSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/tasks";
-            return await this
-                .CallConnectorAsync<TaskData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddANewTaskAsync");
+            try
+            {
+                var path = $"/api/v1/tasks";
+                return await this
+                    .CallConnectorAsync<TaskData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7960,49 +8408,59 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List of All Organization Members response.</returns>
         public virtual async Task<ListOfAllOrganizationMembersResponse> ListOfAllOrganizationMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string stateAbbreviation = default, double? congressionalDistrict = default, string membershipTypeCode = default, string membershipTypeCategory = default, string city = default, string name = default, string tag = default, double? latitude = default, double? longitude = default, string domain = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeCustomFields = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (zipCode != default)
-                queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
-            if (radius.HasValue)
-                queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
-            if (stateAbbreviation != default)
-                queryParams.Add($"stateAbbreviation={Uri.EscapeDataString(stateAbbreviation.ToString())}");
-            if (congressionalDistrict.HasValue)
-                queryParams.Add($"congressionalDistrict={Uri.EscapeDataString(congressionalDistrict.Value.ToString())}");
-            if (membershipTypeCode != default)
-                queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
-            if (membershipTypeCategory != default)
-                queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
-            if (city != default)
-                queryParams.Add($"City={Uri.EscapeDataString(city.ToString())}");
-            if (name != default)
-                queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
-            if (tag != default)
-                queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            if (latitude.HasValue)
-                queryParams.Add($"Latitude={Uri.EscapeDataString(latitude.Value.ToString())}");
-            if (longitude.HasValue)
-                queryParams.Add($"Longitude={Uri.EscapeDataString(longitude.Value.ToString())}");
-            if (domain != default)
-                queryParams.Add($"Domain={Uri.EscapeDataString(domain.ToString())}");
-            if (includeMembership.HasValue)
-                queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
-            if (includeAddress.HasValue)
-                queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
-            if (includePhone.HasValue)
-                queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
-            if (includeEmail.HasValue)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
-            if (includeCustomFields.HasValue)
-                queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
-            if (expireDateFrom != default)
-                queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
-            if (expireDateTo != default)
-                queryParams.Add($"expiringTo={Uri.EscapeDataString(expireDateTo.ToString())}");
-            var path = $"/api/v1/Organizations/Members/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOfAllOrganizationMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfAllOrganizationMembersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (zipCode != default)
+                    queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
+                if (radius.HasValue)
+                    queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
+                if (stateAbbreviation != default)
+                    queryParams.Add($"stateAbbreviation={Uri.EscapeDataString(stateAbbreviation.ToString())}");
+                if (congressionalDistrict.HasValue)
+                    queryParams.Add($"congressionalDistrict={Uri.EscapeDataString(congressionalDistrict.Value.ToString())}");
+                if (membershipTypeCode != default)
+                    queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
+                if (membershipTypeCategory != default)
+                    queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
+                if (city != default)
+                    queryParams.Add($"City={Uri.EscapeDataString(city.ToString())}");
+                if (name != default)
+                    queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
+                if (tag != default)
+                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                if (latitude.HasValue)
+                    queryParams.Add($"Latitude={Uri.EscapeDataString(latitude.Value.ToString())}");
+                if (longitude.HasValue)
+                    queryParams.Add($"Longitude={Uri.EscapeDataString(longitude.Value.ToString())}");
+                if (domain != default)
+                    queryParams.Add($"Domain={Uri.EscapeDataString(domain.ToString())}");
+                if (includeMembership.HasValue)
+                    queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
+                if (includeAddress.HasValue)
+                    queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
+                if (includePhone.HasValue)
+                    queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
+                if (includeEmail.HasValue)
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+                if (includeCustomFields.HasValue)
+                    queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
+                if (expireDateFrom != default)
+                    queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
+                if (expireDateTo != default)
+                    queryParams.Add($"expiringTo={Uri.EscapeDataString(expireDateTo.ToString())}");
+                var path = $"/api/v1/Organizations/Members/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOfAllOrganizationMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8029,41 +8487,51 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List of All Individual Members response.</returns>
         public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeLink = default, bool? includeCustomFields = default, bool? includeCategories = default, bool? includeMembershipRenewalURLs = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (zipCode != default)
-                queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
-            if (radius.HasValue)
-                queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
-            if (membershipTypeCode != default)
-                queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
-            if (membershipTypeCategory != default)
-                queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
-            if (tag != default)
-                queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            if (includeMembership.HasValue)
-                queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
-            if (includeAddress.HasValue)
-                queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
-            if (includePhone.HasValue)
-                queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
-            if (includeEmail.HasValue)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
-            if (includeLink.HasValue)
-                queryParams.Add($"includeLink={Uri.EscapeDataString(includeLink.Value.ToString())}");
-            if (includeCustomFields.HasValue)
-                queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
-            if (includeCategories.HasValue)
-                queryParams.Add($"includeCategories={Uri.EscapeDataString(includeCategories.Value.ToString())}");
-            if (includeMembershipRenewalURLs.HasValue)
-                queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(includeMembershipRenewalURLs.Value.ToString())}");
-            if (expireDateFrom != default)
-                queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
-            if (expireDateTo != default)
-                queryParams.Add($"expiringTo={Uri.EscapeDataString(expireDateTo.ToString())}");
-            var path = $"/api/v1/Individuals/Members/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListOfAllIndividualMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfAllIndividualMembersAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (zipCode != default)
+                    queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
+                if (radius.HasValue)
+                    queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
+                if (membershipTypeCode != default)
+                    queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
+                if (membershipTypeCategory != default)
+                    queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
+                if (tag != default)
+                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                if (includeMembership.HasValue)
+                    queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
+                if (includeAddress.HasValue)
+                    queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
+                if (includePhone.HasValue)
+                    queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
+                if (includeEmail.HasValue)
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+                if (includeLink.HasValue)
+                    queryParams.Add($"includeLink={Uri.EscapeDataString(includeLink.Value.ToString())}");
+                if (includeCustomFields.HasValue)
+                    queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
+                if (includeCategories.HasValue)
+                    queryParams.Add($"includeCategories={Uri.EscapeDataString(includeCategories.Value.ToString())}");
+                if (includeMembershipRenewalURLs.HasValue)
+                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(includeMembershipRenewalURLs.Value.ToString())}");
+                if (expireDateFrom != default)
+                    queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
+                if (expireDateTo != default)
+                    queryParams.Add($"expiringTo={Uri.EscapeDataString(expireDateTo.ToString())}");
+                var path = $"/api/v1/Individuals/Members/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListOfAllIndividualMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8076,10 +8544,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get List of Active Certifications for an Organization response.</returns>
         public virtual async Task<GetListOfActiveCertificationsForAnOrganizationResponse> GetListOfActiveCertificationsForAnOrganizationAsync(string organizationIdOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetListOfActiveCertificationsForAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetListOfActiveCertificationsForAnOrganizationAsync");
+            try
+            {
+                if (organizationIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetListOfActiveCertificationsForAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8092,10 +8572,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get List of Active Certifications for an Individual response.</returns>
         public virtual async Task<GetListOfActiveCertificationsForAnIndividualResponse> GetListOfActiveCertificationsForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetListOfActiveCertificationsForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetListOfActiveCertificationsForAnIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetListOfActiveCertificationsForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8107,10 +8599,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Individual Inactive Memberships response.</returns>
         public virtual async Task<MembershipData> GetIndividualInactiveMembershipsAsync(string individualId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Inactive";
-            return await this
-                .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetIndividualInactiveMembershipsAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Inactive";
+                return await this
+                    .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8122,10 +8626,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddActivityToOrganizationAsync(string organizationId, ActivityData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Activities";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddActivityToOrganizationAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Activities";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8139,13 +8655,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task RegisterAnIndividualForAFreeSessionAsync(string eventCode, string customerIdOrRecordNumber, List<SessionRegistrationData> input, string registrationNumber = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (registrationNumber != default)
-                queryParams.Add($"registrationNumber={Uri.EscapeDataString(registrationNumber.ToString())}");
-            var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Sessions/Register/{Uri.EscapeDataString(customerIdOrRecordNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.RegisterAnIndividualForAFreeSessionAsync");
+            try
+            {
+                if (eventCode is null)
+                    throw new ArgumentNullException(nameof(eventCode));
+                if (customerIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(customerIdOrRecordNumber));
+                var queryParams = new List<string>();
+                if (registrationNumber != default)
+                    queryParams.Add($"registrationNumber={Uri.EscapeDataString(registrationNumber.ToString())}");
+                var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Sessions/Register/{Uri.EscapeDataString(customerIdOrRecordNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8158,10 +8688,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get a List of Licenses response.</returns>
         public virtual async Task<GetAListOfLicensesResponse> GetAListOfLicensesAsync(string individualId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Licenses/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetAListOfLicensesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAListOfLicensesAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Licenses/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetAListOfLicensesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8174,13 +8716,23 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List All Awards response.</returns>
         public virtual async Task<ListAllAwardsResponse> ListAllAwardsAsync(int pageNumber, int? year = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (year.HasValue)
-                queryParams.Add($"Year={Uri.EscapeDataString(year.Value.ToString())}");
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListAllAwardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllAwardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (year.HasValue)
+                    queryParams.Add($"Year={Uri.EscapeDataString(year.Value.ToString())}");
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListAllAwardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8194,13 +8746,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Members (Individuals) by Name response.</returns>
         public virtual async Task<FindMembersOrIndividualsByNameResponse> FindMembersOrIndividualsByNameAsync(string individualName, int pageNumber, bool? includeEmailData = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeEmailData.HasValue)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
-            var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(individualName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FindMembersOrIndividualsByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindMembersOrIndividualsByNameAsync");
+            try
+            {
+                if (individualName is null)
+                    throw new ArgumentNullException(nameof(individualName));
+                var queryParams = new List<string>();
+                if (includeEmailData.HasValue)
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
+                var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(individualName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FindMembersOrIndividualsByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8212,10 +8776,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get a List of All Services of an Organization response.</returns>
         public virtual async Task<GetAListOfAllServicesOfAnOrganizationResponse> GetAListOfAllServicesOfAnOrganizationAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
-            return await this
-                .CallConnectorAsync<GetAListOfAllServicesOfAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAListOfAllServicesOfAnOrganizationAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
+                return await this
+                    .CallConnectorAsync<GetAListOfAllServicesOfAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8228,10 +8804,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add a Service to an Organization response.</returns>
         public virtual async Task<ServiceData> AddAServiceToAnOrganizationAsync(string organizationId, ServiceData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
-            return await this
-                .CallConnectorAsync<ServiceData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddAServiceToAnOrganizationAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
+                return await this
+                    .CallConnectorAsync<ServiceData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8245,10 +8833,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Update Phone for an Individual response.</returns>
         public virtual async Task<PhoneDataSet> UpdatePhoneForAnIndividualAsync(string individualIdOrRecordNumber, string phoneId, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
-            return await this
-                .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdatePhoneForAnIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                if (phoneId is null)
+                    throw new ArgumentNullException(nameof(phoneId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8262,10 +8864,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Update Phone for an Organization response.</returns>
         public virtual async Task<PhoneDataSet> UpdatePhoneForAnOrganizationAsync(string organizationIdOrRecordNumber, string phoneId, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
-            return await this
-                .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdatePhoneForAnOrganizationAsync");
+            try
+            {
+                if (organizationIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
+                if (phoneId is null)
+                    throw new ArgumentNullException(nameof(phoneId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
+                return await this
+                    .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8277,10 +8893,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteAnIndividualWebLinkAsync(string individualIdOrRecordNumber, DeleteAnIndividualWebLinkInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Links";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.DeleteAnIndividualWebLinkAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Links";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8292,10 +8920,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddWebLinkForIndividualAsync(string idOrRecordNumber, AddWebLinkForIndividualInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddWebLinkForIndividualAsync");
+            try
+            {
+                if (idOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(idOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8308,10 +8948,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Phone to Organization response.</returns>
         public virtual async Task<PhoneDataSet> AddPhoneToOrganizationAsync(string organizationIdOrRecordNumber, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones";
-            return await this
-                .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddPhoneToOrganizationAsync");
+            try
+            {
+                if (organizationIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones";
+                return await this
+                    .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8325,13 +8977,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Nominees by Committee response.</returns>
         public virtual async Task<GetNomineesByCommitteeResponse> GetNomineesByCommitteeAsync(string committeeCode, int pageNumber, string term = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (term != default)
-                queryParams.Add($"Term={Uri.EscapeDataString(term.ToString())}");
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Nominations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetNomineesByCommitteeResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetNomineesByCommitteeAsync");
+            try
+            {
+                if (committeeCode is null)
+                    throw new ArgumentNullException(nameof(committeeCode));
+                var queryParams = new List<string>();
+                if (term != default)
+                    queryParams.Add($"Term={Uri.EscapeDataString(term.ToString())}");
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Nominations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetNomineesByCommitteeResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8344,10 +9008,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Organization&apos;s Active Subscriptions response.</returns>
         public virtual async Task<GetOrganizationsActiveSubscriptionsResponse> GetOrganizationsActiveSubscriptionsAsync(string organizationId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Subscriptions/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetOrganizationsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetOrganizationsActiveSubscriptionsAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Subscriptions/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetOrganizationsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8359,10 +9035,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteAnOrganizationWebLinkAsync(string idOrRecordNumber, DeleteAnOrganizationWebLinkInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.DeleteAnOrganizationWebLinkAsync");
+            try
+            {
+                if (idOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(idOrRecordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8374,10 +9062,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddWebLinkForOrganizationAsync(string idOrRecordNumber, AddWebLinkForOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddWebLinkForOrganizationAsync");
+            try
+            {
+                if (idOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(idOrRecordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8389,10 +9089,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddEmailToOrganizationAsync(string organizationId, EmailData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Emails";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddEmailToOrganizationAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Emails";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8407,15 +9119,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Organization&apos;s Relationships response.</returns>
         public virtual async Task<GetOrganizationsRelationshipsResponse> GetOrganizationsRelationshipsAsync(string organizationId, int pageNumber, string relationshipName = default, bool? includesDetails = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (relationshipName != default)
-                queryParams.Add($"relationshipName.={Uri.EscapeDataString(relationshipName.ToString())}");
-            if (includesDetails.HasValue)
-                queryParams.Add($"includesDetails={Uri.EscapeDataString(includesDetails.Value.ToString())}");
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetOrganizationsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetOrganizationsRelationshipsAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var queryParams = new List<string>();
+                if (relationshipName != default)
+                    queryParams.Add($"relationshipName.={Uri.EscapeDataString(relationshipName.ToString())}");
+                if (includesDetails.HasValue)
+                    queryParams.Add($"includesDetails={Uri.EscapeDataString(includesDetails.Value.ToString())}");
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetOrganizationsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8428,10 +9152,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add or Update Address to Organization response.</returns>
         public virtual async Task<AddressSaveData> AddOrUpdateAddressToOrganizationAsync(string organizationIdOrRecordNumber, AddressSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Addresses";
-            return await this
-                .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddOrUpdateAddressToOrganizationAsync");
+            try
+            {
+                if (organizationIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Addresses";
+                return await this
+                    .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8442,12 +9178,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add or Update a List of Custom Fields Per Individual response.</returns>
-        public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerIndividualAsync(string individualIdOrRecordNumber, List<object> input, CancellationToken cancellationToken = default)
+        public virtual async Task<List<CustomFieldResultData>> AddOrUpdateAListOfCustomFieldsPerIndividualAsync(string individualIdOrRecordNumber, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/CustomFieldsList";
-            return await this
-                .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddOrUpdateAListOfCustomFieldsPerIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/CustomFieldsList";
+                return await this
+                    .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8459,10 +9207,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Upcoming Events response.</returns>
         public virtual async Task<GetUpcomingEventsResponse> GetUpcomingEventsAsync(int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Events/Upcoming/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetUpcomingEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetUpcomingEventsAsync");
+            try
+            {
+                var path = $"/api/v1/Events/Upcoming/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetUpcomingEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8475,10 +9233,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Phone to Individual response.</returns>
         public virtual async Task<PhoneDataSet> AddPhoneToIndividualAsync(string individualIdOrRecordNumber, PhoneSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones";
-            return await this
-                .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddPhoneToIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones";
+                return await this
+                    .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8492,13 +9262,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Committee Information for an Individual response.</returns>
         public virtual async Task<GetCommitteeInformationForAnIndividualResponse> GetCommitteeInformationForAnIndividualAsync(string individualId, int pageNumber, bool? includeInactive = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeInactive.HasValue)
-                queryParams.Add($"includeInactive={Uri.EscapeDataString(includeInactive.Value.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetCommitteeInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetCommitteeInformationForAnIndividualAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var queryParams = new List<string>();
+                if (includeInactive.HasValue)
+                    queryParams.Add($"includeInactive={Uri.EscapeDataString(includeInactive.Value.ToString())}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetCommitteeInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8510,10 +9292,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Organization Custom Field Values response.</returns>
         public virtual async Task<List<CustomFieldData>> GetOrganizationCustomFieldValuesAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/CustomFields";
-            return await this
-                .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetOrganizationCustomFieldValuesAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/CustomFields";
+                return await this
+                    .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8525,10 +9319,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Organization Active Memberships response.</returns>
         public virtual async Task<List<MembershipData>> GetOrganizationActiveMembershipsAsync(string organizationId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Active";
-            return await this
-                .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetOrganizationActiveMembershipsAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Active";
+                return await this
+                    .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8543,17 +9349,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get All Events response.</returns>
         public virtual async Task<GetAllEventsResponse> GetAllEventsAsync(int pageNumber, string code = default, string name = default, string tag = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (code != default)
-                queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
-            if (name != default)
-                queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
-            if (tag != default)
-                queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-            var path = $"/api/v1/Events/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAllEventsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (code != default)
+                    queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
+                if (name != default)
+                    queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
+                if (tag != default)
+                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                var path = $"/api/v1/Events/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8565,10 +9381,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Individual Active Memberships response.</returns>
         public virtual async Task<List<MembershipData>> GetIndividualActiveMembershipsAsync(string individualId, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Active";
-            return await this
-                .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetIndividualActiveMembershipsAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Active";
+                return await this
+                    .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8582,13 +9410,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get All Event Registrations Information for an Individual response.</returns>
         public virtual async Task<GetAllEventRegistrationsInformationForAnIndividualResponse> GetAllEventRegistrationsInformationForAnIndividualAsync(string individualIdOrRecordNumber, int pageNumber, string eventCode = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (eventCode != default)
-                queryParams.Add($"eventCode={Uri.EscapeDataString(eventCode.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllEventRegistrationsInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAllEventRegistrationsInformationForAnIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var queryParams = new List<string>();
+                if (eventCode != default)
+                    queryParams.Add($"eventCode={Uri.EscapeDataString(eventCode.ToString())}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllEventRegistrationsInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8603,15 +9443,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Individual&apos;s Relationships response.</returns>
         public virtual async Task<GetIndividualsRelationshipsResponse> GetIndividualsRelationshipsAsync(string individualId, int pageNumber, string relationshipName = default, bool? includeDetails = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (relationshipName != default)
-                queryParams.Add($"relationshipName={Uri.EscapeDataString(relationshipName.ToString())}");
-            if (includeDetails.HasValue)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetIndividualsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetIndividualsRelationshipsAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var queryParams = new List<string>();
+                if (relationshipName != default)
+                    queryParams.Add($"relationshipName={Uri.EscapeDataString(relationshipName.ToString())}");
+                if (includeDetails.HasValue)
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetIndividualsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8624,10 +9476,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateAnIndividualEmailAsync(string individualIdOrRecordNumber, string currentEmailAddress, UpdateAnIndividualEmailInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails/{Uri.EscapeDataString(currentEmailAddress.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateAnIndividualEmailAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                if (currentEmailAddress is null)
+                    throw new ArgumentNullException(nameof(currentEmailAddress));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails/{Uri.EscapeDataString(currentEmailAddress.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8639,10 +9505,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task SaveRelationshipForOrganizationAsync(string organizationId, SaveRelationshipForOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.SaveRelationshipForOrganizationAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8655,13 +9533,23 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Individual response.</returns>
         public virtual async Task<IndividualData> AddIndividualAsync(AddIndividualInput input, bool? createUser = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (createUser.HasValue)
-                queryParams.Add($"createUser={Uri.EscapeDataString(createUser.Value.ToString())}");
-            var path = $"/api/v1/Individuals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IndividualData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddIndividualAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (createUser.HasValue)
+                    queryParams.Add($"createUser={Uri.EscapeDataString(createUser.Value.ToString())}");
+                var path = $"/api/v1/Individuals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IndividualData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8674,10 +9562,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Email to Individual response.</returns>
         public virtual async Task<EmailData> AddEmailToIndividualAsync(string individualIdOrRecordNumber, AddEmailToIndividualInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails";
-            return await this
-                .CallConnectorAsync<EmailData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddEmailToIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails";
+                return await this
+                    .CallConnectorAsync<EmailData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8690,10 +9590,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add or Update Address to Individual response.</returns>
         public virtual async Task<AddressSaveData> AddOrUpdateAddressToIndividualAsync(string individualIdOrRecordNumber, AddressSaveData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Addresses";
-            return await this
-                .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddOrUpdateAddressToIndividualAsync");
+            try
+            {
+                if (individualIdOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Addresses";
+                return await this
+                    .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8708,13 +9620,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Members (Individuals) by First Name and Last Name response.</returns>
         public virtual async Task<FindMembersOrIndividualsByFirstAndLastNameResponse> FindMembersOrIndividualsByFirstAndLastNameAsync(string firstName, string lastName, int pageNumber, bool? includeEmailData = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (includeEmailData.HasValue)
-                queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
-            var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FindMembersOrIndividualsByFirstAndLastNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindMembersOrIndividualsByFirstAndLastNameAsync");
+            try
+            {
+                if (firstName is null)
+                    throw new ArgumentNullException(nameof(firstName));
+                if (lastName is null)
+                    throw new ArgumentNullException(nameof(lastName));
+                var queryParams = new List<string>();
+                if (includeEmailData.HasValue)
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
+                var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FindMembersOrIndividualsByFirstAndLastNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8728,15 +9654,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetCommitteeMembersByCommitteeIdOrCodeAsync(string committeeIdOrCode, int pageNumber, int? term = default, string positionCodes = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (term.HasValue)
-                queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
-            if (positionCodes != default)
-                queryParams.Add($"positionCodes={Uri.EscapeDataString(positionCodes.ToString())}");
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeIdOrCode.ToString())}/Members/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetCommitteeMembersByCommitteeIdOrCodeAsync");
+            try
+            {
+                if (committeeIdOrCode is null)
+                    throw new ArgumentNullException(nameof(committeeIdOrCode));
+                var queryParams = new List<string>();
+                if (term.HasValue)
+                    queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
+                if (positionCodes != default)
+                    queryParams.Add($"positionCodes={Uri.EscapeDataString(positionCodes.ToString())}");
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeIdOrCode.ToString())}/Members/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8748,10 +9686,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddActivityAsync(string individualId, AddActivityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Activities";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddActivityAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Activities";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8764,12 +9714,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Individual by Id or Email or Record Number response.</returns>
         public virtual async Task<FindIndividualIdOrEmailResponse> FindIndividualIdOrEmailAsync(string idOrRecordNumberOrEmail, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("IncludeDetails=true");
-            var path = $"/api/v1/Individuals/Profile/{Uri.EscapeDataString(idOrRecordNumberOrEmail.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FindIndividualIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindIndividualIdOrEmailAsync");
+            try
+            {
+                if (idOrRecordNumberOrEmail is null)
+                    throw new ArgumentNullException(nameof(idOrRecordNumberOrEmail));
+                var queryParams = new List<string>();
+                queryParams.Add("IncludeDetails=true");
+                var path = $"/api/v1/Individuals/Profile/{Uri.EscapeDataString(idOrRecordNumberOrEmail.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FindIndividualIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8781,10 +9743,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AddRelationshipToIndividualAsync(string individualId, AddRelationshipToIndividualInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddRelationshipToIndividualAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8796,10 +9770,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task IndividualAddEducationCreditAsync(string idOrRecordNumber, EducationCreditData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/EducationCredits";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.IndividualAddEducationCreditAsync");
+            try
+            {
+                if (idOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(idOrRecordNumber));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/EducationCredits";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8811,10 +9797,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task IndividualAddNoteAsync(string individualId, NoteData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notes";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.IndividualAddNoteAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notes";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8827,13 +9825,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Lookup Individuals response.</returns>
         public virtual async Task<IndividualsLookupByNameResponse> IndividualsLookupByNameAsync(int pageNumber, string lookupValue, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("includeOrgAddresses=true");
-            queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
-            var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IndividualsLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.IndividualsLookupByNameAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("includeOrgAddresses=true");
+                if (lookupValue is null)
+                    throw new ArgumentNullException(nameof(lookupValue));
+                queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
+                var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IndividualsLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8846,10 +9856,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Individual to Committee response.</returns>
         public virtual async Task<AddToCommitteeResponse> AddToCommitteeAsync(string committeeCode, CommitteeMemberCreateData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Members";
-            return await this
-                .CallConnectorAsync<AddToCommitteeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddToCommitteeAsync");
+            try
+            {
+                if (committeeCode is null)
+                    throw new ArgumentNullException(nameof(committeeCode));
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Members";
+                return await this
+                    .CallConnectorAsync<AddToCommitteeResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8863,10 +9885,26 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task UpdateCommitteeMemberAsync(string committeeCode, string memberRecordNumber, string currentPositionCode, CommitteeMemberUpdateData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Members/{Uri.EscapeDataString(memberRecordNumber.ToString())}/{Uri.EscapeDataString(currentPositionCode.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateCommitteeMemberAsync");
+            try
+            {
+                if (committeeCode is null)
+                    throw new ArgumentNullException(nameof(committeeCode));
+                if (memberRecordNumber is null)
+                    throw new ArgumentNullException(nameof(memberRecordNumber));
+                if (currentPositionCode is null)
+                    throw new ArgumentNullException(nameof(currentPositionCode));
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Members/{Uri.EscapeDataString(memberRecordNumber.ToString())}/{Uri.EscapeDataString(currentPositionCode.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8878,10 +9916,20 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Add Organization response.</returns>
         public virtual async Task<OrganizationData> AddOrganizationAsync(AddOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations";
-            return await this
-                .CallConnectorAsync<OrganizationData>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AddOrganizationAsync");
+            try
+            {
+                var path = $"/api/v1/Organizations";
+                return await this
+                    .CallConnectorAsync<OrganizationData>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8894,10 +9942,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Update Organization response.</returns>
         public virtual async Task<OrganizationData> UpdateOrganizationAsync(string organizationId, UpdateOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}";
-            return await this
-                .CallConnectorAsync<OrganizationData>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.UpdateOrganizationAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}";
+                return await this
+                    .CallConnectorAsync<OrganizationData>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8910,12 +9970,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Organization by Id or Record Number response.</returns>
         public virtual async Task<OrganizationData> OrganizationGetProfileAsync(string idOrRecordNumber, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("includeDescription=true");
-            var path = $"/api/v1/Organizations/Profile/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<OrganizationData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.OrganizationGetProfileAsync");
+            try
+            {
+                if (idOrRecordNumber is null)
+                    throw new ArgumentNullException(nameof(idOrRecordNumber));
+                var queryParams = new List<string>();
+                queryParams.Add("includeDescription=true");
+                var path = $"/api/v1/Organizations/Profile/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<OrganizationData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8927,10 +9999,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task OrganizationAddNoteAsync(string organizationId, NoteData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Notes";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.OrganizationAddNoteAsync");
+            try
+            {
+                if (organizationId is null)
+                    throw new ArgumentNullException(nameof(organizationId));
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Notes";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8943,13 +10027,25 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Lookup Organizations response.</returns>
         public virtual async Task<OrganizationLookupByNameResponse> OrganizationLookupByNameAsync(int pageNumber, string lookupValue, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("includeAddresses=true");
-            queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
-            var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<OrganizationLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.OrganizationLookupByNameAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("includeAddresses=true");
+                if (lookupValue is null)
+                    throw new ArgumentNullException(nameof(lookupValue));
+                queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
+                var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<OrganizationLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8965,19 +10061,29 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get All Committees response.</returns>
         public virtual async Task<GetAllCommitteesResponse> GetAllCommitteesAsync(int pageNumber, string committeeCode = default, string committeeName = default, int? term = default, bool? activeOnly = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (committeeCode != default)
-                queryParams.Add($"Code={Uri.EscapeDataString(committeeCode.ToString())}");
-            if (committeeName != default)
-                queryParams.Add($"Name={Uri.EscapeDataString(committeeName.ToString())}");
-            if (term.HasValue)
-                queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
-            if (activeOnly.HasValue)
-                queryParams.Add($"activeOnly={Uri.EscapeDataString(activeOnly.Value.ToString())}");
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetAllCommitteesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (committeeCode != default)
+                    queryParams.Add($"Code={Uri.EscapeDataString(committeeCode.ToString())}");
+                if (committeeName != default)
+                    queryParams.Add($"Name={Uri.EscapeDataString(committeeName.ToString())}");
+                if (term.HasValue)
+                    queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
+                if (activeOnly.HasValue)
+                    queryParams.Add($"activeOnly={Uri.EscapeDataString(activeOnly.Value.ToString())}");
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8989,10 +10095,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Positions by Committee response.</returns>
         public virtual async Task<GetPositionsByCommitteeResponse> GetPositionsByCommitteeAsync(string committeeCode, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Positions";
-            return await this
-                .CallConnectorAsync<GetPositionsByCommitteeResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetPositionsByCommitteeAsync");
+            try
+            {
+                if (committeeCode is null)
+                    throw new ArgumentNullException(nameof(committeeCode));
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Positions";
+                return await this
+                    .CallConnectorAsync<GetPositionsByCommitteeResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9005,10 +10123,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Sub-Committees response.</returns>
         public virtual async Task<GetSubCommitteesResponse> GetSubCommitteesAsync(string code, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Committees/{Uri.EscapeDataString(code.ToString())}/subcommittees/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetSubCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetSubCommitteesAsync");
+            try
+            {
+                if (code is null)
+                    throw new ArgumentNullException(nameof(code));
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(code.ToString())}/subcommittees/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetSubCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9021,10 +10151,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Get Individual&apos;s Active Subscriptions response.</returns>
         public virtual async Task<GetIndividualsActiveSubscriptionsResponse> GetIndividualsActiveSubscriptionsAsync(string individualId, int pageNumber, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Subscriptions/All/{Uri.EscapeDataString(pageNumber.ToString())}";
-            return await this
-                .CallConnectorAsync<GetIndividualsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetIndividualsActiveSubscriptionsAsync");
+            try
+            {
+                if (individualId is null)
+                    throw new ArgumentNullException(nameof(individualId));
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Subscriptions/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetIndividualsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9039,17 +10181,27 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List all Individuals response.</returns>
         public virtual async Task<ListAllIndividualsResponse> ListAllIndividualsAsync(int pageNumber, string individualName = default, bool? includeDetails = default, string individualOldId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (individualName != default)
-                queryParams.Add($"Name={Uri.EscapeDataString(individualName.ToString())}");
-            if (includeDetails.HasValue)
-                queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
-            if (individualOldId != default)
-                queryParams.Add($"oldID={Uri.EscapeDataString(individualOldId.ToString())}");
-            var path = $"/api/v1/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListAllIndividualsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllIndividualsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (individualName != default)
+                    queryParams.Add($"Name={Uri.EscapeDataString(individualName.ToString())}");
+                if (includeDetails.HasValue)
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                if (individualOldId != default)
+                    queryParams.Add($"oldID={Uri.EscapeDataString(individualOldId.ToString())}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListAllIndividualsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9062,15 +10214,29 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The Find Customer by Phone Number response.</returns>
         public virtual async Task<FindCustomerPhoneResponse> FindCustomerPhoneAsync(string pageNumber, string phoneNumber, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("includeAddress=true");
-            queryParams.Add("includePhone=true");
-            queryParams.Add("includeEmail=true");
-            queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
-            var path = $"/api/v1/Customers/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<FindCustomerPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.FindCustomerPhoneAsync");
+            try
+            {
+                if (pageNumber is null)
+                    throw new ArgumentNullException(nameof(pageNumber));
+                var queryParams = new List<string>();
+                queryParams.Add("includeAddress=true");
+                queryParams.Add("includePhone=true");
+                queryParams.Add("includeEmail=true");
+                if (phoneNumber is null)
+                    throw new ArgumentNullException(nameof(phoneNumber));
+                queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
+                var path = $"/api/v1/Customers/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<FindCustomerPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9080,12 +10246,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="recordNumber">Record Number</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task MarkRegistrantAttendedAsync(string recordNumber, List<object> input, CancellationToken cancellationToken = default)
+        public virtual async Task MarkRegistrantAttendedAsync(string recordNumber, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Events/Registrants/{Uri.EscapeDataString(recordNumber.ToString())}/Attended";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.MarkRegistrantAttendedAsync");
+            try
+            {
+                if (recordNumber is null)
+                    throw new ArgumentNullException(nameof(recordNumber));
+                var path = $"/api/v1/Events/Registrants/{Uri.EscapeDataString(recordNumber.ToString())}/Attended";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9097,10 +10275,22 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AwardsAddAwardNominationAsync(string awardId, AwardNominationData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Nominations";
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AwardsAddAwardNominationAsync");
+            try
+            {
+                if (awardId is null)
+                    throw new ArgumentNullException(nameof(awardId));
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Nominations";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9113,10 +10303,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task AwardsUpdateAwardNominationAsync(string awardId, string nomineeRecordNumber, UpdateAwardNominationData input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Nominations/{Uri.EscapeDataString(nomineeRecordNumber.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AwardsUpdateAwardNominationAsync");
+            try
+            {
+                if (awardId is null)
+                    throw new ArgumentNullException(nameof(awardId));
+                if (nomineeRecordNumber is null)
+                    throw new ArgumentNullException(nameof(nomineeRecordNumber));
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Nominations/{Uri.EscapeDataString(nomineeRecordNumber.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9129,12 +10333,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Award Individual Recipients response.</returns>
         public virtual async Task<AwardsGetIndividualAwardRecipientsResponse> AwardsGetIndividualAwardRecipientsAsync(int pageNumber, string awardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("includeDetails=true");
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AwardsGetIndividualAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AwardsGetIndividualAwardRecipientsAsync");
+            try
+            {
+                if (awardId is null)
+                    throw new ArgumentNullException(nameof(awardId));
+                var queryParams = new List<string>();
+                queryParams.Add("includeDetails=true");
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AwardsGetIndividualAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -9147,12 +10363,24 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <returns>The List Award Organization Recipients response.</returns>
         public virtual async Task<AwardsGetOrganizationAwardRecipientsResponse> AwardsGetOrganizationAwardRecipientsAsync(int pageNumber, string awardId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("includeDetails=true");
-            var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Organizations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<AwardsGetOrganizationAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.AwardsGetOrganizationAwardRecipientsAsync");
+            try
+            {
+                if (awardId is null)
+                    throw new ArgumentNullException(nameof(awardId));
+                var queryParams = new List<string>();
+                queryParams.Add("includeDetails=true");
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Organizations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AwardsGetOrganizationAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

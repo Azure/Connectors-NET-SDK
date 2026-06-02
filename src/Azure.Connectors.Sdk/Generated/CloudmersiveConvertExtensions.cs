@@ -2985,7 +2985,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     /// <summary>
     /// Model factory for creating instances of CloudmersiveConvert models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class CloudmersiveConvertModelFactory
     {
@@ -5523,6 +5523,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
 
         public override string ConnectorName => "cloudmersiveconvert";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.cloudmersiveconvert");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -5543,10 +5545,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get document type information response.</returns>
         public virtual async Task<AutodetectGetInfoResult> ConvertDocumentAutodetectGetInfoAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/autodetect/get-info";
-            return await this
-                .CallConnectorAsync<AutodetectGetInfoResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectGetInfoAsync");
+            try
+            {
+                var path = $"/convert/autodetect/get-info";
+                return await this
+                    .CallConnectorAsync<AutodetectGetInfoResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5557,10 +5569,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Document to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentAutodetectToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/autodetect/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectToPdfAsync");
+            try
+            {
+                var path = $"/convert/autodetect/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5571,10 +5593,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Document to PNG array response.</returns>
         public virtual async Task<AutodetectToPngResult> ConvertDocumentAutodetectToPngArrayAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/autodetect/to/png";
-            return await this
-                .CallConnectorAsync<AutodetectToPngResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectToPngArrayAsync");
+            try
+            {
+                var path = $"/convert/autodetect/to/png";
+                return await this
+                    .CallConnectorAsync<AutodetectToPngResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5585,10 +5617,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Document to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentAutodetectToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/autodetect/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectToTxtAsync");
+            try
+            {
+                var path = $"/convert/autodetect/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5599,10 +5641,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Compare Two Word DOCX response.</returns>
         public virtual async Task<byte[]> CompareDocumentDocxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/compare/docx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.CompareDocumentDocxAsync");
+            try
+            {
+                var path = $"/convert/compare/docx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5611,12 +5663,22 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <remarks>Convert a CSV file to a JSON object array</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert CSV to JSON conversion response.</returns>
-        public virtual async Task<List<object>> ConvertDataCsvToJsonAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ConvertDataCsvToJsonAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/csv/to/json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataCsvToJsonAsync");
+            try
+            {
+                var path = $"/convert/csv/to/json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5627,10 +5689,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert CSV to Excel XLSX Spreadsheet response.</returns>
         public virtual async Task<byte[]> ConvertDocumentCsvToXlsxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/csv/to/xlsx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentCsvToXlsxAsync");
+            try
+            {
+                var path = $"/convert/csv/to/xlsx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5641,10 +5713,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Word DOC (97-03) Document to DOCX response.</returns>
         public virtual async Task<byte[]> ConvertDocumentDocToDocxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/doc/to/docx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocToDocxAsync");
+            try
+            {
+                var path = $"/convert/doc/to/docx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5655,10 +5737,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Word DOC (97-03) Document to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentDocToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/doc/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocToPdfAsync");
+            try
+            {
+                var path = $"/convert/doc/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5669,10 +5761,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Word DOC (97-03) Document to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentDocToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/doc/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocToTxtAsync");
+            try
+            {
+                var path = $"/convert/doc/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5683,10 +5785,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Word DOCX Document to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentDocxToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/docx/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocxToPdfAsync");
+            try
+            {
+                var path = $"/convert/docx/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5697,10 +5809,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Word DOCX Document to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentDocxToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/docx/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocxToTxtAsync");
+            try
+            {
+                var path = $"/convert/docx/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5711,10 +5833,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Begin editing a document response.</returns>
         public virtual async Task<string> EditDocumentBeginEditingAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/begin-editing";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentBeginEditingAsync");
+            try
+            {
+                var path = $"/convert/edit/begin-editing";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5726,10 +5858,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Create a blank Word DOCX document response.</returns>
         public virtual async Task<CreateBlankDocxResponse> EditDocumentDocxCreateBlankDocumentAsync(CreateBlankDocxRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/create/blank";
-            return await this
-                .CallConnectorAsync<CreateBlankDocxResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxCreateBlankDocumentAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/create/blank";
+                return await this
+                    .CallConnectorAsync<CreateBlankDocxResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5741,10 +5883,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Delete, remove pages from a Word DOCX document response.</returns>
         public virtual async Task<byte[]> EditDocumentDocxDeletePagesAsync(RemoveDocxPagesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/delete-pages";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxDeletePagesAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/delete-pages";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5756,10 +5908,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Deletes a table row in an existing table in a Word DOCX document response.</returns>
         public virtual async Task<DeleteDocxTableRowResponse> EditDocumentDocxDeleteTableRowAsync(DeleteDocxTableRowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/delete-table-row";
-            return await this
-                .CallConnectorAsync<DeleteDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxDeleteTableRowAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/delete-table-row";
+                return await this
+                    .CallConnectorAsync<DeleteDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5771,10 +5933,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Deletes a range of multiple table rows in an existing table in a Word response.</returns>
         public virtual async Task<DeleteDocxTableRowRangeResponse> EditDocumentDocxDeleteTableRowRangeAsync(DeleteDocxTableRowRangeRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/delete-table-row/range";
-            return await this
-                .CallConnectorAsync<DeleteDocxTableRowRangeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxDeleteTableRowRangeAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/delete-table-row/range";
+                return await this
+                    .CallConnectorAsync<DeleteDocxTableRowRangeResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5786,10 +5958,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get body from a Word DOCX document response.</returns>
         public virtual async Task<GetDocxBodyResponse> EditDocumentDocxBodyAsync(GetDocxBodyRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-body";
-            return await this
-                .CallConnectorAsync<GetDocxBodyResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxBodyAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-body";
+                return await this
+                    .CallConnectorAsync<GetDocxBodyResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5801,10 +5983,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get comments from a Word DOCX document hierarchically response.</returns>
         public virtual async Task<GetDocxCommentsHierarchicalResponse> EditDocumentDocxGetCommentsHierarchicalAsync(GetDocxGetCommentsHierarchicalRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-comments/hierarchical";
-            return await this
-                .CallConnectorAsync<GetDocxCommentsHierarchicalResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetCommentsHierarchicalAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-comments/hierarchical";
+                return await this
+                    .CallConnectorAsync<GetDocxCommentsHierarchicalResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5816,10 +6008,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get content of a footer from a Word DOCX document response.</returns>
         public virtual async Task<GetDocxHeadersAndFootersResponse> EditDocumentDocxGetHeadersAndFootersAsync(GetDocxHeadersAndFootersRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-headers-and-footers";
-            return await this
-                .CallConnectorAsync<GetDocxHeadersAndFootersResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetHeadersAndFootersAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-headers-and-footers";
+                return await this
+                    .CallConnectorAsync<GetDocxHeadersAndFootersResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5831,10 +6033,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get images from a Word DOCX document response.</returns>
         public virtual async Task<GetDocxImagesResponse> EditDocumentDocxGetImagesAsync(GetDocxImagesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-images";
-            return await this
-                .CallConnectorAsync<GetDocxImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetImagesAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-images";
+                return await this
+                    .CallConnectorAsync<GetDocxImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5846,10 +6058,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get pages and content from a Word DOCX document response.</returns>
         public virtual async Task<GetDocxPagesResponse> EditDocumentDocxPagesAsync(GetDocxPagesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-pages";
-            return await this
-                .CallConnectorAsync<GetDocxPagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxPagesAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-pages";
+                return await this
+                    .CallConnectorAsync<GetDocxPagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5861,10 +6083,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get sections from a Word DOCX document response.</returns>
         public virtual async Task<GetDocxSectionsResponse> EditDocumentDocxGetSectionsAsync(GetDocxSectionsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-sections";
-            return await this
-                .CallConnectorAsync<GetDocxSectionsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetSectionsAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-sections";
+                return await this
+                    .CallConnectorAsync<GetDocxSectionsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5876,10 +6108,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get styles from a Word DOCX document response.</returns>
         public virtual async Task<GetDocxStylesResponse> EditDocumentDocxGetStylesAsync(GetDocxStylesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-styles";
-            return await this
-                .CallConnectorAsync<GetDocxStylesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetStylesAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-styles";
+                return await this
+                    .CallConnectorAsync<GetDocxStylesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5891,10 +6133,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Gets the contents of an existing table row in an existing table in a W response.</returns>
         public virtual async Task<GetDocxTableRowResponse> EditDocumentDocxGetTableRowAsync(GetDocxTableRowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-table-row";
-            return await this
-                .CallConnectorAsync<GetDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetTableRowAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-table-row";
+                return await this
+                    .CallConnectorAsync<GetDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5906,10 +6158,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get a specific table by index in a Word DOCX document response.</returns>
         public virtual async Task<GetDocxTableByIndexResponse> EditDocumentDocxGetTableByIndexAsync(GetDocxTableByIndexRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-table/by-index";
-            return await this
-                .CallConnectorAsync<GetDocxTableByIndexResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetTableByIndexAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-table/by-index";
+                return await this
+                    .CallConnectorAsync<GetDocxTableByIndexResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5921,10 +6183,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get all tables in Word DOCX document response.</returns>
         public virtual async Task<GetDocxTablesResponse> EditDocumentDocxGetTablesAsync(GetDocxTablesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/get-tables";
-            return await this
-                .CallConnectorAsync<GetDocxTablesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxGetTablesAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/get-tables";
+                return await this
+                    .CallConnectorAsync<GetDocxTablesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5936,10 +6208,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Insert a new comment into a Word DOCX document attached to a paragraph response.</returns>
         public virtual async Task<InsertDocxCommentOnParagraphResponse> EditDocumentDocxInsertCommentOnParagraphAsync(DocxInsertCommentOnParagraphRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/insert-comment/on/paragraph";
-            return await this
-                .CallConnectorAsync<InsertDocxCommentOnParagraphResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxInsertCommentOnParagraphAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/insert-comment/on/paragraph";
+                return await this
+                    .CallConnectorAsync<InsertDocxCommentOnParagraphResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5951,10 +6233,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Insert image into a Word DOCX document response.</returns>
         public virtual async Task<DocxInsertImageResponse> EditDocumentDocxInsertImageAsync(DocxInsertImageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/insert-image";
-            return await this
-                .CallConnectorAsync<DocxInsertImageResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxInsertImageAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/insert-image";
+                return await this
+                    .CallConnectorAsync<DocxInsertImageResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5966,10 +6258,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Insert a new paragraph into a Word DOCX document response.</returns>
         public virtual async Task<InsertDocxInsertParagraphResponse> EditDocumentDocxInsertParagraphAsync(InsertDocxInsertParagraphRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/insert-paragraph";
-            return await this
-                .CallConnectorAsync<InsertDocxInsertParagraphResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxInsertParagraphAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/insert-paragraph";
+                return await this
+                    .CallConnectorAsync<InsertDocxInsertParagraphResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5981,10 +6283,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Insert a new table into a Word DOCX document response.</returns>
         public virtual async Task<InsertDocxTablesResponse> EditDocumentDocxInsertTableAsync(InsertDocxTablesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/insert-table";
-            return await this
-                .CallConnectorAsync<InsertDocxTablesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxInsertTableAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/insert-table";
+                return await this
+                    .CallConnectorAsync<InsertDocxTablesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -5996,10 +6308,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Insert a new row into an existing table in a Word DOCX document response.</returns>
         public virtual async Task<InsertDocxTableRowResponse> EditDocumentDocxInsertTableRowAsync(InsertDocxTableRowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/insert-table-row";
-            return await this
-                .CallConnectorAsync<InsertDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxInsertTableRowAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/insert-table-row";
+                return await this
+                    .CallConnectorAsync<InsertDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6011,10 +6333,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Remove headers and footers from Word DOCX document response.</returns>
         public virtual async Task<RemoveDocxHeadersAndFootersResponse> EditDocumentDocxRemoveHeadersAndFootersAsync(RemoveDocxHeadersAndFootersRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/remove-headers-and-footers";
-            return await this
-                .CallConnectorAsync<RemoveDocxHeadersAndFootersResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxRemoveHeadersAndFootersAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/remove-headers-and-footers";
+                return await this
+                    .CallConnectorAsync<RemoveDocxHeadersAndFootersResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6026,10 +6358,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Delete any object in a Word DOCX document response.</returns>
         public virtual async Task<DocxRemoveObjectResponse> EditDocumentDocxRemoveObjectAsync(DocxRemoveObjectRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/remove-object";
-            return await this
-                .CallConnectorAsync<DocxRemoveObjectResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxRemoveObjectAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/remove-object";
+                return await this
+                    .CallConnectorAsync<DocxRemoveObjectResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6041,10 +6383,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Replace string in Word DOCX document response.</returns>
         public virtual async Task<byte[]> EditDocumentDocxReplaceAsync(ReplaceStringRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/replace-all";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxReplaceAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/replace-all";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6056,10 +6408,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Set the footer in a Word DOCX document response.</returns>
         public virtual async Task<DocxSetFooterResponse> EditDocumentDocxSetFooterAsync(DocxSetFooterRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/set-footer";
-            return await this
-                .CallConnectorAsync<DocxSetFooterResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxSetFooterAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/set-footer";
+                return await this
+                    .CallConnectorAsync<DocxSetFooterResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6071,10 +6433,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Add page number to footer in a Word DOCX document response.</returns>
         public virtual async Task<DocxSetFooterResponse> EditDocumentDocxSetFooterAddPageNumberAsync(DocxSetFooterAddPageNumberRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/set-footer/add-page-number";
-            return await this
-                .CallConnectorAsync<DocxSetFooterResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxSetFooterAddPageNumberAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/set-footer/add-page-number";
+                return await this
+                    .CallConnectorAsync<DocxSetFooterResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6086,10 +6458,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Set the header in a Word DOCX document response.</returns>
         public virtual async Task<DocxSetHeaderResponse> EditDocumentDocxSetHeaderAsync(DocxSetHeaderRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/set-header";
-            return await this
-                .CallConnectorAsync<DocxSetHeaderResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxSetHeaderAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/set-header";
+                return await this
+                    .CallConnectorAsync<DocxSetHeaderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6101,10 +6483,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Update, set contents of a table cell in an existing table in a Word DO response.</returns>
         public virtual async Task<UpdateDocxTableCellResponse> EditDocumentDocxUpdateTableCellAsync(UpdateDocxTableCellRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/update-table-cell";
-            return await this
-                .CallConnectorAsync<UpdateDocxTableCellResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxUpdateTableCellAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/update-table-cell";
+                return await this
+                    .CallConnectorAsync<UpdateDocxTableCellResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6116,10 +6508,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Update, set contents of a table row in an existing table in a Word DOCX document response.</returns>
         public virtual async Task<UpdateDocxTableRowResponse> EditDocumentDocxUpdateTableRowAsync(UpdateDocxTableRowRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/docx/update-table-row";
-            return await this
-                .CallConnectorAsync<UpdateDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentDocxUpdateTableRowAsync");
+            try
+            {
+                var path = $"/convert/edit/docx/update-table-row";
+                return await this
+                    .CallConnectorAsync<UpdateDocxTableRowResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6131,10 +6533,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Finish editing document, and download result from document editing response.</returns>
         public virtual async Task<byte[]> EditDocumentFinishEditingAsync(FinishEditingRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/finish-editing";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentFinishEditingAsync");
+            try
+            {
+                var path = $"/convert/edit/finish-editing";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6146,10 +6558,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Delete, remove slides from a PowerPoint PPTX presentation document response.</returns>
         public virtual async Task<byte[]> EditDocumentPptxDeleteSlidesAsync(RemovePptxSlidesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/pptx/delete-slides";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentPptxDeleteSlidesAsync");
+            try
+            {
+                var path = $"/convert/edit/pptx/delete-slides";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6161,10 +6583,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Replace string in PowerPoint PPTX presentation response.</returns>
         public virtual async Task<byte[]> EditDocumentPptxReplaceAsync(ReplaceStringRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/pptx/replace-all";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentPptxReplaceAsync");
+            try
+            {
+                var path = $"/convert/edit/pptx/replace-all";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6176,10 +6608,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Clear cell contents in an Excel XLSX spreadsheet, worksheet by index response.</returns>
         public virtual async Task<ClearXlsxCellResponse> EditDocumentXlsxClearCellByIndexAsync(ClearXlsxCellRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/clear-cell/by-index";
-            return await this
-                .CallConnectorAsync<ClearXlsxCellResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxClearCellByIndexAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/clear-cell/by-index";
+                return await this
+                    .CallConnectorAsync<ClearXlsxCellResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6191,10 +6633,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Create a blank Excel XLSX spreadsheet response.</returns>
         public virtual async Task<CreateBlankSpreadsheetResponse> EditDocumentXlsxCreateBlankSpreadsheetAsync(CreateBlankSpreadsheetRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/create/blank";
-            return await this
-                .CallConnectorAsync<CreateBlankSpreadsheetResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxCreateBlankSpreadsheetAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/create/blank";
+                return await this
+                    .CallConnectorAsync<CreateBlankSpreadsheetResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6206,10 +6658,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Create a new Excel XLSX spreadsheet from column and row data response.</returns>
         public virtual async Task<CreateSpreadsheetFromDataResponse> EditDocumentXlsxCreateSpreadsheetFromDataAsync(CreateSpreadsheetFromDataRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/create/from/data";
-            return await this
-                .CallConnectorAsync<CreateSpreadsheetFromDataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxCreateSpreadsheetFromDataAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/create/from/data";
+                return await this
+                    .CallConnectorAsync<CreateSpreadsheetFromDataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6221,10 +6683,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Delete, remove worksheet from an Excel XLSX spreadsheet document response.</returns>
         public virtual async Task<EditDocumentXlsxDeleteWorksheetResponse> EditDocumentXlsxDeleteWorksheetAsync(RemoveXlsxWorksheetRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/delete-worksheet";
-            return await this
-                .CallConnectorAsync<EditDocumentXlsxDeleteWorksheetResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxDeleteWorksheetAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/delete-worksheet";
+                return await this
+                    .CallConnectorAsync<EditDocumentXlsxDeleteWorksheetResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6236,10 +6708,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get cell from an Excel XLSX spreadsheet, worksheet by cell identifier response.</returns>
         public virtual async Task<GetXlsxCellByIdentifierResponse> EditDocumentXlsxGetCellByIdentifierAsync(GetXlsxCellByIdentifierRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-cell/by-identifier";
-            return await this
-                .CallConnectorAsync<GetXlsxCellByIdentifierResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetCellByIdentifierAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-cell/by-identifier";
+                return await this
+                    .CallConnectorAsync<GetXlsxCellByIdentifierResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6251,10 +6733,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get cell from an Excel XLSX spreadsheet, worksheet by index response.</returns>
         public virtual async Task<GetXlsxCellResponse> EditDocumentXlsxGetCellByIndexAsync(GetXlsxCellRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-cell/by-index";
-            return await this
-                .CallConnectorAsync<GetXlsxCellResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetCellByIndexAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-cell/by-index";
+                return await this
+                    .CallConnectorAsync<GetXlsxCellResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6266,10 +6758,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get rows and cells from a Excel XLSX spreadsheet, worksheet response.</returns>
         public virtual async Task<GetXlsxColumnsResponse> EditDocumentXlsxGetColumnsAsync(GetXlsxColumnsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-columns";
-            return await this
-                .CallConnectorAsync<GetXlsxColumnsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetColumnsAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-columns";
+                return await this
+                    .CallConnectorAsync<GetXlsxColumnsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6281,10 +6783,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get images from a Excel XLSX spreadsheet, worksheet response.</returns>
         public virtual async Task<GetXlsxImagesResponse> EditDocumentXlsxGetImagesAsync(GetXlsxImagesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-images";
-            return await this
-                .CallConnectorAsync<GetXlsxImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetImagesAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-images";
+                return await this
+                    .CallConnectorAsync<GetXlsxImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6296,10 +6808,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get rows and cells from a Excel XLSX spreadsheet, worksheet response.</returns>
         public virtual async Task<GetXlsxRowsAndCellsResponse> EditDocumentXlsxGetRowsAndCellsAsync(GetXlsxRowsAndCellsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-rows-and-cells";
-            return await this
-                .CallConnectorAsync<GetXlsxRowsAndCellsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetRowsAndCellsAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-rows-and-cells";
+                return await this
+                    .CallConnectorAsync<GetXlsxRowsAndCellsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6311,10 +6833,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get styles from a Excel XLSX spreadsheet, worksheet response.</returns>
         public virtual async Task<GetXlsxStylesResponse> EditDocumentXlsxGetStylesAsync(GetXlsxStylesRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-styles";
-            return await this
-                .CallConnectorAsync<GetXlsxStylesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetStylesAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-styles";
+                return await this
+                    .CallConnectorAsync<GetXlsxStylesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6326,10 +6858,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get worksheets from a Excel XLSX spreadsheet response.</returns>
         public virtual async Task<GetXlsxWorksheetsResponse> EditDocumentXlsxGetWorksheetsAsync(GetXlsxWorksheetsRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/get-worksheets";
-            return await this
-                .CallConnectorAsync<GetXlsxWorksheetsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxGetWorksheetsAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/get-worksheets";
+                return await this
+                    .CallConnectorAsync<GetXlsxWorksheetsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6341,10 +6883,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Insert a new worksheet into an Excel XLSX spreadsheet response.</returns>
         public virtual async Task<InsertXlsxWorksheetResponse> EditDocumentXlsxInsertWorksheetAsync(InsertXlsxWorksheetRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/insert-worksheet";
-            return await this
-                .CallConnectorAsync<InsertXlsxWorksheetResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxInsertWorksheetAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/insert-worksheet";
+                return await this
+                    .CallConnectorAsync<InsertXlsxWorksheetResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6356,10 +6908,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Set, update cell contents in an Excel XLSX spreadsheet, worksheet by c response.</returns>
         public virtual async Task<SetXlsxCellByIdentifierResponse> EditDocumentXlsxSetCellByIdentifierAsync(SetXlsxCellByIdentifierRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/set-cell/by-identifier";
-            return await this
-                .CallConnectorAsync<SetXlsxCellByIdentifierResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxSetCellByIdentifierAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/set-cell/by-identifier";
+                return await this
+                    .CallConnectorAsync<SetXlsxCellByIdentifierResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6371,10 +6933,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Set, update cell contents in an Excel XLSX spreadsheet, worksheet by index response.</returns>
         public virtual async Task<SetXlsxCellResponse> EditDocumentXlsxSetCellByIndexAsync(SetXlsxCellRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/edit/xlsx/set-cell/by-index";
-            return await this
-                .CallConnectorAsync<SetXlsxCellResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentXlsxSetCellByIndexAsync");
+            try
+            {
+                var path = $"/convert/edit/xlsx/set-cell/by-index";
+                return await this
+                    .CallConnectorAsync<SetXlsxCellResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6386,10 +6958,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert HTML to Word DOCX Document response.</returns>
         public virtual async Task<byte[]> ConvertWebHtmlToDocxAsync(HtmlToOfficeRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/html/to/docx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebHtmlToDocxAsync");
+            try
+            {
+                var path = $"/convert/html/to/docx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6400,10 +6982,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert HTML document file to PDF Document response.</returns>
         public virtual async Task<byte[]> ConvertDocumentHtmlToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/html/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentHtmlToPdfAsync");
+            try
+            {
+                var path = $"/convert/html/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6414,10 +7006,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert HTML document file to PNG image array response.</returns>
         public virtual async Task<PdfToPngResult> ConvertDocumentHtmlToPngAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/html/to/png";
-            return await this
-                .CallConnectorAsync<PdfToPngResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentHtmlToPngAsync");
+            try
+            {
+                var path = $"/convert/html/to/png";
+                return await this
+                    .CallConnectorAsync<PdfToPngResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6428,10 +7030,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The HTML Document file to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentHtmlToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/html/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentHtmlToTxtAsync");
+            try
+            {
+                var path = $"/convert/html/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6444,10 +7056,24 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Multi-page image format conversion response.</returns>
         public virtual async Task<MultipageImageFormatConversionResult> ConvertImageMultipageImageFormatConvertAsync(string inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide, string outputConvertToThisFormatFileFormatAsA3LetterFileExtens, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/image-multipage/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide.ToString())}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens.ToString())}";
-            return await this
-                .CallConnectorAsync<MultipageImageFormatConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageMultipageImageFormatConvertAsync");
+            try
+            {
+                if (inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide is null)
+                    throw new ArgumentNullException(nameof(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide));
+                if (outputConvertToThisFormatFileFormatAsA3LetterFileExtens is null)
+                    throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
+                var path = $"/convert/image-multipage/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide.ToString())}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens.ToString())}";
+                return await this
+                    .CallConnectorAsync<MultipageImageFormatConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6458,10 +7084,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Get information about an image response.</returns>
         public virtual async Task<GetImageInfoResult> ConvertImageGetImageInfoAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/image/get-info";
-            return await this
-                .CallConnectorAsync<GetImageInfoResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageGetImageInfoAsync");
+            try
+            {
+                var path = $"/convert/image/get-info";
+                return await this
+                    .CallConnectorAsync<GetImageInfoResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6473,10 +7109,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Change image DPI response.</returns>
         public virtual async Task<byte[]> ConvertImageImageSetDPIAsync(int newDPIInPixelsPerInchForExample300DPIOr600DPI, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/image/set-dpi/{Uri.EscapeDataString(newDPIInPixelsPerInchForExample300DPIOr600DPI.ToString())}";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageSetDPIAsync");
+            try
+            {
+                var path = $"/convert/image/set-dpi/{Uri.EscapeDataString(newDPIInPixelsPerInchForExample300DPIOr600DPI.ToString())}";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6489,10 +7135,24 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Image format conversion response.</returns>
         public virtual async Task<byte[]> ConvertImageImageFormatConvertAsync(string inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide, string outputConvertToThisFormatFileFormatAsA3LetterFileExtens, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/image/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide.ToString())}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens.ToString())}";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageFormatConvertAsync");
+            try
+            {
+                if (inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide is null)
+                    throw new ArgumentNullException(nameof(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide));
+                if (outputConvertToThisFormatFileFormatAsA3LetterFileExtens is null)
+                    throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
+                var path = $"/convert/image/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide.ToString())}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens.ToString())}";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6504,10 +7164,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert JSON to XML conversion response.</returns>
         public virtual async Task<string> ConvertDataJsonToXmlAsync(ConvertDataJsonToXmlInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/json/to/xml";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataJsonToXmlAsync");
+            try
+            {
+                var path = $"/convert/json/to/xml";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6518,10 +7188,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Two Word DOCX Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentDocxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/docx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentDocxAsync");
+            try
+            {
+                var path = $"/convert/merge/docx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6532,10 +7212,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Multple Word DOCX Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentDocxMultiAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/docx/multi";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentDocxMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/docx/multi";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6546,10 +7236,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Two PDF Files Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPdfAsync");
+            try
+            {
+                var path = $"/convert/merge/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6560,10 +7260,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Multple PDF Files Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentPdfMultiAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/pdf/multi";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPdfMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/pdf/multi";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6574,10 +7284,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Multple PNG Files Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentPngAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/png/vertical";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPngAsync");
+            try
+            {
+                var path = $"/convert/merge/png/vertical";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6588,10 +7308,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Two PowerPoint PPTX Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentPptxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/pptx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPptxAsync");
+            try
+            {
+                var path = $"/convert/merge/pptx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6602,10 +7332,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Multple PowerPoint PPTX Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentPptxMultiAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/pptx/multi";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPptxMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/pptx/multi";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6616,10 +7356,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Two Text (TXT) Files Together response.</returns>
         public virtual async Task<MergeDocumentTxtResponse> MergeDocumentTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/txt";
-            return await this
-                .CallConnectorAsync<MergeDocumentTxtResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentTxtAsync");
+            try
+            {
+                var path = $"/convert/merge/txt";
+                return await this
+                    .CallConnectorAsync<MergeDocumentTxtResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6630,10 +7380,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Multple Text (TXT) Files Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentTxtMultiAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/txt/multi";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentTxtMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/txt/multi";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6644,10 +7404,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Two Excel XLSX Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentXlsxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/xlsx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentXlsxAsync");
+            try
+            {
+                var path = $"/convert/merge/xlsx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6658,10 +7428,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Merge Multple Excel XLSX Together response.</returns>
         public virtual async Task<byte[]> MergeDocumentXlsxMultiAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/merge/xlsx/multi";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentXlsxMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/xlsx/multi";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6672,10 +7452,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PDF to Word DOCX Document response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPdfToDocxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pdf/to/docx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToDocxAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/docx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6686,10 +7476,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PDF to Word DOCX Document based on rasterized version of the PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPdfToDocxRasterizeAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pdf/to/docx/rasterize";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToDocxRasterizeAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/docx/rasterize";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6700,10 +7500,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PDF to PNG Image Array response.</returns>
         public virtual async Task<PdfToPngResult> ConvertDocumentPdfToPngArrayAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pdf/to/png";
-            return await this
-                .CallConnectorAsync<PdfToPngResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToPngArrayAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/png";
+                return await this
+                    .CallConnectorAsync<PdfToPngResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6714,10 +7524,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PDF to Single PNG image response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPdfToPngSingleAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pdf/to/png/merge-single";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToPngSingleAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/png/merge-single";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6728,10 +7548,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PDF to PowerPoint PPTX Presentation response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPdfToPptxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pdf/to/pptx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToPptxAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/pptx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6742,10 +7572,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PDF Document to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentPdfToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pdf/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToTxtAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6756,10 +7596,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PNG Array to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPngArrayToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/png/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPngArrayToPdfAsync");
+            try
+            {
+                var path = $"/convert/png/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6770,10 +7620,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PowerPoint PPT (97-03) Presentation to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPptToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/ppt/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptToPdfAsync");
+            try
+            {
+                var path = $"/convert/ppt/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6784,10 +7644,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PowerPoint PPT (97-03) Presentation to PPTX response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPptToPptxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/ppt/to/pptx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptToPptxAsync");
+            try
+            {
+                var path = $"/convert/ppt/to/pptx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6798,10 +7668,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PowerPoint PPTX Presentation to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentPptxToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pptx/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptxToPdfAsync");
+            try
+            {
+                var path = $"/convert/pptx/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6812,10 +7692,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert PowerPoint PPTX Presentation to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentPptxToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/pptx/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptxToTxtAsync");
+            try
+            {
+                var path = $"/convert/pptx/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6826,10 +7716,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Split a single Word Document DOCX into Separate Documents by Page response.</returns>
         public virtual async Task<SplitDocxDocumentResult> SplitDocumentDocxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/split/docx";
-            return await this
-                .CallConnectorAsync<SplitDocxDocumentResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentDocxAsync");
+            try
+            {
+                var path = $"/convert/split/docx";
+                return await this
+                    .CallConnectorAsync<SplitDocxDocumentResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6840,10 +7740,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Split a PDF file into separate PDF files, one per page response.</returns>
         public virtual async Task<SplitPdfResult> SplitDocumentPdfByPageAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/split/pdf";
-            return await this
-                .CallConnectorAsync<SplitPdfResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentPdfByPageAsync");
+            try
+            {
+                var path = $"/convert/split/pdf";
+                return await this
+                    .CallConnectorAsync<SplitPdfResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6854,10 +7764,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Split a single PowerPoint Presentation PPTX into Separate Slides response.</returns>
         public virtual async Task<SplitPptxPresentationResult> SplitDocumentPptxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/split/pptx";
-            return await this
-                .CallConnectorAsync<SplitPptxPresentationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentPptxAsync");
+            try
+            {
+                var path = $"/convert/split/pptx";
+                return await this
+                    .CallConnectorAsync<SplitPptxPresentationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6868,10 +7788,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Split a single Text file (txt) into lines response.</returns>
         public virtual async Task<SplitTextDocumentByLinesResult> SplitDocumentTxtByLineAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/split/txt/by-line";
-            return await this
-                .CallConnectorAsync<SplitTextDocumentByLinesResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentTxtByLineAsync");
+            try
+            {
+                var path = $"/convert/split/txt/by-line";
+                return await this
+                    .CallConnectorAsync<SplitTextDocumentByLinesResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6882,10 +7812,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Split a single Text file (txt) by a string delimiter response.</returns>
         public virtual async Task<SplitTextDocumentByStringResult> SplitDocumentTxtByStringAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/split/txt/by-string";
-            return await this
-                .CallConnectorAsync<SplitTextDocumentByStringResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentTxtByStringAsync");
+            try
+            {
+                var path = $"/convert/split/txt/by-string";
+                return await this
+                    .CallConnectorAsync<SplitTextDocumentByStringResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6896,10 +7836,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Split a single Excel XLSX into Separate Worksheets response.</returns>
         public virtual async Task<SplitXlsxWorksheetResult> SplitDocumentXlsxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/split/xlsx";
-            return await this
-                .CallConnectorAsync<SplitXlsxWorksheetResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentXlsxAsync");
+            try
+            {
+                var path = $"/convert/split/xlsx";
+                return await this
+                    .CallConnectorAsync<SplitXlsxWorksheetResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6911,10 +7861,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Apply HTML template response.</returns>
         public virtual async Task<HtmlTemplateApplicationResponse> ConvertTemplateApplyHtmlTemplateAsync(HtmlTemplateApplicationRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/template/html/apply";
-            return await this
-                .CallConnectorAsync<HtmlTemplateApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertTemplateApplyHtmlTemplateAsync");
+            try
+            {
+                var path = $"/convert/template/html/apply";
+                return await this
+                    .CallConnectorAsync<HtmlTemplateApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6925,10 +7885,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Autodetect content type and validate response.</returns>
         public virtual async Task<AutodetectDocumentValidationResult> ValidateDocumentAutodetectValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/autodetect";
-            return await this
-                .CallConnectorAsync<AutodetectDocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentAutodetectValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/autodetect";
+                return await this
+                    .CallConnectorAsync<AutodetectDocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6939,10 +7909,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Validate a Word document (DOCX) response.</returns>
         public virtual async Task<DocumentValidationResult> ValidateDocumentDocxValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/docx";
-            return await this
-                .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentDocxValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/docx";
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6953,10 +7933,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Validate a JSON file response.</returns>
         public virtual async Task<DocumentValidationResult> ValidateDocumentJsonValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/json";
-            return await this
-                .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentJsonValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/json";
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6967,10 +7957,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Validate a PDF document file response.</returns>
         public virtual async Task<DocumentValidationResult> ValidateDocumentPdfValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/pdf";
-            return await this
-                .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentPdfValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/pdf";
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6981,10 +7981,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Validate a PowerPoint presentation (PPTX) response.</returns>
         public virtual async Task<DocumentValidationResult> ValidateDocumentPptxValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/pptx";
-            return await this
-                .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentPptxValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/pptx";
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -6995,10 +8005,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Validate a Excel document (XLSX) response.</returns>
         public virtual async Task<DocumentValidationResult> ValidateDocumentXlsxValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/xlsx";
-            return await this
-                .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentXlsxValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/xlsx";
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7009,10 +8029,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Validate an XML file response.</returns>
         public virtual async Task<DocumentValidationResult> ValidateDocumentXmlValidationAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/validate/xml";
-            return await this
-                .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentXmlValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/xml";
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7024,10 +8054,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert HTML string to PDF response.</returns>
         public virtual async Task<byte[]> ConvertWebHtmlToPdfAsync(HtmlToPdfRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/html/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebHtmlToPdfAsync");
+            try
+            {
+                var path = $"/convert/web/html/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7039,10 +8079,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert HTML string to PNG screenshot response.</returns>
         public virtual async Task<ConvertWebHtmlToPngResponse> ConvertWebHtmlToPngAsync(HtmlToPngRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/html/to/png";
-            return await this
-                .CallConnectorAsync<ConvertWebHtmlToPngResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebHtmlToPngAsync");
+            try
+            {
+                var path = $"/convert/web/html/to/png";
+                return await this
+                    .CallConnectorAsync<ConvertWebHtmlToPngResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7054,10 +8104,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert HTML string to text (txt) response.</returns>
         public virtual async Task<HtmlToTextResponse> ConvertWebHtmlToTxtAsync(HtmlToTextRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/html/to/txt";
-            return await this
-                .CallConnectorAsync<HtmlToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebHtmlToTxtAsync");
+            try
+            {
+                var path = $"/convert/web/html/to/txt";
+                return await this
+                    .CallConnectorAsync<HtmlToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7068,10 +8128,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Markdown to HTML response.</returns>
         public virtual async Task<HtmlMdResult> ConvertWebMdToHtmlAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/md/to/html";
-            return await this
-                .CallConnectorAsync<HtmlMdResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebMdToHtmlAsync");
+            try
+            {
+                var path = $"/convert/web/md/to/html";
+                return await this
+                    .CallConnectorAsync<HtmlMdResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7083,10 +8153,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert a URL to PDF response.</returns>
         public virtual async Task<byte[]> ConvertWebUrlToPdfAsync(ScreenshotRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/url/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebUrlToPdfAsync");
+            try
+            {
+                var path = $"/convert/web/url/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7098,10 +8178,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Take screenshot of URL response.</returns>
         public virtual async Task<byte[]> ConvertWebUrlToScreenshotAsync(ScreenshotRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/url/to/screenshot";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebUrlToScreenshotAsync");
+            try
+            {
+                var path = $"/convert/web/url/to/screenshot";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7113,10 +8203,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert website URL page to text (txt) response.</returns>
         public virtual async Task<UrlToTextResponse> ConvertWebUrlToTxtAsync(UrlToTextRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/web/url/to/txt";
-            return await this
-                .CallConnectorAsync<UrlToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebUrlToTxtAsync");
+            try
+            {
+                var path = $"/convert/web/url/to/txt";
+                return await this
+                    .CallConnectorAsync<UrlToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7127,10 +8227,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Excel XLS (97-03) Spreadsheet to CSV response.</returns>
         public virtual async Task<byte[]> ConvertDocumentXlsToCsvAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xls/to/csv";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsToCsvAsync");
+            try
+            {
+                var path = $"/convert/xls/to/csv";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7139,12 +8249,22 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <remarks>Convert an Excel (97-2003) XLS file to a JSON object array</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert Excel (97-2003) XLS to JSON conversion response.</returns>
-        public virtual async Task<List<object>> ConvertDataXlsToJsonAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ConvertDataXlsToJsonAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xls/to/json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXlsToJsonAsync");
+            try
+            {
+                var path = $"/convert/xls/to/json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7155,10 +8275,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Excel XLS (97-03) Spreadsheet to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentXlsToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xls/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsToPdfAsync");
+            try
+            {
+                var path = $"/convert/xls/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7169,10 +8299,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Excel XLS (97-03) Spreadsheet to XLSX response.</returns>
         public virtual async Task<byte[]> ConvertDocumentXlsToXlsxAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xls/to/xlsx";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsToXlsxAsync");
+            try
+            {
+                var path = $"/convert/xls/to/xlsx";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7183,10 +8323,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Excel XLSX Spreadsheet to CSV response.</returns>
         public virtual async Task<byte[]> ConvertDocumentXlsxToCsvAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xlsx/to/csv";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsxToCsvAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/csv";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7195,12 +8345,22 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <remarks>Convert an Excel XLSX file to a JSON object array</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert Excel XLSX to JSON conversion response.</returns>
-        public virtual async Task<List<object>> ConvertDataXlsxToJsonAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ConvertDataXlsxToJsonAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xlsx/to/json";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXlsxToJsonAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/json";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7211,10 +8371,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Excel XLSX Spreadsheet to PDF response.</returns>
         public virtual async Task<byte[]> ConvertDocumentXlsxToPdfAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xlsx/to/pdf";
-            return await this
-                .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsxToPdfAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/pdf";
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7225,10 +8395,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert Excel XLSX Spreadsheet to Text (txt) response.</returns>
         public virtual async Task<TextConversionResult> ConvertDocumentXlsxToTxtAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xlsx/to/txt";
-            return await this
-                .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsxToTxtAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/txt";
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7239,10 +8419,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Adds an attribute to all XML nodes matching XPath expression response.</returns>
         public virtual async Task<XmlAddAttributeWithXPathResult> ConvertDataXmlEditAddAttributeWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/edit/xpath/add-attribute";
-            return await this
-                .CallConnectorAsync<XmlAddAttributeWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditAddAttributeWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/add-attribute";
+                return await this
+                    .CallConnectorAsync<XmlAddAttributeWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7253,10 +8443,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Adds an XML node as a child to XML nodes matching XPath expression response.</returns>
         public virtual async Task<XmlAddChildWithXPathResult> ConvertDataXmlEditAddChildWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/edit/xpath/add-child";
-            return await this
-                .CallConnectorAsync<XmlAddChildWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditAddChildWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/add-child";
+                return await this
+                    .CallConnectorAsync<XmlAddChildWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7267,10 +8467,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Remove, delete XML nodes and items matching XPath expression response.</returns>
         public virtual async Task<XmlRemoveWithXPathResult> ConvertDataXmlRemoveWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/edit/xpath/remove";
-            return await this
-                .CallConnectorAsync<XmlRemoveWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlRemoveWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/remove";
+                return await this
+                    .CallConnectorAsync<XmlRemoveWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7281,10 +8491,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Removes, deletes all children of nodes matching XPath expression, but response.</returns>
         public virtual async Task<XmlRemoveAllChildrenWithXPathResult> ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/edit/xpath/remove-all-children";
-            return await this
-                .CallConnectorAsync<XmlRemoveAllChildrenWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/remove-all-children";
+                return await this
+                    .CallConnectorAsync<XmlRemoveAllChildrenWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7295,10 +8515,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Replaces XML nodes matching XPath expression with new node response.</returns>
         public virtual async Task<XmlReplaceWithXPathResult> ConvertDataXmlEditReplaceWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/edit/xpath/replace";
-            return await this
-                .CallConnectorAsync<XmlReplaceWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditReplaceWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/replace";
+                return await this
+                    .CallConnectorAsync<XmlReplaceWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7309,10 +8539,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Sets the value contents of XML nodes matching XPath expression response.</returns>
         public virtual async Task<XmlSetValueWithXPathResult> ConvertDataXmlEditSetValueWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/edit/xpath/set-value";
-            return await this
-                .CallConnectorAsync<XmlSetValueWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditSetValueWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/set-value";
+                return await this
+                    .CallConnectorAsync<XmlSetValueWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7323,10 +8563,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Query an XML file using XQuery query, get results response.</returns>
         public virtual async Task<XmlQueryWithXQueryResult> ConvertDataXmlQueryWithXQueryAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/query/xquery";
-            return await this
-                .CallConnectorAsync<XmlQueryWithXQueryResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlQueryWithXQueryAsync");
+            try
+            {
+                var path = $"/convert/xml/query/xquery";
+                return await this
+                    .CallConnectorAsync<XmlQueryWithXQueryResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7337,10 +8587,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Query multiple XML files using XQuery query, get results response.</returns>
         public virtual async Task<XmlQueryWithXQueryMultiResult> ConvertDataXmlQueryWithXQueryMultiAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/query/xquery/multi";
-            return await this
-                .CallConnectorAsync<XmlQueryWithXQueryMultiResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlQueryWithXQueryMultiAsync");
+            try
+            {
+                var path = $"/convert/xml/query/xquery/multi";
+                return await this
+                    .CallConnectorAsync<XmlQueryWithXQueryMultiResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7351,10 +8611,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Filter, select XML nodes using XPath expression, get results response.</returns>
         public virtual async Task<XmlFilterWithXPathResult> ConvertDataXmlFilterWithXPathAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/select/xpath";
-            return await this
-                .CallConnectorAsync<XmlFilterWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlFilterWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/select/xpath";
+                return await this
+                    .CallConnectorAsync<XmlFilterWithXPathResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7365,10 +8635,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Convert XML to JSON conversion response.</returns>
         public virtual async Task<ConvertDataXmlToJsonResponse> ConvertDataXmlToJsonAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/to/json";
-            return await this
-                .CallConnectorAsync<ConvertDataXmlToJsonResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlToJsonAsync");
+            try
+            {
+                var path = $"/convert/xml/to/json";
+                return await this
+                    .CallConnectorAsync<ConvertDataXmlToJsonResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7379,10 +8659,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <returns>The Transform XML document file with XSLT into a new XML document response.</returns>
         public virtual async Task<string> ConvertDataXmlTransformWithXsltToXmlAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/convert/xml/transform/xslt/to/xml";
-            return await this
-                .CallConnectorAsync<string>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlTransformWithXsltToXmlAsync");
+            try
+            {
+                var path = $"/convert/xml/transform/xslt/to/xml";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

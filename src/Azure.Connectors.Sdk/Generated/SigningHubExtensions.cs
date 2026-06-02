@@ -153,7 +153,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     {
         /// <summary>Certify signature settings for the document.</summary>
         [JsonPropertyName("certify")]
-        public object Certify { get; set; }
+        public JsonElement? Certify { get; set; }
 
         /// <summary>True if forms fields are to be locked in the PDF after the last digital signature on the current document.</summary>
         [JsonPropertyName("lock_form_fields")]
@@ -215,11 +215,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Certified signature settings for the document.</summary>
         [JsonPropertyName("certify")]
-        public object Certify { get; set; }
+        public JsonElement? Certify { get; set; }
 
         /// <summary>Template details, if the template is applied on the document.</summary>
         [JsonPropertyName("template")]
-        public object Template { get; set; }
+        public JsonElement? Template { get; set; }
     }
 
     /// <summary>
@@ -281,11 +281,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Certified signature settings for the document.</summary>
         [JsonPropertyName("certify")]
-        public object Certify { get; set; }
+        public JsonElement? Certify { get; set; }
 
         /// <summary>Template details, if the template is applied on the document.</summary>
         [JsonPropertyName("template")]
-        public object Template { get; set; }
+        public JsonElement? Template { get; set; }
 
         /// <summary>Package name</summary>
         [JsonPropertyName("package_name")]
@@ -293,7 +293,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Uploaded document pdf meta information</summary>
         [JsonPropertyName("metadata")]
-        public object Metadata { get; set; }
+        public JsonElement? Metadata { get; set; }
     }
 
     /// <summary>
@@ -351,7 +351,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Certified signature settings for the document.</summary>
         [JsonPropertyName("certify")]
-        public object Certify { get; set; }
+        public JsonElement? Certify { get; set; }
 
         /// <summary>Uploaded document size in bytes</summary>
         [JsonPropertyName("document_size")]
@@ -359,7 +359,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Uploaded document pdf meta information</summary>
         [JsonPropertyName("metadata")]
-        public object Metadata { get; set; }
+        public JsonElement? Metadata { get; set; }
 
         /// <summary>The document package name</summary>
         [JsonPropertyName("package_name")]
@@ -373,15 +373,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     {
         /// <summary>Authentication object with the details of authentication methods applied on the document for the recipient.</summary>
         [JsonPropertyName("authentication")]
-        public object Authentication { get; set; }
+        public JsonElement? Authentication { get; set; }
 
         /// <summary>Authentication Signing for the package</summary>
         [JsonPropertyName("authentication_signing")]
-        public object AuthenticationSigning { get; set; }
+        public JsonElement? AuthenticationSigning { get; set; }
 
         /// <summary>Access duration object with the details of access securities for the recipient.</summary>
         [JsonPropertyName("access_duration")]
-        public object AccessDuration { get; set; }
+        public JsonElement? AccessDuration { get; set; }
     }
 
     /// <summary>
@@ -417,7 +417,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>in_person_signature</summary>
         [JsonPropertyName("in_person_signature")]
-        public List<object> InPersonSignature { get; set; }
+        public List<JsonElement?> InPersonSignature { get; set; }
 
         /// <summary>text</summary>
         [JsonPropertyName("text")]
@@ -511,7 +511,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Returns the verification response of signature field. In case of no verification, null is returned.</summary>
         [JsonPropertyName("verification")]
-        public object Verification { get; set; }
+        public JsonElement? Verification { get; set; }
 
         /// <summary>nid</summary>
         [JsonPropertyName("nid")]
@@ -527,7 +527,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Authentication</summary>
         [JsonPropertyName("authentication")]
-        public object Authentication { get; set; }
+        public JsonElement? Authentication { get; set; }
     }
 
     /// <summary>
@@ -689,11 +689,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Authentication</summary>
         [JsonPropertyName("authentication")]
-        public object Authentication { get; set; }
+        public JsonElement? Authentication { get; set; }
 
         /// <summary>Returns the verification response of the field. In case of no verification, null is returned.</summary>
         [JsonPropertyName("verification")]
-        public object Verification { get; set; }
+        public JsonElement? Verification { get; set; }
 
         /// <summary>nid</summary>
         [JsonPropertyName("nid")]
@@ -805,7 +805,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>This object is for required Value to be passed</summary>
         [JsonPropertyName("validation")]
-        public object Validation { get; set; }
+        public JsonElement? Validation { get; set; }
 
         /// <summary>True, if the field is not hidden in the PDF document.</summary>
         [JsonPropertyName("visible")]
@@ -1221,15 +1221,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Settings regarding options</summary>
         [JsonPropertyName("options")]
-        public object Options { get; set; }
+        public JsonElement? Options { get; set; }
 
         /// <summary>Settings regarding color</summary>
         [JsonPropertyName("color")]
-        public object Color { get; set; }
+        public JsonElement? Color { get; set; }
 
         /// <summary>Settings regarding logo</summary>
         [JsonPropertyName("logo")]
-        public object Logo { get; set; }
+        public JsonElement? Logo { get; set; }
     }
 
     /// <summary>
@@ -1279,11 +1279,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
         [JsonPropertyName("validation_rule")]
-        public object ValidationRule { get; set; }
+        public JsonElement? ValidationRule { get; set; }
 
         /// <summary>Dimentions</summary>
         [JsonPropertyName("dimensions")]
-        public object Dimensions { get; set; }
+        public JsonElement? Dimensions { get; set; }
     }
 
     /// <summary>
@@ -1313,7 +1313,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public object Dimensions { get; set; }
+        public JsonElement? Dimensions { get; set; }
     }
 
     /// <summary>
@@ -1457,11 +1457,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Specify start and end date/time for a recipient to access the document. The recipient will not be able to access the document beyond this duration. If the document is not processed within the specified time,  the document will be considered declined.. This will be provided if &quot;x-recipient-details&quot; is passed as true in the header</summary>
         [JsonPropertyName("access_duration")]
-        public object AccessDuration { get; set; }
+        public JsonElement? AccessDuration { get; set; }
 
         /// <summary>Document decline details if its either manually declined or auto via Core. This will be provided if &quot;x-recipient-details&quot; is passed as true in the header</summary>
         [JsonPropertyName("decline")]
-        public object Decline { get; set; }
+        public JsonElement? Decline { get; set; }
 
         /// <summary>Size of the document in bytes.</summary>
         [JsonPropertyName("size")]
@@ -1623,7 +1623,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Smart form</summary>
         [JsonPropertyName("smart_form")]
-        public object SmartForm { get; set; }
+        public JsonElement? SmartForm { get; set; }
     }
 
     /// <summary>
@@ -1767,7 +1767,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Signature Verification</summary>
         [JsonPropertyName("verification")]
-        public object Verification { get; set; }
+        public JsonElement? Verification { get; set; }
 
         /// <summary>It will contain the OIDC id_token when user is authenticated via OIDC</summary>
         [JsonPropertyName("authentication_access_token")]
@@ -1897,7 +1897,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Workflow object with the workflow details.</summary>
         [JsonPropertyName("workflow")]
-        public object Workflow { get; set; }
+        public JsonElement? Workflow { get; set; }
 
         /// <summary>List of documents that are uploaded in the package.</summary>
         [JsonPropertyName("documents")]
@@ -1963,7 +1963,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Template object which is applied on the document along with the template details.</summary>
         [JsonPropertyName("template")]
-        public object Template { get; set; }
+        public JsonElement? Template { get; set; }
 
         /// <summary>certify</summary>
         [JsonPropertyName("certify")]
@@ -2063,7 +2063,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Gatekeepers</summary>
         [JsonPropertyName("gatekeepers")]
-        public object Gatekeepers { get; set; }
+        public JsonElement? Gatekeepers { get; set; }
 
         /// <summary>Role of the recipient i.e., &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; or &quot;INPERSON_HOST&quot;.</summary>
         [JsonPropertyName("role")]
@@ -2095,15 +2095,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Permissions for the recipient set by the owner of  the document package.</summary>
         [JsonPropertyName("permission")]
-        public object Permission { get; set; }
+        public JsonElement? Permission { get; set; }
 
         /// <summary>Authentications object with the details of any authentications and access securities configured for the recipient.</summary>
         [JsonPropertyName("authentications")]
-        public object Authentications { get; set; }
+        public JsonElement? Authentications { get; set; }
 
         /// <summary>Reminder object with the details of reminder settings.</summary>
         [JsonPropertyName("reminder")]
-        public object Reminder { get; set; }
+        public JsonElement? Reminder { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -2123,7 +2123,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>electronic seal</summary>
         [JsonPropertyName("electronic_seal")]
-        public object ElectronicSeal { get; set; }
+        public JsonElement? ElectronicSeal { get; set; }
     }
 
     /// <summary>
@@ -2235,7 +2235,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Repeat object with the details of reminder being repeated or not.</summary>
         [JsonPropertyName("repeat")]
-        public object Repeat { get; set; }
+        public JsonElement? Repeat { get; set; }
     }
 
     /// <summary>
@@ -2333,7 +2333,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Gatekeepers</summary>
         [JsonPropertyName("gatekeepers")]
-        public object Gatekeepers { get; set; }
+        public JsonElement? Gatekeepers { get; set; }
     }
 
     /// <summary>
@@ -2391,11 +2391,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Legal notice set by the owner for the recipient.</summary>
         [JsonPropertyName("legal_notice")]
-        public object LegalNotice { get; set; }
+        public JsonElement? LegalNotice { get; set; }
 
         /// <summary>Attachments</summary>
         [JsonPropertyName("attachment")]
-        public object Attachment { get; set; }
+        public JsonElement? Attachment { get; set; }
     }
 
     /// <summary>
@@ -2419,11 +2419,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     {
         /// <summary>Permissions for the recipient in the document package</summary>
         [JsonPropertyName("permission")]
-        public object Permission { get; set; }
+        public JsonElement? Permission { get; set; }
 
         /// <summary>Reminder settings of the recipient.</summary>
         [JsonPropertyName("reminder")]
-        public object Reminder { get; set; }
+        public JsonElement? Reminder { get; set; }
 
         /// <summary>Signing order</summary>
         [JsonPropertyName("signing_order")]
@@ -2437,11 +2437,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     {
         /// <summary>Permissions for the recipient in the document package</summary>
         [JsonPropertyName("permission")]
-        public object Permission { get; set; }
+        public JsonElement? Permission { get; set; }
 
         /// <summary>Reminder settings of the recipient.</summary>
         [JsonPropertyName("reminder")]
-        public object Reminder { get; set; }
+        public JsonElement? Reminder { get; set; }
 
         /// <summary>Signing order</summary>
         [JsonPropertyName("signing_order")]
@@ -2471,11 +2471,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Permissions for the recipient in the document package</summary>
         [JsonPropertyName("permission")]
-        public object Permission { get; set; }
+        public JsonElement? Permission { get; set; }
 
         /// <summary>Reminder settings of the recipient.</summary>
         [JsonPropertyName("reminder")]
-        public object Reminder { get; set; }
+        public JsonElement? Reminder { get; set; }
     }
 
     /// <summary>
@@ -2515,7 +2515,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Owner of shared space</summary>
         [JsonPropertyName("owner")]
-        public object Owner { get; set; }
+        public JsonElement? Owner { get; set; }
 
         /// <summary>Members of shared space</summary>
         [JsonPropertyName("members")]
@@ -2547,15 +2547,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>It has the access aauthentication data</summary>
         [JsonPropertyName("authentication")]
-        public object Authentication { get; set; }
+        public JsonElement? Authentication { get; set; }
 
         /// <summary>It has the signing authentication data</summary>
         [JsonPropertyName("authentication_signing")]
-        public object AuthenticationSigning { get; set; }
+        public JsonElement? AuthenticationSigning { get; set; }
 
         /// <summary>It has the access duration of the workflow</summary>
         [JsonPropertyName("access_duration")]
-        public object AccessDuration { get; set; }
+        public JsonElement? AccessDuration { get; set; }
     }
 
     /// <summary>
@@ -2573,7 +2573,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public object Dimensions { get; set; }
+        public JsonElement? Dimensions { get; set; }
 
         /// <summary>The plain text data to be encoded in the QR code. Default is URL generated to access the related document. e.g. {base_url}/document/{document_unique_id}</summary>
         [JsonPropertyName("data")]
@@ -2581,15 +2581,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Settings regarding options</summary>
         [JsonPropertyName("options")]
-        public object Options { get; set; }
+        public JsonElement? Options { get; set; }
 
         /// <summary>Settings regarding color</summary>
         [JsonPropertyName("color")]
-        public object Color { get; set; }
+        public JsonElement? Color { get; set; }
 
         /// <summary>Settings regarding logo</summary>
         [JsonPropertyName("logo")]
-        public object Logo { get; set; }
+        public JsonElement? Logo { get; set; }
     }
 
     /// <summary>
@@ -2633,7 +2633,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public object Dimensions { get; set; }
+        public JsonElement? Dimensions { get; set; }
 
         /// <summary>The plain text data to be encoded in the QR code. Default is URL generated to access the related document. e.g. {base_url}/document/{document_unique_id}</summary>
         [JsonPropertyName("data")]
@@ -2641,15 +2641,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Settings regarding options</summary>
         [JsonPropertyName("options")]
-        public object Options { get; set; }
+        public JsonElement? Options { get; set; }
 
         /// <summary>Settings regarding color</summary>
         [JsonPropertyName("color")]
-        public object Color { get; set; }
+        public JsonElement? Color { get; set; }
 
         /// <summary>Settings regarding logo</summary>
         [JsonPropertyName("logo")]
-        public object Logo { get; set; }
+        public JsonElement? Logo { get; set; }
     }
 
     /// <summary>
@@ -2673,7 +2673,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     {
         /// <summary>Certify settings object for the document.</summary>
         [JsonPropertyName("certify")]
-        public object Certify { get; set; }
+        public JsonElement? Certify { get; set; }
 
         /// <summary>True if form fields are to be locked after the last signature on the current document.</summary>
         [JsonPropertyName("lock_form_fields")]
@@ -2697,11 +2697,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     {
         /// <summary>Workflow type for the package e.g (SERIAL,PARALLEL,INDIVIDUAL,CUSTOM). If no value is provided, old value will be retained.</summary>
         [JsonPropertyName("workflow_type")]
-        public object WorkflowType { get; set; }
+        public JsonElement? WorkflowType { get; set; }
 
         /// <summary>Workflow mode of the package e.g (ONLY_ME, ME_AND_OTHERS, ONLY_OTHERS). If workflow mode is set to ONLY_ME then no collaborator can be added to package other then authenticated user itself</summary>
         [JsonPropertyName("workflow_mode")]
-        public object WorkflowMode { get; set; }
+        public JsonElement? WorkflowMode { get; set; }
 
         /// <summary>True, if workflow needs to continue even if any recipient declines the document. If no value is provided, old value will be retained.</summary>
         [JsonPropertyName("continue_on_decline")]
@@ -2781,7 +2781,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Role of the recipient in the workflow. Possible values are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; or &quot;INPERSON_HOST&quot;. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
         [JsonPropertyName("role")]
-        public object Role { get; set; }
+        public JsonElement? Role { get; set; }
 
         /// <summary>Order of the recipient in the workflow. This signing order is mandatory when workflow type is &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -2789,7 +2789,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Delivery method of the recipient in the workflow. Possible values are &quot;EMAIL&quot;, &quot;SMS&quot;, or &quot;EMAIL_AND_SMS&quot;. Default value would be EMAIL</summary>
         [JsonPropertyName("delivery_method")]
-        public object DeliveryMethod { get; set; }
+        public JsonElement? DeliveryMethod { get; set; }
 
         /// <summary>Mobile Number</summary>
         [JsonPropertyName("mobile_number")]
@@ -2821,7 +2821,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Mode of the workflow, there are three types of workflow modes supported in application. Possible values are &quot;ONLY_ME&quot;, &quot;ME_AND_OTHERS&quot; and &quot;ONLY_OTHERS&quot;</summary>
         [JsonPropertyName("workflow_mode")]
-        public object WorkflowMode { get; set; }
+        public JsonElement? WorkflowMode { get; set; }
 
         /// <summary>The name of the folder. It will be used to upload package in any folder of the user, either it is a custom folder or a shared folder.</summary>
         [JsonPropertyName("folder_name")]
@@ -2891,7 +2891,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Name of the hand signature method by user for signing. In case no hand signature method is provided then default will be DRAW. possible values DRAW,TEXT,UPLOAD,SIGNATURE_PAD</summary>
         [JsonPropertyName("hand_signature_method")]
-        public object HandSignatureMethod { get; set; }
+        public JsonElement? HandSignatureMethod { get; set; }
 
         /// <summary>Reason of signing provided by the recipient.</summary>
         [JsonPropertyName("signing_reason")]
@@ -2919,7 +2919,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Authentication object is an optional, it contains authentication releated options</summary>
         [JsonPropertyName("authentication")]
-        public object Authentication { get; set; }
+        public JsonElement? Authentication { get; set; }
 
         /// <summary>re-initiated signing process transaction id</summary>
         [JsonPropertyName("transaction_id")]
@@ -2951,7 +2951,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Name of the hand signature method by user for signing. In case no hand signature method is provided then default will be DRAW.</summary>
         [JsonPropertyName("hand_signature_method")]
-        public object HandSignatureMethod { get; set; }
+        public JsonElement? HandSignatureMethod { get; set; }
 
         /// <summary>Reason of signing provided by the recipient. Note: Commitment type indication for XML documents</summary>
         [JsonPropertyName("signing_reason")]
@@ -2991,7 +2991,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Authentication object is an optional, it contains authentication releated options</summary>
         [JsonPropertyName("authentication")]
-        public object Authentication { get; set; }
+        public JsonElement? Authentication { get; set; }
     }
 
     /// <summary>
@@ -3021,7 +3021,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Dimensions of a field to be created in the document. X and Y location is calculated automatically. API can only configure width and height for the field. If dimensions are not provided default dimensions will be followed. that is 200 x 80 in pixels.</summary>
         [JsonPropertyName("dimensions")]
-        public object Dimensions { get; set; }
+        public JsonElement? Dimensions { get; set; }
 
         /// <summary>Provide note in the case of Mandatory Attachment</summary>
         [JsonPropertyName("placeholder")]
@@ -3049,11 +3049,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Validations</summary>
         [JsonPropertyName("validation")]
-        public object Validation { get; set; }
+        public JsonElement? Validation { get; set; }
 
         /// <summary>Font of the fields text             </summary>
         [JsonPropertyName("font")]
-        public object Font { get; set; }
+        public JsonElement? Font { get; set; }
 
         /// <summary>This belongs to Text Area field type and If set to true, text area field would be created with multi line option.             </summary>
         [JsonPropertyName("multiline")]
@@ -3201,7 +3201,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Name of the hand signature method by user for signing. In case no hand signature method is provided then default will be DRAW. possible values DRAW,TEXT,UPLOAD,SIGNATURE_PAD</summary>
         [JsonPropertyName("method")]
-        public object Method { get; set; }
+        public JsonElement? Method { get; set; }
 
         /// <summary>True if all initials are to be filled.</summary>
         [JsonPropertyName("apply_to_all")]
@@ -3265,7 +3265,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field Authentication</summary>
         [JsonPropertyName("authentication_signing")]
-        public object AuthenticationSigning { get; set; }
+        public JsonElement? AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3303,7 +3303,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field Authentication</summary>
         [JsonPropertyName("authentication_signing")]
-        public object AuthenticationSigning { get; set; }
+        public JsonElement? AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3337,7 +3337,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field Authentication</summary>
         [JsonPropertyName("authentication_signing")]
-        public object AuthenticationSigning { get; set; }
+        public JsonElement? AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3371,7 +3371,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field Authentication</summary>
         [JsonPropertyName("authentication_signing")]
-        public object AuthenticationSigning { get; set; }
+        public JsonElement? AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3449,7 +3449,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Type of the field, possible values are &quot;TEXT&quot;, &quot;NAME&quot;, &quot;EMAIL&quot;, &quot;COMPANY&quot;, &quot;JOBTITLE&quot;, &quot;DATE&quot;. All text fields other then TEXT are auto filled in pending mode with the attributes/data of the recipient.</summary>
         [JsonPropertyName("type")]
-        public object Type { get; set; }
+        public JsonElement? Type { get; set; }
 
         /// <summary>Value of the field. For type = DATE, the value is expected to follow ISO 8601 format.Following the format YYYY-MM-DD hh:mm:ss +00. As the values are for date fields client applications can send YYYY-MM-DD and ignore hh:mm:ss +00. If value is not in proper format an error will be returned.</summary>
         [JsonPropertyName("value")]
@@ -3477,19 +3477,19 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field type with respect to accepting the type of values, possible values are &quot;NUMBER&quot; or &quot;TEXT&quot;.</summary>
         [JsonPropertyName("field_type")]
-        public object FieldType { get; set; }
+        public JsonElement? FieldType { get; set; }
 
         /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
         [JsonPropertyName("validation_rule")]
-        public object ValidationRule { get; set; }
+        public JsonElement? ValidationRule { get; set; }
 
         /// <summary>Validations</summary>
         [JsonPropertyName("validation")]
-        public object Validation { get; set; }
+        public JsonElement? Validation { get; set; }
 
         /// <summary>Font of the fields text             </summary>
         [JsonPropertyName("font")]
-        public object Font { get; set; }
+        public JsonElement? Font { get; set; }
 
         /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
@@ -3531,15 +3531,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Field type with respect to accepting the type of values, possible values are &quot;NUMBER&quot; or &quot;TEXT&quot;.</summary>
         [JsonPropertyName("field_type")]
-        public object FieldType { get; set; }
+        public JsonElement? FieldType { get; set; }
 
         /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
         [JsonPropertyName("validation_rule")]
-        public object ValidationRule { get; set; }
+        public JsonElement? ValidationRule { get; set; }
 
         /// <summary>Font of the fields text             </summary>
         [JsonPropertyName("font")]
-        public object Font { get; set; }
+        public JsonElement? Font { get; set; }
 
         /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
@@ -3555,7 +3555,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Validations</summary>
         [JsonPropertyName("validation")]
-        public object Validation { get; set; }
+        public JsonElement? Validation { get; set; }
     }
 
     /// <summary>
@@ -3581,7 +3581,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
         [JsonPropertyName("validation_rule")]
-        public object ValidationRule { get; set; }
+        public JsonElement? ValidationRule { get; set; }
 
         /// <summary>radio_group_name</summary>
         [JsonPropertyName("radio_group_name")]
@@ -3615,7 +3615,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
         [JsonPropertyName("validation_rule")]
-        public object ValidationRule { get; set; }
+        public JsonElement? ValidationRule { get; set; }
 
         /// <summary>The group name to which the field belongs.</summary>
         [JsonPropertyName("radio_group_name")]
@@ -3637,7 +3637,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>It has all the permissions to be allowed in the workflow</summary>
         [JsonPropertyName("permissions")]
-        public object Permissions { get; set; }
+        public JsonElement? Permissions { get; set; }
     }
 
     /// <summary>
@@ -3663,7 +3663,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Role of the recipient to be updated. Possible values are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; or &quot;INPERSON_HOST&quot;. If no value is provided, old value will be retained. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
         [JsonPropertyName("role")]
-        public object Role { get; set; }
+        public JsonElement? Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3675,7 +3675,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Delivery method of the recipient in the workflow. Possible values are &quot;EMAIL&quot;, &quot;SMS&quot;, or &quot;EMAIL_AND_SMS&quot;. Default value would be EMAIL</summary>
         [JsonPropertyName("delivery_method")]
-        public object DeliveryMethod { get; set; }
+        public JsonElement? DeliveryMethod { get; set; }
     }
 
     /// <summary>
@@ -3711,7 +3711,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>The reminders would be sent to user repeatedly.</summary>
         [JsonPropertyName("repeat")]
-        public object Repeat { get; set; }
+        public JsonElement? Repeat { get; set; }
     }
 
     /// <summary>
@@ -3729,7 +3729,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Role of the group as a recipient in the workflow. Possible value are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; and &quot;INPERSON_HOST&quot;. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
         [JsonPropertyName("role")]
-        public object Role { get; set; }
+        public JsonElement? Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3751,7 +3751,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Role of the group as a recipient in the workflow. Possible value are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; and &quot;INPERSON_HOST&quot;. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
         [JsonPropertyName("role")]
-        public object Role { get; set; }
+        public JsonElement? Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3773,7 +3773,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>Role of the group as a recipient in the workflow. Possible value are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; and &quot;INPERSON_HOST&quot;. If no value is provided, old value will be retained. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
         [JsonPropertyName("role")]
-        public object Role { get; set; }
+        public JsonElement? Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -4346,7 +4346,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// <summary>
     /// Model factory for creating instances of SigningHub models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class SigningHubModelFactory
     {
@@ -4430,7 +4430,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="CertifyPolicyResponse"/>.
         /// </summary>
         public static CertifyPolicyResponse CertifyPolicyResponse(
-            object certify = default,
+            JsonElement? certify = default,
             bool? lockFormFields = default)
         {
             return new CertifyPolicyResponse
@@ -4456,8 +4456,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? lockFormFields = default,
             string uploadedOn = default,
             string modifiedOn = default,
-            object certify = default,
-            object template = default)
+            JsonElement? certify = default,
+            JsonElement? template = default)
         {
             return new DocumentDetailsResponse
             {
@@ -4495,10 +4495,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             DateTime? modifiedOn = default,
             bool? formFields = default,
             bool? lockFormFields = default,
-            object certify = default,
-            object template = default,
+            JsonElement? certify = default,
+            JsonElement? template = default,
             string packageName = default,
-            object metadata = default)
+            JsonElement? metadata = default)
         {
             return new UploadDocumentLibraryResponse
             {
@@ -4538,9 +4538,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             DateTime? uploadedOn = default,
             DateTime? modifiedOn = default,
             bool? lockFormFields = default,
-            object certify = default,
+            JsonElement? certify = default,
             int? documentSize = default,
-            object metadata = default,
+            JsonElement? metadata = default,
             string packageName = default)
         {
             return new UploadDocument
@@ -4568,9 +4568,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="EnterpriseAccessResponse"/>.
         /// </summary>
         public static EnterpriseAccessResponse EnterpriseAccessResponse(
-            object authentication = default,
-            object authenticationSigning = default,
-            object accessDuration = default)
+            JsonElement? authentication = default,
+            JsonElement? authenticationSigning = default,
+            JsonElement? accessDuration = default)
         {
             return new EnterpriseAccessResponse
             {
@@ -4600,7 +4600,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<HandSignatureFieldResponse> handSignature = default,
             List<ElectronicSignatureFieldResponse> electronicSignature = default,
             List<InitialFieldResponse> initials = default,
-            List<object> inPersonSignature = default,
+            List<JsonElement?> inPersonSignature = default,
             List<TextFieldResponse> text = default,
             List<RadioFieldResponse> radio = default,
             List<CheckboxFieldResponse> checkbox = default,
@@ -4646,11 +4646,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string createdOn = default,
             string processedBy = default,
             FieldDimenssionResponse dimensions = default,
-            object verification = default,
+            JsonElement? verification = default,
             string nid = default,
             Display? display = default,
             List<string> levelOfAssurance = default,
-            object authentication = default)
+            JsonElement? authentication = default)
         {
             return new DigitalSignatureFieldResponse
             {
@@ -4770,8 +4770,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string processedBy = default,
             FieldDimenssionResponse dimensions = default,
             string signatureSubType = default,
-            object authentication = default,
-            object verification = default,
+            JsonElement? authentication = default,
+            JsonElement? verification = default,
             string nid = default,
             Display? display = default)
         {
@@ -4842,7 +4842,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string value = default,
             bool? readOnly = default,
             string validationRule = default,
-            object validation = default,
+            JsonElement? validation = default,
             bool? visible = default,
             bool? multiline = default,
             FontResponse font = default,
@@ -5098,9 +5098,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string value = default,
             FieldDimenssionResponse dimensions = default,
             string data = default,
-            object options = default,
-            object color = default,
-            object logo = default)
+            JsonElement? options = default,
+            JsonElement? color = default,
+            JsonElement? logo = default)
         {
             return new QrCodeResponse
             {
@@ -5130,8 +5130,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string processedBy = default,
             int? attachmentRefId = default,
             string note = default,
-            object validationRule = default,
-            object dimensions = default)
+            JsonElement? validationRule = default,
+            JsonElement? dimensions = default)
         {
             return new AttachmentFieldResponse
             {
@@ -5159,7 +5159,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? unreadCount = default,
             bool? @private = default,
             List<CommentFieldRecipientResponse> recipients = default,
-            object dimensions = default)
+            JsonElement? dimensions = default)
         {
             return new CommentFieldResponse
             {
@@ -5242,8 +5242,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<NextSignerEmail> nextSignerEmail = default,
             string uploadedOn = default,
             string modifiedOn = default,
-            object accessDuration = default,
-            object decline = default,
+            JsonElement? accessDuration = default,
+            JsonElement? decline = default,
             long? size = default)
         {
             return new GetPackagesResponse
@@ -5382,7 +5382,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string description = default,
             bool? enterprise = default,
             List<TemplateDocumentResponse> documents = default,
-            object smartForm = default)
+            JsonElement? smartForm = default)
         {
             return new TemplateResponse
             {
@@ -5515,7 +5515,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string fieldName = default,
             string status = default,
             string transactionId = default,
-            object verification = default,
+            JsonElement? verification = default,
             string authenticationAccessToken = default)
         {
             return new SignDocumentResponse
@@ -5585,7 +5585,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<NextSignerEmail> nextSignerEmail = default,
             string uploadedOn = default,
             string modifiedOn = default,
-            object workflow = default,
+            JsonElement? workflow = default,
             List<WorkflowDocumentsResponse> documents = default,
             List<WorkflowUserResponse> users = default)
         {
@@ -5626,7 +5626,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string createdOn = default,
             string modifiedOn = default,
             bool? formFields = default,
-            object template = default,
+            JsonElement? template = default,
             CertifyResponse certify = default,
             bool? lockFormFields = default,
             bool? locked = default,
@@ -5692,7 +5692,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<string> groupMembers = default,
             string delegator = default,
             string gatekeeper = default,
-            object gatekeepers = default,
+            JsonElement? gatekeepers = default,
             string role = default,
             string processStatus = default,
             string processedOn = default,
@@ -5700,14 +5700,14 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string processedBy = default,
             string reason = default,
             string placeholder = default,
-            object permission = default,
-            object authentications = default,
-            object reminder = default,
+            JsonElement? permission = default,
+            JsonElement? authentications = default,
+            JsonElement? reminder = default,
             int? signingOrder = default,
             string userNationalId = default,
             bool? guestUser = default,
             string emailLanguageCode = default,
-            object electronicSeal = default)
+            JsonElement? electronicSeal = default)
         {
             return new WorkflowUserResponse
             {
@@ -5813,7 +5813,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? enabled = default,
             Frequency? frequency = default,
             int? remindAfter = default,
-            object repeat = default)
+            JsonElement? repeat = default)
         {
             return new ReminderResponse
             {
@@ -5850,7 +5850,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? guestUser = default,
             string emailLanguageCode = default,
             ElectronicSealRecipient electronicSeal = default,
-            object gatekeepers = default)
+            JsonElement? gatekeepers = default)
         {
             return new WorkflowRecipient
             {
@@ -5917,8 +5917,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? addText = default,
             bool? changeRecipients = default,
             bool? addAttachment = default,
-            object legalNotice = default,
-            object attachment = default)
+            JsonElement? legalNotice = default,
+            JsonElement? attachment = default)
         {
             return new WorkflowPermissionResponse
             {
@@ -5950,8 +5950,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="CollaboratorGroupResponse"/>.
         /// </summary>
         public static CollaboratorGroupResponse CollaboratorGroupResponse(
-            object permission = default,
-            object reminder = default,
+            JsonElement? permission = default,
+            JsonElement? reminder = default,
             int? signingOrder = default)
         {
             return new CollaboratorGroupResponse
@@ -5966,8 +5966,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="CollaboratorPlaceholderResponse"/>.
         /// </summary>
         public static CollaboratorPlaceholderResponse CollaboratorPlaceholderResponse(
-            object permission = default,
-            object reminder = default,
+            JsonElement? permission = default,
+            JsonElement? reminder = default,
             int? signingOrder = default)
         {
             return new CollaboratorPlaceholderResponse
@@ -5986,8 +5986,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? signingOrder = default,
             bool? guestUser = default,
             string emailLanguageCode = default,
-            object permission = default,
-            object reminder = default)
+            JsonElement? permission = default,
+            JsonElement? reminder = default)
         {
             return new CollaboratorResponse
             {
@@ -6024,7 +6024,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static WorkSpaceResponse WorkSpaceResponse(
             long? id = default,
             string name = default,
-            object owner = default,
+            JsonElement? owner = default,
             List<WorkSpaceMembers> members = default)
         {
             return new WorkSpaceResponse
@@ -6055,9 +6055,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static AccessUpdateRequest AccessUpdateRequest(
             bool? applyToAll = default,
-            object authentication = default,
-            object authenticationSigning = default,
-            object accessDuration = default)
+            JsonElement? authentication = default,
+            JsonElement? authenticationSigning = default,
+            JsonElement? accessDuration = default)
         {
             return new AccessUpdateRequest
             {
@@ -6074,11 +6074,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static QrCodeRequest QrCodeRequest(
             int? pageNo = default,
             string fieldName = default,
-            object dimensions = default,
+            JsonElement? dimensions = default,
             string data = default,
-            object options = default,
-            object color = default,
-            object logo = default)
+            JsonElement? options = default,
+            JsonElement? color = default,
+            JsonElement? logo = default)
         {
             return new QrCodeRequest
             {
@@ -6117,11 +6117,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string fieldName = default,
             string renamedAs = default,
             int? pageNo = default,
-            object dimensions = default,
+            JsonElement? dimensions = default,
             string data = default,
-            object options = default,
-            object color = default,
-            object logo = default)
+            JsonElement? options = default,
+            JsonElement? color = default,
+            JsonElement? logo = default)
         {
             return new UpdateQrCodeRequest
             {
@@ -6154,7 +6154,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="UpdateCertifyPolicyRequest"/>.
         /// </summary>
         public static UpdateCertifyPolicyRequest UpdateCertifyPolicyRequest(
-            object certify = default,
+            JsonElement? certify = default,
             bool? lockFormFields = default)
         {
             return new UpdateCertifyPolicyRequest
@@ -6180,8 +6180,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="WorkflowDetailUpdateRequest"/>.
         /// </summary>
         public static WorkflowDetailUpdateRequest WorkflowDetailUpdateRequest(
-            object workflowType = default,
-            object workflowMode = default,
+            JsonElement? workflowType = default,
+            JsonElement? workflowMode = default,
             bool? continueOnDecline = default,
             string message = default,
             bool? comments = default)
@@ -6232,9 +6232,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string userName = default,
             string userNationalId = default,
             bool? emailNotification = default,
-            object role = default,
+            JsonElement? role = default,
             int? signingOrder = default,
-            object deliveryMethod = default,
+            JsonElement? deliveryMethod = default,
             string mobileNumber = default)
         {
             return new WorflowUserRequest
@@ -6269,7 +6269,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static AddDocumentPackageRequest AddDocumentPackageRequest(
             string packageName = default,
-            object workflowMode = default,
+            JsonElement? workflowMode = default,
             string folderName = default)
         {
             return new AddDocumentPackageRequest
@@ -6336,14 +6336,14 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string handSignatureInitialsImage = default,
             int? handSignatureInitialsMethod = default,
             string handSignatureImage = default,
-            object handSignatureMethod = default,
+            JsonElement? handSignatureMethod = default,
             string signingReason = default,
             string signingLocation = default,
             string contactInformation = default,
             AppearanceDesign? appearanceDesign = default,
             string signingServer = default,
             string signingCapacity = default,
-            object authentication = default,
+            JsonElement? authentication = default,
             string transactionId = default)
         {
             return new BulkSignRequest
@@ -6382,7 +6382,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static SignDocumentRequest SignDocumentRequest(
             string fieldName = default,
             string handSignatureImage = default,
-            object handSignatureMethod = default,
+            JsonElement? handSignatureMethod = default,
             string signingReason = default,
             string signingLocation = default,
             string contactInformation = default,
@@ -6392,7 +6392,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string signingCapacity = default,
             bool? skipVerification = default,
             string signingServer = default,
-            object authentication = default)
+            JsonElement? authentication = default)
         {
             return new SignDocumentRequest
             {
@@ -6421,15 +6421,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             Placement? placement = default,
             FieldType? fieldType = default,
             List<string> levelOfAssurance = default,
-            object dimensions = default,
+            JsonElement? dimensions = default,
             string placeholder = default,
             string radioGroupName = default,
             string format = default,
             string value = default,
             int? maxLength = default,
             ValidationRule? validationRule = default,
-            object validation = default,
-            object font = default,
+            JsonElement? validation = default,
+            JsonElement? font = default,
             bool? multiline = default)
         {
             return new AutoPlaceFieldRequest
@@ -6570,7 +6570,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static InitialFillingRequest InitialFillingRequest(
             string fieldName = default,
             string image = default,
-            object method = default,
+            JsonElement? method = default,
             bool? applyToAll = default)
         {
             return new InitialFillingRequest
@@ -6611,7 +6611,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             FieldDimension dimensions = default,
             Display? display = default,
             List<string> levelOfAssurance = default,
-            object authenticationSigning = default)
+            JsonElement? authenticationSigning = default)
         {
             return new InPersonFieldRequest
             {
@@ -6637,7 +6637,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             FieldDimension dimensions = default,
             Display? display = default,
             List<string> levelOfAssurance = default,
-            object authenticationSigning = default)
+            JsonElement? authenticationSigning = default)
         {
             return new UpdateInPersonFieldRequest
             {
@@ -6662,7 +6662,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<string> levelOfAssurance = default,
             FieldDimension dimensions = default,
             Display? display = default,
-            object authenticationSigning = default)
+            JsonElement? authenticationSigning = default)
         {
             return new DigitalSignatureFieldRequest
             {
@@ -6686,7 +6686,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? pageNo = default,
             FieldDimension dimensions = default,
             Display? display = default,
-            object authenticationSigning = default)
+            JsonElement? authenticationSigning = default)
         {
             return new UpdateDigitalSignatureFieldRequest
             {
@@ -6750,17 +6750,17 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static TextBoxFieldRequest TextBoxFieldRequest(
             int? order = default,
             int? pageNo = default,
-            object type = default,
+            JsonElement? type = default,
             string value = default,
             string placeholder = default,
             int? maxLength = default,
             string format = default,
             string fieldName = default,
             string fieldLocale = default,
-            object fieldType = default,
-            object validationRule = default,
-            object validation = default,
-            object font = default,
+            JsonElement? fieldType = default,
+            JsonElement? validationRule = default,
+            JsonElement? validation = default,
+            JsonElement? font = default,
             FieldDimension dimensions = default,
             bool? multiline = default)
         {
@@ -6794,13 +6794,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? pageNo = default,
             string value = default,
             int? maxLength = default,
-            object fieldType = default,
-            object validationRule = default,
-            object font = default,
+            JsonElement? fieldType = default,
+            JsonElement? validationRule = default,
+            JsonElement? font = default,
             FieldDimension dimensions = default,
             string placeholder = default,
             string format = default,
-            object validation = default)
+            JsonElement? validation = default)
         {
             return new UpdateTextBoxFieldRequest
             {
@@ -6828,7 +6828,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? pageNo = default,
             string fieldName = default,
             Value? value = default,
-            object validationRule = default,
+            JsonElement? validationRule = default,
             string radioGroupName = default,
             FieldDimension dimensions = default)
         {
@@ -6852,7 +6852,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string renamedAs = default,
             int? pageNo = default,
             Value? value = default,
-            object validationRule = default,
+            JsonElement? validationRule = default,
             string radioGroupName = default,
             FieldDimension dimensions = default)
         {
@@ -6873,7 +6873,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static WorkflowPermissionsUpdateRequest WorkflowPermissionsUpdateRequest(
             bool? applyToAll = default,
-            object permissions = default)
+            JsonElement? permissions = default)
         {
             return new WorkflowPermissionsUpdateRequest
             {
@@ -6890,10 +6890,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string userName = default,
             bool? emailNotification = default,
             string mobileNumber = default,
-            object role = default,
+            JsonElement? role = default,
             int? signingOrder = default,
             string emailLanguageCode = default,
-            object deliveryMethod = default)
+            JsonElement? deliveryMethod = default)
         {
             return new WorkflowUserUpdateRequest
             {
@@ -6928,7 +6928,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? enabled = default,
             Frequency? frequency = default,
             int? remindAfter = default,
-            object repeat = default)
+            JsonElement? repeat = default)
         {
             return new UpdateReminderRequest
             {
@@ -6946,7 +6946,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static WorflowGroupRequest WorflowGroupRequest(
             string groupName = default,
             bool? emailNotification = default,
-            object role = default,
+            JsonElement? role = default,
             int? signingOrder = default)
         {
             return new WorflowGroupRequest
@@ -6964,7 +6964,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static PlaceholderRequest PlaceholderRequest(
             string placeholder = default,
             bool? emailNotification = default,
-            object role = default,
+            JsonElement? role = default,
             int? signingOrder = default)
         {
             return new PlaceholderRequest
@@ -6982,7 +6982,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static WorkflowPlaceholderUpdateRequest WorkflowPlaceholderUpdateRequest(
             string placeholder = default,
             bool? emailNotification = default,
-            object role = default,
+            JsonElement? role = default,
             int? signingOrder = default)
         {
             return new WorkflowPlaceholderUpdateRequest
@@ -7098,6 +7098,8 @@ namespace Azure.Connectors.Sdk.SigningHub
 
         public override string ConnectorName => "signinghub";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.signinghub");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -7121,10 +7123,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Delete Attachment response.</returns>
         public virtual async Task<EmptyResponse> AttachmentDeleteAttachmentAsync(int packageId, int documentId, int attachmentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentDeleteAttachmentAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7138,10 +7150,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Download Attachment response.</returns>
         public virtual async Task<AttachmentDownloadAttachmentResponse> AttachmentDownloadAttachmentAsync(int packageId, int documentId, int attachmentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
-            return await this
-                .CallConnectorAsync<AttachmentDownloadAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentDownloadAttachmentAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<AttachmentDownloadAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7154,10 +7176,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Attachments response.</returns>
         public virtual async Task<List<GetAttachmentResponse>> AttachmentGetAttachmentsAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
-            return await this
-                .CallConnectorAsync<List<GetAttachmentResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentGetAttachmentsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
+                return await this
+                    .CallConnectorAsync<List<GetAttachmentResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7170,10 +7202,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Upload Attachment response.</returns>
         public virtual async Task<AddAttachmentResponse> AttachmentUploadAttachmentAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
-            return await this
-                .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentUploadAttachmentAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
+                return await this
+                    .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7187,10 +7229,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add CheckBox Field response.</returns>
         public virtual async Task<AddFieldResponse> CheckboxAddCheckBoxAsync(int packageId, int documentId, CheckBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
-            return await this
-                .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.CheckboxAddCheckBoxAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
+                return await this
+                    .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7204,10 +7256,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update CheckBox Field response.</returns>
         public virtual async Task<EmptyResponse> CheckboxUpdateCheckBoxAsync(int packageId, int documentId, UpdateCheckBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.CheckboxUpdateCheckBoxAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7222,15 +7284,25 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Contacts response.</returns>
         public virtual async Task<List<ContactResponse>> ContactsGetAsync(int recordsPerPage, int pageNumber, string sortBy = default, bool? ascending = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sortBy != default)
-                queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy.ToString())}");
-            if (ascending.HasValue)
-                queryParams.Add($"asc={Uri.EscapeDataString(ascending.Value.ToString())}");
-            var path = $"/v4/settings/contacts/{Uri.EscapeDataString(recordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<ContactResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.ContactsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sortBy != default)
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy.ToString())}");
+                if (ascending.HasValue)
+                    queryParams.Add($"asc={Uri.EscapeDataString(ascending.Value.ToString())}");
+                var path = $"/v4/settings/contacts/{Uri.EscapeDataString(recordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<ContactResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7243,10 +7315,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Delete Document response.</returns>
         public virtual async Task<DocumentResponse> DocumentsDeleteDocumentAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
-            return await this
-                .CallConnectorAsync<DocumentResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsDeleteDocumentAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DocumentResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7259,10 +7341,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Download Document response.</returns>
         public virtual async Task<DocumentsDownloadDocumentBytesResponse> DocumentsDownloadDocumentBytesAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
-            return await this
-                .CallConnectorAsync<DocumentsDownloadDocumentBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsDownloadDocumentBytesAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DocumentsDownloadDocumentBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7275,10 +7367,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Certify Policy for a document response.</returns>
         public virtual async Task<CertifyPolicyResponse> DocumentsGetCertifyPolicyAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
-            return await this
-                .CallConnectorAsync<CertifyPolicyResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsGetCertifyPolicyAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
+                return await this
+                    .CallConnectorAsync<CertifyPolicyResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7291,10 +7393,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Document Details response.</returns>
         public virtual async Task<DocumentDetailsResponse> DocumentsGetDocumentDetailsAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/details";
-            return await this
-                .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsGetDocumentDetailsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/details";
+                return await this
+                    .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7308,10 +7420,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Rename Document response.</returns>
         public virtual async Task<DocumentResponse> DocumentsRenameDocumentAsync(int packageId, int documentId, RenameDocumentRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
-            return await this
-                .CallConnectorAsync<DocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsRenameDocumentAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<DocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7325,10 +7447,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Certify Policy for a document response.</returns>
         public virtual async Task<EmptyResponse> DocumentsUpdateCertifyPolicyAsync(int packageId, int documentId, UpdateCertifyPolicyRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUpdateCertifyPolicyAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7341,10 +7473,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add or Update Document from Library response.</returns>
         public virtual async Task<UploadDocumentLibraryResponse> DocumentsUploadFromLibraryAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/library/{Uri.EscapeDataString(documentId.ToString())}";
-            return await this
-                .CallConnectorAsync<UploadDocumentLibraryResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUploadFromLibraryAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/library/{Uri.EscapeDataString(documentId.ToString())}";
+                return await this
+                    .CallConnectorAsync<UploadDocumentLibraryResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7356,10 +7498,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Upload Document response.</returns>
         public virtual async Task<UploadDocument> DocumentsUploadStreamAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents";
-            return await this
-                .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUploadStreamAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents";
+                return await this
+                    .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7372,10 +7524,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Workflow User Authentication (Document Opening)  of Enterprise Package response.</returns>
         public virtual async Task<EnterpriseAccessResponse> EnterpriseDocumentsGetEnterpriseWorkflowAccessAsync(int packageId, int recipientOrder, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
-            return await this
-                .CallConnectorAsync<EnterpriseAccessResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.EnterpriseDocumentsGetEnterpriseWorkflowAccessAsync");
+            try
+            {
+                var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
+                return await this
+                    .CallConnectorAsync<EnterpriseAccessResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7389,10 +7551,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Workflow User Authentication (Document Opening) of Enterprise Package response.</returns>
         public virtual async Task<EmptyResponse> EnterpriseDocumentsUpdateEnterpriseWorkflowAccessAsync(int packageId, int recipientOrder, AccessUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.EnterpriseDocumentsUpdateEnterpriseWorkflowAccessAsync");
+            try
+            {
+                var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7406,10 +7578,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Assign Document Field response.</returns>
         public virtual async Task<EmptyResponse> FieldsAutoAssignFieldAsync(int packageId, int documentId, List<AssignFieldRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/assign";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsAutoAssignFieldAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/assign";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7423,10 +7605,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The AutoPlace Fields response.</returns>
         public virtual async Task<List<AutoPlaceFieldsResponse>> FieldsAutoPlaceAsync(int packageId, int documentId, AutoPlaceFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/autoplace";
-            return await this
-                .CallConnectorAsync<List<AutoPlaceFieldsResponse>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsAutoPlaceAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/autoplace";
+                return await this
+                    .CallConnectorAsync<List<AutoPlaceFieldsResponse>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7440,10 +7632,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Delete Document Field response.</returns>
         public virtual async Task<EmptyResponse> FieldsDeleteDocumentFieldAsync(int packageId, int documentId, DeleteDocumentFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsDeleteDocumentFieldAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7457,10 +7659,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Fill Form Fields response.</returns>
         public virtual async Task<EmptyResponse> FieldsFillFormFieldsAsync(int packageId, int documentId, FormFillingRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsFillFormFieldsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7474,10 +7686,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Document Fields response.</returns>
         public virtual async Task<FieldsResponse> FieldsGetAllDocumentFieldsAsync(int packageId, int documentId, int pageNo, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/{Uri.EscapeDataString(pageNo.ToString())}";
-            return await this
-                .CallConnectorAsync<FieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsGetAllDocumentFieldsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/{Uri.EscapeDataString(pageNo.ToString())}";
+                return await this
+                    .CallConnectorAsync<FieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7490,10 +7712,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Move Package to Custom or Shared Space folder response.</returns>
         public virtual async Task<EmptyResponse> FolderMovePackageAsync(int packageId, MoveToRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/move_to";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FolderMovePackageAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/move_to";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7507,10 +7739,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add Initial Field response.</returns>
         public virtual async Task<AddFieldResponse> InitialsAddInitialAsync(int packageId, int documentId, InitialFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
-            return await this
-                .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InitialsAddInitialAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
+                return await this
+                    .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7524,10 +7766,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Fill Initials response.</returns>
         public virtual async Task<EmptyResponse> InitialsFillAsync(int packageId, int documentId, InitialFillingRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/initial";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InitialsFillAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/initial";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7541,10 +7793,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Initial Field response.</returns>
         public virtual async Task<EmptyResponse> InitialsUpdateInitialAsync(int packageId, int documentId, UpdateInitialFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InitialsUpdateInitialAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7558,10 +7820,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add In-person Field response.</returns>
         public virtual async Task<AddFieldResponse> InPersonAddInPersonAsync(int packageId, int documentId, InPersonFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
-            return await this
-                .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InPersonAddInPersonAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
+                return await this
+                    .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7575,10 +7847,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update In-person Field response.</returns>
         public virtual async Task<EmptyResponse> InPersonUpdateInPersonAsync(int packageId, int documentId, UpdateInPersonFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InPersonUpdateInPersonAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7590,10 +7872,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add Package response.</returns>
         public virtual async Task<AddPackageResponse> PackageAddPackageAsync(AddDocumentPackageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages";
-            return await this
-                .CallConnectorAsync<AddPackageResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageAddPackageAsync");
+            try
+            {
+                var path = $"/v4/packages";
+                return await this
+                    .CallConnectorAsync<AddPackageResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7606,10 +7898,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Approve Document response.</returns>
         public virtual async Task<EmptyResponse> PackageApproveAsync(int packageId, ApproveRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/approve";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageApproveAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/approve";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7622,10 +7924,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Decline Document response.</returns>
         public virtual async Task<EmptyResponse> PackageDeclineAsync(int packageId, DeclineRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/decline";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageDeclineAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/decline";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7637,10 +7949,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Delete Package response.</returns>
         public virtual async Task<EmptyResponse> PackageDeletePackageAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageDeletePackageAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7653,13 +7975,23 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Download Package response.</returns>
         public virtual async Task<PackageDownloadPackageBytesResponse> PackageDownloadPackageBytesAsync(int packageId, object[] documentIDs = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (documentIDs != default)
-                queryParams.Add($"document-ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentIDs))}");
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PackageDownloadPackageBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageDownloadPackageBytesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (documentIDs != default)
+                    queryParams.Add($"document-ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentIDs))}");
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PackageDownloadPackageBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7671,10 +8003,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Finish Processing response.</returns>
         public virtual async Task<EmptyResponse> PackageFinishAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/finish";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageFinishAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/finish";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7687,10 +8029,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Gatekeeper Approve Document response.</returns>
         public virtual async Task<EmptyResponse> PackageGatekeeperApproveAsync(int packageId, ApproveRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/approve";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGatekeeperApproveAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/approve";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7703,10 +8055,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Gatekeeper Decline Document response.</returns>
         public virtual async Task<EmptyResponse> PackageGatekeeperDeclineAsync(int packageId, DeclineRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/decline";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGatekeeperDeclineAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/decline";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7739,49 +8101,61 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Packages response.</returns>
         public virtual async Task<List<GetPackagesResponse>> PackageGetAllPackagesAsync(string documentStatus, int pageNumber, int recordsPerPage, string packageName = default, int? packageId = default, string from = default, string to = default, int? documentId = default, int? expiryDays = default, string fromModifiedDate = default, string toModifiedDate = default, int? fromSizeKB = default, int? toSizeKB = default, bool? certifiedDocuments = default, bool? formFields = default, bool? attachments = default, string documentType = default, string sortBy = default, bool? ascendingOrder = default, object[] documentStatuses = default, string ownedBy = default, string smartFormName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (packageName != default)
-                queryParams.Add($"package-name={Uri.EscapeDataString(packageName.ToString())}");
-            if (packageId.HasValue)
-                queryParams.Add($"package-id={Uri.EscapeDataString(packageId.Value.ToString())}");
-            if (from != default)
-                queryParams.Add($"recipient-from={Uri.EscapeDataString(from.ToString())}");
-            if (to != default)
-                queryParams.Add($"recipient-to={Uri.EscapeDataString(to.ToString())}");
-            if (documentId.HasValue)
-                queryParams.Add($"document-id={Uri.EscapeDataString(documentId.Value.ToString())}");
-            if (expiryDays.HasValue)
-                queryParams.Add($"expiry={Uri.EscapeDataString(expiryDays.Value.ToString())}");
-            if (fromModifiedDate != default)
-                queryParams.Add($"modified-from={Uri.EscapeDataString(fromModifiedDate.ToString())}");
-            if (toModifiedDate != default)
-                queryParams.Add($"modified-to={Uri.EscapeDataString(toModifiedDate.ToString())}");
-            if (fromSizeKB.HasValue)
-                queryParams.Add($"size-from={Uri.EscapeDataString(fromSizeKB.Value.ToString())}");
-            if (toSizeKB.HasValue)
-                queryParams.Add($"size-to={Uri.EscapeDataString(toSizeKB.Value.ToString())}");
-            if (certifiedDocuments.HasValue)
-                queryParams.Add($"certified-documents={Uri.EscapeDataString(certifiedDocuments.Value.ToString())}");
-            if (formFields.HasValue)
-                queryParams.Add($"form-fields={Uri.EscapeDataString(formFields.Value.ToString())}");
-            if (attachments.HasValue)
-                queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
-            if (documentType != default)
-                queryParams.Add($"document-type={Uri.EscapeDataString(documentType.ToString())}");
-            if (sortBy != default)
-                queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy.ToString())}");
-            if (ascendingOrder.HasValue)
-                queryParams.Add($"asc={Uri.EscapeDataString(ascendingOrder.Value.ToString())}");
-            if (documentStatuses != default)
-                queryParams.Add($"document-statuses={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentStatuses))}");
-            if (ownedBy != default)
-                queryParams.Add($"owned-by={Uri.EscapeDataString(ownedBy.ToString())}");
-            if (smartFormName != default)
-                queryParams.Add($"smart-form={Uri.EscapeDataString(smartFormName.ToString())}");
-            var path = $"/v4/packages/{Uri.EscapeDataString(documentStatus.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<GetPackagesResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGetAllPackagesAsync");
+            try
+            {
+                if (documentStatus is null)
+                    throw new ArgumentNullException(nameof(documentStatus));
+                var queryParams = new List<string>();
+                if (packageName != default)
+                    queryParams.Add($"package-name={Uri.EscapeDataString(packageName.ToString())}");
+                if (packageId.HasValue)
+                    queryParams.Add($"package-id={Uri.EscapeDataString(packageId.Value.ToString())}");
+                if (from != default)
+                    queryParams.Add($"recipient-from={Uri.EscapeDataString(from.ToString())}");
+                if (to != default)
+                    queryParams.Add($"recipient-to={Uri.EscapeDataString(to.ToString())}");
+                if (documentId.HasValue)
+                    queryParams.Add($"document-id={Uri.EscapeDataString(documentId.Value.ToString())}");
+                if (expiryDays.HasValue)
+                    queryParams.Add($"expiry={Uri.EscapeDataString(expiryDays.Value.ToString())}");
+                if (fromModifiedDate != default)
+                    queryParams.Add($"modified-from={Uri.EscapeDataString(fromModifiedDate.ToString())}");
+                if (toModifiedDate != default)
+                    queryParams.Add($"modified-to={Uri.EscapeDataString(toModifiedDate.ToString())}");
+                if (fromSizeKB.HasValue)
+                    queryParams.Add($"size-from={Uri.EscapeDataString(fromSizeKB.Value.ToString())}");
+                if (toSizeKB.HasValue)
+                    queryParams.Add($"size-to={Uri.EscapeDataString(toSizeKB.Value.ToString())}");
+                if (certifiedDocuments.HasValue)
+                    queryParams.Add($"certified-documents={Uri.EscapeDataString(certifiedDocuments.Value.ToString())}");
+                if (formFields.HasValue)
+                    queryParams.Add($"form-fields={Uri.EscapeDataString(formFields.Value.ToString())}");
+                if (attachments.HasValue)
+                    queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
+                if (documentType != default)
+                    queryParams.Add($"document-type={Uri.EscapeDataString(documentType.ToString())}");
+                if (sortBy != default)
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy.ToString())}");
+                if (ascendingOrder.HasValue)
+                    queryParams.Add($"asc={Uri.EscapeDataString(ascendingOrder.Value.ToString())}");
+                if (documentStatuses != default)
+                    queryParams.Add($"document-statuses={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentStatuses))}");
+                if (ownedBy != default)
+                    queryParams.Add($"owned-by={Uri.EscapeDataString(ownedBy.ToString())}");
+                if (smartFormName != default)
+                    queryParams.Add($"smart-form={Uri.EscapeDataString(smartFormName.ToString())}");
+                var path = $"/v4/packages/{Uri.EscapeDataString(documentStatus.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<GetPackagesResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7793,10 +8167,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Package Details response.</returns>
         public virtual async Task<GetPackageDetailsResponse> PackageGetPackageDetailsAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/details";
-            return await this
-                .CallConnectorAsync<GetPackageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGetPackageDetailsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/details";
+                return await this
+                    .CallConnectorAsync<GetPackageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7809,10 +8193,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Rename Package response.</returns>
         public virtual async Task<EmptyResponse> PackageRenamePackageAsync(int packageId, RenameDocumentPackageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageRenamePackageAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7824,10 +8218,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Submit Document response.</returns>
         public virtual async Task<EmptyResponse> PackageSubmitAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/submit";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageSubmitAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/submit";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7841,10 +8245,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add QR Code response.</returns>
         public virtual async Task<AddQrCodeResponse> QRAddQRCodeAsync(int packageId, int documentId, QrCodeRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
-            return await this
-                .CallConnectorAsync<AddQrCodeResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.QRAddQRCodeAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
+                return await this
+                    .CallConnectorAsync<AddQrCodeResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7858,10 +8272,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update QR Code response.</returns>
         public virtual async Task<UpdateQrCodeResponse> QRUpdateQRCodeAsync(int packageId, int documentId, UpdateQrCodeRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
-            return await this
-                .CallConnectorAsync<UpdateQrCodeResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.QRUpdateQRCodeAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
+                return await this
+                    .CallConnectorAsync<UpdateQrCodeResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7875,10 +8299,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add RadioBox Field response.</returns>
         public virtual async Task<AddFieldResponse> RadioAddRadioBoxAsync(int packageId, int documentId, RadioBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
-            return await this
-                .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.RadioAddRadioBoxAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
+                return await this
+                    .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7892,10 +8326,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update RadioBox Field response.</returns>
         public virtual async Task<EmptyResponse> RadioUpdateRadioBoxAsync(int packageId, int documentId, UpdateRadioBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.RadioUpdateRadioBoxAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7910,15 +8354,25 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Templates response.</returns>
         public virtual async Task<List<TemplateResponse>> SettingsGetTemplatesAsync(int numberOfRecordsPerPage, int pageNumberToBeRetrieved, string sortByColumn = default, bool? asc = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sortByColumn != default)
-                queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn.ToString())}");
-            if (asc.HasValue)
-                queryParams.Add($"asc={Uri.EscapeDataString(asc.Value.ToString())}");
-            var path = $"/v4/settings/templates/{Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumberToBeRetrieved.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<TemplateResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SettingsGetTemplatesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sortByColumn != default)
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn.ToString())}");
+                if (asc.HasValue)
+                    queryParams.Add($"asc={Uri.EscapeDataString(asc.Value.ToString())}");
+                var path = $"/v4/settings/templates/{Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumberToBeRetrieved.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<TemplateResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7932,10 +8386,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add Digital Signature Field response.</returns>
         public virtual async Task<SignatureFieldResponse> SignatureAddSignatureAsync(int packageId, int documentId, DigitalSignatureFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
-            return await this
-                .CallConnectorAsync<SignatureFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SignatureAddSignatureAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
+                return await this
+                    .CallConnectorAsync<SignatureFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7949,10 +8413,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Digital Signature Field response.</returns>
         public virtual async Task<EmptyResponse> SignatureUpdateSignatureAsync(int packageId, int documentId, UpdateDigitalSignatureFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SignatureUpdateSignatureAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7965,10 +8439,22 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Bulk Sign Packages response.</returns>
         public virtual async Task<BulkSignResponse> SigningBulkSignDocumentsAsync(string packageId, BulkSignRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
-            return await this
-                .CallConnectorAsync<BulkSignResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SigningBulkSignDocumentsAsync");
+            try
+            {
+                if (packageId is null)
+                    throw new ArgumentNullException(nameof(packageId));
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
+                return await this
+                    .CallConnectorAsync<BulkSignResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7981,10 +8467,22 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Bulk Signing Status response.</returns>
         public virtual async Task<BulkSignStatusResponse> SigningBulkSignStatusAsync(string bulkAction, BulkSignStatusRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(bulkAction.ToString())}/status";
-            return await this
-                .CallConnectorAsync<BulkSignStatusResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SigningBulkSignStatusAsync");
+            try
+            {
+                if (bulkAction is null)
+                    throw new ArgumentNullException(nameof(bulkAction));
+                var path = $"/v4/packages/{Uri.EscapeDataString(bulkAction.ToString())}/status";
+                return await this
+                    .CallConnectorAsync<BulkSignStatusResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -7998,10 +8496,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Sign Document response.</returns>
         public virtual async Task<SignDocumentResponse> SigningSignDocumentAsync(int packageId, int documentId, SignDocumentRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/sign";
-            return await this
-                .CallConnectorAsync<SignDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SigningSignDocumentAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/sign";
+                return await this
+                    .CallConnectorAsync<SignDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8017,17 +8525,27 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Enterprise Templates response.</returns>
         public virtual async Task<List<EnterpriseTemplateResponse>> TemplateGetEnterpriseTemplatesAsync(int numberOfRecordsPerPage, int pageNumberToBeRetrieved, string sortByColumn = default, bool? orderTheResultSet = default, object[] filterByTemplateIds = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (sortByColumn != default)
-                queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn.ToString())}");
-            if (orderTheResultSet.HasValue)
-                queryParams.Add($"asc={Uri.EscapeDataString(orderTheResultSet.Value.ToString())}");
-            if (filterByTemplateIds != default)
-                queryParams.Add($"id={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(filterByTemplateIds))}");
-            var path = $"/v4/enterprise/templates/{Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumberToBeRetrieved.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<EnterpriseTemplateResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.TemplateGetEnterpriseTemplatesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (sortByColumn != default)
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn.ToString())}");
+                if (orderTheResultSet.HasValue)
+                    queryParams.Add($"asc={Uri.EscapeDataString(orderTheResultSet.Value.ToString())}");
+                if (filterByTemplateIds != default)
+                    queryParams.Add($"id={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(filterByTemplateIds))}");
+                var path = $"/v4/enterprise/templates/{Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumberToBeRetrieved.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<EnterpriseTemplateResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8041,10 +8559,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add TextBox Field response.</returns>
         public virtual async Task<AddFieldResponse> TextBoxAddTextBoxAsync(int packageId, int documentId, TextBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
-            return await this
-                .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.TextBoxAddTextBoxAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
+                return await this
+                    .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8058,10 +8586,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update TextBox Field response.</returns>
         public virtual async Task<EmptyResponse> TextBoxUpdateTextBoxAsync(int packageId, int documentId, UpdateTextBoxFieldRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.TextBoxUpdateTextBoxAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8075,10 +8613,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Apply Workflow Template response.</returns>
         public virtual async Task<DocumentDetailsResponse> WorkflowApplyTemplateAsync(int packageId, int documentId, ApplyTemplateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/template";
-            return await this
-                .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowApplyTemplateAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/template";
+                return await this
+                    .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8090,10 +8638,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Process Evidence Report response.</returns>
         public virtual async Task<WorkflowEvidenceReportDownloadBytesResponse> WorkflowEvidenceReportDownloadBytesAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/report";
-            return await this
-                .CallConnectorAsync<WorkflowEvidenceReportDownloadBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowEvidenceReportDownloadBytesAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/report";
+                return await this
+                    .CallConnectorAsync<WorkflowEvidenceReportDownloadBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8105,10 +8663,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Workflow Details response.</returns>
         public virtual async Task<WorkflowDetailsResponse> WorkflowGetWorkflowDetailAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
-            return await this
-                .CallConnectorAsync<WorkflowDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowDetailAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                return await this
+                    .CallConnectorAsync<WorkflowDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8122,10 +8690,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Workflow History response.</returns>
         public virtual async Task<WorkflowHistoryResponse> WorkflowGetWorkflowHistoryAsync(int packageId, int pageNumber, int recordsPerPage, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/log/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}";
-            return await this
-                .CallConnectorAsync<WorkflowHistoryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowHistoryAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/log/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}";
+                return await this
+                    .CallConnectorAsync<WorkflowHistoryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8138,10 +8716,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Workflow Reminder response.</returns>
         public virtual async Task<ReminderResponse> WorkflowGetWorkflowReminderAsync(int packageId, int order, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
-            return await this
-                .CallConnectorAsync<ReminderResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowReminderAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
+                return await this
+                    .CallConnectorAsync<ReminderResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8153,10 +8741,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Workflow Users response.</returns>
         public virtual async Task<List<WorkflowRecipient>> WorkflowGetWorkflowUsersAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
-            return await this
-                .CallConnectorAsync<List<WorkflowRecipient>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowUsersAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
+                return await this
+                    .CallConnectorAsync<List<WorkflowRecipient>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8168,10 +8766,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Complete Workflow in the Middle (Terminate Workflow) response.</returns>
         public virtual async Task<EmptyResponse> WorkflowMarkWorkflowCompletedAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/complete";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowMarkWorkflowCompletedAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/complete";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8184,10 +8792,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Workflow User Permissions response.</returns>
         public virtual async Task<WorkflowPermissionResponse> WorkflowPermissionGetWorkflowPermissionsAsync(int packageId, int order, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
-            return await this
-                .CallConnectorAsync<WorkflowPermissionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowPermissionGetWorkflowPermissionsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
+                return await this
+                    .CallConnectorAsync<WorkflowPermissionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8201,10 +8819,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Workflow User Permissions response.</returns>
         public virtual async Task<EmptyResponse> WorkflowPermissionUpdateWorkflowPermissionsAsync(int packageId, int order, WorkflowPermissionsUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowPermissionUpdateWorkflowPermissionsAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8216,10 +8844,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Recall Document response.</returns>
         public virtual async Task<EmptyResponse> WorkflowRecallWorkflowAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowRecallWorkflowAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8231,10 +8869,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Share Document Package response.</returns>
         public virtual async Task<List<StartWorkflowResponse>> WorkflowStartWorkflowAsync(int packageId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
-            return await this
-                .CallConnectorAsync<List<StartWorkflowResponse>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowStartWorkflowAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                return await this
+                    .CallConnectorAsync<List<StartWorkflowResponse>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8247,10 +8895,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Workflow Details response.</returns>
         public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowAsync(int packageId, WorkflowDetailUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowUpdateWorkflowAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8263,10 +8921,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Post Processing response.</returns>
         public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowPostProcessAsync(int packageId, PostProcessUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/post_process";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowUpdateWorkflowPostProcessAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/post_process";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8280,10 +8948,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Workflow Reminders response.</returns>
         public virtual async Task<EmptyResponse> WorkflowUpdateWorkflowReminderAsync(int packageId, int order, UpdateReminderRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowUpdateWorkflowReminderAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8296,10 +8974,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add Groups to Workflow response.</returns>
         public virtual async Task<List<CollaboratorGroupResponse>> WorkflowWorkflowAddGroupAsync(int packageId, List<WorflowGroupRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/groups";
-            return await this
-                .CallConnectorAsync<List<CollaboratorGroupResponse>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowAddGroupAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/groups";
+                return await this
+                    .CallConnectorAsync<List<CollaboratorGroupResponse>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8312,10 +9000,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add Placeholder to Workflow response.</returns>
         public virtual async Task<List<CollaboratorPlaceholderResponse>> WorkflowWorkflowAddPlaceholderAsync(int packageId, List<PlaceholderRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/placeholder";
-            return await this
-                .CallConnectorAsync<List<CollaboratorPlaceholderResponse>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowAddPlaceholderAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/placeholder";
+                return await this
+                    .CallConnectorAsync<List<CollaboratorPlaceholderResponse>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8328,10 +9026,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Add Users to Workflow response.</returns>
         public virtual async Task<List<CollaboratorResponse>> WorkflowWorkflowAddUserAsync(int packageId, List<WorflowUserRequest> input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
-            return await this
-                .CallConnectorAsync<List<CollaboratorResponse>>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowAddUserAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
+                return await this
+                    .CallConnectorAsync<List<CollaboratorResponse>>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8344,10 +9052,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Delete Workflow User response.</returns>
         public virtual async Task<EmptyResponse> WorkflowWorkflowDeleteUserAsync(int packageId, int order, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowDeleteUserAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8361,10 +9079,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Placeholder response.</returns>
         public virtual async Task<EmptyResponse> WorkflowWorkflowUpdatePlaceholderAsync(int packageId, int order, WorkflowPlaceholderUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/placeholder";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowUpdatePlaceholderAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/placeholder";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8378,10 +9106,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Workflow User response.</returns>
         public virtual async Task<UpdateCollaboratorResponse> WorkflowWorkflowUserUpdateAsync(int packageId, int order, WorkflowUserUpdateRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/user";
-            return await this
-                .CallConnectorAsync<UpdateCollaboratorResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowUserUpdateAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/user";
+                return await this
+                    .CallConnectorAsync<UpdateCollaboratorResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8395,10 +9133,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Workflow Users Order response.</returns>
         public virtual async Task<EmptyResponse> WorkflowWorkflowUserUpdateOrderAsync(int packageId, int order, WorkflowUserReorderRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reorder";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowUserUpdateOrderAsync");
+            try
+            {
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reorder";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8410,10 +9158,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Delete Shared Space response.</returns>
         public virtual async Task<EmptyResponse> WorkSpaceDeleteSharedSpaceAsync(int sharedSpaceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkSpaceDeleteSharedSpaceAsync");
+            try
+            {
+                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8425,10 +9183,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Get Shared Space response.</returns>
         public virtual async Task<WorkSpaceResponse> WorkSpaceGetSharedSpaceAsync(int sharedSpaceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
-            return await this
-                .CallConnectorAsync<WorkSpaceResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkSpaceGetSharedSpaceAsync");
+            try
+            {
+                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
+                return await this
+                    .CallConnectorAsync<WorkSpaceResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -8441,10 +9209,20 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <returns>The Update Shared Space response.</returns>
         public virtual async Task<EmptyResponse> WorkSpaceUpdateSharedSpaceAsync(int sharedSpaceId, UpdateWorkSpaceRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
-            return await this
-                .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkSpaceUpdateSharedSpaceAsync");
+            try
+            {
+                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
+                return await this
+                    .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

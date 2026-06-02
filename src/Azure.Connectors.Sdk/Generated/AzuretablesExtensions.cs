@@ -165,7 +165,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
 
         /// <summary>List of tables</summary>
         [JsonPropertyName("value")]
-        public List<object> ListOfTables { get; set; }
+        public List<JsonElement?> ListOfTables { get; set; }
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     /// <summary>
     /// Model factory for creating instances of Azuretables models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class AzureTablesModelFactory
     {
@@ -338,7 +338,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         /// </summary>
         public static GetTablesResponse GetTablesResponse(
             string accountMetadataLocation = default,
-            List<object> listOfTables = default)
+            List<JsonElement?> listOfTables = default)
         {
             return new GetTablesResponse
             {
@@ -407,6 +407,8 @@ namespace Azure.Connectors.Sdk.Azuretables
 
         public override string ConnectorName => "azuretables";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.azuretables");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -427,10 +429,20 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The Get storage accounts response.</returns>
         public virtual async Task<StorageAccountList> GetStorageAccountsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/GetStorageAccounts";
-            return await this
-                .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetStorageAccountsAsync");
+            try
+            {
+                var path = $"/v2/GetStorageAccounts";
+                return await this
+                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -444,10 +456,24 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The Insert Entity (V2) response.</returns>
         public virtual async Task<InsertEntityResponse> CreateEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, CreateEntityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities";
-            return await this
-                .CallConnectorAsync<InsertEntityResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.CreateEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities";
+                return await this
+                    .CallConnectorAsync<InsertEntityResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -460,10 +486,22 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The Create table (V2) response.</returns>
         public virtual async Task<GetTableResponse> CreateTableAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, string input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables";
-            return await this
-                .CallConnectorAsync<GetTableResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.CreateTableAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables";
+                return await this
+                    .CallConnectorAsync<GetTableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -477,10 +515,28 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.DeleteEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -492,10 +548,24 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task DeleteTableAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}";
-            await this
-                .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.DeleteTableAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -510,15 +580,29 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The Get entities (V2) response.</returns>
         public virtual async Task<GetEntitiesResponse> GetEntitiesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string filterQuery = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (filterQuery != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetEntitiesAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -534,13 +618,31 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The Get entity (V2) response.</returns>
         public virtual async Task<GetEntityResponse> GetEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (selectQuery != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetEntityResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
+                var queryParams = new List<string>();
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetEntityResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -553,10 +655,24 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The Get a table (V2) response.</returns>
         public virtual async Task<GetTableResponse> GetTableAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}";
-            return await this
-                .CallConnectorAsync<GetTableResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetTableAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetTableResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -568,10 +684,22 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <returns>The List tables (V2) response.</returns>
         public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables";
-            return await this
-                .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetTablesAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables";
+                return await this
+                    .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -586,10 +714,28 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task InsertMergeEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, InsertMergeEntityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.InsertMergeEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
+                await this
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -604,10 +750,28 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task InsertReplaceEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, InsertReplaceEntityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.InsertReplaceEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -622,10 +786,28 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task MergeEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, MergeEntityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
-            await this
-                .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.MergeEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
+                await this
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -640,10 +822,28 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task ReplaceEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, ReplaceEntityInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
-            await this
-                .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.ReplaceEntityAsync");
+            try
+            {
+                if (storageAccountNameOrTableEndpoint is null)
+                    throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                if (rowKey is null)
+                    throw new ArgumentNullException(nameof(rowKey));
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
+                await this
+                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

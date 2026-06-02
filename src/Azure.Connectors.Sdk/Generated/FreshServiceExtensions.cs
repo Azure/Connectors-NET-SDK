@@ -36,7 +36,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     {
         /// <summary>conversation</summary>
         [JsonPropertyName("conversation")]
-        public object Conversation { get; set; }
+        public JsonElement? Conversation { get; set; }
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     {
         /// <summary>ticket</summary>
         [JsonPropertyName("ticket")]
-        public object Ticket { get; set; }
+        public JsonElement? Ticket { get; set; }
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("created_at")]
         [JsonInclude]
-        public DateTime? CreatedAtDateTime { get; internal set; }
+        public DateTime? CreatedAtDateTime { get; init; }
 
         /// <summary>department_id</summary>
         [JsonPropertyName("department_id")]
@@ -66,7 +66,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("due_by")]
         [JsonInclude]
-        public DateTime? DueByDateTime { get; internal set; }
+        public DateTime? DueByDateTime { get; init; }
 
         /// <summary>Id of Group to which the ticket is assigned.</summary>
         [JsonPropertyName("group_id")]
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
         /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
         [JsonPropertyName("updated_at")]
         [JsonInclude]
-        public DateTime? UpdatedAtDateTime { get; internal set; }
+        public DateTime? UpdatedAtDateTime { get; init; }
 
         /// <summary>Description of the problem.</summary>
         [JsonPropertyName("description_text")]
@@ -519,7 +519,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     /// <summary>
     /// Model factory for creating instances of FreshService models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class FreshServiceModelFactory
     {
@@ -527,7 +527,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
         /// Creates a new instance of <see cref="AddNoteResponse"/>.
         /// </summary>
         public static AddNoteResponse AddNoteResponse(
-            object conversation = default)
+            JsonElement? conversation = default)
         {
             return new AddNoteResponse
             {
@@ -539,7 +539,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
         /// Creates a new instance of <see cref="CreateUpdateTicketResponse"/>.
         /// </summary>
         public static CreateUpdateTicketResponse CreateUpdateTicketResponse(
-            object ticket = default)
+            JsonElement? ticket = default)
         {
             return new CreateUpdateTicketResponse
             {
@@ -774,6 +774,8 @@ namespace Azure.Connectors.Sdk.FreshService
 
         public override string ConnectorName => "freshservice";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.freshservice");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -796,10 +798,20 @@ namespace Azure.Connectors.Sdk.FreshService
         /// <returns>The Add a note to a ticket (V2) response.</returns>
         public virtual async Task<AddNoteResponse> AddNoteAsync(int ticketId, AddNoteRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v2/tickets/{Uri.EscapeDataString(ticketId.ToString())}/notes";
-            return await this
-                .CallConnectorAsync<AddNoteResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.AddNoteAsync");
+            try
+            {
+                var path = $"/api/v2/tickets/{Uri.EscapeDataString(ticketId.ToString())}/notes";
+                return await this
+                    .CallConnectorAsync<AddNoteResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -811,10 +823,20 @@ namespace Azure.Connectors.Sdk.FreshService
         /// <returns>The Create a ticket (V2) response.</returns>
         public virtual async Task<CreateUpdateTicketResponse> CreateTicketAsync(CreateTicketRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v2/tickets";
-            return await this
-                .CallConnectorAsync<CreateUpdateTicketResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.CreateTicketAsync");
+            try
+            {
+                var path = $"/api/v2/tickets";
+                return await this
+                    .CallConnectorAsync<CreateUpdateTicketResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -827,10 +849,20 @@ namespace Azure.Connectors.Sdk.FreshService
         /// <returns>The Update a ticket (V2) response.</returns>
         public virtual async Task<CreateUpdateTicketResponse> UpdateTicketAsync(int ticketId, UpdateTicketRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/api/v2/tickets/{Uri.EscapeDataString(ticketId.ToString())}";
-            return await this
-                .CallConnectorAsync<CreateUpdateTicketResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.UpdateTicketAsync");
+            try
+            {
+                var path = $"/api/v2/tickets/{Uri.EscapeDataString(ticketId.ToString())}";
+                return await this
+                    .CallConnectorAsync<CreateUpdateTicketResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

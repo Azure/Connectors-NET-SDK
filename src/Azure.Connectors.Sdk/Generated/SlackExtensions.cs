@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
 
         /// <summary>A channel message.</summary>
         [JsonPropertyName("message")]
-        public object Message { get; set; }
+        public JsonElement? Message { get; set; }
 
         /// <summary>Details of the error messages, if any.</summary>
         [JsonPropertyName("error")]
@@ -227,7 +227,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     /// <summary>
     /// Model factory for creating instances of Slack models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class SlackModelFactory
     {
@@ -304,7 +304,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
             bool? ok = default,
             string channel = default,
             string ts = default,
-            object message = default,
+            JsonElement? message = default,
             string error = default)
         {
             return new PostMessageResponse
@@ -358,7 +358,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     /// Typed trigger payload for the OnNewFile trigger (Slack "When a file is created", operationId: OnNewFile).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SlackOnNewFileTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class SlackOnNewFileTriggerPayload : TriggerCallbackPayload<object>
+    public class SlackOnNewFileTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -486,6 +486,8 @@ namespace Azure.Connectors.Sdk.Slack
 
         public override string ConnectorName => "slack";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.slack");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -507,13 +509,23 @@ namespace Azure.Connectors.Sdk.Slack
         /// <returns>The Set do not disturb response.</returns>
         public virtual async Task<SetDNDResponse> SetDNDAsync(string numberOfMinutes = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (numberOfMinutes != default)
-                queryParams.Add($"num_minutes={Uri.EscapeDataString(numberOfMinutes.ToString())}");
-            var path = $"/dnd.setSnooze" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<SetDNDResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.SetDNDAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (numberOfMinutes != default)
+                    queryParams.Add($"num_minutes={Uri.EscapeDataString(numberOfMinutes.ToString())}");
+                var path = $"/dnd.setSnooze" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SetDNDResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -526,15 +538,25 @@ namespace Azure.Connectors.Sdk.Slack
         /// <returns>The Create a channel response.</returns>
         public virtual async Task<CreateChannelResponse> CreateChannelAsync(string name = default, bool? isPrivateChannel = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (name != default)
-                queryParams.Add($"name={Uri.EscapeDataString(name.ToString())}");
-            if (isPrivateChannel.HasValue)
-                queryParams.Add($"is_private={Uri.EscapeDataString(isPrivateChannel.Value.ToString())}");
-            var path = $"/conversations.create" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.CreateChannelAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (name != default)
+                    queryParams.Add($"name={Uri.EscapeDataString(name.ToString())}");
+                if (isPrivateChannel.HasValue)
+                    queryParams.Add($"is_private={Uri.EscapeDataString(isPrivateChannel.Value.ToString())}");
+                var path = $"/conversations.create" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -546,13 +568,23 @@ namespace Azure.Connectors.Sdk.Slack
         /// <returns>The Join a public channel response.</returns>
         public virtual async Task<JoinChannelResponse> JoinChannelAsync([DynamicValues("ListChannels_V2")] string channelName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (channelName != default)
-                queryParams.Add($"channel={Uri.EscapeDataString(channelName.ToString())}");
-            var path = $"/conversations.join" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<JoinChannelResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.JoinChannelAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (channelName != default)
+                    queryParams.Add($"channel={Uri.EscapeDataString(channelName.ToString())}");
+                var path = $"/conversations.join" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<JoinChannelResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -579,10 +611,20 @@ namespace Azure.Connectors.Sdk.Slack
         /// <returns>The Post message (V2) response.</returns>
         public virtual async Task<PostMessageResponse> PostMessageAsync(PostMessageRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v2/chat.postMessage";
-            return await this
-                .CallConnectorAsync<PostMessageResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.PostMessageAsync");
+            try
+            {
+                var path = $"/v2/chat.postMessage";
+                return await this
+                    .CallConnectorAsync<PostMessageResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

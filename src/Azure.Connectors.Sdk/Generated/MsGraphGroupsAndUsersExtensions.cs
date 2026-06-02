@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<object> Value { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// <summary>Group&apos;s deletion date time</summary>
         [JsonPropertyName("deletedDateTime")]
         [JsonInclude]
-        public string DeletedDateTime { get; internal set; }
+        public string DeletedDateTime { get; init; }
 
         /// <summary>classification</summary>
         [JsonPropertyName("classification")]
@@ -131,7 +131,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// <summary>Group&apos;s creation date time</summary>
         [JsonPropertyName("createdDateTime")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>Created options of the group.</summary>
         [JsonPropertyName("creationOptions")]
@@ -148,7 +148,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// <summary>Group&apos;s expiration date time</summary>
         [JsonPropertyName("expirationDateTime")]
         [JsonInclude]
-        public string ExpirationDateTime { get; internal set; }
+        public string ExpirationDateTime { get; init; }
 
         /// <summary>Group types for the group.</summary>
         [JsonPropertyName("groupTypes")]
@@ -185,7 +185,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// <summary>The time and date at which the tenant was last synced with the on-premise directory.</summary>
         [JsonPropertyName("onPremisesLastSyncDateTime")]
         [JsonInclude]
-        public string OnPremisesLastSyncDateTime { get; internal set; }
+        public string OnPremisesLastSyncDateTime { get; init; }
 
         /// <summary>Name of networking service for on-premise server.</summary>
         [JsonPropertyName("onPremisesNetBiosName")]
@@ -218,7 +218,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// <summary>Renewed date time of the group.</summary>
         [JsonPropertyName("renewedDateTime")]
         [JsonInclude]
-        public string RenewedDateTime { get; internal set; }
+        public string RenewedDateTime { get; init; }
 
         /// <summary>Resource behavior options of the group.</summary>
         [JsonPropertyName("resourceBehaviorOptions")]
@@ -280,7 +280,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
     /// <summary>
     /// Model factory for creating instances of MsGraphGroupsAndUsers models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class MsGraphGroupsAndUsersModelFactory
     {
@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// </summary>
         public static ListUsersResponse ListUsersResponse(
             string context = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListUsersResponse
             {
@@ -304,7 +304,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         public static ListGroupsByDisplayNameSearchResponse ListGroupsByDisplayNameSearchResponse(
             string context = default,
             int? count = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListGroupsByDisplayNameSearchResponse
             {
@@ -319,7 +319,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// </summary>
         public static ListSubscribedSkusResponse ListSubscribedSkusResponse(
             string context = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListSubscribedSkusResponse
             {
@@ -334,7 +334,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         public static ListDirectGroupMembersResponse ListDirectGroupMembersResponse(
             string context = default,
             int? count = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new ListDirectGroupMembersResponse
             {
@@ -349,7 +349,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models
         /// </summary>
         public static GetMemberLicenseDetailsResponse GetMemberLicenseDetailsResponse(
             string context = default,
-            List<object> value = default)
+            List<JsonElement?> value = default)
         {
             return new GetMemberLicenseDetailsResponse
             {
@@ -520,6 +520,8 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
 
         public override string ConnectorName => "msgraphgroupsanduser";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.msgraphgroupsanduser");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -540,10 +542,20 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The List Users response.</returns>
         public virtual async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users";
-            return await this
-                .CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.ListUsersAsync");
+            try
+            {
+                var path = $"/v1.0/users";
+                return await this
+                    .CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -555,14 +567,24 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The List Groups By Display Name Search response.</returns>
         public virtual async Task<ListGroupsByDisplayNameSearchResponse> ListGroupsByDisplayNameSearchAsync(string searchByDisplayName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("$count=true");
-            if (searchByDisplayName != default)
-                queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
-            var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.ListGroupsByDisplayNameSearchAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("$count=true");
+                if (searchByDisplayName != default)
+                    queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
+                var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -573,10 +595,20 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The List Subscribed Skus response.</returns>
         public virtual async Task<ListSubscribedSkusResponse> ListSubscribedSkusAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/subscribedSkus";
-            return await this
-                .CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.ListSubscribedSkusAsync");
+            try
+            {
+                var path = $"/v1.0/subscribedSkus";
+                return await this
+                    .CallConnectorAsync<ListSubscribedSkusResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -590,16 +622,28 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The List Direct Group Members response.</returns>
         public virtual async Task<ListDirectGroupMembersResponse> ListDirectGroupMembersAsync(string objectIdOfTheMicrosoftEntraIdGroup, string filterBy = default, string dataPointColumnSelection = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("$count=true");
-            if (filterBy != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterBy.ToString())}");
-            if (dataPointColumnSelection != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.ListDirectGroupMembersAsync");
+            try
+            {
+                if (objectIdOfTheMicrosoftEntraIdGroup is null)
+                    throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdGroup));
+                var queryParams = new List<string>();
+                queryParams.Add("$count=true");
+                if (filterBy != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterBy.ToString())}");
+                if (dataPointColumnSelection != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -612,13 +656,25 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The Get Member License Details response.</returns>
         public virtual async Task<GetMemberLicenseDetailsResponse> GetMemberLicenseDetailsAsync(string objectIdOfTheMicrosoftEntraIdMemberUser, string selectionOfDataPointsColumns = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (selectionOfDataPointsColumns != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
-            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.GetMemberLicenseDetailsAsync");
+            try
+            {
+                if (objectIdOfTheMicrosoftEntraIdMemberUser is null)
+                    throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdMemberUser));
+                var queryParams = new List<string>();
+                if (selectionOfDataPointsColumns != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
+                var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -630,10 +686,22 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The Get Group Properties response.</returns>
         public virtual async Task<GetGroupPropertiesResponse> GetGroupPropertiesAsync(string objectIdOfTheMicrosoftEntraIdGroup, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}";
-            return await this
-                .CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.GetGroupPropertiesAsync");
+            try
+            {
+                if (objectIdOfTheMicrosoftEntraIdGroup is null)
+                    throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdGroup));
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -646,10 +714,22 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
         /// <returns>The Get Member Groups response.</returns>
         public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string objectIdOfTheMicrosoftEntraIdMemberUser, GetMemberGroupsInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/getMemberGroups";
-            return await this
-                .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = MsGraphGroupsAndUsersClient.ConnectorActivitySource.StartActivity("MsGraphGroupsAndUsersClient.GetMemberGroupsAsync");
+            try
+            {
+                if (objectIdOfTheMicrosoftEntraIdMemberUser is null)
+                    throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdMemberUser));
+                var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/getMemberGroups";
+                return await this
+                    .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -151,7 +151,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     /// <summary>
     /// Model factory for creating instances of GoogleTasks models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class GoogleTasksModelFactory
     {
@@ -348,6 +348,8 @@ namespace Azure.Connectors.Sdk.GoogleTasks
 
         public override string ConnectorName => "googletasks";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.googletasks");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -368,10 +370,20 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         /// <returns>The List task lists response.</returns>
         public virtual async Task<TaskListList> ListTaskListsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/users/@me/lists";
-            return await this
-                .CallConnectorAsync<TaskListList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.ListTaskListsAsync");
+            try
+            {
+                var path = $"/users/@me/lists";
+                return await this
+                    .CallConnectorAsync<TaskListList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -383,10 +395,20 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         /// <returns>The Create a task list response.</returns>
         public virtual async Task<TaskListEntry> CreateTaskListAsync(TaskListCreate input, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/@me/lists";
-            return await this
-                .CallConnectorAsync<TaskListEntry>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.CreateTaskListAsync");
+            try
+            {
+                var path = $"/users/@me/lists";
+                return await this
+                    .CallConnectorAsync<TaskListEntry>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -398,10 +420,22 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         /// <returns>The Lists the tasks for a task list response.</returns>
         public virtual async Task<TaskList> ListTasksAsync([DynamicValues("ListTaskLists")] string taskListId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks";
-            return await this
-                .CallConnectorAsync<TaskList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.ListTasksAsync");
+            try
+            {
+                if (taskListId is null)
+                    throw new ArgumentNullException(nameof(taskListId));
+                var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks";
+                return await this
+                    .CallConnectorAsync<TaskList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -414,10 +448,22 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         /// <returns>The Create a task in a task list response.</returns>
         public virtual async Task<TaskObject> CraeteTaskAsync([DynamicValues("ListTaskLists")] string taskListId, TaskCreate input, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks";
-            return await this
-                .CallConnectorAsync<TaskObject>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.CraeteTaskAsync");
+            try
+            {
+                if (taskListId is null)
+                    throw new ArgumentNullException(nameof(taskListId));
+                var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks";
+                return await this
+                    .CallConnectorAsync<TaskObject>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -430,10 +476,24 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         /// <returns>The Get a task from a task list response.</returns>
         public virtual async Task<TaskObject> ListTaskAsync([DynamicValues("ListTaskLists")] string taskListId, [DynamicValues("ListTasks")] string taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<TaskObject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.ListTaskAsync");
+            try
+            {
+                if (taskListId is null)
+                    throw new ArgumentNullException(nameof(taskListId));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
+                var path = $"/lists/{Uri.EscapeDataString(taskListId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<TaskObject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

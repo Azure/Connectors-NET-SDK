@@ -54,7 +54,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DUE_DATE")]
         [JsonInclude]
-        public string DueDateTime { get; internal set; }
+        public string DueDateTime { get; init; }
 
         /// <summary>The unique identifier of the category.</summary>
         [JsonPropertyName("CATEGORY_ID")]
@@ -63,7 +63,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("COMPLETED_DATE_UTC")]
         [JsonInclude]
-        public string CompletedDateTime { get; internal set; }
+        public string CompletedDateTime { get; init; }
 
         /// <summary>A boolean value determining whether or not the task is completed.</summary>
         [JsonPropertyName("COMPLETED")]
@@ -84,7 +84,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("START_DATE")]
         [JsonInclude]
-        public string StartDateTime { get; internal set; }
+        public string StartDateTime { get; init; }
 
         /// <summary>The unique identifier of the project.</summary>
         [JsonPropertyName("PROJECT_ID")]
@@ -125,12 +125,12 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>The unique identifier of the assigned by user.</summary>
         [JsonPropertyName("ASSIGNED_BY_USER_ID")]
@@ -151,12 +151,12 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("ASSIGNED_DATE_UTC")]
         [JsonInclude]
-        public string AssignedDateTime { get; internal set; }
+        public string AssignedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("REMINDER_DATE_UTC")]
         [JsonInclude]
-        public string ReminderDateTime { get; internal set; }
+        public string ReminderDateTime { get; init; }
 
         /// <summary>A boolean value determining whether or not a reminder is set.</summary>
         [JsonPropertyName("REMINDER_SENT")]
@@ -213,7 +213,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>Project Visibility.</summary>
         [JsonPropertyName("VISIBLE_TO")]
@@ -222,17 +222,17 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("STARTED_DATE")]
         [JsonInclude]
-        public string StartedDateTime { get; internal set; }
+        public string StartedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("COMPLETED_DATE")]
         [JsonInclude]
-        public string CompletedDateTime { get; internal set; }
+        public string CompletedDateTime { get; init; }
 
         /// <summary>The unique identifier of the project owner.</summary>
         [JsonPropertyName("OWNER_USER_ID")]
@@ -317,17 +317,17 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("CONVERTED_DATE_UTC")]
         [JsonInclude]
-        public string ConvertedDateTime { get; internal set; }
+        public string ConvertedDateTime { get; init; }
 
         /// <summary>The status Id of the lead.</summary>
         [JsonPropertyName("LEAD_STATUS_ID")]
@@ -459,23 +459,23 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     {
         /// <summary>ADDRESS_WORK</summary>
         [JsonPropertyName("ADDRESS_WORK")]
-        public object AddressWork { get; set; }
+        public JsonElement? AddressWork { get; set; }
 
         /// <summary>ADDRESS_HOME</summary>
         [JsonPropertyName("ADDRESS_HOME")]
-        public object AddressHome { get; set; }
+        public JsonElement? AddressHome { get; set; }
 
         /// <summary>ADDRESS_POSTAL</summary>
         [JsonPropertyName("ADDRESS_POSTAL")]
-        public object AddressPostal { get; set; }
+        public JsonElement? AddressPostal { get; set; }
 
         /// <summary>ADDRESS_PRIMARY</summary>
         [JsonPropertyName("ADDRESS_PRIMARY")]
-        public object AddressPrimary { get; set; }
+        public JsonElement? AddressPrimary { get; set; }
 
         /// <summary>ADDRESS_OTHER</summary>
         [JsonPropertyName("ADDRESS_OTHER")]
-        public object AddressOther { get; set; }
+        public JsonElement? AddressOther { get; set; }
 
         /// <summary>The work email of the contact.</summary>
         [JsonPropertyName("EMAIL_WORK")]
@@ -532,7 +532,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>Contact visibility.</summary>
         [JsonPropertyName("VISIBLE_TO")]
@@ -553,7 +553,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>The unique identifier of the team.</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -646,12 +646,12 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>User currency.</summary>
         [JsonPropertyName("USER_CURRENCY")]
@@ -712,22 +712,22 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("START_DATE_UTC")]
         [JsonInclude]
-        public string StartDateTime { get; internal set; }
+        public string StartDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("END_DATE_UTC")]
         [JsonInclude]
-        public string EndDateTime { get; internal set; }
+        public string EndDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>The unique identifier of the owner.</summary>
         [JsonPropertyName("OWNER_USER_ID")]
@@ -774,12 +774,12 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
         [JsonInclude]
-        public string CreatedDateTime { get; internal set; }
+        public string CreatedDateTime { get; init; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_UPDATED_UTC")]
         [JsonInclude]
-        public string UpdatedDateTime { get; internal set; }
+        public string UpdatedDateTime { get; init; }
 
         /// <summary>The unique identifier of the owner.</summary>
         [JsonPropertyName("OWNER_USER_ID")]
@@ -886,7 +886,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DUE_DATE")]
         [JsonInclude]
-        public string DueDateTime { get; internal set; }
+        public string DueDateTime { get; init; }
 
         /// <summary>A boolean value determining whether or not the task is completed.</summary>
         [JsonPropertyName("COMPLETED")]
@@ -993,7 +993,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("CONVERTED_DATE_UTC")]
         [JsonInclude]
-        public string ConvertedDateTime { get; internal set; }
+        public string ConvertedDateTime { get; init; }
 
         /// <summary>Lead Visibility</summary>
         [JsonPropertyName("VISIBLE_TO")]
@@ -1259,7 +1259,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     /// <summary>
     /// Model factory for creating instances of Insightly models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class InsightlyModelFactory
     {
@@ -1521,11 +1521,11 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// Creates a new instance of <see cref="Contact"/>.
         /// </summary>
         public static Contact Contact(
-            object addressWork = default,
-            object addressHome = default,
-            object addressPostal = default,
-            object addressPrimary = default,
-            object addressOther = default,
+            JsonElement? addressWork = default,
+            JsonElement? addressHome = default,
+            JsonElement? addressPostal = default,
+            JsonElement? addressPrimary = default,
+            JsonElement? addressOther = default,
             string emailWork = default,
             string emailHome = default,
             string emailPersonal = default,
@@ -2073,6 +2073,8 @@ namespace Azure.Connectors.Sdk.Insightly
 
         public override string ConnectorName => "insightly";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.insightly");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -2093,10 +2095,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The List tasks response.</returns>
         public virtual async Task<ListTasksResponse> ListTasksAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/Tasks";
-            return await this
-                .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.ListTasksAsync");
+            try
+            {
+                var path = $"/Tasks";
+                return await this
+                    .CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2109,12 +2121,24 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Update task response.</returns>
         public virtual async Task<TaskObject> UpdateTaskAsync(TaskRequest input, [DynamicValues("ListTasks")] string taskId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"id={Uri.EscapeDataString(taskId.ToString())}");
-            var path = $"/Tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TaskObject>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.UpdateTaskAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
+                queryParams.Add($"id={Uri.EscapeDataString(taskId.ToString())}");
+                var path = $"/Tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TaskObject>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2126,10 +2150,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Add task response.</returns>
         public virtual async Task<TaskObject> AddTaskAsync(TaskRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/Tasks";
-            return await this
-                .CallConnectorAsync<TaskObject>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.AddTaskAsync");
+            try
+            {
+                var path = $"/Tasks";
+                return await this
+                    .CallConnectorAsync<TaskObject>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2140,10 +2174,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The List projects response.</returns>
         public virtual async Task<ListProjectsResponse> ListProjectsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/Projects";
-            return await this
-                .CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.ListProjectsAsync");
+            try
+            {
+                var path = $"/Projects";
+                return await this
+                    .CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2156,12 +2200,24 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Update project response.</returns>
         public virtual async Task<Project> UpdateProjectAsync(ProjectRequest input, [DynamicValues("ListProjects")] string projectId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"id={Uri.EscapeDataString(projectId.ToString())}");
-            var path = $"/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Project>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.UpdateProjectAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (projectId is null)
+                    throw new ArgumentNullException(nameof(projectId));
+                queryParams.Add($"id={Uri.EscapeDataString(projectId.ToString())}");
+                var path = $"/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Project>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2173,10 +2229,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Add project response.</returns>
         public virtual async Task<Project> AddProjectAsync(ProjectRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/Projects";
-            return await this
-                .CallConnectorAsync<Project>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.AddProjectAsync");
+            try
+            {
+                var path = $"/Projects";
+                return await this
+                    .CallConnectorAsync<Project>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2187,10 +2253,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The List leads response.</returns>
         public virtual async Task<ListLeadsResponse> ListLeadsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/Leads";
-            return await this
-                .CallConnectorAsync<ListLeadsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.ListLeadsAsync");
+            try
+            {
+                var path = $"/Leads";
+                return await this
+                    .CallConnectorAsync<ListLeadsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2203,12 +2279,24 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Update lead response.</returns>
         public virtual async Task<Lead> UpdateLeadAsync(LeadRequest input, [DynamicValues("ListLeads")] string leadId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"id={Uri.EscapeDataString(leadId.ToString())}");
-            var path = $"/Leads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Lead>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.UpdateLeadAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (leadId is null)
+                    throw new ArgumentNullException(nameof(leadId));
+                queryParams.Add($"id={Uri.EscapeDataString(leadId.ToString())}");
+                var path = $"/Leads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Lead>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2220,10 +2308,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Add lead response.</returns>
         public virtual async Task<Lead> AddLeadAsync(LeadRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/Leads";
-            return await this
-                .CallConnectorAsync<Lead>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.AddLeadAsync");
+            try
+            {
+                var path = $"/Leads";
+                return await this
+                    .CallConnectorAsync<Lead>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2234,10 +2332,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The List contacts response.</returns>
         public virtual async Task<ListContactsResponse> ListContactsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/Contacts";
-            return await this
-                .CallConnectorAsync<ListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.ListContactsAsync");
+            try
+            {
+                var path = $"/Contacts";
+                return await this
+                    .CallConnectorAsync<ListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2250,12 +2358,24 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Update contact response.</returns>
         public virtual async Task<Contact> UpdateContactAsync(ContactRequest input, [DynamicValues("ListContacts")] string contactId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"id={Uri.EscapeDataString(contactId.ToString())}");
-            var path = $"/Contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<Contact>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.UpdateContactAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (contactId is null)
+                    throw new ArgumentNullException(nameof(contactId));
+                queryParams.Add($"id={Uri.EscapeDataString(contactId.ToString())}");
+                var path = $"/Contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<Contact>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2267,10 +2387,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Add contact response.</returns>
         public virtual async Task<Contact> AddContactAsync(ContactRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/Contacts";
-            return await this
-                .CallConnectorAsync<Contact>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.AddContactAsync");
+            try
+            {
+                var path = $"/Contacts";
+                return await this
+                    .CallConnectorAsync<Contact>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2281,10 +2411,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The List users response.</returns>
         public virtual async Task<ListUsersResponse> ListUsersAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/Users";
-            return await this
-                .CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.ListUsersAsync");
+            try
+            {
+                var path = $"/Users";
+                return await this
+                    .CallConnectorAsync<ListUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2296,10 +2436,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Delete task response.</returns>
         public virtual async Task<ObjectEntity> DeleteTaskAsync([DynamicValues("ListTasks")] int taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Tasks/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteTaskAsync");
+            try
+            {
+                var path = $"/Tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2311,10 +2461,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Follow a task response.</returns>
         public virtual async Task<ObjectEntity> FollowTaskAsync(int taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Tasks/{Uri.EscapeDataString(taskId.ToString())}/Follow";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.FollowTaskAsync");
+            try
+            {
+                var path = $"/Tasks/{Uri.EscapeDataString(taskId.ToString())}/Follow";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2326,10 +2486,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Delete project response.</returns>
         public virtual async Task<ObjectEntity> DeleteProjectAsync([DynamicValues("ListProjects")] int projectId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Projects/{Uri.EscapeDataString(projectId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteProjectAsync");
+            try
+            {
+                var path = $"/Projects/{Uri.EscapeDataString(projectId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2341,10 +2511,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Delete lead response.</returns>
         public virtual async Task<ObjectEntity> DeleteLeadAsync([DynamicValues("ListLeads")] int leadId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Leads/{Uri.EscapeDataString(leadId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteLeadAsync");
+            try
+            {
+                var path = $"/Leads/{Uri.EscapeDataString(leadId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2356,10 +2536,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Delete contact response.</returns>
         public virtual async Task<ObjectEntity> DeleteContactAsync([DynamicValues("ListContacts")] int contactId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Contacts/{Uri.EscapeDataString(contactId.ToString())}";
-            return await this
-                .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteContactAsync");
+            try
+            {
+                var path = $"/Contacts/{Uri.EscapeDataString(contactId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -2371,10 +2561,20 @@ namespace Azure.Connectors.Sdk.Insightly
         /// <returns>The Add organization response.</returns>
         public virtual async Task<Organization> AddOrganizationAsync(OrganizationRequest input, CancellationToken cancellationToken = default)
         {
-            var path = $"/Organisations";
-            return await this
-                .CallConnectorAsync<Organization>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.AddOrganizationAsync");
+            try
+            {
+                var path = $"/Organisations";
+                return await this
+                    .CallConnectorAsync<Organization>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

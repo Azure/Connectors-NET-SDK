@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public List<object> Data { get; set; }
+        public List<JsonElement?> Data { get; set; }
     }
 
     /// <summary>
@@ -45,11 +45,11 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public List<object> Data { get; set; }
+        public List<JsonElement?> Data { get; set; }
 
         /// <summary>meta</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
     }
 
     /// <summary>
@@ -59,11 +59,11 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public List<object> Data { get; set; }
+        public List<JsonElement?> Data { get; set; }
 
         /// <summary>meta</summary>
         [JsonPropertyName("meta")]
-        public object Meta { get; set; }
+        public JsonElement? Meta { get; set; }
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -239,7 +239,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>owners</summary>
         [JsonPropertyName("owners")]
-        public object Owners { get; set; }
+        public JsonElement? Owners { get; set; }
 
         /// <summary>Task type</summary>
         [JsonPropertyName("task_type")]
@@ -265,7 +265,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     {
         /// <summary>data</summary>
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -560,7 +560,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     /// <summary>
     /// Model factory for creating instances of Tallyfy models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class TallyfyModelFactory
     {
@@ -568,7 +568,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="GetOrganizationUsersResponse"/>.
         /// </summary>
         public static GetOrganizationUsersResponse GetOrganizationUsersResponse(
-            List<object> data = default)
+            List<JsonElement?> data = default)
         {
             return new GetOrganizationUsersResponse
             {
@@ -580,8 +580,8 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="GetUserOrganizationsResponse"/>.
         /// </summary>
         public static GetUserOrganizationsResponse GetUserOrganizationsResponse(
-            List<object> data = default,
-            object meta = default)
+            List<JsonElement?> data = default,
+            JsonElement? meta = default)
         {
             return new GetUserOrganizationsResponse
             {
@@ -594,8 +594,8 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="GetUserTasksResponse"/>.
         /// </summary>
         public static GetUserTasksResponse GetUserTasksResponse(
-            List<object> data = default,
-            object meta = default)
+            List<JsonElement?> data = default,
+            JsonElement? meta = default)
         {
             return new GetUserTasksResponse
             {
@@ -628,7 +628,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="InviteUserToOrganizationResponse"/>.
         /// </summary>
         public static InviteUserToOrganizationResponse InviteUserToOrganizationResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new InviteUserToOrganizationResponse
             {
@@ -656,7 +656,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="CreateRunResponse"/>.
         /// </summary>
         public static CreateRunResponse CreateRunResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateRunResponse
             {
@@ -710,7 +710,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="CreateTaskInput"/>.
         /// </summary>
         public static CreateTaskInput CreateTaskInput(
-            object owners = default,
+            JsonElement? owners = default,
             TaskType? taskType = default,
             DateTime? deadline = default,
             string description = default,
@@ -730,7 +730,7 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
         /// Creates a new instance of <see cref="CreateTaskResponse"/>.
         /// </summary>
         public static CreateTaskResponse CreateTaskResponse(
-            object data = default)
+            JsonElement? data = default)
         {
             return new CreateTaskResponse
             {
@@ -822,6 +822,8 @@ namespace Azure.Connectors.Sdk.Tallyfy
 
         public override string ConnectorName => "tallyfy";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.tallyfy");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -843,10 +845,22 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Get organization&apos;s users response.</returns>
         public virtual async Task<GetOrganizationUsersResponse> GetOrganizationUsersAsync([DynamicValues("Get_User_Organizations")] string organization, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users";
-            return await this
-                .CallConnectorAsync<GetOrganizationUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetOrganizationUsersAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users";
+                return await this
+                    .CallConnectorAsync<GetOrganizationUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -857,10 +871,20 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Get user&apos;s organizations response.</returns>
         public virtual async Task<GetUserOrganizationsResponse> GetUserOrganizationsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/me/organizations";
-            return await this
-                .CallConnectorAsync<GetUserOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetUserOrganizationsAsync");
+            try
+            {
+                var path = $"/me/organizations";
+                return await this
+                    .CallConnectorAsync<GetUserOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -879,23 +903,35 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Get a member&apos;s tasks response.</returns>
         public virtual async Task<GetUserTasksResponse> GetUserTasksAsync([DynamicValues("Get_User_Organizations")] string organization, [DynamicValues("Get_Organization_Users")] int member, string searchByProcessName = default, string taskStatus = default, string sortBy = default, string taskTag = default, int? pageNumber = default, int? tasksPerPage = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (searchByProcessName != default)
-                queryParams.Add($"q={Uri.EscapeDataString(searchByProcessName.ToString())}");
-            if (taskStatus != default)
-                queryParams.Add($"status={Uri.EscapeDataString(taskStatus.ToString())}");
-            if (sortBy != default)
-                queryParams.Add($"sort={Uri.EscapeDataString(sortBy.ToString())}");
-            if (taskTag != default)
-                queryParams.Add($"tag={Uri.EscapeDataString(taskTag.ToString())}");
-            if (pageNumber.HasValue)
-                queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
-            if (tasksPerPage.HasValue)
-                queryParams.Add($"per_page={Uri.EscapeDataString(tasksPerPage.Value.ToString())}");
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users/{Uri.EscapeDataString(member.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetUserTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetUserTasksAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var queryParams = new List<string>();
+                if (searchByProcessName != default)
+                    queryParams.Add($"q={Uri.EscapeDataString(searchByProcessName.ToString())}");
+                if (taskStatus != default)
+                    queryParams.Add($"status={Uri.EscapeDataString(taskStatus.ToString())}");
+                if (sortBy != default)
+                    queryParams.Add($"sort={Uri.EscapeDataString(sortBy.ToString())}");
+                if (taskTag != default)
+                    queryParams.Add($"tag={Uri.EscapeDataString(taskTag.ToString())}");
+                if (pageNumber.HasValue)
+                    queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
+                if (tasksPerPage.HasValue)
+                    queryParams.Add($"per_page={Uri.EscapeDataString(tasksPerPage.Value.ToString())}");
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users/{Uri.EscapeDataString(member.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetUserTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -908,10 +944,22 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Invite a new member to your organization response.</returns>
         public virtual async Task<InviteUserToOrganizationResponse> InviteUserToOrganizationAsync([DynamicValues("Get_User_Organizations")] string organization, InviteUserToOrganizationInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users/invite";
-            return await this
-                .CallConnectorAsync<InviteUserToOrganizationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.InviteUserToOrganizationAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users/invite";
+                return await this
+                    .CallConnectorAsync<InviteUserToOrganizationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -924,10 +972,22 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Launch a Process response.</returns>
         public virtual async Task<CreateRunResponse> CreateRunAsync([DynamicValues("Get_User_Organizations")] string organization, CreateRunInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs";
-            return await this
-                .CallConnectorAsync<CreateRunResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.CreateRunAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs";
+                return await this
+                    .CallConnectorAsync<CreateRunResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -940,10 +1000,22 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Complete One Off Task response.</returns>
         public virtual async Task<CompletedOneOffTaskResponse> CompletedOneOffTaskAsync([DynamicValues("Get_User_Organizations")] string organization, CompletedOneOffTaskInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/completed-tasks";
-            return await this
-                .CallConnectorAsync<CompletedOneOffTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.CompletedOneOffTaskAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/completed-tasks";
+                return await this
+                    .CallConnectorAsync<CompletedOneOffTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -956,10 +1028,24 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Reopen One Off Task response.</returns>
         public virtual async Task<ReopenOneOffTaskResponse> ReopenOneOffTaskAsync([DynamicValues("Get_User_Organizations")] string organization, string taskId, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/completed-tasks/{Uri.EscapeDataString(taskId.ToString())}";
-            return await this
-                .CallConnectorAsync<ReopenOneOffTaskResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.ReopenOneOffTaskAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/completed-tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ReopenOneOffTaskResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -973,10 +1059,24 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Complete process task response.</returns>
         public virtual async Task<CompletedProcessTaskResponse> CompletedProcessTaskAsync(string organization, string runId, CompletedProcessTaskInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs/{Uri.EscapeDataString(runId.ToString())}/completed-tasks";
-            return await this
-                .CallConnectorAsync<CompletedProcessTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.CompletedProcessTaskAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (runId is null)
+                    throw new ArgumentNullException(nameof(runId));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs/{Uri.EscapeDataString(runId.ToString())}/completed-tasks";
+                return await this
+                    .CallConnectorAsync<CompletedProcessTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -990,10 +1090,26 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Reopen process Task response.</returns>
         public virtual async Task<ReopenProcessTaskResponse> ReopenProcessTaskAsync(string organization, string runId, string task, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs/{Uri.EscapeDataString(runId.ToString())}/completed-tasks/{Uri.EscapeDataString(task.ToString())}";
-            return await this
-                .CallConnectorAsync<ReopenProcessTaskResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.ReopenProcessTaskAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (runId is null)
+                    throw new ArgumentNullException(nameof(runId));
+                if (task is null)
+                    throw new ArgumentNullException(nameof(task));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs/{Uri.EscapeDataString(runId.ToString())}/completed-tasks/{Uri.EscapeDataString(task.ToString())}";
+                return await this
+                    .CallConnectorAsync<ReopenProcessTaskResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1007,10 +1123,24 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Add comment, report issue, resolve issue on a task response.</returns>
         public virtual async Task<CommentTaskResponse> CommentTaskAsync([DynamicValues("Get_User_Organizations")] string organization, string task, CommentTaskInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(task.ToString())}/comment";
-            return await this
-                .CallConnectorAsync<CommentTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.CommentTaskAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (task is null)
+                    throw new ArgumentNullException(nameof(task));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(task.ToString())}/comment";
+                return await this
+                    .CallConnectorAsync<CommentTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1023,10 +1153,22 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Create a task response.</returns>
         public virtual async Task<CreateTaskResponse> CreateTaskAsync([DynamicValues("Get_User_Organizations")] string organization, CreateTaskInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks";
-            return await this
-                .CallConnectorAsync<CreateTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.CreateTaskAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks";
+                return await this
+                    .CallConnectorAsync<CreateTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1040,10 +1182,24 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Edit task deadline response.</returns>
         public virtual async Task<EditTaskDeadlineResponse> EditTaskDeadlineAsync([DynamicValues("Get_User_Organizations")] string organization, string taskId, EditTaskDeadlineInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/edit-deadline";
-            return await this
-                .CallConnectorAsync<EditTaskDeadlineResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.EditTaskDeadlineAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/edit-deadline";
+                return await this
+                    .CallConnectorAsync<EditTaskDeadlineResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1057,10 +1213,26 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Remove guest assigned response.</returns>
         public virtual async Task<RemoveGuestResponse> RemoveGuestAsync([DynamicValues("Get_User_Organizations")] string organization, string taskId, string guestEmail, CancellationToken cancellationToken = default)
         {
-            var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/remove-guest/{Uri.EscapeDataString(guestEmail.ToString())}";
-            return await this
-                .CallConnectorAsync<RemoveGuestResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.RemoveGuestAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
+                if (guestEmail is null)
+                    throw new ArgumentNullException(nameof(guestEmail));
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/remove-guest/{Uri.EscapeDataString(guestEmail.ToString())}";
+                return await this
+                    .CallConnectorAsync<RemoveGuestResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1074,10 +1246,26 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Remove assignee response.</returns>
         public virtual async Task<RemoveAssigneeResponse> RemoveAssigneeAsync([DynamicValues("Get_User_Organizations")] string organization, string taskId, string memberId, CancellationToken cancellationToken = default)
         {
-            var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/remove-assignee/{Uri.EscapeDataString(memberId.ToString())}";
-            return await this
-                .CallConnectorAsync<RemoveAssigneeResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.RemoveAssigneeAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (taskId is null)
+                    throw new ArgumentNullException(nameof(taskId));
+                if (memberId is null)
+                    throw new ArgumentNullException(nameof(memberId));
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/remove-assignee/{Uri.EscapeDataString(memberId.ToString())}";
+                return await this
+                    .CallConnectorAsync<RemoveAssigneeResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1092,10 +1280,26 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <returns>The Edit step type response.</returns>
         public virtual async Task<EditStepTypeResponse> EditStepTypeAsync([DynamicValues("Get_User_Organizations")] string organization, string blueprintId, string stepId, EditStepTypeInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/blueprints/{Uri.EscapeDataString(blueprintId.ToString())}/steps/{Uri.EscapeDataString(stepId.ToString())}/edit-step-type";
-            return await this
-                .CallConnectorAsync<EditStepTypeResponse>(HttpMethod.Put, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.EditStepTypeAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                if (blueprintId is null)
+                    throw new ArgumentNullException(nameof(blueprintId));
+                if (stepId is null)
+                    throw new ArgumentNullException(nameof(stepId));
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/blueprints/{Uri.EscapeDataString(blueprintId.ToString())}/steps/{Uri.EscapeDataString(stepId.ToString())}/edit-step-type";
+                return await this
+                    .CallConnectorAsync<EditStepTypeResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

@@ -239,7 +239,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>List of people who liked the post.</summary>
         [JsonPropertyName("names")]
-        public List<object> Names { get; set; }
+        public List<JsonElement?> Names { get; set; }
     }
 
     /// <summary>
@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     /// <summary>
     /// Model factory for creating instances of Yammer models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class YammerModelFactory
     {
@@ -440,7 +440,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         /// </summary>
         public static LikedBy LikedBy(
             int? count = default,
-            List<object> names = default)
+            List<JsonElement?> names = default)
         {
             return new LikedBy
             {
@@ -616,6 +616,8 @@ namespace Azure.Connectors.Sdk.Yammer
 
         public override string ConnectorName => "yammer";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.yammer");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -636,10 +638,20 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get my networks response.</returns>
         public virtual async Task<List<Network>> GetNetworksAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/networks.json";
-            return await this
-                .CallConnectorAsync<List<Network>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetNetworksAsync");
+            try
+            {
+                var path = $"/networks.json";
+                return await this
+                    .CallConnectorAsync<List<Network>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -653,17 +665,27 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get groups response.</returns>
         public virtual async Task<List<YammerEntity>> GetGroupsAsync([DynamicValues("GetNetworks")] string networkId = default, int? mine = default, int? showAllCompanyGroup = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (networkId != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            if (mine.HasValue)
-                queryParams.Add($"mine={Uri.EscapeDataString(mine.Value.ToString())}");
-            if (showAllCompanyGroup.HasValue)
-                queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.Value.ToString())}");
-            var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<YammerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (networkId != default)
+                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                if (mine.HasValue)
+                    queryParams.Add($"mine={Uri.EscapeDataString(mine.Value.ToString())}");
+                if (showAllCompanyGroup.HasValue)
+                    queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.Value.ToString())}");
+                var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<YammerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -675,10 +697,20 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get user details response.</returns>
         public virtual async Task<User> GetUserDetailsByIdAsync(int userId, CancellationToken cancellationToken = default)
         {
-            var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json";
-            return await this
-                .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetUserDetailsByIdAsync");
+            try
+            {
+                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json";
+                return await this
+                    .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -689,12 +721,24 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task LikeMessageAsync(string messageId, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"message_id={Uri.EscapeDataString(messageId.ToString())}");
-            var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.LikeMessageAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (messageId is null)
+                    throw new ArgumentNullException(nameof(messageId));
+                queryParams.Add($"message_id={Uri.EscapeDataString(messageId.ToString())}");
+                var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -710,21 +754,31 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get all messages (V3) response.</returns>
         public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (uniqueIdentifierOfTheNetwork != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork.ToString())}");
-            if (olderThan.HasValue)
-                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
-            if (newerThan.HasValue)
-                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
-            if (threadTypeOfMessages != default)
-                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetAllMessagesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (uniqueIdentifierOfTheNetwork != default)
+                    queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork.ToString())}");
+                if (olderThan.HasValue)
+                    queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+                if (newerThan.HasValue)
+                    queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
+                if (threadTypeOfMessages != default)
+                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -740,21 +794,31 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get the messages from my Following feed (V3) response.</returns>
         public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (networkId != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            if (olderThan.HasValue)
-                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
-            if (newerThan.HasValue)
-                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
-            if (threadTypeOfMessages != default)
-                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesFollowingAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (networkId != default)
+                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                if (olderThan.HasValue)
+                    queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+                if (newerThan.HasValue)
+                    queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
+                if (threadTypeOfMessages != default)
+                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -771,21 +835,31 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get messages in a group (V3) response.</returns>
         public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (networkId != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            if (olderThan.HasValue)
-                queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
-            if (newerThan.HasValue)
-                queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
-            if (threadTypeOfMessages != default)
-                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInGroupAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (networkId != default)
+                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                if (olderThan.HasValue)
+                    queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+                if (newerThan.HasValue)
+                    queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
+                if (threadTypeOfMessages != default)
+                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -797,10 +871,20 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Get messages in a thread (V3) response.</returns>
         public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadId.ToString())}.json";
-            return await this
-                .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInThreadAsync");
+            try
+            {
+                var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadId.ToString())}.json";
+                return await this
+                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -813,13 +897,23 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <returns>The Post message (V2) response.</returns>
         public virtual async Task<MessageList> PostMessageAsync(PostOperationRequest input, [DynamicValues("GetNetworks")] string networkId = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (networkId != default)
-                queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
-            var path = $"/v2/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<MessageList>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.PostMessageAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (networkId != default)
+                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                var path = $"/v2/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<MessageList>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

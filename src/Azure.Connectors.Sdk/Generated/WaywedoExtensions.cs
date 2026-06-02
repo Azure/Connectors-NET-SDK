@@ -451,7 +451,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     /// <summary>
     /// Model factory for creating instances of Waywedo models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class WaywedoModelFactory
     {
@@ -874,6 +874,8 @@ namespace Azure.Connectors.Sdk.Waywedo
 
         public override string ConnectorName => "waywedo";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.waywedo");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -895,10 +897,20 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Add a comment to a checklist instance step response.</returns>
         public virtual async Task<ChecklistComment> CommentAddAsync(CommentAddInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstanceComments";
-            return await this
-                .CallConnectorAsync<ChecklistComment>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.CommentAddAsync");
+            try
+            {
+                var path = $"/v1/ChecklistInstanceComments";
+                return await this
+                    .CallConnectorAsync<ChecklistComment>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -912,17 +924,27 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Get All Checklist Instances response.</returns>
         public virtual async Task<GetAllChecklistInstancesResponse> GetAllChecklistInstancesAsync(int? limit = default, int? offset = default, int? status = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (limit.HasValue)
-                queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-            if (offset.HasValue)
-                queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-            if (status.HasValue)
-                queryParams.Add($"status={Uri.EscapeDataString(status.Value.ToString())}");
-            var path = $"/v1/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetAllChecklistInstancesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.GetAllChecklistInstancesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (status.HasValue)
+                    queryParams.Add($"status={Uri.EscapeDataString(status.Value.ToString())}");
+                var path = $"/v1/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllChecklistInstancesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -934,10 +956,20 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Create Checklist Instance response.</returns>
         public virtual async Task<ChecklistInstance> ChecklistInstancesAsync(ChecklistInstancesInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstances";
-            return await this
-                .CallConnectorAsync<ChecklistInstance>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ChecklistInstancesAsync");
+            try
+            {
+                var path = $"/v1/ChecklistInstances";
+                return await this
+                    .CallConnectorAsync<ChecklistInstance>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -949,10 +981,22 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Get A Checklist Instance response.</returns>
         public virtual async Task<ChecklistInstance> ChecklistInstancesGetAsync(string instanceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}";
-            return await this
-                .CallConnectorAsync<ChecklistInstance>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ChecklistInstancesGetAsync");
+            try
+            {
+                if (instanceId is null)
+                    throw new ArgumentNullException(nameof(instanceId));
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ChecklistInstance>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -962,12 +1006,24 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <param name="instanceId">Instance Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Checklist Instance Activity response.</returns>
-        public virtual async Task<List<object>> ChecklistInstancesActivityAsync([DynamicValues("GetAll_ChecklistInstances")] string instanceId, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> ChecklistInstancesActivityAsync([DynamicValues("GetAll_ChecklistInstances")] string instanceId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Activity";
-            return await this
-                .CallConnectorAsync<List<object>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ChecklistInstancesActivityAsync");
+            try
+            {
+                if (instanceId is null)
+                    throw new ArgumentNullException(nameof(instanceId));
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Activity";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -980,13 +1036,25 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Find Checklist Step response.</returns>
         public virtual async Task<List<ChecklistStep>> FindStepsAsync([DynamicValues("GetAll_ChecklistInstances")] string instanceId, string stepTitle = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (stepTitle != default)
-                queryParams.Add($"query={Uri.EscapeDataString(stepTitle.ToString())}");
-            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<ChecklistStep>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.FindStepsAsync");
+            try
+            {
+                if (instanceId is null)
+                    throw new ArgumentNullException(nameof(instanceId));
+                var queryParams = new List<string>();
+                if (stepTitle != default)
+                    queryParams.Add($"query={Uri.EscapeDataString(stepTitle.ToString())}");
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<ChecklistStep>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -999,10 +1067,24 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Get A Checklist Step response.</returns>
         public virtual async Task<ChecklistStep> ChecklistStepsGetAsync(string instanceId, string stepId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps/{Uri.EscapeDataString(stepId.ToString())}";
-            return await this
-                .CallConnectorAsync<ChecklistStep>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ChecklistStepsGetAsync");
+            try
+            {
+                if (instanceId is null)
+                    throw new ArgumentNullException(nameof(instanceId));
+                if (stepId is null)
+                    throw new ArgumentNullException(nameof(stepId));
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps/{Uri.EscapeDataString(stepId.ToString())}";
+                return await this
+                    .CallConnectorAsync<ChecklistStep>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1016,10 +1098,24 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Complete a Checklist Step response.</returns>
         public virtual async Task<ChecklistStepsCompleteResponse> ChecklistStepsCompleteAsync([DynamicValues("GetAll_ChecklistInstances")] string instanceId, [DynamicValues("Find_Steps")] string stepId, ChecklistStepsCompleteInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps/{Uri.EscapeDataString(stepId.ToString())}/Complete";
-            return await this
-                .CallConnectorAsync<ChecklistStepsCompleteResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ChecklistStepsCompleteAsync");
+            try
+            {
+                if (instanceId is null)
+                    throw new ArgumentNullException(nameof(instanceId));
+                if (stepId is null)
+                    throw new ArgumentNullException(nameof(stepId));
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps/{Uri.EscapeDataString(stepId.ToString())}/Complete";
+                return await this
+                    .CallConnectorAsync<ChecklistStepsCompleteResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1031,10 +1127,20 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Add Collaborators to a Checklist Instance response.</returns>
         public virtual async Task<CollaboratorsAddResponse> CollaboratorsAddAsync(CollaboratorsAddInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Collaborators";
-            return await this
-                .CallConnectorAsync<CollaboratorsAddResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.CollaboratorsAddAsync");
+            try
+            {
+                var path = $"/v1/Collaborators";
+                return await this
+                    .CallConnectorAsync<CollaboratorsAddResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1046,14 +1152,24 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Find Checklist response.</returns>
         public virtual async Task<List<Procedure>> FindChecklistAsync(string checklistTitle = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add("type=2");
-            if (checklistTitle != default)
-                queryParams.Add($"query={Uri.EscapeDataString(checklistTitle.ToString())}");
-            var path = $"/v1/Procedures" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<Procedure>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.FindChecklistAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("type=2");
+                if (checklistTitle != default)
+                    queryParams.Add($"query={Uri.EscapeDataString(checklistTitle.ToString())}");
+                var path = $"/v1/Procedures" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<Procedure>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1065,10 +1181,20 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Get A Checklist Or Procedure response.</returns>
         public virtual async Task<Procedure> ProceduresGetAsync(int procedureId, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}";
-            return await this
-                .CallConnectorAsync<Procedure>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ProceduresGetAsync");
+            try
+            {
+                var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}";
+                return await this
+                    .CallConnectorAsync<Procedure>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1081,13 +1207,23 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Find Checklist Instance response.</returns>
         public virtual async Task<List<ChecklistInstance>> FindChecklistInstancesAsync([DynamicValues("Find_Checklist")] int procedureId, string instanceTitle = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (instanceTitle != default)
-                queryParams.Add($"query={Uri.EscapeDataString(instanceTitle.ToString())}");
-            var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<ChecklistInstance>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.FindChecklistInstancesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (instanceTitle != default)
+                    queryParams.Add($"query={Uri.EscapeDataString(instanceTitle.ToString())}");
+                var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<ChecklistInstance>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1099,13 +1235,23 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Find User response.</returns>
         public virtual async Task<List<User>> FindUserAsync(string emailAddressOrName = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (emailAddressOrName != default)
-                queryParams.Add($"query={Uri.EscapeDataString(emailAddressOrName.ToString())}");
-            var path = $"/v1/Users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<List<User>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.FindUserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (emailAddressOrName != default)
+                    queryParams.Add($"query={Uri.EscapeDataString(emailAddressOrName.ToString())}");
+                var path = $"/v1/Users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<User>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1117,10 +1263,20 @@ namespace Azure.Connectors.Sdk.Waywedo
         /// <returns>The Add a New User response.</returns>
         public virtual async Task<UsersPostResponse> UsersAsync(UsersInput input, CancellationToken cancellationToken = default)
         {
-            var path = $"/v1/Users";
-            return await this
-                .CallConnectorAsync<UsersPostResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.UsersAsync");
+            try
+            {
+                var path = $"/v1/Users";
+                return await this
+                    .CallConnectorAsync<UsersPostResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

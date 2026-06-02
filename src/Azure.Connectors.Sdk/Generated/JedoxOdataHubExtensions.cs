@@ -535,7 +535,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     /// <summary>
     /// Model factory for creating instances of JedoxOdataHub models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class JedoxOdataHubModelFactory
     {
@@ -965,6 +965,8 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
 
         public override string ConnectorName => "jedoxodatahub";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.jedoxodatahub");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -988,17 +990,27 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get databases response.</returns>
         public virtual async Task<DatabasesResponse> DatabasesAsync(int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.DatabasesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1010,10 +1022,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get database by id response.</returns>
         public virtual async Task<Database> DatabaseByIdAsync([DynamicValues("Databases")] int databaseId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})";
-            return await this
-                .CallConnectorAsync<Database>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.DatabaseByIdAsync");
+            try
+            {
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})";
+                return await this
+                    .CallConnectorAsync<Database>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1028,17 +1050,27 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get cubes response.</returns>
         public virtual async Task<CubesResponse> CubesAsync([DynamicValues("Databases")] int databaseId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CubesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.CubesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CubesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1051,10 +1083,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get cube by ID response.</returns>
         public virtual async Task<Cube> CubeByIdAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Cubes")] int cubeId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes({Uri.EscapeDataString(cubeId.ToString())})";
-            return await this
-                .CallConnectorAsync<Cube>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.CubeByIdAsync");
+            try
+            {
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes({Uri.EscapeDataString(cubeId.ToString())})";
+                return await this
+                    .CallConnectorAsync<Cube>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1074,25 +1116,35 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get cube cells response.</returns>
         public virtual async Task<CubeCellsResponse> CubeCellsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Cubes")] int cubeId, int? topCount = default, int? skipCount = default, string filter = default, bool? baseElementsOnly = default, bool? useRules = default, bool? supressZeros = default, bool? disablePaging = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (baseElementsOnly.HasValue)
-                queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.Value.ToString())}");
-            if (useRules.HasValue)
-                queryParams.Add($"userules={Uri.EscapeDataString(useRules.Value.ToString())}");
-            if (supressZeros.HasValue)
-                queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.Value.ToString())}");
-            if (disablePaging.HasValue)
-                queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.Value.ToString())}");
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes({Uri.EscapeDataString(cubeId.ToString())})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CubeCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.CubeCellsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                if (baseElementsOnly.HasValue)
+                    queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.Value.ToString())}");
+                if (useRules.HasValue)
+                    queryParams.Add($"userules={Uri.EscapeDataString(useRules.Value.ToString())}");
+                if (supressZeros.HasValue)
+                    queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.Value.ToString())}");
+                if (disablePaging.HasValue)
+                    queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.Value.ToString())}");
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Cubes({Uri.EscapeDataString(cubeId.ToString())})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CubeCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1107,17 +1159,27 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get dimensions response.</returns>
         public virtual async Task<DimensionsResponse> DimensionsAsync([DynamicValues("Databases")] int databaseId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<DimensionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.DimensionsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DimensionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1130,10 +1192,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get dimension by ID response.</returns>
         public virtual async Task<Dimension> DimensionByIdAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Dimensions")] int dimensionId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})";
-            return await this
-                .CallConnectorAsync<Dimension>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.DimensionByIdAsync");
+            try
+            {
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})";
+                return await this
+                    .CallConnectorAsync<Dimension>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1149,17 +1221,27 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get elements response.</returns>
         public virtual async Task<ElementsResponse> ElementsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Dimensions")] int dimensionId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})/Elements" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ElementsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ElementsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})/Elements" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ElementsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1173,10 +1255,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get element by ID response.</returns>
         public virtual async Task<Element> ElementByIdAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Dimensions")] int dimensionId, [DynamicValues("Elements")] int elementId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})/Elements({Uri.EscapeDataString(elementId.ToString())})";
-            return await this
-                .CallConnectorAsync<Element>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ElementByIdAsync");
+            try
+            {
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Dimensions({Uri.EscapeDataString(dimensionId.ToString())})/Elements({Uri.EscapeDataString(elementId.ToString())})";
+                return await this
+                    .CallConnectorAsync<Element>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1191,17 +1283,27 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get stored views response.</returns>
         public virtual async Task<ViewsResponse> ViewsAsync([DynamicValues("Databases")] int databaseId, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ViewsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ViewsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ViewsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1214,10 +1316,22 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get stored view by ID response.</returns>
         public virtual async Task<View> ViewByIdAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Views")] string viewId, CancellationToken cancellationToken = default)
         {
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views({Uri.EscapeDataString(viewId.ToString())})";
-            return await this
-                .CallConnectorAsync<View>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ViewByIdAsync");
+            try
+            {
+                if (viewId is null)
+                    throw new ArgumentNullException(nameof(viewId));
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views({Uri.EscapeDataString(viewId.ToString())})";
+                return await this
+                    .CallConnectorAsync<View>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1237,25 +1351,37 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get stored view cells response.</returns>
         public virtual async Task<ViewCellsResponse> ViewCellsAsync([DynamicValues("Databases")] int databaseId, [DynamicValues("Views")] string viewId, int? topCount = default, int? skipCount = default, string filter = default, bool? baseElementsOnly = default, bool? useRules = default, bool? supressZeros = default, bool? disablePaging = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            if (baseElementsOnly.HasValue)
-                queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.Value.ToString())}");
-            if (useRules.HasValue)
-                queryParams.Add($"userules={Uri.EscapeDataString(useRules.Value.ToString())}");
-            if (supressZeros.HasValue)
-                queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.Value.ToString())}");
-            if (disablePaging.HasValue)
-                queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.Value.ToString())}");
-            var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views({Uri.EscapeDataString(viewId.ToString())})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ViewCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ViewCellsAsync");
+            try
+            {
+                if (viewId is null)
+                    throw new ArgumentNullException(nameof(viewId));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                if (baseElementsOnly.HasValue)
+                    queryParams.Add($"baseonly={Uri.EscapeDataString(baseElementsOnly.Value.ToString())}");
+                if (useRules.HasValue)
+                    queryParams.Add($"userules={Uri.EscapeDataString(useRules.Value.ToString())}");
+                if (supressZeros.HasValue)
+                    queryParams.Add($"zerosupression={Uri.EscapeDataString(supressZeros.Value.ToString())}");
+                if (disablePaging.HasValue)
+                    queryParams.Add($"disablepaging={Uri.EscapeDataString(disablePaging.Value.ToString())}");
+                var path = $"/Databases({Uri.EscapeDataString(databaseId.ToString())})/Views({Uri.EscapeDataString(viewId.ToString())})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ViewCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1269,17 +1395,27 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Integrator project groups response.</returns>
         public virtual async Task<IntegratorProjectGroupsResponse> IntegratorProjectGroupsAsync(int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IntegratorProjectGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IntegratorProjectGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1291,10 +1427,22 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Integrator project group by identifier response.</returns>
         public virtual async Task<IntegratorProjectGroup> IntegratorProjectsByIdAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorProjectGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectsByIdAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorProjectGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1309,17 +1457,29 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Integrator projects response.</returns>
         public virtual async Task<IntegratorProjectsResponse> IntegratorProjectsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<IntegratorProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<IntegratorProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1332,10 +1492,24 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Integrator project by name response.</returns>
         public virtual async Task<IntegratorProject> IntegratorProjectsByNameAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.IntegratorProjectsByNameAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1351,17 +1525,31 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get extracts response.</returns>
         public virtual async Task<ExtractsResponse> ExtractsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ExtractsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ExtractsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ExtractsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1375,10 +1563,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get extract by Name response.</returns>
         public virtual async Task<IntegratorComponent> ExtractByNameAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Extracts")] string extractName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts('{Uri.EscapeDataString(extractName.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ExtractByNameAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (extractName is null)
+                    throw new ArgumentNullException(nameof(extractName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts('{Uri.EscapeDataString(extractName.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1395,17 +1599,33 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get extract rows response.</returns>
         public virtual async Task<ExtractRowsResponse> ExtractRowsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Extracts")] string extractName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts('{Uri.EscapeDataString(extractName.ToString())}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ExtractRowsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ExtractRowsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (extractName is null)
+                    throw new ArgumentNullException(nameof(extractName));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Extracts('{Uri.EscapeDataString(extractName.ToString())}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ExtractRowsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1421,17 +1641,31 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get jobs response.</returns>
         public virtual async Task<JobsResponse> JobsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<JobsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.JobsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<JobsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1445,10 +1679,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get job by name response.</returns>
         public virtual async Task<IntegratorComponent> JobByNameAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Jobs")] string jobName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.JobByNameAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (jobName is null)
+                    throw new ArgumentNullException(nameof(jobName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1462,10 +1712,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Run job response.</returns>
         public virtual async Task<IntegratorRunResult> RunJobAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Jobs")] string jobName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run";
-            return await this
-                .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunJobAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (jobName is null)
+                    throw new ArgumentNullException(nameof(jobName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run";
+                return await this
+                    .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1480,10 +1746,28 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Run job with variables response.</returns>
         public virtual async Task<IntegratorRunResult> RunJobWithVariablesAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Jobs")] string jobName, string variables, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunJobWithVariablesAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (jobName is null)
+                    throw new ArgumentNullException(nameof(jobName));
+                if (variables is null)
+                    throw new ArgumentNullException(nameof(variables));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1499,17 +1783,31 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get loads response.</returns>
         public virtual async Task<LoadsResponse> LoadsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<LoadsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.LoadsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<LoadsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1523,10 +1821,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get load by name response.</returns>
         public virtual async Task<IntegratorComponent> LoadByNameAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Loads")] string loadName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.LoadByNameAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (loadName is null)
+                    throw new ArgumentNullException(nameof(loadName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1540,10 +1854,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Run load response.</returns>
         public virtual async Task<IntegratorRunResult> RunLoadAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Loads")] string loadName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run()";
-            return await this
-                .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunLoadAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (loadName is null)
+                    throw new ArgumentNullException(nameof(loadName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run()";
+                return await this
+                    .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1558,10 +1888,28 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Run load with variables response.</returns>
         public virtual async Task<IntegratorRunResult> RunLoadWithVariablesAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Loads")] string loadName, string variables, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.RunLoadWithVariablesAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (loadName is null)
+                    throw new ArgumentNullException(nameof(loadName));
+                if (variables is null)
+                    throw new ArgumentNullException(nameof(variables));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1577,17 +1925,31 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get transforms response.</returns>
         public virtual async Task<TransformsResponse> TransformsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TransformsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.TransformsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TransformsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1601,10 +1963,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get transform by name response.</returns>
         public virtual async Task<IntegratorComponent> TransformByNameAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Transforms")] string transformName, CancellationToken cancellationToken = default)
         {
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms('{Uri.EscapeDataString(transformName.ToString())}')";
-            return await this
-                .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.TransformByNameAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (transformName is null)
+                    throw new ArgumentNullException(nameof(transformName));
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms('{Uri.EscapeDataString(transformName.ToString())}')";
+                return await this
+                    .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1621,17 +1999,33 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get transform Rows response.</returns>
         public virtual async Task<TransformRowsResponse> TransformRowsAsync([DynamicValues("IntegratorProjectGroups")] string groupIdentifier, [DynamicValues("IntegratorProjects")] string projectName, [DynamicValues("Transforms")] string transformName, int? topCount = default, int? skipCount = default, string filter = default, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            if (topCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-            if (skipCount.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-            if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
-            var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms('{Uri.EscapeDataString(transformName.ToString())}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TransformRowsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.TransformRowsAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (transformName is null)
+                    throw new ArgumentNullException(nameof(transformName));
+                var queryParams = new List<string>();
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (filter != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Transforms('{Uri.EscapeDataString(transformName.ToString())}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TransformRowsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1644,10 +2038,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Cube Cell Result Schema response.</returns>
         public virtual async Task<GetCubeCellResultSchemaResponse> GetCubeCellResultSchemaAsync(int databaseIdentifier, int cubeIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/cubes/{Uri.EscapeDataString(cubeIdentifier.ToString())}/cells";
-            return await this
-                .CallConnectorAsync<GetCubeCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetCubeCellResultSchemaAsync");
+            try
+            {
+                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/cubes/{Uri.EscapeDataString(cubeIdentifier.ToString())}/cells";
+                return await this
+                    .CallConnectorAsync<GetCubeCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1660,10 +2064,22 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get View Cell Result Schema response.</returns>
         public virtual async Task<GetViewCellResultSchemaResponse> GetViewCellResultSchemaAsync(int databaseIdentifier, string viewIdentifier, CancellationToken cancellationToken = default)
         {
-            var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/views/{Uri.EscapeDataString(viewIdentifier.ToString())}/cells";
-            return await this
-                .CallConnectorAsync<GetViewCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetViewCellResultSchemaAsync");
+            try
+            {
+                if (viewIdentifier is null)
+                    throw new ArgumentNullException(nameof(viewIdentifier));
+                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/views/{Uri.EscapeDataString(viewIdentifier.ToString())}/cells";
+                return await this
+                    .CallConnectorAsync<GetViewCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1677,10 +2093,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Extract Rows Result Schema response.</returns>
         public virtual async Task<GetExtractRowsResultSchemaResponse> GetExtractRowsResultSchemaAsync(string groupIdentifier, string projectName, string extractName, CancellationToken cancellationToken = default)
         {
-            var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/extracts/{Uri.EscapeDataString(extractName.ToString())}/rows";
-            return await this
-                .CallConnectorAsync<GetExtractRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetExtractRowsResultSchemaAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (extractName is null)
+                    throw new ArgumentNullException(nameof(extractName));
+                var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/extracts/{Uri.EscapeDataString(extractName.ToString())}/rows";
+                return await this
+                    .CallConnectorAsync<GetExtractRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1694,10 +2126,26 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         /// <returns>The Get Transform Rows Result Schema response.</returns>
         public virtual async Task<GetTransformRowsResultSchemaResponse> GetTransformRowsResultSchemaAsync(string groupIdentifier, string projectName, string transformName, CancellationToken cancellationToken = default)
         {
-            var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/transforms/{Uri.EscapeDataString(transformName.ToString())}/rows";
-            return await this
-                .CallConnectorAsync<GetTransformRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetTransformRowsResultSchemaAsync");
+            try
+            {
+                if (groupIdentifier is null)
+                    throw new ArgumentNullException(nameof(groupIdentifier));
+                if (projectName is null)
+                    throw new ArgumentNullException(nameof(projectName));
+                if (transformName is null)
+                    throw new ArgumentNullException(nameof(transformName));
+                var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/transforms/{Uri.EscapeDataString(transformName.ToString())}/rows";
+                return await this
+                    .CallConnectorAsync<GetTransformRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }

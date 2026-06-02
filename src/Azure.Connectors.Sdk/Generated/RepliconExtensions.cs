@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>projects</summary>
         [JsonPropertyName("projects")]
-        public List<object> Projects { get; set; }
+        public List<JsonElement?> Projects { get; set; }
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public List<object> D { get; set; }
+        public List<JsonElement?> D { get; set; }
     }
 
     /// <summary>
@@ -55,11 +55,11 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>project target</summary>
         [JsonPropertyName("target")]
-        public object Target { get; set; }
+        public JsonElement? Target { get; set; }
 
         /// <summary>modifications</summary>
         [JsonPropertyName("modifications")]
-        public object Modifications { get; set; }
+        public JsonElement? Modifications { get; set; }
 
         /// <summary>project modification option uri</summary>
         [JsonPropertyName("projectModificationOptionUri")]
@@ -77,7 +77,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public object D { get; set; }
+        public JsonElement? D { get; set; }
     }
 
     /// <summary>
@@ -99,11 +99,11 @@ namespace Azure.Connectors.Sdk.Replicon.Models
 
         /// <summary>sort</summary>
         [JsonPropertyName("sort")]
-        public List<object> Sort { get; set; }
+        public List<JsonElement?> Sort { get; set; }
 
         /// <summary>filter expression</summary>
         [JsonPropertyName("filterExpression")]
-        public object FilterExpression { get; set; }
+        public JsonElement? FilterExpression { get; set; }
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public object D { get; set; }
+        public JsonElement? D { get; set; }
     }
 
     /// <summary>
@@ -145,11 +145,11 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>project</summary>
         [JsonPropertyName("project")]
-        public object Project { get; set; }
+        public JsonElement? Project { get; set; }
 
         /// <summary>task hierarchy</summary>
         [JsonPropertyName("taskHierarchy")]
-        public List<object> TaskHierarchy { get; set; }
+        public List<JsonElement?> TaskHierarchy { get; set; }
 
         /// <summary>task modification option uri</summary>
         [JsonPropertyName("taskModificationOptionUri")]
@@ -167,7 +167,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public List<object> D { get; set; }
+        public List<JsonElement?> D { get; set; }
     }
 
     /// <summary>
@@ -207,11 +207,11 @@ namespace Azure.Connectors.Sdk.Replicon.Models
 
         /// <summary>sort</summary>
         [JsonPropertyName("sort")]
-        public List<object> Sort { get; set; }
+        public List<JsonElement?> Sort { get; set; }
 
         /// <summary>filter expression</summary>
         [JsonPropertyName("filterExpression")]
-        public object FilterExpression { get; set; }
+        public JsonElement? FilterExpression { get; set; }
     }
 
     /// <summary>
@@ -221,7 +221,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public object D { get; set; }
+        public JsonElement? D { get; set; }
     }
 
     /// <summary>
@@ -241,7 +241,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public object D { get; set; }
+        public JsonElement? D { get; set; }
     }
 
     /// <summary>
@@ -261,7 +261,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public List<object> D { get; set; }
+        public List<JsonElement?> D { get; set; }
     }
 
     /// <summary>
@@ -290,12 +290,12 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// <summary>created time stamp of the webhook event</summary>
         [JsonPropertyName("createdTimestamp")]
         [JsonInclude]
-        public string CreatedTimestamp { get; internal set; }
+        public string CreatedTimestamp { get; init; }
 
         /// <summary>updated time stamp of the webhook event</summary>
         [JsonPropertyName("updatedTimestamp")]
         [JsonInclude]
-        public string UpdatedTimestamp { get; internal set; }
+        public string UpdatedTimestamp { get; init; }
 
         /// <summary>event Type of the webhook event</summary>
         [JsonPropertyName("eventType")]
@@ -349,7 +349,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     {
         /// <summary>d</summary>
         [JsonPropertyName("d")]
-        public object D { get; set; }
+        public JsonElement? D { get; set; }
     }
 
     /// <summary>
@@ -403,7 +403,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     /// <summary>
     /// Model factory for creating instances of Replicon models.
     /// Use these factory methods to construct model instances in tests and scenarios
-    /// where output-only properties (with internal setters) need to be populated.
+    /// where output-only properties (with init-only setters) need to be populated.
     /// </summary>
     public static class RepliconModelFactory
     {
@@ -411,7 +411,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="BulkGetProjectDetails3Input"/>.
         /// </summary>
         public static BulkGetProjectDetails3Input BulkGetProjectDetails3Input(
-            List<object> projects = default)
+            List<JsonElement?> projects = default)
         {
             return new BulkGetProjectDetails3Input
             {
@@ -423,7 +423,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="ProjectDetailsResponse"/>.
         /// </summary>
         public static ProjectDetailsResponse ProjectDetailsResponse(
-            List<object> d = default)
+            List<JsonElement?> d = default)
         {
             return new ProjectDetailsResponse
             {
@@ -435,8 +435,8 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="CreateProjectOrApplyModificationsInput"/>.
         /// </summary>
         public static CreateProjectOrApplyModificationsInput CreateProjectOrApplyModificationsInput(
-            object target = default,
-            object modifications = default,
+            JsonElement? target = default,
+            JsonElement? modifications = default,
             string projectModificationOptionUri = default,
             string unitOfWorkId = default)
         {
@@ -453,7 +453,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="CreateProjectOrApplyModificationsResponse"/>.
         /// </summary>
         public static CreateProjectOrApplyModificationsResponse CreateProjectOrApplyModificationsResponse(
-            object d = default)
+            JsonElement? d = default)
         {
             return new CreateProjectOrApplyModificationsResponse
             {
@@ -468,8 +468,8 @@ namespace Azure.Connectors.Sdk.Replicon.Models
             string page = default,
             string pagesize = default,
             List<string> columnUris = default,
-            List<object> sort = default,
-            object filterExpression = default)
+            List<JsonElement?> sort = default,
+            JsonElement? filterExpression = default)
         {
             return new UserListServiceGetDataInput
             {
@@ -485,7 +485,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="UserListServiceGetDataResponse"/>.
         /// </summary>
         public static UserListServiceGetDataResponse UserListServiceGetDataResponse(
-            object d = default)
+            JsonElement? d = default)
         {
             return new UserListServiceGetDataResponse
             {
@@ -509,8 +509,8 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="CreateTaskHierarchyOrApplyModificationsInput"/>.
         /// </summary>
         public static CreateTaskHierarchyOrApplyModificationsInput CreateTaskHierarchyOrApplyModificationsInput(
-            object project = default,
-            List<object> taskHierarchy = default,
+            JsonElement? project = default,
+            List<JsonElement?> taskHierarchy = default,
             string taskModificationOptionUri = default,
             string unitOfWorkId = default)
         {
@@ -527,7 +527,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="CreateTaskHierarchyOrApplyModificationsResponse"/>.
         /// </summary>
         public static CreateTaskHierarchyOrApplyModificationsResponse CreateTaskHierarchyOrApplyModificationsResponse(
-            List<object> d = default)
+            List<JsonElement?> d = default)
         {
             return new CreateTaskHierarchyOrApplyModificationsResponse
             {
@@ -558,8 +558,8 @@ namespace Azure.Connectors.Sdk.Replicon.Models
             string page = default,
             string pagesize = default,
             List<string> columnUris = default,
-            List<object> sort = default,
-            object filterExpression = default)
+            List<JsonElement?> sort = default,
+            JsonElement? filterExpression = default)
         {
             return new TaskListServiceGetDataInput
             {
@@ -575,7 +575,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="TaskListServiceGetDataResponse"/>.
         /// </summary>
         public static TaskListServiceGetDataResponse TaskListServiceGetDataResponse(
-            object d = default)
+            JsonElement? d = default)
         {
             return new TaskListServiceGetDataResponse
             {
@@ -599,7 +599,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="GetTimesheetSummaryResponse"/>.
         /// </summary>
         public static GetTimesheetSummaryResponse GetTimesheetSummaryResponse(
-            object d = default)
+            JsonElement? d = default)
         {
             return new GetTimesheetSummaryResponse
             {
@@ -623,7 +623,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="BulkGetTimeEnteredSummaryResponse"/>.
         /// </summary>
         public static BulkGetTimeEnteredSummaryResponse BulkGetTimeEnteredSummaryResponse(
-            List<object> d = default)
+            List<JsonElement?> d = default)
         {
             return new BulkGetTimeEnteredSummaryResponse
             {
@@ -701,7 +701,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         /// Creates a new instance of <see cref="TenantEndpointDetails"/>.
         /// </summary>
         public static TenantEndpointDetails TenantEndpointDetails(
-            object d = default)
+            JsonElement? d = default)
         {
             return new TenantEndpointDetails
             {
@@ -848,6 +848,8 @@ namespace Azure.Connectors.Sdk.Replicon
 
         public override string ConnectorName => "replicon";
 
+        private static readonly System.Diagnostics.ActivitySource ConnectorActivitySource = new System.Diagnostics.ActivitySource("Azure.Connectors.Sdk.replicon");
+
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj) => base.Equals(obj);
@@ -870,12 +872,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Get Project Details response.</returns>
         public virtual async Task<ProjectDetailsResponse> BulkGetProjectDetails3Async(BulkGetProjectDetails3Input input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/ProjectService1.svc/BulkGetProjectDetails3" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<ProjectDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.BulkGetProjectDetails3Async");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/ProjectService1.svc/BulkGetProjectDetails3" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ProjectDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -888,12 +902,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Create Project Or Apply Modifications response.</returns>
         public virtual async Task<CreateProjectOrApplyModificationsResponse> CreateProjectOrApplyModificationsAsync(CreateProjectOrApplyModificationsInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/ProjectService1.svc/CreateProjectOrApplyModifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateProjectOrApplyModificationsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.CreateProjectOrApplyModificationsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/ProjectService1.svc/CreateProjectOrApplyModifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateProjectOrApplyModificationsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -906,12 +932,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Get User List response.</returns>
         public virtual async Task<UserListServiceGetDataResponse> UserListServiceGetDataAsync(UserListServiceGetDataInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/UserListService1.svc/GetData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<UserListServiceGetDataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.UserListServiceGetDataAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/UserListService1.svc/GetData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<UserListServiceGetDataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -924,12 +962,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Get Descendant Task Details response.</returns>
         public virtual async Task<GetDescendantTaskDetailsResponse> GetDescendantTaskDetailsAsync(GetDescendantTaskDetailsInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TaskService1.svc/GetDescendantTaskDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetDescendantTaskDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.GetDescendantTaskDetailsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TaskService1.svc/GetDescendantTaskDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetDescendantTaskDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -942,12 +992,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Create Task Hierarchy Or Apply Modifications response.</returns>
         public virtual async Task<CreateTaskHierarchyOrApplyModificationsResponse> CreateTaskHierarchyOrApplyModificationsAsync(CreateTaskHierarchyOrApplyModificationsInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TaskService1.svc/CreateTaskHierarchyOrApplyModifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<CreateTaskHierarchyOrApplyModificationsResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.CreateTaskHierarchyOrApplyModificationsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TaskService1.svc/CreateTaskHierarchyOrApplyModifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateTaskHierarchyOrApplyModificationsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -959,12 +1021,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task MoveTaskAsync(MoveTaskInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TaskService1.svc/MoveTask" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.MoveTaskAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TaskService1.svc/MoveTask" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -977,12 +1051,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Task List Service Get Data response.</returns>
         public virtual async Task<TaskListServiceGetDataResponse> TaskListServiceGetDataAsync(TaskListServiceGetDataInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TaskListService1.svc/GetData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<TaskListServiceGetDataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.TaskListServiceGetDataAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TaskListService1.svc/GetData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TaskListServiceGetDataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -995,12 +1081,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Get Timesheet Summary response.</returns>
         public virtual async Task<GetTimesheetSummaryResponse> GetTimesheetSummaryAsync(GetTimesheetSummaryInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TimesheetService1.svc/GetTimesheetSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<GetTimesheetSummaryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.GetTimesheetSummaryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TimesheetService1.svc/GetTimesheetSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetTimesheetSummaryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1013,12 +1111,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Get Time Entered Summary response.</returns>
         public virtual async Task<BulkGetTimeEnteredSummaryResponse> BulkGetTimeEnteredSummaryAsync(BulkGetTimeEnteredSummaryInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TaskService1.svc/BulkGetTimeEnteredSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return await this
-                .CallConnectorAsync<BulkGetTimeEnteredSummaryResponse>(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.BulkGetTimeEnteredSummaryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TaskService1.svc/BulkGetTimeEnteredSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BulkGetTimeEnteredSummaryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1030,12 +1140,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task PutProjectTeamMemberAssignmentsAsync(PutProjectTeamMemberAssignmentsInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/ProjectService1.svc/PutProjectTeamMemberAssignments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.PutProjectTeamMemberAssignmentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/ProjectService1.svc/PutProjectTeamMemberAssignments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1047,12 +1169,24 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task PutResourceAssignmentsAsync(PutResourceAssignmentsInput input, string hostUrlForReplicon, CancellationToken cancellationToken = default)
         {
-            var queryParams = new List<string>();
-            queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
-            var path = $"/services/TaskService1.svc/PutResourceAssignments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            await this
-                .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.PutResourceAssignmentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (hostUrlForReplicon is null)
+                    throw new ArgumentNullException(nameof(hostUrlForReplicon));
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon.ToString())}");
+                var path = $"/services/TaskService1.svc/PutResourceAssignments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
         /// <summary>
@@ -1063,10 +1197,20 @@ namespace Azure.Connectors.Sdk.Replicon
         /// <returns>The Get Tenant End Point Details response.</returns>
         public virtual async Task<TenantEndpointDetails> GetMyTenantEndpointDetailsAsync(CancellationToken cancellationToken = default)
         {
-            var path = $"/DiscoveryService1.svc/GetMyTenantEndpointDetails";
-            return await this
-                .CallConnectorAsync<TenantEndpointDetails>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            using var activity = RepliconClient.ConnectorActivitySource.StartActivity("RepliconClient.GetMyTenantEndpointDetailsAsync");
+            try
+            {
+                var path = $"/DiscoveryService1.svc/GetMyTenantEndpointDetails";
+                return await this
+                    .CallConnectorAsync<TenantEndpointDetails>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
         }
 
     }
