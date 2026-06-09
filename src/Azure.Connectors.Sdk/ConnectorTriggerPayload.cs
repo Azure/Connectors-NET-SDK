@@ -265,7 +265,10 @@ public static class ConnectorTriggerPayload
         }
         finally
         {
-            ArrayPool<byte>.Shared.Return(chunk);
+            // Clear the rented buffer on return: it can hold trigger callback content
+            // (including base64 file bytes), and a subsequent renter in the same process
+            // must not be able to observe residual data.
+            ArrayPool<byte>.Shared.Return(chunk, clearArray: true);
         }
 
         return buffer.ToArray();
