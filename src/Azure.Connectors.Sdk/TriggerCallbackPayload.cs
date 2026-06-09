@@ -26,7 +26,7 @@ public class TriggerCallbackPayload<T>
     /// <summary>
     /// The body envelope containing the trigger items.
     /// </summary>
-    [JsonPropertyName("body")]
+    [JsonPropertyName(TriggerCallbackPropertyNames.Body)]
     public TriggerCallbackBody<T>? Body { get; init; }
 }
 
@@ -46,7 +46,7 @@ public class TriggerCallbackBody<T>
     /// <c>"value": null</c> property (or a null body), so consumers should null-check before
     /// iterating.
     /// </summary>
-    [JsonPropertyName("value")]
+    [JsonPropertyName(TriggerCallbackPropertyNames.Value)]
     public IReadOnlyList<T>? Value { get; internal set; }
 }
 
@@ -132,7 +132,7 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         foreach (JsonProperty property in root.EnumerateObject())
         {
             propertyCount++;
-            if (string.Equals(property.Name, "value", comparison) &&
+            if (string.Equals(property.Name, TriggerCallbackPropertyNames.Value, comparison) &&
                 (property.Value.ValueKind == JsonValueKind.Array ||
                  property.Value.ValueKind == JsonValueKind.Null))
             {
@@ -173,7 +173,7 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
 
         if (!omitNull)
         {
-            writer.WritePropertyName("value");
+            writer.WritePropertyName(TriggerCallbackPropertyNames.Value);
             JsonSerializer.Serialize(writer, value.Value, options);
         }
 

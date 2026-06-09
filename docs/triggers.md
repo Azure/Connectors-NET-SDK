@@ -114,7 +114,7 @@ var payload = JsonSerializer.Deserialize<Office365OnNewEmailTriggerPayload>(call
 ```csharp
 // Metadata triggers (e.g. OnNewFilesV2) — string or Stream overloads
 var payload = await ConnectorTriggerPayload
-    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(request.Body, cancellationToken)
+    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(request.Body, cancellationToken: cancellationToken)
     .ConfigureAwait(continueOnCapturedContext: false);
 
 foreach (var file in payload?.Body?.Value ?? Array.Empty<BlobMetadata>())
@@ -123,12 +123,12 @@ foreach (var file in payload?.Body?.Value ?? Array.Empty<BlobMetadata>())
 }
 ```
 
-Property matching is **case-insensitive**, so callbacks whose wire fields are camelCase bind correctly instead of silently producing all-`null` items. For **binary-content** triggers (see below), use `TryReadBinaryContent` / `ReadBinaryContentAsync`, which decode the base64 `{"body":"<base64>"}` shape into file bytes:
+Property matching is **case-insensitive**, so callbacks whose wire fields are camelCase bind correctly instead of silently producing all-`null` items. The stream overloads read the caller-owned stream without closing it and enforce a generous body-size limit (`ConnectorTriggerPayload.DefaultMaxBodySizeBytes`, 100 MB, overridable per call). For **binary-content** triggers (see below), use `TryReadBinaryContent` / `ReadBinaryContentAsync`, which decode the base64 `{"body":"<base64>"}` shape into file bytes:
 
 ```csharp
 // Binary-content triggers (e.g. OnNewFileV2)
 byte[]? fileBytes = await ConnectorTriggerPayload
-    .ReadBinaryContentAsync(request.Body, cancellationToken)
+    .ReadBinaryContentAsync(request.Body, cancellationToken: cancellationToken)
     .ConfigureAwait(continueOnCapturedContext: false);
 ```
 

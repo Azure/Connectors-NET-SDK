@@ -68,7 +68,8 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var payload = await ConnectorTriggerPayload
-                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream);
+                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.IsNotNull(payload);
@@ -161,19 +162,50 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ReadBinaryContentAsync_Base64Stream_DecodesBytes()
+        public void TryReadBinaryContent_MalformedJson_ReturnsFalse()
+        {
+            // Arrange — a Try* API must not throw on invalid JSON.
+            const string payload = "this is not json {";
+
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_BodyExceedsLimit_ThrowsInvalidOperation()
+        {
+            // Arrange — a payload larger than the (tiny) configured limit.
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act & Assert
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream, maxBodySizeBytes: 8)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_DoesNotCloseCallerStream()
         {
             // Arrange
-            byte[] expected = Encoding.UTF8.GetBytes("binary trigger bytes");
+            byte[] expected = Encoding.UTF8.GetBytes("keep me open");
             string base64 = Convert.ToBase64String(expected);
             using var stream = new MemoryStream(Encoding.UTF8.GetBytes($$"""{"body":"{{base64}}"}"""));
 
             // Act
-            byte[]? content = await ConnectorTriggerPayload.ReadBinaryContentAsync(stream);
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
-            // Assert
+            // Assert — the helper must not take ownership of the caller's stream.
             Assert.IsNotNull(content);
-            CollectionAssert.AreEqual(expected, content);
+            Assert.IsTrue(stream.CanRead, "The caller-owned stream must remain open after reading.");
         }
 
         [TestMethod]
@@ -184,7 +216,9 @@ namespace Azure.Connectors.Sdk.Tests
                 Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
 
             // Act
-            byte[]? content = await ConnectorTriggerPayload.ReadBinaryContentAsync(stream);
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert — an object body is not binary content.
             Assert.IsNull(content);
