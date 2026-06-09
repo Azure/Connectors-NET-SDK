@@ -205,6 +205,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert — the helper must not take ownership of the caller's stream.
             Assert.IsNotNull(content);
+            CollectionAssert.AreEqual(expected, content);
             Assert.IsTrue(stream.CanRead, "The caller-owned stream must remain open after reading.");
         }
 
