@@ -23,7 +23,7 @@ namespace Azure.Connectors.Sdk;
 /// <para>
 /// Connector Namespace delivers two distinct trigger callback shapes for file connectors:
 /// </para>
-/// <list type="bullet">
+/// <list type="definition">
 ///   <item>
 ///     <term>Metadata (properties only), e.g. <c>OnNewFilesV2</c></term>
 ///     <description>
