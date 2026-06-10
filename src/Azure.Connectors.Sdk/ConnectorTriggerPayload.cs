@@ -263,8 +263,13 @@ public static class ConnectorTriggerPayload
                 // Never request more than one byte past the remaining allowance, so a single
                 // ReadAsync cannot pull far beyond maxBodySizeBytes before the limit is checked.
                 // The extra byte lets us detect an over-limit body without reading the whole stream.
-                long remainingAllowance = (maxBodySizeBytes - totalBytesRead) + 1;
-                int requestSize = (int)Math.Min(chunk.Length, remainingAllowance);
+                // Compare against the chunk length WITHOUT adding the probe first, so a very large
+                // maxBodySizeBytes (e.g. long.MaxValue) cannot overflow the long arithmetic; only
+                // add the +1 probe in the branch where the remaining allowance is the smaller bound.
+                long remainingAllowance = maxBodySizeBytes - totalBytesRead;
+                int requestSize = remainingAllowance >= chunk.Length
+                    ? chunk.Length
+                    : (int)Math.Min(chunk.Length, remainingAllowance + 1);
 
                 int bytesRead = await body
                     .ReadAsync(chunk.AsMemory(0, requestSize), cancellationToken)

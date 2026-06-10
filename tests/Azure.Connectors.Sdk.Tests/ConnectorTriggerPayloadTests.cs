@@ -233,6 +233,27 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task ReadAsync_VeryLargeLimit_DoesNotOverflow()
+        {
+            // Arrange — long.MaxValue effectively disables the limit. The internal read-cap
+            // arithmetic must not overflow (which would make the request size negative).
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act
+            var payload = await ConnectorTriggerPayload
+                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream, maxBodySizeBytes: long.MaxValue)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(payload);
+            Assert.IsNotNull(payload.Body);
+            Assert.IsNotNull(payload.Body.Value);
+            Assert.AreEqual(1, payload.Body.Value.Count);
+            Assert.AreEqual("report.docx", payload.Body.Value[0].Name);
+        }
+
+        [TestMethod]
         public async Task ReadBinaryContentAsync_DoesNotCloseCallerStream()
         {
             // Arrange
