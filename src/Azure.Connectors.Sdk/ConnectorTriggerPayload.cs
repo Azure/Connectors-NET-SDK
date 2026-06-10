@@ -58,6 +58,13 @@ public static class ConnectorTriggerPayload
     public const long DefaultMaxBodySizeBytes = 100L * 1024 * 1024;
 
     /// <summary>
+    /// The buffer size, in bytes, rented from the shared <see cref="ArrayPool{T}"/> for each
+    /// stream read. 80 KB matches the default <see cref="Stream.CopyTo(Stream)"/> chunk size,
+    /// balancing read throughput against per-call memory.
+    /// </summary>
+    private const int ReadChunkSizeBytes = 81920;
+
+    /// <summary>
     /// Gets the <see cref="JsonSerializerOptions"/> used to read trigger callback payloads.
     /// Property matching is case-insensitive so camelCase wire fields bind correctly.
     /// </summary>
@@ -254,7 +261,7 @@ public static class ConnectorTriggerPayload
         }
 
         using var buffer = new MemoryStream();
-        byte[] chunk = ArrayPool<byte>.Shared.Rent(81920);
+        byte[] chunk = ArrayPool<byte>.Shared.Rent(ConnectorTriggerPayload.ReadChunkSizeBytes);
         try
         {
             long totalBytesRead = 0;
