@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -191,6 +192,31 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task ReadAsync_OverLimitBody_DoesNotReadEntireStream()
+        {
+            // Arrange — a stream that records the largest single read it is asked for, so we can
+            // prove the reader never pulls far past the configured limit even when the chunk
+            // would otherwise be much larger.
+            byte[] payload = Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload);
+            using var inner = new MemoryStream(payload);
+            using var tracking = new MaxReadTrackingStream(inner);
+            const long limit = 8;
+
+            // Act & Assert
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(tracking, maxBodySizeBytes: limit)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // A single read must never be asked for more than the limit plus the one-byte
+            // overflow probe, regardless of the (much larger) internal chunk size.
+            Assert.IsTrue(
+                tracking.MaxRequestedCount <= limit + 1,
+                $"Expected no single read larger than {limit + 1} bytes, but observed {tracking.MaxRequestedCount}.");
+        }
+
+        [TestMethod]
         public async Task ReadBinaryContentAsync_DoesNotCloseCallerStream()
         {
             // Arrange
@@ -224,5 +250,55 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert — an object body is not binary content.
             Assert.IsNull(content);
         }
+    }
+
+    /// <summary>
+    /// A pass-through <see cref="Stream"/> that records the largest single read request it receives,
+    /// used to verify the reader caps each read to the configured maximum body size.
+    /// </summary>
+    internal sealed class MaxReadTrackingStream : Stream
+    {
+        private readonly Stream _inner;
+
+        public MaxReadTrackingStream(Stream inner)
+        {
+            this._inner = inner;
+        }
+
+        public int MaxRequestedCount { get; private set; }
+
+        public override bool CanRead => this._inner.CanRead;
+
+        public override bool CanSeek => this._inner.CanSeek;
+
+        public override bool CanWrite => this._inner.CanWrite;
+
+        public override long Length => this._inner.Length;
+
+        public override long Position
+        {
+            get => this._inner.Position;
+            set => this._inner.Position = value;
+        }
+
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            this.MaxRequestedCount = Math.Max(this.MaxRequestedCount, buffer.Length);
+            return this._inner.ReadAsync(buffer, cancellationToken);
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            this.MaxRequestedCount = Math.Max(this.MaxRequestedCount, count);
+            return this._inner.Read(buffer, offset, count);
+        }
+
+        public override void Flush() => this._inner.Flush();
+
+        public override long Seek(long offset, SeekOrigin origin) => this._inner.Seek(offset, origin);
+
+        public override void SetLength(long value) => this._inner.SetLength(value);
+
+        public override void Write(byte[] buffer, int offset, int count) => this._inner.Write(buffer, offset, count);
     }
 }

@@ -248,11 +248,22 @@ public static class ConnectorTriggerPayload
         try
         {
             long totalBytesRead = 0;
-            int bytesRead;
-            while ((bytesRead = await body
-                .ReadAsync(chunk.AsMemory(0, chunk.Length), cancellationToken)
-                .ConfigureAwait(continueOnCapturedContext: false)) > 0)
+            while (true)
             {
+                // Never request more than one byte past the remaining allowance, so a single
+                // ReadAsync cannot pull far beyond maxBodySizeBytes before the limit is checked.
+                // The extra byte lets us detect an over-limit body without reading the whole stream.
+                long remainingAllowance = (maxBodySizeBytes - totalBytesRead) + 1;
+                int requestSize = (int)Math.Min(chunk.Length, remainingAllowance);
+
+                int bytesRead = await body
+                    .ReadAsync(chunk.AsMemory(0, requestSize), cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                if (bytesRead <= 0)
+                {
+                    break;
+                }
+
                 totalBytesRead += bytesRead;
                 if (totalBytesRead > maxBodySizeBytes)
                 {
