@@ -5,7 +5,6 @@
 using System;
 using System.Buffers;
 using System.IO;
-using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -164,39 +163,59 @@ public static class ConnectorTriggerPayload
 
         using (document)
         {
-            // TryGetProperty throws InvalidOperationException when the root is not an object
-            // (for example a JSON null, array, or string). Guard the kind first so a non-object
-            // body is a "could not read" outcome rather than an exception, honouring the Try* contract.
-            if (document.RootElement.ValueKind != JsonValueKind.Object ||
-                !document.RootElement.TryGetProperty(TriggerCallbackPropertyNames.Body, out JsonElement bodyElement) ||
-                bodyElement.ValueKind != JsonValueKind.String)
-            {
-                return false;
-            }
+            return ConnectorTriggerPayload.TryDecodeBinaryBody(document, out content);
+        }
+    }
 
-            // The base64 string may arrive wrapped in extra quotes from the Logic Apps
-            // expression engine; strip them before decoding.
-            string base64Content = (bodyElement.GetString() ?? string.Empty).Trim('"');
+    /// <summary>
+    /// Decodes the base64 <c>body</c> string of a parsed binary-content trigger callback into bytes.
+    /// </summary>
+    /// <param name="document">The parsed callback document.</param>
+    /// <param name="content">
+    /// When this method returns <see langword="true"/>, the decoded file bytes (empty when the body
+    /// string was empty). When it returns <see langword="false"/>, an empty array.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> when the document carried a base64 string body and was decoded;
+    /// <see langword="false"/> when the root was not an object, the body was not a JSON string, or
+    /// the string was not valid base64.
+    /// </returns>
+    private static bool TryDecodeBinaryBody(JsonDocument document, out byte[] content)
+    {
+        content = Array.Empty<byte>();
 
-            if (base64Content.Length == 0)
-            {
-                return true;
-            }
+        // TryGetProperty throws InvalidOperationException when the root is not an object
+        // (for example a JSON null, array, or string). Guard the kind first so a non-object
+        // body is a "could not read" outcome rather than an exception, honouring the Try* contract.
+        if (document.RootElement.ValueKind != JsonValueKind.Object ||
+            !document.RootElement.TryGetProperty(TriggerCallbackPropertyNames.Body, out JsonElement bodyElement) ||
+            bodyElement.ValueKind != JsonValueKind.String)
+        {
+            return false;
+        }
 
-            // Decode directly into a single right-sized array. Avoids the doubled peak memory
-            // of renting an oversized buffer and then copying into a right-sized array, which
-            // matters for large binary trigger bodies. The try/catch keeps the Try* contract:
-            // invalid base64 returns false rather than throwing.
-            try
-            {
-                content = Convert.FromBase64String(base64Content);
-                return true;
-            }
-            catch (FormatException)
-            {
-                content = Array.Empty<byte>();
-                return false;
-            }
+        // The base64 string may arrive wrapped in extra quotes from the Logic Apps
+        // expression engine; strip them before decoding.
+        string base64Content = (bodyElement.GetString() ?? string.Empty).Trim('"');
+
+        if (base64Content.Length == 0)
+        {
+            return true;
+        }
+
+        // Decode directly into a single right-sized array. Avoids the doubled peak memory
+        // of renting an oversized buffer and then copying into a right-sized array, which
+        // matters for large binary trigger bodies. The try/catch keeps the Try* contract:
+        // invalid base64 returns false rather than throwing.
+        try
+        {
+            content = Convert.FromBase64String(base64Content);
+            return true;
+        }
+        catch (FormatException)
+        {
+            content = Array.Empty<byte>();
+            return false;
         }
     }
 
@@ -228,13 +247,24 @@ public static class ConnectorTriggerPayload
             .ReadBoundedAsync(body, maxBodySizeBytes, cancellationToken)
             .ConfigureAwait(continueOnCapturedContext: false);
 
-        // JSON is UTF-8 by default; decode explicitly rather than relying on a StreamReader
-        // (which would also take ownership of and close the caller's stream).
-        string json = Encoding.UTF8.GetString(utf8Json);
+        // Parse straight from the UTF-8 bytes (JSON's native encoding) rather than first
+        // decoding to a UTF-16 string, avoiding a large intermediate allocation for big bodies.
+        JsonDocument document;
+        try
+        {
+            document = JsonDocument.Parse(utf8Json);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
 
-        return ConnectorTriggerPayload.TryReadBinaryContent(json, out byte[] content)
-            ? content
-            : null;
+        using (document)
+        {
+            return ConnectorTriggerPayload.TryDecodeBinaryBody(document, out byte[] content)
+                ? content
+                : null;
+        }
     }
 
     /// <summary>
