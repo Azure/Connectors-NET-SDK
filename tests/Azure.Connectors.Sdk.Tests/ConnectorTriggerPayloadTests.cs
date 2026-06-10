@@ -177,6 +177,22 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        [DataRow("null")]
+        [DataRow("[]")]
+        [DataRow("\"a string root\"")]
+        [DataRow("42")]
+        public void TryReadBinaryContent_NonObjectRoot_ReturnsFalse(string payload)
+        {
+            // Arrange — valid JSON whose root is not an object must not throw (Try* contract).
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
         public async Task ReadAsync_BodyExceedsLimit_ThrowsInvalidOperation()
         {
             // Arrange — a payload larger than the (tiny) configured limit.

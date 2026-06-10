@@ -57,5 +57,15 @@ namespace Azure.Connectors.Sdk.Tests
         public override void SetLength(long value) => this._inner.SetLength(value);
 
         public override void Write(byte[] buffer, int offset, int count) => this._inner.Write(buffer, offset, count);
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this._inner.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

@@ -157,7 +157,11 @@ public static class ConnectorTriggerPayload
 
         using (document)
         {
-            if (!document.RootElement.TryGetProperty(TriggerCallbackPropertyNames.Body, out JsonElement bodyElement) ||
+            // TryGetProperty throws InvalidOperationException when the root is not an object
+            // (for example a JSON null, array, or string). Guard the kind first so a non-object
+            // body is a "could not read" outcome rather than an exception, honouring the Try* contract.
+            if (document.RootElement.ValueKind != JsonValueKind.Object ||
+                !document.RootElement.TryGetProperty(TriggerCallbackPropertyNames.Body, out JsonElement bodyElement) ||
                 bodyElement.ValueKind != JsonValueKind.String)
             {
                 return false;
