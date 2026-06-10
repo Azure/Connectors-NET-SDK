@@ -172,14 +172,20 @@ public static class ConnectorTriggerPayload
                 return true;
             }
 
-            var buffer = new byte[((base64Content.Length + 3) / 4) * 3];
-            if (!Convert.TryFromBase64String(base64Content, buffer, out int decodedByteCount))
+            // Decode directly into a single right-sized array. Avoids the doubled peak memory
+            // of renting an oversized buffer and then copying into a right-sized array, which
+            // matters for large binary trigger bodies. The try/catch keeps the Try* contract:
+            // invalid base64 returns false rather than throwing.
+            try
             {
+                content = Convert.FromBase64String(base64Content);
+                return true;
+            }
+            catch (FormatException)
+            {
+                content = Array.Empty<byte>();
                 return false;
             }
-
-            content = buffer.AsSpan(0, decodedByteCount).ToArray();
-            return true;
         }
     }
 
