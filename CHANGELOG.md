@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Microsoft Dataverse client (`commondataservice`)** — generated typed `CommondataserviceClient` for the current-environment Microsoft Dataverse connector. Covers row operations (`ListRecordsAsync`, `CreateRecordAsync`, `GetItemCodelessAsync`, `UpdateRecordAsync`, `DeleteRecordAsync`), bound/unbound actions (`PerformBoundActionAsync`, `PerformUnboundActionAsync`), relate/unrelate (`AssociateEntitiesAsync`, `DisassociateEntitiesAsync`), relevance search (`GetRelevantRowsAsync`), file/image column upload & download, and changeset transactions (`ExecuteChangesetAsync`). Deprecated legacy dataset/table operations are excluded by the generator's deprecation filter.
+- **Microsoft Dataverse client (`commondataservice`)** — generated typed `CommondataserviceClient` for the current-environment Microsoft Dataverse connector. Covers row operations (`ListRecordsAsync`, `CreateRecordAsync`, `GetItemCodelessAsync`, `UpdateRecordAsync`, `DeleteRecordAsync`), bound/unbound actions (`PerformBoundActionAsync`, `PerformUnboundActionAsync`), relate/unrelate (`AssociateEntitiesAsync`, `DisassociateEntitiesAsync`), relevance search (`GetRelevantRowsAsync`), and file/image column upload & download. Deprecated legacy dataset/table operations are excluded by the generator's deprecation filter.
 
 ## [0.12.0-preview.1] - 2026-06-02
 
