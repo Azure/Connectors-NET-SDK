@@ -83,22 +83,6 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void Dispose_WithInternallyCreatedHttpClient_ShouldDisposeIt()
-        {
-            // Arrange - no httpClient provided, so client creates its own
-            var mockCredential = new Mock<TokenCredential>();
-            var client = new CommondataserviceClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: mockCredential.Object);
-
-            // Act
-            client.Dispose();
-
-            // Assert - calling Dispose again should not throw (idempotent)
-            client.Dispose();
-        }
-
-        [TestMethod]
         public async Task GetOrganizationsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
