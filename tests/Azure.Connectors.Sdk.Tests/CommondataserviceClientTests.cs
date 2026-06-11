@@ -83,24 +83,22 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task GetOrganizationsAsync_WithMockedResponse_ReturnsExpectedResult()
+        public async Task GetDataSetsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
             // Arrange
-            var expectedResponse = new OrganizationsDynamicValuesList
+            var expectedResponse = new DataSetsList
             {
                 Value =
                 [
-                    new OrganizationsDynamicValuesListItem
+                    new DataSet
                     {
-                        Id = "org-1",
-                        FriendlyName = "Contoso",
-                        Url = "https://contoso.crm.dynamics.com"
+                        Name = "https://contoso.crm.dynamics.com",
+                        DisplayName = "Contoso (contoso)"
                     },
-                    new OrganizationsDynamicValuesListItem
+                    new DataSet
                     {
-                        Id = "org-2",
-                        FriendlyName = "Fabrikam",
-                        Url = "https://fabrikam.crm.dynamics.com"
+                        Name = "https://fabrikam.crm.dynamics.com",
+                        DisplayName = "Fabrikam (fabrikam)"
                     }
                 ]
             };
@@ -113,19 +111,19 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var result = await client
-                .GetOrganizationsAsync(cancellationToken: CancellationToken.None)
+                .GetDataSetsAsync(cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Value);
-            Assert.AreEqual(2, result.Value.Count);
-            Assert.AreEqual("Contoso", result.Value[0].FriendlyName);
-            Assert.AreEqual("https://fabrikam.crm.dynamics.com", result.Value[1].Url);
+            Assert.AreEqual(expected: 2, actual: result.Value.Count);
+            Assert.AreEqual(expected: "Contoso (contoso)", actual: result.Value[0].DisplayName);
+            Assert.AreEqual(expected: "https://fabrikam.crm.dynamics.com", actual: result.Value[1].Name);
         }
 
         [TestMethod]
-        public async Task GetItemCodelessAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task GetItemAsync_WithErrorResponse_ThrowsConnectorException()
         {
             // Arrange
             using var client = CreateMockedClient(() => new HttpResponseMessage
@@ -138,61 +136,50 @@ namespace Azure.Connectors.Sdk.Tests
             var exception = await Assert
                 .ThrowsExactlyAsync<ConnectorException>(async () =>
                     await client
-                        .GetItemCodelessAsync(
+                        .GetItemAsync(
+                            environment: "https://contoso.crm.dynamics.com",
                             tableName: "accounts",
-                            rowId: "00000000-0000-0000-0000-000000000000",
+                            itemIdentifier: "00000000-0000-0000-0000-000000000000",
                             cancellationToken: CancellationToken.None)
                         .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(400, exception.Status);
+            Assert.AreEqual(expected: 400, actual: exception.Status);
             Assert.IsTrue(exception.ResponseBody.Contains("Invalid request", StringComparison.Ordinal));
         }
 
         [TestMethod]
-        public void OrganizationsDynamicValuesListItem_JsonSerialization_RoundTrips()
+        public void DataSet_JsonSerialization_RoundTrips()
         {
             // Arrange
-            var organization = new OrganizationsDynamicValuesListItem
+            var dataSet = new DataSet
             {
-                Id = "org-abc",
-                FriendlyName = "Contoso",
-                Url = "https://contoso.crm.dynamics.com"
+                Name = "https://contoso.crm.dynamics.com",
+                DisplayName = "Contoso (contoso)"
             };
 
             // Act
-            var json = JsonSerializer.Serialize(organization);
-            var deserialized = JsonSerializer.Deserialize<OrganizationsDynamicValuesListItem>(json);
+            var json = JsonSerializer.Serialize(dataSet);
+            var deserialized = JsonSerializer.Deserialize<DataSet>(json);
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual(organization.Id, deserialized.Id);
-            Assert.AreEqual(organization.FriendlyName, deserialized.FriendlyName);
-            Assert.AreEqual(organization.Url, deserialized.Url);
+            Assert.AreEqual(expected: dataSet.Name, actual: deserialized.Name);
+            Assert.AreEqual(expected: dataSet.DisplayName, actual: deserialized.DisplayName);
         }
 
         [TestMethod]
-        public void SearchRequestBody_JsonSerialization_RoundTrips()
+        public void PostItemInput_JsonSerialization_RoundTrips()
         {
             // Arrange
-            var request = new SearchRequestBody
-            {
-                SearchTerm = "Contoso",
-                SearchType = "simple",
-                RowCount = 25,
-                ReturnRowCount = true
-            };
+            var input = new PostItemInput();
 
             // Act
-            var json = JsonSerializer.Serialize(request);
-            var deserialized = JsonSerializer.Deserialize<SearchRequestBody>(json);
+            var json = JsonSerializer.Serialize(input);
+            var deserialized = JsonSerializer.Deserialize<PostItemInput>(json);
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual(request.SearchTerm, deserialized.SearchTerm);
-            Assert.AreEqual(request.SearchType, deserialized.SearchType);
-            Assert.AreEqual(request.RowCount, deserialized.RowCount);
-            Assert.AreEqual(request.ReturnRowCount, deserialized.ReturnRowCount);
         }
     }
 }

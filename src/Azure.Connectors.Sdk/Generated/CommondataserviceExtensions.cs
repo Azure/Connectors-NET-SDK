@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -18,7 +19,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Commondataservice.Models;
 using Azure.Core;
@@ -30,136 +30,82 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     #region Types
 
     /// <summary>
-    /// Response for Get table metadata
+    /// Response for GetDataSetsMetadata
     /// </summary>
-    public class EntityMetadata
+    public class DataSetsMetadata
     {
-        /// <summary>Swagger schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
+        /// <summary>tabular</summary>
+        [JsonPropertyName("tabular")]
+        public TabularDataSetsMetadata Tabular { get; set; }
+
+        /// <summary>blob</summary>
+        [JsonPropertyName("blob")]
+        public BlobDataSetsMetadata Blob { get; set; }
     }
 
     /// <summary>
-    /// Swagger schema
+    /// tabular
     /// </summary>
-    public class ObjectEntity
+    public class TabularDataSetsMetadata
+    {
+        /// <summary>Dataset source</summary>
+        [JsonPropertyName("source")]
+        public string Source { get; set; }
+
+        /// <summary>Dataset display name</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Dataset url encoding</summary>
+        [JsonPropertyName("urlEncoding")]
+        public string UrlEncoding { get; set; }
+
+        /// <summary>Table display name</summary>
+        [JsonPropertyName("tableDisplayName")]
+        public string TableDisplayName { get; set; }
+
+        /// <summary>Table plural display name</summary>
+        [JsonPropertyName("tablePluralName")]
+        public string TablePluralName { get; set; }
+    }
+
+    /// <summary>
+    /// blob
+    /// </summary>
+    public class BlobDataSetsMetadata
+    {
+        /// <summary>Blob dataset source</summary>
+        [JsonPropertyName("source")]
+        public string Source { get; set; }
+
+        /// <summary>Blob dataset display name</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Blob dataset url encoding</summary>
+        [JsonPropertyName("urlEncoding")]
+        public string UrlEncoding { get; set; }
+    }
+
+    /// <summary>
+    /// Associates one row to another on the provided relationship
+    /// </summary>
+    [DynamicSchema("GetMetadataForPostItem_V2")]
+    public class AssociateRecordsPatchItemInput
     {
         /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Response for GetEntityRelationships
+    /// Response for Associates one row to another on the provided relationship
     /// </summary>
-    public class EntityRelationshipsDynamicValuesList
-    {
-        /// <summary>List of table relationships as dynamic values.</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for GetOrganizations
-    /// </summary>
-    public class OrganizationsDynamicValuesList
-    {
-        /// <summary>List of organizations as dynamic values.</summary>
-        [JsonPropertyName("value")]
-        public List<OrganizationsDynamicValuesListItem> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of organizations as dynamic values.
-    /// </summary>
-    public class OrganizationsDynamicValuesListItem
-    {
-        /// <summary>The organization id.</summary>
-        [JsonPropertyName("Id")]
-        public string Id { get; set; }
-
-        /// <summary>The name of the organization.</summary>
-        [JsonPropertyName("FriendlyName")]
-        public string FriendlyName { get; set; }
-
-        /// <summary>The URL of the organization.</summary>
-        [JsonPropertyName("Url")]
-        public string Url { get; set; }
-    }
-
-    /// <summary>
-    /// Response for GetEntityListEnum
-    /// </summary>
-    public class EntitiesDynamicValuesList
-    {
-        /// <summary>List of tables as dynamic values.</summary>
-        [JsonPropertyName("value")]
-        public List<EntitiesDynamicValuesListItem> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of tables as dynamic values.
-    /// </summary>
-    public class EntitiesDynamicValuesListItem
-    {
-        /// <summary>The metadata id.</summary>
-        [JsonPropertyName("metadataId")]
-        public string MetadataId { get; set; }
-
-        /// <summary>The name of the table.</summary>
-        [JsonPropertyName("entitySetName")]
-        public string EntitySetName { get; set; }
-
-        /// <summary>The logical name of the table.</summary>
-        [JsonPropertyName("logicalName")]
-        public string LogicalName { get; set; }
-
-        /// <summary>The display name of the table.</summary>
-        [JsonPropertyName("displayCollectionName")]
-        public DisplayCollectionName DisplayCollectionName { get; set; }
-    }
-
-    /// <summary>
-    /// The display name of the table.
-    /// </summary>
-    public class DisplayCollectionName
-    {
-        /// <summary>The user localized display name label object.</summary>
-        [JsonPropertyName("userLocalizedLabel")]
-        public UserLocalizedLabel UserLocalizedLabel { get; set; }
-    }
-
-    /// <summary>
-    /// The user localized display name label object.
-    /// </summary>
-    public class UserLocalizedLabel
-    {
-        /// <summary>The display name label of the table.</summary>
-        [JsonPropertyName("label")]
-        public string Label { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List rows
-    /// </summary>
-    public class EntityItemList : IPageable<EntityItem>
-    {
-        /// <summary>List of Items</summary>
-        [JsonPropertyName("value")]
-        public List<EntityItem> Value { get; set; }
-
-        /// <summary>The url to fetch next page data.</summary>
-        [JsonPropertyName("@odata.nextLink")]
-        public string NextLink { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of Items
-    /// </summary>
-    [DynamicSchema("GetMetadataForGetEntity")]
-    public class EntityItem
+    [DynamicSchema("GetTable")]
+    public class Item
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -174,343 +120,273 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Add a new row
+    /// Response for Retrieves all collection valued relationship items as an expand would
     /// </summary>
-    [DynamicSchema("GetMetadataForPostEntity")]
-    public class CreateRecordInput
+    public class ItemsList
     {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Add a new row
-    /// </summary>
-    [DynamicSchema("GetMetadataForGetEntity")]
-    public class CreateRecordResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get a row by ID
-    /// </summary>
-    [DynamicSchema("GetMetadataForGetEntity")]
-    public class GetItemCodelessResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Update a row
-    /// </summary>
-    [DynamicSchema("GetMetadataForPatchEntity")]
-    public class UpdateRecordInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Update a row
-    /// </summary>
-    [DynamicSchema("GetMetadataForGetEntity")]
-    public class UpdateRecordResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for GetUnboundActions
-    /// </summary>
-    public class ActionsDynamicValuesList
-    {
-        /// <summary>List of actions as dynamic values</summary>
+        /// <summary>List of Items</summary>
         [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
+        public List<Item> Value { get; set; }
     }
 
     /// <summary>
-    /// Perform an unbound action
+    /// Response for GetDataSets_V2
     /// </summary>
-    [DynamicSchema("GetMetadataForUnboundActionInput")]
-    public class PerformUnboundActionInput
+    public class DataSetsList
     {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Perform an unbound action
-    /// </summary>
-    [DynamicSchema("GetMetadataForUnboundActionResponse")]
-    public class PerformUnboundActionResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Perform a bound action
-    /// </summary>
-    [DynamicSchema("GetMetadataForBoundActionInput")]
-    public class PerformBoundActionInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Perform a bound action
-    /// </summary>
-    [DynamicSchema("GetMetadataForBoundActionResponse")]
-    public class PerformBoundActionResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Search rows
-    /// </summary>
-    public class SearchOutput
-    {
-        /// <summary>List of rows</summary>
+        /// <summary>List of datasets</summary>
         [JsonPropertyName("value")]
-        public List<JsonElement?> ListOfRows { get; set; }
-
-        /// <summary>Total count of results (-1 if returntotalrecordcount is set to false)</summary>
-        [JsonPropertyName("totalrecordcount")]
-        public long? TotalRowCount { get; set; }
-
-        /// <summary>Facet results</summary>
-        [JsonPropertyName("facets")]
-        public JsonElement? FacetResults { get; set; }
+        public List<DataSet> Value { get; set; }
     }
 
     /// <summary>
-    /// Response for Get action metadata
+    /// Item in List of datasets
     /// </summary>
-    public class GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse
+    public class DataSet
     {
-        /// <summary>Swagger schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
+        /// <summary>Dataset name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Dataset display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Pass-through Native Queries</summary>
+        [JsonPropertyName("query")]
+        [JsonInclude]
+        public List<PassThroughNativeQuery> Query { get; init; }
     }
 
     /// <summary>
-    /// Response for Get metadata for unbound action input
+    /// Item in Pass-through Native Queries
     /// </summary>
-    public class GetMetadataForUnboundActionInputResponse
+    public class PassThroughNativeQuery
     {
-        /// <summary>Swagger schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
+        /// <summary>Query language</summary>
+        [JsonPropertyName("Language")]
+        public string Language { get; set; }
     }
 
     /// <summary>
-    /// Response for Get metadata for unbound action response
+    /// Response for Get row (legacy)
     /// </summary>
-    public class GetMetadataForUnboundActionResponseResponse
+    [DynamicSchema("GetTable_V2")]
+    public class GetItemResponse
     {
-        /// <summary>Swagger schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Response for Get metadata for bound action input
+    /// Response for Get table metadata - Patch
     /// </summary>
-    public class GetMetadataForBoundActionInputResponse
+    public class TableMetadata
     {
-        /// <summary>Swagger schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get metadata for bound action response
-    /// </summary>
-    public class GetMetadataForBoundActionResponseResponse
-    {
-        /// <summary>Swagger schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// CallbackRegistration
-    /// </summary>
-    public class CallbackRegistration
-    {
-        /// <summary>The callback registration table version</summary>
-        [JsonPropertyName("version")]
-        public int? TableVersion { get; set; }
-
-        /// <summary>Callback url to the flow engine. Expected as part of the request and provided by Flow.</summary>
-        [JsonPropertyName("url")]
-        public string NotificationUrl { get; set; }
-
-        /// <summary>Callback registration name. Value will be replaced with workflow id</summary>
+        /// <summary>Table name</summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        /// <summary>Choose a table</summary>
-        [JsonPropertyName("entityname")]
-        public string TableName { get; set; }
+        /// <summary>Table title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
 
-        /// <summary>Choose when the flow triggers</summary>
-        [JsonPropertyName("message")]
-        public int? ChangeType { get; set; }
+        /// <summary>Table permission</summary>
+        [JsonPropertyName("x-ms-permission")]
+        public string XMsPermission { get; set; }
 
-        /// <summary>Choose an option or add your own</summary>
-        [JsonPropertyName("sdkmessagename")]
-        public string ActionName { get; set; }
+        /// <summary>x-ms-capabilities</summary>
+        [JsonPropertyName("x-ms-capabilities")]
+        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
 
-        /// <summary>Choose a scope to limit which rows can trigger the flow</summary>
-        [JsonPropertyName("scope")]
-        public int? Scope { get; set; }
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
 
-        /// <summary>Enter a comma-separated list of column unique names. The flow triggers if any of them are modified</summary>
-        [JsonPropertyName("filteringattributes")]
-        public string SelectColumns { get; set; }
+        /// <summary>referencedEntities</summary>
+        [JsonPropertyName("referencedEntities")]
+        public ObjectEntity ReferencedEntities { get; set; }
 
-        /// <summary>Enter an OData style filter expression to determine which rows can trigger the flow</summary>
-        [JsonPropertyName("filterexpression")]
-        public string FilterRows { get; set; }
-
-        /// <summary>Enter a time to delay the trigger evaluation, eg. 2020-01-01T10:10:00Z</summary>
-        [JsonPropertyName("postponeuntil")]
-        public string DelayUntil { get; set; }
-
-        /// <summary>Choose the running user for steps where invoker connections are used</summary>
-        [JsonPropertyName("runas")]
-        public int? RunAs { get; set; }
+        /// <summary>Url link</summary>
+        [JsonPropertyName("webUrl")]
+        public string WebUrl { get; set; }
     }
 
     /// <summary>
-    /// AssociateEntityRequest
+    /// x-ms-capabilities
     /// </summary>
-    public class AssociateEntityRequest
+    public class TableCapabilitiesMetadata
     {
-        /// <summary>Enter the row URL using OData ID from a previous step or typing the full URL (eg. https://org0.crm.dynamics.com/api/data/v9.0/faxes(3ce6c728-3c8a-4b55-a4ee-a251b253c3ee)</summary>
-        [JsonPropertyName("@odata.id")]
-        public string RelateWith { get; set; }
+        /// <summary>sortRestrictions</summary>
+        [JsonPropertyName("sortRestrictions")]
+        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
+
+        /// <summary>filterRestrictions</summary>
+        [JsonPropertyName("filterRestrictions")]
+        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
+
+        /// <summary>selectRestrictions</summary>
+        [JsonPropertyName("selectRestrictions")]
+        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>Server paging restrictions</summary>
+        [JsonPropertyName("isOnlyServerPagable")]
+        public bool? IsOnlyServerPagable { get; set; }
+
+        /// <summary>List of supported filter capabilities</summary>
+        [JsonPropertyName("filterFunctionSupport")]
+        public List<string> FilterFunctionSupport { get; set; }
+
+        /// <summary>List of supported server-driven paging capabilities</summary>
+        [JsonPropertyName("serverPagingOptions")]
+        public List<string> ServerPagingOptions { get; set; }
     }
 
     /// <summary>
-    /// SearchRequestBody
+    /// sortRestrictions
     /// </summary>
-    public class SearchRequestBody
+    public class TableSortRestrictionsMetadata
     {
-        /// <summary>Enter a search term, eg. Contoso. Searches modifiers like boolean operators, wildcards, fuzzy search, proximity search etc. require the search type full</summary>
-        [JsonPropertyName("search")]
-        public string SearchTerm { get; set; }
+        /// <summary>Indicates whether this table has sortable columns</summary>
+        [JsonPropertyName("sortable")]
+        public bool? Sortable { get; set; }
 
-        /// <summary>Enter whether simple or full search syntax should be used (default is simple)</summary>
-        [JsonPropertyName("searchtype")]
-        public string SearchType { get; set; }
+        /// <summary>List of unsortable properties</summary>
+        [JsonPropertyName("unsortableProperties")]
+        public List<string> UnsortableProperties { get; set; }
 
-        /// <summary>Enter whether any or all of the search terms must be matched (default is any)</summary>
-        [JsonPropertyName("searchmode")]
-        public string SearchMode { get; set; }
-
-        /// <summary>Enter the number of search results to be listed (default = 50)</summary>
-        [JsonPropertyName("top")]
-        public int? RowCount { get; set; }
-
-        /// <summary>Enter an OData style filter expression to narrow the search</summary>
-        [JsonPropertyName("filter")]
-        public string RowFilter { get; set; }
-
-        /// <summary>Enter a comma-separated list of tables to be searched (default is all tables)</summary>
-        [JsonPropertyName("entities")]
-        public List<string> TableFilter { get; set; }
-
-        /// <summary>Enter a comma-separated list of column unique names followed by asc or desc</summary>
-        [JsonPropertyName("orderby")]
-        public List<string> SortBy { get; set; }
-
-        /// <summary>Enter a comma-separated list of facet queries to narrow the search</summary>
-        [JsonPropertyName("facets")]
-        public List<string> FacetQuery { get; set; }
-
-        /// <summary>Enter the number of search results to be skipped</summary>
-        [JsonPropertyName("skip")]
-        public int? SkipRows { get; set; }
-
-        /// <summary>Choose an option</summary>
-        [JsonPropertyName("returntotalrecordcount")]
-        public bool? ReturnRowCount { get; set; }
+        /// <summary>List of properties which support ascending order only</summary>
+        [JsonPropertyName("ascendingOnlyProperties")]
+        public List<string> AscendingOnlyProperties { get; set; }
     }
 
     /// <summary>
-    /// WhenAnActionIsPerformedSubscriptionRequest
+    /// filterRestrictions
     /// </summary>
-    public class WhenAnActionIsPerformedSubscriptionRequest
+    public class TableFilterRestrictionsMetadata
     {
-        /// <summary>The callback registration table version.</summary>
-        [JsonPropertyName("version")]
-        public int? TableVersion { get; set; }
+        /// <summary>Indicates whether this table has filterable columns</summary>
+        [JsonPropertyName("filterable")]
+        public bool? Filterable { get; set; }
 
-        /// <summary>Callback url to the flow engine. Expected as part of the request and provided by Flow.</summary>
-        [JsonPropertyName("url")]
-        public string NotificationUrl { get; set; }
+        /// <summary>List of non filterable properties</summary>
+        [JsonPropertyName("nonFilterableProperties")]
+        public List<string> NonFilterableProperties { get; set; }
 
-        /// <summary>Callback registration name. Value will be replaced with workflow id.</summary>
-        [JsonPropertyName("name")]
+        /// <summary>List of required properties</summary>
+        [JsonPropertyName("requiredProperties")]
+        public List<string> RequiredProperties { get; set; }
+    }
+
+    /// <summary>
+    /// selectRestrictions
+    /// </summary>
+    public class TableSelectRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has selectable columns</summary>
+        [JsonPropertyName("selectable")]
+        public bool? Selectable { get; set; }
+    }
+
+    /// <summary>
+    /// schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for GetTables_V2
+    /// </summary>
+    public class TablesList
+    {
+        /// <summary>List of Tables</summary>
+        [JsonPropertyName("value")]
+        public List<Table> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of Tables
+    /// </summary>
+    public class Table
+    {
+        /// <summary>The name of the table. The name is used at runtime.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        /// <summary>Choose a scope to limit which rows can trigger the flow.</summary>
-        [JsonPropertyName("scope")]
-        public int? Scope { get; set; }
+        /// <summary>The display name of the table.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
 
-        /// <summary>Choose a table to filter actions.</summary>
-        [JsonPropertyName("entityname")]
-        public string TableName { get; set; }
+        /// <summary>Additional table properties provided by the connector to the clients.</summary>
+        [JsonPropertyName("DynamicProperties")]
+        [JsonInclude]
+        public JsonElement? DynamicProperties { get; init; }
+    }
 
-        /// <summary>Choose an action.</summary>
-        [JsonPropertyName("sdkmessagename")]
-        public string ActionName { get; set; }
+    /// <summary>
+    /// Update a row (legacy)
+    /// </summary>
+    [DynamicSchema("GetMetadataForPatchItem_V2")]
+    public class PatchItemInput
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Update a row (legacy)
+    /// </summary>
+    [DynamicSchema("GetMetadataForPatchItem_V2")]
+    public class PatchItemResponse
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Add a new row (legacy)
+    /// </summary>
+    [DynamicSchema("GetMetadataForPostItem_V2")]
+    public class PostItemInput
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Add a new row (legacy)
+    /// </summary>
+    [DynamicSchema("GetMetadataForPostItem_V2")]
+    public class PostItemResponse
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     #endregion Types
@@ -525,323 +401,289 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     public static class CommondataserviceModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="EntityMetadata"/>.
+        /// Creates a new instance of <see cref="DataSetsMetadata"/>.
         /// </summary>
-        public static EntityMetadata EntityMetadata(
-            ObjectEntity schema = default)
+        public static DataSetsMetadata DataSetsMetadata(
+            TabularDataSetsMetadata tabular = default,
+            BlobDataSetsMetadata blob = default)
         {
-            return new EntityMetadata
+            return new DataSetsMetadata
             {
-                Schema = schema,
+                Tabular = tabular,
+                Blob = blob,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="EntityRelationshipsDynamicValuesList"/>.
+        /// Creates a new instance of <see cref="TabularDataSetsMetadata"/>.
         /// </summary>
-        public static EntityRelationshipsDynamicValuesList EntityRelationshipsDynamicValuesList(
-            List<JsonElement?> value = default)
+        public static TabularDataSetsMetadata TabularDataSetsMetadata(
+            string source = default,
+            string displayName = default,
+            string urlEncoding = default,
+            string tableDisplayName = default,
+            string tablePluralName = default)
         {
-            return new EntityRelationshipsDynamicValuesList
+            return new TabularDataSetsMetadata
             {
-                Value = value,
+                Source = source,
+                DisplayName = displayName,
+                UrlEncoding = urlEncoding,
+                TableDisplayName = tableDisplayName,
+                TablePluralName = tablePluralName,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="OrganizationsDynamicValuesList"/>.
+        /// Creates a new instance of <see cref="BlobDataSetsMetadata"/>.
         /// </summary>
-        public static OrganizationsDynamicValuesList OrganizationsDynamicValuesList(
-            List<OrganizationsDynamicValuesListItem> value = default)
+        public static BlobDataSetsMetadata BlobDataSetsMetadata(
+            string source = default,
+            string displayName = default,
+            string urlEncoding = default)
         {
-            return new OrganizationsDynamicValuesList
+            return new BlobDataSetsMetadata
             {
-                Value = value,
+                Source = source,
+                DisplayName = displayName,
+                UrlEncoding = urlEncoding,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="OrganizationsDynamicValuesListItem"/>.
+        /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
-        public static OrganizationsDynamicValuesListItem OrganizationsDynamicValuesListItem(
-            string id = default,
-            string friendlyName = default,
-            string url = default)
-        {
-            return new OrganizationsDynamicValuesListItem
-            {
-                Id = id,
-                FriendlyName = friendlyName,
-                Url = url,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntitiesDynamicValuesList"/>.
-        /// </summary>
-        public static EntitiesDynamicValuesList EntitiesDynamicValuesList(
-            List<EntitiesDynamicValuesListItem> value = default)
-        {
-            return new EntitiesDynamicValuesList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntitiesDynamicValuesListItem"/>.
-        /// </summary>
-        public static EntitiesDynamicValuesListItem EntitiesDynamicValuesListItem(
-            string metadataId = default,
-            string entitySetName = default,
-            string logicalName = default,
-            DisplayCollectionName displayCollectionName = default)
-        {
-            return new EntitiesDynamicValuesListItem
-            {
-                MetadataId = metadataId,
-                EntitySetName = entitySetName,
-                LogicalName = logicalName,
-                DisplayCollectionName = displayCollectionName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DisplayCollectionName"/>.
-        /// </summary>
-        public static DisplayCollectionName DisplayCollectionName(
-            UserLocalizedLabel userLocalizedLabel = default)
-        {
-            return new DisplayCollectionName
-            {
-                UserLocalizedLabel = userLocalizedLabel,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="UserLocalizedLabel"/>.
-        /// </summary>
-        public static UserLocalizedLabel UserLocalizedLabel(
-            string label = default)
-        {
-            return new UserLocalizedLabel
-            {
-                Label = label,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntityItemList"/>.
-        /// </summary>
-        public static EntityItemList EntityItemList(
-            List<EntityItem> value = default,
-            string nextLink = default)
-        {
-            return new EntityItemList
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EntityItem"/>.
-        /// </summary>
-        public static EntityItem EntityItem(
+        public static Item Item(
             JsonElement? dynamicProperties = default)
         {
-            return new EntityItem
+            return new Item
             {
                 DynamicProperties = dynamicProperties,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ActionsDynamicValuesList"/>.
+        /// Creates a new instance of <see cref="ItemsList"/>.
         /// </summary>
-        public static ActionsDynamicValuesList ActionsDynamicValuesList(
-            List<JsonElement?> value = default)
+        public static ItemsList ItemsList(
+            List<Item> value = default)
         {
-            return new ActionsDynamicValuesList
+            return new ItemsList
             {
                 Value = value,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SearchOutput"/>.
+        /// Creates a new instance of <see cref="DataSetsList"/>.
         /// </summary>
-        public static SearchOutput SearchOutput(
-            List<JsonElement?> listOfRows = default,
-            long? totalRowCount = default,
-            JsonElement? facetResults = default)
+        public static DataSetsList DataSetsList(
+            List<DataSet> value = default)
         {
-            return new SearchOutput
+            return new DataSetsList
             {
-                ListOfRows = listOfRows,
-                TotalRowCount = totalRowCount,
-                FacetResults = facetResults,
+                Value = value,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse"/>.
+        /// Creates a new instance of <see cref="DataSet"/>.
         /// </summary>
-        public static GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse(
-            ObjectEntity schema = default)
-        {
-            return new GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMetadataForUnboundActionInputResponse"/>.
-        /// </summary>
-        public static GetMetadataForUnboundActionInputResponse GetMetadataForUnboundActionInputResponse(
-            ObjectEntity schema = default)
-        {
-            return new GetMetadataForUnboundActionInputResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMetadataForUnboundActionResponseResponse"/>.
-        /// </summary>
-        public static GetMetadataForUnboundActionResponseResponse GetMetadataForUnboundActionResponseResponse(
-            ObjectEntity schema = default)
-        {
-            return new GetMetadataForUnboundActionResponseResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMetadataForBoundActionInputResponse"/>.
-        /// </summary>
-        public static GetMetadataForBoundActionInputResponse GetMetadataForBoundActionInputResponse(
-            ObjectEntity schema = default)
-        {
-            return new GetMetadataForBoundActionInputResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMetadataForBoundActionResponseResponse"/>.
-        /// </summary>
-        public static GetMetadataForBoundActionResponseResponse GetMetadataForBoundActionResponseResponse(
-            ObjectEntity schema = default)
-        {
-            return new GetMetadataForBoundActionResponseResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CallbackRegistration"/>.
-        /// </summary>
-        public static CallbackRegistration CallbackRegistration(
-            int? tableVersion = default,
-            string notificationUrl = default,
+        public static DataSet DataSet(
             string name = default,
-            string tableName = default,
-            int? changeType = default,
-            string actionName = default,
-            int? scope = default,
-            string selectColumns = default,
-            string filterRows = default,
-            string delayUntil = default,
-            int? runAs = default)
+            string displayName = default,
+            List<PassThroughNativeQuery> query = default)
         {
-            return new CallbackRegistration
+            return new DataSet
             {
-                TableVersion = tableVersion,
-                NotificationUrl = notificationUrl,
                 Name = name,
-                TableName = tableName,
-                ChangeType = changeType,
-                ActionName = actionName,
-                Scope = scope,
-                SelectColumns = selectColumns,
-                FilterRows = filterRows,
-                DelayUntil = delayUntil,
-                RunAs = runAs,
+                DisplayName = displayName,
+                Query = query,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssociateEntityRequest"/>.
+        /// Creates a new instance of <see cref="PassThroughNativeQuery"/>.
         /// </summary>
-        public static AssociateEntityRequest AssociateEntityRequest(
-            string relateWith = default)
+        public static PassThroughNativeQuery PassThroughNativeQuery(
+            string language = default)
         {
-            return new AssociateEntityRequest
+            return new PassThroughNativeQuery
             {
-                RelateWith = relateWith,
+                Language = language,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SearchRequestBody"/>.
+        /// Creates a new instance of <see cref="TableMetadata"/>.
         /// </summary>
-        public static SearchRequestBody SearchRequestBody(
-            string searchTerm = default,
-            string searchType = default,
-            string searchMode = default,
-            int? rowCount = default,
-            string rowFilter = default,
-            List<string> tableFilter = default,
-            List<string> sortBy = default,
-            List<string> facetQuery = default,
-            int? skipRows = default,
-            bool? returnRowCount = default)
-        {
-            return new SearchRequestBody
-            {
-                SearchTerm = searchTerm,
-                SearchType = searchType,
-                SearchMode = searchMode,
-                RowCount = rowCount,
-                RowFilter = rowFilter,
-                TableFilter = tableFilter,
-                SortBy = sortBy,
-                FacetQuery = facetQuery,
-                SkipRows = skipRows,
-                ReturnRowCount = returnRowCount,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WhenAnActionIsPerformedSubscriptionRequest"/>.
-        /// </summary>
-        public static WhenAnActionIsPerformedSubscriptionRequest WhenAnActionIsPerformedSubscriptionRequest(
-            int? tableVersion = default,
-            string notificationUrl = default,
+        public static TableMetadata TableMetadata(
             string name = default,
-            int? scope = default,
-            string tableName = default,
-            string actionName = default)
+            string title = default,
+            string xMsPermission = default,
+            TableCapabilitiesMetadata xMsCapabilities = default,
+            ObjectEntity schema = default,
+            ObjectEntity referencedEntities = default,
+            string webUrl = default)
         {
-            return new WhenAnActionIsPerformedSubscriptionRequest
+            return new TableMetadata
             {
-                TableVersion = tableVersion,
-                NotificationUrl = notificationUrl,
                 Name = name,
-                Scope = scope,
-                TableName = tableName,
-                ActionName = actionName,
+                Title = title,
+                XMsPermission = xMsPermission,
+                XMsCapabilities = xMsCapabilities,
+                Schema = schema,
+                ReferencedEntities = referencedEntities,
+                WebUrl = webUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
+        /// </summary>
+        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
+            TableSortRestrictionsMetadata sortRestrictions = default,
+            TableFilterRestrictionsMetadata filterRestrictions = default,
+            TableSelectRestrictionsMetadata selectRestrictions = default,
+            bool? isOnlyServerPagable = default,
+            List<string> filterFunctionSupport = default,
+            List<string> serverPagingOptions = default)
+        {
+            return new TableCapabilitiesMetadata
+            {
+                SortRestrictions = sortRestrictions,
+                FilterRestrictions = filterRestrictions,
+                SelectRestrictions = selectRestrictions,
+                IsOnlyServerPagable = isOnlyServerPagable,
+                FilterFunctionSupport = filterFunctionSupport,
+                ServerPagingOptions = serverPagingOptions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
+            bool? sortable = default,
+            List<string> unsortableProperties = default,
+            List<string> ascendingOnlyProperties = default)
+        {
+            return new TableSortRestrictionsMetadata
+            {
+                Sortable = sortable,
+                UnsortableProperties = unsortableProperties,
+                AscendingOnlyProperties = ascendingOnlyProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
+            bool? filterable = default,
+            List<string> nonFilterableProperties = default,
+            List<string> requiredProperties = default)
+        {
+            return new TableFilterRestrictionsMetadata
+            {
+                Filterable = filterable,
+                NonFilterableProperties = nonFilterableProperties,
+                RequiredProperties = requiredProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
+            bool? selectable = default)
+        {
+            return new TableSelectRestrictionsMetadata
+            {
+                Selectable = selectable,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TablesList"/>.
+        /// </summary>
+        public static TablesList TablesList(
+            List<Table> value = default)
+        {
+            return new TablesList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Table"/>.
+        /// </summary>
+        public static Table Table(
+            string name = default,
+            string displayName = default,
+            JsonElement? dynamicProperties = default)
+        {
+            return new Table
+            {
+                Name = name,
+                DisplayName = displayName,
+                DynamicProperties = dynamicProperties,
             };
         }
     }
 
     #endregion Model Factory
+
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnDeletedItems trigger (Commondataservice "When a row is deleted (Admin Only) (Deprecated)", operationId: GetOnDeletedItems_V2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;CommondataserviceOnDeletedItemsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class CommondataserviceOnDeletedItemsTriggerPayload : TriggerCallbackPayload<Item>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewItems trigger (Commondataservice "When a row is added (Admin Only) (Deprecated)", operationId: GetOnNewItems_V2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;CommondataserviceOnNewItemsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class CommondataserviceOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnUpdatedItems trigger (Commondataservice "When a row is modified (Admin Only) (Deprecated)", operationId: GetOnUpdatedItems_V2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;CommondataserviceOnUpdatedItemsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class CommondataserviceOnUpdatedItemsTriggerPayload : TriggerCallbackPayload<Item>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Commondataservice connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="CommondataserviceTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class CommondataserviceTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Commondataservice connector.
+        /// This is a subset of all triggers — see <see cref="CommondataserviceTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["GetOnDeletedItems_V2"] = typeof(CommondataserviceOnDeletedItemsTriggerPayload),
+                ["GetOnNewItems_V2"] = typeof(CommondataserviceOnNewItemsTriggerPayload),
+                ["GetOnUpdatedItems_V2"] = typeof(CommondataserviceOnUpdatedItemsTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
 
 }
 
@@ -858,14 +700,22 @@ namespace Azure.Connectors.Sdk.Commondataservice
     public static class CommondataserviceTriggerOperations
     {
         /// <summary>
-        /// When a row is added, modified or deleted.
+        /// When a row is deleted (Admin Only) (Deprecated).
+        /// Payload type: <see cref="CommondataserviceOnDeletedItemsTriggerPayload"/>.
         /// </summary>
-        public const string OnSubscribeWebhookTrigger = "SubscribeWebhookTrigger";
+        public const string OnDeletedItems = "GetOnDeletedItems_V2";
 
         /// <summary>
-        /// When an action is performed.
+        /// When a row is added (Admin Only) (Deprecated).
+        /// Payload type: <see cref="CommondataserviceOnNewItemsTriggerPayload"/>.
         /// </summary>
-        public const string OnBusinessEventsTrigger = "BusinessEventsTrigger";
+        public const string OnNewItems = "GetOnNewItems_V2";
+
+        /// <summary>
+        /// When a row is modified (Admin Only) (Deprecated).
+        /// Payload type: <see cref="CommondataserviceOnUpdatedItemsTriggerPayload"/>.
+        /// </summary>
+        public const string OnUpdatedItems = "GetOnUpdatedItems_V2";
 
     }
 
@@ -880,72 +730,83 @@ namespace Azure.Connectors.Sdk.Commondataservice
     public static class CommondataserviceTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnSubscribeWebhookTrigger trigger operation (operationId: SubscribeWebhookTrigger).
+        /// Input parameters for the OnDeletedItems trigger operation (operationId: GetOnDeletedItems_V2).
         /// </summary>
-        public static class OnSubscribeWebhookTrigger
+        public static class OnDeletedItems
         {
             /// <summary>
-            /// The header parameter required to make Microsoft Dataverse bypass the cache and hit DB
-            /// Required.
-            /// Default: Strong.
+            /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
-            public const string Consistency = "Consistency";
+            public const string Filter = "$filter";
 
             /// <summary>
-            /// Using this header parameter to save catalog in flow definition and Microsoft Dataverse will ignore as they don&apos;t use this info
-            /// Required.
-            /// Default: all.
+            /// An ODATA orderBy query for specifying the order of entries.
             /// </summary>
-            public const string Catalog = "catalog";
+            public const string Orderby = "$orderby";
 
             /// <summary>
-            /// Using this header parameter to save category in flow definition and Microsoft Dataverse will ignore as they don&apos;t use this info
-            /// Required.
-            /// Default: all.
+            /// Total number of entries to retrieve (default = all).
             /// </summary>
-            public const string Category = "category";
+            public const string Top = "$top";
 
             /// <summary>
-            /// Select an Environment
-            /// Required.
-            /// Dynamic values from: GetOrganizations.
+            /// The number of entries to skip (default = 0).
             /// </summary>
-            public const string Organization = "organization";
+            public const string Skip = "$skip";
 
         }
 
         /// <summary>
-        /// Input parameters for the OnBusinessEventsTrigger trigger operation (operationId: BusinessEventsTrigger).
+        /// Input parameters for the OnNewItems trigger operation (operationId: GetOnNewItems_V2).
         /// </summary>
-        public static class OnBusinessEventsTrigger
+        public static class OnNewItems
         {
             /// <summary>
-            /// The header parameter required to make CDS bypass the cache and hit DB.
-            /// Required.
-            /// Default: Strong.
+            /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
-            public const string Consistency = "Consistency";
+            public const string Filter = "$filter";
 
             /// <summary>
-            /// Select an Environment
-            /// Required.
-            /// Dynamic values from: GetOrganizations.
+            /// An ODATA orderBy query for specifying the order of entries.
             /// </summary>
-            public const string Organization = "organization";
+            public const string Orderby = "$orderby";
 
             /// <summary>
-            /// Choose an option to filter tables and actions.
-            /// Required.
-            /// Dynamic values from: GetCatalogs.
+            /// Total number of entries to retrieve (default = all).
             /// </summary>
-            public const string Catalog = "catalog";
+            public const string Top = "$top";
 
             /// <summary>
-            /// Choose an option to filter tables and actions.
-            /// Required.
-            /// Dynamic values from: GetEntityListEnum.
+            /// The number of entries to skip (default = 0).
             /// </summary>
-            public const string Category = "category";
+            public const string Skip = "$skip";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnUpdatedItems trigger operation (operationId: GetOnUpdatedItems_V2).
+        /// </summary>
+        public static class OnUpdatedItems
+        {
+            /// <summary>
+            /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
+            /// </summary>
+            public const string Filter = "$filter";
+
+            /// <summary>
+            /// An ODATA orderBy query for specifying the order of entries.
+            /// </summary>
+            public const string Orderby = "$orderby";
+
+            /// <summary>
+            /// Total number of entries to retrieve (default = all).
+            /// </summary>
+            public const string Top = "$top";
+
+            /// <summary>
+            /// The number of entries to skip (default = 0).
+            /// </summary>
+            public const string Skip = "$skip";
 
         }
 
@@ -1019,30 +880,24 @@ namespace Azure.Connectors.Sdk.Commondataservice
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
 
+        // NOTE(daviburg): Double-encodes a value for URL path segments.
+        // The commondataservice connector uses x-ms-url-encoding: double on path
+        // parameters because dataset values are full URLs with slashes and colons.
+        private static string DoubleEscape(string value) => Uri.EscapeDataString(Uri.EscapeDataString(value));
+
         /// <summary>
-        /// Get table metadata
+        /// GetDataSetsMetadata
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="selectQuery">Select Query</param>
-        /// <param name="expandQuery">Expand Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get table metadata response.</returns>
-        public virtual async Task<EntityMetadata> GetMetadataForGetEntityAsync(string tableName, string selectQuery = default, string expandQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>The GetDataSetsMetadata response.</returns>
+        public virtual async Task<DataSetsMetadata> GetDataSetsMetadataAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForGetEntityAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetDataSetsMetadataAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var queryParams = new List<string>();
-                if (selectQuery != default)
-                    queryParams.Add($"selectedEntityAttributes={Uri.EscapeDataString(selectQuery.ToString())}");
-                if (expandQuery != default)
-                    queryParams.Add($"expandEntityAttributes={Uri.EscapeDataString(expandQuery.ToString())}");
-                var path = $"/api/flow/$metadata.json/entities/{Uri.EscapeDataString(tableName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/$metadata.json/datasets";
                 return await this
-                    .CallConnectorAsync<EntityMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DataSetsMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1054,22 +909,21 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get table metadata
+        /// Follows nextLink to retrieve next page of data
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
+        /// <remarks>This operation gets the next page of data.</remarks>
+        /// <param name="nextLinkValue">nextLink value</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get table metadata response.</returns>
-        public virtual async Task<EntityMetadata> GetMetadataForGetEntityCUDTriggerAsync(string tableName, CancellationToken cancellationToken = default)
+        public virtual async Task GetNextPageAsync(string nextLinkValue, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForGetEntityCUDTriggerAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetNextPageAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/api/flow/$metadata.json/entities/{Uri.EscapeDataString(tableName.ToString())}/cudtrigger";
-                return await this
-                    .CallConnectorAsync<EntityMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                if (nextLinkValue is null)
+                    throw new ArgumentNullException(nameof(nextLinkValue));
+                var path = $"/nextLink/{Uri.EscapeDataString(nextLinkValue.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1081,216 +935,32 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get table metadata - Post
+        /// Associates one row to another on the provided relationship
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get table metadata - Post response.</returns>
-        public virtual async Task<EntityMetadata> GetMetadataForPostEntityAsync(string tableName, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForPostEntityAsync");
-            try
-            {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/api/flow/$metadata.json/entities/{Uri.EscapeDataString(tableName.ToString())}/postitem";
-                return await this
-                    .CallConnectorAsync<EntityMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get table metadata - Patch
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get table metadata - Patch response.</returns>
-        public virtual async Task<EntityMetadata> GetMetadataForPatchEntityAsync(string tableName, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForPatchEntityAsync");
-            try
-            {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/api/flow/$metadata.json/entities/{Uri.EscapeDataString(tableName.ToString())}/patchitem";
-                return await this
-                    .CallConnectorAsync<EntityMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get attribute filters
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get attribute filters response.</returns>
-        public virtual async Task<ObjectEntity> GetAttributeFiltersCodelessAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetAttributeFiltersCodelessAsync");
-            try
-            {
-                var path = $"/api/flow/$metadata.json/entities/GetAttributeFilters";
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetEntityRelationships
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetEntityRelationships response.</returns>
-        public virtual async Task<EntityRelationshipsDynamicValuesList> GetEntityRelationshipsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetEntityRelationshipsAsync");
-            try
-            {
-                var path = $"/api/flow/$metadata.json/GetEntityRelationships";
-                return await this
-                    .CallConnectorAsync<EntityRelationshipsDynamicValuesList>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetOrganizations
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetOrganizations response.</returns>
-        public virtual async Task<OrganizationsDynamicValuesList> GetOrganizationsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetOrganizationsAsync");
-            try
-            {
-                var path = $"/getorgs";
-                return await this
-                    .CallConnectorAsync<OrganizationsDynamicValuesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetEntityListEnum
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetEntityListEnum response.</returns>
-        public virtual async Task<EntitiesDynamicValuesList> GetEntityListEnumAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetEntityListEnumAsync");
-            try
-            {
-                var path = $"/api/flow/$metadata.json/GetEntityListEnum";
-                return await this
-                    .CallConnectorAsync<EntitiesDynamicValuesList>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List rows
-        /// </summary>
-        /// <remarks>This action allows you to list the rows in a Microsoft Dataverse table that match the selected options. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="selectColumns">Select columns</param>
-        /// <param name="filterRows">Filter rows</param>
-        /// <param name="sortBy">Sort By</param>
-        /// <param name="expandQuery">Expand Query</param>
-        /// <param name="fetchXmlQuery">Fetch Xml Query</param>
-        /// <param name="rowCount">Row count</param>
-        /// <param name="skipToken">Skip token</param>
-        /// <param name="partitionId">Partition ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="EntityItem"/> items across all pages.</returns>
-        public virtual AsyncPageable<EntityItem> ListRecordsAsync([DynamicValues("GetEntityListEnum")] string tableName, string selectColumns = default, string filterRows = default, string sortBy = default, string expandQuery = default, string fetchXmlQuery = default, int? rowCount = default, string skipToken = default, string partitionId = default, CancellationToken cancellationToken = default)
-        {
-            if (tableName is null)
-                throw new ArgumentNullException(nameof(tableName));
-            var queryParams = new List<string>();
-            if (selectColumns != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectColumns.ToString())}");
-            if (filterRows != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterRows.ToString())}");
-            if (sortBy != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(sortBy.ToString())}");
-            if (expandQuery != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expandQuery.ToString())}");
-            if (fetchXmlQuery != default)
-                queryParams.Add($"fetchXml={Uri.EscapeDataString(fetchXmlQuery.ToString())}");
-            if (rowCount.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(rowCount.Value.ToString())}");
-            if (skipToken != default)
-                queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken.ToString())}");
-            if (partitionId != default)
-                queryParams.Add($"partitionId={Uri.EscapeDataString(partitionId.ToString())}");
-            var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<EntityItemList, EntityItem>(
-                ct => this.CallConnectorAsync<EntityItemList>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<EntityItemList>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// Add a new row
-        /// </summary>
-        /// <remarks>This action allows you to add a new row in the selected Microsoft Dataverse table. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
+        /// <remarks>Associates one row to another on the provided relationship</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="relationship">Relationship</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add a new row response.</returns>
-        public virtual async Task<CreateRecordResponse> CreateRecordAsync([DynamicValues("GetEntityListEnum")] string tableName, CreateRecordInput input, CancellationToken cancellationToken = default)
+        /// <returns>The Associates one row to another on the provided relationship response.</returns>
+        public virtual async Task<Item> AssociateRecordsPatchItemAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string relationship, AssociateRecordsPatchItemInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.CreateRecordAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.AssociateRecordsPatchItemAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}";
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (relationship is null)
+                    throw new ArgumentNullException(nameof(relationship));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Relationship/{DoubleEscape(relationship.ToString())}";
                 return await this
-                    .CallConnectorAsync<CreateRecordResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1302,35 +972,32 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get a row by ID
+        /// Creates Note (annotation) for specified table row
         /// </summary>
-        /// <remarks>This action allows you to get the row that matches an ID in a Microsoft Dataverse table. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="selectColumns">Select columns</param>
-        /// <param name="expandQuery">Expand Query</param>
-        /// <param name="partitionId">Partition Id</param>
+        /// <remarks>Creates Note (annotation) for specified table row.</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="fileName">File Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get a row by ID response.</returns>
-        public virtual async Task<GetItemCodelessResponse> GetItemCodelessAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, string selectColumns = default, string expandQuery = default, string partitionId = default, CancellationToken cancellationToken = default)
+        /// <returns>The Creates Note (annotation) for specified table row response.</returns>
+        public virtual async Task<Item> CreateAttachmentAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, int id, byte[] input, string fileName, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetItemCodelessAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.CreateAttachmentAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
-                if (selectColumns != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectColumns.ToString())}");
-                if (expandQuery != default)
-                    queryParams.Add($"$expand={Uri.EscapeDataString(expandQuery.ToString())}");
-                if (partitionId != default)
-                    queryParams.Add($"partitionId={Uri.EscapeDataString(partitionId.ToString())}");
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<GetItemCodelessResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1342,26 +1009,28 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Delete a row
+        /// Deletes specified attachment on the Note (annotation)
         /// </summary>
-        /// <remarks>This action allows you to delete a row from a Microsoft Dataverse table. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="partitionId">Partition Id</param>
+        /// <remarks>Deletes specified attachment on the Note (annotation).</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="attachmentId">AttachmentId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DeleteRecordAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, string partitionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAttachmentAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string attachmentId, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.DeleteRecordAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.DeleteAttachmentAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                var queryParams = new List<string>();
-                if (partitionId != default)
-                    queryParams.Add($"partitionId={Uri.EscapeDataString(partitionId.ToString())}");
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (attachmentId is null)
+                    throw new ArgumentNullException(nameof(attachmentId));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments/{DoubleEscape(attachmentId.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1375,64 +1044,27 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Update a row
+        /// Delete a row (legacy)
         /// </summary>
-        /// <remarks>This action allows you to modify any selected row in a Microsoft Dataverse table, or adds a new row if it doesn&apos;t exist. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="input">The request body.</param>
+        /// <remarks>This operation deletes a row from a table collection</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="itemIdentifier">Item identifier</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update a row response.</returns>
-        public virtual async Task<UpdateRecordResponse> UpdateRecordAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, UpdateRecordInput input, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteItemAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, string itemIdentifier, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.UpdateRecordAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.DeleteItemAsync");
             try
             {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})";
-                return await this
-                    .CallConnectorAsync<UpdateRecordResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Upload a file or an image
-        /// </summary>
-        /// <remarks>This action allows you to upload a file or an image content to a Microsoft Dataverse table with a compatible column type. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="columnName">Column name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="contentName">Content name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateEntityFileImageFieldContentAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, [DynamicValues("GetAttributeFiltersCodeless")] string columnName, byte[] input, string contentName, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.UpdateEntityFileImageFieldContentAsync");
-            try
-            {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                if (columnName is null)
-                    throw new ArgumentNullException(nameof(columnName));
-                var queryParams = new List<string>();
-                if (contentName is null)
-                    throw new ArgumentNullException(nameof(contentName));
-                queryParams.Add($"x-ms-file-name={Uri.EscapeDataString(contentName.ToString())}");
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})/{Uri.EscapeDataString(columnName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (itemIdentifier is null)
+                    throw new ArgumentNullException(nameof(itemIdentifier));
+                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(itemIdentifier.ToString())}";
                 await this
-                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1444,30 +1076,104 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Download a file or an image
+        /// Disassociates a row from a multi-valued relationship
         /// </summary>
-        /// <remarks>This action allows you to download a file or an image content from a Microsoft Dataverse table. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="columnName">Column name</param>
-        /// <param name="imageSize">Image size</param>
+        /// <remarks>Disassociates a row from a multi-valued relationship</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="relationship">Relationship</param>
+        /// <param name="relatedId">RelatedId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Download a file or an image response.</returns>
-        public virtual async Task<byte[]> GetEntityFileImageFieldContentAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, [DynamicValues("GetAttributeFiltersCodeless")] string columnName, string imageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>The Disassociates a row from a multi-valued relationship response.</returns>
+        public virtual async Task<Item> DisassociateRecordsPostItemAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string relationship, string relatedId, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetEntityFileImageFieldContentAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.DisassociateRecordsPostItemAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                if (columnName is null)
-                    throw new ArgumentNullException(nameof(columnName));
-                var queryParams = new List<string>();
-                if (imageSize != default)
-                    queryParams.Add($"size={Uri.EscapeDataString(imageSize.ToString())}");
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})/{Uri.EscapeDataString(columnName.ToString())}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (relationship is null)
+                    throw new ArgumentNullException(nameof(relationship));
+                if (relatedId is null)
+                    throw new ArgumentNullException(nameof(relatedId));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Relationship/{DoubleEscape(relationship.ToString())}/RelatedId/{DoubleEscape(relatedId.ToString())}";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Disassociates a row from a single-valued relationship
+        /// </summary>
+        /// <remarks>Disassociates a row from a single-valued relationship</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="relationship">Relationship</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Disassociates a row from a single-valued relationship response.</returns>
+        public virtual async Task<Item> DisassociateSingleValueRecordDeleteItemAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string relationship, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.DisassociateSingleValueRecordDeleteItemAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (relationship is null)
+                    throw new ArgumentNullException(nameof(relationship));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Relationship/{DoubleEscape(relationship.ToString())}";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves file content for specified Note (annotation)
+        /// </summary>
+        /// <remarks>Retrieves file content for specified Note (annotation).</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="attachmentId">AttachmentId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Retrieves file content for specified Note (annotation) response.</returns>
+        public virtual async Task<byte[]> GetAttachmentContentAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string attachmentId, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetAttachmentContentAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (attachmentId is null)
+                    throw new ArgumentNullException(nameof(attachmentId));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments/{DoubleEscape(attachmentId.ToString())}/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1481,138 +1187,37 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// GetUnboundActions
+        /// Retrieves all collection valued relationship items as an expand would
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetUnboundActions response.</returns>
-        public virtual async Task<ActionsDynamicValuesList> GetUnboundActionsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetUnboundActionsAsync");
-            try
-            {
-                var path = $"/api/flow/$metadata.json/actionListEnum/unboundactions";
-                return await this
-                    .CallConnectorAsync<ActionsDynamicValuesList>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetBoundActions
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetBoundActions response.</returns>
-        public virtual async Task<ActionsDynamicValuesList> GetBoundActionsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetBoundActionsAsync");
-            try
-            {
-                var path = $"/api/flow/$metadata.json/actionListEnum/boundactions";
-                return await this
-                    .CallConnectorAsync<ActionsDynamicValuesList>(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Perform an unbound action
-        /// </summary>
-        /// <remarks>This action allows you to perform Microsoft Dataverse actions available in the environment that are not associated with any table.</remarks>
-        /// <param name="actionName">Action Name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Perform an unbound action response.</returns>
-        public virtual async Task<PerformUnboundActionResponse> PerformUnboundActionAsync([DynamicValues("GetUnboundActions")] string actionName, PerformUnboundActionInput input, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.PerformUnboundActionAsync");
-            try
-            {
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                var path = $"/api/data/v9.2/{Uri.EscapeDataString(actionName.ToString())}";
-                return await this
-                    .CallConnectorAsync<PerformUnboundActionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Perform a bound action
-        /// </summary>
-        /// <remarks>This action allows you to perform Microsoft Dataverse actions associated with a selected table.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="actionName">Action Name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Perform a bound action response.</returns>
-        public virtual async Task<PerformBoundActionResponse> PerformBoundActionAsync([DynamicValues("GetEntityListEnum")] string tableName, [DynamicValues("GetBoundActions")] string actionName, string rowId, PerformBoundActionInput input, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.PerformBoundActionAsync");
-            try
-            {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                var path = $"/api/data/v9.2/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})/{Uri.EscapeDataString(actionName.ToString())}";
-                return await this
-                    .CallConnectorAsync<PerformBoundActionResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Relate rows
-        /// </summary>
-        /// <remarks>This action allows you to link a row in one Microsoft Dataverse table to another if the tables have a one-to-many or many-to-many relationship. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
+        /// <remarks>Retrieves all collection valued relationship items as an expand would</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="collection">Collection</param>
         /// <param name="relationship">Relationship</param>
-        /// <param name="input">The request body.</param>
+        /// <param name="target">Target</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task AssociateEntitiesAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, [DynamicValues("GetEntityRelationships")] string relationship, AssociateEntityRequest input, CancellationToken cancellationToken = default)
+        /// <returns>The Retrieves all collection valued relationship items as an expand would response.</returns>
+        public virtual async Task<ItemsList> GetCollectionRelationshipsAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string collection, string relationship, string target, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.AssociateEntitiesAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetCollectionRelationshipsAsync");
             try
             {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (collection is null)
+                    throw new ArgumentNullException(nameof(collection));
                 if (relationship is null)
                     throw new ArgumentNullException(nameof(relationship));
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})/{Uri.EscapeDataString(relationship.ToString())}/$ref";
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                if (target is null)
+                    throw new ArgumentNullException(nameof(target));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Collection/{DoubleEscape(collection.ToString())}/{DoubleEscape(relationship.ToString())}/TargetTable/{DoubleEscape(target.ToString())}";
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1624,57 +1229,130 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Unrelate rows
+        /// GetDataSets_V2
         /// </summary>
-        /// <remarks>This action allows you to remove the link between a row in one Microsoft Dataverse table to another if the tables have a one-to-many or many-to-many relationship. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row ID</param>
-        /// <param name="relationship">Relationship</param>
-        /// <param name="unrelateWith">Unrelate with</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task DisassociateEntitiesAsync([DynamicValues("GetEntityListEnum")] string tableName, string rowId, [DynamicValues("GetEntityRelationships")] string relationship, string unrelateWith, CancellationToken cancellationToken = default)
+        /// <returns>The GetDataSets_V2 response.</returns>
+        public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.DisassociateEntitiesAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetDataSetsAsync");
             try
             {
+                var path = $"/v2/datasets";
+                return await this
+                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get row (legacy)
+        /// </summary>
+        /// <remarks>This operation retrieves the specified row for a table</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="itemIdentifier">Item identifier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get row (legacy) response.</returns>
+        public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, string itemIdentifier, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetItemAsync");
+            try
+            {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                if (relationship is null)
-                    throw new ArgumentNullException(nameof(relationship));
+                if (itemIdentifier is null)
+                    throw new ArgumentNullException(nameof(itemIdentifier));
+                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(itemIdentifier.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves all Notes (annotations) for the provided table row Id
+        /// </summary>
+        /// <remarks>Retrieves all Notes (annotations) for the provided table row Id.</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">Id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Retrieves all Notes (annotations) for the provided table row Id response.</returns>
+        public virtual async Task<ItemsList> GetItemAttachmentsAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetItemAttachmentsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments";
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List rows (legacy)
+        /// </summary>
+        /// <remarks>This operation gets rows for a table</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="aggregationTransformation">Aggregation transformation</param>
+        /// <param name="filterQuery">Filter Query</param>
+        /// <param name="orderBy">Order By</param>
+        /// <param name="topCount">Top Count</param>
+        /// <param name="expandQuery">Expand Query</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List rows (legacy) response.</returns>
+        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? topCount = default, string expandQuery = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetItemsAsync");
+            try
+            {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
-                if (unrelateWith is null)
-                    throw new ArgumentNullException(nameof(unrelateWith));
-                queryParams.Add($"$id={Uri.EscapeDataString(unrelateWith.ToString())}");
-                var path = $"/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}({Uri.EscapeDataString(rowId.ToString())})/{Uri.EscapeDataString(relationship.ToString())}/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Search rows
-        /// </summary>
-        /// <remarks>This action allows you to search a Microsoft Dataverse environment using Relevance Search, and returns the rows that match the search term most closely. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Search rows response.</returns>
-        public virtual async Task<SearchOutput> GetRelevantRowsAsync(SearchRequestBody input, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetRelevantRowsAsync");
-            try
-            {
-                var path = $"/api/search/v1.0/query";
+                if (aggregationTransformation != default)
+                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (topCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                if (expandQuery != default)
+                    queryParams.Add($"$expand={Uri.EscapeDataString(expandQuery.ToString())}");
+                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SearchOutput>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1686,17 +1364,86 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get catalogs
+        /// Get table metadata - Patch
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <remarks>Gets table metadata for patch operation</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get catalogs response.</returns>
-        public virtual async Task<ObjectEntity> GetCatalogsAsync(CancellationToken cancellationToken = default)
+        /// <returns>The Get table metadata - Patch response.</returns>
+        public virtual async Task<TableMetadata> GetMetadataForPatchItemAsync([DynamicValues("GetDataSets")] string environment, [DynamicValues("GetTables")] string tableName, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetCatalogsAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForPatchItemAsync");
             try
             {
-                var path = $"/api/data/v9.2/catalogs";
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/v2/$metadata.json/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/patchitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get table metadata - Post
+        /// </summary>
+        /// <remarks>Gets table metadata for post operation</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get table metadata - Post response.</returns>
+        public virtual async Task<TableMetadata> GetMetadataForPostItemAsync([DynamicValues("GetDataSets")] string environment, [DynamicValues("GetTables")] string tableName, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForPostItemAsync");
+            try
+            {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/v2/$metadata.json/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/postitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the metadata for multi select column metadata
+        /// </summary>
+        /// <remarks>Retrieves the metadata for multi select column metadata.</remarks>
+        /// <param name="orgName">org name</param>
+        /// <param name="tableName">Table name</param>
+        /// <param name="id">id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Retrieves the metadata for multi select column metadata response.</returns>
+        public virtual async Task<ObjectEntity> GetMultiSelectMetadataAsync([DynamicValues("GetDataSets")] string orgName, [DynamicValues("GetTables")] string tableName, string id, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMultiSelectMetadataAsync");
+            try
+            {
+                if (orgName is null)
+                    throw new ArgumentNullException(nameof(orgName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                var path = $"/v2/datasets/{DoubleEscape(orgName.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(id.ToString())}/MultiSelect";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1710,25 +1457,61 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get action metadata
+        /// Retrieves the metadata for choice column metadata
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="actionName">Action name</param>
+        /// <remarks>Retrieves the metadata for choice column metadata.</remarks>
+        /// <param name="dataset">Dataset</param>
+        /// <param name="table">Table</param>
+        /// <param name="id">id</param>
+        /// <param name="typeOfChoice">type of choice</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get action metadata response.</returns>
-        public virtual async Task<GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse> GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerAsync(string tableName, string actionName, CancellationToken cancellationToken = default)
+        /// <returns>The Retrieves the metadata for choice column metadata response.</returns>
+        public virtual async Task<ObjectEntity> GetOptionSetMetadataAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, string typeOfChoice, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetOptionSetMetadataAsync");
             try
             {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
+                if (typeOfChoice is null)
+                    throw new ArgumentNullException(nameof(typeOfChoice));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/OptionSet/{DoubleEscape(typeOfChoice.ToString())}";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get table metadata
+        /// </summary>
+        /// <remarks>Gets table metadata</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get table metadata response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string environment, [DynamicValues("GetTables")] string tableName, CancellationToken cancellationToken = default)
+        {
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetTableAsync");
+            try
+            {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                var path = $"/api/flow/$metadata.json/whenAnActionIsPerformedEntity/{Uri.EscapeDataString(tableName.ToString())}/whenAnActionIsPerformedAction/{Uri.EscapeDataString(actionName.ToString())}";
+                var path = $"/v2/$metadata.json/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}";
                 return await this
-                    .CallConnectorAsync<GetMetadataForActionInputAndResponseForWhenAnActionIsPerformedTriggerResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1740,22 +1523,21 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get metadata for unbound action input
+        /// GetTables_V2
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="actionName">Action Name</param>
+        /// <param name="dataset">dataset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata for unbound action input response.</returns>
-        public virtual async Task<GetMetadataForUnboundActionInputResponse> GetMetadataForUnboundActionInputAsync(string actionName, CancellationToken cancellationToken = default)
+        /// <returns>The GetTables_V2 response.</returns>
+        public virtual async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string dataset, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForUnboundActionInputAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetTablesAsync");
             try
             {
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                var path = $"/api/flow/$metadata.json/flow/api/data/v9.1/{Uri.EscapeDataString(actionName.ToString())}/inputs";
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables";
                 return await this
-                    .CallConnectorAsync<GetMetadataForUnboundActionInputResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1767,52 +1549,29 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get metadata for unbound action response
+        /// Update a row (legacy)
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="actionName">Action Name</param>
+        /// <remarks>This operation updates an existing row for a table</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="rowIdentifier">Row identifier</param>
+        /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata for unbound action response response.</returns>
-        public virtual async Task<GetMetadataForUnboundActionResponseResponse> GetMetadataForUnboundActionResponseAsync(string actionName, CancellationToken cancellationToken = default)
+        /// <returns>The Update a row (legacy) response.</returns>
+        public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, string rowIdentifier, PatchItemInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForUnboundActionResponseAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.PatchItemAsync");
             try
             {
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                var path = $"/api/flow/$metadata.json/flow/api/data/v9.1/{Uri.EscapeDataString(actionName.ToString())}/response";
-                return await this
-                    .CallConnectorAsync<GetMetadataForUnboundActionResponseResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get metadata for bound action input
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="actionName">Action Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata for bound action input response.</returns>
-        public virtual async Task<GetMetadataForBoundActionInputResponse> GetMetadataForBoundActionInputAsync(string tableName, string actionName, CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForBoundActionInputAsync");
-            try
-            {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                var path = $"/api/flow/$metadata.json/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(actionName.ToString())}/inputs";
+                if (rowIdentifier is null)
+                    throw new ArgumentNullException(nameof(rowIdentifier));
+                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(rowIdentifier.ToString())}";
                 return await this
-                    .CallConnectorAsync<GetMetadataForBoundActionInputResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1824,25 +1583,26 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Get metadata for bound action response
+        /// Add a new row (legacy)
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="actionName">Action Name</param>
+        /// <remarks>This operation adds a new row of a table</remarks>
+        /// <param name="environment">Environment</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata for bound action response response.</returns>
-        public virtual async Task<GetMetadataForBoundActionResponseResponse> GetMetadataForBoundActionResponseAsync(string tableName, string actionName, CancellationToken cancellationToken = default)
+        /// <returns>The Add a new row (legacy) response.</returns>
+        public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, PostItemInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetMetadataForBoundActionResponseAsync");
+            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.PostItemAsync");
             try
             {
+                if (environment is null)
+                    throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                if (actionName is null)
-                    throw new ArgumentNullException(nameof(actionName));
-                var path = $"/api/flow/$metadata.json/api/data/v9.1/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(actionName.ToString())}/response";
+                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items";
                 return await this
-                    .CallConnectorAsync<GetMetadataForBoundActionResponseResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
