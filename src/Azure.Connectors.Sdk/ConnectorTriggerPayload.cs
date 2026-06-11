@@ -122,11 +122,18 @@ public static class ConnectorTriggerPayload
     {
         ArgumentNullException.ThrowIfNull(body);
 
-        byte[] utf8Json = await ConnectorTriggerPayload
-            .ReadBoundedAsync(body, maxBodySizeBytes, cancellationToken)
-            .ConfigureAwait(continueOnCapturedContext: false);
+        if (maxBodySizeBytes <= 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(maxBodySizeBytes),
+                maxBodySizeBytes,
+                "The maximum body size must be greater than zero.");
+        }
 
-        return JsonSerializer.Deserialize<TPayload>(utf8Json, ConnectorTriggerPayload.SerializerOptions);
+        var bounded = new BoundedStream(body, maxBodySizeBytes);
+        return await JsonSerializer
+            .DeserializeAsync<TPayload>(bounded, ConnectorTriggerPayload.SerializerOptions, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
     }
 
     /// <summary>
@@ -335,5 +342,113 @@ public static class ConnectorTriggerPayload
         }
 
         return buffer.ToArray();
+    }
+
+    /// <summary>
+    /// A read-only wrapper that enforces a byte limit on the underlying stream without
+    /// buffering the entire content. Each read is capped to at most the remaining
+    /// allowance plus one byte (to detect over-limit bodies), and
+    /// <see cref="InvalidOperationException"/> is thrown when the limit is exceeded.
+    /// The inner stream is never closed or disposed; the caller retains ownership.
+    /// </summary>
+    private sealed class BoundedStream : Stream
+    {
+        private readonly Stream _inner;
+        private readonly long _maxBytes;
+        private long _totalBytesRead;
+
+        public BoundedStream(Stream inner, long maxBytes)
+        {
+            this._inner = inner;
+            this._maxBytes = maxBytes;
+        }
+
+        public override bool CanRead => true;
+
+        public override bool CanSeek => false;
+
+        public override bool CanWrite => false;
+
+        public override long Length => throw new NotSupportedException();
+
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            int cappedCount = this.CapRequestSize(count);
+            int bytesRead = this._inner.Read(buffer, offset, cappedCount);
+            this.EnforceBound(bytesRead);
+            return bytesRead;
+        }
+
+        public override async ValueTask<int> ReadAsync(
+            Memory<byte> buffer,
+            CancellationToken cancellationToken = default)
+        {
+            int cappedLength = this.CapRequestSize(buffer.Length);
+            int bytesRead = await this._inner
+                .ReadAsync(buffer.Slice(0, cappedLength), cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+            this.EnforceBound(bytesRead);
+            return bytesRead;
+        }
+
+        public override async Task<int> ReadAsync(
+            byte[] buffer,
+            int offset,
+            int count,
+            CancellationToken cancellationToken)
+        {
+            int cappedCount = this.CapRequestSize(count);
+            int bytesRead = await this._inner
+                .ReadAsync(buffer, offset, cappedCount, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+            this.EnforceBound(bytesRead);
+            return bytesRead;
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override long Seek(long offset, SeekOrigin origin) =>
+            throw new NotSupportedException();
+
+        public override void SetLength(long value) =>
+            throw new NotSupportedException();
+
+        public override void Write(byte[] buffer, int offset, int count) =>
+            throw new NotSupportedException();
+
+        protected override void Dispose(bool disposing)
+        {
+            // Intentionally do not dispose the inner stream — the caller owns it.
+        }
+
+        /// <summary>
+        /// Caps the requested read size so a single read never pulls far beyond the
+        /// remaining allowance. Mirrors the logic in <see cref="ReadBoundedAsync"/>.
+        /// </summary>
+        private int CapRequestSize(int requestedCount)
+        {
+            long remainingAllowance = this._maxBytes - this._totalBytesRead;
+            return remainingAllowance >= requestedCount
+                ? requestedCount
+                : (int)Math.Min(requestedCount, remainingAllowance + 1);
+        }
+
+        private void EnforceBound(int bytesRead)
+        {
+            this._totalBytesRead += bytesRead;
+            if (this._totalBytesRead > this._maxBytes)
+            {
+                throw new InvalidOperationException(
+                    $"The trigger callback body exceeded the maximum allowed size of {this._maxBytes} bytes.");
+            }
+        }
     }
 }

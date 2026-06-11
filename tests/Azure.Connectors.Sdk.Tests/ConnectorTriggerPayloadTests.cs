@@ -287,5 +287,74 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert — an object body is not binary content.
             Assert.IsNull(content);
         }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_MalformedJson_ReturnsNull()
+        {
+            // Arrange
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes("this is not json {"));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_NonBase64StringBody_ReturnsNull()
+        {
+            // Arrange
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes("""{"body":"not valid base64 !!!"}"""));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        [DataRow("null")]
+        [DataRow("[]")]
+        [DataRow("\"a string root\"")]
+        [DataRow("42")]
+        public async Task ReadBinaryContentAsync_NonObjectRoot_ReturnsNull(string payload)
+        {
+            // Arrange
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(payload));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_ExtraQuotedBase64_DecodesBytes()
+        {
+            // Arrange — the Logic Apps expression engine can wrap the base64 string in extra quotes.
+            byte[] expected = Encoding.UTF8.GetBytes("extra quoted content");
+            string base64 = Convert.ToBase64String(expected);
+            string payload = $$"""{"body":"\"{{base64}}\""}""";
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(payload));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(content);
+            CollectionAssert.AreEqual(expected, content);
+        }
     }
 }
