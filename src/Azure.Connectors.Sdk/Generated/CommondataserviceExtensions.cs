@@ -1710,29 +1710,6 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// Perform a changeset request
-        /// </summary>
-        /// <remarks>This action allows you to perform a group of Microsoft Dataverse connector operations as a single transaction. If one of the operations fails, all the successful actions are rolled back. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ExecuteChangesetAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.ExecuteChangesetAsync");
-            try
-            {
-                var path = $"/api/data/v9.1/$batch";
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get action metadata
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
