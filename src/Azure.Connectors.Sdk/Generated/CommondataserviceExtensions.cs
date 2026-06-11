@@ -458,7 +458,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
         [JsonPropertyName("top")]
         public int? RowCount { get; set; }
 
-        /// <summary>Enter an Odata style filter expression to narrow the search</summary>
+        /// <summary>Enter an OData style filter expression to narrow the search</summary>
         [JsonPropertyName("filter")]
         public string RowFilter { get; set; }
 
@@ -885,7 +885,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         public static class OnSubscribeWebhookTrigger
         {
             /// <summary>
-            /// The header parameter required to make Microsoft Dataverse by pass the cache and hit DB
+            /// The header parameter required to make Microsoft Dataverse bypass the cache and hit DB
             /// Required.
             /// Default: Strong.
             /// </summary>
@@ -920,7 +920,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         public static class OnBusinessEventsTrigger
         {
             /// <summary>
-            /// The header parameter required to make CDS by pass the cache and hit DB.
+            /// The header parameter required to make CDS bypass the cache and hit DB.
             /// Required.
             /// Default: Strong.
             /// </summary>
