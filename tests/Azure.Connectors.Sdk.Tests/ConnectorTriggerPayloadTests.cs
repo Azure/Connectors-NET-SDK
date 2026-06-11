@@ -1,0 +1,360 @@
+//------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//------------------------------------------------------------
+
+using System;
+using System.IO;
+using System.Text;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Azure.Connectors.Sdk.Tests
+{
+    /// <summary>
+    /// Tests for <see cref="ConnectorTriggerPayload"/> — reading metadata and binary-content
+    /// trigger callbacks into typed payloads and file bytes.
+    /// </summary>
+    [TestClass]
+    public class ConnectorTriggerPayloadTests
+    {
+        private const string MetadataPascalCasePayload = """
+            {"body":{"value":[{"Id":"01ABC","Name":"report.docx","Path":"/Documents/report.docx","Size":1234,"IsFolder":false}]}}
+            """;
+
+        private const string MetadataCamelCasePayload = """
+            {"body":{"value":[{"id":"01ABC","name":"report.docx","path":"/Documents/report.docx","size":1234,"isFolder":false}]}}
+            """;
+
+        [TestMethod]
+        public void Read_MetadataPascalCase_PopulatesItem()
+        {
+            // Arrange & Act
+            var payload = ConnectorTriggerPayload.Read<OneDriveForBusinessOnNewFilesTriggerPayload>(
+                ConnectorTriggerPayloadTests.MetadataPascalCasePayload);
+
+            // Assert
+            Assert.IsNotNull(payload);
+            Assert.IsNotNull(payload.Body);
+            Assert.IsNotNull(payload.Body.Value);
+            Assert.AreEqual(1, payload.Body.Value.Count);
+            Assert.AreEqual("01ABC", payload.Body.Value[0].Id);
+            Assert.AreEqual("report.docx", payload.Body.Value[0].Name);
+        }
+
+        [TestMethod]
+        public void Read_MetadataCamelCase_PopulatesItemCaseInsensitively()
+        {
+            // Arrange & Act
+            var payload = ConnectorTriggerPayload.Read<OneDriveForBusinessOnNewFilesTriggerPayload>(
+                ConnectorTriggerPayloadTests.MetadataCamelCasePayload);
+
+            // Assert — camelCase wire fields must still bind (regression guard against all-null items).
+            Assert.IsNotNull(payload);
+            Assert.IsNotNull(payload.Body);
+            Assert.IsNotNull(payload.Body.Value);
+            Assert.AreEqual(1, payload.Body.Value.Count);
+            Assert.AreEqual("01ABC", payload.Body.Value[0].Id);
+            Assert.AreEqual("report.docx", payload.Body.Value[0].Name);
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_MetadataStream_PopulatesItem()
+        {
+            // Arrange
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act
+            var payload = await ConnectorTriggerPayload
+                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(payload);
+            Assert.IsNotNull(payload.Body);
+            Assert.IsNotNull(payload.Body.Value);
+            Assert.AreEqual(1, payload.Body.Value.Count);
+            Assert.AreEqual("report.docx", payload.Body.Value[0].Name);
+        }
+
+        [TestMethod]
+        public void Read_NullJson_Throws()
+        {
+            // Arrange, Act & Assert
+            Assert.ThrowsExactly<ArgumentNullException>(
+                () => ConnectorTriggerPayload.Read<OneDriveForBusinessOnNewFilesTriggerPayload>(null!));
+        }
+
+        [TestMethod]
+        public void Read_BinaryStringBody_ThrowsActionableJsonException()
+        {
+            // Arrange — a binary-content trigger delivers {"body":"<base64>"}.
+            string base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes("hello"));
+            string payload = $$"""{"body":"{{base64}}"}""";
+
+            // Act
+            var exception = Assert.ThrowsExactly<JsonException>(
+                () => ConnectorTriggerPayload.Read<OneDriveForBusinessOnNewFilesTriggerPayload>(payload));
+
+            // Assert — the message must steer the developer to the binary-content helper.
+            StringAssert.Contains(exception.Message, nameof(ConnectorTriggerPayload.TryReadBinaryContent));
+            StringAssert.Contains(exception.Message, "binary-content trigger");
+        }
+
+        [TestMethod]
+        public void TryReadBinaryContent_Base64StringBody_DecodesBytes()
+        {
+            // Arrange
+            byte[] expected = Encoding.UTF8.GetBytes("hello from trigger test");
+            string base64 = Convert.ToBase64String(expected);
+            string payload = $$"""{"body":"{{base64}}"}""";
+
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(expected, content);
+        }
+
+        [TestMethod]
+        public void TryReadBinaryContent_EmptyStringBody_ReturnsTrueWithEmptyContent()
+        {
+            // Arrange
+            const string payload = """{"body":""}""";
+
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsTrue(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
+        public void TryReadBinaryContent_MetadataObjectBody_ReturnsFalse()
+        {
+            // Arrange — a metadata callback has an object body, not a string.
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(
+                ConnectorTriggerPayloadTests.MetadataPascalCasePayload,
+                out byte[] content);
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
+        public void TryReadBinaryContent_NonBase64StringBody_ReturnsFalse()
+        {
+            // Arrange — a string body that is not valid base64.
+            const string payload = """{"body":"not valid base64 !!!"}""";
+
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
+        public void TryReadBinaryContent_MalformedJson_ReturnsFalse()
+        {
+            // Arrange — a Try* API must not throw on invalid JSON.
+            const string payload = "this is not json {";
+
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
+        [DataRow("null")]
+        [DataRow("[]")]
+        [DataRow("\"a string root\"")]
+        [DataRow("42")]
+        public void TryReadBinaryContent_NonObjectRoot_ReturnsFalse(string payload)
+        {
+            // Arrange — valid JSON whose root is not an object must not throw (Try* contract).
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(0, content.Length);
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_BodyExceedsLimit_ThrowsInvalidOperation()
+        {
+            // Arrange — a payload larger than the (tiny) configured limit.
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act & Assert
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream, maxBodySizeBytes: 8)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_OverLimitBody_DoesNotReadEntireStream()
+        {
+            // Arrange — a stream that records the largest single read it is asked for, so we can
+            // prove the reader never pulls far past the configured limit even when the chunk
+            // would otherwise be much larger.
+            byte[] payload = Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload);
+            using var inner = new MemoryStream(payload);
+            using var tracking = new MaxReadTrackingStream(inner);
+            const long limit = 8;
+
+            // Act & Assert
+            await Assert.ThrowsExactlyAsync<InvalidOperationException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(tracking, maxBodySizeBytes: limit)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // A single read must never be asked for more than the limit plus the one-byte
+            // overflow probe, regardless of the (much larger) internal chunk size.
+            Assert.IsTrue(
+                tracking.MaxRequestedCount <= limit + 1,
+                $"Expected no single read larger than {limit + 1} bytes, but observed {tracking.MaxRequestedCount}.");
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_VeryLargeLimit_DoesNotOverflow()
+        {
+            // Arrange — long.MaxValue effectively disables the limit. The internal read-cap
+            // arithmetic must not overflow (which would make the request size negative).
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act
+            var payload = await ConnectorTriggerPayload
+                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream, maxBodySizeBytes: long.MaxValue)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(payload);
+            Assert.IsNotNull(payload.Body);
+            Assert.IsNotNull(payload.Body.Value);
+            Assert.AreEqual(1, payload.Body.Value.Count);
+            Assert.AreEqual("report.docx", payload.Body.Value[0].Name);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_DoesNotCloseCallerStream()
+        {
+            // Arrange
+            byte[] expected = Encoding.UTF8.GetBytes("keep me open");
+            string base64 = Convert.ToBase64String(expected);
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes($$"""{"body":"{{base64}}"}"""));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert — the helper must not take ownership of the caller's stream.
+            Assert.IsNotNull(content);
+            CollectionAssert.AreEqual(expected, content);
+            Assert.IsTrue(stream.CanRead, "The caller-owned stream must remain open after reading.");
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_MetadataStream_ReturnsNull()
+        {
+            // Arrange
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert — an object body is not binary content.
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_MalformedJson_ReturnsNull()
+        {
+            // Arrange
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes("this is not json {"));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_NonBase64StringBody_ReturnsNull()
+        {
+            // Arrange
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes("""{"body":"not valid base64 !!!"}"""));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        [DataRow("null")]
+        [DataRow("[]")]
+        [DataRow("\"a string root\"")]
+        [DataRow("42")]
+        public async Task ReadBinaryContentAsync_NonObjectRoot_ReturnsNull(string payload)
+        {
+            // Arrange
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(payload));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNull(content);
+        }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_ExtraQuotedBase64_DecodesBytes()
+        {
+            // Arrange — the Logic Apps expression engine can wrap the base64 string in extra quotes.
+            byte[] expected = Encoding.UTF8.GetBytes("extra quoted content");
+            string base64 = Convert.ToBase64String(expected);
+            string payload = $$"""{"body":"\"{{base64}}\""}""";
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(payload));
+
+            // Act
+            byte[]? content = await ConnectorTriggerPayload
+                .ReadBinaryContentAsync(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(content);
+            CollectionAssert.AreEqual(expected, content);
+        }
+    }
+}

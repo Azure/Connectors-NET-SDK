@@ -1,0 +1,454 @@
+//------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//------------------------------------------------------------
+
+using System;
+using System.Buffers;
+using System.IO;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure.Connectors.Sdk.Serialization;
+
+namespace Azure.Connectors.Sdk;
+
+/// <summary>
+/// Helpers that turn a raw Connector Namespace trigger callback (an HTTP body
+/// delivered as a <see cref="string"/> or <see cref="Stream"/>) into a typed
+/// <see cref="TriggerCallbackPayload{T}"/> or into the decoded file bytes of a
+/// binary-content trigger.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Connector Namespace delivers two distinct trigger callback shapes for file connectors:
+/// </para>
+/// <list type="definition">
+///   <item>
+///     <term>Metadata (properties only), e.g. <c>OnNewFilesV2</c></term>
+///     <description>
+///     The body is an object envelope <c>{"body":{"value":[{...item...}]}}</c>.
+///     Read it with <see cref="Read{TPayload}(string)"/> /
+///     <see cref="ReadAsync{TPayload}(Stream, long, CancellationToken)"/>.
+///     </description>
+///   </item>
+///   <item>
+///     <term>Binary content, e.g. <c>OnNewFileV2</c></term>
+///     <description>
+///     The body is a base64-encoded string <c>{"body":"&lt;base64&gt;"}</c>.
+///     Read it with <see cref="TryReadBinaryContent(string, out byte[])"/> /
+///     <see cref="ReadBinaryContentAsync(Stream, long, CancellationToken)"/>.
+///     </description>
+///   </item>
+/// </list>
+/// <para>
+/// All metadata reads use case-insensitive property matching, so payloads whose wire
+/// fields are camelCase deserialize correctly instead of silently yielding all-<see langword="null"/>
+/// items.
+/// </para>
+/// </remarks>
+public static class ConnectorTriggerPayload
+{
+    /// <summary>
+    /// The default maximum trigger callback body size, in bytes, enforced by the stream-based
+    /// readers (100 MB). This is a generous ceiling that guards against unbounded buffering of a
+    /// hostile or malformed stream while comfortably accommodating large binary-content callbacks.
+    /// Override it per call with the <c>maxBodySizeBytes</c> parameter.
+    /// </summary>
+    public const long DefaultMaxBodySizeBytes = 100L * 1024 * 1024;
+
+    /// <summary>
+    /// The buffer size, in bytes, rented from the shared <see cref="ArrayPool{T}"/> for each
+    /// stream read. 80 KB matches the default <see cref="Stream.CopyTo(Stream)"/> chunk size,
+    /// balancing read throughput against per-call memory.
+    /// </summary>
+    private const int ReadChunkSizeBytes = 81920;
+
+    /// <summary>
+    /// Gets the <see cref="JsonSerializerOptions"/> used to read trigger callback payloads.
+    /// Property matching is case-insensitive so camelCase wire fields bind correctly.
+    /// </summary>
+    public static JsonSerializerOptions SerializerOptions => ConnectorJsonSerializer.Options;
+
+    /// <summary>
+    /// Reads a metadata trigger callback (for example OneDrive <c>OnNewFilesV2</c>) into its
+    /// typed payload. The expected wire shape is <c>{"body":{"value":[{...item...}]}}</c>.
+    /// </summary>
+    /// <typeparam name="TPayload">
+    /// The connector-specific payload type, a subclass of <see cref="TriggerCallbackPayload{T}"/>
+    /// (for example <c>OneDriveForBusinessOnNewFilesTriggerPayload</c>).
+    /// </typeparam>
+    /// <param name="json">The raw JSON callback body.</param>
+    /// <returns>The deserialized payload, or <see langword="null"/> when <paramref name="json"/> is JSON <c>null</c>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="json"/> is <see langword="null"/>.</exception>
+    /// <exception cref="JsonException">
+    /// The body was a base64 string (a binary-content trigger such as <c>OnNewFileV2</c>) rather than
+    /// a metadata object; read it with <see cref="TryReadBinaryContent(string, out byte[])"/> instead.
+    /// </exception>
+    public static TPayload? Read<TPayload>(string json)
+        where TPayload : class
+    {
+        ArgumentNullException.ThrowIfNull(json);
+
+        return JsonSerializer.Deserialize<TPayload>(json, ConnectorTriggerPayload.SerializerOptions);
+    }
+
+    /// <summary>
+    /// Reads a metadata trigger callback (for example OneDrive <c>OnNewFilesV2</c>) from a stream into
+    /// its typed payload. The expected wire shape is <c>{"body":{"value":[{...item...}]}}</c>.
+    /// </summary>
+    /// <typeparam name="TPayload">
+    /// The connector-specific payload type, a subclass of <see cref="TriggerCallbackPayload{T}"/>
+    /// (for example <c>OneDriveForBusinessOnNewFilesTriggerPayload</c>).
+    /// </typeparam>
+    /// <param name="body">The callback body stream (for example <c>HttpRequestData.Body</c>). The stream is read but not disposed; the caller retains ownership.</param>
+    /// <param name="maxBodySizeBytes">
+    /// The maximum number of bytes to read from <paramref name="body"/> before failing.
+    /// Defaults to <see cref="DefaultMaxBodySizeBytes"/>.
+    /// </param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>The deserialized payload, or <see langword="null"/> when the body is JSON <c>null</c>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="body"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="InvalidOperationException"><paramref name="body"/> exceeded <paramref name="maxBodySizeBytes"/>.</exception>
+    /// <exception cref="JsonException">
+    /// The body was a base64 string (a binary-content trigger such as <c>OnNewFileV2</c>) rather than
+    /// a metadata object; read it with <see cref="ReadBinaryContentAsync(Stream, long, CancellationToken)"/> instead.
+    /// </exception>
+    public static async ValueTask<TPayload?> ReadAsync<TPayload>(
+        Stream body,
+        long maxBodySizeBytes = ConnectorTriggerPayload.DefaultMaxBodySizeBytes,
+        CancellationToken cancellationToken = default)
+        where TPayload : class
+    {
+        ArgumentNullException.ThrowIfNull(body);
+
+        if (maxBodySizeBytes <= 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(maxBodySizeBytes),
+                maxBodySizeBytes,
+                "The maximum body size must be greater than zero.");
+        }
+
+        var bounded = new BoundedStream(body, maxBodySizeBytes);
+        return await JsonSerializer
+            .DeserializeAsync<TPayload>(bounded, ConnectorTriggerPayload.SerializerOptions, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
+    /// Attempts to read a binary-content trigger callback (for example OneDrive <c>OnNewFileV2</c>),
+    /// whose wire shape is <c>{"body":"&lt;base64&gt;"}</c>, into the decoded file bytes.
+    /// </summary>
+    /// <param name="json">The raw JSON callback body.</param>
+    /// <param name="content">
+    /// When this method returns <see langword="true"/>, the decoded file bytes (empty when the body
+    /// string was empty). When it returns <see langword="false"/>, an empty array.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> when the callback carried a base64 string body and was decoded;
+    /// <see langword="false"/> when <paramref name="json"/> was not valid JSON, the body was not a
+    /// JSON string (for example a metadata callback), or the string was not valid base64.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref name="json"/> is <see langword="null"/>.</exception>
+    public static bool TryReadBinaryContent(string json, out byte[] content)
+    {
+        ArgumentNullException.ThrowIfNull(json);
+
+        content = Array.Empty<byte>();
+
+        JsonDocument document;
+        try
+        {
+            document = JsonDocument.Parse(json);
+        }
+        catch (JsonException)
+        {
+            // This is a Try* API: malformed JSON is a "could not read" outcome, not an exception.
+            return false;
+        }
+
+        using (document)
+        {
+            return ConnectorTriggerPayload.TryDecodeBinaryBody(document, out content);
+        }
+    }
+
+    /// <summary>
+    /// Decodes the base64 <c>body</c> string of a parsed binary-content trigger callback into bytes.
+    /// </summary>
+    /// <param name="document">The parsed callback document.</param>
+    /// <param name="content">
+    /// When this method returns <see langword="true"/>, the decoded file bytes (empty when the body
+    /// string was empty). When it returns <see langword="false"/>, an empty array.
+    /// </param>
+    /// <returns>
+    /// <see langword="true"/> when the document carried a base64 string body and was decoded;
+    /// <see langword="false"/> when the root was not an object, the body was not a JSON string, or
+    /// the string was not valid base64.
+    /// </returns>
+    private static bool TryDecodeBinaryBody(JsonDocument document, out byte[] content)
+    {
+        content = Array.Empty<byte>();
+
+        // TryGetProperty throws InvalidOperationException when the root is not an object
+        // (for example a JSON null, array, or string). Guard the kind first so a non-object
+        // body is a "could not read" outcome rather than an exception, honouring the Try* contract.
+        if (document.RootElement.ValueKind != JsonValueKind.Object ||
+            !document.RootElement.TryGetProperty(TriggerCallbackPropertyNames.Body, out JsonElement bodyElement) ||
+            bodyElement.ValueKind != JsonValueKind.String)
+        {
+            return false;
+        }
+
+        // The base64 string may arrive wrapped in extra quotes from the Logic Apps
+        // expression engine; strip them before decoding.
+        string base64Content = (bodyElement.GetString() ?? string.Empty).Trim('"');
+
+        if (base64Content.Length == 0)
+        {
+            return true;
+        }
+
+        // Decode directly into a single right-sized array. Avoids the doubled peak memory
+        // of renting an oversized buffer and then copying into a right-sized array, which
+        // matters for large binary trigger bodies. The try/catch keeps the Try* contract:
+        // invalid base64 returns false rather than throwing.
+        try
+        {
+            content = Convert.FromBase64String(base64Content);
+            return true;
+        }
+        catch (FormatException)
+        {
+            content = Array.Empty<byte>();
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Reads a binary-content trigger callback (for example OneDrive <c>OnNewFileV2</c>) from a stream,
+    /// whose wire shape is <c>{"body":"&lt;base64&gt;"}</c>, into the decoded file bytes.
+    /// </summary>
+    /// <param name="body">The callback body stream (for example <c>HttpRequestData.Body</c>). The stream is read but not disposed; the caller retains ownership.</param>
+    /// <param name="maxBodySizeBytes">
+    /// The maximum number of bytes to read from <paramref name="body"/> before failing.
+    /// Defaults to <see cref="DefaultMaxBodySizeBytes"/>.
+    /// </param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>
+    /// The decoded file bytes, or <see langword="null"/> when the body was not a JSON string body
+    /// (for example a metadata callback) or was not valid base64.
+    /// </returns>
+    /// <exception cref="ArgumentNullException"><paramref name="body"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="InvalidOperationException"><paramref name="body"/> exceeded <paramref name="maxBodySizeBytes"/>.</exception>
+    public static async ValueTask<byte[]?> ReadBinaryContentAsync(
+        Stream body,
+        long maxBodySizeBytes = ConnectorTriggerPayload.DefaultMaxBodySizeBytes,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(body);
+
+        byte[] utf8Json = await ConnectorTriggerPayload
+            .ReadBoundedAsync(body, maxBodySizeBytes, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+
+        // Parse straight from the UTF-8 bytes (JSON's native encoding) rather than first
+        // decoding to a UTF-16 string, avoiding a large intermediate allocation for big bodies.
+        JsonDocument document;
+        try
+        {
+            document = JsonDocument.Parse(utf8Json);
+        }
+        catch (JsonException)
+        {
+            return null;
+        }
+
+        using (document)
+        {
+            return ConnectorTriggerPayload.TryDecodeBinaryBody(document, out byte[] content)
+                ? content
+                : null;
+        }
+    }
+
+    /// <summary>
+    /// Reads the caller-owned <paramref name="body"/> stream into a byte array, enforcing
+    /// <paramref name="maxBodySizeBytes"/>. The stream is read but never disposed.
+    /// </summary>
+    /// <param name="body">The stream to read.</param>
+    /// <param name="maxBodySizeBytes">The maximum number of bytes to read before failing.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>The bytes read from the stream.</returns>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="InvalidOperationException"><paramref name="body"/> exceeded <paramref name="maxBodySizeBytes"/>.</exception>
+    private static async ValueTask<byte[]> ReadBoundedAsync(
+        Stream body,
+        long maxBodySizeBytes,
+        CancellationToken cancellationToken)
+    {
+        if (maxBodySizeBytes <= 0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(maxBodySizeBytes),
+                maxBodySizeBytes,
+                "The maximum body size must be greater than zero.");
+        }
+
+        using var buffer = new MemoryStream();
+        byte[] chunk = ArrayPool<byte>.Shared.Rent(ConnectorTriggerPayload.ReadChunkSizeBytes);
+        try
+        {
+            long totalBytesRead = 0;
+            while (true)
+            {
+                // Never request more than one byte past the remaining allowance, so a single
+                // ReadAsync cannot pull far beyond maxBodySizeBytes before the limit is checked.
+                // The extra byte lets us detect an over-limit body without reading the whole stream.
+                // Compare against the chunk length WITHOUT adding the probe first, so a very large
+                // maxBodySizeBytes (e.g. long.MaxValue) cannot overflow the long arithmetic; only
+                // add the +1 probe in the branch where the remaining allowance is the smaller bound.
+                long remainingAllowance = maxBodySizeBytes - totalBytesRead;
+                int requestSize = remainingAllowance >= chunk.Length
+                    ? chunk.Length
+                    : (int)Math.Min(chunk.Length, remainingAllowance + 1);
+
+                int bytesRead = await body
+                    .ReadAsync(chunk.AsMemory(0, requestSize), cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                if (bytesRead <= 0)
+                {
+                    break;
+                }
+
+                totalBytesRead += bytesRead;
+                if (totalBytesRead > maxBodySizeBytes)
+                {
+                    throw new InvalidOperationException(
+                        $"The trigger callback body exceeded the maximum allowed size of {maxBodySizeBytes} bytes.");
+                }
+
+                buffer.Write(chunk, 0, bytesRead);
+            }
+        }
+        finally
+        {
+            // Clear the rented buffer on return: it can hold trigger callback content
+            // (including base64 file bytes), and a subsequent renter in the same process
+            // must not be able to observe residual data.
+            ArrayPool<byte>.Shared.Return(chunk, clearArray: true);
+        }
+
+        return buffer.ToArray();
+    }
+
+    /// <summary>
+    /// A read-only wrapper that enforces a byte limit on the underlying stream without
+    /// buffering the entire content. Each read is capped to at most the remaining
+    /// allowance plus one byte (to detect over-limit bodies), and
+    /// <see cref="InvalidOperationException"/> is thrown when the limit is exceeded.
+    /// The inner stream is never closed or disposed; the caller retains ownership.
+    /// </summary>
+    private sealed class BoundedStream : Stream
+    {
+        private readonly Stream _inner;
+        private readonly long _maxBytes;
+        private long _totalBytesRead;
+
+        public BoundedStream(Stream inner, long maxBytes)
+        {
+            this._inner = inner;
+            this._maxBytes = maxBytes;
+        }
+
+        public override bool CanRead => true;
+
+        public override bool CanSeek => false;
+
+        public override bool CanWrite => false;
+
+        public override long Length => throw new NotSupportedException();
+
+        public override long Position
+        {
+            get => throw new NotSupportedException();
+            set => throw new NotSupportedException();
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            int cappedCount = this.CapRequestSize(count);
+            int bytesRead = this._inner.Read(buffer, offset, cappedCount);
+            this.EnforceBound(bytesRead);
+            return bytesRead;
+        }
+
+        public override async ValueTask<int> ReadAsync(
+            Memory<byte> buffer,
+            CancellationToken cancellationToken = default)
+        {
+            int cappedLength = this.CapRequestSize(buffer.Length);
+            int bytesRead = await this._inner
+                .ReadAsync(buffer.Slice(0, cappedLength), cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+            this.EnforceBound(bytesRead);
+            return bytesRead;
+        }
+
+        public override async Task<int> ReadAsync(
+            byte[] buffer,
+            int offset,
+            int count,
+            CancellationToken cancellationToken)
+        {
+            int cappedCount = this.CapRequestSize(count);
+            int bytesRead = await this._inner
+                .ReadAsync(buffer, offset, cappedCount, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+            this.EnforceBound(bytesRead);
+            return bytesRead;
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override long Seek(long offset, SeekOrigin origin) =>
+            throw new NotSupportedException();
+
+        public override void SetLength(long value) =>
+            throw new NotSupportedException();
+
+        public override void Write(byte[] buffer, int offset, int count) =>
+            throw new NotSupportedException();
+
+        protected override void Dispose(bool disposing)
+        {
+            // Intentionally do not dispose the inner stream — the caller owns it.
+        }
+
+        /// <summary>
+        /// Caps the requested read size so a single read never pulls far beyond the
+        /// remaining allowance. Mirrors the logic in <see cref="ReadBoundedAsync"/>.
+        /// </summary>
+        private int CapRequestSize(int requestedCount)
+        {
+            long remainingAllowance = this._maxBytes - this._totalBytesRead;
+            return remainingAllowance >= requestedCount
+                ? requestedCount
+                : (int)Math.Min(requestedCount, remainingAllowance + 1);
+        }
+
+        private void EnforceBound(int bytesRead)
+        {
+            this._totalBytesRead += bytesRead;
+            if (this._totalBytesRead > this._maxBytes)
+            {
+                throw new InvalidOperationException(
+                    $"The trigger callback body exceeded the maximum allowed size of {this._maxBytes} bytes.");
+            }
+        }
+    }
+}

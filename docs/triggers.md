@@ -107,6 +107,33 @@ Use the typed class directly to deserialize callbacks:
 var payload = JsonSerializer.Deserialize<Office365OnNewEmailTriggerPayload>(callbackJson);
 ```
 
+### Reading callbacks with `ConnectorTriggerPayload`
+
+`ConnectorTriggerPayload` (in the `Azure.Connectors.Sdk` namespace) removes the boilerplate of reading a callback body — bounded read, case-insensitive deserialization, and binary-vs-metadata discrimination — so a trigger handler can go straight from the request body to a typed payload:
+
+```csharp
+// Metadata triggers (e.g. OnNewFilesV2) — string or Stream overloads
+var payload = await ConnectorTriggerPayload
+    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(request.Body, cancellationToken: cancellationToken)
+    .ConfigureAwait(continueOnCapturedContext: false);
+
+foreach (var file in payload?.Body?.Value ?? Array.Empty<BlobMetadata>())
+{
+    // file.Id, file.Name, file.Path, file.Size ...
+}
+```
+
+Property matching is **case-insensitive**, so callbacks whose wire fields are camelCase bind correctly instead of silently producing all-`null` items. The stream overloads read the caller-owned stream without closing it and enforce a generous body-size limit (`ConnectorTriggerPayload.DefaultMaxBodySizeBytes`, 100 MB, overridable per call). For **binary-content** triggers (see below), use `TryReadBinaryContent` / `ReadBinaryContentAsync`, which decode the base64 `{"body":"<base64>"}` shape into file bytes:
+
+```csharp
+// Binary-content triggers (e.g. OnNewFileV2)
+byte[]? fileBytes = await ConnectorTriggerPayload
+    .ReadBinaryContentAsync(request.Body, cancellationToken: cancellationToken)
+    .ConfigureAwait(continueOnCapturedContext: false);
+```
+
+If a binary-content (string) body is read into a metadata payload type, deserialization throws an actionable `JsonException` that points to the binary-content helpers.
+
 ## Trigger Operation Constants
 
 Each connector exposes a `{Connector}TriggerOperations` static class with the operation name strings:
