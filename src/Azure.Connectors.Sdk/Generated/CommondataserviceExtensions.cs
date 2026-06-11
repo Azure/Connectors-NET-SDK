@@ -1377,7 +1377,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Update a row
         /// </summary>
-        /// <remarks>This action allows you to modify any selected row in a Microsoft Dataverse table, or adds a new row if it doesn�t exist. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
+        /// <remarks>This action allows you to modify any selected row in a Microsoft Dataverse table, or adds a new row if it doesn&apos;t exist. This connector was formerly known as Common Data Service (legacy) and replaces the Dynamics 365 connector.</remarks>
         /// <param name="tableName">Table name</param>
         /// <param name="rowId">Row ID</param>
         /// <param name="input">The request body.</param>
