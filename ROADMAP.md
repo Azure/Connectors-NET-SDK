@@ -42,7 +42,7 @@ High-volume connectors for enterprise data and integration scenarios.
 
 | Priority | Connector | Usage Rank | Partner Tier | 90-Day Executions | Notes | Status |
 |----------|-----------|------------|--------------|-------------------|-------|--------|
-| 2.1 | **Dataverse (CDS)** | #12 | Tier 1 | 2.93B | Power Platform integration | ⬜ Not started |
+| 2.1 | **Dataverse** (`commondataservice`) | #12 | Tier 1 | 2.93B | Current-environment Microsoft Dataverse — rows, bound/unbound actions, relate/unrelate, relevance search | ✅ Complete |
 | 2.2 | **Excel Online Business** | #9 | Tier 2 | 957M | Spreadsheet operations | ⬜ Not started |
 | 2.3 | **Dynamics 365** | — | Tier 2 | 315M | CRM record operations | ⬜ Not started |
 | 2.4 | **Salesforce** | — | Tier 2 | 127M | CRM operations | ⬜ Not started |

@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
      the same content into release_notes.md for NuGet packaging. Do NOT put HTML
      comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
 
+### Added
+
+- **Microsoft Dataverse client (`commondataservice`)** — generated typed `CommondataserviceClient` for the current-environment Microsoft Dataverse connector. Covers row operations (`ListRecordsAsync`, `CreateRecordAsync`, `GetItemCodelessAsync`, `UpdateRecordAsync`, `DeleteRecordAsync`), bound/unbound actions (`PerformBoundActionAsync`, `PerformUnboundActionAsync`), relate/unrelate (`AssociateEntitiesAsync`, `DisassociateEntitiesAsync`), relevance search (`GetRelevantRowsAsync`), and file/image column upload & download. Deprecated legacy dataset/table operations are excluded by the generator's deprecation filter.
+
 ## [0.12.0-preview.1] - 2026-06-02
 
 ### Breaking Changes
