@@ -151,11 +151,21 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 | `ConnectorJsonSerializer` | JSON serialization with connector conventions |
 | `JsonConverters` | Custom converters for connector types |
 
+### Triggers
+
+| Component | Description |
+|-----------|-------------|
+| `TriggerCallbackPayload<T>` / `TriggerCallbackBody<T>` | Typed envelope for connector trigger callbacks; normalizes batch and single-item shapes into `Body.Value` |
+| `ConnectorTriggerPayload` | Helpers to read a raw trigger callback (`string`/`Stream`) into a typed payload (`Read`/`ReadAsync`) or decoded binary file bytes (`TryReadBinaryContent`/`ReadBinaryContentAsync`), with case-insensitive matching and a bounded read |
+
+See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload shapes, and end-to-end usage.
+
 ## Documentation
 
 - [docs/concepts.md](docs/concepts.md) - Key concepts, terminology, and architecture
 - [GENERATION.md](GENERATION.md) - How to generate connector code
 - [docs/connection-setup.md](docs/connection-setup.md) - Setting up connections for local testing
+- [docs/triggers.md](docs/triggers.md) - Trigger architecture, typed payloads, and the `ConnectorTriggerPayload` reader
 - [ROADMAP.md](ROADMAP.md) - Connector generation progress and lessons learned
 - [Azure/Connectors-NET-Samples](https://github.com/Azure/Connectors-NET-Samples) - Full working samples (Azure Functions, triggers, etc.)
 
