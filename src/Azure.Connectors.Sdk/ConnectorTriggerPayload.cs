@@ -363,7 +363,7 @@ public static class ConnectorTriggerPayload
             this._maxBytes = maxBytes;
         }
 
-        public override bool CanRead => true;
+        public override bool CanRead => this._inner.CanRead;
 
         public override bool CanSeek => false;
 
@@ -427,6 +427,8 @@ public static class ConnectorTriggerPayload
         protected override void Dispose(bool disposing)
         {
             // Intentionally do not dispose the inner stream — the caller owns it.
+            // Still let the base Stream implementation mark this wrapper as disposed.
+            base.Dispose(disposing);
         }
 
         /// <summary>
