@@ -241,7 +241,10 @@ public static class ConnectorTriggerPayload
     /// (for example a metadata callback) or was not valid base64.
     /// </returns>
     /// <exception cref="ArgumentNullException"><paramref name="body"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="maxBodySizeBytes"/> is not greater than zero, or exceeds <see cref="Array.MaxLength"/>.
+    /// Because the decoded bytes are buffered into a single array, the limit cannot exceed the maximum array length.
+    /// </exception>
     /// <exception cref="InvalidOperationException"><paramref name="body"/> exceeded <paramref name="maxBodySizeBytes"/>.</exception>
     public static async ValueTask<byte[]?> ReadBinaryContentAsync(
         Stream body,
@@ -282,7 +285,10 @@ public static class ConnectorTriggerPayload
     /// <param name="maxBodySizeBytes">The maximum number of bytes to read before failing.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>The bytes read from the stream.</returns>
-    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="maxBodySizeBytes"/> is not greater than zero, or exceeds <see cref="Array.MaxLength"/>.
+    /// The bytes are buffered into a single array, so the limit cannot exceed the maximum array length.
+    /// </exception>
     /// <exception cref="InvalidOperationException"><paramref name="body"/> exceeded <paramref name="maxBodySizeBytes"/>.</exception>
     private static async ValueTask<byte[]> ReadBoundedAsync(
         Stream body,
@@ -295,6 +301,17 @@ public static class ConnectorTriggerPayload
                 nameof(maxBodySizeBytes),
                 maxBodySizeBytes,
                 "The maximum body size must be greater than zero.");
+        }
+
+        // This path materializes the body into a single byte[], so a limit above the maximum
+        // array length can never be satisfied. Fail up front with a clear, predictable error
+        // rather than letting a huge body eventually throw an opaque OutOfMemoryException.
+        if (maxBodySizeBytes > Array.MaxLength)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(maxBodySizeBytes),
+                maxBodySizeBytes,
+                $"The maximum body size for buffered binary-content reads cannot exceed {Array.MaxLength} bytes (the maximum array length).");
         }
 
         using var buffer = new MemoryStream();

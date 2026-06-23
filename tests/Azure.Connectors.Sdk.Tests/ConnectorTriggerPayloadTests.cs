@@ -356,5 +356,23 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(content);
             CollectionAssert.AreEqual(expected, content);
         }
+
+        [TestMethod]
+        public async Task ReadBinaryContentAsync_LimitExceedsMaxArrayLength_ThrowsArgumentOutOfRange()
+        {
+            // Arrange — the binary-content path buffers into a single byte[], so a limit above the
+            // maximum array length can never be satisfied and must fail up front with a clear error
+            // rather than an opaque OutOfMemoryException.
+            byte[] expected = Encoding.UTF8.GetBytes("small body, huge limit");
+            string base64 = Convert.ToBase64String(expected);
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes($$"""{"body":"{{base64}}"}"""));
+
+            // Act & Assert
+            await Assert.ThrowsExactlyAsync<ArgumentOutOfRangeException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadBinaryContentAsync(stream, maxBodySizeBytes: (long)Array.MaxLength + 1)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
     }
 }
