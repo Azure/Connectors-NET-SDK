@@ -880,14 +880,10 @@ namespace Azure.Connectors.Sdk.Commondataservice
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
 
-        // NOTE(daviburg): Double-encodes a value for URL path segments.
-        // The commondataservice connector uses x-ms-url-encoding: double on path
-        // parameters because dataset values are full URLs with slashes and colons.
-        private static string DoubleEscape(string value) => Uri.EscapeDataString(Uri.EscapeDataString(value));
-
         /// <summary>
         /// GetDataSetsMetadata
         /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The GetDataSetsMetadata response.</returns>
         public virtual async Task<DataSetsMetadata> GetDataSetsMetadataAsync(CancellationToken cancellationToken = default)
@@ -911,7 +907,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Follows nextLink to retrieve next page of data
         /// </summary>
-        /// <remarks>This operation gets the next page of data.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="nextLinkValue">nextLink value</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         public virtual async Task GetNextPageAsync(string nextLinkValue, CancellationToken cancellationToken = default)
@@ -937,7 +933,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Associates one row to another on the provided relationship
         /// </summary>
-        /// <remarks>Associates one row to another on the provided relationship</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -958,7 +954,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(id));
                 if (relationship is null)
                     throw new ArgumentNullException(nameof(relationship));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Relationship/{DoubleEscape(relationship.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/Relationship/{Uri.EscapeDataString(Uri.EscapeDataString(relationship.ToString()))}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -974,7 +970,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Creates Note (annotation) for specified table row
         /// </summary>
-        /// <remarks>Creates Note (annotation) for specified table row.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -995,7 +991,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1011,7 +1007,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Deletes specified attachment on the Note (annotation)
         /// </summary>
-        /// <remarks>Deletes specified attachment on the Note (annotation).</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -1030,7 +1026,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(id));
                 if (attachmentId is null)
                     throw new ArgumentNullException(nameof(attachmentId));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments/{DoubleEscape(attachmentId.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments/{Uri.EscapeDataString(Uri.EscapeDataString(attachmentId.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1046,7 +1042,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Delete a row (legacy)
         /// </summary>
-        /// <remarks>This operation deletes a row from a table collection</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="environment">Environment</param>
         /// <param name="tableName">Table Name</param>
         /// <param name="itemIdentifier">Item identifier</param>
@@ -1062,7 +1058,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemIdentifier is null)
                     throw new ArgumentNullException(nameof(itemIdentifier));
-                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(itemIdentifier.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemIdentifier.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1078,7 +1074,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Disassociates a row from a multi-valued relationship
         /// </summary>
-        /// <remarks>Disassociates a row from a multi-valued relationship</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -1101,7 +1097,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(relationship));
                 if (relatedId is null)
                     throw new ArgumentNullException(nameof(relatedId));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Relationship/{DoubleEscape(relationship.ToString())}/RelatedId/{DoubleEscape(relatedId.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/Relationship/{Uri.EscapeDataString(Uri.EscapeDataString(relationship.ToString()))}/RelatedId/{Uri.EscapeDataString(Uri.EscapeDataString(relatedId.ToString()))}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1117,7 +1113,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Disassociates a row from a single-valued relationship
         /// </summary>
-        /// <remarks>Disassociates a row from a single-valued relationship</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -1137,7 +1133,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(id));
                 if (relationship is null)
                     throw new ArgumentNullException(nameof(relationship));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Relationship/{DoubleEscape(relationship.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/Relationship/{Uri.EscapeDataString(Uri.EscapeDataString(relationship.ToString()))}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1153,7 +1149,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Retrieves file content for specified Note (annotation)
         /// </summary>
-        /// <remarks>Retrieves file content for specified Note (annotation).</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -1173,7 +1169,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(id));
                 if (attachmentId is null)
                     throw new ArgumentNullException(nameof(attachmentId));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments/{DoubleEscape(attachmentId.ToString())}/$value";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments/{Uri.EscapeDataString(Uri.EscapeDataString(attachmentId.ToString()))}/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1189,7 +1185,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Retrieves all collection valued relationship items as an expand would
         /// </summary>
-        /// <remarks>Retrieves all collection valued relationship items as an expand would</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -1215,7 +1211,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(relationship));
                 if (target is null)
                     throw new ArgumentNullException(nameof(target));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/Collection/{DoubleEscape(collection.ToString())}/{DoubleEscape(relationship.ToString())}/TargetTable/{DoubleEscape(target.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/Collection/{Uri.EscapeDataString(Uri.EscapeDataString(collection.ToString()))}/{Uri.EscapeDataString(Uri.EscapeDataString(relationship.ToString()))}/TargetTable/{Uri.EscapeDataString(Uri.EscapeDataString(target.ToString()))}";
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1231,6 +1227,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// GetDataSets_V2
         /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The GetDataSets_V2 response.</returns>
         public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
@@ -1271,7 +1268,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemIdentifier is null)
                     throw new ArgumentNullException(nameof(itemIdentifier));
-                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(itemIdentifier.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemIdentifier.ToString()))}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1287,7 +1284,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Retrieves all Notes (annotations) for the provided table row Id
         /// </summary>
-        /// <remarks>Retrieves all Notes (annotations) for the provided table row Id.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">Id</param>
@@ -1304,7 +1301,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(table));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/attachments";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments";
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1350,7 +1347,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
                 if (expandQuery != default)
                     queryParams.Add($"$expand={Uri.EscapeDataString(expandQuery.ToString())}");
-                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1366,7 +1363,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Get table metadata - Patch
         /// </summary>
-        /// <remarks>Gets table metadata for patch operation</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="environment">Environment</param>
         /// <param name="tableName">Table Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -1380,7 +1377,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/$metadata.json/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/patchitem";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/patchitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1396,7 +1393,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Get table metadata - Post
         /// </summary>
-        /// <remarks>Gets table metadata for post operation</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="environment">Environment</param>
         /// <param name="tableName">Table Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -1410,7 +1407,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/$metadata.json/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/postitem";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/postitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1426,7 +1423,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Retrieves the metadata for multi select column metadata
         /// </summary>
-        /// <remarks>Retrieves the metadata for multi select column metadata.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="orgName">org name</param>
         /// <param name="tableName">Table name</param>
         /// <param name="id">id</param>
@@ -1443,7 +1440,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(tableName));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v2/datasets/{DoubleEscape(orgName.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(id.ToString())}/MultiSelect";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(orgName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/MultiSelect";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1459,7 +1456,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Retrieves the metadata for choice column metadata
         /// </summary>
-        /// <remarks>Retrieves the metadata for choice column metadata.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">Dataset</param>
         /// <param name="table">Table</param>
         /// <param name="id">id</param>
@@ -1479,7 +1476,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(id));
                 if (typeOfChoice is null)
                     throw new ArgumentNullException(nameof(typeOfChoice));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables/{DoubleEscape(table.ToString())}/items/{DoubleEscape(id.ToString())}/OptionSet/{DoubleEscape(typeOfChoice.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/OptionSet/{Uri.EscapeDataString(typeOfChoice.ToString())}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1495,7 +1492,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// Get table metadata
         /// </summary>
-        /// <remarks>Gets table metadata</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="environment">Environment</param>
         /// <param name="tableName">Table Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -1509,7 +1506,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/$metadata.json/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1525,6 +1522,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <summary>
         /// GetTables_V2
         /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">dataset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The GetTables_V2 response.</returns>
@@ -1535,7 +1533,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
             {
                 if (dataset is null)
                     throw new ArgumentNullException(nameof(dataset));
-                var path = $"/v2/datasets/{DoubleEscape(dataset.ToString())}/tables";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1569,7 +1567,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowIdentifier is null)
                     throw new ArgumentNullException(nameof(rowIdentifier));
-                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items/{DoubleEscape(rowIdentifier.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowIdentifier.ToString()))}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1600,7 +1598,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(environment));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/datasets/{DoubleEscape(environment.ToString())}/tables/{DoubleEscape(tableName.ToString())}/items";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
