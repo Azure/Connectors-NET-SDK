@@ -149,6 +149,41 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task GetTablesAsync_DoubleEncodesDatasetUrlInRequestPath()
+        {
+            // The commondataservice dataset value is a full environment URL. The connector's
+            // x-ms-url-encoding: "double" contract requires the path segment to be double-encoded
+            // so it survives one round of server-side URL decoding. This asserts the GENERATED client
+            // performs that double-encoding — guarding against a regression to single encoding or a
+            // hand-edited generated file.
+            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"value\":[]}")
+                });
+
+            using var client = new CommondataserviceClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: credential,
+                options: options);
+
+            await client
+                .GetTablesAsync(dataset: "https://contoso.crm.dynamics.com", cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var request = getLastRequest();
+            Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+            var requestUri = request!.RequestUri!.AbsoluteUri;
+
+            // "https://contoso.crm.dynamics.com" single-encoded is "https%3A%2F%2Fcontoso...";
+            // double-encoded is "https%253A%252F%252Fcontoso...".
+            Assert.IsTrue(
+                requestUri.Contains("https%253A%252F%252Fcontoso.crm.dynamics.com", StringComparison.Ordinal),
+                message: $"Dataset path segment must be double URL-encoded. Actual request URI: {requestUri}");
+        }
+
+        [TestMethod]
         public void DataSet_JsonSerialization_RoundTrips()
         {
             // Arrange
