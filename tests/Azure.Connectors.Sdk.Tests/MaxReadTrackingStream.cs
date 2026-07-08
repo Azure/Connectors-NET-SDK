@@ -19,6 +19,7 @@ namespace Azure.Connectors.Sdk.Tests
 
         public MaxReadTrackingStream(Stream inner)
         {
+            ArgumentNullException.ThrowIfNull(inner);
             this._inner = inner;
         }
 

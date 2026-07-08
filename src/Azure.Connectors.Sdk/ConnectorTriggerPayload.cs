@@ -201,8 +201,19 @@ public static class ConnectorTriggerPayload
             return false;
         }
 
-        // The base64 string may arrive wrapped in extra quotes from the Logic Apps
-        // expression engine; strip them before decoding.
+        // Fast path: decode base64 straight from the JSON value without allocating a UTF-16
+        // string. System.Text.Json reads the bytes directly, so the entire base64 payload is
+        // never materialized as a string — this matters for large binary-content trigger bodies.
+        // Covers the common, unquoted wire shape {"body":"<base64>"}.
+        if (bodyElement.TryGetBytesFromBase64(out byte[]? decoded))
+        {
+            content = decoded ?? Array.Empty<byte>();
+            return true;
+        }
+
+        // Fallback: the base64 string may arrive wrapped in extra quotes from the Logic Apps
+        // expression engine (for example "\"<base64>\""), which the fast path rejects. Strip the
+        // quotes before decoding. An empty body decodes to empty content.
         string base64Content = (bodyElement.GetString() ?? string.Empty).Trim('"');
 
         if (base64Content.Length == 0)
@@ -210,9 +221,7 @@ public static class ConnectorTriggerPayload
             return true;
         }
 
-        // Decode directly into a single right-sized array. Avoids the doubled peak memory
-        // of renting an oversized buffer and then copying into a right-sized array, which
-        // matters for large binary trigger bodies. The try/catch keeps the Try* contract:
+        // Decode directly into a single right-sized array. The try/catch keeps the Try* contract:
         // invalid base64 returns false rather than throwing.
         try
         {
