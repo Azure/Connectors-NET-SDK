@@ -273,6 +273,24 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task ReadAsync_DoesNotCloseCallerStream()
+        {
+            // Arrange — the metadata path wraps the body in a BoundedStream that it disposes.
+            // Disposing that wrapper must NOT close the caller-owned stream.
+            using var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTests.MetadataPascalCasePayload));
+
+            // Act
+            var payload = await ConnectorTriggerPayload
+                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert — the caller retains ownership; the stream stays open.
+            Assert.IsNotNull(payload);
+            Assert.IsTrue(stream.CanRead, "The caller-owned stream must remain open after reading.");
+        }
+
+        [TestMethod]
         public async Task ReadBinaryContentAsync_MetadataStream_ReturnsNull()
         {
             // Arrange

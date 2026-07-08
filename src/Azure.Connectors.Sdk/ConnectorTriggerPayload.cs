@@ -130,7 +130,10 @@ public static class ConnectorTriggerPayload
                 "The maximum body size must be greater than zero.");
         }
 
-        var bounded = new BoundedStream(body, maxBodySizeBytes);
+        // Dispose the wrapper once deserialization completes. It owns no resources of its own
+        // and its Dispose does not touch the caller-owned inner stream (which stays open per
+        // contract); disposing it simply satisfies IDisposable-scope analyzers and is defensive.
+        using var bounded = new BoundedStream(body, maxBodySizeBytes);
         return await JsonSerializer
             .DeserializeAsync<TPayload>(bounded, ConnectorTriggerPayload.SerializerOptions, cancellationToken)
             .ConfigureAwait(continueOnCapturedContext: false);
