@@ -156,7 +156,7 @@ namespace Azure.Connectors.Sdk.Tests
             // so it survives one round of server-side URL decoding. This asserts the GENERATED client
             // performs that double-encoding — guarding against a regression to single encoding or a
             // hand-edited generated file.
-            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
                 () => new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -165,14 +165,14 @@ namespace Azure.Connectors.Sdk.Tests
 
             using var client = new CommondataserviceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: credential,
-                options: options);
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
 
             await client
                 .GetTablesAsync(dataset: "https://contoso.crm.dynamics.com", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            var request = getLastRequest();
+            var request = clientSetup.GetLastRequest();
             Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
             var requestUri = request!.RequestUri!.AbsoluteUri;
 
@@ -186,7 +186,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task CreateAttachmentAsync_WithStringItemId_DoubleEncodesItemIdInRequestPath()
         {
-            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
                 () => new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -195,8 +195,8 @@ namespace Azure.Connectors.Sdk.Tests
 
             using var client = new CommondataserviceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: credential,
-                options: options);
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
 
             await client
                 .CreateAttachmentAsync(
@@ -208,7 +208,7 @@ namespace Azure.Connectors.Sdk.Tests
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            var request = getLastRequest();
+            var request = clientSetup.GetLastRequest();
             Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
             var requestUri = request!.RequestUri!.AbsoluteUri;
 
