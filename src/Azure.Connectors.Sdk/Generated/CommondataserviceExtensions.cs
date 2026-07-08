@@ -978,7 +978,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <param name="fileName">File Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Creates Note (annotation) for specified table row response.</returns>
-        public virtual async Task<Item> CreateAttachmentAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, int id, byte[] input, string fileName, CancellationToken cancellationToken = default)
+        public virtual async Task<Item> CreateAttachmentAsync([DynamicValues("GetDataSets")] string dataset, [DynamicValues("GetTables")] string table, string id, byte[] input, string fileName, CancellationToken cancellationToken = default)
         {
             using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.CreateAttachmentAsync");
             try
@@ -987,11 +987,13 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(dataset));
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
+                if (id is null)
+                    throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1440,7 +1442,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(tableName));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(orgName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/MultiSelect";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(orgName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/MultiSelect";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1476,7 +1478,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                     throw new ArgumentNullException(nameof(id));
                 if (typeOfChoice is null)
                     throw new ArgumentNullException(nameof(typeOfChoice));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/OptionSet/{Uri.EscapeDataString(typeOfChoice.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/OptionSet/{Uri.EscapeDataString(typeOfChoice.ToString())}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

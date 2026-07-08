@@ -184,6 +184,40 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task CreateAttachmentAsync_WithStringItemId_DoubleEncodesItemIdInRequestPath()
+        {
+            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{}")
+                });
+
+            using var client = new CommondataserviceClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: credential,
+                options: options);
+
+            await client
+                .CreateAttachmentAsync(
+                    dataset: "https://contoso.crm.dynamics.com",
+                    table: "accounts",
+                    id: "account/id",
+                    input: [],
+                    fileName: "note.txt",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var request = getLastRequest();
+            Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+            var requestUri = request!.RequestUri!.AbsoluteUri;
+
+            Assert.IsTrue(
+                requestUri.Contains("/items/account%252Fid/attachments", StringComparison.Ordinal),
+                message: $"Attachment item id path segment must be double URL-encoded. Actual request URI: {requestUri}");
+        }
+
+        [TestMethod]
         public void DataSet_JsonSerialization_RoundTrips()
         {
             // Arrange
