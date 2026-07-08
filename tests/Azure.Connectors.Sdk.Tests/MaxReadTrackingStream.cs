@@ -44,6 +44,12 @@ namespace Azure.Connectors.Sdk.Tests
             return this._inner.ReadAsync(buffer, cancellationToken);
         }
 
+        public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        {
+            this.MaxRequestedCount = Math.Max(this.MaxRequestedCount, count);
+            return this._inner.ReadAsync(buffer, offset, count, cancellationToken);
+        }
+
         public override int Read(byte[] buffer, int offset, int count)
         {
             this.MaxRequestedCount = Math.Max(this.MaxRequestedCount, count);
@@ -60,11 +66,9 @@ namespace Azure.Connectors.Sdk.Tests
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                this._inner.Dispose();
-            }
-
+            // Transparent pass-through wrapper: the caller owns the inner stream (tests dispose it
+            // via their own using statement), so do not dispose it here to avoid double-disposal.
+            // Still let the base Stream implementation mark this wrapper as disposed.
             base.Dispose(disposing);
         }
     }
