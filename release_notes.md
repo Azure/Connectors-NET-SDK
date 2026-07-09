@@ -1,5 +1,16 @@
 ## What's Changed
 
+### 0.13.0-preview.1 (2026-07-09)
+
+#### Added
+
+- **`ConnectorTriggerPayload` helper to read trigger callbacks** — turns a raw Connector Namespace trigger callback (`string` or `Stream`) into a typed payload or decoded file bytes without per-function boilerplate. `Read<TPayload>` / `ReadAsync<TPayload>` deserialize metadata triggers (e.g. OneDrive `OnNewFilesV2`) with case-insensitive property matching, so camelCase wire fields bind correctly instead of silently yielding all-`null` items. `TryReadBinaryContent` / `ReadBinaryContentAsync` decode binary-content triggers (e.g. OneDrive `OnNewFileV2`), whose body is a base64 string. The `Stream` overloads read the caller-owned stream without closing it and enforce a generous, overridable body-size limit (`DefaultMaxBodySizeBytes`, 100 MB); `TryReadBinaryContent` returns `false` (rather than throwing) on malformed JSON. ([#190](https://github.com/Azure/Connectors-NET-SDK/issues/190))
+- **Microsoft Dataverse client (`commondataservice`)** — generated typed `CommondataserviceClient` exposing the legacy Common Data Model (CDM) REST surface, which is the surface reachable through the Connector Namespace runtime. Covers environment/table discovery (`GetDataSetsAsync`, `GetTablesAsync`, `GetTableAsync`), row operations (`GetItemsAsync`, `GetItemAsync`, `PostItemAsync`, `PatchItemAsync`, `DeleteItemAsync`), attachments (`CreateAttachmentAsync`, `GetItemAttachmentsAsync`, `GetAttachmentContentAsync`, `DeleteAttachmentAsync`), relationships (`AssociateRecordsPatchItemAsync`, `DisassociateRecordsPostItemAsync`, `DisassociateSingleValueRecordDeleteItemAsync`, `GetCollectionRelationshipsAsync`), choice/metadata discovery, and pagination (`GetNextPageAsync`). Dataset values are full environment URLs (e.g., `https://contoso.crm.dynamics.com`) and are double URL-encoded per the connector's `x-ms-url-encoding: "double"` contract. The modern Dataverse Web API routes (`/api/data`, `/getorgs`, ...) return HTTP 404 through Connector Namespace and are excluded by the generator's deterministic per-connector route-selection policy, along with the redundant OData-style key-syntax routes.
+
+#### Changed
+
+- **`TriggerCallbackBodyConverter<T>` now throws an actionable error for binary-content bodies** — when a binary-content trigger callback (a JSON string body, e.g. OneDrive `OnNewFileV2`) is deserialized into a metadata payload type, the error now explains the cause and points to `ConnectorTriggerPayload.TryReadBinaryContent` / `ReadBinaryContentAsync` instead of failing with a generic token-mismatch message. ([#190](https://github.com/Azure/Connectors-NET-SDK/issues/190))
+
 ### 0.12.0-preview.1 (2026-06-02)
 
 - Breaking: All 1,460 `ConnectorNames.*` constants renamed to PascalCase derived from ARM display names (e.g. `Googledrive` → `GoogleDrive`, `Microsoftteams` → `MicrosoftTeams`, `Office365` → `Office365Outlook`). Update any references by name. (#170)
