@@ -1,0 +1,22 @@
+name: PR Source Policy
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  require-in-org-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require Azure repository branch
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "::error title=Unsupported PR source::Open this PR from an Azure/Connectors-NET-SDK branch."
+          echo "Private fork PRs may not receive the CodeQL/code-quality analyses required by the main branch ruleset."
+          echo "Push the same commits to an Azure/Connectors-NET-SDK branch and recreate the PR from that branch."
+          exit 1
+
+      - name: PR source supported
+        run: echo "PR source is Azure/Connectors-NET-SDK."
