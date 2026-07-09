@@ -112,9 +112,9 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         JsonElement root = document.RootElement;
 
         // Determine property-name comparison to match the configured case behaviour.
-        // TriggerCallbackBody<T> declares [JsonPropertyName("value")] so the wire name is
-        // always lower-case; STJ maps it case-insensitively when PropertyNameCaseInsensitive
-        // is true, and our discriminator must honour the same setting.
+        // TriggerCallbackBody<T> declares [JsonPropertyName(TriggerCallbackPropertyNames.Value)]
+        // so the wire name is always lower-case; STJ maps it case-insensitively when
+        // PropertyNameCaseInsensitive is true, and our discriminator must honour the same setting.
         StringComparison comparison = options.PropertyNameCaseInsensitive
             ? StringComparison.OrdinalIgnoreCase
             : StringComparison.Ordinal;
@@ -162,8 +162,8 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         // Serialize in batch shape: { "value": [...] }.
         // Honour the configured null-handling behaviour — when DefaultIgnoreCondition
         // says to omit null values (WhenWritingNull / WhenWritingDefault / Always) and
-        // Value is null, skip the property entirely.  This matches the behaviour STJ
-        // would apply to a plain [JsonPropertyName("value")] List<T>? POCO property.
+        // Value is null, skip the property entirely. This matches the behaviour STJ would apply to
+        // a plain [JsonPropertyName(TriggerCallbackPropertyNames.Value)] List<T>? POCO property.
         writer.WriteStartObject();
 
         bool omitNull = value.Value is null &&
