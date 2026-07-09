@@ -63,11 +63,13 @@ public static class ConnectorTriggerPayload
     /// </summary>
     private const int ReadChunkSizeBytes = 81920;
 
+    private static readonly JsonSerializerOptions DefaultSerializerOptions = new(ConnectorJsonSerializer.Options);
+
     /// <summary>
-    /// Gets the <see cref="JsonSerializerOptions"/> used to read trigger callback payloads.
+    /// Gets a copy of the <see cref="JsonSerializerOptions"/> used to read trigger callback payloads.
     /// Property matching is case-insensitive so camelCase wire fields bind correctly.
     /// </summary>
-    public static JsonSerializerOptions SerializerOptions => ConnectorJsonSerializer.Options;
+    public static JsonSerializerOptions SerializerOptions => new(ConnectorTriggerPayload.DefaultSerializerOptions);
 
     /// <summary>
     /// Reads a metadata trigger callback (for example OneDrive <c>OnNewFilesV2</c>) into its
@@ -89,7 +91,7 @@ public static class ConnectorTriggerPayload
     {
         ArgumentNullException.ThrowIfNull(json);
 
-        return JsonSerializer.Deserialize<TPayload>(json, ConnectorTriggerPayload.SerializerOptions);
+        return JsonSerializer.Deserialize<TPayload>(json, ConnectorTriggerPayload.DefaultSerializerOptions);
     }
 
     /// <summary>
@@ -135,7 +137,7 @@ public static class ConnectorTriggerPayload
         // contract); disposing it simply satisfies IDisposable-scope analyzers and is defensive.
         using var bounded = new BoundedStream(body, maxBodySizeBytes);
         return await JsonSerializer
-            .DeserializeAsync<TPayload>(bounded, ConnectorTriggerPayload.SerializerOptions, cancellationToken)
+            .DeserializeAsync<TPayload>(bounded, ConnectorTriggerPayload.DefaultSerializerOptions, cancellationToken)
             .ConfigureAwait(continueOnCapturedContext: false);
     }
 
@@ -403,7 +405,11 @@ public static class ConnectorTriggerPayload
         public override long Position
         {
             get => throw new NotSupportedException();
-            set => throw new NotSupportedException();
+            set
+            {
+                _ = value;
+                throw new NotSupportedException();
+            }
         }
 
         public override int Read(byte[] buffer, int offset, int count)

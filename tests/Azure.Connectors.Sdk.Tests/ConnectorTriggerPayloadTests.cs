@@ -61,6 +61,25 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void SerializerOptions_MutatedByCaller_DoesNotAffectTriggerReads()
+        {
+            // Arrange
+            JsonSerializerOptions callerOptions = ConnectorTriggerPayload.SerializerOptions;
+            callerOptions.PropertyNameCaseInsensitive = false;
+
+            // Act
+            var payload = ConnectorTriggerPayload.Read<OneDriveForBusinessOnNewFilesTriggerPayload>(
+                ConnectorTriggerPayloadTests.MetadataCamelCasePayload);
+
+            // Assert
+            Assert.IsNotNull(payload);
+            Assert.IsNotNull(payload.Body);
+            Assert.IsNotNull(payload.Body.Value);
+            Assert.AreEqual("01ABC", payload.Body.Value[0].Id);
+            Assert.IsTrue(ConnectorTriggerPayload.SerializerOptions.PropertyNameCaseInsensitive);
+        }
+
+        [TestMethod]
         public async Task ReadAsync_MetadataStream_PopulatesItem()
         {
             // Arrange
