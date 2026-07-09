@@ -4,7 +4,7 @@ This document explains which [Azure SDK design guidelines for .NET](https://azur
 
 The decisions recorded here were made during a formal API design review in May 2026 with Azure SDK team reviewers (Anu Thomas, Steven Vukelich) and the APIView AI reviewer. The detailed per-suggestion analysis — 30 suggestions, each with rationale and a recorded decision — lives in [`docs/API-DESIGN-EVALUATION.md`](https://github.com/daviburg_microsoft/azure-logicapps-connector-sdk/blob/main/docs/API-DESIGN-EVALUATION.md) (internal). This document is the summary reference.
 
-This document was reconciled rule-by-rule against the live [.NET design](https://azure.github.io/azure-sdk/dotnet_introduction.html), [.NET implementation](https://azure.github.io/azure-sdk/dotnet_implementation.html), [general design](https://azure.github.io/azure-sdk/general_design.html), and [general implementation](https://azure.github.io/azure-sdk/general_implementation.html) guideline pages on 2026-06-01; every normative `DO` / `DO NOT` / `SHOULD` is accounted for as Followed, an Intentional Divergence, Not Applicable, or Deferred. Note this SDK is **pre-1.0** (currently `0.9.0-preview.1`), so source- and binary-breaking changes are permitted ahead of GA where they improve the long-term API.
+This document was reconciled rule-by-rule against the live [.NET design](https://azure.github.io/azure-sdk/dotnet_introduction.html), [.NET implementation](https://azure.github.io/azure-sdk/dotnet_implementation.html), [general design](https://azure.github.io/azure-sdk/general_design.html), and [general implementation](https://azure.github.io/azure-sdk/general_implementation.html) guideline pages on 2026-06-01; every normative `DO` / `DO NOT` / `SHOULD` is accounted for as Followed, an Intentional Divergence, Not Applicable, or Deferred. Note this SDK is **pre-1.0** (currently `0.13.0-preview.1`), so source- and binary-breaking changes are permitted ahead of GA where they improve the long-term API.
 
 ---
 
@@ -44,7 +44,7 @@ This document was reconciled rule-by-rule against the live [.NET design](https:/
 | No APIs in the second-level namespace | Public types live in `Azure.Connectors.Sdk` and `Azure.Connectors.<Connector>` (third level), never directly under `Azure.*` |
 | Dependency allow-list | Package references are limited to `Azure.*`, `System.*`, and `Microsoft.Extensions.*` packages (`Directory.Packages.props`) |
 | No native dependencies | Pure managed code; no native/interop dependencies |
-| `MAJOR.MINOR.PATCH` versioning | Version is `MAJOR.MINOR.PATCH` with a pre-release suffix (`eng/build/Version.props`, currently `0.9.0-preview.1`) |
+| `MAJOR.MINOR.PATCH` versioning | Version is `MAJOR.MINOR.PATCH` with a pre-release suffix (`eng/build/Version.props`, currently `0.13.0-preview.1`) |
 | No default parameters in simplest client constructor | Simplest constructor `Client(Uri connectionRuntimeUrl)` takes only the required binding parameter with no defaults; options/credentials overloads add optional parameters (standard Azure SDK pattern) |
 | Package name matches main namespace | NuGet package ID is `Azure.Connectors.Sdk`, matching the root namespace |
 | Version-resilient serialization | Optional value-type model properties are `Nullable<T>` (`bool?`, `DateTime?`, `int?`); generated files use `#nullable disable` so reference-type properties accept `null` gracefully; `System.Text.Json` ignores unknown properties during deserialization |

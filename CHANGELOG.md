@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
      the same content into release_notes.md for NuGet packaging. Do NOT put HTML
      comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
 
+## [0.13.0-preview.1] - 2026-07-09
+
 ### Added
 
 - **`ConnectorTriggerPayload` helper to read trigger callbacks** — turns a raw Connector Namespace trigger callback (`string` or `Stream`) into a typed payload or decoded file bytes without per-function boilerplate. `Read<TPayload>` / `ReadAsync<TPayload>` deserialize metadata triggers (e.g. OneDrive `OnNewFilesV2`) with case-insensitive property matching, so camelCase wire fields bind correctly instead of silently yielding all-`null` items. `TryReadBinaryContent` / `ReadBinaryContentAsync` decode binary-content triggers (e.g. OneDrive `OnNewFileV2`), whose body is a base64 string. The `Stream` overloads read the caller-owned stream without closing it and enforce a generous, overridable body-size limit (`DefaultMaxBodySizeBytes`, 100 MB); `TryReadBinaryContent` returns `false` (rather than throwing) on malformed JSON. ([#190](https://github.com/Azure/Connectors-NET-SDK/issues/190))
@@ -266,7 +268,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.12.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.13.0-preview.1...HEAD
+[0.13.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.12.0-preview.1...v0.13.0-preview.1
 [0.12.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.11.0-preview.1...v0.12.0-preview.1
 [0.11.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.10.0-preview.1...v0.11.0-preview.1
 [0.10.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.9.0-preview.1...v0.10.0-preview.1
