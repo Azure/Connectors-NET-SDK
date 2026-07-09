@@ -192,6 +192,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | Excel Online | ✅ E2E Validated | GetTables (connectivity confirmed via sdk-test-gateway-prod) |
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
+| Dataverse (commondataservice) | ✅ E2E Validated | GetDataSets, GetTables, GetItems, GetItem, PostItem, PatchItem, DeleteItem, CreateAttachment, GetNextPage |
 | Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |

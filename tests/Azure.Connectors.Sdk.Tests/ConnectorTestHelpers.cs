@@ -47,5 +47,39 @@ namespace Azure.Connectors.Sdk.Tests
 
             return (mockCredential.Object, options);
         }
+
+        /// <summary>
+        /// Like <see cref="CreateMockedClientSetup"/>, but also captures the most recent outgoing
+        /// <see cref="HttpRequestMessage"/> so tests can assert on the request URI (e.g., path encoding).
+        /// </summary>
+        /// <param name="responseFactory">Factory invoked per HTTP request to produce a fresh response.</param>
+        /// <returns>
+        /// A tuple of the mocked credential, configured client options, and an accessor that returns the
+        /// last request the client issued (or <c>null</c> if no request has been made yet).
+        /// </returns>
+        public static (TokenCredential Credential, ConnectorClientOptions Options, Func<HttpRequestMessage?> GetLastRequest) CreateCapturingClientSetup(
+            Func<HttpResponseMessage> responseFactory)
+        {
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", new DateTimeOffset(2099, 1, 1, 0, 0, 0, TimeSpan.Zero)));
+
+            HttpRequestMessage? lastRequest = null;
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => lastRequest = request)
+                .Returns(() => Task.FromResult(responseFactory()));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            return (mockCredential.Object, options, () => lastRequest);
+        }
     }
 }

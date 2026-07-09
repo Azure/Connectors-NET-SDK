@@ -9,10 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Revai;
 using Azure.Connectors.Sdk.Slack;
-using Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Moq.Protected;
 
 namespace Azure.Connectors.Sdk.Tests
 {
@@ -23,58 +20,41 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class NullableParameterTests
     {
-        private static (TClient Client, Mock<HttpMessageHandler> Handler) CreateMockedClientWithCapture<TClient>(string responseContent = "[]")
+        private static (TClient Client, Func<HttpRequestMessage?> GetLastRequest) CreateMockedClientWithCapture<TClient>(string responseContent = "[]")
             where TClient : ConnectorClientBase
         {
-            var mockCredential = new Mock<Azure.Core.TokenCredential>();
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<Azure.Core.TokenRequestContext>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new Azure.Core.AccessToken("mock-token", new DateTimeOffset(2099, 1, 1, 0, 0, 0, TimeSpan.Zero)));
-
-            var mockHandler = new Mock<HttpMessageHandler>();
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .Returns(() => Task.FromResult(new HttpResponseMessage
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
                 {
                     StatusCode = HttpStatusCode.OK,
                     Content = new StringContent(responseContent),
-                }));
-
-            var options = new ConnectorClientOptions();
-            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
-            options.Retry.MaxRetries = 0;
+                });
 
             var client = (TClient)Activator.CreateInstance(
                 typeof(TClient),
                 new Uri("https://test.azure.com/connection"),
-                mockCredential.Object,
-                options)!;
+                clientSetup.Credential,
+                clientSetup.Options)!;
 
-            return (client, mockHandler);
+            return (client, clientSetup.GetLastRequest);
         }
 
         [TestMethod]
         public async Task NullableInt_WithNull_OmitsQueryParameter()
         {
             // Arrange
-            var (client, handler) = CreateMockedClientWithCapture<RevaiClient>();
-            using (client)
+            var clientSetup = CreateMockedClientWithCapture<RevaiClient>();
+            using (clientSetup.Client)
             {
                 // Act — pass null for limit (int?)
-                await client
+                await clientSetup.Client
                     .TranscriptionsGetAsync(limit: null, cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
                 // Assert — verify the request URL does not contain "limit="
-                handler.Protected().Verify(
-                    "SendAsync",
-                    Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(request =>
-                        !request.RequestUri!.Query.Contains("limit=", StringComparison.OrdinalIgnoreCase)),
-                    ItExpr.IsAny<CancellationToken>());
+                var request = clientSetup.GetLastRequest();
+                Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+                Assert.IsFalse(request!.RequestUri!.Query.Contains("limit=", StringComparison.OrdinalIgnoreCase));
             }
         }
 
@@ -82,21 +62,18 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableInt_WithZero_EmitsQueryParameterWithZero()
         {
             // Arrange
-            var (client, handler) = CreateMockedClientWithCapture<RevaiClient>();
-            using (client)
+            var clientSetup = CreateMockedClientWithCapture<RevaiClient>();
+            using (clientSetup.Client)
             {
                 // Act — pass 0 for limit (int?) — this is a valid distinct value, not "unspecified"
-                await client
+                await clientSetup.Client
                     .TranscriptionsGetAsync(limit: 0, cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
                 // Assert — verify the request URL contains "limit=0"
-                handler.Protected().Verify(
-                    "SendAsync",
-                    Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(request =>
-                        request.RequestUri!.Query.Contains("limit=0", StringComparison.OrdinalIgnoreCase)),
-                    ItExpr.IsAny<CancellationToken>());
+                var request = clientSetup.GetLastRequest();
+                Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+                Assert.IsTrue(request!.RequestUri!.Query.Contains("limit=0", StringComparison.OrdinalIgnoreCase));
             }
         }
 
@@ -104,21 +81,18 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableInt_WithPositiveValue_EmitsQueryParameter()
         {
             // Arrange
-            var (client, handler) = CreateMockedClientWithCapture<RevaiClient>();
-            using (client)
+            var clientSetup = CreateMockedClientWithCapture<RevaiClient>();
+            using (clientSetup.Client)
             {
                 // Act
-                await client
+                await clientSetup.Client
                     .TranscriptionsGetAsync(limit: 25, cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
                 // Assert — verify the request URL contains "limit=25"
-                handler.Protected().Verify(
-                    "SendAsync",
-                    Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(request =>
-                        request.RequestUri!.Query.Contains("limit=25", StringComparison.OrdinalIgnoreCase)),
-                    ItExpr.IsAny<CancellationToken>());
+                var request = clientSetup.GetLastRequest();
+                Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+                Assert.IsTrue(request!.RequestUri!.Query.Contains("limit=25", StringComparison.OrdinalIgnoreCase));
             }
         }
 
@@ -126,21 +100,18 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableBool_WithNull_OmitsQueryParameter()
         {
             // Arrange
-            var (client, handler) = CreateMockedClientWithCapture<SlackClient>(responseContent: "{}");
-            using (client)
+            var clientSetup = CreateMockedClientWithCapture<SlackClient>(responseContent: "{}");
+            using (clientSetup.Client)
             {
                 // Act — pass null for isPrivateChannel (bool?)
-                await client
+                await clientSetup.Client
                     .CreateChannelAsync(name: "test-channel", isPrivateChannel: null, cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
                 // Assert — verify the request URL does not contain "is_private="
-                handler.Protected().Verify(
-                    "SendAsync",
-                    Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(request =>
-                        !request.RequestUri!.Query.Contains("is_private=", StringComparison.OrdinalIgnoreCase)),
-                    ItExpr.IsAny<CancellationToken>());
+                var request = clientSetup.GetLastRequest();
+                Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+                Assert.IsFalse(request!.RequestUri!.Query.Contains("is_private=", StringComparison.OrdinalIgnoreCase));
             }
         }
 
@@ -148,21 +119,18 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableBool_WithFalse_EmitsQueryParameterWithFalse()
         {
             // Arrange
-            var (client, handler) = CreateMockedClientWithCapture<SlackClient>(responseContent: "{}");
-            using (client)
+            var clientSetup = CreateMockedClientWithCapture<SlackClient>(responseContent: "{}");
+            using (clientSetup.Client)
             {
                 // Act — pass false for isPrivateChannel (bool?) — this is a valid distinct value, not "unspecified"
-                await client
+                await clientSetup.Client
                     .CreateChannelAsync(name: "test-channel", isPrivateChannel: false, cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
                 // Assert — verify the request URL contains "is_private=False"
-                handler.Protected().Verify(
-                    "SendAsync",
-                    Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(request =>
-                        request.RequestUri!.Query.Contains("is_private=False", StringComparison.Ordinal)),
-                    ItExpr.IsAny<CancellationToken>());
+                var request = clientSetup.GetLastRequest();
+                Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+                Assert.IsTrue(request!.RequestUri!.Query.Contains("is_private=False", StringComparison.Ordinal));
             }
         }
 
@@ -170,21 +138,18 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableBool_WithTrue_EmitsQueryParameterWithTrue()
         {
             // Arrange
-            var (client, handler) = CreateMockedClientWithCapture<SlackClient>(responseContent: "{}");
-            using (client)
+            var clientSetup = CreateMockedClientWithCapture<SlackClient>(responseContent: "{}");
+            using (clientSetup.Client)
             {
                 // Act
-                await client
+                await clientSetup.Client
                     .CreateChannelAsync(name: "test-channel", isPrivateChannel: true, cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
                 // Assert — verify the request URL contains "is_private=True"
-                handler.Protected().Verify(
-                    "SendAsync",
-                    Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(request =>
-                        request.RequestUri!.Query.Contains("is_private=True", StringComparison.Ordinal)),
-                    ItExpr.IsAny<CancellationToken>());
+                var request = clientSetup.GetLastRequest();
+                Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+                Assert.IsTrue(request!.RequestUri!.Query.Contains("is_private=True", StringComparison.Ordinal));
             }
         }
     }
