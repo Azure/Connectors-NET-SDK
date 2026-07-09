@@ -72,7 +72,7 @@ namespace Azure.Connectors.Sdk.Tests
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .Callback<HttpRequestMessage, CancellationToken>((request, token) => lastRequest = request)
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => lastRequest = request)
                 .Returns(() => Task.FromResult(responseFactory()));
 
             var options = new ConnectorClientOptions();
