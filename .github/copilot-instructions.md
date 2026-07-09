@@ -378,6 +378,8 @@ public async Task MethodName_Scenario_ExpectedResult()
 - Branch naming: `feature/description`, `fix/description`, `docs/description`
 - Never push directly to main
 - Always create PR for review
+- Create PR branches in the `Azure/Connectors-NET-SDK` repository, not in private forks. The `main` ruleset requires CodeQL/code-quality analysis, and private fork PRs may not receive the required analyses. When opening a PR, push the branch to `origin` (the Azure repo) and use a head branch owned by `Azure`.
+- If a branch was accidentally pushed to a private fork, push the same commits to an `Azure/Connectors-NET-SDK` branch and recreate the PR from that in-org branch before requesting review.
 
 ## Adding a New Connector
 
