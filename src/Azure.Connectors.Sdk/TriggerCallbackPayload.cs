@@ -26,7 +26,7 @@ public class TriggerCallbackPayload<T>
     /// <summary>
     /// The body envelope containing the trigger items.
     /// </summary>
-    [JsonPropertyName("body")]
+    [JsonPropertyName(TriggerCallbackPropertyNames.Body)]
     public TriggerCallbackBody<T>? Body { get; init; }
 }
 
@@ -46,7 +46,7 @@ public class TriggerCallbackBody<T>
     /// <c>"value": null</c> property (or a null body), so consumers should null-check before
     /// iterating.
     /// </summary>
-    [JsonPropertyName("value")]
+    [JsonPropertyName(TriggerCallbackPropertyNames.Value)]
     public IReadOnlyList<T>? Value { get; internal set; }
 }
 
@@ -89,6 +89,19 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
             return null;
         }
 
+        if (reader.TokenType == JsonTokenType.String)
+        {
+            // A string body means this is a binary-content trigger callback (for example
+            // OneDrive 'OnNewFileV2'), whose body is a base64-encoded file — not a metadata
+            // envelope. Point the developer at the correct helper instead of failing with a
+            // generic token-mismatch message.
+            throw new JsonException(
+                $"Trigger callback body for TriggerCallbackBody<{typeof(T).Name}> was a JSON string, not an object. " +
+                "This is a binary-content trigger callback (for example OneDrive 'OnNewFileV2'), whose body is a base64-encoded file. " +
+                $"Read it with {nameof(ConnectorTriggerPayload)}.{nameof(ConnectorTriggerPayload.TryReadBinaryContent)} or " +
+                $"{nameof(ConnectorTriggerPayload)}.{nameof(ConnectorTriggerPayload.ReadBinaryContentAsync)} instead of deserializing to a metadata payload type.");
+        }
+
         if (reader.TokenType != JsonTokenType.StartObject)
         {
             throw new JsonException($"Expected StartObject or Null for TriggerCallbackBody<{typeof(T).Name}>, got {reader.TokenType}.");
@@ -99,9 +112,9 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         JsonElement root = document.RootElement;
 
         // Determine property-name comparison to match the configured case behaviour.
-        // TriggerCallbackBody<T> declares [JsonPropertyName("value")] so the wire name is
-        // always lower-case; STJ maps it case-insensitively when PropertyNameCaseInsensitive
-        // is true, and our discriminator must honour the same setting.
+        // TriggerCallbackBody<T> declares [JsonPropertyName(TriggerCallbackPropertyNames.Value)]
+        // so the wire name is always lower-case; STJ maps it case-insensitively when
+        // PropertyNameCaseInsensitive is true, and our discriminator must honour the same setting.
         StringComparison comparison = options.PropertyNameCaseInsensitive
             ? StringComparison.OrdinalIgnoreCase
             : StringComparison.Ordinal;
@@ -119,7 +132,7 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         foreach (JsonProperty property in root.EnumerateObject())
         {
             propertyCount++;
-            if (string.Equals(property.Name, "value", comparison) &&
+            if (string.Equals(property.Name, TriggerCallbackPropertyNames.Value, comparison) &&
                 (property.Value.ValueKind == JsonValueKind.Array ||
                  property.Value.ValueKind == JsonValueKind.Null))
             {
@@ -149,8 +162,8 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
         // Serialize in batch shape: { "value": [...] }.
         // Honour the configured null-handling behaviour — when DefaultIgnoreCondition
         // says to omit null values (WhenWritingNull / WhenWritingDefault / Always) and
-        // Value is null, skip the property entirely.  This matches the behaviour STJ
-        // would apply to a plain [JsonPropertyName("value")] List<T>? POCO property.
+        // Value is null, skip the property entirely. This matches the behaviour STJ would apply to
+        // a plain [JsonPropertyName(TriggerCallbackPropertyNames.Value)] List<T>? POCO property.
         writer.WriteStartObject();
 
         bool omitNull = value.Value is null &&
@@ -160,7 +173,7 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
 
         if (!omitNull)
         {
-            writer.WritePropertyName("value");
+            writer.WritePropertyName(TriggerCallbackPropertyNames.Value);
             JsonSerializer.Serialize(writer, value.Value, options);
         }
 
