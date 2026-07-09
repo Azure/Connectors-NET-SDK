@@ -218,6 +218,36 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task GetNextPageAsync_WithReservedAndPreEncodedNextLink_EncodesNextLinkInRequestPath()
+        {
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"value\":[]}")
+                });
+
+            using var client = new CommondataserviceClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
+
+            await client
+                .GetNextPageAsync(
+                    nextLinkValue: "accounts?$select=name%2Crevenue&$skiptoken=%253cpage%253e%2Frow 1",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var request = clientSetup.GetLastRequest();
+            Assert.IsNotNull(request, message: "Expected the client to issue an HTTP request.");
+            var requestUri = request!.RequestUri!.AbsoluteUri;
+
+            Assert.IsTrue(
+                requestUri.Contains("/nextLink/accounts%3F%24select%3Dname%252Crevenue%26%24skiptoken%3D%25253cpage%25253e%252Frow%201", StringComparison.Ordinal),
+                message: $"nextLink path segment must URL-encode reserved characters and pre-encoded query state. Actual request URI: {requestUri}");
+        }
+
+        [TestMethod]
         public void DataSet_JsonSerialization_RoundTrips()
         {
             // Arrange

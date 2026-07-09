@@ -140,6 +140,22 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void TryReadBinaryContent_ExtraQuotedBase64_DecodesBytes()
+        {
+            // Arrange
+            byte[] expected = Encoding.UTF8.GetBytes("extra quoted content");
+            string base64 = Convert.ToBase64String(expected);
+            string payload = $$"""{"body":"\"{{base64}}\""}""";
+
+            // Act
+            bool result = ConnectorTriggerPayload.TryReadBinaryContent(payload, out byte[] content);
+
+            // Assert
+            Assert.IsTrue(result);
+            CollectionAssert.AreEqual(expected, content);
+        }
+
+        [TestMethod]
         public void TryReadBinaryContent_EmptyStringBody_ReturnsTrueWithEmptyContent()
         {
             // Arrange
