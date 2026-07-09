@@ -241,7 +241,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void PostItemInput_JsonSerialization_RoundTrips()
         {
             // Arrange
-            var input = new PostItemInput();
+            var input = new PostItemInput
+            {
+                AdditionalProperties =
+                {
+                    ["name"] = JsonSerializer.SerializeToElement("Demo Account"),
+                    ["revenue"] = JsonSerializer.SerializeToElement(123.45)
+                }
+            };
 
             // Act
             var json = JsonSerializer.Serialize(input);
@@ -249,6 +256,10 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(deserialized);
+            Assert.IsTrue(deserialized.AdditionalProperties.ContainsKey("name"));
+            Assert.IsTrue(deserialized.AdditionalProperties.ContainsKey("revenue"));
+            Assert.AreEqual(expected: "Demo Account", actual: deserialized.AdditionalProperties["name"].GetString());
+            Assert.AreEqual(expected: 123.45, actual: deserialized.AdditionalProperties["revenue"].GetDouble());
         }
     }
 }

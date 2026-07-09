@@ -910,7 +910,8 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="nextLinkValue">nextLink value</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetNextPageAsync(string nextLinkValue, CancellationToken cancellationToken = default)
+        /// <returns>The Follows nextLink to retrieve next page of data response.</returns>
+        public virtual async Task<JsonElement> GetNextPageAsync(string nextLinkValue, CancellationToken cancellationToken = default)
         {
             using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetNextPageAsync");
             try
@@ -918,8 +919,8 @@ namespace Azure.Connectors.Sdk.Commondataservice
                 if (nextLinkValue is null)
                     throw new ArgumentNullException(nameof(nextLinkValue));
                 var path = $"/nextLink/{Uri.EscapeDataString(nextLinkValue.ToString())}";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                return await this
+                    .CallConnectorAsync<JsonElement>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
