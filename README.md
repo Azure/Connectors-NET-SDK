@@ -272,6 +272,15 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 | Zendesk | 🔄 SDK Generated | PostItem, DeleteItem, PatchItem, SearchArticles |
 
+### Additional E2E Validation Evidence
+
+This evidence supplements the validated connector table above; it does not replace or narrow any existing validation claims.
+
+| Connector | Status | Additional E2E Evidence |
+|-----------|--------|-------------------------|
+| SharePoint | ✅ E2E Validated | `GetDataSetsAsync` discovered accessible sites, then `GetAllTablesAsync` completed against a site returned by discovery. |
+| Dataverse (commondataservice) | ✅ E2E Validated | `CreateAttachmentAsync` created binary note content on a uniquely created record; `DeleteItemAsync` then removed the validation record. |
+
 ## Related Projects
 
 | Project | Description |
