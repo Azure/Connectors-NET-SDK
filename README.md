@@ -179,12 +179,12 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
-| Azure Monitor Logs | 🔄 SDK Generated | QueryData, QueryDataV2, VisualizeQuery, VisualizeQueryV2 |
+| Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, QueryDataV2, QuerySchemaV2 |
 | IBM MQ | 🔄 SDK Generated | SendAsync, ReadAsync, ReadAllAsync, ReceiveAsync, ReceiveAllAsync, DeleteAsync, DeleteAllAsync |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
 | Office365 Users | ✅ Validated | MyProfile, UserProfile, Manager, DirectReports, SearchUser |
 | OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink |
-| SharePoint | ✅ Validated | GetAllTables, ListRootFolder, ListFolder, GetFileContentByPath, CreateFile |
+| SharePoint | ✅ E2E Validated | GetDataSets → GetAllTables, ListRootFolder, ListFolder, GetFileContentByPath, CreateFile |
 | MS Graph Groups & Users | ✅ Validated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties |
 | Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
 | SMTP | ✅ Validated | SendEmail |
@@ -192,7 +192,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | Excel Online | ✅ E2E Validated | GetTables (connectivity confirmed via sdk-test-gateway-prod) |
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
-| Dataverse (commondataservice) | ✅ E2E Validated | GetDataSets, GetTables, GetItems, GetItem, PostItem, PatchItem, DeleteItem, CreateAttachment, GetNextPage |
+| Dataverse (commondataservice) | ✅ E2E Validated | GetDataSets, GetTables, GetItems, GetItem, PostItem, PatchItem, DeleteItem, CreateAttachment (binary note content; record cleanup verified), GetNextPage |
 | Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
@@ -271,15 +271,6 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | WordPress | 🔄 SDK Generated | SiteStats, Get, Create, ListSites |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 | Zendesk | 🔄 SDK Generated | PostItem, DeleteItem, PatchItem, SearchArticles |
-
-### Additional E2E Validation Evidence
-
-This evidence supplements the validated connector table above; it does not replace or narrow any existing validation claims.
-
-| Connector | Status | Additional E2E Evidence |
-|-----------|--------|-------------------------|
-| SharePoint | ✅ E2E Validated | `GetDataSetsAsync` discovered accessible sites, then `GetAllTablesAsync` completed against a site returned by discovery. |
-| Dataverse (commondataservice) | ✅ E2E Validated | `CreateAttachmentAsync` created binary note content on a uniquely created record; `DeleteItemAsync` then removed the validation record. |
 
 ## Related Projects
 
