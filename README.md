@@ -185,7 +185,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
 | Office365 Users | ✅ Validated | MyProfile, UserProfile, Manager, DirectReports, SearchUser |
 | OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink |
-| SharePoint | ✅ E2E Validated | GetDataSets → GetAllTables, ListRootFolder, ListFolder, GetFileContentByPath, CreateFile |
+| SharePoint | ✅ E2E Validated | GetDataSets → GetAllTables, GetFileItems, GetFileContentByPath, CreateFile |
 | MS Graph Groups & Users | ✅ Validated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties |
 | Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
 | SMTP | ✅ Validated | SendEmail |
