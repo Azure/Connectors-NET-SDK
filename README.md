@@ -179,7 +179,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
-| Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryDataV2, QuerySchemaV2 |
+| Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryData, QuerySchema |
 | Azure Resource Manager | ✅ E2E Validated | SubscriptionsList, ResourceGroupsList, ResourceGroupsListResources |
 | IBM MQ | 🔄 SDK Generated | SendAsync, ReadAsync, ReadAllAsync, ReceiveAsync, ReceiveAllAsync, DeleteAsync, DeleteAllAsync |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
