@@ -735,6 +735,20 @@ namespace Azure.Connectors.Sdk.Commondataservice
         public static class OnDeletedItems
         {
             /// <summary>
+            /// Select an Environment
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// Select a table
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
             public const string Filter = "$filter";
@@ -762,6 +776,20 @@ namespace Azure.Connectors.Sdk.Commondataservice
         public static class OnNewItems
         {
             /// <summary>
+            /// Select an Environment
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// Select a table
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
             public const string Filter = "$filter";
@@ -788,6 +816,20 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// </summary>
         public static class OnUpdatedItems
         {
+            /// <summary>
+            /// Select an Environment
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// Select a table
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
