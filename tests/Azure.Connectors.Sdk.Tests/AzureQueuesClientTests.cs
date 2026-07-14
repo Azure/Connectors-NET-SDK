@@ -66,7 +66,7 @@ namespace Azure.Connectors.Sdk.Tests
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .Callback<HttpRequestMessage, CancellationToken>((request, _) => captureRequest(request))
+                .Callback<HttpRequestMessage, CancellationToken>((request, cancellationToken) => captureRequest(request))
                 .ReturnsAsync(response);
 
             var options = new ConnectorClientOptions
