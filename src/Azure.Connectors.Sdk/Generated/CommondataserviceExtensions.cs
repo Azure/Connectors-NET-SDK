@@ -1038,7 +1038,7 @@ namespace Azure.Connectors.Sdk.Commondataservice
                 queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

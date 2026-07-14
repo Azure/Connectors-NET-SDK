@@ -836,7 +836,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate.ToString())}");
                 var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString())}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
-                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -874,7 +874,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add($"name={Uri.EscapeDataString(blobName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1298,7 +1298,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     throw new ArgumentNullException(nameof(blob));
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob.ToString()))}";
                 return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

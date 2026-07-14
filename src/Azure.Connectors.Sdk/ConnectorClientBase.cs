@@ -183,6 +183,59 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
+        /// Sends a connector API request with an unencoded binary body and deserializes the JSON response.
+        /// </summary>
+        /// <typeparam name="TResponse">The response type.</typeparam>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="path">The relative path or absolute URL.</param>
+        /// <param name="body">The raw request body bytes.</param>
+        /// <param name="contentType">The request content type.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The deserialized response.</returns>
+        protected virtual async Task<TResponse> CallConnectorAsync<TResponse>(
+            HttpMethod method,
+            string path,
+            byte[] body,
+            string contentType,
+            CancellationToken cancellationToken = default)
+        {
+            ArgumentNullException.ThrowIfNull(body);
+            ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
+
+            var url = this.ResolveUrl(path);
+            var operation = $"{method} {path}";
+
+            using var message = this._pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Parse(method.Method);
+            request.Uri.Reset(new Uri(url));
+            request.Headers.Add("Accept", "application/json");
+            request.Content = RequestContent.Create(body);
+            request.Headers.Add("Content-Type", contentType);
+
+            await this._pipeline
+                .SendAsync(message, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var response = message.Response;
+            if (response.IsError)
+            {
+                var errorBody = response.Content.ToString();
+                throw new ConnectorException(this.ConnectorName, operation, response.Status, errorBody);
+            }
+
+            if (typeof(TResponse) == typeof(byte[]))
+            {
+                return (TResponse)(object)response.Content.ToArray();
+            }
+
+            var responseBody = response.Content.ToString();
+            return string.IsNullOrEmpty(responseBody)
+                ? default!
+                : JsonSerializer.Deserialize<TResponse>(responseBody, ConnectorClientBase.JsonOptions)!;
+        }
+
+        /// <summary>
         /// Sends a connector API request with no response body.
         /// Uses the Azure.Core <see cref="HttpPipeline"/> for retry, authentication, and diagnostics.
         /// </summary>
@@ -218,6 +271,47 @@ namespace Azure.Connectors.Sdk
 
             var response = message.Response;
 
+            if (response.IsError)
+            {
+                var errorBody = response.Content.ToString();
+                throw new ConnectorException(this.ConnectorName, operation, response.Status, errorBody);
+            }
+        }
+
+        /// <summary>
+        /// Sends a connector API request with an unencoded binary body and no response body.
+        /// </summary>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="path">The relative path or absolute URL.</param>
+        /// <param name="body">The raw request body bytes.</param>
+        /// <param name="contentType">The request content type.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        protected virtual async Task CallConnectorAsync(
+            HttpMethod method,
+            string path,
+            byte[] body,
+            string contentType,
+            CancellationToken cancellationToken = default)
+        {
+            ArgumentNullException.ThrowIfNull(body);
+            ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
+
+            var url = this.ResolveUrl(path);
+            var operation = $"{method} {path}";
+
+            using var message = this._pipeline.CreateMessage();
+            var request = message.Request;
+            request.Method = RequestMethod.Parse(method.Method);
+            request.Uri.Reset(new Uri(url));
+            request.Headers.Add("Accept", "application/json");
+            request.Content = RequestContent.Create(body);
+            request.Headers.Add("Content-Type", contentType);
+
+            await this._pipeline
+                .SendAsync(message, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var response = message.Response;
             if (response.IsError)
             {
                 var errorBody = response.Content.ToString();

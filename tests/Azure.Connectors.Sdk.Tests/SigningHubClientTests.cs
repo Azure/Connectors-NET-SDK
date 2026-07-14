@@ -122,6 +122,32 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task AttachmentUploadAttachmentAsync_BinaryInput_SendsRawOctetStream()
+        {
+            var expectedBody = new byte[] { 0x00, 0x7F, 0xFF };
+            var (credential, options, getBody, getContentType) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("{}"),
+                });
+            using var client = new SigningHubClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: credential,
+                options: options);
+
+            await client
+                .AttachmentUploadAttachmentAsync(
+                    packageId: 1,
+                    documentId: 1,
+                    input: expectedBody,
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: "application/octet-stream", actual: getContentType());
+            CollectionAssert.AreEqual(expected: expectedBody, actual: getBody());
+        }
+
+        [TestMethod]
         public void ContactResponse_Serialization_RoundTrips()
         {
             var model = new ContactResponse

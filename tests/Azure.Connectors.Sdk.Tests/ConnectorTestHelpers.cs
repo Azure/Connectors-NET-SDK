@@ -81,5 +81,54 @@ namespace Azure.Connectors.Sdk.Tests
 
             return (mockCredential.Object, options, () => lastRequest);
         }
+
+        /// <summary>
+        /// Creates a mocked client setup that snapshots the outgoing request body and content type.
+        /// </summary>
+        /// <param name="responseFactory">Factory invoked per HTTP request to produce a fresh response.</param>
+        /// <returns>The credential, options, and accessors for the captured body and content type.</returns>
+        public static (TokenCredential Credential, ConnectorClientOptions Options, Func<byte[]?> GetBody, Func<string?> GetContentType) CreateContentCapturingClientSetup(
+            Func<HttpResponseMessage> responseFactory)
+        {
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", new DateTimeOffset(2099, 1, 1, 0, 0, 0, TimeSpan.Zero)));
+
+            var handler = new ContentCapturingHandler(responseFactory);
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(handler));
+            options.Retry.MaxRetries = 0;
+
+            return (mockCredential.Object, options, () => handler.Body, () => handler.ContentType);
+        }
+
+        private sealed class ContentCapturingHandler : HttpMessageHandler
+        {
+            private readonly Func<HttpResponseMessage> _responseFactory;
+
+            public ContentCapturingHandler(Func<HttpResponseMessage> responseFactory)
+            {
+                this._responseFactory = responseFactory;
+            }
+
+            public byte[]? Body { get; private set; }
+
+            public string? ContentType { get; private set; }
+
+            protected override async Task<HttpResponseMessage> SendAsync(
+                HttpRequestMessage request,
+                CancellationToken cancellationToken)
+            {
+                this.Body = request.Content is null
+                    ? null
+                    : await request.Content
+                        .ReadAsByteArrayAsync(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                this.ContentType = request.Content?.Headers.ContentType?.MediaType;
+                return this._responseFactory();
+            }
+        }
     }
 }

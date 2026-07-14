@@ -358,7 +358,7 @@ namespace Azure.Connectors.Sdk.Box
                     throw new ArgumentNullException(nameof(fileId));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(fileId.ToString()))}";
                 return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -513,7 +513,7 @@ namespace Azure.Connectors.Sdk.Box
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

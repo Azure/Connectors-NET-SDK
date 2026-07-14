@@ -2238,7 +2238,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(jobId));
                 var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId.ToString())}/batches";
                 await this
-                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Put, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2405,7 +2405,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var path = $"/codeless/httprequest";
                 return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

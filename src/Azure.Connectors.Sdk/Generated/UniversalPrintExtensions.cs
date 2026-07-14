@@ -211,7 +211,7 @@ namespace Azure.Connectors.Sdk.UniversalPrint
                     queryParams.Add($"configuration_finishings={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(finishing))}");
                 var path = $"/v1.0/print/shares" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
-                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

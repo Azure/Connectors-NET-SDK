@@ -1518,7 +1518,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             {
                 var path = $"/httprequest";
                 return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
