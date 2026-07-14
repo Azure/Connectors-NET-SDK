@@ -97,6 +97,10 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
         [JsonPropertyName("TimeNextVisible")]
         public string NextVisibleTime { get; set; }
 
+        /// <summary>The number of times the message has been dequeued.</summary>
+        [JsonPropertyName("DequeueCount")]
+        public string DequeueCount { get; set; }
+
         /// <summary>The text of the message.</summary>
         [JsonPropertyName("MessageText")]
         public string MessageText { get; set; }

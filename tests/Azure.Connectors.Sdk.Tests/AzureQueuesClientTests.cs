@@ -259,6 +259,7 @@ namespace Azure.Connectors.Sdk.Tests
                                 "ExpirationTime": "2026-07-21T11:59:00Z",
                                 "PopReceipt": "receipt-1",
                                 "TimeNextVisible": "2026-07-14T12:00:00Z",
+                                "DequeueCount": "3",
                                 "MessageText": "hello"
                             }
                         ]
@@ -274,6 +275,7 @@ namespace Azure.Connectors.Sdk.Tests
             var message = response.QueueMessagesList.QueueMessage[0];
             Assert.AreEqual("message-1", message.MessageId);
             Assert.AreEqual("2026-07-14T12:00:00Z", message.NextVisibleTime);
+            Assert.AreEqual("3", message.DequeueCount);
             Assert.AreEqual("hello", message.MessageText);
         }
     }
