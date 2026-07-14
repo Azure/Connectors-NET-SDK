@@ -2762,7 +2762,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2823,7 +2823,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(fileIdentifier));
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(fileIdentifier.ToString()))}";
                 return await this
-                    .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4213,7 +4213,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

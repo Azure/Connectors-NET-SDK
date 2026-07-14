@@ -220,7 +220,7 @@ namespace Azure.Connectors.Sdk.Tests
                     HttpMethod.Post,
                     "/upload",
                     body,
-                    "application/octet-stream",
+                    System.Net.Mime.MediaTypeNames.Application.Octet,
                     cancellationToken);
             }
         }

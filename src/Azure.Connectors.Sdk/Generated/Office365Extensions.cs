@@ -5120,7 +5120,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(itemId));
                 var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}/photo/$value";
                 await this
-                    .CallConnectorAsync(HttpMethod.Put, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5145,7 +5145,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 var path = $"/codeless/httprequest";
                 return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

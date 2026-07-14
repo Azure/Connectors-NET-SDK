@@ -183,7 +183,8 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Sends a connector API request with an unencoded binary body and deserializes the JSON response.
+        /// Sends a connector API request with an unencoded binary body and returns raw response bytes
+        /// or deserializes a JSON response, depending on <typeparamref name="TResponse"/>.
         /// </summary>
         /// <typeparam name="TResponse">The response type.</typeparam>
         /// <param name="method">The HTTP method.</param>

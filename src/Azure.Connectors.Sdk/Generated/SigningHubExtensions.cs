@@ -7208,7 +7208,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
                 return await this
-                    .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7505,7 +7505,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents";
                 return await this
-                    .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

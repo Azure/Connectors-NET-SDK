@@ -572,7 +572,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
                     throw new ArgumentNullException(nameof(@file));
                 var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -724,7 +724,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, "application/octet-stream", cancellationToken)
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
