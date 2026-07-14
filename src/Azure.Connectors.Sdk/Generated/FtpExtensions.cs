@@ -329,7 +329,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -357,7 +357,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -383,7 +383,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -514,7 +514,7 @@ namespace Azure.Connectors.Sdk.Ftp
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

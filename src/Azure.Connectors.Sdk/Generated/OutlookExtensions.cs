@@ -3753,7 +3753,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     throw new ArgumentNullException(nameof(calendarId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/calendars/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/calendars/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3817,7 +3817,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
                 if (skipCount.HasValue)
                     queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3845,7 +3845,7 @@ namespace Azure.Connectors.Sdk.Outlook
             {
                 if (folderId is null)
                     throw new ArgumentNullException(nameof(folderId));
-                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items";
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3875,7 +3875,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     throw new ArgumentNullException(nameof(folderId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3904,7 +3904,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     throw new ArgumentNullException(nameof(folderId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3935,7 +3935,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     throw new ArgumentNullException(nameof(folderId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(folderId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/contacts/tables/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4022,7 +4022,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     throw new ArgumentNullException(nameof(calendarId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/datasets/calendars/v2/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+                var path = $"/datasets/calendars/v2/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}";
                 return await this
                     .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4062,7 +4062,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
                 if (skipCount.HasValue)
                     queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4093,7 +4093,7 @@ namespace Azure.Connectors.Sdk.Outlook
                     throw new ArgumentNullException(nameof(calendarId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 return await this
                     .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4121,7 +4121,7 @@ namespace Azure.Connectors.Sdk.Outlook
             {
                 if (calendarId is null)
                     throw new ArgumentNullException(nameof(calendarId));
-                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<CalendarEventClientReceiveStringEnums>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

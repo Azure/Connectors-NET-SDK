@@ -488,7 +488,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="input">The request body.</param>
         /// <param name="partitionKey">Partition key</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SendEventsAsync([DynamicValues("GetEventHubs")] string eventHubName, List<SendEvent> input, string partitionKey = default, CancellationToken cancellationToken = default)
+        public virtual async Task SendEventsAsync([DynamicValues("GetEventHubs")] string eventHubName, List<SendEvent> input, string partitionKey, CancellationToken cancellationToken = default)
         {
             using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.SendEventsAsync");
             try
@@ -496,8 +496,9 @@ namespace Azure.Connectors.Sdk.Eventhubs
                 if (eventHubName is null)
                     throw new ArgumentNullException(nameof(eventHubName));
                 var queryParams = new List<string>();
-                if (partitionKey != default)
-                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
+                if (partitionKey is null)
+                    throw new ArgumentNullException(nameof(partitionKey));
+                queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
                 var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -519,14 +520,15 @@ namespace Azure.Connectors.Sdk.Eventhubs
         /// <param name="contentSchemaOfTheEvent">content schema of the event</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Generate event schema V2 response.</returns>
-        public virtual async Task<ObjectEntity> GenerateEventSchemaAsync([DynamicValues("GetContentTypes")] string contentType = default, string contentSchemaOfTheEvent = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ObjectEntity> GenerateEventSchemaAsync([DynamicValues("GetContentTypes")] string contentType, string contentSchemaOfTheEvent = default, CancellationToken cancellationToken = default)
         {
             using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GenerateEventSchemaAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (contentType != default)
-                    queryParams.Add($"contentType={Uri.EscapeDataString(contentType.ToString())}");
+                if (contentType is null)
+                    throw new ArgumentNullException(nameof(contentType));
+                queryParams.Add($"contentType={Uri.EscapeDataString(contentType.ToString())}");
                 if (contentSchemaOfTheEvent != default)
                     queryParams.Add($"contentSchema={Uri.EscapeDataString(contentSchemaOfTheEvent.ToString())}");
                 var path = $"/eventschemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

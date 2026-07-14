@@ -14,18 +14,15 @@ The **CodefulSdkGenerator** tool generates typed C# clients from managed connect
 
 ### Tools Required
 
-1. **ARMClient** - For authenticated Azure Resource Manager API calls
-   - Install via Chocolatey: `choco install armclient`
-   - Install via WinGet: `winget install projectkudu.ARMClient`
-   - The generator defaults to `C:\ProgramData\chocolatey\bin\ARMClient.exe`
-   - **If ARMClient is installed elsewhere** (e.g., via WinGet), set the `ARMCLIENT_PATH` environment variable:
+1. **Azure CLI** - For authenticated Azure Resource Manager API calls
+   - Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows)
+   - Sign in before generation:
 
      ```powershell
-     # Find your ARMClient path
-     (Get-Command armclient).Source
-     # Set it persistently
-     [System.Environment]::SetEnvironmentVariable("ARMCLIENT_PATH", (Get-Command armclient).Source, "User")
+     az login
      ```
+
+   - The generator uses `.NET` `DefaultAzureCredential`, which automatically uses the Azure CLI credential for local development.
 
 2. **Azure Subscription** - Access to an Azure subscription with Logic Apps Standard
    - Required for fetching connector swagger definitions from ARM
@@ -38,7 +35,6 @@ Set environment variables (or use defaults):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ARMCLIENT_PATH` | Path to ARMClient.exe | `C:\ProgramData\chocolatey\bin\ARMClient.exe` |
 | `ARMCACHE_PATH` | Cache directory for ARM responses | `%TEMP%\armcache` |
 | `AZURE_SUBSCRIPTION_ID` | Azure subscription ID | (built-in default) |
 | `AZURE_RESOURCE_GROUP` | Resource group with Logic App | (built-in default) |
@@ -254,6 +250,17 @@ Install the SDK NuGet package in your project:
 Generated connectors should be regenerated periodically to incorporate:
 
 - New connector operations
+
+## 2026-07 Regeneration
+
+This repository-wide regeneration uses the generator changes in AzureUX-BPM PR
+16421737, which replaces the ARMClient executable dependency with
+`DefaultAzureCredential` and filters Swagger operations marked `deprecated`.
+
+The regeneration retained the baseline artifacts for `office365`, `docuware`,
+and `signinghub` because their current ARM exports could not produce a complete
+client during this run. Do not remove those clients in a generated-output PR
+unless their replacement Swagger export has been validated.
 - Updated parameter schemas
 - Bug fixes in swagger definitions
 

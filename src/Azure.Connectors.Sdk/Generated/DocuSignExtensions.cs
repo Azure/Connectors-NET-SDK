@@ -29,6 +29,52 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     #region Types
 
     /// <summary>
+    /// When a Docusign Connect event occurs (Organization-level)
+    /// </summary>
+    public class CreateOrgHookEnvelopeInput
+    {
+        /// <summary>allUsers</summary>
+        [JsonPropertyName("allUsers")]
+        public string AllUsers { get; set; }
+
+        /// <summary>allowEnvelopePublish</summary>
+        [JsonPropertyName("allowEnvelopePublish")]
+        public string AllowEnvelopePublish { get; set; }
+
+        /// <summary>includeDocumentFields</summary>
+        [JsonPropertyName("includeDocumentFields")]
+        public string IncludeDocumentFields { get; set; }
+
+        /// <summary>requiresAcknowledgement</summary>
+        [JsonPropertyName("requiresAcknowledgement")]
+        public string RequiresAcknowledgement { get; set; }
+
+        /// <summary>urlToPublishTo</summary>
+        [JsonPropertyName("urlToPublishTo")]
+        public string UrlToPublishTo { get; set; }
+
+        /// <summary>Name your Connect configuration (for example, &quot;Envelope Events&quot;).</summary>
+        [JsonPropertyName("name")]
+        public string ConnectConfigurationName { get; set; }
+
+        /// <summary>Select an event. To include another event, select &quot;Add new item.&quot;</summary>
+        [JsonPropertyName("events")]
+        public List<string> TriggerEvents { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a Docusign Connect event occurs (Organization-level)
+    /// </summary>
+    public class CreateOrgHookEnvelopeResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// Response for Get document generation form fields from envelope
     /// </summary>
     public class DocGenFormFieldsResponse
@@ -62,6 +108,18 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// <summary>Value.</summary>
         [JsonPropertyName("value")]
         public string Value { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get document generation form fields from template (bulk send templates only)
+    /// </summary>
+    public class GetDocGenTemplateTabsResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -175,33 +233,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Create envelope
-    /// </summary>
-    public class CreateEnvelopeResponse
-    {
-        /// <summary>The id of the envelope.</summary>
-        [JsonPropertyName("envelopeId")]
-        public string EnvelopeId { get; set; }
-
-        /// <summary>The id of the template.</summary>
-        [JsonPropertyName("templateId")]
-        public string TemplateId { get; set; }
-
-        /// <summary>The status of the envelope.</summary>
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-
-        /// <summary>The datetime the status was set.</summary>
-        [JsonPropertyName("statusDateTime")]
-        [JsonInclude]
-        public string StatusDateTime { get; init; }
-
-        /// <summary>The URI for the envelope in DocuSign.</summary>
-        [JsonPropertyName("uri")]
-        public string URI { get; set; }
-    }
-
-    /// <summary>
     /// Response for Create envelope using composite templates
     /// </summary>
     public class CompositeTemplatesResponse
@@ -225,163 +256,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Copilot: Get related activities
-    /// </summary>
-    public class ActivityListResponseEnvelope
-    {
-        /// <summary>Related activies</summary>
-        [JsonPropertyName("value")]
-        public List<Activity> RelatedActivities { get; set; }
-
-        /// <summary>hasMoreResults</summary>
-        [JsonPropertyName("hasMoreResults")]
-        public bool? HasMoreResults { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Related activies
-    /// </summary>
-    public class Activity
-    {
-        /// <summary>This output indicates the title of the activity in the citation card.</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>This output indicates the description of the insight.</summary>
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        /// <summary>This output indicates the time associated with the insight.</summary>
-        [JsonPropertyName("dateTime")]
-        public DateTime? DateTime { get; set; }
-
-        /// <summary>This output indicates the URL to open insight.</summary>
-        [JsonPropertyName("url")]
-        public string URL { get; set; }
-
-        /// <summary>This output indicates additional properties displayed in the detailed view of the insight.</summary>
-        [JsonPropertyName("additionalProperties")]
-        public JsonElement? AdditionalProperties { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Copilot: Get related records
-    /// </summary>
-    public class DocumentRecordListResponseEnvelope
-    {
-        /// <summary>Related records</summary>
-        [JsonPropertyName("value")]
-        public List<DocumentRecord> RelatedRecords { get; set; }
-
-        /// <summary>hasMoreResults</summary>
-        [JsonPropertyName("hasMoreResults")]
-        public bool? HasMoreResults { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Related records
-    /// </summary>
-    public class DocumentRecord
-    {
-        /// <summary>This output uniquely identifies each related record returned by the action.</summary>
-        [JsonPropertyName("recordId")]
-        public string RecordId { get; set; }
-
-        /// <summary>This output indicates the display name of record type of each related record returned by the action.</summary>
-        [JsonPropertyName("recordTypeDisplayName")]
-        public string RecordTypeDisplayName { get; set; }
-
-        /// <summary>This output indicates the plural display name of the record type of each related record returned by the action.</summary>
-        [JsonPropertyName("recordTypePluralDisplayName")]
-        public string RecordTypeDisplayNameInPlural { get; set; }
-
-        /// <summary>This output indicates the type of each related record returned by the action.</summary>
-        [JsonPropertyName("recordType")]
-        public string RecordType { get; set; }
-
-        /// <summary>This output indicates the title of each related record returned by the action.</summary>
-        [JsonPropertyName("recordTitle")]
-        public string RecordTitle { get; set; }
-
-        /// <summary>This output indicates the URL of each related record returned by the action.</summary>
-        [JsonPropertyName("url")]
-        public string UrlOfTheEnvelope { get; set; }
-
-        /// <summary>Additional Properties</summary>
-        [JsonPropertyName("additionalProperties")]
-        public JsonElement? AdditionalProperties { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Copilot for Sales: Get key sales
-    /// </summary>
-    public class KeySalesResponse
-    {
-        /// <summary>Key Sales</summary>
-        [JsonPropertyName("value")]
-        public List<KeySales> KeySales { get; set; }
-
-        /// <summary>hasMoreResults</summary>
-        [JsonPropertyName("hasMoreResults")]
-        public bool? HasMoreResults { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Key Sales
-    /// </summary>
-    public class KeySales
-    {
-        /// <summary>This output indicates the title of citation card for the insight.</summary>
-        [JsonPropertyName("Title")]
-        public string Title { get; set; }
-
-        /// <summary>This output indicates the text of the insight to be included in key sales info.</summary>
-        [JsonPropertyName("description")]
-        public string Description { get; set; }
-
-        /// <summary>This output indicates the URL to learn more about the insight.</summary>
-        [JsonPropertyName("url")]
-        public string UrlOfTheEnvelope { get; set; }
-
-        /// <summary>This output indicates the time associated with the insight.</summary>
-        [JsonPropertyName("dateTime")]
-        public string TimeAssociatedWithTheInsight { get; set; }
-
-        /// <summary>This output indicates additional properties as name-value pairs of each related insight returned by the action.</summary>
-        [JsonPropertyName("additionalProperties")]
-        public JsonElement? AdditionalProperties { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Copilot for Sales: Get email summary
-    /// </summary>
-    public class EmailSummaryResponse
-    {
-        /// <summary>Key Sales</summary>
-        [JsonPropertyName("value")]
-        public List<EmailSummary> EmailSummary { get; set; }
-
-        /// <summary>hasMoreResults</summary>
-        [JsonPropertyName("hasMoreResults")]
-        public bool? HasMoreResults { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Key Sales
-    /// </summary>
-    public class EmailSummary
-    {
-        /// <summary>This output indicates the title of the partner section and should include only the partner&apos;s name.</summary>
-        [JsonPropertyName("Title")]
-        public string Title { get; set; }
-
-        /// <summary>This output indicates the text you would like to be included in the email summary.</summary>
-        [JsonPropertyName("Description")]
-        public string Description { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Copilot: List envelopes
+    /// Response for List envelopes
     /// </summary>
     public class FilteredEnvelopeListResponse
     {
@@ -441,39 +316,30 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Copilot for Sales: List envelopes
+    /// Response for Create envelope using template
     /// </summary>
-    public class FilteredSalesCopilotEnvelopeListResponse
+    public class CreateEnvelopeResponse
     {
-        /// <summary>Filtered envelopes</summary>
-        [JsonPropertyName("value")]
-        public List<SalesCopilotFilteredEnvelopes> FilteredEnvelopes { get; set; }
+        /// <summary>The id of the envelope.</summary>
+        [JsonPropertyName("envelopeId")]
+        public string EnvelopeId { get; set; }
 
-        /// <summary>hasMoreResults</summary>
-        [JsonPropertyName("hasMoreResults")]
-        public bool? HasMoreResults { get; set; }
-    }
+        /// <summary>The id of the template.</summary>
+        [JsonPropertyName("templateId")]
+        public string TemplateId { get; set; }
 
-    /// <summary>
-    /// Item in Filtered envelopes
-    /// </summary>
-    public class SalesCopilotFilteredEnvelopes
-    {
-        /// <summary>Title of the envelope</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
+        /// <summary>The status of the envelope.</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
 
-        /// <summary>SubTitle of the envelope</summary>
-        [JsonPropertyName("subTitle")]
-        public string SubTitle { get; set; }
+        /// <summary>The datetime the status was set.</summary>
+        [JsonPropertyName("statusDateTime")]
+        [JsonInclude]
+        public string StatusDateTime { get; init; }
 
-        /// <summary>URL of the envelope</summary>
-        [JsonPropertyName("url")]
-        public string URL { get; set; }
-
-        /// <summary>Additional Properties</summary>
-        [JsonPropertyName("additionalPropertiesForSalesEnvelope")]
-        public JsonElement? AdditionalProperties { get; set; }
+        /// <summary>The URI for the envelope in DocuSign.</summary>
+        [JsonPropertyName("uri")]
+        public string URI { get; set; }
     }
 
     /// <summary>
@@ -489,7 +355,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Get custom field info from envelope
+    /// Response for Get envelope custom field info
     /// </summary>
     public class EnvelopeCustomFieldResponse
     {
@@ -543,10 +409,14 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for List recipients from envelope
+    /// Response for List recipients from an envelope
     /// </summary>
     public class ListRecipientsResponse
     {
+        /// <summary>envelopeId</summary>
+        [JsonPropertyName("envelopeId")]
+        public string EnvelopeId { get; set; }
+
         /// <summary>Signers</summary>
         [JsonPropertyName("signers")]
         public List<Signer> Signers { get; set; }
@@ -585,9 +455,9 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         [JsonPropertyName("verificationType")]
         public string VerificationType { get; set; }
 
-        /// <summary>The recipient Guid.</summary>
+        /// <summary>The recipient GUID.</summary>
         [JsonPropertyName("recipientIdGuid")]
-        public string RecipientGuid { get; set; }
+        public string RecipientGUID { get; set; }
     }
 
     /// <summary>
@@ -632,6 +502,10 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// <summary>Upload CSV File</summary>
         [JsonPropertyName("csv")]
         public string CSVFile { get; set; }
+
+        /// <summary>Document generation fields</summary>
+        [JsonPropertyName("rawOutput")]
+        public JsonElement? DocumentGenerationFields { get; set; }
     }
 
     /// <summary>
@@ -642,6 +516,30 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// <summary>Bulk send list guid</summary>
         [JsonPropertyName("listId")]
         public string BulkSendListGuidValue { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get organizations
+    /// </summary>
+    public class GetOrganizationsResponse
+    {
+        /// <summary>list of organizations</summary>
+        [JsonPropertyName("organizations")]
+        public List<Organization> Organizations { get; set; }
+    }
+
+    /// <summary>
+    /// Item in list of organizations
+    /// </summary>
+    public class Organization
+    {
+        /// <summary>The id of the organization.</summary>
+        [JsonPropertyName("id")]
+        public string OrganizationId { get; set; }
+
+        /// <summary>The name of the organization.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 
     /// <summary>
@@ -828,6 +726,10 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// <summary>The guid of the document.</summary>
         [JsonPropertyName("documentIdGuid")]
         public string DocumentGuid { get; set; }
+
+        /// <summary>The error details of the document.</summary>
+        [JsonPropertyName("errorDetails")]
+        public JsonElement? ErrorDetails { get; set; }
     }
 
     /// <summary>
@@ -965,7 +867,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Start Docusign Maestro workflow
+    /// Response for Start Docusign workflow
     /// </summary>
     public class TriggerMaestroFlowResponse
     {
@@ -1133,7 +1035,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// When an envelope status changes (Connect) (V3)
+    /// When a Docusign Connect event occurs (Account-level)
     /// </summary>
     public class CreateHookEnvelopeInput
     {
@@ -1157,17 +1059,17 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         [JsonPropertyName("urlToPublishTo")]
         public string UrlToPublishTo { get; set; }
 
-        /// <summary>name</summary>
+        /// <summary>Name your Connect configuration (for example, &quot;Envelope Events&quot;).</summary>
         [JsonPropertyName("name")]
-        public string ConnectName { get; set; }
+        public string ConnectConfigurationName { get; set; }
 
-        /// <summary>envelopeEvents</summary>
-        [JsonPropertyName("envelopeEvents")]
-        public EnvelopeEvents? EnvelopeEvent { get; set; }
+        /// <summary>Select an event. To include another event, select &quot;Add new item.&quot;</summary>
+        [JsonPropertyName("events")]
+        public List<string> TriggerEvents { get; set; }
     }
 
     /// <summary>
-    /// Response for When an envelope status changes (Connect) (V3)
+    /// Response for When a Docusign Connect event occurs (Account-level)
     /// </summary>
     public class CreateHookEnvelopeResponse
     {
@@ -1355,94 +1257,17 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Extensible enum for known EnvelopeEvents values.
+    /// CombinedEmailBodyAndCustomFields
     /// </summary>
-    [JsonConverter(typeof(EnvelopeEvents.EnvelopeEventsJsonConverter))]
-    public readonly struct EnvelopeEvents : IEquatable<EnvelopeEvents>
+    public class CombinedEmailBodyAndCustomFields
     {
-        private readonly string _value;
+        /// <summary>Body of the email.</summary>
+        [JsonPropertyName("emailBlurb")]
+        public string EmailBody { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EnvelopeEvents"/> struct.
-        /// </summary>
-        /// <param name="value">The string value.</param>
-        public EnvelopeEvents(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
-
-        /// <summary>envelope-sent</summary>
-        public static EnvelopeEvents EnvelopeSent { get; } = new("envelope-sent");
-
-        /// <summary>envelope-delivered</summary>
-        public static EnvelopeEvents EnvelopeDelivered { get; } = new("envelope-delivered");
-
-        /// <summary>envelope-completed</summary>
-        public static EnvelopeEvents EnvelopeCompleted { get; } = new("envelope-completed");
-
-        /// <summary>envelope-declined</summary>
-        public static EnvelopeEvents EnvelopeDeclined { get; } = new("envelope-declined");
-
-        /// <summary>envelope-voided</summary>
-        public static EnvelopeEvents EnvelopeVoided { get; } = new("envelope-voided");
-
-        /// <summary>envelope-resent</summary>
-        public static EnvelopeEvents EnvelopeResent { get; } = new("envelope-resent");
-
-        /// <summary>envelope-corrected</summary>
-        public static EnvelopeEvents EnvelopeCorrected { get; } = new("envelope-corrected");
-
-        /// <summary>envelope-purge</summary>
-        public static EnvelopeEvents EnvelopePurge { get; } = new("envelope-purge");
-
-        /// <summary>envelope-deleted</summary>
-        public static EnvelopeEvents EnvelopeDeleted { get; } = new("envelope-deleted");
-
-        /// <summary>envelope-discard</summary>
-        public static EnvelopeEvents EnvelopeDiscard { get; } = new("envelope-discard");
-
-        /// <summary>click-agreed</summary>
-        public static EnvelopeEvents ClickAgreed { get; } = new("click-agreed");
-
-        /// <summary>click-declined</summary>
-        public static EnvelopeEvents ClickDeclined { get; } = new("click-declined");
-
-        /// <summary>recipient-autoresponded</summary>
-        public static EnvelopeEvents RecipientAutoresponded { get; } = new("recipient-autoresponded");
-
-        /// <summary>recipient-authenticationfailed</summary>
-        public static EnvelopeEvents RecipientAuthenticationfailed { get; } = new("recipient-authenticationfailed");
-
-        /// <summary>recipient-finish-later</summary>
-        public static EnvelopeEvents RecipientFinishLater { get; } = new("recipient-finish-later");
-
-        /// <summary>Converts a string to <see cref="EnvelopeEvents"/>.</summary>
-        public static implicit operator EnvelopeEvents(string value) => new(value);
-
-        /// <summary>Converts a <see cref="EnvelopeEvents"/> to its string representation.</summary>
-        public static implicit operator string(EnvelopeEvents value) => value.ToString();
-
-        /// <inheritdoc/>
-        public override string ToString() => this._value;
-
-        /// <inheritdoc/>
-        public bool Equals(EnvelopeEvents other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is EnvelopeEvents other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
-
-        /// <inheritdoc/>
-        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
-
-        /// <summary>Equality operator.</summary>
-        public static bool operator ==(EnvelopeEvents left, EnvelopeEvents right) => left.Equals(right);
-
-        /// <summary>Inequality operator.</summary>
-        public static bool operator !=(EnvelopeEvents left, EnvelopeEvents right) => !left.Equals(right);
-
-        internal sealed class EnvelopeEventsJsonConverter : JsonConverter<EnvelopeEvents>
-        {
-            public EnvelopeEventsJsonConverter() { }
-            public override EnvelopeEvents Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for EnvelopeEvents, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, EnvelopeEvents value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
-        }
+        /// <summary>AccountCustomFields</summary>
+        [JsonPropertyName("AccountCustomFields")]
+        public AccountCustomFields AccountCustomFields { get; set; }
     }
 
     #endregion Types
@@ -1456,6 +1281,30 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     /// </summary>
     public static class DocuSignModelFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateOrgHookEnvelopeInput"/>.
+        /// </summary>
+        public static CreateOrgHookEnvelopeInput CreateOrgHookEnvelopeInput(
+            string allUsers = default,
+            string allowEnvelopePublish = default,
+            string includeDocumentFields = default,
+            string requiresAcknowledgement = default,
+            string urlToPublishTo = default,
+            string connectConfigurationName = default,
+            List<string> triggerEvents = default)
+        {
+            return new CreateOrgHookEnvelopeInput
+            {
+                AllUsers = allUsers,
+                AllowEnvelopePublish = allowEnvelopePublish,
+                IncludeDocumentFields = includeDocumentFields,
+                RequiresAcknowledgement = requiresAcknowledgement,
+                UrlToPublishTo = urlToPublishTo,
+                ConnectConfigurationName = connectConfigurationName,
+                TriggerEvents = triggerEvents,
+            };
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="DocGenFormFieldsResponse"/>.
         /// </summary>
@@ -1567,26 +1416,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="CreateEnvelopeResponse"/>.
-        /// </summary>
-        public static CreateEnvelopeResponse CreateEnvelopeResponse(
-            string envelopeId = default,
-            string templateId = default,
-            string status = default,
-            string statusDateTime = default,
-            string uri = default)
-        {
-            return new CreateEnvelopeResponse
-            {
-                EnvelopeId = envelopeId,
-                TemplateId = templateId,
-                Status = status,
-                StatusDateTime = statusDateTime,
-                URI = uri,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="CompositeTemplatesResponse"/>.
         /// </summary>
         public static CompositeTemplatesResponse CompositeTemplatesResponse(
@@ -1601,140 +1430,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
                 Status = status,
                 StatusDateTime = statusDateTime,
                 URI = uri,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ActivityListResponseEnvelope"/>.
-        /// </summary>
-        public static ActivityListResponseEnvelope ActivityListResponseEnvelope(
-            List<Activity> relatedActivities = default,
-            bool? hasMoreResults = default)
-        {
-            return new ActivityListResponseEnvelope
-            {
-                RelatedActivities = relatedActivities,
-                HasMoreResults = hasMoreResults,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Activity"/>.
-        /// </summary>
-        public static Activity Activity(
-            string title = default,
-            string description = default,
-            DateTime? dateTime = default,
-            string url = default,
-            JsonElement? additionalProperties = default)
-        {
-            return new Activity
-            {
-                Title = title,
-                Description = description,
-                DateTime = dateTime,
-                URL = url,
-                AdditionalProperties = additionalProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DocumentRecordListResponseEnvelope"/>.
-        /// </summary>
-        public static DocumentRecordListResponseEnvelope DocumentRecordListResponseEnvelope(
-            List<DocumentRecord> relatedRecords = default,
-            bool? hasMoreResults = default)
-        {
-            return new DocumentRecordListResponseEnvelope
-            {
-                RelatedRecords = relatedRecords,
-                HasMoreResults = hasMoreResults,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DocumentRecord"/>.
-        /// </summary>
-        public static DocumentRecord DocumentRecord(
-            string recordId = default,
-            string recordTypeDisplayName = default,
-            string recordTypeDisplayNameInPlural = default,
-            string recordType = default,
-            string recordTitle = default,
-            string urlOfTheEnvelope = default,
-            JsonElement? additionalProperties = default)
-        {
-            return new DocumentRecord
-            {
-                RecordId = recordId,
-                RecordTypeDisplayName = recordTypeDisplayName,
-                RecordTypeDisplayNameInPlural = recordTypeDisplayNameInPlural,
-                RecordType = recordType,
-                RecordTitle = recordTitle,
-                UrlOfTheEnvelope = urlOfTheEnvelope,
-                AdditionalProperties = additionalProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="KeySalesResponse"/>.
-        /// </summary>
-        public static KeySalesResponse KeySalesResponse(
-            List<KeySales> keySales = default,
-            bool? hasMoreResults = default)
-        {
-            return new KeySalesResponse
-            {
-                KeySales = keySales,
-                HasMoreResults = hasMoreResults,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="KeySales"/>.
-        /// </summary>
-        public static KeySales KeySales(
-            string title = default,
-            string description = default,
-            string urlOfTheEnvelope = default,
-            string timeAssociatedWithTheInsight = default,
-            JsonElement? additionalProperties = default)
-        {
-            return new KeySales
-            {
-                Title = title,
-                Description = description,
-                UrlOfTheEnvelope = urlOfTheEnvelope,
-                TimeAssociatedWithTheInsight = timeAssociatedWithTheInsight,
-                AdditionalProperties = additionalProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EmailSummaryResponse"/>.
-        /// </summary>
-        public static EmailSummaryResponse EmailSummaryResponse(
-            List<EmailSummary> emailSummary = default,
-            bool? hasMoreResults = default)
-        {
-            return new EmailSummaryResponse
-            {
-                EmailSummary = emailSummary,
-                HasMoreResults = hasMoreResults,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EmailSummary"/>.
-        /// </summary>
-        public static EmailSummary EmailSummary(
-            string title = default,
-            string description = default)
-        {
-            return new EmailSummary
-            {
-                Title = title,
-                Description = description,
             };
         }
 
@@ -1783,34 +1478,22 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="FilteredSalesCopilotEnvelopeListResponse"/>.
+        /// Creates a new instance of <see cref="CreateEnvelopeResponse"/>.
         /// </summary>
-        public static FilteredSalesCopilotEnvelopeListResponse FilteredSalesCopilotEnvelopeListResponse(
-            List<SalesCopilotFilteredEnvelopes> filteredEnvelopes = default,
-            bool? hasMoreResults = default)
+        public static CreateEnvelopeResponse CreateEnvelopeResponse(
+            string envelopeId = default,
+            string templateId = default,
+            string status = default,
+            string statusDateTime = default,
+            string uri = default)
         {
-            return new FilteredSalesCopilotEnvelopeListResponse
+            return new CreateEnvelopeResponse
             {
-                FilteredEnvelopes = filteredEnvelopes,
-                HasMoreResults = hasMoreResults,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SalesCopilotFilteredEnvelopes"/>.
-        /// </summary>
-        public static SalesCopilotFilteredEnvelopes SalesCopilotFilteredEnvelopes(
-            string title = default,
-            string subTitle = default,
-            string url = default,
-            JsonElement? additionalProperties = default)
-        {
-            return new SalesCopilotFilteredEnvelopes
-            {
-                Title = title,
-                SubTitle = subTitle,
-                URL = url,
-                AdditionalProperties = additionalProperties,
+                EnvelopeId = envelopeId,
+                TemplateId = templateId,
+                Status = status,
+                StatusDateTime = statusDateTime,
+                URI = uri,
             };
         }
 
@@ -1866,10 +1549,12 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// Creates a new instance of <see cref="ListRecipientsResponse"/>.
         /// </summary>
         public static ListRecipientsResponse ListRecipientsResponse(
+            string envelopeId = default,
             List<Signer> signers = default)
         {
             return new ListRecipientsResponse
             {
+                EnvelopeId = envelopeId,
                 Signers = signers,
             };
         }
@@ -1885,7 +1570,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
             string email = default,
             string recipientType = default,
             string verificationType = default,
-            string recipientGuid = default)
+            string recipientGUID = default)
         {
             return new Signer
             {
@@ -1896,7 +1581,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
                 Email = email,
                 RecipientType = recipientType,
                 VerificationType = verificationType,
-                RecipientGuid = recipientGuid,
+                RecipientGUID = recipientGUID,
             };
         }
 
@@ -1916,11 +1601,13 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// Creates a new instance of <see cref="CreateBulkSendListInput"/>.
         /// </summary>
         public static CreateBulkSendListInput CreateBulkSendListInput(
-            string csvFile = default)
+            string csvFile = default,
+            JsonElement? documentGenerationFields = default)
         {
             return new CreateBulkSendListInput
             {
                 CSVFile = csvFile,
+                DocumentGenerationFields = documentGenerationFields,
             };
         }
 
@@ -1933,6 +1620,32 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
             return new BulkSendListGuid
             {
                 BulkSendListGuidValue = bulkSendListGuidValue,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetOrganizationsResponse"/>.
+        /// </summary>
+        public static GetOrganizationsResponse GetOrganizationsResponse(
+            List<Organization> organizations = default)
+        {
+            return new GetOrganizationsResponse
+            {
+                Organizations = organizations,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Organization"/>.
+        /// </summary>
+        public static Organization Organization(
+            string organizationId = default,
+            string name = default)
+        {
+            return new Organization
+            {
+                OrganizationId = organizationId,
+                Name = name,
             };
         }
 
@@ -2124,13 +1837,15 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         public static EnvelopeDocument EnvelopeDocument(
             string name = default,
             string documentId = default,
-            string documentGuid = default)
+            string documentGuid = default,
+            JsonElement? errorDetails = default)
         {
             return new EnvelopeDocument
             {
                 Name = name,
                 DocumentId = documentId,
                 DocumentGuid = documentGuid,
+                ErrorDetails = errorDetails,
             };
         }
 
@@ -2339,8 +2054,8 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
             string includeDocumentFields = default,
             string requiresAcknowledgement = default,
             string urlToPublishTo = default,
-            string connectName = default,
-            EnvelopeEvents? envelopeEvent = default)
+            string connectConfigurationName = default,
+            List<string> triggerEvents = default)
         {
             return new CreateHookEnvelopeInput
             {
@@ -2349,8 +2064,8 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
                 IncludeDocumentFields = includeDocumentFields,
                 RequiresAcknowledgement = requiresAcknowledgement,
                 UrlToPublishTo = urlToPublishTo,
-                ConnectName = connectName,
-                EnvelopeEvent = envelopeEvent,
+                ConnectConfigurationName = connectConfigurationName,
+                TriggerEvents = triggerEvents,
             };
         }
 
@@ -2363,6 +2078,20 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
             return new EmbeddedSigningResponse
             {
                 URL = url,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CombinedEmailBodyAndCustomFields"/>.
+        /// </summary>
+        public static CombinedEmailBodyAndCustomFields CombinedEmailBodyAndCustomFields(
+            string emailBody = default,
+            AccountCustomFields accountCustomFields = default)
+        {
+            return new CombinedEmailBodyAndCustomFields
+            {
+                EmailBody = emailBody,
+                AccountCustomFields = accountCustomFields,
             };
         }
     }
@@ -2384,9 +2113,14 @@ namespace Azure.Connectors.Sdk.DocuSign
     public static class DocuSignTriggerOperations
     {
         /// <summary>
-        /// When an envelope status changes (Connect) (V3).
+        /// When a Docusign Connect event occurs (Organization-level).
         /// </summary>
-        public const string OnCreateHookEnvelope = "CreateHookEnvelopeV3";
+        public const string OnCreateOrgHookEnvelope = "CreateOrgHookEnvelope";
+
+        /// <summary>
+        /// When a Docusign Connect event occurs (Account-level).
+        /// </summary>
+        public const string OnCreateHookEnvelope = "CreateHookEnvelopeV4";
 
     }
 
@@ -2462,20 +2196,20 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get document generation form fields from envelope
         /// </summary>
         /// <remarks>Get document generation form fields from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get document generation form fields from envelope response.</returns>
-        public virtual async Task<DocGenFormFieldsResponse> GetDocgenFormFieldsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, CancellationToken cancellationToken = default)
+        public virtual async Task<DocGenFormFieldsResponse> GetDocgenFormFieldsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDocgenFormFieldsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/docGenFormFields";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/docGenFormFields";
                 return await this
                     .CallConnectorAsync<DocGenFormFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2492,27 +2226,57 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Update document generation form fields from envelope
         /// </summary>
         /// <remarks>Update document generation form fields from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="documentGUID">Document GUID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateDocgenFormFieldsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, List<JsonElement?> input, string documentGUID, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateDocgenFormFieldsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, List<JsonElement?> input, string documentGUID, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateDocgenFormFieldsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (documentGUID is null)
                     throw new ArgumentNullException(nameof(documentGUID));
                 queryParams.Add($"documentGuid={Uri.EscapeDataString(documentGUID.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/docGenFormFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/docGenFormFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation form fields from template (bulk send templates only)
+        /// </summary>
+        /// <remarks>Get document generation form fields from template (bulk send templates only)</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="templateId">Template ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation form fields from template (bulk send templates only) response.</returns>
+        public virtual async Task<GetDocGenTemplateTabsResponse> GetDocGenTemplateTabsAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetEnvelopeTemplates")] string templateId, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDocGenTemplateTabsAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetDocGenTemplateTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2527,25 +2291,25 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Void the envelope
         /// </summary>
         /// <remarks>Void the envelope.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="voidReason">Void reason</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Void the envelope response.</returns>
-        public virtual async Task<EnvelopeVoidResponse> VoidEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string voidReason, CancellationToken cancellationToken = default)
+        public virtual async Task<EnvelopeVoidResponse> VoidEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string voidReason, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.VoidEnvelopeAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (voidReason is null)
                     throw new ArgumentNullException(nameof(voidReason));
                 queryParams.Add($"voidedReason={Uri.EscapeDataString(voidReason.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/voidEnvelope" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/voidEnvelope" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeVoidResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2562,17 +2326,17 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Resend the envelope
         /// </summary>
         /// <remarks>This action resends a Docusign envelope or sends a reminder to recipients who need to sign a Docusign agreement based on a provided EnvelopeId.</remarks>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Resend the envelope response.</returns>
-        public virtual async Task<EnvelopeResendResponse> ResendEnvelopeAsync(string envelope, CancellationToken cancellationToken = default)
+        public virtual async Task<EnvelopeResendResponse> ResendEnvelopeAsync(string envelopeId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ResendEnvelopeAsync");
             try
             {
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var path = $"/accounts/copilotAccount/envelopes/{Uri.EscapeDataString(envelope.ToString())}/resendEnvelope";
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/copilotAccount/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/resendEnvelope";
                 return await this
                     .CallConnectorAsync<EnvelopeResendResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2589,23 +2353,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Add reminders for an envelope
         /// </summary>
         /// <remarks>Add reminders for an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="reminderEnabled">Reminder Enabled</param>
         /// <param name="reminderDelay">Reminder Delay</param>
         /// <param name="reminderFrequency">Reminder Frequency</param>
         /// <param name="expireAfter">Expire After</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add reminders for an envelope response.</returns>
-        public virtual async Task<AddRemindersResponse> AddRemindersAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, bool reminderEnabled, string reminderDelay, string reminderFrequency, string expireAfter = default, CancellationToken cancellationToken = default)
+        public virtual async Task<AddRemindersResponse> AddRemindersAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, bool reminderEnabled, string reminderDelay, string reminderFrequency, string expireAfter = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRemindersAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 queryParams.Add($"reminderEnabled={Uri.EscapeDataString(reminderEnabled.ToString())}");
                 if (reminderDelay is null)
@@ -2616,7 +2380,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 queryParams.Add($"reminderFrequency={Uri.EscapeDataString(reminderFrequency.ToString())}");
                 if (expireAfter != default)
                     queryParams.Add($"expireAfter={Uri.EscapeDataString(expireAfter.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/notification" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/notification" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AddRemindersResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2633,23 +2397,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get document tabs from envelope
         /// </summary>
         /// <remarks>Get document tabs from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="documentId">Document id</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get document tabs from envelope response.</returns>
-        public virtual async Task<ListTabsResponse> GetEnvelopeDocumentTabsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string documentId, CancellationToken cancellationToken = default)
+        public virtual async Task<ListTabsResponse> GetEnvelopeDocumentTabsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string documentId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeDocumentTabsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
                 return await this
                     .CallConnectorAsync<ListTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2666,23 +2430,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Update envelope prefill tabs
         /// </summary>
         /// <remarks>Update values for a list of prefill tabs</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="documentId">Document id</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateEnvelopePrefillTabsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string documentId, List<JsonElement?> input, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateEnvelopePrefillTabsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string documentId, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateEnvelopePrefillTabsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2699,23 +2463,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get document tabs from template
         /// </summary>
         /// <remarks>Get document tabs from template</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="template">Template</param>
-        /// <param name="documentId">Document id</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="templateId">Template ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get document tabs from template response.</returns>
-        public virtual async Task<ListTabsResponse> GetTemplateDocumentTabsAsync([DynamicValues("GetLoginAccounts")] string account, string template, string documentId, CancellationToken cancellationToken = default)
+        public virtual async Task<ListTabsResponse> GetTemplateDocumentTabsAsync([DynamicValues("GetLoginAccounts")] string accountId, string templateId, string documentId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetTemplateDocumentTabsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/templates/{Uri.EscapeDataString(template.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
                 return await this
                     .CallConnectorAsync<ListTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2732,61 +2496,25 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get document custom fields from envelope
         /// </summary>
         /// <remarks>Get document custom fields from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="documentId">Document id</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="documentId">Document ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get document custom fields from envelope response.</returns>
-        public virtual async Task<ListEnvelopeDocumentFieldsResponse> GetEnvelopeDocumentFieldsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string documentId, CancellationToken cancellationToken = default)
+        public virtual async Task<ListEnvelopeDocumentFieldsResponse> GetEnvelopeDocumentFieldsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string documentId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeDocumentFieldsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
                 return await this
                     .CallConnectorAsync<ListEnvelopeDocumentFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Create envelope
-        /// </summary>
-        /// <remarks>Create a new blank envelope.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="emailSubject">Email subject</param>
-        /// <param name="emailBody">Email body</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create envelope response.</returns>
-        public virtual async Task<CreateEnvelopeResponse> CreateBlankEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, AccountCustomFields input, string emailSubject, string emailBody = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateBlankEnvelopeAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var queryParams = new List<string>();
-                if (emailSubject is null)
-                    throw new ArgumentNullException(nameof(emailSubject));
-                queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
-                if (emailBody != default)
-                    queryParams.Add($"emailBody={Uri.EscapeDataString(emailBody.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/createBlankEnvelope" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2801,20 +2529,21 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Create envelope using composite templates
         /// </summary>
         /// <remarks>Create envelope using composite templates</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="emailSubject">Email subject</param>
         /// <param name="emailBody">Email body</param>
         /// <param name="envelopeStatus">Envelope status</param>
+        /// <param name="mergeRolesAndDeleteEmptyRecipients">Merge roles and delete empty recipients</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create envelope using composite templates response.</returns>
-        public virtual async Task<CompositeTemplatesResponse> CompositeTemplatesAsync([DynamicValues("GetLoginAccounts")] string account, CompositeTemplateSchema input, string emailSubject, string envelopeStatus, string emailBody = default, CancellationToken cancellationToken = default)
+        public virtual async Task<CompositeTemplatesResponse> CompositeTemplatesAsync([DynamicValues("GetLoginAccounts")] string accountId, CompositeTemplateSchema input, string emailSubject, string envelopeStatus, string emailBody = default, string mergeRolesAndDeleteEmptyRecipients = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CompositeTemplatesAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
                 if (emailSubject is null)
                     throw new ArgumentNullException(nameof(emailSubject));
@@ -2824,264 +2553,11 @@ namespace Azure.Connectors.Sdk.DocuSign
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/compositeTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (mergeRolesAndDeleteEmptyRecipients != default)
+                    queryParams.Add($"merge_roles_on_draft={Uri.EscapeDataString(mergeRolesAndDeleteEmptyRecipients.ToString())}");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/compositeTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CompositeTemplatesResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Copilot: Get related activities
-        /// </summary>
-        /// <remarks>This action gets additional sales insights related to a CRM record that will be shown in the C4S record summary card. The action enhances the existing skills of copilot for sales.</remarks>
-        /// <param name="recordType">Record type</param>
-        /// <param name="recordId">Record Id</param>
-        /// <param name="startDate">Start date</param>
-        /// <param name="endDate">End date</param>
-        /// <param name="top">Top</param>
-        /// <param name="skip">Skip</param>
-        /// <param name="cRMType">CRM type</param>
-        /// <param name="cRMOrgURL">CRM org URL</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copilot: Get related activities response.</returns>
-        public virtual async Task<ActivityListResponseEnvelope> ScpGetRelatedActivitiesAsync(string recordType, string recordId, string startDate = default, string endDate = default, int? top = default, int? skip = default, string cRMType = default, string cRMOrgURL = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ScpGetRelatedActivitiesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recordType is null)
-                    throw new ArgumentNullException(nameof(recordType));
-                queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId is null)
-                    throw new ArgumentNullException(nameof(recordId));
-                queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
-                if (startDate != default)
-                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
-                if (endDate != default)
-                    queryParams.Add($"endDateTime={Uri.EscapeDataString(endDate.ToString())}");
-                if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-                if (skip.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skip.Value.ToString())}");
-                if (cRMType != default)
-                    queryParams.Add($"crmType={Uri.EscapeDataString(cRMType.ToString())}");
-                if (cRMOrgURL != default)
-                    queryParams.Add($"crmOrgUrl={Uri.EscapeDataString(cRMOrgURL.ToString())}");
-                var path = $"/accounts/salesCopilotAccount/envelopes/getRelatedActivities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ActivityListResponseEnvelope>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Copilot: Get related records
-        /// </summary>
-        /// <remarks>This action gets records related to a CRM record. The action enhances the existing skills of Copilot for Sales.</remarks>
-        /// <param name="recordType">Record type</param>
-        /// <param name="recordId">Record Id</param>
-        /// <param name="startDate">Start date</param>
-        /// <param name="top">Top</param>
-        /// <param name="skip">Skip</param>
-        /// <param name="cRMType">CRM type</param>
-        /// <param name="cRMOrgURL">CRM org URL</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copilot: Get related records response.</returns>
-        public virtual async Task<DocumentRecordListResponseEnvelope> ScpGetRelatedRecordsAsync(string recordType, string recordId, string startDate = default, int? top = default, int? skip = default, string cRMType = default, string cRMOrgURL = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ScpGetRelatedRecordsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recordType is null)
-                    throw new ArgumentNullException(nameof(recordType));
-                queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId is null)
-                    throw new ArgumentNullException(nameof(recordId));
-                queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
-                if (startDate != default)
-                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
-                if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-                if (skip.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skip.Value.ToString())}");
-                if (cRMType != default)
-                    queryParams.Add($"crmType={Uri.EscapeDataString(cRMType.ToString())}");
-                if (cRMOrgURL != default)
-                    queryParams.Add($"crmOrgUrl={Uri.EscapeDataString(cRMOrgURL.ToString())}");
-                var path = $"/accounts/salesCopilotAccount/envelopes/getRelatedRecords" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<DocumentRecordListResponseEnvelope>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Copilot for Sales: Get key sales
-        /// </summary>
-        /// <remarks>This action gets additional sales insights that will be shown in C4S key sales info card in outlook sidecar. The action enhances the existing skills of copilot for sales</remarks>
-        /// <param name="recordType">Record type</param>
-        /// <param name="recordId">Record Id</param>
-        /// <param name="startDate">Start date</param>
-        /// <param name="top">Top</param>
-        /// <param name="skip">Skip</param>
-        /// <param name="cRMType">CRM type</param>
-        /// <param name="cRMOrgURL">CRM org URL</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copilot for Sales: Get key sales response.</returns>
-        public virtual async Task<KeySalesResponse> ScpGetKeySalesAsync(string recordType, string recordId, string startDate = default, int? top = default, int? skip = default, string cRMType = default, string cRMOrgURL = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ScpGetKeySalesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recordType is null)
-                    throw new ArgumentNullException(nameof(recordType));
-                queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId is null)
-                    throw new ArgumentNullException(nameof(recordId));
-                queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
-                if (startDate != default)
-                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
-                if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-                if (skip.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skip.Value.ToString())}");
-                if (cRMType != default)
-                    queryParams.Add($"crmType={Uri.EscapeDataString(cRMType.ToString())}");
-                if (cRMOrgURL != default)
-                    queryParams.Add($"crmOrgUrl={Uri.EscapeDataString(cRMOrgURL.ToString())}");
-                var path = $"/accounts/salesCopilotAccount/envelopes/getKeySales" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<KeySalesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Copilot for Sales: Get email summary
-        /// </summary>
-        /// <remarks>This action gets additional sales insights that will be shown in C4S email summary experience inside outlook summary. The action enhances the existing skills of copilot for sales.</remarks>
-        /// <param name="recordType">Record type</param>
-        /// <param name="recordId">Record Id</param>
-        /// <param name="cRMType">CRM type</param>
-        /// <param name="cRMOrgURL">CRM org URL</param>
-        /// <param name="commaSeparatedEmailAddresses">Comma separated email addresses</param>
-        /// <param name="top">Top</param>
-        /// <param name="skip">Skip</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copilot for Sales: Get email summary response.</returns>
-        public virtual async Task<EmailSummaryResponse> ScpGetEmailSummaryAsync(string commaSeparatedEmailAddresses, string recordType = default, string recordId = default, string cRMType = default, string cRMOrgURL = default, int? top = default, int? skip = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ScpGetEmailSummaryAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recordType != default)
-                    queryParams.Add($"recordType={Uri.EscapeDataString(recordType.ToString())}");
-                if (recordId != default)
-                    queryParams.Add($"recordId={Uri.EscapeDataString(recordId.ToString())}");
-                if (cRMType != default)
-                    queryParams.Add($"crmType={Uri.EscapeDataString(cRMType.ToString())}");
-                if (cRMOrgURL != default)
-                    queryParams.Add($"crmOrgUrl={Uri.EscapeDataString(cRMOrgURL.ToString())}");
-                if (commaSeparatedEmailAddresses is null)
-                    throw new ArgumentNullException(nameof(commaSeparatedEmailAddresses));
-                queryParams.Add($"emailContacts={Uri.EscapeDataString(commaSeparatedEmailAddresses.ToString())}");
-                if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-                if (skip.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skip.Value.ToString())}");
-                var path = $"/accounts/salesCopilotAccount/envelopes/getEmailSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<EmailSummaryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Copilot: List envelopes
-        /// </summary>
-        /// <remarks>This action brings back relevant Docusign envelopes based on envelope status, date range, recipient name, recipient email address, envelope title, document name, or envelope custom field value. The output is the title, description, Envelope ID, document names, sender names, envelope status, status date, date sent, and a URL of the envelope which can be used as a link to view the envelope in Docusign.</remarks>
-        /// <param name="recipientName">Recipient name</param>
-        /// <param name="recipientEmailId">Recipient emailId</param>
-        /// <param name="envelopeSubject">Envelope subject</param>
-        /// <param name="customFieldName">Custom field name</param>
-        /// <param name="customFieldValue">Custom field value</param>
-        /// <param name="envelopeStatus">Envelope status</param>
-        /// <param name="folder">Folder</param>
-        /// <param name="orderBy">Order by</param>
-        /// <param name="top">Top</param>
-        /// <param name="skip">Skip</param>
-        /// <param name="startDate">Start date</param>
-        /// <param name="endDate">End date</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copilot: List envelopes response.</returns>
-        public virtual async Task<FilteredEnvelopeListResponse> ListEnvelopesAsync(string recipientName = default, string recipientEmailId = default, string envelopeSubject = default, string customFieldName = default, string customFieldValue = default, string envelopeStatus = default, string folder = default, string orderBy = default, int? top = default, int? skip = default, string startDate = default, string endDate = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ListEnvelopesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recipientName != default)
-                    queryParams.Add($"recipientName={Uri.EscapeDataString(recipientName.ToString())}");
-                if (recipientEmailId != default)
-                    queryParams.Add($"recipientEmailId={Uri.EscapeDataString(recipientEmailId.ToString())}");
-                if (envelopeSubject != default)
-                    queryParams.Add($"envelopeTitle={Uri.EscapeDataString(envelopeSubject.ToString())}");
-                if (customFieldName != default)
-                    queryParams.Add($"customFieldName={Uri.EscapeDataString(customFieldName.ToString())}");
-                if (customFieldValue != default)
-                    queryParams.Add($"customFieldValue={Uri.EscapeDataString(customFieldValue.ToString())}");
-                if (envelopeStatus != default)
-                    queryParams.Add($"envelopeStatus={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                if (folder != default)
-                    queryParams.Add($"folder_ids={Uri.EscapeDataString(folder.ToString())}");
-                if (orderBy != default)
-                    queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
-                if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-                if (skip.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skip.Value.ToString())}");
-                if (startDate != default)
-                    queryParams.Add($"from_date={Uri.EscapeDataString(startDate.ToString())}");
-                if (endDate != default)
-                    queryParams.Add($"to_date={Uri.EscapeDataString(endDate.ToString())}");
-                var path = $"/accounts/copilotAccount/envelopes/listEnvelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<FilteredEnvelopeListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3096,12 +2572,13 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// List envelopes
         /// </summary>
         /// <remarks>This action brings back relevant Docusign envelopes based on envelope status, date range, recipient name, recipient email address, envelope title, document name, or envelope custom field value. The output is the title, description, Envelope ID, document names, sender names, envelope status, status date, date sent, and a URL of the envelope which can be used as a link to view the envelope in Docusign.</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="recipientName">Recipient name</param>
         /// <param name="recipientEmail">Recipient email</param>
         /// <param name="envelopeSubject">Envelope subject</param>
         /// <param name="customFieldName">Custom field name</param>
         /// <param name="customFieldValue">Custom field value</param>
+        /// <param name="searchWord">Search word</param>
         /// <param name="envelopeStatus">Envelope status</param>
         /// <param name="folder">Folder</param>
         /// <param name="orderBy">Order by</param>
@@ -3111,13 +2588,13 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <param name="endDate">End date</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List envelopes response.</returns>
-        public virtual async Task<FilteredEnvelopeListResponse> SearchListEnvelopesAsync([DynamicValues("GetLoginAccounts")] string account, string recipientName = default, string recipientEmail = default, string envelopeSubject = default, string customFieldName = default, string customFieldValue = default, string envelopeStatus = default, string folder = default, string orderBy = default, int? returnEnvelopes = default, int? skipEnvelopes = default, string startDate = default, string endDate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<FilteredEnvelopeListResponse> SearchListEnvelopesAsync([DynamicValues("GetLoginAccounts")] string accountId, string recipientName = default, string recipientEmail = default, string envelopeSubject = default, string customFieldName = default, string customFieldValue = default, string searchWord = default, string envelopeStatus = default, string folder = default, string orderBy = default, int? returnEnvelopes = default, int? skipEnvelopes = default, string startDate = default, string endDate = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SearchListEnvelopesAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
                 if (recipientName != default)
                     queryParams.Add($"recipientName={Uri.EscapeDataString(recipientName.ToString())}");
@@ -3129,6 +2606,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                     queryParams.Add($"customFieldName={Uri.EscapeDataString(customFieldName.ToString())}");
                 if (customFieldValue != default)
                     queryParams.Add($"customFieldValue={Uri.EscapeDataString(customFieldValue.ToString())}");
+                if (searchWord != default)
+                    queryParams.Add($"search_text={Uri.EscapeDataString(searchWord.ToString())}");
                 if (envelopeStatus != default)
                     queryParams.Add($"envelopeStatus={Uri.EscapeDataString(envelopeStatus.ToString())}");
                 if (folder != default)
@@ -3143,107 +2622,9 @@ namespace Azure.Connectors.Sdk.DocuSign
                     queryParams.Add($"from_date={Uri.EscapeDataString(startDate.ToString())}");
                 if (endDate != default)
                     queryParams.Add($"to_date={Uri.EscapeDataString(endDate.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/SearchListEnvelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/SearchListEnvelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FilteredEnvelopeListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Copilot for Sales: List envelopes
-        /// </summary>
-        /// <remarks>Copilot for Sales: List envelopes returns information on Docusign agreements such as title, documents, recipients, agreement status, sender name and URL of the agreement. The plugin can handle requests like show me all my agreements I need to sign or what is the status of the sales order contract.</remarks>
-        /// <param name="recipientName">Recipient name</param>
-        /// <param name="recipientEmailId">Recipient emailId</param>
-        /// <param name="envelopeSubject">Envelope subject</param>
-        /// <param name="customFieldName">Custom field name</param>
-        /// <param name="customFieldValue">Custom field value</param>
-        /// <param name="envelopeStatus">Envelope status</param>
-        /// <param name="folder">Folder</param>
-        /// <param name="orderBy">Order by</param>
-        /// <param name="top">Top</param>
-        /// <param name="skip">Skip</param>
-        /// <param name="startDate">Start date</param>
-        /// <param name="endDate">End date</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copilot for Sales: List envelopes response.</returns>
-        public virtual async Task<FilteredSalesCopilotEnvelopeListResponse> SalesCopilotListEnvelopesAsync(string recipientName = default, string recipientEmailId = default, string envelopeSubject = default, string customFieldName = default, string customFieldValue = default, string envelopeStatus = default, string folder = default, string orderBy = default, int? top = default, int? skip = default, string startDate = default, string endDate = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SalesCopilotListEnvelopesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recipientName != default)
-                    queryParams.Add($"recipientName={Uri.EscapeDataString(recipientName.ToString())}");
-                if (recipientEmailId != default)
-                    queryParams.Add($"recipientEmailId={Uri.EscapeDataString(recipientEmailId.ToString())}");
-                if (envelopeSubject != default)
-                    queryParams.Add($"envelopeTitle={Uri.EscapeDataString(envelopeSubject.ToString())}");
-                if (customFieldName != default)
-                    queryParams.Add($"customFieldName={Uri.EscapeDataString(customFieldName.ToString())}");
-                if (customFieldValue != default)
-                    queryParams.Add($"customFieldValue={Uri.EscapeDataString(customFieldValue.ToString())}");
-                if (envelopeStatus != default)
-                    queryParams.Add($"envelopeStatus={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                if (folder != default)
-                    queryParams.Add($"folder_ids={Uri.EscapeDataString(folder.ToString())}");
-                if (orderBy != default)
-                    queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
-                if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
-                if (skip.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skip.Value.ToString())}");
-                if (startDate != default)
-                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDate.ToString())}");
-                if (endDate != default)
-                    queryParams.Add($"endDateTime={Uri.EscapeDataString(endDate.ToString())}");
-                var path = $"/accounts/copilotAccount/envelopes/listEnvelopesForSalesCopilot" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<FilteredSalesCopilotEnvelopeListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// DEPRECATED: Create envelope using template
-        /// </summary>
-        /// <remarks>Create a new envelope using a specified template.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="template">Template</param>
-        /// <param name="envelopeStatus">Envelope status</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The DEPRECATED: Create envelope using template response.</returns>
-        public virtual async Task<CreateEnvelopeResponse> CreateEnvelopeFromTemplateAsync([DynamicValues("GetLoginAccounts")] string account, AccountCustomFields input, [DynamicValues("GetEnvelopeTemplates")] string template, string envelopeStatus, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateEnvelopeFromTemplateAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var queryParams = new List<string>();
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
-                if (envelopeStatus is null)
-                    throw new ArgumentNullException(nameof(envelopeStatus));
-                queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/createFromTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3258,26 +2639,26 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Create envelope using template
         /// </summary>
         /// <remarks>Create a new envelope using a specified template.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="template">Template</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="templateId">Template ID</param>
         /// <param name="envelopeStatus">Envelope status</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create envelope using template response.</returns>
-        public virtual async Task<CreateEnvelopeResponse> CreateEnvelopeFromTemplateNoRecipientsAsync([DynamicValues("GetLoginAccounts")] string account, [DynamicValues("GetEnvelopeTemplates")] string template, string envelopeStatus, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateEnvelopeResponse> CreateEnvelopeFromTemplateNoRecipientsAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetEnvelopeTemplates")] string templateId, string envelopeStatus, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateEnvelopeFromTemplateNoRecipientsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/createFromTemplateNoRecipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/createFromTemplateNoRecipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3291,36 +2672,36 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// DEPRECATED: Create envelope using template with recipients
+        /// Create envelope using template with recipients
         /// </summary>
         /// <remarks>Create a new envelope using a specified template and specify recipients.</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="envelopeStatus">Envelope status</param>
-        /// <param name="template">Template</param>
+        /// <param name="templateId">Template ID</param>
         /// <param name="emailSubject">Email subject</param>
         /// <param name="emailBody">Email body</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The DEPRECATED: Create envelope using template with recipients response.</returns>
-        public virtual async Task<CreateEnvelopeResponse> SendEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, DynamicSigners input, string envelopeStatus, [DynamicValues("GetEnvelopeTemplates")] string template, string emailSubject = default, string emailBody = default, CancellationToken cancellationToken = default)
+        /// <returns>The Create envelope using template with recipients response.</returns>
+        public virtual async Task<CreateEnvelopeResponse> SendEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, DynamicSigners input, string envelopeStatus, [DynamicValues("GetEnvelopeTemplates")] string templateId, string emailSubject = default, string emailBody = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SendEnvelopeAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
                 queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
                 if (emailSubject != default)
                     queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
                 if (emailBody != default)
                     queryParams.Add($"emailBody={Uri.EscapeDataString(emailBody.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3337,26 +2718,29 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Create envelope using template with recipients and tabs
         /// </summary>
         /// <remarks>Create envelope using template with recipients and tabs</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="input">The request body.</param>
-        /// <param name="template">Template</param>
+        /// <param name="templateId">Template ID</param>
+        /// <param name="mergeRolesAndDeleteEmptyRecipients">Merge roles and delete empty recipients</param>
         /// <param name="emailSubject">Email subject</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create envelope using template with recipients and tabs response.</returns>
-        public virtual async Task<CreateEnvelopeResponse> SendEnvelopeWithRecipientFieldsAsync([DynamicValues("GetLoginAccounts")] string account, DynamicRecipients input, [DynamicValues("GetEnvelopeTemplates")] string template, string emailSubject = default, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateEnvelopeResponse> SendEnvelopeWithRecipientFieldsAsync([DynamicValues("GetLoginAccounts")] string accountId, DynamicRecipients input, [DynamicValues("GetEnvelopeTemplates")] string templateId, string mergeRolesAndDeleteEmptyRecipients = default, string emailSubject = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SendEnvelopeWithRecipientFieldsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
+                if (mergeRolesAndDeleteEmptyRecipients != default)
+                    queryParams.Add($"merge_roles_on_draft={Uri.EscapeDataString(mergeRolesAndDeleteEmptyRecipients.ToString())}");
                 if (emailSubject != default)
                     queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/createWithRecipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/createWithRecipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3373,20 +2757,20 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Send envelope
         /// </summary>
         /// <remarks>Send an existing envelope.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Send envelope response.</returns>
-        public virtual async Task<SendDraftEnvelopeResponse> SendDraftEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, CancellationToken cancellationToken = default)
+        public virtual async Task<SendDraftEnvelopeResponse> SendDraftEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.SendDraftEnvelopeAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}";
                 return await this
                     .CallConnectorAsync<SendDraftEnvelopeResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3400,28 +2784,28 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Get custom field info from envelope
+        /// Get envelope custom field info
         /// </summary>
-        /// <remarks>Get custom field info from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <remarks>Get envelope custom field info.</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="customFieldName">Custom Field Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get custom field info from envelope response.</returns>
-        public virtual async Task<EnvelopeCustomFieldResponse> GetEnvelopeCustomFieldAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, [DynamicValues("GetAccountCustomFields")] string customFieldName, CancellationToken cancellationToken = default)
+        /// <returns>The Get envelope custom field info response.</returns>
+        public virtual async Task<EnvelopeCustomFieldResponse> GetEnvelopeCustomFieldAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, [DynamicValues("GetAccountCustomFields")] string customFieldName, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeCustomFieldAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (customFieldName is null)
                     throw new ArgumentNullException(nameof(customFieldName));
                 queryParams.Add($"fieldName={Uri.EscapeDataString(customFieldName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeCustomFieldResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3438,23 +2822,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Update envelope custom field
         /// </summary>
         /// <remarks>Update value for the specified envelope custom field</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="fieldId">Field ID</param>
         /// <param name="fieldType">Field Type</param>
         /// <param name="name">Name</param>
         /// <param name="value">Value</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update envelope custom field response.</returns>
-        public virtual async Task<UpdateEnvelopeCustomFieldResponse> UpdateEnvelopeCustomFieldAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string fieldId, string fieldType, string name, string value, CancellationToken cancellationToken = default)
+        public virtual async Task<UpdateEnvelopeCustomFieldResponse> UpdateEnvelopeCustomFieldAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string fieldId, string fieldType, string name, string value, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateEnvelopeCustomFieldAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (fieldId is null)
                     throw new ArgumentNullException(nameof(fieldId));
@@ -3468,7 +2852,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 if (value is null)
                     throw new ArgumentNullException(nameof(value));
                 queryParams.Add($"value={Uri.EscapeDataString(value.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UpdateEnvelopeCustomFieldResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3485,22 +2869,22 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Generate Embedded Sender URL
         /// </summary>
         /// <remarks>Generate Embedded Sender URL</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="openIn">Open in</param>
         /// <param name="returnURL">Return URL</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Generate Embedded Sender URL response.</returns>
-        public virtual async Task<EmbeddedSenderResponse> GenerateEmbeddedSenderURLAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, AdditionalURLForSenderView input, string openIn, string returnURL, CancellationToken cancellationToken = default)
+        public virtual async Task<EmbeddedSenderResponse> GenerateEmbeddedSenderURLAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, AdditionalURLForSenderView input, string openIn, string returnURL, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GenerateEmbeddedSenderURLAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (openIn is null)
                     throw new ArgumentNullException(nameof(openIn));
@@ -3508,7 +2892,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 if (returnURL is null)
                     throw new ArgumentNullException(nameof(returnURL));
                 queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/views/sender" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/views/sender" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EmbeddedSenderResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3522,28 +2906,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// List recipients from envelope
+        /// List recipients from an envelope
         /// </summary>
-        /// <remarks>List recipients from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="folder">Folder</param>
+        /// <remarks>List recipients from an envelope</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List recipients from envelope response.</returns>
-        public virtual async Task<ListRecipientsResponse> GetRecipientStatusAsync([DynamicValues("GetLoginAccounts")] string account, [DynamicValues("GetFolderEnvelopeList")] string envelope, [DynamicValues("GetFolderList")] string folder, CancellationToken cancellationToken = default)
+        /// <returns>The List recipients from an envelope response.</returns>
+        public virtual async Task<ListRecipientsResponse> GetRecipientStatusAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetRecipientStatusAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var queryParams = new List<string>();
-                if (folder is null)
-                    throw new ArgumentNullException(nameof(folder));
-                queryParams.Add($"folderId={Uri.EscapeDataString(folder.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients";
                 return await this
                     .CallConnectorAsync<ListRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3560,29 +2939,29 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Remove recipient from an envelope
         /// </summary>
         /// <remarks>Remove recipient from an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="folder">Folder</param>
-        /// <param name="recipient">Recipient</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Remove recipient from an envelope response.</returns>
-        public virtual async Task<ListRecipientsResponse> RemoveRecipientFromEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, [DynamicValues("GetFolderEnvelopeList")] string envelope, [DynamicValues("GetFolderList")] string folder, [DynamicValues("GetRecipientStatus")] string recipient, CancellationToken cancellationToken = default)
+        public virtual async Task<ListRecipientsResponse> RemoveRecipientFromEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetFolderEnvelopeList")] string envelopeId, [DynamicValues("GetFolderList")] string folder, [DynamicValues("GetRecipientStatus")] string recipientId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.RemoveRecipientFromEnvelopeAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
                 queryParams.Add($"folderId={Uri.EscapeDataString(folder.ToString())}");
-                if (recipient is null)
-                    throw new ArgumentNullException(nameof(recipient));
-                queryParams.Add($"RemoveRecipientFromEnvelopeRecipientId={Uri.EscapeDataString(recipient.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
+                queryParams.Add($"RemoveRecipientFromEnvelopeRecipientId={Uri.EscapeDataString(recipientId.ToString())}");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListRecipientsResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3599,23 +2978,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get recipient info from envelope
         /// </summary>
         /// <remarks>Get recipient info from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="recipientEmail">Recipient Email</param>
         /// <param name="areaCode">Area Code</param>
         /// <param name="phoneNumber">Phone Number</param>
-        /// <param name="recipientId">Recipient Id</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get recipient info from envelope response.</returns>
-        public virtual async Task<Signer> GetRecipientFieldsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string recipientEmail = default, string areaCode = default, string phoneNumber = default, string recipientId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Signer> GetRecipientFieldsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string recipientEmail = default, string areaCode = default, string phoneNumber = default, string recipientId = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetRecipientFieldsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (recipientEmail != default)
                     queryParams.Add($"recipientEmail={Uri.EscapeDataString(recipientEmail.ToString())}");
@@ -3625,7 +3004,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
                 if (recipientId != default)
                     queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Signer>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3642,20 +3021,20 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get audit event list
         /// </summary>
         /// <remarks>Get audit event list</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get audit event list response.</returns>
-        public virtual async Task<AuditResponse> GetAuditEventsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, CancellationToken cancellationToken = default)
+        public virtual async Task<AuditResponse> GetAuditEventsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAuditEventsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/audit_events";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/audit_events";
                 return await this
                     .CallConnectorAsync<AuditResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3672,23 +3051,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Add verification type to a recipient
         /// </summary>
         /// <remarks>Add verification type to a recipient.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
-        /// <param name="recipientId">Recipient id</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="recipientType">Recipient type</param>
-        /// <param name="verificationType">Verification Type</param>
+        /// <param name="verificationType">Verification type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add verification type to a recipient response.</returns>
-        public virtual async Task<AddVerificationToRecipientResponse> AddVerificationToRecipientAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, AdditionalRecipientData input, string recipientId, string recipientType, string verificationType, CancellationToken cancellationToken = default)
+        public virtual async Task<AddVerificationToRecipientResponse> AddVerificationToRecipientAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, AdditionalRecipientData input, string recipientId, [DynamicValues("StaticResponseForRecipientTypes")] string recipientType, string verificationType, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddVerificationToRecipientAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
@@ -3699,7 +3078,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 if (verificationType is null)
                     throw new ArgumentNullException(nameof(verificationType));
                 queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AddVerificationToRecipientResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3716,10 +3095,10 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Update recipient on an envelope
         /// </summary>
         /// <remarks>Update recipient on an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
-        /// <param name="recipientId">Recipient id</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="signatureType">Signature type</param>
         /// <param name="recipientType">Recipient type</param>
         /// <param name="clientUserId">Client User ID</param>
@@ -3735,15 +3114,15 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <param name="signingGroup">Signing Group</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update recipient on an envelope response.</returns>
-        public virtual async Task<Signer> UpdateEnvelopeRecipientAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, AdditionalRecipientParamsSchema input, string recipientId, [DynamicValues("StaticResponseForRecipientTypes")] string recipientType, [DynamicValues("StaticResponseForSignatureTypes")] string signatureType = default, string clientUserId = default, string embeddedRecipientStartURL = default, string signingOrder = default, string emailNotificationLanguage = default, string emailNotificationSubject = default, string emailNotificationBody = default, string note = default, string roleName = default, int? sMSCountryCode = default, int? sMSPhoneNumber = default, [DynamicValues("GetSigningGroups")] string signingGroup = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Signer> UpdateEnvelopeRecipientAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, AdditionalRecipientParamsSchema input, string recipientId, [DynamicValues("StaticResponseForRecipientTypes")] string recipientType, [DynamicValues("StaticResponseForSignatureTypes")] string signatureType = default, string clientUserId = default, string embeddedRecipientStartURL = default, string signingOrder = default, string emailNotificationLanguage = default, string emailNotificationSubject = default, string emailNotificationBody = default, string note = default, string roleName = default, string sMSCountryCode = default, string sMSPhoneNumber = default, [DynamicValues("GetSigningGroups")] string signingGroup = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateEnvelopeRecipientAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
@@ -3769,13 +3148,13 @@ namespace Azure.Connectors.Sdk.DocuSign
                     queryParams.Add($"note={Uri.EscapeDataString(note.ToString())}");
                 if (roleName != default)
                     queryParams.Add($"roleName={Uri.EscapeDataString(roleName.ToString())}");
-                if (sMSCountryCode.HasValue)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(sMSCountryCode.Value.ToString())}");
-                if (sMSPhoneNumber.HasValue)
-                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(sMSPhoneNumber.Value.ToString())}");
+                if (sMSCountryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(sMSCountryCode.ToString())}");
+                if (sMSPhoneNumber != default)
+                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(sMSPhoneNumber.ToString())}");
                 if (signingGroup != default)
                     queryParams.Add($"signingGroupId={Uri.EscapeDataString(signingGroup.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/updateRecipient" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/updateRecipient" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Signer>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3792,28 +3171,28 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Apply a template to documents
         /// </summary>
         /// <remarks>Apply a template to documents</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
-        /// <param name="template">Template</param>
+        /// <param name="templateId">Template ID</param>
         /// <param name="preserveTemplateRecipient">Preserve template recipient</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task ApplyTemplatesToDocumentsAsync([DynamicValues("GetLoginAccounts")] string account, string envelopeId, ApplyTemplatesToDocumentsInput input, [DynamicValues("GetEnvelopeTemplates")] string template, string preserveTemplateRecipient = default, CancellationToken cancellationToken = default)
+        public virtual async Task ApplyTemplatesToDocumentsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, ApplyTemplatesToDocumentsInput input, [DynamicValues("GetEnvelopeTemplates")] string templateId, string preserveTemplateRecipient = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ApplyTemplatesToDocumentsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"templateId={Uri.EscapeDataString(template.ToString())}");
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
                 if (preserveTemplateRecipient != default)
                     queryParams.Add($"preserve_template_recipient={Uri.EscapeDataString(preserveTemplateRecipient.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/templates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/templates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3830,23 +3209,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Create bulk send list
         /// </summary>
         /// <remarks>Create bulk send list</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="bulkSendListName">Bulk send list name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create bulk send list response.</returns>
-        public virtual async Task<BulkSendListGuid> CreateBulkSendListAsync([DynamicValues("GetLoginAccounts")] string account, CreateBulkSendListInput input, string bulkSendListName, CancellationToken cancellationToken = default)
+        public virtual async Task<BulkSendListGuid> CreateBulkSendListAsync([DynamicValues("GetLoginAccounts")] string accountId, CreateBulkSendListInput input, string bulkSendListName, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateBulkSendListAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
                 if (bulkSendListName is null)
                     throw new ArgumentNullException(nameof(bulkSendListName));
                 queryParams.Add($"name={Uri.EscapeDataString(bulkSendListName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/bulk_send_lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/bulk_send_lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BulkSendListGuid>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3863,27 +3242,53 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Bulk send envelope using template
         /// </summary>
         /// <remarks>Bulk send envelope using template</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="bulkSendListGUID">Bulk send list GUID</param>
         /// <param name="templateId">Template ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Bulk send envelope using template response.</returns>
-        public virtual async Task<BulkSendListGuid> BulkSendAsync([DynamicValues("GetLoginAccounts")] string account, string bulkSendListGUID, [DynamicValues("GetEnvelopeTemplates")] string templateId, CancellationToken cancellationToken = default)
+        public virtual async Task<BulkSendListGuid> BulkSendAsync([DynamicValues("GetLoginAccounts")] string accountId, string bulkSendListGUID, [DynamicValues("GetEnvelopeTemplates")] string templateId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.BulkSendAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 if (bulkSendListGUID is null)
                     throw new ArgumentNullException(nameof(bulkSendListGUID));
                 var queryParams = new List<string>();
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
                 queryParams.Add($"envelopeOrTemplateId={Uri.EscapeDataString(templateId.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/bulk_send_lists/{Uri.EscapeDataString(bulkSendListGUID.ToString())}/send" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/bulk_send_lists/{Uri.EscapeDataString(bulkSendListGUID.ToString())}/send" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BulkSendListGuid>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get organizations
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get organizations response.</returns>
+        public virtual async Task<GetOrganizationsResponse> GetOrganizationsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetOrganizationsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("mode=org_admin");
+                var path = $"/Management/v2/organizations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3905,7 +3310,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetLoginAccountsAsync");
             try
             {
-                var path = $"/login_information";
+                var path = $"/oauth/userinfo";
                 return await this
                     .CallConnectorAsync<GetLoginAccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3975,17 +3380,17 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// List templates
         /// </summary>
         /// <remarks>List templates for a specific account.</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List templates response.</returns>
-        public virtual async Task<ListTemplatesResponse> GetEnvelopeTemplatesAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        public virtual async Task<ListTemplatesResponse> GetEnvelopeTemplatesAsync([DynamicValues("GetLoginAccounts")] string accountId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeTemplatesAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/templates";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates";
                 return await this
                     .CallConnectorAsync<ListTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4082,20 +3487,20 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// List envelopes
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
+        /// <param name="accountId">Account ID</param>
         /// <param name="folder">Folder</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List envelopes response.</returns>
-        public virtual async Task<ListEnvelopesResponse> GetFolderEnvelopeListAsync([DynamicValues("GetLoginAccounts")] string account, [DynamicValues("GetFolderList")] string folder, CancellationToken cancellationToken = default)
+        public virtual async Task<ListEnvelopesResponse> GetFolderEnvelopeListAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetFolderList")] string folder, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderEnvelopeListAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/folders/{Uri.EscapeDataString(folder.ToString())}";
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/folders/{Uri.EscapeDataString(folder.ToString())}";
                 return await this
                     .CallConnectorAsync<ListEnvelopesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4112,21 +3517,21 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Add documents to an envelope
         /// </summary>
         /// <remarks>Add documents to an envelope.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add documents to an envelope response.</returns>
-        public virtual async Task<AddDocumentsResponse> AddDocumentsToEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, AddDocumentsToEnvelopeInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<AddDocumentsResponse> AddDocumentsToEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, AddDocumentsToEnvelopeInput input, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddDocumentsToEnvelopeAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents";
                 return await this
                     .CallConnectorAsync<AddDocumentsResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4143,20 +3548,20 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// List documents from a template
         /// </summary>
         /// <remarks>List documents from a template</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="template">Template</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="templateId">Template ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List documents from a template response.</returns>
-        public virtual async Task<ListTemplateDocumentsResponse> ListTemplateDocumentsAsync([DynamicValues("GetLoginAccounts")] string account, [DynamicValues("GetEnvelopeTemplates")] string template, CancellationToken cancellationToken = default)
+        public virtual async Task<ListTemplateDocumentsResponse> ListTemplateDocumentsAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetEnvelopeTemplates")] string templateId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ListTemplateDocumentsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (template is null)
-                    throw new ArgumentNullException(nameof(template));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/templates/{Uri.EscapeDataString(template.ToString())}/documents";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/documents";
                 return await this
                     .CallConnectorAsync<ListTemplateDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4173,20 +3578,20 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// List documents from an envelope
         /// </summary>
         /// <remarks>List documents from an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List documents from an envelope response.</returns>
-        public virtual async Task<ListDocumentsResponse> ListEnvelopeDocumentsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, CancellationToken cancellationToken = default)
+        public virtual async Task<ListDocumentsResponse> ListEnvelopeDocumentsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.ListEnvelopeDocumentsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/envelopeDocuments";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/envelopeDocuments";
                 return await this
                     .CallConnectorAsync<ListDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4203,25 +3608,25 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get document info from envelope
         /// </summary>
         /// <remarks>Get document info from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="documentName">Document name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get document info from envelope response.</returns>
-        public virtual async Task<EnvelopeDocument> GetEnvelopeDocumentInfoAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string documentName, CancellationToken cancellationToken = default)
+        public virtual async Task<EnvelopeDocument> GetEnvelopeDocumentInfoAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string documentName, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeDocumentInfoAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (documentName is null)
                     throw new ArgumentNullException(nameof(documentName));
                 queryParams.Add($"documentName={Uri.EscapeDataString(documentName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/get_document_info" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/get_document_info" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeDocument>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4295,34 +3700,33 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Add tabs for a recipient on an envelope
+        /// Get info for recipient tab
         /// </summary>
-        /// <remarks>Add tabs for a recipient on an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="recipient">Recipient</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="tabType">Tab type</param>
+        /// <remarks>Returns the value of the tab for the given recipient</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="recipientId">Recipient ID</param>
+        /// <param name="tabLabel">Tab label</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add tabs for a recipient on an envelope response.</returns>
-        public virtual async Task<AddRecipientTabsResponse> AddRecipientTabsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string recipient, AnchorTabSchema input, [DynamicValues("StaticResponseForTabTypes")] string tabType, CancellationToken cancellationToken = default)
+        /// <returns>The Get info for recipient tab response.</returns>
+        public virtual async Task<Tab> GetTabInfoAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string recipientId, string tabLabel, CancellationToken cancellationToken = default)
         {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRecipientTabsAsync");
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetTabInfoAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                if (recipient is null)
-                    throw new ArgumentNullException(nameof(recipient));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
                 var queryParams = new List<string>();
-                if (tabType is null)
-                    throw new ArgumentNullException(nameof(tabType));
-                queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipient.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (tabLabel is null)
+                    throw new ArgumentNullException(nameof(tabLabel));
+                queryParams.Add($"tabLabel={Uri.EscapeDataString(tabLabel.ToString())}");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<AddRecipientTabsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<Tab>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4334,33 +3738,34 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Get info for recipient tab
+        /// Add tabs for a recipient on an envelope
         /// </summary>
-        /// <remarks>Returns the value of the tab for the given recipient</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="recipientId">Recipient id</param>
-        /// <param name="tabLabel">Tab label</param>
+        /// <remarks>Add tabs for a recipient on an envelope</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="recipientId">Recipient ID</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="tabType">Tab type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get info for recipient tab response.</returns>
-        public virtual async Task<Tab> GetTabInfoAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string recipientId, string tabLabel, CancellationToken cancellationToken = default)
+        /// <returns>The Add tabs for a recipient on an envelope response.</returns>
+        public virtual async Task<AddRecipientTabsResponse> AddRecipientTabsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string recipientId, AnchorTabSchema input, [DynamicValues("StaticResponseForTabTypes")] string tabType, CancellationToken cancellationToken = default)
         {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetTabInfoAsync");
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRecipientTabsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
                 var queryParams = new List<string>();
-                if (tabLabel is null)
-                    throw new ArgumentNullException(nameof(tabLabel));
-                queryParams.Add($"tabLabel={Uri.EscapeDataString(tabLabel.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (tabType is null)
+                    throw new ArgumentNullException(nameof(tabType));
+                queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<Tab>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AddRecipientTabsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4375,23 +3780,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Update recipient tab values on an envelope
         /// </summary>
         /// <remarks>Update recipient tab values on an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="recipient">Recipient</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateRecipientTabsValuesAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string recipient, List<JsonElement?> input, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateRecipientTabsValuesAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string recipientId, List<JsonElement?> input, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.UpdateRecipientTabsValuesAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
-                if (recipient is null)
-                    throw new ArgumentNullException(nameof(recipient));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipient.ToString())}/tabs";
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
+                if (recipientId is null)
+                    throw new ArgumentNullException(nameof(recipientId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4408,23 +3813,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get recipient tabs from envelope
         /// </summary>
         /// <remarks>Get recipient tabs from envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
-        /// <param name="recipientId">Recipient id</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get recipient tabs from envelope response.</returns>
-        public virtual async Task<RecipientTabsResponse> GetEnvelopeRecipientTabsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string recipientId, CancellationToken cancellationToken = default)
+        public virtual async Task<RecipientTabsResponse> GetEnvelopeRecipientTabsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string recipientId, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetEnvelopeRecipientTabsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/recipientTabs";
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/recipientTabs";
                 return await this
                     .CallConnectorAsync<RecipientTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4495,29 +3900,29 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Start Docusign Maestro workflow
+        /// Start Docusign workflow
         /// </summary>
-        /// <remarks>Start Docusign Maestro workflow</remarks>
-        /// <param name="account">Account</param>
+        /// <remarks>Start Docusign workflow</remarks>
+        /// <param name="accountId">Account ID</param>
         /// <param name="workflow">workflow</param>
         /// <param name="input">The request body.</param>
         /// <param name="instanceName">instance Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Start Docusign Maestro workflow response.</returns>
-        public virtual async Task<TriggerMaestroFlowResponse> TriggerMaestroFlowAsync([DynamicValues("GetLoginAccounts")] string account, [DynamicValues("GetMaestroWorkflowDefinitions")] string workflow, MaestroInputVariables input, string instanceName, CancellationToken cancellationToken = default)
+        /// <returns>The Start Docusign workflow response.</returns>
+        public virtual async Task<TriggerMaestroFlowResponse> TriggerMaestroFlowAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetMaestroWorkflowDefinitions")] string workflow, MaestroInputVariables input, string instanceName, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.TriggerMaestroFlowAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
                 if (workflow is null)
                     throw new ArgumentNullException(nameof(workflow));
                 var queryParams = new List<string>();
                 if (instanceName is null)
                     throw new ArgumentNullException(nameof(instanceName));
                 queryParams.Add($"instanceName={Uri.EscapeDataString(instanceName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/maestro-workflows/trigger/{Uri.EscapeDataString(workflow.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows/trigger/{Uri.EscapeDataString(workflow.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TriggerMaestroFlowResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4798,11 +4203,12 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Add recipient to an envelope (V2)
         /// </summary>
         /// <remarks>Add recipient to an envelope.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="recipientType">Recipient type</param>
         /// <param name="clientUserId">Client User ID</param>
+        /// <param name="recipientId">Recipient ID</param>
         /// <param name="embeddedRecipientStartURL">Embedded recipient start URL</param>
         /// <param name="signingOrder">Signing order</param>
         /// <param name="emailNotificationLanguage">Email notification language</param>
@@ -4817,21 +4223,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <param name="verificationWorkflow">Verification workflow</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add recipient to an envelope (V2) response.</returns>
-        public virtual async Task<Signer> AddRecipientToEnvelopeAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, AdditionalRecipientParamsSchema input, [DynamicValues("StaticResponseForRecipientTypes")] string recipientType, string clientUserId = default, string embeddedRecipientStartURL = default, string signingOrder = default, string emailNotificationLanguage = default, string emailNotificationSubject = default, string emailNotificationBody = default, string note = default, string roleName = default, int? sMSCountryCode = default, int? sMSPhoneNumber = default, [DynamicValues("GetSigningGroups")] string signingGroup = default, [DynamicValues("StaticResponseForSignatureTypes")] string signatureType = default, [DynamicValues("GetAllWorkflowIDs")] string verificationWorkflow = default, CancellationToken cancellationToken = default)
+        public virtual async Task<Signer> AddRecipientToEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, AdditionalRecipientParamsSchema input, [DynamicValues("StaticResponseForRecipientTypes")] string recipientType, string clientUserId = default, string recipientId = default, string embeddedRecipientStartURL = default, string signingOrder = default, string emailNotificationLanguage = default, string emailNotificationSubject = default, string emailNotificationBody = default, string note = default, string roleName = default, string sMSCountryCode = default, string sMSPhoneNumber = default, [DynamicValues("GetSigningGroups")] string signingGroup = default, [DynamicValues("StaticResponseForSignatureTypes")] string signatureType = default, [DynamicValues("GetAllWorkflowIDs")] string verificationWorkflow = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRecipientToEnvelopeAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (recipientType is null)
                     throw new ArgumentNullException(nameof(recipientType));
                 queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
                 if (clientUserId != default)
                     queryParams.Add($"clientUserId={Uri.EscapeDataString(clientUserId.ToString())}");
+                if (recipientId != default)
+                    queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
                 if (embeddedRecipientStartURL != default)
                     queryParams.Add($"embeddedRecipientStartURL={Uri.EscapeDataString(embeddedRecipientStartURL.ToString())}");
                 if (signingOrder != default)
@@ -4846,19 +4254,52 @@ namespace Azure.Connectors.Sdk.DocuSign
                     queryParams.Add($"note={Uri.EscapeDataString(note.ToString())}");
                 if (roleName != default)
                     queryParams.Add($"roleName={Uri.EscapeDataString(roleName.ToString())}");
-                if (sMSCountryCode.HasValue)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(sMSCountryCode.Value.ToString())}");
-                if (sMSPhoneNumber.HasValue)
-                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(sMSPhoneNumber.Value.ToString())}");
+                if (sMSCountryCode != default)
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(sMSCountryCode.ToString())}");
+                if (sMSPhoneNumber != default)
+                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(sMSPhoneNumber.ToString())}");
                 if (signingGroup != default)
                     queryParams.Add($"signingGroupId={Uri.EscapeDataString(signingGroup.ToString())}");
                 if (signatureType != default)
                     queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
                 if (verificationWorkflow != default)
                     queryParams.Add($"workflowId={Uri.EscapeDataString(verificationWorkflow.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Signer>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create envelope (V2)
+        /// </summary>
+        /// <remarks>Create a new blank envelope.</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="emailSubject">Email subject</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create envelope (V2) response.</returns>
+        public virtual async Task<CreateEnvelopeResponse> CreateBlankEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, CombinedEmailBodyAndCustomFields input, string emailSubject, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateBlankEnvelopeAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                var queryParams = new List<string>();
+                if (emailSubject is null)
+                    throw new ArgumentNullException(nameof(emailSubject));
+                queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/createBlankEnvelopeV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4873,23 +4314,23 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Generate Embedded Signing URL (V2)
         /// </summary>
         /// <remarks>Generate Embedded Signing URL (V2)</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="isThisAnInPersonSigner">Is this an in-person signer?</param>
         /// <param name="authenticationMethod">Authentication Method</param>
         /// <param name="returnURL">Return URL</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Generate Embedded Signing URL (V2) response.</returns>
-        public virtual async Task<EmbeddedSigningResponse> GenerateEmbeddedSigningURLAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, DynamicSigningUrlFields input, string isThisAnInPersonSigner, string authenticationMethod, string returnURL, CancellationToken cancellationToken = default)
+        public virtual async Task<EmbeddedSigningResponse> GenerateEmbeddedSigningURLAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, DynamicSigningUrlFields input, string isThisAnInPersonSigner, string authenticationMethod, string returnURL, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GenerateEmbeddedSigningURLAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (isThisAnInPersonSigner is null)
                     throw new ArgumentNullException(nameof(isThisAnInPersonSigner));
@@ -4900,7 +4341,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 if (returnURL is null)
                     throw new ArgumentNullException(nameof(returnURL));
                 queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/views/recipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/views/recipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EmbeddedSigningResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4917,23 +4358,27 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// Get documents from an envelope
         /// </summary>
         /// <remarks>Get documents from an envelope</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="envelope">Envelope</param>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="envelopeId">Envelope ID</param>
         /// <param name="outputFormat">Output format</param>
+        /// <param name="certificateOfCompletionLanguageOptional">Certificate of Completion language (optional)</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get documents from an envelope response.</returns>
-        public virtual async Task<byte[]> GetDocumentsAsync([DynamicValues("GetLoginAccounts")] string account, string envelope, string outputFormat, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetDocumentsAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, string outputFormat, string certificateOfCompletionLanguageOptional = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDocumentsAsync");
             try
             {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                if (envelope is null)
-                    throw new ArgumentNullException(nameof(envelope));
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (envelopeId is null)
+                    throw new ArgumentNullException(nameof(envelopeId));
                 if (outputFormat is null)
                     throw new ArgumentNullException(nameof(outputFormat));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/envelopes/{Uri.EscapeDataString(envelope.ToString())}/documents/{Uri.EscapeDataString(outputFormat.ToString())}/documentsDownload";
+                var queryParams = new List<string>();
+                if (certificateOfCompletionLanguageOptional != default)
+                    queryParams.Add($"language={Uri.EscapeDataString(certificateOfCompletionLanguageOptional.ToString())}");
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(outputFormat.ToString())}/documentsDownload" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

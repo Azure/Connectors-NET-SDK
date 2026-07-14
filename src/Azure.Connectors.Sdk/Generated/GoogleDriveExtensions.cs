@@ -480,7 +480,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -508,7 +508,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -534,7 +534,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(@file.ToString())}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -628,7 +628,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(fileId.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(fileId.ToString()))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -727,7 +727,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (folderId is null)
                     throw new ArgumentNullException(nameof(folderId));
-                var path = $"/datasets/default/folders/{Uri.EscapeDataString(folderId.ToString())}";
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -781,7 +781,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                     throw new ArgumentNullException(nameof(@file));
                 if (worksheet is null)
                     throw new ArgumentNullException(nameof(worksheet));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(worksheet.ToString())}";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(worksheet.ToString()))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -808,7 +808,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/{Uri.EscapeDataString(@file.ToString())}/tables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

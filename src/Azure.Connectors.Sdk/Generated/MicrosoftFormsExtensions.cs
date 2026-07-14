@@ -314,8 +314,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="formId">Form Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The list of questions for the specified form.</returns>
-        public virtual async Task<List<JsonElement?>> GetQuestionsAsync([DynamicValues("ListForms")] string formId, CancellationToken cancellationToken = default)
+        public virtual async Task GetQuestionsAsync([DynamicValues("ListForms")] string formId, CancellationToken cancellationToken = default)
         {
             using var activity = MicrosoftFormsClient.ConnectorActivitySource.StartActivity("MicrosoftFormsClient.GetQuestionsAsync");
             try
@@ -323,8 +322,8 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
                 if (formId is null)
                     throw new ArgumentNullException(nameof(formId));
                 var path = $"/formapi/api/forms('{Uri.EscapeDataString(formId.ToString())}')/questions";
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

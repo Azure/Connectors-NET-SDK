@@ -1227,7 +1227,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowId is null)
                     throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1258,7 +1258,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
                 return await this
                     .CallConnectorAsync<ExecutePassThroughNativeQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1292,7 +1292,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (procedureName is null)
                     throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
                 return await this
                     .CallConnectorAsync<ExecuteProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1328,7 +1328,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowId is null)
                     throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1389,7 +1389,7 @@ namespace Azure.Connectors.Sdk.Sql
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
                 if (purviewAcccountName != default)
                     queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1420,7 +1420,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/query/sql";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
                 return await this
                     .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1453,7 +1453,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (procedureName is null)
                     throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures/{Uri.EscapeDataString(procedureName.ToString())}";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1483,7 +1483,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/procedures";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures";
                 return await this
                     .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1523,7 +1523,7 @@ namespace Azure.Connectors.Sdk.Sql
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
                 if (purviewAcccountName != default)
                     queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1556,7 +1556,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/forPatchItem";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/forPatchItem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1593,7 +1593,7 @@ namespace Azure.Connectors.Sdk.Sql
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
                 if (purviewAcccountName != default)
                     queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1623,7 +1623,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/deleteitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/deleteitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1653,7 +1653,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/getitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1683,7 +1683,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonnewitems";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/getonnewitems";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1713,7 +1713,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/getonupdateditems";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/getonupdateditems";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1743,7 +1743,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/patchitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/patchitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1773,7 +1773,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tablesfor/postitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/postitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1810,7 +1810,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowId is null)
                     throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(rowId.ToString())}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1844,7 +1844,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(serverName.ToString())},{Uri.EscapeDataString(databaseName.ToString())}/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

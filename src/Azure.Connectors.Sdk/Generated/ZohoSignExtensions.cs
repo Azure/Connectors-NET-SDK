@@ -93,28 +93,6 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
     }
 
     /// <summary>
-    /// Response for Create a document for signing
-    /// </summary>
-    public class CreateDocumentResponse
-    {
-        /// <summary>code</summary>
-        [JsonPropertyName("code")]
-        public int? Code { get; set; }
-
-        /// <summary>requests</summary>
-        [JsonPropertyName("requests")]
-        public JsonElement? Requests { get; set; }
-
-        /// <summary>Message</summary>
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
-
-        /// <summary>status</summary>
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get a document
     /// </summary>
     public class GetDocumentResponse
@@ -300,24 +278,6 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
             {
                 Code = code,
                 DocumentFormData = documentFormData,
-                Status = status,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateDocumentResponse"/>.
-        /// </summary>
-        public static CreateDocumentResponse CreateDocumentResponse(
-            int? code = default,
-            JsonElement? requests = default,
-            string message = default,
-            string status = default)
-        {
-            return new CreateDocumentResponse
-            {
-                Code = code,
-                Requests = requests,
-                Message = message,
                 Status = status,
             };
         }
@@ -684,30 +644,6 @@ namespace Azure.Connectors.Sdk.ZohoSign
                 var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/delete";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Create a document for signing
-        /// </summary>
-        /// <remarks>An action to create a document for signing by uploading a file.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a document for signing response.</returns>
-        public virtual async Task<CreateDocumentResponse> CreateDocumentAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.CreateDocumentAsync");
-            try
-            {
-                var path = $"/requests";
-                return await this
-                    .CallConnectorAsync<CreateDocumentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

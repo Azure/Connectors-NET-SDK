@@ -293,7 +293,7 @@ namespace Azure.Connectors.Sdk.Zendesk
             {
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -322,7 +322,7 @@ namespace Azure.Connectors.Sdk.Zendesk
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemKey is null)
                     throw new ArgumentNullException(nameof(itemKey));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemKey.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -353,7 +353,7 @@ namespace Azure.Connectors.Sdk.Zendesk
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemKey is null)
                     throw new ArgumentNullException(nameof(itemKey));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(tableName.ToString())}/items/{Uri.EscapeDataString(itemKey.ToString())}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemKey.ToString()))}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

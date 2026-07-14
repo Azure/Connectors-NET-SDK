@@ -535,7 +535,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         [JsonPropertyName("id")]
         public string Id { get; set; }
 
-        /// <summary>The job&apos;s type.</summary>
+        /// <summary>The job’s type.</summary>
         [JsonPropertyName("jobType")]
         public string JobType { get; set; }
 
@@ -1670,7 +1670,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (salesforceObjectType is null)
                     throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1697,7 +1697,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/getitem";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/getitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1724,7 +1724,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/patchitem";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/patchitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1751,7 +1751,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(table.ToString())}/postitem";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/postitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1802,7 +1802,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (salesforceObjectType is null)
                     throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/externalIdFields";
                 return await this
                     .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1835,7 +1835,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(externalIdField));
                 if (externalId is null)
                     throw new ArgumentNullException(nameof(externalId));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/externalIdFields/{Uri.EscapeDataString(Uri.EscapeDataString(externalIdField.ToString()))}/{Uri.EscapeDataString(Uri.EscapeDataString(externalId.ToString()))}";
                 return await this
                     .CallConnectorAsync<GetItemByExternalIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1878,7 +1878,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
                 if (selectQuery != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2147,7 +2147,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(salesforceObjectType));
                 if (recordId is null)
                     throw new ArgumentNullException(nameof(recordId));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(recordId.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2279,7 +2279,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <summary>
         /// Close or abort a job
         /// </summary>
-        /// <remarks>Closes or aborts a job. Use UploadComplete to close a job, or Aborted to abort a job. If you close a job, Salesforce queues the job and uploaded data for processing, and you can&apos;t add any additional job data. If you abort a job, the job does not get queued or processed.</remarks>
+        /// <remarks>Closes or aborts a job. Use UploadComplete to close a job, or Aborted to abort a job. If you close a job, Salesforce queues the job and uploaded data for processing, and you can’t add any additional job data. If you abort a job, the job does not get queued or processed.</remarks>
         /// <param name="jobId">Job ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -2491,7 +2491,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                 var queryParams = new List<string>();
                 if (selectQuery != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(recordId.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2526,7 +2526,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                 var queryParams = new List<string>();
                 if (selectQuery != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-                var path = $"/v3/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items/{Uri.EscapeDataString(recordId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v3/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(recordId.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2560,7 +2560,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(externalIdField));
                 if (externalId is null)
                     throw new ArgumentNullException(nameof(externalId));
-                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/externalIdFields/{Uri.EscapeDataString(externalIdField.ToString())}/{Uri.EscapeDataString(externalId.ToString())}";
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/externalIdFields/{Uri.EscapeDataString(Uri.EscapeDataString(externalIdField.ToString()))}/{Uri.EscapeDataString(Uri.EscapeDataString(externalId.ToString()))}";
                 return await this
                     .CallConnectorAsync<PatchItemByExternalIdResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2588,7 +2588,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (salesforceObjectType is null)
                     throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(salesforceObjectType.ToString())}/items";
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

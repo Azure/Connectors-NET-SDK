@@ -93,8 +93,8 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .GetDocgenFormFieldsAsync(account: "acct1",
-                    envelope: "env1",
+                .GetDocgenFormFieldsAsync(accountId: "acct1",
+                    envelopeId: "env1",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
@@ -113,8 +113,8 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.GetDocgenFormFieldsAsync(account: "acct1",
-                    envelope: "env1",
+                client.GetDocgenFormFieldsAsync(accountId: "acct1",
+                    envelopeId: "env1",
                     cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }

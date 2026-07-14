@@ -498,7 +498,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
         [JsonPropertyName("GivenName")]
         public string GivenName { get; set; }
 
-        /// <summary>The user&apos;s job title.</summary>
+        /// <summary>The user’s job title.</summary>
         [JsonPropertyName("JobTitle")]
         public string JobTitle { get; set; }
 
@@ -530,7 +530,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
         [JsonPropertyName("TelephoneNumber")]
         public string TelephoneNumber { get; set; }
 
-        /// <summary>The user principal name (UPN) of the user. The UPN is an Internet-style login name for the user based on the Internet standard RFC 822. By convention, this should map to the user&apos;s email name. The general format is alias@domain, where domain must be present in the tenant&apos;s collection of verified domains.</summary>
+        /// <summary>The user principal name (UPN) of the user. The UPN is an Internet-style login name for the user based on the Internet standard RFC 822. By convention, this should map to the user’s email name. The general format is alias@domain, where domain must be present in the tenant’s collection of verified domains.</summary>
         [JsonPropertyName("UserPrincipalName")]
         public string UserPrincipalNameUPN { get; set; }
     }
