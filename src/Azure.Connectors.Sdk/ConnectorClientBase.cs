@@ -192,7 +192,7 @@ namespace Azure.Connectors.Sdk
         /// <param name="body">The raw request body bytes.</param>
         /// <param name="contentType">The request content type.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The deserialized response.</returns>
+        /// <returns>The raw response bytes or deserialized JSON response.</returns>
         protected virtual async Task<TResponse> CallConnectorAsync<TResponse>(
             HttpMethod method,
             string path,
