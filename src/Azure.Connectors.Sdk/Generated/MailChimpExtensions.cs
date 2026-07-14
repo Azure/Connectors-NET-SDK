@@ -60,7 +60,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("archive_url")]
         public string ArchiveURL { get; set; }
 
-        /// <summary>The link to the campaign’s archive version</summary>
+        /// <summary>The current status of the campaign.</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
 

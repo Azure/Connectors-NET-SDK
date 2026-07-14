@@ -19,6 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **DocuSign deprecated and removed operations are no longer generated** — removed `CreateEnvelopeFromTemplateAsync`, `ListEnvelopesAsync`, `SalesCopilotListEnvelopesAsync`, `ScpGetEmailSummaryAsync`, `ScpGetKeySalesAsync`, `ScpGetRelatedActivitiesAsync`, and `ScpGetRelatedRecordsAsync`. `CreateEnvelopeFromTemplateNoRecipientsAsync` remains available. (#210)
 - **Zoho Sign `CreateDocumentAsync` removed** — the operation is no longer present in the current managed connector Swagger. (#210)
 - **Generated method parameter names now follow current Swagger metadata** — named-argument callers may need updates; for example, DocuSign `GetDocgenFormFieldsAsync` now uses `accountId` and `envelopeId`. Positional calls are unaffected. (#210)
+- **Docuware multipart-only file operations removed** — `StoreToFileCabinetAsync`, `ImportToDocumentTrayAsync`, `AppendFileAsync`, `DeleteFileAsync`, and `ReplaceFileAsync`, together with their response models/factories, are no longer generated because the SDK transport cannot compose the required Swagger 2.0 `formData` payloads. Other Docuware search, metadata, download, field, and stamp operations remain available. (#210)
+- **Teams transcript and recording webhook trigger contracts removed** — current connector Swagger no longer exposes `DynamicTranscriptTriggerRequest`, `DynamicRecordingTriggerRequest`, `TeamsTriggerOperations.OnTranscriptTrigger`, or `TeamsTriggerOperations.OnRecordingTrigger`. (#210)
 
 ### Added
 
@@ -28,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Regenerated all 97 existing connector clients** using AzureUX-BPM PR 16421737. Generation now uses Azure Identity instead of the legacy ARMClient executable, preserves valid ARM JSON before applying malformed-response fallbacks, filters operations marked `deprecated`, and correctly handles connectors that advertise both JSON and multipart content types. Office 365, Docuware, and SigningHub now regenerate successfully from current ARM exports. (#210)
 - **Corrected generated Swagger documentation text** — fixed `seperated`/`Comma-seperated` and `lists’s` in generated XML documentation. (#210)
+- **Preserved existing connector contracts through structured Swagger corrections** — Azure Queues keeps `Messages.QueueMessagesList` as `List<QueueMessage>`; Event Hubs keeps `partitionKey` and `contentType` optional; Word Online Business keeps the optional `source` parameter on `GetDrivesAsync`; Microsoft Forms keeps `GetQuestionsAsync` returning `List<JsonElement?>`. (#210)
 
 ## [0.13.0-preview.1] - 2026-07-09
 

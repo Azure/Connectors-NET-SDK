@@ -59,7 +59,37 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     {
         /// <summary>QueueMessagesList</summary>
         [JsonPropertyName("QueueMessagesList")]
-        public JsonElement? QueueMessagesList { get; set; }
+        public List<QueueMessage> QueueMessagesList { get; set; }
+    }
+
+    /// <summary>
+    /// A single Azure Queue Storage message.
+    /// </summary>
+    public class QueueMessage
+    {
+        /// <summary>The unique identifier of the message.</summary>
+        [JsonPropertyName("MessageId")]
+        public string MessageId { get; set; }
+
+        /// <summary>The time the message was inserted into the queue.</summary>
+        [JsonPropertyName("InsertionTime")]
+        public string InsertionTime { get; set; }
+
+        /// <summary>The time the message will expire from the queue.</summary>
+        [JsonPropertyName("ExpirationTime")]
+        public string ExpirationTime { get; set; }
+
+        /// <summary>Used to delete the message after popping it off the queue.</summary>
+        [JsonPropertyName("PopReceipt")]
+        public string PopReceipt { get; set; }
+
+        /// <summary>The time the message will be visible to other consumers.</summary>
+        [JsonPropertyName("TimeNextVisible")]
+        public string NextVisibleTime { get; set; }
+
+        /// <summary>The text of the message.</summary>
+        [JsonPropertyName("MessageText")]
+        public string MessageText { get; set; }
     }
 
     /// <summary>
@@ -113,7 +143,7 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
         /// Creates a new instance of <see cref="Messages"/>.
         /// </summary>
         public static Messages Messages(
-            JsonElement? queueMessagesList = default)
+            List<QueueMessage> queueMessagesList = default)
         {
             return new Messages
             {
