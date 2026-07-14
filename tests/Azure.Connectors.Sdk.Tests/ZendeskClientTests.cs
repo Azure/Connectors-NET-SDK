@@ -156,7 +156,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(requestUri);
-            StringAssert.Contains(requestUri.AbsolutePath, "/tables/a%252Fb/items", StringComparison.Ordinal);
+            Assert.IsTrue(requestUri.AbsolutePath.Contains("/tables/a%252Fb/items", StringComparison.Ordinal));
         }
 
     }

@@ -2167,7 +2167,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         public bool? IsTaxable { get; set; }
 
         /// <summary>The positive non-zero numeric position in the featured listings of the shop with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.</summary>
-        [JsonPropertyName("featured_ rank")]
+        [JsonPropertyName("featured_rank")]
         public int? FeaturedRank { get; set; }
 
         /// <summary>When true, renews a listing for four months upon expriation. If set to true when previously false, etsy.com renews the listing before it expires, but the renewal period starts immidiately rather than extending the listing&apos;s expiration date. Any unused time remaining on the listing is lost. Renewals result in charges to a user&apos;s bill.</summary>

@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
+using Azure.Connectors.Sdk.CloudmersiveConvert.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -79,6 +80,38 @@ namespace Azure.Connectors.Sdk.Tests
                 credential: SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
+        }
+
+        [TestMethod]
+        public async Task EditDocumentDocxCreateBlankDocumentAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{}")
+            };
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .EditDocumentDocxCreateBlankDocumentAsync(new CreateBlankDocxRequest(), CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task EditDocumentDocxCreateBlankDocumentAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\":\"Bad request\"}")
+            };
+            using var client = CreateMockedClient(responseMessage);
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.EditDocumentDocxCreateBlankDocumentAsync(new CreateBlankDocxRequest(), CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
         }
 
     }
