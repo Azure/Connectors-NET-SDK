@@ -211,5 +211,25 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("_rid_abc", deserialized.Rid);
             Assert.AreEqual("\"etag-value\"", deserialized.Etag);
         }
+
+        [TestMethod]
+        public void QueryDocumentsResponse_AdditionalProperties_DeserializesAndFactoryPreservesValue()
+        {
+            const string json = "{\"additionalProperties\":{\"tenant\":\"contoso\"}}";
+
+            var deserialized = JsonSerializer.Deserialize<QueryDocumentsResponse>(json);
+            Assert.IsNotNull(deserialized);
+            Assert.IsTrue(deserialized.AdditionalProperties.HasValue);
+            Assert.AreEqual(
+                expected: "contoso",
+                actual: deserialized.AdditionalProperties.Value.GetProperty("tenant").GetString());
+
+            var factoryValue = JsonSerializer.Deserialize<JsonElement>("{\"tenant\":\"fabrikam\"}");
+            var fromFactory = DocumentDbModelFactory.QueryDocumentsResponse(additionalProperties: factoryValue);
+            Assert.IsTrue(fromFactory.AdditionalProperties.HasValue);
+            Assert.AreEqual(
+                expected: "fabrikam",
+                actual: fromFactory.AdditionalProperties.Value.GetProperty("tenant").GetString());
+        }
     }
 }
