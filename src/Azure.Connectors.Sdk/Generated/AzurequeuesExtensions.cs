@@ -67,29 +67,29 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     /// </summary>
     public class QueueMessage
     {
-        /// <summary>The unique identifier of the message.</summary>
+        /// <summary>Message ID</summary>
         [JsonPropertyName("MessageId")]
         public string MessageId { get; set; }
 
-        /// <summary>The time the message was inserted into the queue.</summary>
+        /// <summary>Message text</summary>
+        [JsonPropertyName("MessageText")]
+        public string MessageText { get; set; }
+
+        /// <summary>Insertion time</summary>
         [JsonPropertyName("InsertionTime")]
         public string InsertionTime { get; set; }
 
-        /// <summary>The time the message will expire from the queue.</summary>
+        /// <summary>Expiration time</summary>
         [JsonPropertyName("ExpirationTime")]
         public string ExpirationTime { get; set; }
 
-        /// <summary>Used to delete the message after popping it off the queue.</summary>
+        /// <summary>Pop receipt (required to delete or update the message)</summary>
         [JsonPropertyName("PopReceipt")]
         public string PopReceipt { get; set; }
 
-        /// <summary>The time the message will be visible to other consumers.</summary>
+        /// <summary>Time the message next becomes visible</summary>
         [JsonPropertyName("TimeNextVisible")]
         public string TimeNextVisible { get; set; }
-
-        /// <summary>The text of the message.</summary>
-        [JsonPropertyName("MessageText")]
-        public string MessageText { get; set; }
 
         /// <summary>Number of times the message has been dequeued</summary>
         [JsonPropertyName("DequeueCount")]
