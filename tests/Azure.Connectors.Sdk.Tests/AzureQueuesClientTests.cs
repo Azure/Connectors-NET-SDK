@@ -58,6 +58,29 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
         }
 
+        private static AzureQueuesClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage> captureRequest)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => captureRequest(request))
+                .ReturnsAsync(response);
+
+            var options = new ConnectorClientOptions
+            {
+                Transport = new HttpClientTransport(new HttpClient(mockHandler.Object)),
+            };
+            options.Retry.MaxRetries = 0;
+
+            return new AzureQueuesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
+        }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -161,6 +184,30 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual("myqueue", result[0].Name);
+        }
+
+        [TestMethod]
+        public async Task ListQueuesAsync_QueueEndpoint_DoubleEncodesPathSegment()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            };
+            Uri? requestUri = null;
+            using var client = CreateMockedClient(responseMessage, request => requestUri = request.RequestUri!);
+
+            await client
+                .ListQueuesAsync(
+                    storageAccountNameOrQueueEndpoint: "https://account.queue.core.windows.net",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(requestUri);
+            Assert.IsTrue(
+                requestUri.AbsolutePath.Contains(
+                    "/v2/storageAccounts/https%253A%252F%252Faccount.queue.core.windows.net/queues/list",
+                    StringComparison.Ordinal));
         }
 
         [TestMethod]
