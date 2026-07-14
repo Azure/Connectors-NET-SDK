@@ -2805,7 +2805,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// </summary>
     public class PDFFromImagesInput
     {
-        /// <summary>URL to the source file. Provide multiple URLS in comma seperated format. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
+        /// <summary>URL to the source file. Provide multiple URLS in comma separated format. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
         public string Url { get; set; }
 

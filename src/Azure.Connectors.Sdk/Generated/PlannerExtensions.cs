@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// </summary>
     public class UnassignUsersInput
     {
-        /// <summary>Semi-colon seperated ids or email addresses of users who should be unassigned to this task.</summary>
+        /// <summary>Semi-colon separated ids or email addresses of users who should be unassigned to this task.</summary>
         [JsonPropertyName("assignments")]
         public string RemoveAssignedUsers { get; set; }
     }
@@ -217,7 +217,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// </summary>
     public class AssignUsersInput
     {
-        /// <summary>Semi-colon seperated ids or email addresses of users who should be assigned to this task.</summary>
+        /// <summary>Semi-colon separated ids or email addresses of users who should be assigned to this task.</summary>
         [JsonPropertyName("assignments")]
         public string AssignedUserIds { get; set; }
     }

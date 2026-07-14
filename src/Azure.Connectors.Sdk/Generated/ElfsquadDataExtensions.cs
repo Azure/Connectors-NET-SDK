@@ -396,7 +396,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <param name="skipTheFirstNItems">Skip the first n items</param>
         /// <param name="orderResults">Order results</param>
         /// <param name="filterItemsByPropertyValues">Filter items by property values</param>
-        /// <param name="commaSeperatedPropertyNamesYouWantToSelect">Comma-seperated property names you want to select</param>
+        /// <param name="commaSeperatedPropertyNamesYouWantToSelect">Comma-separated property names you want to select</param>
         /// <param name="expandRelatedEntities">Expand related entities</param>
         /// <param name="includeCountOfItems">Include count of items</param>
         /// <param name="cancellationToken">Cancellation token.</param>

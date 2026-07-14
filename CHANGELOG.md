@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
      the same content into release_notes.md for NuGet packaging. Do NOT put HTML
      comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
 
+### Breaking Changes
+
+- **Cloudmersive Convert client removed operations no longer exposed by current connector Swagger** — the regenerated client no longer includes the legacy document autodetect/conversion/validation, image conversion, merge, split, XML transformation, and document editing methods removed from the managed connector contract. This includes `ConvertDocumentAutodetectGetInfoAsync`, `ConvertDocumentAutodetectToPdfAsync`, `ConvertDocumentDocxToPdfAsync`, `ConvertDocumentPdfToDocxAsync`, `ConvertImageGetImageInfoAsync`, `MergeDocumentPdfAsync`, `SplitDocumentPdfByPageAsync`, and related model types. Consumers must migrate to operations still present in the current Cloudmersive managed connector. (#210)
+- **DocuSign deprecated and removed operations are no longer generated** — removed `CreateEnvelopeFromTemplateAsync`, `ListEnvelopesAsync`, `SalesCopilotListEnvelopesAsync`, `ScpGetEmailSummaryAsync`, `ScpGetKeySalesAsync`, `ScpGetRelatedActivitiesAsync`, and `ScpGetRelatedRecordsAsync`. `CreateEnvelopeFromTemplateNoRecipientsAsync` remains available. (#210)
+- **Zoho Sign `CreateDocumentAsync` removed** — the operation is no longer present in the current managed connector Swagger. (#210)
+- **Generated method parameter names now follow current Swagger metadata** — named-argument callers may need updates; for example, DocuSign `GetDocgenFormFieldsAsync` now uses `accountId` and `envelopeId`. Positional calls are unaffected. (#210)
+
+### Added
+
+- **New operations from current managed connector Swagger** — DocuSign adds `GetDocGenTemplateTabsAsync` and `GetOrganizationsAsync`; Teams adds `RemoveMemberFromChatAsync` and `UpdateChannelPropertiesAsync`; SharePoint adds `GetDayOfWeekOptionsAsync`. (#210)
+
+### Changed
+
+- **Regenerated all 97 existing connector clients** using AzureUX-BPM PR 16421737. Generation now uses Azure Identity instead of the legacy ARMClient executable, preserves valid ARM JSON before applying malformed-response fallbacks, filters operations marked `deprecated`, and correctly handles connectors that advertise both JSON and multipart content types. Office 365, Docuware, and SigningHub now regenerate successfully from current ARM exports. (#210)
+- **Corrected generated Swagger documentation text** — fixed `seperated`/`Comma-seperated` and `lists’s` in generated XML documentation. (#210)
+
 ## [0.13.0-preview.1] - 2026-07-09
 
 ### Added

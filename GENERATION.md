@@ -250,19 +250,17 @@ Install the SDK NuGet package in your project:
 Generated connectors should be regenerated periodically to incorporate:
 
 - New connector operations
+- Updated parameter schemas
+- Bug fixes in swagger definitions
 
 ## 2026-07 Regeneration
 
 This repository-wide regeneration uses the generator changes in AzureUX-BPM PR
 16421737, which replaces the ARMClient executable dependency with
-`DefaultAzureCredential` and filters Swagger operations marked `deprecated`.
-
-The regeneration retained the baseline artifacts for `office365`, `docuware`,
-and `signinghub` because their current ARM exports could not produce a complete
-client during this run. Do not remove those clients in a generated-output PR
-unless their replacement Swagger export has been validated.
-- Updated parameter schemas
-- Bug fixes in swagger definitions
+`DefaultAzureCredential`, filters Swagger operations marked `deprecated`, and
+repairs malformed-response fallbacks without mutating already-valid JSON. All 97
+existing clients, including `office365`, `docuware`, and `signinghub`, were
+regenerated successfully from current ARM exports.
 
 **Recommended schedule:**
 

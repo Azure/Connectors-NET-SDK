@@ -704,7 +704,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("subject")]
         public string Subject { get; set; }
 
-        /// <summary>The default language for this lists’s forms</summary>
+        /// <summary>The default language for this list&apos;s forms</summary>
         [JsonPropertyName("language")]
         public Language? Language { get; set; }
     }
