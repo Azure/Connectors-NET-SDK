@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Generated method parameter names now follow current Swagger metadata** — named-argument callers may need updates; for example, DocuSign `GetDocgenFormFieldsAsync` now uses `accountId` and `envelopeId`. Positional calls are unaffected. (#210)
 - **Docuware multipart-only file operations removed** — `StoreToFileCabinetAsync`, `ImportToDocumentTrayAsync`, `AppendFileAsync`, `DeleteFileAsync`, and `ReplaceFileAsync`, together with their response models/factories, are no longer generated because the SDK transport cannot compose the required Swagger 2.0 `formData` payloads. Other Docuware search, metadata, download, field, and stamp operations remain available. (#210)
 - **Teams transcript and recording webhook trigger contracts removed** — current connector Swagger no longer exposes `DynamicTranscriptTriggerRequest`, `DynamicRecordingTriggerRequest`, `TeamsTriggerOperations.OnTranscriptTrigger`, or `TeamsTriggerOperations.OnRecordingTrigger`. (#210)
+- **Azure Queues message response now matches the connector wire shape** — `Messages.QueueMessagesList` changed from `List<QueueMessage>` to a `QueueMessagesList` wrapper whose `QueueMessage` property contains the list. `QueueMessage.TimeNextVisible` was renamed to `NextVisibleTime` from the owner Swagger summary, and the undeclared `DequeueCount` property was removed. Access messages through `response.QueueMessagesList.QueueMessage`. (#210)
+- **DocumentDB query response no longer exposes a synthetic envelope property** — `QueryDocumentsResponse.AdditionalProperties` and the corresponding model-factory parameter were removed. Dynamic document fields are captured by `ObjectWithoutType.AdditionalProperties` on each item in `QueryDocumentsResponse.Documents`, matching the V5 response contract. (#210)
+- **Event Hubs owner-required parameters are now required** — `SendEventsAsync` requires `partitionKey`, and `GenerateEventSchemaAsync` requires `contentType`. Callers must pass non-null values declared as required by the connector owner Swagger. (#210)
+- **Microsoft Forms schema helper no longer returns a fabricated response** — internal discovery method `GetQuestionsAsync` now returns `Task` instead of `Task<List<JsonElement?>>` because owner Swagger declares no success response schema. (#210)
+- **Word Online Business drive discovery hides its internal source parameter** — internal discovery method `GetDrivesAsync` no longer exposes `source`; it sends the owner-declared default `source=me`. (#210)
 
 ### Added
 
@@ -31,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Regenerated all 97 existing connector clients** using AzureUX-BPM PR 16421737. Generation now uses Azure Identity instead of the legacy ARMClient executable, preserves valid ARM JSON before applying malformed-response fallbacks, filters operations marked `deprecated`, and correctly handles connectors that advertise both JSON and multipart content types. Office 365, Docuware, and SigningHub now regenerate successfully from current ARM exports. (#210)
 - **Corrected generated Swagger documentation text** — fixed `seperated`/`Comma-seperated` and `lists’s` in generated XML documentation. (#210)
-- **Preserved existing connector contracts through structured Swagger corrections** — Azure Queues keeps `Messages.QueueMessagesList` as `List<QueueMessage>`; Event Hubs keeps `partitionKey` and `contentType` optional; Word Online Business keeps the optional `source` parameter on `GetDrivesAsync`; Microsoft Forms keeps `GetQuestionsAsync` returning `List<JsonElement?>`. (#210)
+- **Connector-specific corrections now preserve owner contracts** — Azure Queues receives named types for its nested message response without flattening the wire shape. Current AAPT connector Swagger remains authoritative for Event Hubs required parameters, Microsoft Forms and Word Online Business internal discovery methods, and DocumentDB per-document dynamic fields. (#210)
 
 ## [0.13.0-preview.1] - 2026-07-09
 

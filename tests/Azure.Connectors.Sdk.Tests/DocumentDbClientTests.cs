@@ -213,23 +213,16 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void QueryDocumentsResponse_AdditionalProperties_DeserializesAndFactoryPreservesValue()
+        public void QueryDocumentsResponse_DynamicDocumentProperties_AreCapturedOnEachItem()
         {
-            const string json = "{\"additionalProperties\":{\"tenant\":\"contoso\"}}";
+            const string json = "{\"value\":[{\"id\":\"document-1\",\"tenant\":\"contoso\"}],\"Count\":1}";
 
             var deserialized = JsonSerializer.Deserialize<QueryDocumentsResponse>(json);
             Assert.IsNotNull(deserialized);
-            Assert.IsTrue(deserialized.AdditionalProperties.HasValue);
-            Assert.AreEqual(
-                expected: "contoso",
-                actual: deserialized.AdditionalProperties.Value.GetProperty("tenant").GetString());
-
-            var factoryValue = JsonSerializer.Deserialize<JsonElement>("{\"tenant\":\"fabrikam\"}");
-            var fromFactory = DocumentDbModelFactory.QueryDocumentsResponse(additionalProperties: factoryValue);
-            Assert.IsTrue(fromFactory.AdditionalProperties.HasValue);
-            Assert.AreEqual(
-                expected: "fabrikam",
-                actual: fromFactory.AdditionalProperties.Value.GetProperty("tenant").GetString());
+            Assert.HasCount(1, deserialized.Documents);
+            Assert.AreEqual(expected: 1, actual: deserialized.NumberOfDocuments);
+            Assert.AreEqual(expected: "document-1", actual: deserialized.Documents[0].AdditionalProperties["id"].GetString());
+            Assert.AreEqual(expected: "contoso", actual: deserialized.Documents[0].AdditionalProperties["tenant"].GetString());
         }
     }
 }

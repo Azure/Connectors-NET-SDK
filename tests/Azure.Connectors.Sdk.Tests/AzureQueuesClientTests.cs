@@ -247,15 +247,34 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void QueueMessage_CompatibilityProperties_DeserializeExpectedValues()
+        public void Messages_NestedQueueMessageResponse_DeserializesExpectedValues()
         {
-            const string json = "{\"TimeNextVisible\":\"2026-07-14T12:00:00Z\",\"DequeueCount\":\"3\"}";
+            const string json = """
+                {
+                    "QueueMessagesList": {
+                        "QueueMessage": [
+                            {
+                                "MessageId": "message-1",
+                                "InsertionTime": "2026-07-14T11:59:00Z",
+                                "ExpirationTime": "2026-07-21T11:59:00Z",
+                                "PopReceipt": "receipt-1",
+                                "TimeNextVisible": "2026-07-14T12:00:00Z",
+                                "MessageText": "hello"
+                            }
+                        ]
+                    }
+                }
+                """;
 
-            var message = JsonSerializer.Deserialize<QueueMessage>(json);
+            var response = JsonSerializer.Deserialize<Messages>(json);
 
-            Assert.IsNotNull(message);
-            Assert.AreEqual("2026-07-14T12:00:00Z", message.TimeNextVisible);
-            Assert.AreEqual("3", message.DequeueCount);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.QueueMessagesList);
+            Assert.HasCount(1, response.QueueMessagesList.QueueMessage);
+            var message = response.QueueMessagesList.QueueMessage[0];
+            Assert.AreEqual("message-1", message.MessageId);
+            Assert.AreEqual("2026-07-14T12:00:00Z", message.NextVisibleTime);
+            Assert.AreEqual("hello", message.MessageText);
         }
     }
 }
