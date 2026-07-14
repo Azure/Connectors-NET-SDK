@@ -245,5 +245,17 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("myqueue", deserialized.Name);
         }
+
+        [TestMethod]
+        public void QueueMessage_CompatibilityProperties_DeserializeExpectedValues()
+        {
+            const string json = "{\"TimeNextVisible\":\"2026-07-14T12:00:00Z\",\"DequeueCount\":\"3\"}";
+
+            var message = JsonSerializer.Deserialize<QueueMessage>(json);
+
+            Assert.IsNotNull(message);
+            Assert.AreEqual("2026-07-14T12:00:00Z", message.TimeNextVisible);
+            Assert.AreEqual("3", message.DequeueCount);
+        }
     }
 }
