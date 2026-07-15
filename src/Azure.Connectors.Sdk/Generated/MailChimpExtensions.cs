@@ -208,7 +208,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class VariateSettings
     {
-        /// <summary>The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue—or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_critera is ignored. For Multivariate Campaigns with &apos;manual&apos; as the winner_citeria, the winner must be chosen in the MailChimp web application</summary>
+        /// <summary>The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue—or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_criteria is ignored. For Multivariate Campaigns with &apos;manual&apos; as the winner_criteria, the winner must be chosen in the MailChimp web application</summary>
         [JsonPropertyName("winner_criteria")]
         public string WinningCriteria { get; set; }
 
@@ -2641,6 +2641,32 @@ namespace Azure.Connectors.Sdk.MailChimp
     }
 
     #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the MailChimp connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class MailChimpTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnMemberSubscribed trigger operation (operationId: OnMemberSubscribed).
+        /// </summary>
+        public static class OnMemberSubscribed
+        {
+            /// <summary>
+            /// The unique id for the list
+            /// Required.
+            /// Dynamic values from: GetLists.
+            /// </summary>
+            public const string ListId = "list_id";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
 
     #region Client
 
