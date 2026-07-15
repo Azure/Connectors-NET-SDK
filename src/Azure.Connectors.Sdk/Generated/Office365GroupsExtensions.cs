@@ -788,7 +788,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
                     throw new ArgumentNullException(nameof(groupId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 return await this
                     .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -904,7 +904,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
                     throw new ArgumentNullException(nameof(groupId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -959,7 +959,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
             {
                 var path = $"/v2/httprequest";
                 return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

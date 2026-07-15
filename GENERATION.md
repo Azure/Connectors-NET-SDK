@@ -14,18 +14,15 @@ The **CodefulSdkGenerator** tool generates typed C# clients from managed connect
 
 ### Tools Required
 
-1. **ARMClient** - For authenticated Azure Resource Manager API calls
-   - Install via Chocolatey: `choco install armclient`
-   - Install via WinGet: `winget install projectkudu.ARMClient`
-   - The generator defaults to `C:\ProgramData\chocolatey\bin\ARMClient.exe`
-   - **If ARMClient is installed elsewhere** (e.g., via WinGet), set the `ARMCLIENT_PATH` environment variable:
+1. **Azure CLI** - For authenticated Azure Resource Manager API calls
+   - Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli-windows)
+   - Sign in before generation:
 
      ```powershell
-     # Find your ARMClient path
-     (Get-Command armclient).Source
-     # Set it persistently
-     [System.Environment]::SetEnvironmentVariable("ARMCLIENT_PATH", (Get-Command armclient).Source, "User")
+     az login
      ```
+
+   - The generator uses `.NET` `DefaultAzureCredential`, which automatically uses the Azure CLI credential for local development.
 
 2. **Azure Subscription** - Access to an Azure subscription with Logic Apps Standard
    - Required for fetching connector swagger definitions from ARM
@@ -38,7 +35,6 @@ Set environment variables (or use defaults):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ARMCLIENT_PATH` | Path to ARMClient.exe | `C:\ProgramData\chocolatey\bin\ARMClient.exe` |
 | `ARMCACHE_PATH` | Cache directory for ARM responses | `%TEMP%\armcache` |
 | `AZURE_SUBSCRIPTION_ID` | Azure subscription ID | (built-in default) |
 | `AZURE_RESOURCE_GROUP` | Resource group with Logic App | (built-in default) |
@@ -257,6 +253,15 @@ Generated connectors should be regenerated periodically to incorporate:
 - Updated parameter schemas
 - Bug fixes in swagger definitions
 
+## 2026-07 Regeneration
+
+This repository-wide regeneration uses the generator changes in AzureUX-BPM PR
+16421737, which replaces the ARMClient executable dependency with
+`DefaultAzureCredential`, filters Swagger operations marked `deprecated`, and
+repairs malformed-response fallbacks without mutating already-valid JSON. All 97
+existing clients, including `office365`, `docuware`, and `signinghub`, were
+regenerated successfully from current ARM exports.
+
 **Recommended schedule:**
 
 - Monthly regeneration for active development
@@ -277,6 +282,10 @@ on:
     - cron: '0 0 1 * *'  # First day of each month
   workflow_dispatch:  # Allow manual trigger
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   regenerate:
     runs-on: windows-latest
@@ -288,11 +297,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       
-      - name: Install ARMClient
-        run: choco install armclient -y
-      
       - name: Login to Azure
-        run: armclient login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       
       - name: Build Generator
         run: |
@@ -317,11 +327,17 @@ jobs:
 
 ### Common Issues
 
-**ARMClient not authenticated:**
+**Azure credential unavailable:**
 
-```text
-Run: armclient login
+```powershell
+az login
+az account set --subscription <subscription-id>
+az account show
 ```
+
+For GitHub Actions, configure workload identity federation and use
+`azure/login@v2` as shown above. The generator's `DefaultAzureCredential`
+automatically uses the authenticated Azure CLI session.
 
 **Connector not found:**
 
@@ -348,11 +364,12 @@ Remove-Item -Path "$env:TEMP\armcache" -Recurse -Force
 To see the list of available connectors:
 
 ```powershell
-# Login to ARM
-armclient login
+# Sign in and select the subscription
+az login
+az account set --subscription <subscription-id>
 
 # List managed APIs in a region
-armclient GET "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/westus/managedApis?api-version=2016-06-01"
+az rest --method get --url "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/locations/westus/managedApis?api-version=2018-07-01-preview"
 ```
 
 Common connectors:

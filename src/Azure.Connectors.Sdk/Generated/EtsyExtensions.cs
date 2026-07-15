@@ -1681,7 +1681,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("shop_id")]
         public int? ShopId { get; set; }
 
-        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, T, c, and r. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}Tcr]/u) You can only use the %, :, &amp; and + characters once each.</summary>
+        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
@@ -1726,7 +1726,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("shop_section_id")]
         public int? ShopSectionId { get; set; }
 
-        /// <summary>The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop&apos;s home page.</summary>
+        /// <summary>The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.</summary>
         [JsonPropertyName("featured_rank")]
         public int? FeaturedRank { get; set; }
 
@@ -1766,7 +1766,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("listing_type")]
         public bool? ListingType { get; set; }
 
-        /// <summary>A list of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, T, c, and r. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&apos;Tcr]/u) Default value is null.</summary>
+        /// <summary>A list of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&apos;™©®]/u) Default value is null.</summary>
         [JsonPropertyName("tags")]
         public List<string> Tags { get; set; }
 
@@ -1872,7 +1872,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("quantity")]
         public int? Quantity { get; set; }
 
-        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}Tcr]/u) You can only use the %, :, &amp; and + characters once each.</summary>
+        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
@@ -1916,7 +1916,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("processing_max")]
         public int? ProcessingMax { get; set; }
 
-        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;Tcr]/u)</summary>
+        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;™©®]/u)</summary>
         [JsonPropertyName("tags")]
         public string Tags { get; set; }
 
@@ -2062,7 +2062,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("quantity")]
         public int? Quantity { get; set; }
 
-        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}Tcr]/u) You can only use the %, :, &amp; and + characters once each.</summary>
+        /// <summary>The listing&apos;s title string. Valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{P}\p{Sm}\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.</summary>
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
@@ -2106,7 +2106,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("processing_max")]
         public int? ProcessingMax { get; set; }
 
-        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, T, c, and r. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;Tcr]/u)</summary>
+        /// <summary>An array of tag strings for the listing. Valid tag strings contain only letters, numbers, whitespace characters, -, &apos;, ™, ©, and ®. (regex: /[^\p{L}\p{Nd}\p{Zs}-&apos;™©®]/u)</summary>
         [JsonPropertyName("tags")]
         public string Tags { get; set; }
 
@@ -2166,8 +2166,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("is_taxable")]
         public bool? IsTaxable { get; set; }
 
-        /// <summary>The positive non-zero numeric position in the featured listings of the shop with rank 1 listings appearing in the left-most position in featured listing on a shop&apos;s home page.</summary>
-        [JsonPropertyName("featured_ rank")]
+        /// <summary>The positive non-zero numeric position in the featured listings of the shop with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.</summary>
+        [JsonPropertyName("featured_rank")]
         public int? FeaturedRank { get; set; }
 
         /// <summary>When true, renews a listing for four months upon expriation. If set to true when previously false, etsy.com renews the listing before it expires, but the renewal period starts immidiately rather than extending the listing&apos;s expiration date. Any unused time remaining on the listing is lost. Renewals result in charges to a user&apos;s bill.</summary>
@@ -5731,7 +5731,7 @@ namespace Azure.Connectors.Sdk.Etsy
         /// <summary>
         /// Create a shipping profile destination
         /// </summary>
-        /// <remarks>Creates a new shipping destination, which sets the shipping cost, carrier, and class for a destination in a shipping profile. This assigns costs using the currency of the associated shop. Set the destination using either destination country ISO or destination region; destination country ISO and destination region are mutually exclusive - set one or the other. Setting both triggers error 400. If the request sets neither destination country ISO nor destination region, the default destination is everywhere. You must also either assign both a shipping carrier ID and mail class or both min delivery days and max delivery days.</remarks>
+        /// <remarks>Creates a new shipping destination, which sets the shipping cost, carrier, and class for a destination in a shipping profile. This assigns costs using the currency of the associated shop. Set the destination using either destination country ISO or destination region; destination country ISO and destination region are mutually exclusive — set one or the other. Setting both triggers error 400. If the request sets neither destination country ISO nor destination region, the default destination is everywhere. You must also either assign both a shipping carrier ID and mail class or both min delivery days and max delivery days.</remarks>
         /// <param name="shopId">Shop ID</param>
         /// <param name="shippingProfileId">Shipping Profile ID</param>
         /// <param name="input">The request body.</param>

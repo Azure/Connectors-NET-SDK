@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Net;
 using global::Azure.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -151,6 +152,25 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(ConnectorClientOptions.ServiceVersion.V1, options.Version);
         }
 
+        [TestMethod]
+        public async Task CallConnectorAsync_BinaryBody_SendsRawBytesAndContentType()
+        {
+            var expectedBody = new byte[] { 0x00, 0x7F, 0xFF };
+            var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK));
+            using var client = new TestBinaryConnectorClient(
+                new Uri("https://test.azure.com/connection"),
+                credential,
+                options);
+
+            await client
+                .TestSendBinaryAsync(expectedBody, CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: "application/octet-stream", actual: capture.ContentType);
+            CollectionAssert.AreEqual(expected: expectedBody, actual: capture.Body);
+        }
+
         private class TestConnectorClientWithUri : ConnectorClientBase
         {
             public TestConnectorClientWithUri(Uri connectionRuntimeUrl)
@@ -183,6 +203,26 @@ namespace Azure.Connectors.Sdk.Tests
             public override string ConnectorName => "TestConnector";
 
             public string TestResolveUrl(string path) => this.ResolveUrl(path);
+        }
+
+        private class TestBinaryConnectorClient : ConnectorClientBase
+        {
+            public TestBinaryConnectorClient(Uri connectionRuntimeUrl, TokenCredential credential, ConnectorClientOptions options)
+                : base(connectionRuntimeUrl, credential, options)
+            {
+            }
+
+            public override string ConnectorName => "TestConnector";
+
+            public Task TestSendBinaryAsync(byte[] body, CancellationToken cancellationToken)
+            {
+                return this.CallConnectorAsync(
+                    HttpMethod.Post,
+                    "/upload",
+                    body,
+                    System.Net.Mime.MediaTypeNames.Application.Octet,
+                    cancellationToken);
+            }
         }
     }
 }

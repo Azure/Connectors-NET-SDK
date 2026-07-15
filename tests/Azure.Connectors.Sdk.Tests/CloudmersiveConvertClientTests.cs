@@ -5,7 +5,6 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
@@ -84,54 +83,36 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ConvertDocumentAutodetectGetInfoAsync_WithMockedResponse_ReturnsExpected()
+        public async Task EditDocumentDocxCreateBlankDocumentAsync_WithMockedResponse_ReturnsExpected()
         {
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{}")
             };
-
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .ConvertDocumentAutodetectGetInfoAsync(cancellationToken: CancellationToken.None)
+                .EditDocumentDocxCreateBlankDocumentAsync(new CreateBlankDocxRequest(), CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public async Task ConvertDocumentAutodetectGetInfoAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task EditDocumentDocxCreateBlankDocumentAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.BadRequest,
-                Content = new StringContent("{\"error\": \"Bad request\"}")
+                Content = new StringContent("{\"error\":\"Bad request\"}")
             };
-
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.ConvertDocumentAutodetectGetInfoAsync(cancellationToken: CancellationToken.None))
+                client.EditDocumentDocxCreateBlankDocumentAsync(new CreateBlankDocxRequest(), CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
-        [TestMethod]
-        public void AutodetectGetInfoResult_Serialization_RoundTrips()
-        {
-            var model = new AutodetectGetInfoResult
-            {
-                Author = "test",
-                DetectedFileExtension = ".pdf"
-            };
-
-            var json = JsonSerializer.Serialize(model);
-            var deserialized = JsonSerializer.Deserialize<AutodetectGetInfoResult>(json);
-
-            Assert.IsNotNull(deserialized);
-            Assert.AreEqual(expected: "test", actual: deserialized!.Author);
-            Assert.AreEqual(expected: ".pdf", actual: deserialized!.DetectedFileExtension);
-        }
     }
 }

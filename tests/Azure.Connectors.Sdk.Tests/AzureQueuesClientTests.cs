@@ -58,6 +58,29 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
         }
 
+        private static AzureQueuesClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage> captureRequest)
+        {
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Callback<HttpRequestMessage, CancellationToken>((request, cancellationToken) => captureRequest(request))
+                .ReturnsAsync(response);
+
+            var options = new ConnectorClientOptions
+            {
+                Transport = new HttpClientTransport(new HttpClient(mockHandler.Object)),
+            };
+            options.Retry.MaxRetries = 0;
+
+            return new AzureQueuesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
+        }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -164,6 +187,30 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task ListQueuesAsync_QueueEndpoint_DoubleEncodesPathSegment()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            };
+            Uri? requestUri = null;
+            using var client = CreateMockedClient(responseMessage, request => requestUri = request.RequestUri!);
+
+            await client
+                .ListQueuesAsync(
+                    storageAccountNameOrQueueEndpoint: "https://account.queue.core.windows.net",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(requestUri);
+            Assert.IsTrue(
+                requestUri.AbsolutePath.Contains(
+                    "/v2/storageAccounts/https%253A%252F%252Faccount.queue.core.windows.net/queues/list",
+                    StringComparison.Ordinal));
+        }
+
+        [TestMethod]
         public void StorageAccountList_SerializationRoundTrip()
         {
             var original = new StorageAccountList
@@ -197,6 +244,39 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.IsNotNull(deserialized);
             Assert.AreEqual("myqueue", deserialized.Name);
+        }
+
+        [TestMethod]
+        public void Messages_NestedQueueMessageResponse_DeserializesExpectedValues()
+        {
+            const string json = """
+                {
+                    "QueueMessagesList": {
+                        "QueueMessage": [
+                            {
+                                "MessageId": "message-1",
+                                "InsertionTime": "2026-07-14T11:59:00Z",
+                                "ExpirationTime": "2026-07-21T11:59:00Z",
+                                "PopReceipt": "receipt-1",
+                                "TimeNextVisible": "2026-07-14T12:00:00Z",
+                                "DequeueCount": "3",
+                                "MessageText": "hello"
+                            }
+                        ]
+                    }
+                }
+                """;
+
+            var response = JsonSerializer.Deserialize<Messages>(json);
+
+            Assert.IsNotNull(response);
+            Assert.IsNotNull(response.QueueMessagesList);
+            Assert.HasCount(1, response.QueueMessagesList.QueueMessage);
+            var message = response.QueueMessagesList.QueueMessage[0];
+            Assert.AreEqual("message-1", message.MessageId);
+            Assert.AreEqual("2026-07-14T12:00:00Z", message.NextVisibleTime);
+            Assert.AreEqual("3", message.DequeueCount);
+            Assert.AreEqual("hello", message.MessageText);
         }
     }
 }

@@ -56,11 +56,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonInclude]
         public string CreatedTime { get; init; }
 
-        /// <summary>The link to the campaign&apos;s archive version</summary>
+        /// <summary>The link to the campaign’s archive version</summary>
         [JsonPropertyName("archive_url")]
         public string ArchiveURL { get; set; }
 
-        /// <summary>The link to the campaign&apos;s archive version</summary>
+        /// <summary>The current status of the campaign.</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
 
@@ -72,7 +72,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("send_time")]
         public string SendTime { get; set; }
 
-        /// <summary>How the campaign&apos;s content is put together (`template&apos;, `drag_and_drop&apos;, `html&apos;, `url&apos;)</summary>
+        /// <summary>How the campaign’s content is put together (‘template’, ‘drag_and_drop’, ‘html’, ‘url’)</summary>
         [JsonPropertyName("content_type")]
         public string ContentType { get; set; }
 
@@ -208,7 +208,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class VariateSettings
     {
-        /// <summary>The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue-or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_critera is ignored. For Multivariate Campaigns with &apos;manual&apos; as the winner_citeria, the winner must be chosen in the MailChimp web application</summary>
+        /// <summary>The combination that performs the best. This may be determined automatically by click rate, open rate, or total revenue—or you may choose manually based on the reporting data you find the most valuable. For Multivariate Campaigns testing send_time, winner_criteria is ignored. For Multivariate Campaigns with &apos;manual&apos; as the winner_criteria, the winner must be chosen in the MailChimp web application</summary>
         [JsonPropertyName("winner_criteria")]
         public string WinningCriteria { get; set; }
 
@@ -348,7 +348,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class Schedule
     {
-        /// <summary>The hour to send the campaign in local time. Acceptable hours are 0-23. For example, `4&apos; would be 4am in your account&apos;s default time zone</summary>
+        /// <summary>The hour to send the campaign in local time. Acceptable hours are 0-23. For example, ‘4’ would be 4am in your account’s default time zone</summary>
         [JsonPropertyName("hour")]
         public int? SendingHour { get; set; }
 
@@ -360,7 +360,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("weekly_send_day")]
         public WeeklySendDay? WeeklySendingDay { get; set; }
 
-        /// <summary>The day of the month to send a monthly RSS Campaign. Acceptable days are 1-32, where `0&apos; is always the last day of a month. Months with fewer than the selected number of days will not have an RSS campaign sent out that day. For example, RSS Campaigns set to send on the 30th will not go out in February</summary>
+        /// <summary>The day of the month to send a monthly RSS Campaign. Acceptable days are 1-32, where ‘0’ is always the last day of a month. Months with fewer than the selected number of days will not have an RSS campaign sent out that day. For example, RSS Campaigns set to send on the 30th will not go out in February</summary>
         [JsonPropertyName("monthly_send_date")]
         public float? MonthlySendingDay { get; set; }
     }
@@ -428,19 +428,19 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("from_name_b")]
         public string FromNameGroupB { get; set; }
 
-        /// <summary>For campaigns split on `From Name&apos;, the reply-to address for Group A</summary>
+        /// <summary>For campaigns split on ‘From Name’, the reply-to address for Group A</summary>
         [JsonPropertyName("reply_email_a")]
         public string ReplyEmailGroupA { get; set; }
 
-        /// <summary>For campaigns split on `From Name&apos;, the reply-to address for Group B</summary>
+        /// <summary>For campaigns split on ‘From Name’, the reply-to address for Group B</summary>
         [JsonPropertyName("reply_email_b")]
         public string ReplyEmailGroupB { get; set; }
 
-        /// <summary>For campaigns split on `Subject Line&apos;, the subject line for Group A</summary>
+        /// <summary>For campaigns split on ‘Subject Line’, the subject line for Group A</summary>
         [JsonPropertyName("subject_a")]
         public string SubjectLineGroupA { get; set; }
 
-        /// <summary>For campaigns split on `Subject Line&apos;, the subject line for Group B</summary>
+        /// <summary>For campaigns split on ‘Subject Line’, the subject line for Group B</summary>
         [JsonPropertyName("subject_b")]
         public string SubjectLineGroupB { get; set; }
 
@@ -536,7 +536,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class Link
     {
-        /// <summary>As with an HTML `rel&apos; attribute, this describes the type of link</summary>
+        /// <summary>As with an HTML ‘rel’ attribute, this describes the type of link</summary>
         [JsonPropertyName("rel")]
         public string Rel { get; set; }
 
@@ -544,7 +544,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("href")]
         public string Href { get; set; }
 
-        /// <summary>The HTTP method that should be used when accessing the URL defined in `href&apos;. (GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD)</summary>
+        /// <summary>The HTTP method that should be used when accessing the URL defined in ‘href’. (GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD)</summary>
         [JsonPropertyName("method")]
         public string Method { get; set; }
 
@@ -620,15 +620,15 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("email_type_option")]
         public bool? EmailTypeOption { get; set; }
 
-        /// <summary>Our EepURL shortened version of this list&apos;s subscribe form</summary>
+        /// <summary>Our EepURL shortened version of this list’s subscribe form</summary>
         [JsonPropertyName("subscribe_url_short")]
         public string SubscribeURLShort { get; set; }
 
-        /// <summary>The full version of this list&apos;s subscribe form (host will vary)</summary>
+        /// <summary>The full version of this list’s subscribe form (host will vary)</summary>
         [JsonPropertyName("subscribe_url_long")]
         public string SubscribeURLLong { get; set; }
 
-        /// <summary>The list&apos;s Email Beamer address</summary>
+        /// <summary>The list’s Email Beamer address</summary>
         [JsonPropertyName("beamer_address")]
         public string BeamerAddress { get; set; }
 
@@ -704,7 +704,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("subject")]
         public string Subject { get; set; }
 
-        /// <summary>The default language for this lists&apos;s forms</summary>
+        /// <summary>The default language for this list&apos;s forms</summary>
         [JsonPropertyName("language")]
         public Language? Language { get; set; }
     }
@@ -750,23 +750,23 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("merge_field_count")]
         public int? MergeVarCount { get; set; }
 
-        /// <summary>The average number of subscriptions per month for the list(not returned if we haven&apos;t calculated it yet)</summary>
+        /// <summary>The average number of subscriptions per month for the list(not returned if we haven’t calculated it yet)</summary>
         [JsonPropertyName("avg_sub_rate")]
         public float? AverageSubscriptionRate { get; set; }
 
-        /// <summary>The average number of unsubscriptions per month for the list(not returned if we haven&apos;t calculated it yet)</summary>
+        /// <summary>The average number of unsubscriptions per month for the list(not returned if we haven’t calculated it yet)</summary>
         [JsonPropertyName("avg_unsub_rate")]
         public float? AverageUnsubscriptionRate { get; set; }
 
-        /// <summary>The target number of subscriptions per month for the list to keep it growing(not returned if we haven&apos;t calculated it yet)</summary>
+        /// <summary>The target number of subscriptions per month for the list to keep it growing(not returned if we haven’t calculated it yet)</summary>
         [JsonPropertyName("target_sub_rate")]
         public float? TargetSubscriptionRate { get; set; }
 
-        /// <summary>The average open rate(a percentage represented as a number between 0 and 100) per campaign for the list(not returned if we haven&apos;t calculated it yet)</summary>
+        /// <summary>The average open rate(a percentage represented as a number between 0 and 100) per campaign for the list(not returned if we haven’t calculated it yet)</summary>
         [JsonPropertyName("open_rate")]
         public float? OpenRate { get; set; }
 
-        /// <summary>The average click rate(a percentage represented as a number between 0 and 100) per campaign for the list(not returned if we haven&apos;t calculated it yet)</summary>
+        /// <summary>The average click rate(a percentage represented as a number between 0 and 100) per campaign for the list(not returned if we haven’t calculated it yet)</summary>
         [JsonPropertyName("click_rate")]
         public float? ClickRate { get; set; }
 
@@ -820,7 +820,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class MemberResponseModel
     {
-        /// <summary>The MD5 hash of the lowercase version of the list member&apos;s email address</summary>
+        /// <summary>The MD5 hash of the lowercase version of the list member’s email address</summary>
         [JsonPropertyName("id")]
         public string EmailId { get; set; }
 
@@ -832,11 +832,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("unique_email_id")]
         public string UniqueEmailId { get; set; }
 
-        /// <summary>Type of email this member asked to get (`html&apos; or `text&apos;).</summary>
+        /// <summary>Type of email this member asked to get (‘html’ or ‘text’).</summary>
         [JsonPropertyName("email_type")]
         public string EmailType { get; set; }
 
-        /// <summary>Subscriber&apos;s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
+        /// <summary>Subscriber’s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
 
@@ -870,11 +870,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("member_rating")]
         public int? MemberRating { get; set; }
 
-        /// <summary>Date and time the member&apos;s info was last changed</summary>
+        /// <summary>Date and time the member’s info was last changed</summary>
         [JsonPropertyName("last_changed")]
         public string LastChangedDate { get; set; }
 
-        /// <summary>If set/detected, the subscriber&apos;s language</summary>
+        /// <summary>If set/detected, the subscriber’s language</summary>
         [JsonPropertyName("language")]
         public string Language { get; set; }
 
@@ -882,7 +882,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("vip")]
         public bool? VIP { get; set; }
 
-        /// <summary>The list member&apos;s email client</summary>
+        /// <summary>The list member’s email client</summary>
         [JsonPropertyName("email_client")]
         public string EmailClient { get; set; }
 
@@ -977,7 +977,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class AddUserResponseModel
     {
-        /// <summary>The MD5 hash of the lowercase version of the list member&apos;s email address</summary>
+        /// <summary>The MD5 hash of the lowercase version of the list member’s email address</summary>
         [JsonPropertyName("id")]
         public string EmailId { get; set; }
 
@@ -989,11 +989,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("unique_email_id")]
         public string UniqueEmailId { get; set; }
 
-        /// <summary>Type of email this member asked to get (`html&apos; or `text&apos;).</summary>
+        /// <summary>Type of email this member asked to get (‘html’ or ‘text’).</summary>
         [JsonPropertyName("email_type")]
         public string EmailType { get; set; }
 
-        /// <summary>Subscriber&apos;s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
+        /// <summary>Subscriber’s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
 
@@ -1027,11 +1027,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("member_rating")]
         public int? MemberRating { get; set; }
 
-        /// <summary>Date and time the member&apos;s info was last changed</summary>
+        /// <summary>Date and time the member’s info was last changed</summary>
         [JsonPropertyName("last_changed")]
         public string LastChangedDate { get; set; }
 
-        /// <summary>If set/detected, the subscriber&apos;s language</summary>
+        /// <summary>If set/detected, the subscriber’s language</summary>
         [JsonPropertyName("language")]
         public string Language { get; set; }
 
@@ -1039,7 +1039,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("vip")]
         public bool? VIP { get; set; }
 
-        /// <summary>The list member&apos;s email client</summary>
+        /// <summary>The list member’s email client</summary>
         [JsonPropertyName("email_client")]
         public string EmailClient { get; set; }
 
@@ -1155,11 +1155,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class NewMemberInListRequest
     {
-        /// <summary>Type of email this member asked to get (`html&apos; or `text&apos;)</summary>
+        /// <summary>Type of email this member asked to get (‘html’ or ‘text’)</summary>
         [JsonPropertyName("email_type")]
         public EmailType? EmailType { get; set; }
 
-        /// <summary>Subscriber&apos;s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
+        /// <summary>Subscriber’s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
         [JsonPropertyName("status")]
         public Status? Status { get; set; }
 
@@ -1167,7 +1167,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("merge_fields")]
         public FirstAndLastName MergeFields { get; set; }
 
-        /// <summary>If set/detected, the subscriber&apos;s language</summary>
+        /// <summary>If set/detected, the subscriber’s language</summary>
         [JsonPropertyName("language")]
         public string Language { get; set; }
 
@@ -1189,11 +1189,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     /// </summary>
     public class UpdateMemberInListRequest
     {
-        /// <summary>Type of email this member asked to get (`html&apos; or `text&apos;)</summary>
+        /// <summary>Type of email this member asked to get (‘html’ or ‘text’)</summary>
         [JsonPropertyName("email_type")]
         public EmailType? EmailType { get; set; }
 
-        /// <summary>Subscriber&apos;s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
+        /// <summary>Subscriber’s current status. Possible Values: subscribed, unsubscribed, cleaned, pending</summary>
         [JsonPropertyName("status")]
         public Status? Status { get; set; }
 
@@ -1201,7 +1201,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         [JsonPropertyName("merge_fields")]
         public FirstAndLastName MergeFields { get; set; }
 
-        /// <summary>If set/detected, the subscriber&apos;s language</summary>
+        /// <summary>If set/detected, the subscriber’s language</summary>
         [JsonPropertyName("language")]
         public string Language { get; set; }
 
@@ -2641,6 +2641,32 @@ namespace Azure.Connectors.Sdk.MailChimp
     }
 
     #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the MailChimp connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class MailChimpTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnMemberSubscribed trigger operation (operationId: OnMemberSubscribed).
+        /// </summary>
+        public static class OnMemberSubscribed
+        {
+            /// <summary>
+            /// The unique id for the list
+            /// Required.
+            /// Dynamic values from: GetLists.
+            /// </summary>
+            public const string ListId = "list_id";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
 
     #region Client
 

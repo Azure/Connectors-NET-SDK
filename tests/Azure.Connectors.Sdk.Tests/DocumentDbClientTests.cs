@@ -211,5 +211,18 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("_rid_abc", deserialized.Rid);
             Assert.AreEqual("\"etag-value\"", deserialized.Etag);
         }
+
+        [TestMethod]
+        public void QueryDocumentsResponse_DynamicDocumentProperties_AreCapturedOnEachItem()
+        {
+            const string json = "{\"value\":[{\"id\":\"document-1\",\"tenant\":\"contoso\"}],\"Count\":1}";
+
+            var deserialized = JsonSerializer.Deserialize<QueryDocumentsResponse>(json);
+            Assert.IsNotNull(deserialized);
+            Assert.HasCount(1, deserialized.Documents);
+            Assert.AreEqual(expected: 1, actual: deserialized.NumberOfDocuments);
+            Assert.AreEqual(expected: "document-1", actual: deserialized.Documents[0].AdditionalProperties["id"].GetString());
+            Assert.AreEqual(expected: "contoso", actual: deserialized.Documents[0].AdditionalProperties["tenant"].GetString());
+        }
     }
 }

@@ -13,6 +13,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
      the same content into release_notes.md for NuGet packaging. Do NOT put HTML
      comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
 
+### Breaking Changes
+
+- **Cloudmersive Convert multipart operations removed** — 75 current managed-connector operations use Swagger 2.0 `formData`/multipart payloads that the SDK transport cannot compose, so the regenerated client no longer exposes those methods or their models. This includes `ConvertDocumentAutodetectGetInfoAsync`, `ConvertDocumentAutodetectToPdfAsync`, `ConvertDocumentDocxToPdfAsync`, `ConvertDocumentPdfToDocxAsync`, `ConvertImageGetImageInfoAsync`, `MergeDocumentPdfAsync`, and `SplitDocumentPdfByPageAsync`. The 53 non-multipart operations remain generated. (#210)
+- **DocuSign deprecated and removed operations are no longer generated** — removed `CreateEnvelopeFromTemplateAsync`, `ListEnvelopesAsync`, `SalesCopilotListEnvelopesAsync`, `ScpGetEmailSummaryAsync`, `ScpGetKeySalesAsync`, `ScpGetRelatedActivitiesAsync`, and `ScpGetRelatedRecordsAsync`. `CreateEnvelopeFromTemplateNoRecipientsAsync` remains available. (#210)
+- **Zoho Sign `CreateDocumentAsync` removed** — the operation remains in current managed-connector Swagger but requires a multipart/form-data `file` parameter, which the SDK transport cannot compose. (#210)
+- **SigningHub upload methods now require file bytes** — `AttachmentUploadAttachmentAsync` and `DocumentsUploadStreamAsync` now require a `byte[] input` argument. Binary Swagger bodies use the SDK's raw request path, which sends the bytes unchanged with `Content-Type: application/octet-stream` instead of JSON/base64 serialization. Existing callers must provide the attachment or document bytes. (#210)
+- **Generated method parameter names now follow current Swagger metadata** — named-argument callers may need updates; for example, DocuSign `GetDocgenFormFieldsAsync` now uses `accountId` and `envelopeId`. Positional calls are unaffected. (#210)
+- **Docuware multipart-only file operations removed** — `StoreToFileCabinetAsync`, `ImportToDocumentTrayAsync`, `AppendFileAsync`, `DeleteFileAsync`, and `ReplaceFileAsync`, together with their response models/factories, are no longer generated because the SDK transport cannot compose the required Swagger 2.0 `formData` payloads. Other Docuware search, metadata, download, field, and stamp operations remain available. (#210)
+- **Teams transcript and recording webhook trigger contracts removed** — current connector Swagger no longer exposes `DynamicTranscriptTriggerRequest`, `DynamicRecordingTriggerRequest`, `TeamsTriggerOperations.OnTranscriptTrigger`, or `TeamsTriggerOperations.OnRecordingTrigger`. (#210)
+- **Azure Queues message response now matches the connector wire shape** — `Messages.QueueMessagesList` changed from `List<QueueMessage>` to a `QueueMessagesList` wrapper whose `QueueMessage` property contains the list. `QueueMessage.TimeNextVisible` was renamed to `NextVisibleTime` from the owner Swagger summary. `DequeueCount` remains available because Azure Storage returns it and the connector policy passes it through, although AAPT Swagger omits it. Access messages through `response.QueueMessagesList.QueueMessage`. (#210)
+- **DocumentDB query response no longer exposes a synthetic envelope property** — `QueryDocumentsResponse.AdditionalProperties` and the corresponding model-factory parameter were removed. Dynamic document fields are captured by `ObjectWithoutType.AdditionalProperties` on each item in `QueryDocumentsResponse.Documents`, matching the V5 response contract. (#210)
+- **Event Hubs owner-required parameters are now required** — `SendEventsAsync` requires `partitionKey`, and `GenerateEventSchemaAsync` requires `contentType`. Callers must pass non-null values declared as required by the connector owner Swagger. (#210)
+- **Microsoft Forms schema helper no longer returns a fabricated response** — internal discovery method `GetQuestionsAsync` now returns `Task` instead of `Task<List<JsonElement?>>` because owner Swagger declares no success response schema. (#210)
+- **Word Online Business drive discovery hides its internal source parameter** — internal discovery method `GetDrivesAsync` no longer exposes `source`; it sends the owner-declared default `source=me`. (#210)
+
+### Added
+
+- **New operations from current managed connector Swagger** — DocuSign adds `GetDocGenTemplateTabsAsync` and `GetOrganizationsAsync`; Teams adds `RemoveMemberFromChatAsync` and `UpdateChannelPropertiesAsync`; SharePoint adds `GetDayOfWeekOptionsAsync`. (#210)
+
+### Changed
+
+- **Regenerated all 97 existing connector clients** using AzureUX-BPM PR 16421737. Generation now uses Azure Identity instead of the legacy ARMClient executable, preserves valid ARM JSON before applying malformed-response fallbacks, filters operations marked `deprecated`, and correctly handles connectors that advertise both JSON and multipart content types. Office 365, Docuware, and SigningHub now regenerate successfully from current ARM exports. (#210)
+- **Corrected generated Swagger documentation text** — fixed `seperated`/`Comma-seperated` and `lists’s` in generated XML documentation. (#210)
+- **Connector-specific corrections now preserve owner contracts** — Azure Queues receives named types for its nested message response without flattening the wire shape. Current AAPT connector Swagger remains authoritative for Event Hubs required parameters, Microsoft Forms and Word Online Business internal discovery methods, and DocumentDB per-document dynamic fields. (#210)
+
 ## [0.13.0-preview.1] - 2026-07-09
 
 ### Added

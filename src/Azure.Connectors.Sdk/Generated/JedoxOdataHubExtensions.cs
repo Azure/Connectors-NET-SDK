@@ -1757,7 +1757,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(jobName));
                 if (variables is null)
                     throw new ArgumentNullException(nameof(variables));
-                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Jobs('{Uri.EscapeDataString(jobName.ToString())}')/Run(Variables='{Uri.EscapeDataString(Uri.EscapeDataString(variables.ToString()))}')";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1899,7 +1899,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(loadName));
                 if (variables is null)
                     throw new ArgumentNullException(nameof(variables));
-                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run(Variables='{Uri.EscapeDataString(variables.ToString())}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier.ToString())}')/Projects('{Uri.EscapeDataString(projectName.ToString())}')/Loads('{Uri.EscapeDataString(loadName.ToString())}')/Run(Variables='{Uri.EscapeDataString(Uri.EscapeDataString(variables.ToString()))}')";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

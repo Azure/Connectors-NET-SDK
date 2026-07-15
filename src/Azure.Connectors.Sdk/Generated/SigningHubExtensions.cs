@@ -7198,16 +7198,17 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// <remarks>Business applications can use this service API to upload a attachment in a document.</remarks>
         /// <param name="packageId">Package ID</param>
         /// <param name="documentId">Document ID</param>
+        /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload Attachment response.</returns>
-        public virtual async Task<AddAttachmentResponse> AttachmentUploadAttachmentAsync(int packageId, int documentId, CancellationToken cancellationToken = default)
+        public virtual async Task<AddAttachmentResponse> AttachmentUploadAttachmentAsync(int packageId, int documentId, byte[] input, CancellationToken cancellationToken = default)
         {
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentUploadAttachmentAsync");
             try
             {
                 var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
                 return await this
-                    .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7494,16 +7495,17 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// </summary>
         /// <remarks>Business applications can use this service API to add a document to a document package linked to an enterprise user’s account. The document information is sent in the HTTP request header and document bytes are sent in the HTTP request body.  Note SigningHub will convert supported document formats to PDF if the header &quot;x-convert-document&quot; is set to a value of &quot;true&quot;.  The only case supported where this value is set to &quot;false&quot; is to retain Word format and XML documents.                SigningHub supports a wide variety of document formats, each of which can be converted to PDF format upon upload.Click here for the full list.                Note PDF documents are not altered upon upload to the system.                Note a package must already exist before you can add a document using this call.</remarks>
         /// <param name="packageId">Package ID</param>
+        /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload Document response.</returns>
-        public virtual async Task<UploadDocument> DocumentsUploadStreamAsync(int packageId, CancellationToken cancellationToken = default)
+        public virtual async Task<UploadDocument> DocumentsUploadStreamAsync(int packageId, byte[] input, CancellationToken cancellationToken = default)
         {
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUploadStreamAsync");
             try
             {
                 var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents";
                 return await this
-                    .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

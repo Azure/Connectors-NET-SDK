@@ -302,6 +302,20 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// Update channel
+    /// </summary>
+    public class UpdateChannelPropertiesInput
+    {
+        /// <summary>The new display name for the channel.</summary>
+        [JsonPropertyName("displayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>The new description for the channel.</summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+    }
+
+    /// <summary>
     /// Response for List all channels
     /// </summary>
     public class GetAllChannelsForTeamResponse
@@ -1682,42 +1696,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// DynamicTranscriptTriggerRequest
-    /// </summary>
-    [DynamicSchema("GetSubscriptionScopeSchema")]
-    public class DynamicTranscriptTriggerRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-
-        /// <summary>Webhook callback URL</summary>
-        [JsonPropertyName("callbackUrl")]
-        public string CallbackUrl { get; set; }
-    }
-
-    /// <summary>
-    /// DynamicRecordingTriggerRequest
-    /// </summary>
-    [DynamicSchema("GetSubscriptionScopeSchema")]
-    public class DynamicRecordingTriggerRequest
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-
-        /// <summary>Webhook callback URL</summary>
-        [JsonPropertyName("callbackUrl")]
-        public string CallbackUrl { get; set; }
-    }
-
-    /// <summary>
     /// Extensible enum for known Importance values.
     /// </summary>
     [JsonConverter(typeof(Importance.ImportanceJsonConverter))]
@@ -2254,6 +2232,20 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 DisplayName = displayName,
                 Id = id,
                 MembershipType = membershipType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UpdateChannelPropertiesInput"/>.
+        /// </summary>
+        public static UpdateChannelPropertiesInput UpdateChannelPropertiesInput(
+            string displayName = default,
+            string description = default)
+        {
+            return new UpdateChannelPropertiesInput
+            {
+                DisplayName = displayName,
+                Description = description,
             };
         }
 
@@ -3256,30 +3248,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 OnlineMeetingProvider = onlineMeetingProvider,
             };
         }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DynamicTranscriptTriggerRequest"/>.
-        /// </summary>
-        public static DynamicTranscriptTriggerRequest DynamicTranscriptTriggerRequest(
-            string callbackUrl = default)
-        {
-            return new DynamicTranscriptTriggerRequest
-            {
-                CallbackUrl = callbackUrl,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DynamicRecordingTriggerRequest"/>.
-        /// </summary>
-        public static DynamicRecordingTriggerRequest DynamicRecordingTriggerRequest(
-            string callbackUrl = default)
-        {
-            return new DynamicRecordingTriggerRequest
-            {
-                CallbackUrl = callbackUrl,
-            };
-        }
     }
 
     #endregion Model Factory
@@ -3380,16 +3348,6 @@ namespace Azure.Connectors.Sdk.Teams
         public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
 
         /// <summary>
-        /// When a transcript is available.
-        /// </summary>
-        public const string OnTranscriptTrigger = "TranscriptTrigger";
-
-        /// <summary>
-        /// When a recording is available.
-        /// </summary>
-        public const string OnRecordingTrigger = "RecordingTrigger";
-
-        /// <summary>
         /// When a new chat message is added.
         /// </summary>
         public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
@@ -3478,34 +3436,6 @@ namespace Azure.Connectors.Sdk.Teams
             /// Allowed values: Myself, Everyone.
             /// </summary>
             public const string RunningPolicy = "runningPolicy";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnTranscriptTrigger trigger operation (operationId: TranscriptTrigger).
-        /// </summary>
-        public static class OnTranscriptTrigger
-        {
-            /// <summary>
-            /// The scope of transcripts to monitor
-            /// Required.
-            /// Allowed values: user, meeting, adhocCallUser.
-            /// </summary>
-            public const string ScopeType = "scopeType";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnRecordingTrigger trigger operation (operationId: RecordingTrigger).
-        /// </summary>
-        public static class OnRecordingTrigger
-        {
-            /// <summary>
-            /// The scope of recordings to monitor
-            /// Required.
-            /// Allowed values: user, meeting, adhocCallUser.
-            /// </summary>
-            public const string ScopeType = "scopeType";
 
         }
 
@@ -3790,6 +3720,36 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
                 return await this
                     .CallConnectorAsync<GetChannelResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update channel
+        /// </summary>
+        /// <remarks>Updates the properties of a channel in a specific team. Only the properties you provide are changed; omitted properties are left unchanged. For shared channels, the team ID must refer to the host team, which is the team that owns the shared channel.</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="channel">Channel</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task UpdateChannelPropertiesAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, UpdateChannelPropertiesInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.UpdateChannelPropertiesAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                var path = $"/beta/teams/{Uri.EscapeDataString(team.ToString())}/channels/{Uri.EscapeDataString(channel.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5084,7 +5044,7 @@ namespace Azure.Connectors.Sdk.Teams
             {
                 var path = $"/httprequest";
                 return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5112,6 +5072,35 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/v1.0/chats/{Uri.EscapeDataString(conversationId.ToString())}/members";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove a member from a chat
+        /// </summary>
+        /// <remarks>Removes a member from a chat in Microsoft Teams. Only group chats support member removal.</remarks>
+        /// <param name="conversationId">Conversation ID</param>
+        /// <param name="membershipId">Membership ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task RemoveMemberFromChatAsync([DynamicValues("GetChats")] string conversationId, string membershipId, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.RemoveMemberFromChatAsync");
+            try
+            {
+                if (conversationId is null)
+                    throw new ArgumentNullException(nameof(conversationId));
+                if (membershipId is null)
+                    throw new ArgumentNullException(nameof(membershipId));
+                var path = $"/v1.0/chats/{Uri.EscapeDataString(conversationId.ToString())}/members/{Uri.EscapeDataString(membershipId.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -886,7 +886,7 @@ namespace Azure.Connectors.Sdk.Twitter
                     queryParams.Add($"tweetText={Uri.EscapeDataString(tweetText.ToString())}");
                 var path = $"/posttweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -945,7 +945,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (action is null)
                     throw new ArgumentNullException(nameof(action));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action.ToString()))}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -975,7 +975,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(datasetName));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables/{Uri.EscapeDataString(tableName.ToString())}";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(datasetName.ToString()))}/exportabletables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1005,7 +1005,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (entityName is null)
                     throw new ArgumentNullException(nameof(entityName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1041,7 +1041,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                 if (businessEvent is null)
                     throw new ArgumentNullException(nameof(businessEvent));
                 queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1068,7 +1068,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (instance is null)
                     throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/businesseventcategories";
                 return await this
                     .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1098,7 +1098,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (businessEventCategory is null)
                     throw new ArgumentNullException(nameof(businessEventCategory));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/businesseventcategories/{Uri.EscapeDataString(businessEventCategory.ToString())}/businessevents";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/businesseventcategories/{Uri.EscapeDataString(Uri.EscapeDataString(businessEventCategory.ToString()))}/businessevents";
                 return await this
                     .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1125,7 +1125,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (instance is null)
                     throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures";
                 return await this
                     .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1156,7 +1156,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (action is null)
                     throw new ArgumentNullException(nameof(action));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/procedures/{Uri.EscapeDataString(action.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action.ToString()))}";
                 return await this
                     .CallConnectorAsync<AxOnlineProcedureResult>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1232,7 +1232,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
                 if (crossCompany.HasValue)
                     queryParams.Add($"cross-company={Uri.EscapeDataString(crossCompany.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1263,7 +1263,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (entityName is null)
                     throw new ArgumentNullException(nameof(entityName));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1296,7 +1296,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 if (objectId is null)
                     throw new ArgumentNullException(nameof(objectId));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(objectId.ToString()))}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1328,7 +1328,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 if (objectId is null)
                     throw new ArgumentNullException(nameof(objectId));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(objectId.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1362,7 +1362,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 if (objectId is null)
                     throw new ArgumentNullException(nameof(objectId));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables/{Uri.EscapeDataString(entityName.ToString())}/items/{Uri.EscapeDataString(objectId.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(objectId.ToString()))}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1389,7 +1389,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (datasetName is null)
                     throw new ArgumentNullException(nameof(datasetName));
-                var path = $"/datasets/{Uri.EscapeDataString(datasetName.ToString())}/exportabletables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(datasetName.ToString()))}/exportabletables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1416,7 +1416,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (instance is null)
                     throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(instance.ToString())}/tables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

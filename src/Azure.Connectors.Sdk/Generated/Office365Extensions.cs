@@ -5118,9 +5118,9 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}/photo/$value";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}/photo/$value";
                 await this
-                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5145,7 +5145,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 var path = $"/codeless/httprequest";
                 return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5259,7 +5259,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5289,7 +5289,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}";
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}";
                 return await this
                     .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5329,7 +5329,7 @@ namespace Azure.Connectors.Sdk.Office365
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
                 if (skipCount.HasValue)
                     queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5388,7 +5388,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 return await this
                     .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5416,7 +5416,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (calendarId is null)
                     throw new ArgumentNullException(nameof(calendarId));
-                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(calendarId.ToString())}/items";
+                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5445,7 +5445,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5475,7 +5475,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(itemId.ToString())}";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5515,7 +5515,7 @@ namespace Azure.Connectors.Sdk.Office365
                     queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
                 if (skipCount.HasValue)
                     queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5570,7 +5570,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5598,7 +5598,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (folderId is null)
                     throw new ArgumentNullException(nameof(folderId));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(folderId.ToString())}/contacts";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}/contacts";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -58,7 +58,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         [JsonPropertyName("referencedEntities")]
         public ObjectEntity ReferencedEntities { get; set; }
 
-        /// <summary>Url link</summary>
+        /// <summary>URL link</summary>
         [JsonPropertyName("webUrl")]
         public string WebUrl { get; set; }
     }
@@ -79,6 +79,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>selectRestrictions</summary>
         [JsonPropertyName("selectRestrictions")]
         public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>countRestrictions</summary>
+        [JsonPropertyName("countRestrictions")]
+        public TableCountRestrictionsMetadata CountRestrictions { get; set; }
 
         /// <summary>Server paging restrictions</summary>
         [JsonPropertyName("isOnlyServerPagable")]
@@ -137,6 +141,16 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>Indicates whether this table has selectable columns</summary>
         [JsonPropertyName("selectable")]
         public bool? Selectable { get; set; }
+    }
+
+    /// <summary>
+    /// countRestrictions
+    /// </summary>
+    public class TableCountRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has countable columns</summary>
+        [JsonPropertyName("countable")]
+        public bool? Countable { get; set; }
     }
 
     /// <summary>
@@ -201,17 +215,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Get all lists and libraries
-    /// </summary>
-    public class TablesList
-    {
-        /// <summary>List of Tables</summary>
-        [JsonPropertyName("value")]
-        public List<Table> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of Tables
+    /// Response for Agreements Solution - Get Templates
     /// </summary>
     public class Table
     {
@@ -230,40 +234,28 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Approve hub site join request
+    /// Agreements Solution - Generate document within Agreements Solution workspace
     /// </summary>
-    public class ApproveHubSiteJoinResponse
+    [DynamicSchema("GetAgreementsSolutionTemplateFields")]
+    public class CreateAgreementsSolutionDocumentInput
     {
-        /// <summary>Approval Token</summary>
-        [JsonPropertyName("ApprovalToken")]
-        public string ApprovalToken { get; set; }
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Response for Create sharing link for a file or folder
+    /// Response for Agreements Solution - Generate document within Agreements Solution workspace
     /// </summary>
-    public class SharingLinkPermission
+    public class SPBlobMetadataResponse
     {
-        /// <summary>link</summary>
-        [JsonPropertyName("link")]
-        public SharingLink Link { get; set; }
-    }
+        /// <summary>The value that can be used to Get or Update file properties in libraries.</summary>
+        [JsonPropertyName("ItemId")]
+        public long? ItemId { get; set; }
 
-    /// <summary>
-    /// link
-    /// </summary>
-    public class SharingLink
-    {
-        /// <summary>A link to the item</summary>
-        [JsonPropertyName("webUrl")]
-        public string SharingLinkValue { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Copy file (deprecated)
-    /// </summary>
-    public class BlobMetadata
-    {
         /// <summary>The unique id of the file or folder.</summary>
         [JsonPropertyName("Id")]
         public string Id { get; set; }
@@ -308,14 +300,50 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Copy file
+    /// Response for Get all lists and libraries
     /// </summary>
-    public class SPBlobMetadataResponse
+    public class TablesList
     {
-        /// <summary>The value that can be used to Get or Update file properties in libraries.</summary>
-        [JsonPropertyName("ItemId")]
-        public long? ItemId { get; set; }
+        /// <summary>List of Tables</summary>
+        [JsonPropertyName("value")]
+        public List<Table> Value { get; set; }
+    }
 
+    /// <summary>
+    /// Response for Approve hub site join request
+    /// </summary>
+    public class ApproveHubSiteJoinResponse
+    {
+        /// <summary>Approval Token</summary>
+        [JsonPropertyName("ApprovalToken")]
+        public string ApprovalToken { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Create sharing link for a file or folder
+    /// </summary>
+    public class SharingLinkPermission
+    {
+        /// <summary>link</summary>
+        [JsonPropertyName("link")]
+        public SharingLink Link { get; set; }
+    }
+
+    /// <summary>
+    /// link
+    /// </summary>
+    public class SharingLink
+    {
+        /// <summary>A link to the item</summary>
+        [JsonPropertyName("webUrl")]
+        public string SharingLinkValue { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Copy file (deprecated)
+    /// </summary>
+    public class BlobMetadata
+    {
         /// <summary>The unique id of the file or folder.</summary>
         [JsonPropertyName("Id")]
         public string Id { get; set; }
@@ -481,6 +509,92 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>What type of entity (field) this is</summary>
         [JsonPropertyName("EntityType")]
         public string EntityType { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get form metadata (preview)
+    /// </summary>
+    public class TableForm
+    {
+        /// <summary>Gets or sets the form ID</summary>
+        [JsonPropertyName("FormID")]
+        public string FormId { get; set; }
+
+        /// <summary>Gets or sets the form display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Gets or sets the form type</summary>
+        [JsonPropertyName("Type")]
+        public string Type { get; set; }
+
+        /// <summary>Gets or sets the form link/URL</summary>
+        [JsonPropertyName("Link")]
+        public string Link { get; set; }
+
+        /// <summary>Gets or sets the user who created the form</summary>
+        [JsonPropertyName("CreatedBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>Gets or sets the date the form was created</summary>
+        [JsonPropertyName("Created")]
+        public DateTime? Created { get; set; }
+
+        /// <summary>Gets or sets the date the form was last modified</summary>
+        [JsonPropertyName("Modified")]
+        public DateTime? Modified { get; set; }
+
+        /// <summary>Gets or sets the user who last modified the form</summary>
+        [JsonPropertyName("ModifiedBy")]
+        public string ModifiedBy { get; set; }
+
+        /// <summary>Gets or sets the output format (e.g. &quot;Word document&quot;, &quot;PDF document&quot;, &quot;None&quot;)</summary>
+        [JsonPropertyName("OutputFormat")]
+        public string OutputFormat { get; set; }
+
+        /// <summary>Gets or sets Form Fields</summary>
+        [JsonPropertyName("FieldsMetadata")]
+        public List<FormFieldMetadata> FieldsMetadata { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Gets or sets Form Fields
+    /// </summary>
+    public class FormFieldMetadata
+    {
+        /// <summary>Gets or sets the field ID</summary>
+        [JsonPropertyName("ID")]
+        public string Id { get; set; }
+
+        /// <summary>Gets or sets the field Name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether the field is required</summary>
+        [JsonPropertyName("IsRequired")]
+        public bool? IsRequired { get; set; }
+
+        /// <summary>Gets or sets the field data type</summary>
+        [JsonPropertyName("DataType")]
+        public string DataType { get; set; }
+
+        /// <summary>Gets or sets the default value</summary>
+        [JsonPropertyName("DefaultValue")]
+        public string DefaultValue { get; set; }
+    }
+
+    /// <summary>
+    /// Generate a document from a form (preview)
+    /// </summary>
+    [DynamicSchema("GetDocGenFormFields")]
+    public class SubmitDocGenFormInput
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -738,106 +852,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     /// </summary>
     [DynamicSchema("GetContentAssemblyPlaceholders")]
     public class CreateContentAssemblyDocumentInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Agreements Solution - Generate document within Agreements Solution workspace
-    /// </summary>
-    [DynamicSchema("GetAgreementsSolutionTemplateFields")]
-    public class CreateAgreementsSolutionDocumentInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get form metadata (preview)
-    /// </summary>
-    public class TableForm
-    {
-        /// <summary>Gets or sets the form ID</summary>
-        [JsonPropertyName("FormID")]
-        public string FormId { get; set; }
-
-        /// <summary>Gets or sets the form display name</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Gets or sets the form type</summary>
-        [JsonPropertyName("Type")]
-        public string Type { get; set; }
-
-        /// <summary>Gets or sets the form link/URL</summary>
-        [JsonPropertyName("Link")]
-        public string Link { get; set; }
-
-        /// <summary>Gets or sets the user who created the form</summary>
-        [JsonPropertyName("CreatedBy")]
-        public string CreatedBy { get; set; }
-
-        /// <summary>Gets or sets the date the form was created</summary>
-        [JsonPropertyName("Created")]
-        public DateTime? Created { get; set; }
-
-        /// <summary>Gets or sets the date the form was last modified</summary>
-        [JsonPropertyName("Modified")]
-        public DateTime? Modified { get; set; }
-
-        /// <summary>Gets or sets the user who last modified the form</summary>
-        [JsonPropertyName("ModifiedBy")]
-        public string ModifiedBy { get; set; }
-
-        /// <summary>Gets or sets the output format (e.g. &quot;Word document&quot;, &quot;PDF document&quot;, &quot;None&quot;)</summary>
-        [JsonPropertyName("OutputFormat")]
-        public string OutputFormat { get; set; }
-
-        /// <summary>Gets or sets Form Fields</summary>
-        [JsonPropertyName("FieldsMetadata")]
-        public List<FormFieldMetadata> FieldsMetadata { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Gets or sets Form Fields
-    /// </summary>
-    public class FormFieldMetadata
-    {
-        /// <summary>Gets or sets the field ID</summary>
-        [JsonPropertyName("ID")]
-        public string Id { get; set; }
-
-        /// <summary>Gets or sets the field Name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Gets or sets a value indicating whether the field is required</summary>
-        [JsonPropertyName("IsRequired")]
-        public bool? IsRequired { get; set; }
-
-        /// <summary>Gets or sets the field data type</summary>
-        [JsonPropertyName("DataType")]
-        public string DataType { get; set; }
-
-        /// <summary>Gets or sets the default value</summary>
-        [JsonPropertyName("DefaultValue")]
-        public string DefaultValue { get; set; }
-    }
-
-    /// <summary>
-    /// Generate a document from a form (preview)
-    /// </summary>
-    [DynamicSchema("GetDocGenFormFields")]
-    public class SubmitDocGenFormInput
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -1156,6 +1170,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
             TableSortRestrictionsMetadata sortRestrictions = default,
             TableFilterRestrictionsMetadata filterRestrictions = default,
             TableSelectRestrictionsMetadata selectRestrictions = default,
+            TableCountRestrictionsMetadata countRestrictions = default,
             bool? isOnlyServerPagable = default,
             List<string> filterFunctionSupport = default,
             List<string> serverPagingOptions = default)
@@ -1165,6 +1180,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 SortRestrictions = sortRestrictions,
                 FilterRestrictions = filterRestrictions,
                 SelectRestrictions = selectRestrictions,
+                CountRestrictions = countRestrictions,
                 IsOnlyServerPagable = isOnlyServerPagable,
                 FilterFunctionSupport = filterFunctionSupport,
                 ServerPagingOptions = serverPagingOptions,
@@ -1212,6 +1228,18 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
             return new TableSelectRestrictionsMetadata
             {
                 Selectable = selectable,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCountRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableCountRestrictionsMetadata TableCountRestrictionsMetadata(
+            bool? countable = default)
+        {
+            return new TableCountRestrictionsMetadata
+            {
+                Countable = countable,
             };
         }
 
@@ -1268,18 +1296,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TablesList"/>.
-        /// </summary>
-        public static TablesList TablesList(
-            List<Table> value = default)
-        {
-            return new TablesList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="Table"/>.
         /// </summary>
         public static Table Table(
@@ -1292,6 +1308,50 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 Name = name,
                 DisplayName = displayName,
                 DynamicProperties = dynamicProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SPBlobMetadataResponse"/>.
+        /// </summary>
+        public static SPBlobMetadataResponse SPBlobMetadataResponse(
+            long? itemId = default,
+            string id = default,
+            string name = default,
+            string displayName = default,
+            string path = default,
+            DateTime? lastModified = default,
+            long? size = default,
+            string mediaType = default,
+            bool? isFolder = default,
+            string eTag = default,
+            string fileLocator = default)
+        {
+            return new SPBlobMetadataResponse
+            {
+                ItemId = itemId,
+                Id = id,
+                Name = name,
+                DisplayName = displayName,
+                Path = path,
+                LastModified = lastModified,
+                Size = size,
+                MediaType = mediaType,
+                IsFolder = isFolder,
+                ETag = eTag,
+                FileLocator = fileLocator,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TablesList"/>.
+        /// </summary>
+        public static TablesList TablesList(
+            List<Table> value = default)
+        {
+            return new TablesList
+            {
+                Value = value,
             };
         }
 
@@ -1348,38 +1408,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         {
             return new BlobMetadata
             {
-                Id = id,
-                Name = name,
-                DisplayName = displayName,
-                Path = path,
-                LastModified = lastModified,
-                Size = size,
-                MediaType = mediaType,
-                IsFolder = isFolder,
-                ETag = eTag,
-                FileLocator = fileLocator,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SPBlobMetadataResponse"/>.
-        /// </summary>
-        public static SPBlobMetadataResponse SPBlobMetadataResponse(
-            long? itemId = default,
-            string id = default,
-            string name = default,
-            string displayName = default,
-            string path = default,
-            DateTime? lastModified = default,
-            long? size = default,
-            string mediaType = default,
-            bool? isFolder = default,
-            string eTag = default,
-            string fileLocator = default)
-        {
-            return new SPBlobMetadataResponse
-            {
-                ItemId = itemId,
                 Id = id,
                 Name = name,
                 DisplayName = displayName,
@@ -1458,6 +1486,56 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
             {
                 Id = id,
                 EntityType = entityType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableForm"/>.
+        /// </summary>
+        public static TableForm TableForm(
+            string formId = default,
+            string displayName = default,
+            string type = default,
+            string link = default,
+            string createdBy = default,
+            DateTime? created = default,
+            DateTime? modified = default,
+            string modifiedBy = default,
+            string outputFormat = default,
+            List<FormFieldMetadata> fieldsMetadata = default)
+        {
+            return new TableForm
+            {
+                FormId = formId,
+                DisplayName = displayName,
+                Type = type,
+                Link = link,
+                CreatedBy = createdBy,
+                Created = created,
+                Modified = modified,
+                ModifiedBy = modifiedBy,
+                OutputFormat = outputFormat,
+                FieldsMetadata = fieldsMetadata,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FormFieldMetadata"/>.
+        /// </summary>
+        public static FormFieldMetadata FormFieldMetadata(
+            string id = default,
+            string name = default,
+            bool? isRequired = default,
+            string dataType = default,
+            string defaultValue = default)
+        {
+            return new FormFieldMetadata
+            {
+                Id = id,
+                Name = name,
+                IsRequired = isRequired,
+                DataType = dataType,
+                DefaultValue = defaultValue,
             };
         }
 
@@ -1564,56 +1642,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 DeletedBy = deletedBy,
                 TimeDeleted = timeDeleted,
                 IsFolder = isFolder,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableForm"/>.
-        /// </summary>
-        public static TableForm TableForm(
-            string formId = default,
-            string displayName = default,
-            string type = default,
-            string link = default,
-            string createdBy = default,
-            DateTime? created = default,
-            DateTime? modified = default,
-            string modifiedBy = default,
-            string outputFormat = default,
-            List<FormFieldMetadata> fieldsMetadata = default)
-        {
-            return new TableForm
-            {
-                FormId = formId,
-                DisplayName = displayName,
-                Type = type,
-                Link = link,
-                CreatedBy = createdBy,
-                Created = created,
-                Modified = modified,
-                ModifiedBy = modifiedBy,
-                OutputFormat = outputFormat,
-                FieldsMetadata = fieldsMetadata,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FormFieldMetadata"/>.
-        /// </summary>
-        public static FormFieldMetadata FormFieldMetadata(
-            string id = default,
-            string name = default,
-            bool? isRequired = default,
-            string dataType = default,
-            string defaultValue = default)
-        {
-            return new FormFieldMetadata
-            {
-                Id = id,
-                Name = name,
-                IsRequired = isRequired,
-                DataType = dataType,
-                DefaultValue = defaultValue,
             };
         }
 
@@ -1851,6 +1879,14 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
+    /// Typed trigger payload for the OnRecurrenceDigest trigger (SharePointOnline "Recurring digest of updates (preview)", operationId: GetOnRecurrenceDigest).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnRecurrenceDigestTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class SharePointOnlineOnRecurrenceDigestTriggerPayload : TriggerCallbackPayload<Item>
+    {
+    }
+
+    /// <summary>
     /// Typed trigger payload for the OnUpdatedFileClassifiedTimes trigger (SharePointOnline "When a file is classified by a Microsoft Syntex model", operationId: GetOnUpdatedFileClassifiedTimes).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload&gt;(body)</c>.
     /// </summary>
@@ -1896,6 +1932,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 ["GetOnNewFileItems"] = typeof(SharePointOnlineOnNewFileItemsTriggerPayload),
                 ["GetOnNewItems"] = typeof(SharePointOnlineOnNewItemsTriggerPayload),
                 ["GetOnNewItemsFromForm"] = typeof(SharePointOnlineOnNewItemsFromFormTriggerPayload),
+                ["GetOnRecurrenceDigest"] = typeof(SharePointOnlineOnRecurrenceDigestTriggerPayload),
                 ["GetOnUpdatedFileClassifiedTimes"] = typeof(SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload),
                 ["GetOnUpdatedFileItems"] = typeof(SharePointOnlineOnUpdatedFileItemsTriggerPayload),
                 ["GetOnUpdatedItems"] = typeof(SharePointOnlineOnUpdatedItemsTriggerPayload),
@@ -1953,6 +1990,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// Payload type: <see cref="SharePointOnlineOnNewItemsFromFormTriggerPayload"/>.
         /// </summary>
         public const string OnNewItemsFromForm = "GetOnNewItemsFromForm";
+
+        /// <summary>
+        /// Recurring digest of updates (preview).
+        /// Payload type: <see cref="SharePointOnlineOnRecurrenceDigestTriggerPayload"/>.
+        /// </summary>
+        public const string OnRecurrenceDigest = "GetOnRecurrenceDigest";
 
         /// <summary>
         /// When a file is classified by a Microsoft Syntex model.
@@ -2072,6 +2115,48 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             /// Dynamic values from: GetTableViews.
             /// </summary>
             public const string View = "view";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnRecurrenceDigest trigger operation (operationId: GetOnRecurrenceDigest).
+        /// </summary>
+        public static class OnRecurrenceDigest
+        {
+            /// <summary>
+            /// Include item updates in the digest.
+            /// Required.
+            /// </summary>
+            public const string Update = "update";
+
+            /// <summary>
+            /// Include new items and files in the digest.
+            /// Required.
+            /// </summary>
+            public const string Add = "add";
+
+            /// <summary>
+            /// When to run.
+            /// Required.
+            /// Dynamic values from: GetDayOfWeekOptions.
+            /// </summary>
+            public const string RunSchedule = "runSchedule";
+
+            /// <summary>
+            /// Folder path within the list or document library.
+            /// </summary>
+            public const string FolderPath = "folderPath";
+
+            /// <summary>
+            /// Avoid column threshold issues by only using columns defined in a view.
+            /// Dynamic values from: GetTableViews.
+            /// </summary>
+            public const string View = "view";
+
+            /// <summary>
+            /// Start time for the recurrence.
+            /// </summary>
+            public const string StartTime = "startTime";
 
         }
 
@@ -2274,7 +2359,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
                 if (limitColumnsByContentType != default)
                     queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2304,7 +2389,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listOrLibraryName is null)
                     throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/changes";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/changes";
                 return await this
                     .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2342,6 +2427,98 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
+        /// Agreements Solution - Get Templates
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Agreements Solution - Get Templates response.</returns>
+        public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplatesAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Agreements Solution - Generate document within Agreements Solution workspace
+        /// </summary>
+        /// <remarks>Use this action to create documents based on modern templates in a Agreements Solution workspace. This is behind a payment wall currently in planning (either license or PayG).</remarks>
+        /// <param name="agreementsSolutionWorkspace">Agreements Solution Workspace</param>
+        /// <param name="agreementsSolutionTemplate">Agreements Solution Template</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="fileName">File Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Agreements Solution - Generate document within Agreements Solution workspace response.</returns>
+        public virtual async Task<SPBlobMetadataResponse> CreateAgreementsSolutionDocumentAsync([DynamicValues("GetDataSets")] string agreementsSolutionWorkspace, [DynamicValues("GetAgreementsSolutionTemplates")] string agreementsSolutionTemplate, CreateAgreementsSolutionDocumentInput input, string fileName = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateAgreementsSolutionDocumentAsync");
+            try
+            {
+                if (agreementsSolutionWorkspace is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionWorkspace));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
+                var queryParams = new List<string>();
+                if (fileName != default)
+                    queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionWorkspace.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Agreements Solution - Get template fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="agreementsSolutionTemplate">Agreements Solution template</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Agreements Solution - Get template fields response.</returns>
+        public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplateFieldsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/fields";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get all lists and libraries
         /// </summary>
         /// <remarks>Get all lists and libraries.</remarks>
@@ -2355,7 +2532,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/alltables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/alltables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2387,7 +2564,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (requestingSiteId is null)
                     throw new ArgumentNullException(nameof(requestingSiteId));
                 queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(hubSiteAddress.ToString())}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(hubSiteAddress.ToString()))}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2417,7 +2594,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (approvalCorrelationId != default)
                     queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(requestingSiteAddress.ToString()))}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2449,7 +2626,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(itemId.ToString())}/driveItem/createLink";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}/driveItem/createLink";
                 return await this
                     .CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2489,7 +2666,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
                 if (overwriteFlag.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2517,7 +2694,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFileAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/copyFileAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2545,7 +2722,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/copyFolderAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/copyFolderAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2583,9 +2760,9 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2613,7 +2790,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2644,9 +2821,9 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(fileIdentifier.ToString()))}";
                 return await this
-                    .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2673,7 +2850,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2692,7 +2869,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <remarks>Gets file contents using the file identifier. The contents can be copied somewhere else, or be used as an attachment.</remarks>
         /// <param name="siteAddress">Site Address</param>
         /// <param name="fileIdentifier">File Identifier</param>
-        /// <param name="inferContentType">Infer Content Type</param>
+        /// <param name="inferContentType">Infer content type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get file content response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, bool? inferContentType = default, CancellationToken cancellationToken = default)
@@ -2707,7 +2884,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2740,7 +2917,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2759,7 +2936,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <remarks>Gets file contents using the file path.</remarks>
         /// <param name="siteAddress">Site Address</param>
         /// <param name="filePath">File Path</param>
-        /// <param name="inferContentType">Infer Content Type</param>
+        /// <param name="inferContentType">Infer content type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get file content using path response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string siteAddress, string filePath, bool? inferContentType = default, CancellationToken cancellationToken = default)
@@ -2776,7 +2953,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
                 if (inferContentType.HasValue)
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2808,7 +2985,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
                 queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2841,7 +3018,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
                 queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2857,7 +3034,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <summary>
         /// Send an HTTP request to SharePoint
         /// </summary>
-        /// <remarks>Construct a SharePoint REST API to invoke. Note - This action may execute any SharePoint REST API you have access to. Please proceed with caution.</remarks>
+        /// <remarks>Construct a SharePoint REST API to invoke. Note – This action may execute any SharePoint REST API you have access to. Please proceed with caution.</remarks>
         /// <param name="siteAddress">Site Address</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -2868,7 +3045,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/httprequest";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/httprequest";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2905,7 +3082,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
                 if (approvalCorrelationId != default)
                     queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(requestingSiteAddress.ToString()))}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2933,7 +3110,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFileAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/moveFileAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2961,7 +3138,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(currentSiteAddress.ToString())}/moveFolderAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/moveFolderAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2991,7 +3168,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (approvalCorrelationId != default)
                     queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(requestingSiteAddress.ToString())}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(requestingSiteAddress.ToString()))}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3018,7 +3195,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3049,7 +3226,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (library is null)
                     throw new ArgumentNullException(nameof(library));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(library.ToString())}/createnewdocumentset";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(library.ToString()))}/createnewdocumentset";
                 return await this
                     .CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3084,9 +3261,72 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation forms
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="documentLibraryName">Document Library Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation forms response.</returns>
+        public virtual async Task<List<Table>> GetDocGenFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/docgenforms";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation form fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="sharePointListName">SharePoint list name</param>
+        /// <param name="formIdentifier">Form identifier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation form fields response.</returns>
+        public virtual async Task<TableMetadata> GetDocGenFormFieldsAsync(string dataset, string sharePointListName, string formIdentifier, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormFieldsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointListName is null)
+                    throw new ArgumentNullException(nameof(sharePointListName));
+                if (formIdentifier is null)
+                    throw new ArgumentNullException(nameof(formIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointListName.ToString()))}/docgenforms/{Uri.EscapeDataString(Uri.EscapeDataString(formIdentifier.ToString()))}/fields";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3125,7 +3365,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/entities/{Uri.EscapeDataString(column.ToString())}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/entities/{Uri.EscapeDataString(Uri.EscapeDataString(column.ToString()))}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3159,7 +3399,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3189,9 +3429,80 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/forms";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/forms";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get form metadata (preview)
+        /// </summary>
+        /// <remarks>Use this action to get the form metadata, which includes the form ID, title, link, form type, and the output format. It also gets the form questions used to collect information.             Document generation forms is a part of AI in SharePoint Public Preview. For more info on getting started, see: https://learn.microsoft.com/sharepoint/dev/declarative-customization/structured-documents.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listOrLibraryName">List or Library Name</param>
+        /// <param name="formName">Form Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get form metadata (preview) response.</returns>
+        public virtual async Task<TableForm> GetTableFormAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, [DynamicValues("GetTableForms")] string formName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                if (formName is null)
+                    throw new ArgumentNullException(nameof(formName));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/forms/{Uri.EscapeDataString(Uri.EscapeDataString(formName.ToString()))}";
+                return await this
+                    .CallConnectorAsync<TableForm>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Generate a document from a form (preview)
+        /// </summary>
+        /// <remarks>Use this action to create documents from a document generation template. Map the template fields to the corresponding content in the data source.             Document generation forms is a part of AI in SharePoint Public Preview. For more info on getting started, see: https://learn.microsoft.com/sharepoint/dev/declarative-customization/structured-documents.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="documentLibraryName">Document Library Name</param>
+        /// <param name="formName">Form Name</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="viewNoEffect">View (no effect)</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Generate a document from a form (preview) response.</returns>
+        public virtual async Task<SPBlobMetadataResponse> SubmitDocGenFormAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetDocGenForms")] string formName, SubmitDocGenFormInput input, string viewNoEffect = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SubmitDocGenFormAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                if (formName is null)
+                    throw new ArgumentNullException(nameof(formName));
+                var queryParams = new List<string>();
+                if (viewNoEffect != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/forms/{Uri.EscapeDataString(Uri.EscapeDataString(formName.ToString()))}/submitdocgenform" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3238,7 +3549,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3268,7 +3579,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/imagefields";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/imagefields";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3317,7 +3628,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3352,7 +3663,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3387,7 +3698,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3417,7 +3728,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3453,7 +3764,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3488,7 +3799,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listOrLibrary));
                 var queryParams = new List<string>();
                 queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibrary.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3533,7 +3844,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"includeDrafts={Uri.EscapeDataString(includeMinorVersions.Value.ToString())}");
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3564,7 +3875,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkinfile";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/checkinfile";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3594,7 +3905,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/checkoutfile";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/checkoutfile";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3610,7 +3921,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <summary>
         /// Discard check out
         /// </summary>
-        /// <remarks>If you check out a file and don&apos;t make changes to it, or you make changes that you don&apos;t want to keep, you can simply discard the checkout, rather than saving the file. If your organization tracks versions, a new version is created each time you check a file back into the library. By discarding the checkout, you can avoid making new versions when you haven&apos;t made any changes to the file.</remarks>
+        /// <remarks>If you check out a file and don’t make changes to it, or you make changes that you don’t want to keep, you can simply discard the checkout, rather than saving the file. If your organization tracks versions, a new version is created each time you check a file back into the library. By discarding the checkout, you can avoid making new versions when you haven’t made any changes to the file.</remarks>
         /// <param name="siteAddress">Site Address</param>
         /// <param name="libraryName">Library Name</param>
         /// <param name="id">Id</param>
@@ -3624,7 +3935,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/discardfilecheckout";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/discardfilecheckout";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3659,7 +3970,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3690,7 +4001,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listOrLibraryName is null)
                     throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/grantaccess";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/grantaccess";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3726,7 +4037,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
                     queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3758,7 +4069,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3800,7 +4111,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
                 if (eTag != default)
                     queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(libraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3830,7 +4141,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listOrLibraryName is null)
                     throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/unshare";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/unshare";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3863,7 +4174,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments";
                 return await this
                     .CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3900,9 +4211,9 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
                 queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3933,7 +4244,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3967,7 +4278,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/items/{Uri.EscapeDataString(id.ToString())}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3997,7 +4308,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(dataset));
                 if (sharePointDocumentLibraryName is null)
                     throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4041,7 +4352,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
                 if (viewNoEffect != default)
                     queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(documentTemplate.ToString()))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4074,7 +4385,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
                 if (documentTemplate is null)
                     throw new ArgumentNullException(nameof(documentTemplate));
-                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointDocumentLibraryName.ToString())}/templates/{Uri.EscapeDataString(documentTemplate.ToString())}/placeholders";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(documentTemplate.ToString()))}/placeholders";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4104,7 +4415,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listName.ToString())}/views";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/views";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4131,7 +4442,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/approval";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/approval";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4158,7 +4469,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/libraries";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/libraries";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4185,7 +4496,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/lightweightapproval";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/lightweightapproval";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4212,107 +4523,9 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tablesfor/listsandlibraries";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/listsandlibraries";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Agreements Solution - Get Templates
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Agreements Solution - Get Templates response.</returns>
-        public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplatesAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Agreements Solution - Generate document within Agreements Solution workspace
-        /// </summary>
-        /// <remarks>Use this action to create documents based on modern templates in a Agreements Solution workspace. This is behind a payment wall currently in planning (either license or PayG).</remarks>
-        /// <param name="agreementsSolutionWorkspace">Agreements Solution Workspace</param>
-        /// <param name="agreementsSolutionTemplate">Agreements Solution Template</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="fileName">File Name</param>
-        /// <param name="tableNoEffect">Table (no effect)</param>
-        /// <param name="viewNoEffect">View (no effect)</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Agreements Solution - Generate document within Agreements Solution workspace response.</returns>
-        public virtual async Task<SPBlobMetadataResponse> CreateAgreementsSolutionDocumentAsync([DynamicValues("GetDataSets")] string agreementsSolutionWorkspace, [DynamicValues("GetAgreementsSolutionTemplates")] string agreementsSolutionTemplate, CreateAgreementsSolutionDocumentInput input, string fileName = default, string tableNoEffect = default, string viewNoEffect = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.CreateAgreementsSolutionDocumentAsync");
-            try
-            {
-                if (agreementsSolutionWorkspace is null)
-                    throw new ArgumentNullException(nameof(agreementsSolutionWorkspace));
-                if (agreementsSolutionTemplate is null)
-                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
-                var queryParams = new List<string>();
-                if (fileName != default)
-                    queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
-                if (tableNoEffect != default)
-                    queryParams.Add($"table={Uri.EscapeDataString(tableNoEffect.ToString())}");
-                if (viewNoEffect != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(agreementsSolutionWorkspace.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Agreements Solution - Get template fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="agreementsSolutionTemplate">Agreements Solution template</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Agreements Solution - Get template fields response.</returns>
-        public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplateFieldsAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                if (agreementsSolutionTemplate is null)
-                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
-                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/agreements/templates/{Uri.EscapeDataString(agreementsSolutionTemplate.ToString())}/fields";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4338,6 +4551,30 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
                 var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// When to send updates
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The When to send updates response.</returns>
+        public virtual async Task<ObjectEntity> GetDayOfWeekOptionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDayOfWeekOptionsAsync");
+            try
+            {
+                var path = $"/getDayOfWeekOptions";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4399,140 +4636,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
-        /// Get form metadata (preview)
-        /// </summary>
-        /// <remarks>Use this action to get the form metadata, which includes the form ID, title, link, form type, and the output format. It also gets the form questions used to collect information.             Document generation forms is a part of AI in SharePoint Public Preview. For more info on getting started, see: https://learn.microsoft.com/sharepoint/dev/declarative-customization/structured-documents.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="listOrLibraryName">List or Library Name</param>
-        /// <param name="formName">Form Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get form metadata (preview) response.</returns>
-        public virtual async Task<TableForm> GetTableFormAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, [DynamicValues("GetTableForms")] string formName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listOrLibraryName is null)
-                    throw new ArgumentNullException(nameof(listOrLibraryName));
-                if (formName is null)
-                    throw new ArgumentNullException(nameof(formName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(listOrLibraryName.ToString())}/forms/{Uri.EscapeDataString(formName.ToString())}";
-                return await this
-                    .CallConnectorAsync<TableForm>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get document generation form fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="sharePointListName">SharePoint list name</param>
-        /// <param name="formIdentifier">Form identifier</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get document generation form fields response.</returns>
-        public virtual async Task<TableMetadata> GetDocGenFormFieldsAsync(string dataset, string sharePointListName, string formIdentifier, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormFieldsAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                if (sharePointListName is null)
-                    throw new ArgumentNullException(nameof(sharePointListName));
-                if (formIdentifier is null)
-                    throw new ArgumentNullException(nameof(formIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(sharePointListName.ToString())}/docgenforms/{Uri.EscapeDataString(formIdentifier.ToString())}/fields";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Generate a document from a form (preview)
-        /// </summary>
-        /// <remarks>Use this action to create documents from a document generation template. Map the template fields to the corresponding content in the data source.             Document generation forms is a part of AI in SharePoint Public Preview. For more info on getting started, see: https://learn.microsoft.com/sharepoint/dev/declarative-customization/structured-documents.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="documentLibraryName">Document Library Name</param>
-        /// <param name="formName">Form Name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="viewNoEffect">View (no effect)</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Generate a document from a form (preview) response.</returns>
-        public virtual async Task<SPBlobMetadataResponse> SubmitDocGenFormAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, [DynamicValues("GetDocGenForms")] string formName, SubmitDocGenFormInput input, string viewNoEffect = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.SubmitDocGenFormAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (documentLibraryName is null)
-                    throw new ArgumentNullException(nameof(documentLibraryName));
-                if (formName is null)
-                    throw new ArgumentNullException(nameof(formName));
-                var queryParams = new List<string>();
-                if (viewNoEffect != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/forms/{Uri.EscapeDataString(formName.ToString())}/submitdocgenform" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get document generation forms
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="documentLibraryName">Document Library Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get document generation forms response.</returns>
-        public virtual async Task<List<Table>> GetDocGenFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormsAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (documentLibraryName is null)
-                    throw new ArgumentNullException(nameof(documentLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/tables/{Uri.EscapeDataString(documentLibraryName.ToString())}/docgenforms";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Extract folder
         /// </summary>
         /// <remarks>Extracts an archive file into a SharePoint folder (example: .zip).</remarks>
@@ -4559,7 +4662,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
                 if (overwriteFlag.HasValue)
                     queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(siteAddress.ToString())}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
