@@ -125,7 +125,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task AttachmentUploadAttachmentAsync_BinaryInput_SendsRawOctetStream()
         {
             var expectedBody = new byte[] { 0x00, 0x7F, 0xFF };
-            var (credential, options, getBody, getContentType) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+            var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
                 () => new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent("{}"),
@@ -143,8 +143,8 @@ namespace Azure.Connectors.Sdk.Tests
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(expected: "application/octet-stream", actual: getContentType());
-            CollectionAssert.AreEqual(expected: expectedBody, actual: getBody());
+            Assert.AreEqual(expected: "application/octet-stream", actual: capture.ContentType);
+            CollectionAssert.AreEqual(expected: expectedBody, actual: capture.Body);
         }
 
         [TestMethod]

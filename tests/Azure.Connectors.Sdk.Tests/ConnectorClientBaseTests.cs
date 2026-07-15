@@ -156,7 +156,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task CallConnectorAsync_BinaryBody_SendsRawBytesAndContentType()
         {
             var expectedBody = new byte[] { 0x00, 0x7F, 0xFF };
-            var (credential, options, getBody, getContentType) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+            var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
                 () => new HttpResponseMessage(HttpStatusCode.OK));
             using var client = new TestBinaryConnectorClient(
                 new Uri("https://test.azure.com/connection"),
@@ -167,8 +167,8 @@ namespace Azure.Connectors.Sdk.Tests
                 .TestSendBinaryAsync(expectedBody, CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(expected: "application/octet-stream", actual: getContentType());
-            CollectionAssert.AreEqual(expected: expectedBody, actual: getBody());
+            Assert.AreEqual(expected: "application/octet-stream", actual: capture.ContentType);
+            CollectionAssert.AreEqual(expected: expectedBody, actual: capture.Body);
         }
 
         private class TestConnectorClientWithUri : ConnectorClientBase
