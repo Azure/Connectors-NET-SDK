@@ -58,29 +58,6 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
         }
 
-        private static AzureQueuesClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage> captureRequest)
-        {
-            var mockHandler = new Mock<HttpMessageHandler>();
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .Callback<HttpRequestMessage, CancellationToken>((request, cancellationToken) => captureRequest(request))
-                .ReturnsAsync(response);
-
-            var options = new ConnectorClientOptions
-            {
-                Transport = new HttpClientTransport(new HttpClient(mockHandler.Object)),
-            };
-            options.Retry.MaxRetries = 0;
-
-            return new AzureQueuesClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object,
-                options: options);
-        }
-
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
@@ -189,13 +166,16 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task ListQueuesAsync_QueueEndpoint_DoubleEncodesPathSegment()
         {
-            using var responseMessage = new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent("[]")
-            };
-            Uri? requestUri = null;
-            using var client = CreateMockedClient(responseMessage, request => requestUri = request.RequestUri!);
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("[]")
+                });
+            using var client = new AzureQueuesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
 
             await client
                 .ListQueuesAsync(
@@ -203,9 +183,10 @@ namespace Azure.Connectors.Sdk.Tests
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.IsNotNull(requestUri);
+            var request = clientSetup.GetLastRequest();
+            Assert.IsNotNull(request);
             Assert.IsTrue(
-                requestUri.AbsolutePath.Contains(
+                request.RequestUri!.AbsolutePath.Contains(
                     "/v2/storageAccounts/https%253A%252F%252Faccount.queue.core.windows.net/queues/list",
                     StringComparison.Ordinal));
         }
