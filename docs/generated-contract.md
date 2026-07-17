@@ -44,10 +44,12 @@ for the registration and callback flow.
 ## Discovery Contract
 
 Routes marked `x-ms-visibility: internal` are discovery helpers, not ordinary
-public SDK invocations. The generator may retain them when a public operation's
+connector actions. The generator may retain them when a public operation's
 dynamic values or dynamic schema metadata references their operation ID. In that
-case, they support generated metadata and must not be promoted as customer-facing
-action methods.
+case, the generated SDK may expose an explicitly marked callable discovery API
+so infrastructure consumers, such as the SDK LSP, can enumerate dynamic values
+or schemas. It must remain distinct from customer-facing action methods and must
+not be presented as a normal connector operation.
 
 ## Deterministic Identity
 
