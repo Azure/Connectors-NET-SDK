@@ -75,5 +75,6 @@ For each generated connector and language target, validation must confirm:
 4. Outbound JSON keys and values match the Swagger request schema exactly.
 5. Inbound JSON binds to the corresponding Swagger response or trigger schema.
 
-The cross-language validation workflow and its deterministic report format are
-described by the `connector-sdk-cross-language-validation` skill.
+Cross-language validation should emit a deterministic report for each connector
+that records the pinned Swagger input, generator revision, public operation
+surface, and request/response wire-contract comparison.
