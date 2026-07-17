@@ -8,6 +8,12 @@ This page documents the trigger architecture for the Azure Connectors SDK — ho
 
 Connector triggers follow the **Event Grid webhook pattern**. The connector infrastructure handles all event monitoring and delivers events to Functions via HTTP push:
 
+> **Boundary:** An `x-ms-trigger` Swagger route describes a Connector Namespace
+> registration and callback contract. It is not an action that application code
+> invokes through a connection runtime URL. Application code registers a trigger
+> configuration; Connector Namespace invokes the callback when the connector
+> detects an event.
+
 ```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │                  CONNECTOR INFRASTRUCTURE                           │
