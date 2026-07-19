@@ -5,7 +5,7 @@ generator and generated connector SDKs must preserve. It applies to every
 language target. Language-specific naming and idioms remain governed by that
 language's Azure SDK guidelines.
 
-## Source Of Truth
+## Source of Truth
 
 The connector Swagger document is the backend contract. A generated client may
 offer an idiomatic API surface, but it must always produce requests whose JSON
@@ -14,13 +14,15 @@ referenced schemas comply with the Swagger operation definition.
 
 There is no language-specific choice in the request wire format. If two SDKs
 serialize different payloads for the same Swagger operation, at least one SDK is
-incorrect.
+incorrect. For `string/binary` Swagger request bodies, the wire contract is raw
+bytes with the declared content type, such as `application/octet-stream`, rather
+than a JSON object.
 
 ## Action Contract
 
-Important, non-deprecated connector actions are callable SDK methods. Their
-request and response models are generated from the operation definition and use
-the operation's declared HTTP method, path, parameters, and schemas.
+Non-deprecated, non-internal, non-trigger operations are callable SDK methods.
+Their request and response models are generated from the operation definition
+and use the operation's declared HTTP method, path, parameters, and schemas.
 
 The generator may exclude a route only through an explicit, documented policy,
 such as unsupported multipart transport or a curated replacement route. Such a
