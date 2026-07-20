@@ -215,15 +215,12 @@ public static class ConnectorTriggerPayload
                 .GetTriggerConfigAsync(resourceIdentity, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
-        catch (OperationCanceledException)
-        {
-            throw;
-        }
         catch (ConnectorTriggerConfigurationResolutionException)
         {
             throw;
         }
-        catch (Exception ex) when (!ex.IsFatal())
+        catch (Exception ex) when (!ex.IsFatal() &&
+            ex is not OperationCanceledException)
         {
             throw ConnectorTriggerPayload.CreateConfigurationResolutionException(
                 resourceIdentity: resourceIdentity,
