@@ -441,12 +441,11 @@ public static class ConnectorTriggerPayload
             return null;
         }
 
-        foreach (string value in values)
+        foreach (string? value in values)
         {
-            string trimmedValue = value?.Trim() ?? string.Empty;
-            if (trimmedValue.Length > 0)
+            if (!string.IsNullOrWhiteSpace(value))
             {
-                return trimmedValue;
+                return value.Trim();
             }
         }
 
