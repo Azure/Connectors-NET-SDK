@@ -10,6 +10,11 @@ The **CodefulSdkGenerator** tool generates typed C# clients from managed connect
 - **Typed client classes** - Async methods for each connector action with XML documentation
 - **Authentication handling** - Built-in token acquisition for API Hub
 
+> **Generated contract:** The generator follows the language-neutral action,
+> trigger, discovery, deterministic naming, and Swagger wire-format rules in
+> [docs/generated-contract.md](docs/generated-contract.md). Naming conventions
+> remain specific to each target language's Azure SDK guidance.
+
 ## Prerequisites
 
 ### Tools Required
