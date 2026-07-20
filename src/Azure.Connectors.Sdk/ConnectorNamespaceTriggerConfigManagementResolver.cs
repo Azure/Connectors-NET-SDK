@@ -102,11 +102,14 @@ public sealed class ConnectorNamespaceTriggerConfigManagementResolver : IConnect
         }
         catch (Exception ex) when (!ex.IsFatal())
         {
+            int? requestFailedStatus = ex is RequestFailedException requestFailedException &&
+                requestFailedException.Status > 0
+                ? requestFailedException.Status
+                : null;
+
             throw ConnectorNamespaceTriggerConfigManagementResolver.CreateResolutionException(
                 resourceIdentity: resourceIdentity,
-                status: ex is RequestFailedException requestFailedException && requestFailedException.Status > 0
-                    ? requestFailedException.Status
-                    : null,
+                status: requestFailedStatus,
                 correlationId: null,
                 detail: "The management request failed before a trigger configuration could be resolved.",
                 innerException: ex);

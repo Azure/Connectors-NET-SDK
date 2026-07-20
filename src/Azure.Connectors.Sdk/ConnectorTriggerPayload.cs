@@ -342,6 +342,8 @@ public static class ConnectorTriggerPayload
             return ConnectorTriggerPayload.GetFirstNonEmptyHeaderValue(values);
         }
 
+        // The SDK promises OrdinalIgnoreCase header-name matching even when callers pass a
+        // case-sensitive dictionary, so fall back to a manual scan when TryGetValue misses.
         foreach (KeyValuePair<string, IEnumerable<string>> header in headers)
         {
             if (string.Equals(header.Key, headerName, StringComparison.OrdinalIgnoreCase))

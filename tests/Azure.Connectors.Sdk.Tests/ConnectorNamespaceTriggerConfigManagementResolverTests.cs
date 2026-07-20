@@ -18,9 +18,11 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class ConnectorNamespaceTriggerConfigManagementResolverTests
     {
+        private static readonly DateTimeOffset FarFutureExpiry = new(2099, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
         private static readonly AccessToken TestAccessToken = new(
             token: "mock-token",
-            expiresOn: new DateTimeOffset(2099, 1, 1, 0, 0, 0, TimeSpan.Zero));
+            expiresOn: ConnectorNamespaceTriggerConfigManagementResolverTests.FarFutureExpiry);
 
         private static ConnectorNamespaceTriggerConfigResourceIdentity CreateResourceIdentity()
         {
