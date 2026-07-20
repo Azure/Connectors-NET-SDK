@@ -308,9 +308,8 @@ namespace Azure.Connectors.Sdk.Tests
                     .ConfigureAwait(continueOnCapturedContext: false);
                 Assert.Fail("Expected an OperationCanceledException.");
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
-                Assert.IsNotNull(ex);
             }
         }
 

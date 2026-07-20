@@ -21,8 +21,8 @@ namespace Azure.Connectors.Sdk.Tests
         private static readonly DateTimeOffset FarFutureExpiry = new(2099, 1, 1, 0, 0, 0, TimeSpan.Zero);
 
         private static readonly AccessToken TestAccessToken = new(
-            "mock-token",
-            ConnectorNamespaceTriggerConfigManagementResolverTests.FarFutureExpiry);
+            accessToken: "mock-token",
+            expiresOn: ConnectorNamespaceTriggerConfigManagementResolverTests.FarFutureExpiry);
 
         private static ConnectorNamespaceTriggerConfigResourceIdentity CreateResourceIdentity()
         {
@@ -204,9 +204,8 @@ namespace Azure.Connectors.Sdk.Tests
                     .ConfigureAwait(continueOnCapturedContext: false);
                 Assert.Fail("Expected an OperationCanceledException.");
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
-                Assert.IsNotNull(ex);
             }
         }
 
