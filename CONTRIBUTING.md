@@ -43,6 +43,14 @@ dotnet test
 - Update documentation if behavior changes
 - Follow the existing code style (see [copilot-instructions.md](.github/copilot-instructions.md) for conventions)
 
+### Azure Pipelines PR Validation
+
+PRs targeting `main` must pass the `connectors-sdk.public` Azure Pipelines build. This validation build compiles the SDK, verifies formatting, runs unit tests, collects coverage, and validates package creation without signing or publishing packages.
+
+The build normally starts automatically for PRs from `Azure/Connectors-NET-SDK` branches. If Azure Pipelines asks for authorization, a repository maintainer can comment `/azp run` on the PR to start the validation build. Do not use this command for fork or unsupported PR sources.
+
+This validation build does not create a release, publish packages, or change the current package version.
+
 ### Reporting Issues
 
 - Use [GitHub Issues](https://github.com/Azure/Connectors-NET-SDK/issues) to report bugs or request features
