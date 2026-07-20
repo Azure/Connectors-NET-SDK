@@ -141,6 +141,68 @@ byte[]? fileBytes = await ConnectorTriggerPayload
 
 If a binary-content (string) body is read into a metadata payload type, deserialization throws an actionable `JsonException` that points to the binary-content helpers.
 
+### Transport-aware identity validation
+
+The body-only overloads above remain the simplest choice when the trigger configuration is a compile-time constant (a single function handles exactly one connector/operation). For scenarios where the same endpoint handles multiple connectors, or for defence-in-depth against routing mistakes, use the transport-aware overload that validates trigger identity headers before deserialization:
+
+```csharp
+// 1. Build a framework-neutral transport from the host-specific request.
+//    This adapter pattern keeps Azure.Connectors.Sdk free of Functions/ASP.NET Core references.
+var transport = new ConnectorTriggerTransport
+{
+    Body    = request.Body,
+    Headers = request.Headers.ToDictionary(
+                  h => h.Key,
+                  h => h.Value,
+                  StringComparer.OrdinalIgnoreCase),
+};
+
+// 2. Declare the expected identity — use the generated constants for compile-time safety.
+var identity = new ConnectorTriggerIdentity(
+    ConnectorName: ConnectorNames.OneDriveForBusiness,
+    OperationName: OneDriveForBusinessTriggerOperations.OnNewFiles);
+
+// 3. Read and validate in one call.
+var payload = await ConnectorTriggerPayload
+    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
+        transport,
+        identity,
+        cancellationToken: cancellationToken)
+    .ConfigureAwait(continueOnCapturedContext: false);
+```
+
+If the identity headers do not match `expectedIdentity`, a `ConnectorTriggerIdentityMismatchException` is thrown **before** any JSON deserialization. The exception exposes only safe diagnostics — expected vs. actual connector/operation names, which identity headers were present, and the correlation ID — and never exposes authorization headers, callback URLs, payload content, or lock tokens.
+
+```csharp
+catch (ConnectorTriggerIdentityMismatchException ex)
+{
+    // Safe to log: only identity metadata and correlation ID are exposed.
+    logger.LogError(
+        "Trigger identity mismatch. Expected {Connector}/{Operation}, " +
+        "got {ActualConnector}/{ActualOperation}. CorrelationId: {CorrelationId}. " +
+        "Present identity headers: {PresentHeaders}.",
+        ex.ExpectedConnectorName, ex.ExpectedOperationName,
+        ex.ActualConnectorName,   ex.ActualOperationName,
+        ex.CorrelationId,
+        string.Join(", ", ex.PresentIdentityHeaderNames));
+    throw;
+}
+```
+
+#### Identity header names (provisional service contract)
+
+The header names validated by the transport overload are defined in `ConnectorTriggerHeaderNames`:
+
+| Constant | Header | Value example |
+|----------|--------|---------------|
+| `ConnectorTriggerHeaderNames.ConnectorName` | `x-ms-gateway-resource-name` | `office365` |
+| `ConnectorTriggerHeaderNames.OperationName` | `x-ms-trigger-name` | `OnNewEmailV3` |
+| `ConnectorTriggerHeaderNames.CorrelationId` | `x-ms-client-request-id` | `abc-123` |
+
+> **Important — provisional contract:** These header names reflect the current Connector Namespace webhook implementation and have not yet been formally agreed as a stable, versioned API surface with the Connector Namespace service team. They may change before reaching general availability. The names are isolated behind `ConnectorTriggerHeaderNames` constants so a future update is a single-line change.
+
+Header-name lookup and value comparison both use `StringComparison.OrdinalIgnoreCase`.
+
 ## Trigger Operation Constants
 
 Each connector exposes a `{Connector}TriggerOperations` static class with the operation name strings:

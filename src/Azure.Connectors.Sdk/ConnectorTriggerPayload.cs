@@ -4,7 +4,9 @@
 
 using System;
 using System.Buffers;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -142,6 +144,63 @@ public static class ConnectorTriggerPayload
     }
 
     /// <summary>
+    /// Reads a metadata trigger callback from the framework-neutral <paramref name="transport"/>,
+    /// validates the trigger identity headers against <paramref name="expectedIdentity"/>, and
+    /// deserializes the body into its typed payload.
+    /// </summary>
+    /// <typeparam name="TPayload">
+    /// The connector-specific payload type, a subclass of <see cref="TriggerCallbackPayload{T}"/>
+    /// (for example <c>Office365OnNewEmailTriggerPayload</c>).
+    /// </typeparam>
+    /// <param name="transport">
+    /// The framework-neutral callback representation. Carry the body stream and the HTTP headers
+    /// forwarded from the host (Azure Functions, ASP.NET Core, etc.) using a host-local adapter.
+    /// </param>
+    /// <param name="expectedIdentity">
+    /// The expected connector and operation identity. When the callback headers do not match,
+    /// a <see cref="ConnectorTriggerIdentityMismatchException"/> is thrown before deserialization.
+    /// </param>
+    /// <param name="maxBodySizeBytes">
+    /// The maximum number of bytes to read from the body before failing.
+    /// Defaults to <see cref="DefaultMaxBodySizeBytes"/>.
+    /// </param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>The deserialized payload, or <see langword="null"/> when the body is JSON <c>null</c>.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="transport"/> or <paramref name="expectedIdentity"/> is <see langword="null"/>.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="ConnectorTriggerIdentityMismatchException">
+    /// The identity headers in the callback are absent or do not match <paramref name="expectedIdentity"/>.
+    /// </exception>
+    /// <exception cref="InvalidOperationException">The body exceeded <paramref name="maxBodySizeBytes"/>.</exception>
+    /// <exception cref="JsonException">
+    /// The body was a base64 string (a binary-content trigger) rather than a metadata object.
+    /// </exception>
+    /// <remarks>
+    /// Identity validation uses the header names defined in <see cref="ConnectorTriggerHeaderNames"/>,
+    /// which are provisional and subject to change until the Connector Namespace service team publishes
+    /// a finalized header contract. Header-name lookup and value comparison are both
+    /// <see cref="StringComparison.OrdinalIgnoreCase"/>.
+    /// </remarks>
+    public static async ValueTask<TPayload?> ReadAsync<TPayload>(
+        ConnectorTriggerTransport transport,
+        ConnectorTriggerIdentity expectedIdentity,
+        long maxBodySizeBytes = ConnectorTriggerPayload.DefaultMaxBodySizeBytes,
+        CancellationToken cancellationToken = default)
+        where TPayload : class
+    {
+        ArgumentNullException.ThrowIfNull(transport);
+        ArgumentNullException.ThrowIfNull(expectedIdentity);
+
+        ConnectorTriggerPayload.ValidateIdentity(transport.Headers, expectedIdentity);
+
+        return await ConnectorTriggerPayload
+            .ReadAsync<TPayload>(transport.Body, maxBodySizeBytes, cancellationToken)
+            .ConfigureAwait(continueOnCapturedContext: false);
+    }
+
+    /// <summary>
     /// Attempts to read a binary-content trigger callback (for example OneDrive <c>OnNewFileV2</c>),
     /// whose wire shape is <c>{"body":"&lt;base64&gt;"}</c>, into the decoded file bytes.
     /// </summary>
@@ -177,6 +236,100 @@ public static class ConnectorTriggerPayload
         {
             return ConnectorTriggerPayload.TryDecodeBinaryBody(document, out content);
         }
+    }
+
+    /// <summary>
+    /// Validates the trigger identity headers against the expected connector and operation.
+    /// Throws <see cref="ConnectorTriggerIdentityMismatchException"/> when any header is absent or mismatches.
+    /// </summary>
+    /// <param name="headers">The request headers from the callback.</param>
+    /// <param name="expectedIdentity">The expected connector and operation identity.</param>
+    private static void ValidateIdentity(
+        IReadOnlyDictionary<string, IEnumerable<string>> headers,
+        ConnectorTriggerIdentity expectedIdentity)
+    {
+        string? actualConnectorName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.ConnectorName);
+        string? actualOperationName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.OperationName);
+        string? correlationId = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.CorrelationId);
+
+        // Track which identity headers were present (non-empty) to aid diagnostics.
+        var presentHeaders = new List<string>(capacity: 2);
+        if (actualConnectorName is not null)
+        {
+            presentHeaders.Add(ConnectorTriggerHeaderNames.ConnectorName);
+        }
+
+        if (actualOperationName is not null)
+        {
+            presentHeaders.Add(ConnectorTriggerHeaderNames.OperationName);
+        }
+
+        bool connectorMatch = string.Equals(actualConnectorName, expectedIdentity.ConnectorName, StringComparison.OrdinalIgnoreCase);
+        bool operationMatch = string.Equals(actualOperationName, expectedIdentity.OperationName, StringComparison.OrdinalIgnoreCase);
+
+        if (connectorMatch && operationMatch)
+        {
+            return;
+        }
+
+        // Build a descriptive message that exposes only safe diagnostic data.
+        var message = new StringBuilder("Trigger identity mismatch.");
+
+        if (actualConnectorName is null)
+        {
+            message.Append($" Connector identity header '{ConnectorTriggerHeaderNames.ConnectorName}' was absent or empty.");
+        }
+        else if (!connectorMatch)
+        {
+            message.Append($" Expected connector '{expectedIdentity.ConnectorName}', got '{actualConnectorName}'.");
+        }
+
+        if (actualOperationName is null)
+        {
+            message.Append($" Operation identity header '{ConnectorTriggerHeaderNames.OperationName}' was absent or empty.");
+        }
+        else if (!operationMatch)
+        {
+            message.Append($" Expected operation '{expectedIdentity.OperationName}', got '{actualOperationName}'.");
+        }
+
+        if (correlationId is not null)
+        {
+            message.Append($" Correlation ID: '{correlationId}'.");
+        }
+
+        throw new ConnectorTriggerIdentityMismatchException(
+            message: message.ToString(),
+            expectedConnectorName: expectedIdentity.ConnectorName,
+            expectedOperationName: expectedIdentity.OperationName,
+            actualConnectorName: actualConnectorName,
+            actualOperationName: actualOperationName,
+            presentIdentityHeaderNames: presentHeaders,
+            correlationId: correlationId);
+    }
+
+    /// <summary>
+    /// Returns the first non-empty value for <paramref name="headerName"/> in <paramref name="headers"/>,
+    /// or <see langword="null"/> when the header is absent or all its values are empty.
+    /// </summary>
+    private static string? GetFirstHeaderValue(
+        IReadOnlyDictionary<string, IEnumerable<string>> headers,
+        string headerName)
+    {
+        if (!headers.TryGetValue(headerName, out IEnumerable<string>? values))
+        {
+            return null;
+        }
+
+        foreach (string value in values)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
