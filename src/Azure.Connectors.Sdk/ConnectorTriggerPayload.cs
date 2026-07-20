@@ -447,7 +447,10 @@ public static class ConnectorTriggerPayload
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                return value.Trim();
+                return char.IsWhiteSpace(value[0]) ||
+                    char.IsWhiteSpace(value[value.Length - 1])
+                    ? value.Trim()
+                    : value;
             }
         }
 
@@ -459,7 +462,7 @@ public static class ConnectorTriggerPayload
     /// </summary>
     private static IReadOnlyList<string> GetReadOnlyHeaderNames(List<string> headerNames)
     {
-        return Array.AsReadOnly(headerNames.ToArray());
+        return headerNames.AsReadOnly();
     }
 
     /// <summary>

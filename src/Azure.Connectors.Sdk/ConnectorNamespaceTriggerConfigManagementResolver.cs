@@ -68,7 +68,7 @@ public sealed class ConnectorNamespaceTriggerConfigManagementResolver : IConnect
 
         this._managementEndpoint = options.ManagementEndpoint;
         this._apiVersion = options.ApiVersion;
-        this._audienceScopes = [$"{options.Audience.TrimEnd('/')}/.default"];
+        this._audienceScopes = new[] { $"{options.Audience.TrimEnd('/')}/.default" };
         this._pipeline = HttpPipelineBuilder.Build(
             options,
             perRetryPolicies: new HttpPipelinePolicy[]
