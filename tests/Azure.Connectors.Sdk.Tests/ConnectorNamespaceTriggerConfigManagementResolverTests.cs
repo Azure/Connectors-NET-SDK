@@ -5,6 +5,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using global::Azure.Core;
@@ -49,7 +50,7 @@ namespace Azure.Connectors.Sdk.Tests
                 """;
 
             var resourceIdentity = ConnectorNamespaceTriggerConfigManagementResolverTests.CreateResourceIdentity();
-            var (resolver, getLastRequest) = ConnectorNamespaceTriggerConfigManagementResolverTests.CreateResolver(
+            var (resolver, lastRequest) = ConnectorNamespaceTriggerConfigManagementResolverTests.CreateResolver(
                 responseFactory: () => new HttpResponseMessage(HttpStatusCode.OK)
                 {
                     Content = new StringContent(responseJson),
@@ -64,7 +65,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("onedriveforbusiness", triggerConfig.ConnectorName);
             Assert.AreEqual("OnNewFilesV2", triggerConfig.OperationName);
 
-            var request = getLastRequest();
+            var request = lastRequest.Value;
             Assert.IsNotNull(request);
             Assert.AreEqual(HttpMethod.Get, request.Method);
             Assert.AreEqual(
@@ -213,11 +214,11 @@ namespace Azure.Connectors.Sdk.Tests
             return credential;
         }
 
-        private static (ConnectorNamespaceTriggerConfigManagementResolver Resolver, Func<HttpRequestMessage?> GetLastRequest) CreateResolver(
+        private static (ConnectorNamespaceTriggerConfigManagementResolver Resolver, StrongBox<HttpRequestMessage?> LastRequest) CreateResolver(
             Func<HttpResponseMessage> responseFactory)
         {
             var credential = ConnectorNamespaceTriggerConfigManagementResolverTests.CreateCredential();
-            HttpRequestMessage? lastRequest = null;
+            var lastRequest = new StrongBox<HttpRequestMessage?>();
             var handler = new Mock<HttpMessageHandler>();
             handler
                 .Protected()
@@ -225,7 +226,7 @@ namespace Azure.Connectors.Sdk.Tests
                     "SendAsync",
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
-                .Callback<HttpRequestMessage, CancellationToken>((request, cancellationToken) => lastRequest = request)
+                .Callback<HttpRequestMessage, CancellationToken>((request, cancellationToken) => lastRequest.Value = request)
                 .Returns(() => Task.FromResult(responseFactory()));
 
             var options = new ConnectorNamespaceTriggerConfigManagementResolverOptions();
@@ -234,7 +235,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             return (
                 new ConnectorNamespaceTriggerConfigManagementResolver(credential.Object, options),
-                () => lastRequest);
+                lastRequest);
         }
     }
 }
