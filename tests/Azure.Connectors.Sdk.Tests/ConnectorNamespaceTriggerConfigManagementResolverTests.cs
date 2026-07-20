@@ -195,6 +195,7 @@ namespace Azure.Connectors.Sdk.Tests
             var resolver = new ConnectorNamespaceTriggerConfigManagementResolver(credential.Object, options);
             using var cancellationSource = new CancellationTokenSource();
             await cancellationSource.CancelAsync().ConfigureAwait(continueOnCapturedContext: false);
+            var threwOperationCanceledException = false;
 
             // Act & Assert
             try
@@ -206,7 +207,10 @@ namespace Azure.Connectors.Sdk.Tests
             }
             catch (OperationCanceledException)
             {
+                threwOperationCanceledException = true;
             }
+
+            Assert.IsTrue(threwOperationCanceledException);
         }
 
         private static Mock<TokenCredential> CreateCredential()

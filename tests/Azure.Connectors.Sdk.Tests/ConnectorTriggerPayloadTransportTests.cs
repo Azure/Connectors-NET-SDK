@@ -295,6 +295,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var cancellationSource = new CancellationTokenSource();
             await cancellationSource.CancelAsync().ConfigureAwait(continueOnCapturedContext: false);
             var resolver = new StubTriggerConfigResolver(cancellationSource.Token);
+            var threwOperationCanceledException = false;
 
             // Act & Assert
             try
@@ -310,7 +311,10 @@ namespace Azure.Connectors.Sdk.Tests
             }
             catch (OperationCanceledException)
             {
+                threwOperationCanceledException = true;
             }
+
+            Assert.IsTrue(threwOperationCanceledException);
         }
 
         [TestMethod]
