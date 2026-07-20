@@ -46,8 +46,10 @@ public sealed class ConnectorTriggerTransport
     /// </summary>
     /// <remarks>
     /// The dictionary should use <see cref="System.StringComparer.OrdinalIgnoreCase"/> for
-    /// case-insensitive header-name lookup. When not provided, defaults to an empty
-    /// case-insensitive dictionary (all identity headers will be treated as absent).
+    /// predictable behavior when callers inspect it directly. The SDK performs its own
+    /// <see cref="System.StringComparison.OrdinalIgnoreCase"/> header-name matching even when the
+    /// provided dictionary uses a case-sensitive comparer. When not provided, defaults to an empty
+    /// case-insensitive dictionary (all resource-context headers will be treated as absent).
     /// </remarks>
     public IReadOnlyDictionary<string, IEnumerable<string>> Headers { get; init; }
         = new Dictionary<string, IEnumerable<string>>(System.StringComparer.OrdinalIgnoreCase);

@@ -18,29 +18,45 @@ namespace Azure.Connectors.Sdk;
 /// </para>
 /// <para>
 /// Use these constants with
-/// <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, long, System.Threading.CancellationToken)"/>
-/// to validate trigger identity before payload deserialization.
+/// <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, IConnectorNamespaceTriggerConfigResolver, long, System.Threading.CancellationToken)"/>
+/// to build the Connector Namespace trigger-config resource identity before payload deserialization.
 /// </para>
 /// </remarks>
 public static class ConnectorTriggerHeaderNames
 {
     /// <summary>
-    /// The header that carries the connector's API name (for example <c>office365</c>).
+    /// The header that carries the Azure subscription identifier that owns the Connector Namespace resource.
     /// </summary>
     /// <remarks>
     /// Provisional — not yet finalized as a stable Connector Namespace service contract.
-    /// Compare against constants from <see cref="ConnectorNames"/>.
     /// </remarks>
-    public const string ConnectorName = "x-ms-gateway-resource-name";
+    public const string SubscriptionId = "x-ms-subscription-id";
 
     /// <summary>
-    /// The header that carries the trigger operation name (for example <c>OnNewEmailV3</c>).
+    /// The header that carries the Azure resource group name that owns the Connector Namespace resource.
     /// </summary>
     /// <remarks>
     /// Provisional — not yet finalized as a stable Connector Namespace service contract.
-    /// Compare against constants from the connector's <c>{Connector}TriggerOperations</c> class.
     /// </remarks>
-    public const string OperationName = "x-ms-trigger-name";
+    public const string ResourceGroupName = "x-ms-resource-group";
+
+    /// <summary>
+    /// The header that carries the Connector Namespace resource name.
+    /// </summary>
+    /// <remarks>
+    /// Provisional — not yet finalized as a stable Connector Namespace service contract.
+    /// This is the Connector Namespace resource name, not the connector API name.
+    /// </remarks>
+    public const string ConnectorNamespaceName = "x-ms-gateway-resource-name";
+
+    /// <summary>
+    /// The header that carries the trigger-config resource name.
+    /// </summary>
+    /// <remarks>
+    /// Provisional — not yet finalized as a stable Connector Namespace service contract.
+    /// This is the trigger-config resource name, not the Swagger trigger operation name.
+    /// </remarks>
+    public const string TriggerConfigName = "x-ms-trigger-name";
 
     /// <summary>
     /// The header that carries the per-request correlation identifier, when present.

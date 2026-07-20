@@ -5,7 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.OneDriveForBusiness.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,35 +15,44 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the transport-aware overload of <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, long, System.Threading.CancellationToken)"/>,
-    /// covering identity validation, safe diagnostics, and backward compatibility.
+    /// Tests for the transport-aware overload of <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, IConnectorNamespaceTriggerConfigResolver, long, CancellationToken)"/>.
     /// </summary>
     [TestClass]
     public class ConnectorTriggerPayloadTransportTests
     {
         private const string ExpectedConnectorName = "onedriveforbusiness";
-
         private const string ExpectedOperationName = "OnNewFilesV2";
-
+        private const string SubscriptionId = "11111111-2222-3333-4444-555555555555";
+        private const string ResourceGroupName = "prod-connectors-rg";
+        private const string ConnectorNamespaceName = "my-gateway";
+        private const string TriggerConfigName = "email-trigger";
         private const string MetadataPayload = """
             {"body":{"value":[{"Id":"01ABC","Name":"report.docx","Path":"/Documents/report.docx","Size":1234,"IsFolder":false}]}}
             """;
 
-        // ------------------------------------------------------------------ //
-        // Helpers                                                              //
-        // ------------------------------------------------------------------ //
+        private static ConnectorTriggerIdentity ExpectedIdentity => new(
+            ConnectorTriggerPayloadTransportTests.ExpectedConnectorName,
+            ConnectorTriggerPayloadTransportTests.ExpectedOperationName);
+
+        private static ConnectorNamespaceTriggerConfig MatchingTriggerConfig => new(
+            ConnectorTriggerPayloadTransportTests.ExpectedConnectorName,
+            ConnectorTriggerPayloadTransportTests.ExpectedOperationName);
 
         private static ConnectorTriggerTransport CreateTransport(
             string body,
-            string connectorName = ConnectorTriggerPayloadTransportTests.ExpectedConnectorName,
-            string operationName = ConnectorTriggerPayloadTransportTests.ExpectedOperationName,
+            string subscriptionId = ConnectorTriggerPayloadTransportTests.SubscriptionId,
+            string resourceGroupName = ConnectorTriggerPayloadTransportTests.ResourceGroupName,
+            string connectorNamespaceName = ConnectorTriggerPayloadTransportTests.ConnectorNamespaceName,
+            string triggerConfigName = ConnectorTriggerPayloadTransportTests.TriggerConfigName,
             string? correlationId = null,
             IDictionary<string, IEnumerable<string>>? extraHeaders = null)
         {
-            var headers = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase)
+            var headers = new Dictionary<string, IEnumerable<string>>
             {
-                [ConnectorTriggerHeaderNames.ConnectorName] = new[] { connectorName },
-                [ConnectorTriggerHeaderNames.OperationName] = new[] { operationName },
+                [ConnectorTriggerHeaderNames.SubscriptionId] = new[] { subscriptionId },
+                [ConnectorTriggerHeaderNames.ResourceGroupName] = new[] { resourceGroupName },
+                [ConnectorTriggerHeaderNames.ConnectorNamespaceName] = new[] { connectorNamespaceName },
+                [ConnectorTriggerHeaderNames.TriggerConfigName] = new[] { triggerConfigName },
             };
 
             if (correlationId is not null)
@@ -64,49 +75,44 @@ namespace Azure.Connectors.Sdk.Tests
             };
         }
 
-        private static ConnectorTriggerIdentity ExpectedIdentity => new(
-            ConnectorTriggerPayloadTransportTests.ExpectedConnectorName,
-            ConnectorTriggerPayloadTransportTests.ExpectedOperationName);
-
-        // ------------------------------------------------------------------ //
-        // Happy path                                                           //
-        // ------------------------------------------------------------------ //
-
         [TestMethod]
-        public async Task ReadAsync_Transport_MatchingIdentity_ReturnsPayload()
+        public async Task ReadAsync_Transport_ResolvedIdentityMatches_ReturnsPayload()
         {
             // Arrange
             var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
                 ConnectorTriggerPayloadTransportTests.MetadataPayload);
+            var resolver = new StubTriggerConfigResolver(
+                ConnectorTriggerPayloadTransportTests.MatchingTriggerConfig);
 
             // Act
             var payload = await ConnectorTriggerPayload
                 .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
                     transport,
-                    ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
+                    ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                    resolver)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
             Assert.IsNotNull(payload);
-            Assert.IsNotNull(payload.Body);
-            Assert.IsNotNull(payload.Body.Value);
-            Assert.AreEqual(1, payload.Body.Value.Count);
-            Assert.AreEqual("report.docx", payload.Body.Value[0].Name);
+            Assert.AreEqual("report.docx", payload.Body?.Value?[0].Name);
+            Assert.IsNotNull(resolver.LastRequestedResourceIdentity);
+            var requestedResourceIdentity = resolver.LastRequestedResourceIdentity!;
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.SubscriptionId, requestedResourceIdentity.SubscriptionId);
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ResourceGroupName, requestedResourceIdentity.ResourceGroupName);
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ConnectorNamespaceName, requestedResourceIdentity.ConnectorNamespaceName);
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.TriggerConfigName, requestedResourceIdentity.TriggerConfigName);
         }
-
-        // ------------------------------------------------------------------ //
-        // Case-insensitive header-name and header-value matching              //
-        // ------------------------------------------------------------------ //
 
         [TestMethod]
         public async Task ReadAsync_Transport_HeaderNameCaseInsensitive_Validates()
         {
-            // Arrange — headers keyed with upper-case names in a plain Dictionary; the
-            // ConnectorTriggerTransport default comparer normalises lookup.
-            var headers = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase)
+            // Arrange — the SDK, not the transport, performs OrdinalIgnoreCase lookup.
+            var headers = new Dictionary<string, IEnumerable<string>>
             {
-                ["X-MS-GATEWAY-RESOURCE-NAME"] = new[] { ConnectorTriggerPayloadTransportTests.ExpectedConnectorName },
-                ["X-MS-TRIGGER-NAME"] = new[] { ConnectorTriggerPayloadTransportTests.ExpectedOperationName },
+                ["X-MS-SUBSCRIPTION-ID"] = new[] { ConnectorTriggerPayloadTransportTests.SubscriptionId },
+                ["X-MS-RESOURCE-GROUP"] = new[] { ConnectorTriggerPayloadTransportTests.ResourceGroupName },
+                ["X-MS-GATEWAY-RESOURCE-NAME"] = new[] { ConnectorTriggerPayloadTransportTests.ConnectorNamespaceName },
+                ["X-MS-TRIGGER-NAME"] = new[] { ConnectorTriggerPayloadTransportTests.TriggerConfigName },
             };
 
             var transport = new ConnectorTriggerTransport
@@ -115,11 +121,15 @@ namespace Azure.Connectors.Sdk.Tests
                 Headers = headers,
             };
 
-            // Act — should not throw
+            var resolver = new StubTriggerConfigResolver(
+                ConnectorTriggerPayloadTransportTests.MatchingTriggerConfig);
+
+            // Act
             var payload = await ConnectorTriggerPayload
                 .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
                     transport,
-                    ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
+                    ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                    resolver)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
@@ -127,223 +137,124 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task ReadAsync_Transport_HeaderValueCaseInsensitive_Validates()
+        public async Task ReadAsync_Transport_SubscriptionHeaderMissing_ThrowsResourceIdentityException()
         {
-            // Arrange — connector name in uppercase; validation must be case-insensitive.
-            var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
-                ConnectorTriggerPayloadTransportTests.MetadataPayload,
-                connectorName: ConnectorTriggerPayloadTransportTests.ExpectedConnectorName.ToUpperInvariant(),
-                operationName: ConnectorTriggerPayloadTransportTests.ExpectedOperationName.ToUpperInvariant());
-
-            // Act — should not throw
-            var payload = await ConnectorTriggerPayload
-                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                    transport,
-                    ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
+            await this.AssertMissingHeaderThrowsAsync(ConnectorTriggerHeaderNames.SubscriptionId)
                 .ConfigureAwait(continueOnCapturedContext: false);
-
-            // Assert
-            Assert.IsNotNull(payload);
-        }
-
-        // ------------------------------------------------------------------ //
-        // Missing identity headers                                            //
-        // ------------------------------------------------------------------ //
-
-        [TestMethod]
-        public async Task ReadAsync_Transport_ConnectorNameHeaderMissing_ThrowsIdentityMismatch()
-        {
-            // Arrange — only the operation header is present.
-            var headers = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase)
-            {
-                [ConnectorTriggerHeaderNames.OperationName] = new[] { ConnectorTriggerPayloadTransportTests.ExpectedOperationName },
-            };
-
-            var transport = new ConnectorTriggerTransport
-            {
-                Body = new MemoryStream(Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTransportTests.MetadataPayload)),
-                Headers = headers,
-            };
-
-            // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.IsNull(exception.ActualConnectorName);
-            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ExpectedConnectorName, exception.ExpectedConnectorName);
-            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ExpectedOperationName, exception.ExpectedOperationName);
-            StringAssert.Contains(exception.Message, ConnectorTriggerHeaderNames.ConnectorName);
         }
 
         [TestMethod]
-        public async Task ReadAsync_Transport_OperationNameHeaderMissing_ThrowsIdentityMismatch()
+        public async Task ReadAsync_Transport_ResourceGroupHeaderMissing_ThrowsResourceIdentityException()
         {
-            // Arrange — only the connector header is present.
-            var headers = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase)
-            {
-                [ConnectorTriggerHeaderNames.ConnectorName] = new[] { ConnectorTriggerPayloadTransportTests.ExpectedConnectorName },
-            };
-
-            var transport = new ConnectorTriggerTransport
-            {
-                Body = new MemoryStream(Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTransportTests.MetadataPayload)),
-                Headers = headers,
-            };
-
-            // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
+            await this.AssertMissingHeaderThrowsAsync(ConnectorTriggerHeaderNames.ResourceGroupName)
                 .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.IsNull(exception.ActualOperationName);
-            StringAssert.Contains(exception.Message, ConnectorTriggerHeaderNames.OperationName);
         }
 
         [TestMethod]
-        public async Task ReadAsync_Transport_BothHeadersMissing_ThrowsIdentityMismatch()
+        public async Task ReadAsync_Transport_ConnectorNamespaceHeaderMissing_ThrowsResourceIdentityException()
         {
-            // Arrange — no identity headers at all (e.g. routing mistake or non-Connector Namespace caller).
-            var transport = new ConnectorTriggerTransport
-            {
-                Body = new MemoryStream(Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTransportTests.MetadataPayload)),
-                Headers = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase),
-            };
-
-            // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
+            await this.AssertMissingHeaderThrowsAsync(ConnectorTriggerHeaderNames.ConnectorNamespaceName)
                 .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.IsNull(exception.ActualConnectorName);
-            Assert.IsNull(exception.ActualOperationName);
-            Assert.AreEqual(0, exception.PresentIdentityHeaderNames.Count);
-            StringAssert.Contains(exception.Message, ConnectorTriggerHeaderNames.ConnectorName);
-            StringAssert.Contains(exception.Message, ConnectorTriggerHeaderNames.OperationName);
-        }
-
-        // ------------------------------------------------------------------ //
-        // Value mismatches                                                    //
-        // ------------------------------------------------------------------ //
-
-        [TestMethod]
-        public async Task ReadAsync_Transport_ConnectorNameMismatch_ThrowsIdentityMismatch()
-        {
-            // Arrange — wrong connector, correct operation.
-            var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
-                ConnectorTriggerPayloadTransportTests.MetadataPayload,
-                connectorName: "sharepoint",
-                operationName: ConnectorTriggerPayloadTransportTests.ExpectedOperationName);
-
-            // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.AreEqual("sharepoint", exception.ActualConnectorName);
-            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ExpectedConnectorName, exception.ExpectedConnectorName);
-            Assert.IsTrue(exception.PresentIdentityHeaderNames.Contains(ConnectorTriggerHeaderNames.ConnectorName));
-            StringAssert.Contains(exception.Message, "sharepoint");
-            StringAssert.Contains(exception.Message, ConnectorTriggerPayloadTransportTests.ExpectedConnectorName);
         }
 
         [TestMethod]
-        public async Task ReadAsync_Transport_OperationNameMismatch_ThrowsIdentityMismatch()
+        public async Task ReadAsync_Transport_TriggerConfigHeaderMissing_ThrowsResourceIdentityException()
         {
-            // Arrange — correct connector, wrong operation.
-            var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
-                ConnectorTriggerPayloadTransportTests.MetadataPayload,
-                connectorName: ConnectorTriggerPayloadTransportTests.ExpectedConnectorName,
-                operationName: "OnUpdatedFilesV2");
-
-            // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
+            await this.AssertMissingHeaderThrowsAsync(ConnectorTriggerHeaderNames.TriggerConfigName)
                 .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.AreEqual("OnUpdatedFilesV2", exception.ActualOperationName);
-            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ExpectedOperationName, exception.ExpectedOperationName);
-            StringAssert.Contains(exception.Message, "OnUpdatedFilesV2");
         }
 
-        // ------------------------------------------------------------------ //
-        // Correlation ID                                                      //
-        // ------------------------------------------------------------------ //
-
         [TestMethod]
-        public async Task ReadAsync_Transport_WithCorrelationId_IncludedInException()
+        public async Task ReadAsync_Transport_ResolvedConnectorMismatch_ThrowsIdentityMismatch()
         {
             // Arrange
             const string correlationId = "abc-123-def";
             var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
                 ConnectorTriggerPayloadTransportTests.MetadataPayload,
-                connectorName: "wrong-connector",
                 correlationId: correlationId);
+            var resolver = new StubTriggerConfigResolver(
+                new ConnectorNamespaceTriggerConfig(
+                    ConnectorName: "sharepointonline",
+                    OperationName: ConnectorTriggerPayloadTransportTests.ExpectedOperationName));
 
-            // Act & Assert
+            // Act
             var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
                 async () => await ConnectorTriggerPayload
                     .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
                         transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
+                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                        resolver)
                     .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
+            // Assert
+            Assert.AreEqual("sharepointonline", exception.ResolvedConnectorName);
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ExpectedOperationName, exception.ResolvedOperationName);
             Assert.AreEqual(correlationId, exception.CorrelationId);
-            StringAssert.Contains(exception.Message, correlationId);
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ConnectorNamespaceName, exception.ResourceIdentity.ConnectorNamespaceName);
+            StringAssert.Contains(exception.Message, "sharepointonline");
         }
 
         [TestMethod]
-        public async Task ReadAsync_Transport_MatchingIdentityWithCorrelationId_DoesNotThrow()
+        public async Task ReadAsync_Transport_ResolvedOperationMismatch_ThrowsIdentityMismatch()
+        {
+            // Arrange
+            var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
+                ConnectorTriggerPayloadTransportTests.MetadataPayload);
+            var resolver = new StubTriggerConfigResolver(
+                new ConnectorNamespaceTriggerConfig(
+                    ConnectorName: ConnectorTriggerPayloadTransportTests.ExpectedConnectorName,
+                    OperationName: "OnUpdatedFilesV2"));
+
+            // Act
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
+                        transport,
+                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                        resolver)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.ExpectedConnectorName, exception.ResolvedConnectorName);
+            Assert.AreEqual("OnUpdatedFilesV2", exception.ResolvedOperationName);
+            StringAssert.Contains(exception.Message, "OnUpdatedFilesV2");
+        }
+
+        [TestMethod]
+        public async Task ReadAsync_Transport_ResolverFailure_ThrowsConfigurationResolutionException()
         {
             // Arrange
             var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
                 ConnectorTriggerPayloadTransportTests.MetadataPayload,
                 correlationId: "trace-xyz");
+            var resolver = new StubTriggerConfigResolver(
+                new InvalidOperationException(message: "boom"));
 
-            // Act — correlation ID must not interfere with successful validation.
-            var payload = await ConnectorTriggerPayload
-                .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                    transport,
-                    ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
+            // Act
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerConfigurationResolutionException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
+                        transport,
+                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                        resolver)
+                    .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
-            Assert.IsNotNull(payload);
+            Assert.IsInstanceOfType<InvalidOperationException>(exception.InnerException);
+            Assert.AreEqual("trace-xyz", exception.CorrelationId);
+            Assert.AreEqual(ConnectorTriggerPayloadTransportTests.TriggerConfigName, exception.ResourceIdentity.TriggerConfigName);
         }
-
-        // ------------------------------------------------------------------ //
-        // Safe diagnostics — no secrets in exception                          //
-        // ------------------------------------------------------------------ //
 
         [TestMethod]
         public async Task ReadAsync_Transport_IdentityMismatch_ExceptionContainsNoSecrets()
         {
-            // Arrange — add sensitive headers that must never appear in the exception.
-            const string secretAuthToken = "******";
+            // Arrange
+            const string secretAuthToken = "secret-auth-token";
             const string secretCallbackUrl = "https://secret-callback.example.com/run?code=very-secret";
             const string secretLockToken = "lock-token-sensitive-value";
-
             var sensitiveHeaders = new Dictionary<string, IEnumerable<string>>(StringComparer.OrdinalIgnoreCase)
             {
                 ["Authorization"] = new[] { secretAuthToken },
@@ -353,114 +264,49 @@ namespace Azure.Connectors.Sdk.Tests
 
             var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
                 ConnectorTriggerPayloadTransportTests.MetadataPayload,
-                connectorName: "wrong-connector",
                 extraHeaders: sensitiveHeaders);
+            var resolver = new StubTriggerConfigResolver(
+                new ConnectorNamespaceTriggerConfig(
+                    ConnectorName: "sharepointonline",
+                    OperationName: "WrongOperation"));
 
             // Act
             var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
                 async () => await ConnectorTriggerPayload
                     .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
                         transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
+                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                        resolver)
                     .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            // Assert — sensitive header values must not appear in the exception message.
+            // Assert
             Assert.IsFalse(exception.Message.Contains(secretAuthToken, StringComparison.Ordinal));
             Assert.IsFalse(exception.Message.Contains(secretCallbackUrl, StringComparison.Ordinal));
             Assert.IsFalse(exception.Message.Contains(secretLockToken, StringComparison.Ordinal));
         }
 
-        // ------------------------------------------------------------------ //
-        // PresentIdentityHeaderNames diagnostics                              //
-        // ------------------------------------------------------------------ //
-
         [TestMethod]
-        public async Task ReadAsync_Transport_BothHeadersPresent_PresentHeadersListedInException()
-        {
-            // Arrange — both headers present but values are wrong.
-            var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
-                ConnectorTriggerPayloadTransportTests.MetadataPayload,
-                connectorName: "wrong-connector",
-                operationName: "WrongOperation");
-
-            // Act & Assert
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.IsTrue(exception.PresentIdentityHeaderNames.Contains(ConnectorTriggerHeaderNames.ConnectorName));
-            Assert.IsTrue(exception.PresentIdentityHeaderNames.Contains(ConnectorTriggerHeaderNames.OperationName));
-        }
-
-        // ------------------------------------------------------------------ //
-        // Null argument guards                                                //
-        // ------------------------------------------------------------------ //
-
-        [TestMethod]
-        public async Task ReadAsync_Transport_NullTransport_ThrowsArgumentNull()
-        {
-            // Act & Assert
-            await Assert.ThrowsExactlyAsync<ArgumentNullException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport: null!,
-                        expectedIdentity: ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
-        }
-
-        [TestMethod]
-        public async Task ReadAsync_Transport_NullExpectedIdentity_ThrowsArgumentNull()
+        public async Task ReadAsync_Transport_CancelledResolver_ThrowsOperationCanceledException()
         {
             // Arrange
             var transport = ConnectorTriggerPayloadTransportTests.CreateTransport(
                 ConnectorTriggerPayloadTransportTests.MetadataPayload);
+            using var cancellationSource = new CancellationTokenSource();
+            await cancellationSource.CancelAsync().ConfigureAwait(continueOnCapturedContext: false);
+            var resolver = new StubTriggerConfigResolver(cancellationSource.Token);
 
             // Act & Assert
-            await Assert.ThrowsExactlyAsync<ArgumentNullException>(
+            await Assert.ThrowsExactlyAsync<OperationCanceledException>(
                 async () => await ConnectorTriggerPayload
                     .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
                         transport,
-                        expectedIdentity: null!)
+                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                        resolver,
+                        cancellationToken: cancellationSource.Token)
                     .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
-
-        // ------------------------------------------------------------------ //
-        // Default headers (empty) — all identity headers treated as absent   //
-        // ------------------------------------------------------------------ //
-
-        [TestMethod]
-        public async Task ReadAsync_Transport_DefaultEmptyHeaders_ThrowsIdentityMismatch()
-        {
-            // Arrange — Transport with no Headers set (default empty dictionary).
-            var transport = new ConnectorTriggerTransport
-            {
-                Body = new MemoryStream(Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTransportTests.MetadataPayload)),
-            };
-
-            // Act & Assert — both identity headers absent.
-            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerIdentityMismatchException>(
-                async () => await ConnectorTriggerPayload
-                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
-                        transport,
-                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity)
-                    .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.IsNull(exception.ActualConnectorName);
-            Assert.IsNull(exception.ActualOperationName);
-            Assert.IsNull(exception.CorrelationId);
-        }
-
-        // ------------------------------------------------------------------ //
-        // Backward compatibility — existing Stream overloads still work       //
-        // ------------------------------------------------------------------ //
 
         [TestMethod]
         public async Task ReadAsync_Stream_ExistingOverload_StillWorks()
@@ -469,7 +315,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var stream = new MemoryStream(
                 Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTransportTests.MetadataPayload));
 
-            // Act — the body-only overload must remain unchanged.
+            // Act
             var payload = await ConnectorTriggerPayload
                 .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(stream)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -477,6 +323,92 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert
             Assert.IsNotNull(payload);
             Assert.AreEqual("report.docx", payload.Body?.Value?[0].Name);
+        }
+
+        private static ConnectorTriggerTransport CreateTransportWithoutHeader(string headerName)
+        {
+            var headers = new Dictionary<string, IEnumerable<string>>
+            {
+                [ConnectorTriggerHeaderNames.SubscriptionId] = new[] { ConnectorTriggerPayloadTransportTests.SubscriptionId },
+                [ConnectorTriggerHeaderNames.ResourceGroupName] = new[] { ConnectorTriggerPayloadTransportTests.ResourceGroupName },
+                [ConnectorTriggerHeaderNames.ConnectorNamespaceName] = new[] { ConnectorTriggerPayloadTransportTests.ConnectorNamespaceName },
+                [ConnectorTriggerHeaderNames.TriggerConfigName] = new[] { ConnectorTriggerPayloadTransportTests.TriggerConfigName },
+            };
+
+            headers.Remove(headerName);
+
+            return new ConnectorTriggerTransport
+            {
+                Body = new MemoryStream(Encoding.UTF8.GetBytes(ConnectorTriggerPayloadTransportTests.MetadataPayload)),
+                Headers = headers,
+            };
+        }
+
+        private async Task AssertMissingHeaderThrowsAsync(string headerName)
+        {
+            // Arrange
+            var transport = ConnectorTriggerPayloadTransportTests.CreateTransportWithoutHeader(headerName);
+            var resolver = new StubTriggerConfigResolver(
+                ConnectorTriggerPayloadTransportTests.MatchingTriggerConfig);
+
+            // Act
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorTriggerResourceIdentityException>(
+                async () => await ConnectorTriggerPayload
+                    .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
+                        transport,
+                        ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
+                        resolver)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            StringAssert.Contains(exception.Message, headerName);
+            Assert.IsFalse(exception.PresentResourceIdentityHeaderNames.Contains(headerName));
+        }
+
+        private sealed class StubTriggerConfigResolver : IConnectorNamespaceTriggerConfigResolver
+        {
+            private readonly ConnectorNamespaceTriggerConfig? _triggerConfig;
+            private readonly Exception? _exception;
+            private readonly CancellationToken _cancelledToken;
+            private readonly bool _throwCancellation;
+
+            public StubTriggerConfigResolver(ConnectorNamespaceTriggerConfig triggerConfig)
+            {
+                this._triggerConfig = triggerConfig;
+            }
+
+            public StubTriggerConfigResolver(Exception exception)
+            {
+                this._exception = exception;
+            }
+
+            public StubTriggerConfigResolver(CancellationToken cancelledToken)
+            {
+                this._cancelledToken = cancelledToken;
+                this._throwCancellation = true;
+            }
+
+            public ConnectorNamespaceTriggerConfigResourceIdentity? LastRequestedResourceIdentity { get; private set; }
+
+            public ValueTask<ConnectorNamespaceTriggerConfig> GetTriggerConfigAsync(
+                ConnectorNamespaceTriggerConfigResourceIdentity resourceIdentity,
+                CancellationToken cancellationToken = default)
+            {
+                this.LastRequestedResourceIdentity = resourceIdentity;
+
+                if (this._throwCancellation)
+                {
+                    return ValueTask.FromCanceled<ConnectorNamespaceTriggerConfig>(this._cancelledToken);
+                }
+
+                if (this._exception is not null)
+                {
+                    return ValueTask.FromException<ConnectorNamespaceTriggerConfig>(this._exception);
+                }
+
+                return ValueTask.FromResult(this._triggerConfig!);
+            }
         }
     }
 }

@@ -3,25 +3,23 @@
 //------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
-
 namespace Azure.Connectors.Sdk;
 
 /// <summary>
-/// Thrown when the Connector Namespace trigger identity headers delivered with a callback
-/// do not match the expected connector and operation identity.
+/// Thrown when the Connector Namespace trigger configuration resolved for a callback
+/// does not match the expected connector and operation identity.
 /// </summary>
 /// <remarks>
 /// <para>
 /// This exception is thrown by
-/// <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, long, System.Threading.CancellationToken)"/>
-/// when one or more identity headers are absent or their values do not match the
+/// <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, IConnectorNamespaceTriggerConfigResolver, long, System.Threading.CancellationToken)"/>
+/// when the resolved Connector Namespace trigger configuration does not match the
 /// <see cref="ConnectorTriggerIdentity"/> supplied by the caller.
 /// </para>
 /// <para>
 /// The exception message and all properties intentionally exclude authorization headers,
 /// callback URLs, raw payload content, queue lock tokens, and other secrets. Only expected
-/// and actual identity values, the names of present identity headers, and the correlation
+/// and resolved identity values, the trigger-config resource identity, and the correlation
 /// identifier are exposed for safe diagnostic use.
 /// </para>
 /// </remarks>
@@ -33,16 +31,14 @@ public sealed class ConnectorTriggerIdentityMismatchException : InvalidOperation
     /// <param name="message">A human-readable message describing the mismatch.</param>
     /// <param name="expectedConnectorName">The connector name the caller expected.</param>
     /// <param name="expectedOperationName">The operation name the caller expected.</param>
-    /// <param name="actualConnectorName">
-    /// The connector name read from the callback headers, or <see langword="null"/> when the header
-    /// was absent or carried an empty value.
+    /// <param name="resolvedConnectorName">
+    /// The connector name resolved from the Connector Namespace trigger configuration.
     /// </param>
-    /// <param name="actualOperationName">
-    /// The operation name read from the callback headers, or <see langword="null"/> when the header
-    /// was absent or carried an empty value.
+    /// <param name="resolvedOperationName">
+    /// The operation name resolved from the Connector Namespace trigger configuration.
     /// </param>
-    /// <param name="presentIdentityHeaderNames">
-    /// The names of the known identity headers that were present (and non-empty) in the callback.
+    /// <param name="resourceIdentity">
+    /// The Connector Namespace trigger-config resource identity resolved from the callback headers.
     /// </param>
     /// <param name="correlationId">
     /// The per-request correlation identifier from the callback headers, or <see langword="null"/>
@@ -52,17 +48,17 @@ public sealed class ConnectorTriggerIdentityMismatchException : InvalidOperation
         string message,
         string expectedConnectorName,
         string expectedOperationName,
-        string? actualConnectorName,
-        string? actualOperationName,
-        IReadOnlyCollection<string> presentIdentityHeaderNames,
+        string resolvedConnectorName,
+        string resolvedOperationName,
+        ConnectorNamespaceTriggerConfigResourceIdentity resourceIdentity,
         string? correlationId)
         : base(message)
     {
         this.ExpectedConnectorName = expectedConnectorName;
         this.ExpectedOperationName = expectedOperationName;
-        this.ActualConnectorName = actualConnectorName;
-        this.ActualOperationName = actualOperationName;
-        this.PresentIdentityHeaderNames = presentIdentityHeaderNames;
+        this.ResolvedConnectorName = resolvedConnectorName;
+        this.ResolvedOperationName = resolvedOperationName;
+        this.ResourceIdentity = resourceIdentity;
         this.CorrelationId = correlationId;
     }
 
@@ -77,23 +73,19 @@ public sealed class ConnectorTriggerIdentityMismatchException : InvalidOperation
     public string ExpectedOperationName { get; }
 
     /// <summary>
-    /// Gets the connector name read from the callback headers, or <see langword="null"/> when the
-    /// header was absent or carried an empty value.
+    /// Gets the connector name resolved from the Connector Namespace trigger configuration.
     /// </summary>
-    public string? ActualConnectorName { get; }
+    public string ResolvedConnectorName { get; }
 
     /// <summary>
-    /// Gets the operation name read from the callback headers, or <see langword="null"/> when the
-    /// header was absent or carried an empty value.
+    /// Gets the operation name resolved from the Connector Namespace trigger configuration.
     /// </summary>
-    public string? ActualOperationName { get; }
+    public string ResolvedOperationName { get; }
 
     /// <summary>
-    /// Gets the names of the known identity headers that were present (and non-empty) in the callback.
-    /// Use this to distinguish a fully-absent set of headers (possible routing mistake or non-Connector
-    /// Namespace caller) from headers that were delivered but carried unexpected values.
+    /// Gets the Connector Namespace trigger-config resource identity resolved from the callback headers.
     /// </summary>
-    public IReadOnlyCollection<string> PresentIdentityHeaderNames { get; }
+    public ConnectorNamespaceTriggerConfigResourceIdentity ResourceIdentity { get; }
 
     /// <summary>
     /// Gets the per-request correlation identifier from the callback headers, or <see langword="null"/>

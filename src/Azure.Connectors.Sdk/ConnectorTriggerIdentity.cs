@@ -17,8 +17,8 @@ namespace Azure.Connectors.Sdk;
 /// </param>
 /// <remarks>
 /// Pass this to
-/// <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, long, System.Threading.CancellationToken)"/>
-/// to validate that the callback originates from the expected connector trigger before
+/// <see cref="ConnectorTriggerPayload.ReadAsync{TPayload}(ConnectorTriggerTransport, ConnectorTriggerIdentity, IConnectorNamespaceTriggerConfigResolver, long, System.Threading.CancellationToken)"/>
+/// to validate that the resolved trigger configuration matches the expected connector trigger before
 /// payload deserialization.
 /// </remarks>
 public sealed record ConnectorTriggerIdentity(string ConnectorName, string OperationName);

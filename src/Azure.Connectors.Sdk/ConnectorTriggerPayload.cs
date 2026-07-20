@@ -145,7 +145,7 @@ public static class ConnectorTriggerPayload
 
     /// <summary>
     /// Reads a metadata trigger callback from the framework-neutral <paramref name="transport"/>,
-    /// validates the trigger identity headers against <paramref name="expectedIdentity"/>, and
+    /// validates the resolved trigger configuration against <paramref name="expectedIdentity"/>, and
     /// deserializes the body into its typed payload.
     /// </summary>
     /// <typeparam name="TPayload">
@@ -157,8 +157,11 @@ public static class ConnectorTriggerPayload
     /// forwarded from the host (Azure Functions, ASP.NET Core, etc.) using a host-local adapter.
     /// </param>
     /// <param name="expectedIdentity">
-    /// The expected connector and operation identity. When the callback headers do not match,
-    /// a <see cref="ConnectorTriggerIdentityMismatchException"/> is thrown before deserialization.
+    /// The expected connector and operation identity. When the resolved trigger configuration does not
+    /// match, a <see cref="ConnectorTriggerIdentityMismatchException"/> is thrown before deserialization.
+    /// </param>
+    /// <param name="triggerConfigResolver">
+    /// Resolves the authoritative Connector Namespace trigger configuration identified by the callback headers.
     /// </param>
     /// <param name="maxBodySizeBytes">
     /// The maximum number of bytes to read from the body before failing.
@@ -167,33 +170,83 @@ public static class ConnectorTriggerPayload
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>The deserialized payload, or <see langword="null"/> when the body is JSON <c>null</c>.</returns>
     /// <exception cref="ArgumentNullException">
-    /// <paramref name="transport"/> or <paramref name="expectedIdentity"/> is <see langword="null"/>.
+    /// <paramref name="transport"/>, <paramref name="expectedIdentity"/>, or
+    /// <paramref name="triggerConfigResolver"/> is <see langword="null"/>.
     /// </exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="maxBodySizeBytes"/> is not greater than zero.</exception>
+    /// <exception cref="ConnectorTriggerResourceIdentityException">
+    /// The callback did not contain the required Connector Namespace resource-context headers.
+    /// </exception>
+    /// <exception cref="ConnectorTriggerConfigurationResolutionException">
+    /// The SDK could not resolve the authoritative Connector Namespace trigger configuration.
+    /// </exception>
     /// <exception cref="ConnectorTriggerIdentityMismatchException">
-    /// The identity headers in the callback are absent or do not match <paramref name="expectedIdentity"/>.
+    /// The resolved Connector Namespace trigger configuration does not match <paramref name="expectedIdentity"/>.
     /// </exception>
     /// <exception cref="InvalidOperationException">The body exceeded <paramref name="maxBodySizeBytes"/>.</exception>
     /// <exception cref="JsonException">
     /// The body was a base64 string (a binary-content trigger) rather than a metadata object.
     /// </exception>
     /// <remarks>
-    /// Identity validation uses the header names defined in <see cref="ConnectorTriggerHeaderNames"/>,
-    /// which are provisional and subject to change until the Connector Namespace service team publishes
-    /// a finalized header contract. Header-name lookup and value comparison are both
-    /// <see cref="StringComparison.OrdinalIgnoreCase"/>.
+    /// Validation uses the resource-context header names defined in <see cref="ConnectorTriggerHeaderNames"/>,
+    /// resolves the authoritative trigger configuration through <paramref name="triggerConfigResolver"/>,
+    /// and compares the resolved connector and operation to <paramref name="expectedIdentity"/>.
+    /// Header-name lookup and value comparison are both <see cref="StringComparison.OrdinalIgnoreCase"/>.
     /// </remarks>
     public static async ValueTask<TPayload?> ReadAsync<TPayload>(
         ConnectorTriggerTransport transport,
         ConnectorTriggerIdentity expectedIdentity,
+        IConnectorNamespaceTriggerConfigResolver triggerConfigResolver,
         long maxBodySizeBytes = ConnectorTriggerPayload.DefaultMaxBodySizeBytes,
         CancellationToken cancellationToken = default)
         where TPayload : class
     {
         ArgumentNullException.ThrowIfNull(transport);
         ArgumentNullException.ThrowIfNull(expectedIdentity);
+        ArgumentNullException.ThrowIfNull(triggerConfigResolver);
 
-        ConnectorTriggerPayload.ValidateIdentity(transport.Headers, expectedIdentity);
+        string? correlationId = ConnectorTriggerPayload.GetFirstHeaderValue(transport.Headers, ConnectorTriggerHeaderNames.CorrelationId);
+        var resourceIdentity = ConnectorTriggerPayload.GetResourceIdentity(transport.Headers, correlationId);
+
+        ConnectorNamespaceTriggerConfig resolvedTriggerConfig;
+        try
+        {
+            resolvedTriggerConfig = await triggerConfigResolver
+                .GetTriggerConfigAsync(resourceIdentity, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (ConnectorTriggerConfigurationResolutionException)
+        {
+            throw;
+        }
+        catch (Exception ex) when (!ex.IsFatal())
+        {
+            throw ConnectorTriggerPayload.CreateConfigurationResolutionException(
+                resourceIdentity: resourceIdentity,
+                correlationId: correlationId,
+                detail: "The trigger configuration resolver failed to return an authoritative Connector Namespace trigger configuration.",
+                status: null,
+                innerException: ex);
+        }
+
+        if (resolvedTriggerConfig is null)
+        {
+            throw ConnectorTriggerPayload.CreateConfigurationResolutionException(
+                resourceIdentity: resourceIdentity,
+                correlationId: correlationId,
+                detail: "The trigger configuration resolver returned a null trigger configuration.",
+                status: null);
+        }
+
+        ConnectorTriggerPayload.ValidateIdentity(
+            expectedIdentity: expectedIdentity,
+            resolvedTriggerConfig: resolvedTriggerConfig,
+            resourceIdentity: resourceIdentity,
+            correlationId: correlationId);
 
         return await ConnectorTriggerPayload
             .ReadAsync<TPayload>(transport.Body, maxBodySizeBytes, cancellationToken)
@@ -239,59 +292,215 @@ public static class ConnectorTriggerPayload
     }
 
     /// <summary>
-    /// Validates the trigger identity headers against the expected connector and operation.
-    /// Throws <see cref="ConnectorTriggerIdentityMismatchException"/> when any header is absent or mismatches.
+    /// Creates a configuration-resolution exception with safe diagnostics.
     /// </summary>
-    /// <param name="headers">The request headers from the callback.</param>
-    /// <param name="expectedIdentity">The expected connector and operation identity.</param>
-    private static void ValidateIdentity(
-        IReadOnlyDictionary<string, IEnumerable<string>> headers,
-        ConnectorTriggerIdentity expectedIdentity)
+    private static ConnectorTriggerConfigurationResolutionException CreateConfigurationResolutionException(
+        ConnectorNamespaceTriggerConfigResourceIdentity resourceIdentity,
+        string? correlationId,
+        string detail,
+        int? status,
+        Exception? innerException = null)
     {
-        string? actualConnectorName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.ConnectorName);
-        string? actualOperationName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.OperationName);
-        string? correlationId = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.CorrelationId);
+        var message = new StringBuilder(detail);
+        message.Append(
+            $" Subscription '{resourceIdentity.SubscriptionId}', resource group '{resourceIdentity.ResourceGroupName}', " +
+            $"Connector Namespace '{resourceIdentity.ConnectorNamespaceName}', trigger config '{resourceIdentity.TriggerConfigName}'.");
 
-        // Track which identity headers were present (non-empty) to aid diagnostics.
-        var presentHeaders = new List<string>(capacity: 2);
-        if (actualConnectorName is not null)
+        if (status.HasValue)
         {
-            presentHeaders.Add(ConnectorTriggerHeaderNames.ConnectorName);
+            message.Append($" Status: '{status.Value}'.");
         }
 
-        if (actualOperationName is not null)
+        if (correlationId is not null)
         {
-            presentHeaders.Add(ConnectorTriggerHeaderNames.OperationName);
+            message.Append($" Correlation ID: '{correlationId}'.");
         }
 
-        bool connectorMatch = string.Equals(actualConnectorName, expectedIdentity.ConnectorName, StringComparison.OrdinalIgnoreCase);
-        bool operationMatch = string.Equals(actualOperationName, expectedIdentity.OperationName, StringComparison.OrdinalIgnoreCase);
+        return new ConnectorTriggerConfigurationResolutionException(
+            message: message.ToString(),
+            resourceIdentity: resourceIdentity,
+            status: status,
+            correlationId: correlationId,
+            innerException: innerException);
+    }
+
+    /// <summary>
+    /// Returns the first non-empty value for <paramref name="headerName"/> in <paramref name="headers"/>,
+    /// or <see langword="null"/> when the header is absent or all its values are empty.
+    /// </summary>
+    private static string? GetFirstHeaderValue(
+        IReadOnlyDictionary<string, IEnumerable<string>>? headers,
+        string headerName)
+    {
+        if (headers is null)
+        {
+            return null;
+        }
+
+        if (headers.TryGetValue(headerName, out IEnumerable<string>? values))
+        {
+            return ConnectorTriggerPayload.GetFirstNonEmptyHeaderValue(values);
+        }
+
+        foreach (KeyValuePair<string, IEnumerable<string>> header in headers)
+        {
+            if (string.Equals(header.Key, headerName, StringComparison.OrdinalIgnoreCase))
+            {
+                return ConnectorTriggerPayload.GetFirstNonEmptyHeaderValue(header.Value);
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Returns the Connector Namespace trigger-config resource identity resolved from callback headers.
+    /// </summary>
+    private static ConnectorNamespaceTriggerConfigResourceIdentity GetResourceIdentity(
+        IReadOnlyDictionary<string, IEnumerable<string>>? headers,
+        string? correlationId)
+    {
+        string? subscriptionId = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.SubscriptionId);
+        string? resourceGroupName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.ResourceGroupName);
+        string? connectorNamespaceName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.ConnectorNamespaceName);
+        string? triggerConfigName = ConnectorTriggerPayload.GetFirstHeaderValue(headers, ConnectorTriggerHeaderNames.TriggerConfigName);
+
+        var presentHeaders = new List<string>(capacity: 4);
+        if (subscriptionId is not null)
+        {
+            presentHeaders.Add(ConnectorTriggerHeaderNames.SubscriptionId);
+        }
+
+        if (resourceGroupName is not null)
+        {
+            presentHeaders.Add(ConnectorTriggerHeaderNames.ResourceGroupName);
+        }
+
+        if (connectorNamespaceName is not null)
+        {
+            presentHeaders.Add(ConnectorTriggerHeaderNames.ConnectorNamespaceName);
+        }
+
+        if (triggerConfigName is not null)
+        {
+            presentHeaders.Add(ConnectorTriggerHeaderNames.TriggerConfigName);
+        }
+
+        if (subscriptionId is not null &&
+            resourceGroupName is not null &&
+            connectorNamespaceName is not null &&
+            triggerConfigName is not null)
+        {
+            return new ConnectorNamespaceTriggerConfigResourceIdentity(
+                SubscriptionId: subscriptionId,
+                ResourceGroupName: resourceGroupName,
+                ConnectorNamespaceName: connectorNamespaceName,
+                TriggerConfigName: triggerConfigName);
+        }
+
+        var message = new StringBuilder("Trigger resource identity headers were missing or empty.");
+
+        if (subscriptionId is null)
+        {
+            message.Append($" Required header '{ConnectorTriggerHeaderNames.SubscriptionId}' was absent or empty.");
+        }
+
+        if (resourceGroupName is null)
+        {
+            message.Append($" Required header '{ConnectorTriggerHeaderNames.ResourceGroupName}' was absent or empty.");
+        }
+
+        if (connectorNamespaceName is null)
+        {
+            message.Append($" Required header '{ConnectorTriggerHeaderNames.ConnectorNamespaceName}' was absent or empty.");
+        }
+
+        if (triggerConfigName is null)
+        {
+            message.Append($" Required header '{ConnectorTriggerHeaderNames.TriggerConfigName}' was absent or empty.");
+        }
+
+        if (correlationId is not null)
+        {
+            message.Append($" Correlation ID: '{correlationId}'.");
+        }
+
+        throw new ConnectorTriggerResourceIdentityException(
+            message: message.ToString(),
+            presentResourceIdentityHeaderNames: ConnectorTriggerPayload.GetReadOnlyHeaderNames(presentHeaders),
+            correlationId: correlationId);
+    }
+
+    /// <summary>
+    /// Returns the first non-empty, trimmed value in <paramref name="values"/>, when present.
+    /// </summary>
+    private static string? GetFirstNonEmptyHeaderValue(IEnumerable<string>? values)
+    {
+        if (values is null)
+        {
+            return null;
+        }
+
+        foreach (string value in values)
+        {
+            string trimmedValue = value?.Trim() ?? string.Empty;
+            if (trimmedValue.Length > 0)
+            {
+                return trimmedValue;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Creates an immutable view over header names captured for diagnostics.
+    /// </summary>
+    private static IReadOnlyList<string> GetReadOnlyHeaderNames(List<string> headerNames)
+    {
+        return Array.AsReadOnly(headerNames.ToArray());
+    }
+
+    /// <summary>
+    /// Validates the resolved trigger identity against the caller-selected expected identity.
+    /// </summary>
+    private static void ValidateIdentity(
+        ConnectorTriggerIdentity expectedIdentity,
+        ConnectorNamespaceTriggerConfig resolvedTriggerConfig,
+        ConnectorNamespaceTriggerConfigResourceIdentity resourceIdentity,
+        string? correlationId)
+    {
+        bool connectorMatch = string.Equals(
+            resolvedTriggerConfig.ConnectorName,
+            expectedIdentity.ConnectorName,
+            StringComparison.OrdinalIgnoreCase);
+        bool operationMatch = string.Equals(
+            resolvedTriggerConfig.OperationName,
+            expectedIdentity.OperationName,
+            StringComparison.OrdinalIgnoreCase);
 
         if (connectorMatch && operationMatch)
         {
             return;
         }
 
-        // Build a descriptive message that exposes only safe diagnostic data.
         var message = new StringBuilder("Trigger identity mismatch.");
 
-        if (actualConnectorName is null)
+        if (!connectorMatch)
         {
-            message.Append($" Connector identity header '{ConnectorTriggerHeaderNames.ConnectorName}' was absent or empty.");
-        }
-        else if (!connectorMatch)
-        {
-            message.Append($" Expected connector '{expectedIdentity.ConnectorName}', got '{actualConnectorName}'.");
+            message.Append(
+                $" Expected connector '{expectedIdentity.ConnectorName}', resolved connector '{resolvedTriggerConfig.ConnectorName}'.");
         }
 
-        if (actualOperationName is null)
+        if (!operationMatch)
         {
-            message.Append($" Operation identity header '{ConnectorTriggerHeaderNames.OperationName}' was absent or empty.");
+            message.Append(
+                $" Expected operation '{expectedIdentity.OperationName}', resolved operation '{resolvedTriggerConfig.OperationName}'.");
         }
-        else if (!operationMatch)
-        {
-            message.Append($" Expected operation '{expectedIdentity.OperationName}', got '{actualOperationName}'.");
-        }
+
+        message.Append(
+            $" Subscription '{resourceIdentity.SubscriptionId}', resource group '{resourceIdentity.ResourceGroupName}', " +
+            $"Connector Namespace '{resourceIdentity.ConnectorNamespaceName}', trigger config '{resourceIdentity.TriggerConfigName}'.");
 
         if (correlationId is not null)
         {
@@ -302,34 +511,10 @@ public static class ConnectorTriggerPayload
             message: message.ToString(),
             expectedConnectorName: expectedIdentity.ConnectorName,
             expectedOperationName: expectedIdentity.OperationName,
-            actualConnectorName: actualConnectorName,
-            actualOperationName: actualOperationName,
-            presentIdentityHeaderNames: presentHeaders,
+            resolvedConnectorName: resolvedTriggerConfig.ConnectorName,
+            resolvedOperationName: resolvedTriggerConfig.OperationName,
+            resourceIdentity: resourceIdentity,
             correlationId: correlationId);
-    }
-
-    /// <summary>
-    /// Returns the first non-empty value for <paramref name="headerName"/> in <paramref name="headers"/>,
-    /// or <see langword="null"/> when the header is absent or all its values are empty.
-    /// </summary>
-    private static string? GetFirstHeaderValue(
-        IReadOnlyDictionary<string, IEnumerable<string>> headers,
-        string headerName)
-    {
-        if (!headers.TryGetValue(headerName, out IEnumerable<string>? values))
-        {
-            return null;
-        }
-
-        foreach (string value in values)
-        {
-            if (!string.IsNullOrEmpty(value))
-            {
-                return value;
-            }
-        }
-
-        return null;
     }
 
     /// <summary>

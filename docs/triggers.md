@@ -162,46 +162,85 @@ var identity = new ConnectorTriggerIdentity(
     ConnectorName: ConnectorNames.OneDriveForBusiness,
     OperationName: OneDriveForBusinessTriggerOperations.OnNewFiles);
 
-// 3. Read and validate in one call.
+// 3. Configure the authoritative trigger-config resolver.
+var resolver = new ConnectorNamespaceTriggerConfigManagementResolver(
+    credential: new DefaultAzureCredential(),
+    options: new ConnectorNamespaceTriggerConfigManagementResolverOptions
+    {
+        ManagementEndpoint = new Uri("https://management.azure.com"),
+        Audience = "https://management.azure.com",
+        ApiVersion = "2026-05-01-preview",
+    });
+
+// 4. Read and validate in one call.
 var payload = await ConnectorTriggerPayload
     .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
         transport,
         identity,
+        resolver,
         cancellationToken: cancellationToken)
     .ConfigureAwait(continueOnCapturedContext: false);
 ```
 
-If the identity headers do not match `expectedIdentity`, a `ConnectorTriggerIdentityMismatchException` is thrown **before** any JSON deserialization. The exception exposes only safe diagnostics — expected vs. actual connector/operation names, which identity headers were present, and the correlation ID — and never exposes authorization headers, callback URLs, payload content, or lock tokens.
+The validating overload does **not** treat `x-ms-gateway-resource-name` and `x-ms-trigger-name` as connector/operation metadata. Instead it:
+
+1. Reads the four resource-context headers from the callback.
+2. Builds a `ConnectorNamespaceTriggerConfigResourceIdentity`.
+3. Uses `IConnectorNamespaceTriggerConfigResolver` to GET the authoritative trigger config.
+4. Compares `properties.connectionDetails.connectorName` and `properties.operationName` to the caller-selected `ConnectorTriggerIdentity`.
+5. Only then delegates to the existing bounded stream deserializer.
+
+If the resolved trigger configuration does not match `expectedIdentity`, a `ConnectorTriggerIdentityMismatchException` is thrown **before** any JSON deserialization. The exception exposes only safe diagnostics — expected vs. resolved connector/operation names, the trigger-config resource identity, and the correlation ID — and never exposes authorization headers, callback URLs, payload content, lock tokens, or response bodies.
 
 ```csharp
+catch (ConnectorTriggerResourceIdentityException ex)
+{
+    logger.LogError(
+        "Trigger resource identity headers were invalid. CorrelationId: {CorrelationId}. Present headers: {PresentHeaders}.",
+        ex.CorrelationId,
+        string.Join(", ", ex.PresentResourceIdentityHeaderNames));
+    throw;
+}
+catch (ConnectorTriggerConfigurationResolutionException ex)
+{
+    logger.LogError(
+        "Failed to resolve trigger config for {Namespace}/{Trigger}. Status: {Status}. CorrelationId: {CorrelationId}.",
+        ex.ResourceIdentity.ConnectorNamespaceName,
+        ex.ResourceIdentity.TriggerConfigName,
+        ex.Status,
+        ex.CorrelationId);
+    throw;
+}
 catch (ConnectorTriggerIdentityMismatchException ex)
 {
-    // Safe to log: only identity metadata and correlation ID are exposed.
     logger.LogError(
         "Trigger identity mismatch. Expected {Connector}/{Operation}, " +
-        "got {ActualConnector}/{ActualOperation}. CorrelationId: {CorrelationId}. " +
-        "Present identity headers: {PresentHeaders}.",
+        "resolved {ResolvedConnector}/{ResolvedOperation}. CorrelationId: {CorrelationId}. " +
+        "Resource: {Namespace}/{Trigger}.",
         ex.ExpectedConnectorName, ex.ExpectedOperationName,
-        ex.ActualConnectorName,   ex.ActualOperationName,
+        ex.ResolvedConnectorName, ex.ResolvedOperationName,
         ex.CorrelationId,
-        string.Join(", ", ex.PresentIdentityHeaderNames));
+        ex.ResourceIdentity.ConnectorNamespaceName,
+        ex.ResourceIdentity.TriggerConfigName);
     throw;
 }
 ```
 
-#### Identity header names (provisional service contract)
+#### Resource-context header names (provisional service contract)
 
-The header names validated by the transport overload are defined in `ConnectorTriggerHeaderNames`:
+The header names consumed by the transport overload are defined in `ConnectorTriggerHeaderNames`:
 
-| Constant | Header | Value example |
-|----------|--------|---------------|
-| `ConnectorTriggerHeaderNames.ConnectorName` | `x-ms-gateway-resource-name` | `office365` |
-| `ConnectorTriggerHeaderNames.OperationName` | `x-ms-trigger-name` | `OnNewEmailV3` |
-| `ConnectorTriggerHeaderNames.CorrelationId` | `x-ms-client-request-id` | `abc-123` |
+| Constant | Header | Value example | Meaning |
+|----------|--------|---------------|---------|
+| `ConnectorTriggerHeaderNames.SubscriptionId` | `x-ms-subscription-id` | `00000000-0000-0000-0000-000000000000` | Subscription that owns the Connector Namespace |
+| `ConnectorTriggerHeaderNames.ResourceGroupName` | `x-ms-resource-group` | `prod-connectors-rg` | Resource group that owns the Connector Namespace |
+| `ConnectorTriggerHeaderNames.ConnectorNamespaceName` | `x-ms-gateway-resource-name` | `my-gateway` | Connector Namespace resource name |
+| `ConnectorTriggerHeaderNames.TriggerConfigName` | `x-ms-trigger-name` | `email-trigger` | Trigger-config resource name |
+| `ConnectorTriggerHeaderNames.CorrelationId` | `x-ms-client-request-id` | `abc-123` | Callback correlation identifier |
 
 > **Important — provisional contract:** These header names reflect the current Connector Namespace webhook implementation and have not yet been formally agreed as a stable, versioned API surface with the Connector Namespace service team. They may change before reaching general availability. The names are isolated behind `ConnectorTriggerHeaderNames` constants so a future update is a single-line change.
 
-Header-name lookup and value comparison both use `StringComparison.OrdinalIgnoreCase`.
+Header-name lookup is implemented by the SDK with `StringComparison.OrdinalIgnoreCase`, so callers do not need to supply a case-insensitive dictionary comparer for correctness.
 
 ## Trigger Operation Constants
 
