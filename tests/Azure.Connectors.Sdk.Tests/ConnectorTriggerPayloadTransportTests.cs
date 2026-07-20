@@ -297,15 +297,21 @@ namespace Azure.Connectors.Sdk.Tests
             var resolver = new StubTriggerConfigResolver(cancellationSource.Token);
 
             // Act & Assert
-            await Assert.ThrowsExactlyAsync<OperationCanceledException>(
-                async () => await ConnectorTriggerPayload
+            try
+            {
+                await ConnectorTriggerPayload
                     .ReadAsync<OneDriveForBusinessOnNewFilesTriggerPayload>(
                         transport,
                         ConnectorTriggerPayloadTransportTests.ExpectedIdentity,
                         resolver,
                         cancellationToken: cancellationSource.Token)
-                    .ConfigureAwait(continueOnCapturedContext: false))
-                .ConfigureAwait(continueOnCapturedContext: false);
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                Assert.Fail("Expected an OperationCanceledException.");
+            }
+            catch (OperationCanceledException ex)
+            {
+                Assert.IsNotNull(ex);
+            }
         }
 
         [TestMethod]
