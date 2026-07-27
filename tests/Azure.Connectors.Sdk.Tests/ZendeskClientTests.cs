@@ -51,29 +51,6 @@ namespace Azure.Connectors.Sdk.Tests
                 options: options);
         }
 
-        private static ZendeskClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage> captureRequest)
-        {
-            var mockHandler = new Mock<HttpMessageHandler>();
-            mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .Callback<HttpRequestMessage, CancellationToken>((request, cancellationToken) => captureRequest(request))
-                .ReturnsAsync(response);
-
-            var options = new ConnectorClientOptions
-            {
-                Transport = new HttpClientTransport(new HttpClient(mockHandler.Object)),
-            };
-            options.Retry.MaxRetries = 0;
-
-            return new ZendeskClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object,
-                options: options);
-        }
-
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
@@ -143,20 +120,24 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task PostItemAsync_TableNameWithSlash_DoubleEncodesPathSegment()
         {
-            using var responseMessage = new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent("{}")
-            };
-            Uri? requestUri = null;
-            using var client = CreateMockedClient(responseMessage, request => requestUri = request.RequestUri!);
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{}")
+                });
+            using var client = new ZendeskClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
 
             await client
                 .PostItemAsync(tableName: "a/b", input: new Zendesk.Models.Item(), cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.IsNotNull(requestUri);
-            Assert.IsTrue(requestUri.AbsolutePath.Contains("/tables/a%252Fb/items", StringComparison.Ordinal));
+            var request = clientSetup.GetLastRequest();
+            Assert.IsNotNull(request);
+            Assert.IsTrue(request.RequestUri!.AbsolutePath.Contains("/tables/a%252Fb/items", StringComparison.Ordinal));
         }
 
     }
