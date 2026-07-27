@@ -131,16 +131,6 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     }
 
     /// <summary>
-    /// Response for List deals
-    /// </summary>
-    public class ListDealsResponse
-    {
-        /// <summary>data</summary>
-        [JsonPropertyName("data")]
-        public List<JsonElement?> Data { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get deal by id
     /// </summary>
     public class DealResponse
@@ -322,6 +312,16 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         /// <summary>Stage name</summary>
         [JsonPropertyName("name")]
         public string StageName { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List deals
+    /// </summary>
+    public class ListDealsResponse
+    {
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public List<JsonElement?> Data { get; set; }
     }
 
     /// <summary>
@@ -568,18 +568,6 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ListDealsResponse"/>.
-        /// </summary>
-        public static ListDealsResponse ListDealsResponse(
-            List<JsonElement?> data = default)
-        {
-            return new ListDealsResponse
-            {
-                Data = data,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="DealResponse"/>.
         /// </summary>
         public static DealResponse DealResponse(
@@ -680,6 +668,18 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
             {
                 StageId = stageId,
                 StageName = stageName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListDealsResponse"/>.
+        /// </summary>
+        public static ListDealsResponse ListDealsResponse(
+            List<JsonElement?> data = default)
+        {
+            return new ListDealsResponse
+            {
+                Data = data,
             };
         }
 
@@ -914,30 +914,6 @@ namespace Azure.Connectors.Sdk.Pipedrive
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// List deals
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List deals response.</returns>
-        public virtual async Task<ListDealsResponse> ListDealsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.ListDealsAsync");
-            try
-            {
-                var path = $"/v1/deals";
-                return await this
-                    .CallConnectorAsync<ListDealsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get deal by id
         /// </summary>
         /// <remarks>This operation retrieves all details of an existing deal, given its id.</remarks>
@@ -1079,6 +1055,30 @@ namespace Azure.Connectors.Sdk.Pipedrive
                 var path = $"/connector-v2/update_stage_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
                 return await this
                     .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List deals
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List deals response.</returns>
+        public virtual async Task<ListDealsResponse> ListDealsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.ListDealsAsync");
+            try
+            {
+                var path = $"/v1/deals";
+                return await this
+                    .CallConnectorAsync<ListDealsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

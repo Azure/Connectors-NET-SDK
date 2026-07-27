@@ -30,7 +30,41 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     #region Types
 
     /// <summary>
-    /// Response for Create Item
+    /// Response for Get tables
+    /// </summary>
+    public class TablesList
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<Table> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Item in value
+    /// </summary>
+    public class Table
+    {
+        /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>DisplayName</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get items
+    /// </summary>
+    public class ItemsList
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<Item> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Item in value
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -58,13 +92,117 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     }
 
     /// <summary>
-    /// Response for When an item is modified
+    /// Response for Get item metadata
     /// </summary>
-    public class ItemsList
+    public class TableMetadata
     {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<Item> Value { get; set; }
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>x-ms-permission</summary>
+        [JsonPropertyName("x-ms-permission")]
+        public string XMsPermission { get; set; }
+
+        /// <summary>x-ms-capabilities</summary>
+        [JsonPropertyName("x-ms-capabilities")]
+        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+
+        /// <summary>referencedEntities</summary>
+        [JsonPropertyName("referencedEntities")]
+        public ObjectEntity ReferencedEntities { get; set; }
+    }
+
+    /// <summary>
+    /// x-ms-capabilities
+    /// </summary>
+    public class TableCapabilitiesMetadata
+    {
+        /// <summary>sortRestrictions</summary>
+        [JsonPropertyName("sortRestrictions")]
+        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
+
+        /// <summary>filterRestrictions</summary>
+        [JsonPropertyName("filterRestrictions")]
+        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
+
+        /// <summary>selectRestrictions</summary>
+        [JsonPropertyName("selectRestrictions")]
+        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>Server paging restrictions</summary>
+        [JsonPropertyName("isOnlyServerPagable")]
+        public bool? IsOnlyServerPagable { get; set; }
+
+        /// <summary>filterFunctionSupport</summary>
+        [JsonPropertyName("filterFunctionSupport")]
+        public List<string> FilterFunctionSupport { get; set; }
+    }
+
+    /// <summary>
+    /// sortRestrictions
+    /// </summary>
+    public class TableSortRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has sortable columns</summary>
+        [JsonPropertyName("sortable")]
+        public bool? Sortable { get; set; }
+
+        /// <summary>List of unsortable properties</summary>
+        [JsonPropertyName("unsortableProperties")]
+        public List<string> UnsortableProperties { get; set; }
+
+        /// <summary>List of properties which support ascending order only</summary>
+        [JsonPropertyName("ascendingOnlyProperties")]
+        public List<string> AscendingOnlyProperties { get; set; }
+    }
+
+    /// <summary>
+    /// filterRestrictions
+    /// </summary>
+    public class TableFilterRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has filterable columns</summary>
+        [JsonPropertyName("filterable")]
+        public bool? Filterable { get; set; }
+
+        /// <summary>List of non filterable properties</summary>
+        [JsonPropertyName("nonFilterableProperties")]
+        public List<string> NonFilterableProperties { get; set; }
+
+        /// <summary>List of required properties</summary>
+        [JsonPropertyName("requiredProperties")]
+        public List<string> RequiredProperties { get; set; }
+    }
+
+    /// <summary>
+    /// selectRestrictions
+    /// </summary>
+    public class TableSelectRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has selectable columns</summary>
+        [JsonPropertyName("selectable")]
+        public bool? Selectable { get; set; }
+    }
+
+    /// <summary>
+    /// schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     #endregion Types
@@ -78,6 +216,44 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     /// </summary>
     public static class ZendeskModelFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="TablesList"/>.
+        /// </summary>
+        public static TablesList TablesList(
+            List<Table> value = default)
+        {
+            return new TablesList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Table"/>.
+        /// </summary>
+        public static Table Table(
+            string name = default,
+            string displayName = default)
+        {
+            return new Table
+            {
+                Name = name,
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ItemsList"/>.
+        /// </summary>
+        public static ItemsList ItemsList(
+            List<Item> value = default)
+        {
+            return new ItemsList
+            {
+                Value = value,
+            };
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
@@ -103,14 +279,88 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ItemsList"/>.
+        /// Creates a new instance of <see cref="TableMetadata"/>.
         /// </summary>
-        public static ItemsList ItemsList(
-            List<Item> value = default)
+        public static TableMetadata TableMetadata(
+            string name = default,
+            string title = default,
+            string xMsPermission = default,
+            TableCapabilitiesMetadata xMsCapabilities = default,
+            ObjectEntity schema = default,
+            ObjectEntity referencedEntities = default)
         {
-            return new ItemsList
+            return new TableMetadata
             {
-                Value = value,
+                Name = name,
+                Title = title,
+                XMsPermission = xMsPermission,
+                XMsCapabilities = xMsCapabilities,
+                Schema = schema,
+                ReferencedEntities = referencedEntities,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
+        /// </summary>
+        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
+            TableSortRestrictionsMetadata sortRestrictions = default,
+            TableFilterRestrictionsMetadata filterRestrictions = default,
+            TableSelectRestrictionsMetadata selectRestrictions = default,
+            bool? isOnlyServerPagable = default,
+            List<string> filterFunctionSupport = default)
+        {
+            return new TableCapabilitiesMetadata
+            {
+                SortRestrictions = sortRestrictions,
+                FilterRestrictions = filterRestrictions,
+                SelectRestrictions = selectRestrictions,
+                IsOnlyServerPagable = isOnlyServerPagable,
+                FilterFunctionSupport = filterFunctionSupport,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
+            bool? sortable = default,
+            List<string> unsortableProperties = default,
+            List<string> ascendingOnlyProperties = default)
+        {
+            return new TableSortRestrictionsMetadata
+            {
+                Sortable = sortable,
+                UnsortableProperties = unsortableProperties,
+                AscendingOnlyProperties = ascendingOnlyProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
+            bool? filterable = default,
+            List<string> nonFilterableProperties = default,
+            List<string> requiredProperties = default)
+        {
+            return new TableFilterRestrictionsMetadata
+            {
+                Filterable = filterable,
+                NonFilterableProperties = nonFilterableProperties,
+                RequiredProperties = requiredProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
+            bool? selectable = default)
+        {
+            return new TableSelectRestrictionsMetadata
+            {
+                Selectable = selectable,
             };
         }
     }
@@ -118,6 +368,14 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     #endregion Model Factory
 
     #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewItems trigger (Zendesk "When an item is created", operationId: GetOnNewItems).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ZendeskOnNewItemsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ZendeskOnNewItemsTriggerPayload : TriggerCallbackPayload<Item>
+    {
+    }
 
     /// <summary>
     /// Typed trigger payload for the OnUpdatedItems trigger (Zendesk "When an item is modified", operationId: GetOnUpdatedItemsV2).
@@ -143,6 +401,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
+                ["GetOnNewItems"] = typeof(ZendeskOnNewItemsTriggerPayload),
                 ["GetOnUpdatedItemsV2"] = typeof(ZendeskOnUpdatedItemsTriggerPayload),
             });
     }
@@ -164,6 +423,12 @@ namespace Azure.Connectors.Sdk.Zendesk
     public static class ZendeskTriggerOperations
     {
         /// <summary>
+        /// When an item is created.
+        /// Payload type: <see cref="ZendeskOnNewItemsTriggerPayload"/>.
+        /// </summary>
+        public const string OnNewItems = "GetOnNewItems";
+
+        /// <summary>
         /// When an item is modified.
         /// Payload type: <see cref="ZendeskOnUpdatedItemsTriggerPayload"/>.
         /// </summary>
@@ -182,10 +447,51 @@ namespace Azure.Connectors.Sdk.Zendesk
     public static class ZendeskTriggerParameters
     {
         /// <summary>
+        /// Input parameters for the OnNewItems trigger operation (operationId: GetOnNewItems).
+        /// </summary>
+        public static class OnNewItems
+        {
+            /// <summary>
+            /// Name of Zendesk table
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
+            /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
+            /// </summary>
+            public const string Filter = "$filter";
+
+            /// <summary>
+            /// An ODATA orderBy query for specifying the order of entries
+            /// </summary>
+            public const string Orderby = "$orderby";
+
+            /// <summary>
+            /// Number of entries to skip (default = 0)
+            /// </summary>
+            public const string Skip = "$skip";
+
+            /// <summary>
+            /// Maximum number of entries to retrieve (default = 512)
+            /// </summary>
+            public const string Top = "$top";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnUpdatedItems trigger operation (operationId: GetOnUpdatedItemsV2).
         /// </summary>
         public static class OnUpdatedItems
         {
+            /// <summary>
+            /// Name of Zendesk table
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
@@ -279,6 +585,73 @@ namespace Azure.Connectors.Sdk.Zendesk
         public override string ToString() => base.ToString();
 
         /// <summary>
+        /// Get tables
+        /// </summary>
+        /// <remarks>Retrieves Zendesk tables from a site</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get tables response.</returns>
+        public virtual async Task<TablesList> GetTablesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.GetTablesAsync");
+            try
+            {
+                var path = $"/datasets/default/tables";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get items
+        /// </summary>
+        /// <remarks>Retrieves Zendesk items of a certain Zendesk type (example: &apos;Ticket&apos;)</remarks>
+        /// <param name="tableName">Table name</param>
+        /// <param name="filterQuery">Filter Query</param>
+        /// <param name="orderBy">Order By</param>
+        /// <param name="skipCount">Skip Count</param>
+        /// <param name="maximumGetCount">Maximum Get Count</param>
+        /// <param name="selectQuery">Select Query</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get items response.</returns>
+        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetTables")] string tableName, string filterQuery = default, string orderBy = default, int? skipCount = default, int? maximumGetCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.GetItemsAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var queryParams = new List<string>();
+                if (filterQuery != default)
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                if (orderBy != default)
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                if (skipCount.HasValue)
+                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                if (maximumGetCount.HasValue)
+                    queryParams.Add($"$top={Uri.EscapeDataString(maximumGetCount.Value.ToString())}");
+                if (selectQuery != default)
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Create Item
         /// </summary>
         /// <remarks>Creates a Zendesk item</remarks>
@@ -296,6 +669,36 @@ namespace Azure.Connectors.Sdk.Zendesk
                 var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get item
+        /// </summary>
+        /// <remarks>Retrieves a Zendesk item</remarks>
+        /// <param name="tableName">Table name</param>
+        /// <param name="itemKey">Item key</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get item response.</returns>
+        public virtual async Task<Item> GetItemAsync([DynamicValues("GetTables")] string tableName, string itemKey, CancellationToken cancellationToken = default)
+        {
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.GetItemAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (itemKey is null)
+                    throw new ArgumentNullException(nameof(itemKey));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemKey.ToString()))}";
+                return await this
+                    .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -403,6 +806,33 @@ namespace Azure.Connectors.Sdk.Zendesk
                 var path = $"/api/v2/help_center/articles/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SearchResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get item metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="tableName">Table name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get item metadata response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetTables")] string tableName, CancellationToken cancellationToken = default)
+        {
+            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.GetTableAsync");
+            try
+            {
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

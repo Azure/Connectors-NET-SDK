@@ -30,93 +30,6 @@ namespace Azure.Connectors.Sdk.Sql.Models
     #region Types
 
     /// <summary>
-    /// Response for List the databases
-    /// </summary>
-    public class DatabasesList
-    {
-        /// <summary>List of datasets</summary>
-        [JsonPropertyName("value")]
-        public List<Database> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of datasets
-    /// </summary>
-    public class Database
-    {
-        /// <summary>The name of the database. The name is used at runtime.</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>The display name of the database.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Additional database properties provided by the connector to the clients.</summary>
-        [JsonPropertyName("DynamicProperties")]
-        [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
-
-        /// <summary>Database items</summary>
-        [JsonPropertyName("tables")]
-        [JsonInclude]
-        public List<Table> Tables { get; init; }
-    }
-
-    /// <summary>
-    /// Item in Database items
-    /// </summary>
-    public class Table
-    {
-        /// <summary>The name of the table. The name is used at runtime.</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>The display name of the table.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Additional table properties provided by the connector to the clients.</summary>
-        [JsonPropertyName("DynamicProperties")]
-        [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
-    }
-
-    /// <summary>
-    /// Response for List the servers
-    /// </summary>
-    public class ODataServersList
-    {
-        /// <summary>List of datasets</summary>
-        [JsonPropertyName("value")]
-        public List<Server> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of datasets
-    /// </summary>
-    public class Server
-    {
-        /// <summary>The name of the server. The name is used at runtime.</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>The display name of the server.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Additional server properties provided by the connector to the clients.</summary>
-        [JsonPropertyName("DynamicProperties")]
-        [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
-
-        /// <summary>Table items</summary>
-        [JsonPropertyName("databases")]
-        [JsonInclude]
-        public List<Database> Databases { get; init; }
-    }
-
-    /// <summary>
     /// Response for Execute a SQL query (V2)
     /// </summary>
     [DynamicSchema("GetPassThroughNativeQueryMetadata_V2")]
@@ -275,51 +188,170 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get pass-through native SQL query metadata
+    /// Response for Get tables (V2)
     /// </summary>
-    public class PassThroughNativeQueryMetadata
+    public class GetTablesResponse
     {
-        /// <summary>Query name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+        /// <summary>List of Sensitivity Labels</summary>
+        [JsonPropertyName("@metadata")]
+        public List<DataWithSensitivityLabelInfo> Metadata { get; set; }
 
-        /// <summary>Query title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
+        /// <summary>List of Tables</summary>
+        [JsonPropertyName("value")]
+        public List<Table> Value { get; set; }
     }
 
     /// <summary>
-    /// schema
+    /// Item in List of Tables
     /// </summary>
-    public class ObjectEntity
+    public class Table
+    {
+        /// <summary>The name of the table. The name is used at runtime.</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>The display name of the table.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Additional table properties provided by the connector to the clients.</summary>
+        [JsonPropertyName("DynamicProperties")]
+        [JsonInclude]
+        public JsonElement? DynamicProperties { get; init; }
+    }
+
+    /// <summary>
+    /// Update row (V2)
+    /// </summary>
+    [DynamicSchema("GetTableForPatch_V2")]
+    public class PatchItemInput
     {
         /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
-    /// Response for Get metadata of a Procedure
+    /// Response for Update row (V2)
     /// </summary>
-    public class ProcedureMetadata
+    [DynamicSchema("GetTable_V2")]
+    public class PatchItemResponse
     {
-        /// <summary>Procedure name</summary>
-        [JsonPropertyName("name")]
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Insert row (V2)
+    /// </summary>
+    [DynamicSchema("GetTable_V2")]
+    public class PostItemInput
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Insert row (V2)
+    /// </summary>
+    [DynamicSchema("GetTable_V2")]
+    public class PostItemResponse
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for List the servers
+    /// </summary>
+    public class ODataServersList
+    {
+        /// <summary>List of datasets</summary>
+        [JsonPropertyName("value")]
+        public List<Server> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of datasets
+    /// </summary>
+    public class Server
+    {
+        /// <summary>The name of the server. The name is used at runtime.</summary>
+        [JsonPropertyName("Name")]
         public string Name { get; set; }
 
-        /// <summary>Procedure title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
+        /// <summary>The display name of the server.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
 
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
+        /// <summary>Additional server properties provided by the connector to the clients.</summary>
+        [JsonPropertyName("DynamicProperties")]
+        [JsonInclude]
+        public JsonElement? DynamicProperties { get; init; }
+
+        /// <summary>Table items</summary>
+        [JsonPropertyName("databases")]
+        [JsonInclude]
+        public List<Database> Databases { get; init; }
+    }
+
+    /// <summary>
+    /// Item in Table items
+    /// </summary>
+    public class Database
+    {
+        /// <summary>The name of the database. The name is used at runtime.</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>The display name of the database.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Additional database properties provided by the connector to the clients.</summary>
+        [JsonPropertyName("DynamicProperties")]
+        [JsonInclude]
+        public JsonElement? DynamicProperties { get; init; }
+
+        /// <summary>Database items</summary>
+        [JsonPropertyName("tables")]
+        [JsonInclude]
+        public List<Table> Tables { get; init; }
+    }
+
+    /// <summary>
+    /// Response for List the databases
+    /// </summary>
+    public class DatabasesList
+    {
+        /// <summary>List of datasets</summary>
+        [JsonPropertyName("value")]
+        public List<Database> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Response for GetTablesForDeleteItem
+    /// </summary>
+    public class TablesList
+    {
+        /// <summary>List of Tables</summary>
+        [JsonPropertyName("value")]
+        public List<Table> Value { get; set; }
     }
 
     /// <summary>
@@ -347,7 +379,37 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get metadata of a table
+    /// Response for Get metadata of a Procedure
+    /// </summary>
+    public class ProcedureMetadata
+    {
+        /// <summary>Procedure name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Procedure title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Get metadata of a table for Patch operation
     /// </summary>
     public class TableMetadata
     {
@@ -471,83 +533,39 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get tables (V2)
+    /// Response for Get pass-through native SQL query metadata
     /// </summary>
-    public class GetTablesResponse
+    public class PassThroughNativeQueryMetadata
     {
-        /// <summary>List of Sensitivity Labels</summary>
-        [JsonPropertyName("@metadata")]
-        public List<DataWithSensitivityLabelInfo> Metadata { get; set; }
+        /// <summary>Query name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
 
-        /// <summary>List of Tables</summary>
-        [JsonPropertyName("value")]
-        public List<Table> Value { get; set; }
+        /// <summary>Query title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
     }
 
     /// <summary>
-    /// Response for GetTablesForDeleteItem
+    /// PassThroughNativeQueryBody
     /// </summary>
-    public class TablesList
+    public class PassThroughNativeQueryBody
     {
-        /// <summary>List of Tables</summary>
-        [JsonPropertyName("value")]
-        public List<Table> Value { get; set; }
-    }
+        /// <summary>Query Text</summary>
+        [JsonPropertyName("query")]
+        public string Query { get; set; }
 
-    /// <summary>
-    /// Update row (V2)
-    /// </summary>
-    [DynamicSchema("GetTableForPatch_V2")]
-    public class PatchItemInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
+        /// <summary>Formal Parameters</summary>
+        [JsonPropertyName("formalParameters")]
+        public JsonElement? FormalParameters { get; set; }
 
-    /// <summary>
-    /// Response for Update row (V2)
-    /// </summary>
-    [DynamicSchema("GetTable_V2")]
-    public class PatchItemResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Insert row (V2)
-    /// </summary>
-    [DynamicSchema("GetTable_V2")]
-    public class PostItemInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Insert row (V2)
-    /// </summary>
-    [DynamicSchema("GetTable_V2")]
-    public class PostItemResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+        /// <summary>Actual parameters</summary>
+        [JsonPropertyName("actualParameters")]
+        public JsonElement? ActualParameters { get; set; }
     }
 
     /// <summary>
@@ -579,82 +597,6 @@ namespace Azure.Connectors.Sdk.Sql.Models
     /// </summary>
     public static class SqlModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="DatabasesList"/>.
-        /// </summary>
-        public static DatabasesList DatabasesList(
-            List<Database> value = default)
-        {
-            return new DatabasesList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Database"/>.
-        /// </summary>
-        public static Database Database(
-            string name = default,
-            string displayName = default,
-            JsonElement? dynamicProperties = default,
-            List<Table> tables = default)
-        {
-            return new Database
-            {
-                Name = name,
-                DisplayName = displayName,
-                DynamicProperties = dynamicProperties,
-                Tables = tables,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Table"/>.
-        /// </summary>
-        public static Table Table(
-            string name = default,
-            string displayName = default,
-            JsonElement? dynamicProperties = default)
-        {
-            return new Table
-            {
-                Name = name,
-                DisplayName = displayName,
-                DynamicProperties = dynamicProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ODataServersList"/>.
-        /// </summary>
-        public static ODataServersList ODataServersList(
-            List<Server> value = default)
-        {
-            return new ODataServersList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Server"/>.
-        /// </summary>
-        public static Server Server(
-            string name = default,
-            string displayName = default,
-            JsonElement? dynamicProperties = default,
-            List<Database> databases = default)
-        {
-            return new Server
-            {
-                Name = name,
-                DisplayName = displayName,
-                DynamicProperties = dynamicProperties,
-                Databases = databases,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="GetItemsResponse"/>.
         /// </summary>
@@ -738,34 +680,104 @@ namespace Azure.Connectors.Sdk.Sql.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PassThroughNativeQueryMetadata"/>.
+        /// Creates a new instance of <see cref="GetTablesResponse"/>.
         /// </summary>
-        public static PassThroughNativeQueryMetadata PassThroughNativeQueryMetadata(
-            string name = default,
-            string title = default,
-            ObjectEntity schema = default)
+        public static GetTablesResponse GetTablesResponse(
+            List<DataWithSensitivityLabelInfo> metadata = default,
+            List<Table> value = default)
         {
-            return new PassThroughNativeQueryMetadata
+            return new GetTablesResponse
             {
-                Name = name,
-                Title = title,
-                Schema = schema,
+                Metadata = metadata,
+                Value = value,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ProcedureMetadata"/>.
+        /// Creates a new instance of <see cref="Table"/>.
         /// </summary>
-        public static ProcedureMetadata ProcedureMetadata(
+        public static Table Table(
             string name = default,
-            string title = default,
-            ObjectEntity schema = default)
+            string displayName = default,
+            JsonElement? dynamicProperties = default)
         {
-            return new ProcedureMetadata
+            return new Table
             {
                 Name = name,
-                Title = title,
-                Schema = schema,
+                DisplayName = displayName,
+                DynamicProperties = dynamicProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ODataServersList"/>.
+        /// </summary>
+        public static ODataServersList ODataServersList(
+            List<Server> value = default)
+        {
+            return new ODataServersList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Server"/>.
+        /// </summary>
+        public static Server Server(
+            string name = default,
+            string displayName = default,
+            JsonElement? dynamicProperties = default,
+            List<Database> databases = default)
+        {
+            return new Server
+            {
+                Name = name,
+                DisplayName = displayName,
+                DynamicProperties = dynamicProperties,
+                Databases = databases,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Database"/>.
+        /// </summary>
+        public static Database Database(
+            string name = default,
+            string displayName = default,
+            JsonElement? dynamicProperties = default,
+            List<Table> tables = default)
+        {
+            return new Database
+            {
+                Name = name,
+                DisplayName = displayName,
+                DynamicProperties = dynamicProperties,
+                Tables = tables,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DatabasesList"/>.
+        /// </summary>
+        public static DatabasesList DatabasesList(
+            List<Database> value = default)
+        {
+            return new DatabasesList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TablesList"/>.
+        /// </summary>
+        public static TablesList TablesList(
+            List<Table> value = default)
+        {
+            return new TablesList
+            {
+                Value = value,
             };
         }
 
@@ -792,6 +804,22 @@ namespace Azure.Connectors.Sdk.Sql.Models
             {
                 Name = name,
                 DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProcedureMetadata"/>.
+        /// </summary>
+        public static ProcedureMetadata ProcedureMetadata(
+            string name = default,
+            string title = default,
+            ObjectEntity schema = default)
+        {
+            return new ProcedureMetadata
+            {
+                Name = name,
+                Title = title,
+                Schema = schema,
             };
         }
 
@@ -900,28 +928,34 @@ namespace Azure.Connectors.Sdk.Sql.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetTablesResponse"/>.
+        /// Creates a new instance of <see cref="PassThroughNativeQueryMetadata"/>.
         /// </summary>
-        public static GetTablesResponse GetTablesResponse(
-            List<DataWithSensitivityLabelInfo> metadata = default,
-            List<Table> value = default)
+        public static PassThroughNativeQueryMetadata PassThroughNativeQueryMetadata(
+            string name = default,
+            string title = default,
+            ObjectEntity schema = default)
         {
-            return new GetTablesResponse
+            return new PassThroughNativeQueryMetadata
             {
-                Metadata = metadata,
-                Value = value,
+                Name = name,
+                Title = title,
+                Schema = schema,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="TablesList"/>.
+        /// Creates a new instance of <see cref="PassThroughNativeQueryBody"/>.
         /// </summary>
-        public static TablesList TablesList(
-            List<Table> value = default)
+        public static PassThroughNativeQueryBody PassThroughNativeQueryBody(
+            string query = default,
+            JsonElement? formalParameters = default,
+            JsonElement? actualParameters = default)
         {
-            return new TablesList
+            return new PassThroughNativeQueryBody
             {
-                Value = value,
+                Query = query,
+                FormalParameters = formalParameters,
+                ActualParameters = actualParameters,
             };
         }
 
@@ -1029,6 +1063,27 @@ namespace Azure.Connectors.Sdk.Sql
         public static class OnNewItems
         {
             /// <summary>
+            /// Name of SQL server
+            /// Required.
+            /// Dynamic values from: GetServers.
+            /// </summary>
+            public const string Server = "server";
+
+            /// <summary>
+            /// Database name
+            /// Required.
+            /// Dynamic values from: GetDatabases.
+            /// </summary>
+            public const string Database = "database";
+
+            /// <summary>
+            /// Name of SQL table
+            /// Required.
+            /// Dynamic values from: GetTablesForGetOnNewItems_V2.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
             public const string Filter = "$filter";
@@ -1060,6 +1115,27 @@ namespace Azure.Connectors.Sdk.Sql
         /// </summary>
         public static class OnUpdatedItems
         {
+            /// <summary>
+            /// Name of SQL server
+            /// Required.
+            /// Dynamic values from: GetServers.
+            /// </summary>
+            public const string Server = "server";
+
+            /// <summary>
+            /// Database name
+            /// Required.
+            /// Dynamic values from: GetDatabases.
+            /// </summary>
+            public const string Database = "database";
+
+            /// <summary>
+            /// Name of SQL table
+            /// Required.
+            /// Dynamic values from: GetTablesForGetOnUpdatedItems_V2.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
@@ -1151,59 +1227,6 @@ namespace Azure.Connectors.Sdk.Sql
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// List the databases
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="serverName">Server name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List the databases response.</returns>
-        public virtual async Task<DatabasesList> GetDatabasesAsync(string serverName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetDatabasesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                queryParams.Add($"server={Uri.EscapeDataString(serverName.ToString())}");
-                var path = $"/databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<DatabasesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List the servers
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List the servers response.</returns>
-        public virtual async Task<ODataServersList> GetServersAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetServersAsync");
-            try
-            {
-                var path = $"/servers";
-                return await this
-                    .CallConnectorAsync<ODataServersList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Delete row (V2)
@@ -1403,173 +1426,6 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Get pass-through native SQL query metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="serverName">Server name</param>
-        /// <param name="databaseName">Database name</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get pass-through native SQL query metadata response.</returns>
-        public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
-                return await this
-                    .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get metadata of a Procedure
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="serverName">Server name</param>
-        /// <param name="databaseName">Database name</param>
-        /// <param name="procedureName">Procedure name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata of a Procedure response.</returns>
-        public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetProcedures_V2")] string procedureName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                if (procedureName is null)
-                    throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
-                return await this
-                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get stored procedures
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="serverName">Server name</param>
-        /// <param name="databaseName">Database name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get stored procedures response.</returns>
-        public virtual async Task<ProceduresList> GetProceduresAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures";
-                return await this
-                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get metadata of a table
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="serverName">Server name</param>
-        /// <param name="databaseName">Database name</param>
-        /// <param name="tableName">Table name</param>
-        /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var queryParams = new List<string>();
-                if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get metadata of a table for Patch operation
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="serverName">Server name</param>
-        /// <param name="databaseName">Database name</param>
-        /// <param name="tableName">Table name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata of a table for Patch operation response.</returns>
-        public virtual async Task<TableMetadata> GetTableForPatchAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableForPatchAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/forPatchItem";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get tables (V2)
         /// </summary>
         /// <remarks>This operation gets tables from a database.</remarks>
@@ -1607,6 +1463,130 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
+        /// Update row (V2)
+        /// </summary>
+        /// <remarks>This operation updates an existing row in a table.</remarks>
+        /// <param name="serverName">Server name</param>
+        /// <param name="databaseName">Database name</param>
+        /// <param name="tableName">Table name</param>
+        /// <param name="rowId">Row id</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Update row (V2) response.</returns>
+        public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPatchItem_V2")] string tableName, string rowId, PatchItemInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PatchItemAsync");
+            try
+            {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                if (rowId is null)
+                    throw new ArgumentNullException(nameof(rowId));
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
+                return await this
+                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Insert row (V2)
+        /// </summary>
+        /// <remarks>This operation inserts a new row into a table.</remarks>
+        /// <param name="serverName">Server name</param>
+        /// <param name="databaseName">Database name</param>
+        /// <param name="tableName">Table name</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Insert row (V2) response.</returns>
+        public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPostItem_V2")] string tableName, PostItemInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PostItemAsync");
+            try
+            {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
+                return await this
+                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List the servers
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List the servers response.</returns>
+        public virtual async Task<ODataServersList> GetServersAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetServersAsync");
+            try
+            {
+                var path = $"/servers";
+                return await this
+                    .CallConnectorAsync<ODataServersList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List the databases
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="serverName">Server name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List the databases response.</returns>
+        public virtual async Task<DatabasesList> GetDatabasesAsync(string serverName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetDatabasesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                queryParams.Add($"server={Uri.EscapeDataString(serverName.ToString())}");
+                var path = $"/databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<DatabasesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// GetTablesForDeleteItem
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -1626,6 +1606,69 @@ namespace Azure.Connectors.Sdk.Sql
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/deleteitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get stored procedures
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="serverName">Server name</param>
+        /// <param name="databaseName">Database name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get stored procedures response.</returns>
+        public virtual async Task<ProceduresList> GetProceduresV2Async([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresV2Async");
+            try
+            {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures";
+                return await this
+                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get metadata of a Procedure
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="serverName">Server name</param>
+        /// <param name="databaseName">Database name</param>
+        /// <param name="procedureName">Procedure name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get metadata of a Procedure response.</returns>
+        public virtual async Task<ProcedureMetadata> GetProcedureV2Async([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetProcedures_V2")] string procedureName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureV2Async");
+            try
+            {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (procedureName is null)
+                    throw new ArgumentNullException(nameof(procedureName));
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
+                return await this
+                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1757,6 +1800,39 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
+        /// Get metadata of a table for Patch operation
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="serverName">Server name</param>
+        /// <param name="databaseName">Database name</param>
+        /// <param name="tableName">Table name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get metadata of a table for Patch operation response.</returns>
+        public virtual async Task<TableMetadata> GetTableForPatchAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableForPatchAsync");
+            try
+            {
+                if (serverName is null)
+                    throw new ArgumentNullException(nameof(serverName));
+                if (databaseName is null)
+                    throw new ArgumentNullException(nameof(databaseName));
+                if (tableName is null)
+                    throw new ArgumentNullException(nameof(tableName));
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/forPatchItem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// GetTablesForPostItem
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -1787,19 +1863,19 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Update row (V2)
+        /// Get metadata of a table
         /// </summary>
-        /// <remarks>This operation updates an existing row in a table.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="tableName">Table name</param>
-        /// <param name="rowId">Row id</param>
-        /// <param name="input">The request body.</param>
+        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="purviewAcccountName">Purview Acccount Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update row (V2) response.</returns>
-        public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPatchItem_V2")] string tableName, string rowId, PatchItemInput input, CancellationToken cancellationToken = default)
+        /// <returns>The Get metadata of a table response.</returns>
+        public virtual async Task<TableMetadata> GetTableV2Async(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PatchItemAsync");
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableV2Async");
             try
             {
                 if (serverName is null)
@@ -1808,11 +1884,14 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                if (rowId is null)
-                    throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
+                var queryParams = new List<string>();
+                if (extractMIPLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                if (purviewAcccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1824,29 +1903,129 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Insert row (V2)
+        /// Get pass-through native SQL query metadata
         /// </summary>
-        /// <remarks>This operation inserts a new row into a table.</remarks>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
-        /// <param name="tableName">Table name</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Insert row (V2) response.</returns>
-        public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPostItem_V2")] string tableName, PostItemInput input, CancellationToken cancellationToken = default)
+        /// <returns>The Get pass-through native SQL query metadata response.</returns>
+        public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataV2Async([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PostItemAsync");
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataV2Async");
             try
             {
                 if (serverName is null)
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
+                return await this
+                    .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get table metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="tableName">Table name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get table metadata response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetTables")] string tableName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
+            try
+            {
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
                 return await this
-                    .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get pass-through native SQL query metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get pass-through native SQL query metadata response.</returns>
+        public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataAsync(PassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataAsync");
+            try
+            {
+                var path = $"/$metadata.json/datasets/default/query/sql";
+                return await this
+                    .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get procedure metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="procedureName">Procedure name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get procedure metadata response.</returns>
+        public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetProcedures")] string procedureName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureAsync");
+            try
+            {
+                if (procedureName is null)
+                    throw new ArgumentNullException(nameof(procedureName));
+                var path = $"/$metadata.json/datasets/default/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
+                return await this
+                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get stored procedures
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get stored procedures response.</returns>
+        public virtual async Task<ProceduresList> GetProceduresAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresAsync");
+            try
+            {
+                var path = $"/datasets/default/procedures";
+                return await this
+                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
