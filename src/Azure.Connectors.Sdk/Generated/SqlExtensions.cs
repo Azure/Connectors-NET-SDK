@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in List of Sensitivity Labels
+    /// Data name with sensitivity label info
     /// </summary>
     public class DataWithSensitivityLabelInfo
     {
@@ -114,7 +114,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in List of Sensitivity Label Information
+    /// SensitivityLabel metadata info
     /// </summary>
     public class SensitivityLabelMetadata
     {
@@ -160,7 +160,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in List of Columns
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable_V2")]
     public class SqlItem
@@ -202,7 +202,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in List of Tables
+    /// Represents a table.
     /// </summary>
     public class Table
     {
@@ -287,7 +287,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in List of datasets
+    /// Represents a server.
     /// </summary>
     public class Server
     {
@@ -311,7 +311,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in Table items
+    /// Represents a database.
     /// </summary>
     public class Database
     {
@@ -365,7 +365,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Item in List of Procedures
+    /// Procedure
     /// </summary>
     public class Procedure
     {

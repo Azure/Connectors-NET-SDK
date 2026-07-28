@@ -40,7 +40,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Table
     /// </summary>
     public class Table
     {
@@ -64,7 +64,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Item
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
