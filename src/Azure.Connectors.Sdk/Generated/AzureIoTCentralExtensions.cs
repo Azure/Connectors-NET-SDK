@@ -30,44 +30,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     #region Types
 
     /// <summary>
-    /// Response for Get the list of applications accessible to the signed-in user
-    /// </summary>
-    public class ApplicationCollection : IPageable<Application>
-    {
-        /// <summary>The collection of applications.</summary>
-        [JsonPropertyName("value")]
-        public List<Application> Value { get; set; }
-
-        /// <summary>URL to get the next page of applications.</summary>
-        [JsonPropertyName("nextLink")]
-        public string NextLink { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The collection of applications.
-    /// </summary>
-    public class Application
-    {
-        /// <summary>Unique ID of the application.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string ApplicationId { get; init; }
-
-        /// <summary>Display name of the application.</summary>
-        [JsonPropertyName("displayName")]
-        public string ApplicationName { get; set; }
-
-        /// <summary>The URL subdomain of the application.</summary>
-        [JsonPropertyName("subdomain")]
-        public string Subdomain { get; set; }
-
-        /// <summary>The URL host of the application.</summary>
-        [JsonPropertyName("host")]
-        public string Host { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List device groups
+    /// The paged results of device groups.
     /// </summary>
     public class DeviceGroupCollection : IPageable<DeviceGroup>
     {
@@ -81,7 +44,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Item in The collection of device groups.
+    /// The device group definition.
     /// </summary>
     public class DeviceGroup
     {
@@ -113,13 +76,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Get devices by device group ID
+    /// The paged results of devices belonging to the device group.
     /// </summary>
-    public class DeviceGroupDeviceCollection : IPageable<Device>
+    public class DeviceGroupDeviceCollection : IPageable<DeviceV1>
     {
         /// <summary>The collection of devices belonging to the device group.</summary>
         [JsonPropertyName("value")]
-        public List<Device> Value { get; set; }
+        public List<DeviceV1> Value { get; set; }
 
         /// <summary>URL to get the next page of devices in the group.</summary>
         [JsonPropertyName("nextLink")]
@@ -129,7 +92,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// <summary>
     /// Item in The collection of devices belonging to the device group.
     /// </summary>
-    public class Device
+    public class DeviceV1
     {
         /// <summary>Unique ID of the device.</summary>
         [JsonPropertyName("id")]
@@ -163,7 +126,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Get device cloud properties (deprecated)
+    /// Cloud property values associated with the device.
     /// </summary>
     [DynamicSchema("Schema_DeviceCloudProperties")]
     public class DeviceCloudProperties
@@ -251,7 +214,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for List jobs
+    /// The paged results of jobs.
     /// </summary>
     public class JobCollection : IPageable<JobStatic>
     {
@@ -265,7 +228,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Item in The collection of jobs.
+    /// The job definition.
     /// </summary>
     public class JobStatic
     {
@@ -308,7 +271,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// The batching configuration for the job.
+    /// The job batch definition.
     /// </summary>
     public class JobBatch
     {
@@ -322,7 +285,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// The cancellation threshold for the job.
+    /// The job cancellation threshold definition.
     /// </summary>
     public class JobCancellationThreshold
     {
@@ -340,7 +303,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Create a job
+    /// The job definition.
     /// </summary>
     [DynamicSchema("Schema_Job")]
     public class Job
@@ -388,7 +351,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Get device statuses
+    /// The paged results of job device statuses.
     /// </summary>
     public class JobDeviceStatusCollection : IPageable<JobDeviceStatus>
     {
@@ -402,7 +365,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Item in The collection of job device statuses.
+    /// The job device status definition.
     /// </summary>
     public class JobDeviceStatus
     {
@@ -451,7 +414,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for List scheduled jobs
+    /// The paged results of scheduled job definitions.
     /// </summary>
     public class ScheduledJobCollection : IPageable<ScheduledJob>
     {
@@ -465,7 +428,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Item in The collection of scheduled jobs.
+    /// The scheduled job definition.
     /// </summary>
     [DynamicSchema("Schema_ScheduledJob")]
     public class ScheduledJob
@@ -526,7 +489,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Update a scheduled job
+    /// The scheduled job definition.
     /// </summary>
     public class ScheduledJobStatic
     {
@@ -583,7 +546,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Get jobs by scheduled job ID
+    /// The paged results of job definitions belonging to a scheduled job.
     /// </summary>
     public class ScheduledJobJobCollection : IPageable<JobStatic>
     {
@@ -594,42 +557,6 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// <summary>URL to get the next page of jobs.</summary>
         [JsonPropertyName("nextLink")]
         public string NextLink { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Schema_DeviceCloudProperties
-    /// </summary>
-    public class SchemaDeviceCloudPropertiesResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Schema_Job
-    /// </summary>
-    public class SchemaJobResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Schema_ScheduledJob
-    /// </summary>
-    public class SchemaScheduledJobResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -649,6 +576,47 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// <summary>Callback URL of the workflow Trigger.</summary>
         [JsonPropertyName("url")]
         public string WorkflowTriggerURL { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get device command response
+    /// </summary>
+    [DynamicSchema("Schema_DeviceCommand_V1")]
+    public class DeviceCommandV1
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
+        /// <summary>The request ID of the device command execution.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string DeviceCommandRequestId { get; init; }
+
+        /// <summary>The payload for the device command.</summary>
+        [JsonPropertyName("request")]
+        public JsonElement? DeviceCommandRequestPayload { get; set; }
+
+        /// <summary>The payload of the device command response.</summary>
+        [JsonPropertyName("response")]
+        [JsonInclude]
+        public JsonElement? DeviceCommandResponsePayload { get; init; }
+
+        /// <summary>Connection timeout in seconds to wait for a disconnected device to come online. Defaults to 0 seconds.</summary>
+        [JsonPropertyName("connectionTimeout")]
+        public int? DeviceCommandConnectionTimeout { get; set; }
+
+        /// <summary>Response timeout in seconds to wait for a command completion on a device. Defaults to 30 seconds.</summary>
+        [JsonPropertyName("responseTimeout")]
+        public int? DeviceCommandResponseTimeout { get; set; }
+
+        /// <summary>The status code of the device command response.</summary>
+        [JsonPropertyName("responseCode")]
+        [JsonInclude]
+        public int? DeviceCommandResponseStatus { get; init; }
     }
 
     /// <summary>
@@ -821,7 +789,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Get module properties
+    /// Property values associated with the module.
     /// </summary>
     [DynamicSchema("Schema_DeviceProperties_V1")]
     public class ModuleProperties
@@ -858,7 +826,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Get device properties
+    /// Property values associated with the device.
     /// </summary>
     [DynamicSchema("Schema_DeviceProperties_V1")]
     public class DeviceProperties
@@ -897,11 +865,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// <summary>
     /// Response for List devices
     /// </summary>
-    public class DeviceCollection : IPageable<Device>
+    public class DeviceCollection : IPageable<DeviceV1>
     {
         /// <summary>The collection of devices.</summary>
         [JsonPropertyName("value")]
-        public List<Device> Value { get; set; }
+        public List<DeviceV1> Value { get; set; }
 
         /// <summary>URL to get the next page of devices.</summary>
         [JsonPropertyName("nextLink")]
@@ -909,9 +877,49 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
+    /// Response for Create or update a device
+    /// </summary>
+    public class DeviceV2
+    {
+        /// <summary>Unique ID of the device.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string DeviceId { get; init; }
+
+        /// <summary>ETag used to prevent conflict in device updates.</summary>
+        [JsonPropertyName("etag")]
+        public string DeviceETag { get; set; }
+
+        /// <summary>Display name of the device.</summary>
+        [JsonPropertyName("displayName")]
+        public string DeviceName { get; set; }
+
+        /// <summary>The device template definition for the device.</summary>
+        [JsonPropertyName("template")]
+        public string DeviceTemplate { get; set; }
+
+        /// <summary>Whether the device is simulated.</summary>
+        [JsonPropertyName("simulated")]
+        public bool? Simulated { get; set; }
+
+        /// <summary>Whether the device connection to IoT Central has been enabled.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>List of organizations of the device, only one organization is supported today, multiple organizations will be supported soon.</summary>
+        [JsonPropertyName("organizations")]
+        public List<string> Organizations { get; set; }
+
+        /// <summary>Whether resources have been allocated for the device.</summary>
+        [JsonPropertyName("provisioned")]
+        [JsonInclude]
+        public bool? Provisioned { get; init; }
+    }
+
+    /// <summary>
     /// Response for Get a device template by ID
     /// </summary>
-    public class DeviceTemplate
+    public class DeviceTemplateV1
     {
         /// <summary>Unique ID of the device template.</summary>
         [JsonPropertyName("@id")]
@@ -942,11 +950,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// <summary>
     /// Response for List device templates
     /// </summary>
-    public class DeviceTemplateCollection : IPageable<DeviceTemplate>
+    public class DeviceTemplateCollectionV1 : IPageable<DeviceTemplateV1>
     {
         /// <summary>The collection of device templates.</summary>
         [JsonPropertyName("value")]
-        public List<DeviceTemplate> Value { get; set; }
+        public List<DeviceTemplateV1> Value { get; set; }
 
         /// <summary>URL to get the next page of device templates.</summary>
         [JsonPropertyName("nextLink")]
@@ -976,54 +984,6 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// <summary>The collection of roles.</summary>
         [JsonPropertyName("value")]
         public List<Role> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Schema_DeviceCommand_V1
-    /// </summary>
-    public class SchemaDeviceCommandResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Schema_DeviceProperties_V1
-    /// </summary>
-    public class SchemaDevicePropertiesResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Schema_DeviceTelemetry_V1
-    /// </summary>
-    public class SchemaDeviceTelemetryResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Schema_User_V1
-    /// </summary>
-    public class SchemaUserResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -1095,6 +1055,168 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
+    /// Response for Get the list of applications accessible to the signed-in user
+    /// </summary>
+    public class ApplicationCollection : IPageable<Application>
+    {
+        /// <summary>The collection of applications.</summary>
+        [JsonPropertyName("value")]
+        public List<Application> Value { get; set; }
+
+        /// <summary>URL to get the next page of applications.</summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
+    }
+
+    /// <summary>
+    /// Item in The collection of applications.
+    /// </summary>
+    public class Application
+    {
+        /// <summary>Unique ID of the application.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string ApplicationId { get; init; }
+
+        /// <summary>Display name of the application.</summary>
+        [JsonPropertyName("displayName")]
+        public string ApplicationName { get; set; }
+
+        /// <summary>The URL subdomain of the application.</summary>
+        [JsonPropertyName("subdomain")]
+        public string Subdomain { get; set; }
+
+        /// <summary>The URL host of the application.</summary>
+        [JsonPropertyName("host")]
+        public string Host { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List device templates
+    /// </summary>
+    public class DeviceTemplateCollection : IPageable<DeviceTemplate>
+    {
+        /// <summary>The collection of device templates.</summary>
+        [JsonPropertyName("value")]
+        public List<DeviceTemplate> Value { get; set; }
+
+        /// <summary>URL to get the next page of device templates.</summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
+    }
+
+    /// <summary>
+    /// Item in The collection of device templates.
+    /// </summary>
+    public class DeviceTemplate
+    {
+        /// <summary>Unique ID of the device template.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string DeviceTemplateId { get; init; }
+
+        /// <summary>ETag used to prevent conflict in device template updates.</summary>
+        [JsonPropertyName("etag")]
+        public string DeviceTemplateETag { get; set; }
+
+        /// <summary>The types of device to which this template applies.</summary>
+        [JsonPropertyName("types")]
+        public List<string> DeviceTemplateTypes { get; set; }
+
+        /// <summary>Display name of the device template.</summary>
+        [JsonPropertyName("displayName")]
+        public string DeviceTemplateName { get; set; }
+
+        /// <summary>Detailed description of the device template.</summary>
+        [JsonPropertyName("description")]
+        public string DeviceTemplateDescription { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Schema_DeviceCloudProperties
+    /// </summary>
+    public class SchemaDeviceCloudPropertiesResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Schema_DeviceCommand
+    /// </summary>
+    public class SchemaDeviceCommandResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Schema_DeviceProperties
+    /// </summary>
+    public class SchemaDevicePropertiesResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Schema_DeviceTelemetry
+    /// </summary>
+    public class SchemaDeviceTelemetryResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Schema_Job
+    /// </summary>
+    public class SchemaJobResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Schema_ScheduledJob
+    /// </summary>
+    public class SchemaScheduledJobResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Schema_User_V1
+    /// </summary>
+    public class SchemaUserResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// DeviceRelationship
     /// </summary>
     public class DeviceRelationship
@@ -1110,7 +1232,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// ScheduledJobPatch
+    /// The scheduled job definition.
     /// </summary>
     [DynamicSchema("Schema_ScheduledJob")]
     public class ScheduledJobPatch
@@ -1210,38 +1332,6 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     public static class AzureIoTCentralModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ApplicationCollection"/>.
-        /// </summary>
-        public static ApplicationCollection ApplicationCollection(
-            List<Application> value = default,
-            string nextLink = default)
-        {
-            return new ApplicationCollection
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Application"/>.
-        /// </summary>
-        public static Application Application(
-            string applicationId = default,
-            string applicationName = default,
-            string subdomain = default,
-            string host = default)
-        {
-            return new Application
-            {
-                ApplicationId = applicationId,
-                ApplicationName = applicationName,
-                Subdomain = subdomain,
-                Host = host,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="DeviceGroupCollection"/>.
         /// </summary>
         public static DeviceGroupCollection DeviceGroupCollection(
@@ -1281,7 +1371,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// Creates a new instance of <see cref="DeviceGroupDeviceCollection"/>.
         /// </summary>
         public static DeviceGroupDeviceCollection DeviceGroupDeviceCollection(
-            List<Device> value = default,
+            List<DeviceV1> value = default,
             string nextLink = default)
         {
             return new DeviceGroupDeviceCollection
@@ -1292,9 +1382,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="Device"/>.
+        /// Creates a new instance of <see cref="DeviceV1"/>.
         /// </summary>
-        public static Device Device(
+        public static DeviceV1 DeviceV1(
             string deviceId = default,
             string deviceETag = default,
             string deviceName = default,
@@ -1303,7 +1393,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
             bool? enabled = default,
             bool? provisioned = default)
         {
-            return new Device
+            return new DeviceV1
             {
                 DeviceId = deviceId,
                 DeviceETag = deviceETag,
@@ -1634,6 +1724,28 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="DeviceCommandV1"/>.
+        /// </summary>
+        public static DeviceCommandV1 DeviceCommandV1(
+            string deviceCommandRequestId = default,
+            JsonElement? deviceCommandRequestPayload = default,
+            JsonElement? deviceCommandResponsePayload = default,
+            int? deviceCommandConnectionTimeout = default,
+            int? deviceCommandResponseTimeout = default,
+            int? deviceCommandResponseStatus = default)
+        {
+            return new DeviceCommandV1
+            {
+                DeviceCommandRequestId = deviceCommandRequestId,
+                DeviceCommandRequestPayload = deviceCommandRequestPayload,
+                DeviceCommandResponsePayload = deviceCommandResponsePayload,
+                DeviceCommandConnectionTimeout = deviceCommandConnectionTimeout,
+                DeviceCommandResponseTimeout = deviceCommandResponseTimeout,
+                DeviceCommandResponseStatus = deviceCommandResponseStatus,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="DeviceComponentCommand"/>.
         /// </summary>
         public static DeviceComponentCommand DeviceComponentCommand(
@@ -1759,7 +1871,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// Creates a new instance of <see cref="DeviceCollection"/>.
         /// </summary>
         public static DeviceCollection DeviceCollection(
-            List<Device> value = default,
+            List<DeviceV1> value = default,
             string nextLink = default)
         {
             return new DeviceCollection
@@ -1770,9 +1882,35 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="DeviceTemplate"/>.
+        /// Creates a new instance of <see cref="DeviceV2"/>.
         /// </summary>
-        public static DeviceTemplate DeviceTemplate(
+        public static DeviceV2 DeviceV2(
+            string deviceId = default,
+            string deviceETag = default,
+            string deviceName = default,
+            string deviceTemplate = default,
+            bool? simulated = default,
+            bool? enabled = default,
+            List<string> organizations = default,
+            bool? provisioned = default)
+        {
+            return new DeviceV2
+            {
+                DeviceId = deviceId,
+                DeviceETag = deviceETag,
+                DeviceName = deviceName,
+                DeviceTemplate = deviceTemplate,
+                Simulated = simulated,
+                Enabled = enabled,
+                Organizations = organizations,
+                Provisioned = provisioned,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeviceTemplateV1"/>.
+        /// </summary>
+        public static DeviceTemplateV1 DeviceTemplateV1(
             string deviceTemplateId = default,
             string deviceTemplateETag = default,
             List<string> deviceTemplateTypes = default,
@@ -1780,7 +1918,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
             string deviceTemplateDescription = default,
             JsonElement? deviceTemplateCapabilityModel = default)
         {
-            return new DeviceTemplate
+            return new DeviceTemplateV1
             {
                 DeviceTemplateId = deviceTemplateId,
                 DeviceTemplateETag = deviceTemplateETag,
@@ -1792,13 +1930,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="DeviceTemplateCollection"/>.
+        /// Creates a new instance of <see cref="DeviceTemplateCollectionV1"/>.
         /// </summary>
-        public static DeviceTemplateCollection DeviceTemplateCollection(
-            List<DeviceTemplate> value = default,
+        public static DeviceTemplateCollectionV1 DeviceTemplateCollectionV1(
+            List<DeviceTemplateV1> value = default,
             string nextLink = default)
         {
-            return new DeviceTemplateCollection
+            return new DeviceTemplateCollectionV1
             {
                 Value = value,
                 NextLink = nextLink,
@@ -1868,6 +2006,72 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
             return new UserCollection
             {
                 Users = users,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ApplicationCollection"/>.
+        /// </summary>
+        public static ApplicationCollection ApplicationCollection(
+            List<Application> value = default,
+            string nextLink = default)
+        {
+            return new ApplicationCollection
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Application"/>.
+        /// </summary>
+        public static Application Application(
+            string applicationId = default,
+            string applicationName = default,
+            string subdomain = default,
+            string host = default)
+        {
+            return new Application
+            {
+                ApplicationId = applicationId,
+                ApplicationName = applicationName,
+                Subdomain = subdomain,
+                Host = host,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeviceTemplateCollection"/>.
+        /// </summary>
+        public static DeviceTemplateCollection DeviceTemplateCollection(
+            List<DeviceTemplate> value = default,
+            string nextLink = default)
+        {
+            return new DeviceTemplateCollection
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeviceTemplate"/>.
+        /// </summary>
+        public static DeviceTemplate DeviceTemplate(
+            string deviceTemplateId = default,
+            string deviceTemplateETag = default,
+            List<string> deviceTemplateTypes = default,
+            string deviceTemplateName = default,
+            string deviceTemplateDescription = default)
+        {
+            return new DeviceTemplate
+            {
+                DeviceTemplateId = deviceTemplateId,
+                DeviceTemplateETag = deviceTemplateETag,
+                DeviceTemplateTypes = deviceTemplateTypes,
+                DeviceTemplateName = deviceTemplateName,
+                DeviceTemplateDescription = deviceTemplateDescription,
             };
         }
 
@@ -2024,21 +2228,6 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Get the list of applications accessible to the signed-in user
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Application"/> items across all pages.</returns>
-        public virtual AsyncPageable<Application> ApplicationsListAsync(CancellationToken cancellationToken = default)
-        {
-            var path = $"/api/preview/applications";
-            return this.CreatePageable<ApplicationCollection, Application>(
-                ct => this.CallConnectorAsync<ApplicationCollection>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ApplicationCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
         /// List device groups
         /// </summary>
         /// <remarks>Get the list of device groups in an application.</remarks>
@@ -2161,8 +2350,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceGroupId">Device Group ID</param>
         /// <param name="application">Application</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Device"/> items across all pages.</returns>
-        public virtual AsyncPageable<Device> DeviceGroupsGetDevicesAsync(string deviceGroupId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="DeviceV1"/> items across all pages.</returns>
+        public virtual AsyncPageable<DeviceV1> DeviceGroupsGetDevicesAsync(string deviceGroupId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             if (deviceGroupId is null)
                 throw new ArgumentNullException(nameof(deviceGroupId));
@@ -2171,7 +2360,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId.ToString())}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<DeviceGroupDeviceCollection, Device>(
+            return this.CreatePageable<DeviceGroupDeviceCollection, DeviceV1>(
                 ct => this.CallConnectorAsync<DeviceGroupDeviceCollection>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DeviceGroupDeviceCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -2960,139 +3149,6 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         }
 
         /// <summary>
-        /// Schema_DeviceCloudProperties
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="deviceTemplateId">Device Template ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_DeviceCloudProperties response.</returns>
-        public virtual async Task<SchemaDeviceCloudPropertiesResponse> SchemaDeviceCloudPropertiesAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceCloudPropertiesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (deviceTemplateId != default)
-                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
-                var path = $"/api/preview/_internal/workflow/schema/DeviceCloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaDeviceCloudPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_WebhookActionBody
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="rule">rule</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SchemaWebhookActionBodyAsync([DynamicValues("Applications_List")] string application, string rule = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaWebhookActionBodyAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (rule != default)
-                    queryParams.Add($"rule={Uri.EscapeDataString(rule.ToString())}");
-                var path = $"/api/preview/_internal/workflow/schema/WebhookActionBody" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_Job
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="jobType">job_type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_Job response.</returns>
-        public virtual async Task<SchemaJobResponse> SchemaJobAsync([DynamicValues("Applications_List")] string application, string jobType = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaJobAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (jobType != default)
-                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
-                var path = $"/api/ga_2022_07_31/_internal/workflow/schema/Job" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_ScheduledJob
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="scheduledJobEndType">scheduled_job_end_type</param>
-        /// <param name="jobType">job_type</param>
-        /// <param name="patch">patch</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_ScheduledJob response.</returns>
-        public virtual async Task<SchemaScheduledJobResponse> SchemaScheduledJobAsync([DynamicValues("Applications_List")] string application, string scheduledJobEndType = default, string jobType = default, bool? patch = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaScheduledJobAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (scheduledJobEndType != default)
-                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduledJobEndType.ToString())}");
-                if (jobType != default)
-                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
-                if (patch.HasValue)
-                    queryParams.Add($"patch={Uri.EscapeDataString(patch.Value.ToString())}");
-                var path = $"/api/ga_2022_07_31/_internal/workflow/schema/ScheduledJob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaScheduledJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get a device by ID
         /// </summary>
         /// <remarks>Get details about an existing device by device ID.</remarks>
@@ -3100,7 +3156,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="application">Application</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a device by ID response.</returns>
-        public virtual async Task<Device> DevicesGetAsync(string deviceId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceV1> DevicesGetAsync(string deviceId, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetAsync");
             try
@@ -3113,7 +3169,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<Device>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DeviceV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3134,7 +3190,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplate">Device Template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get device command response response.</returns>
-        public virtual async Task<DeviceCommand> DevicesGetCommandResponseAsync(string deviceId, [DynamicValues("Workflow_GetCapabilities_V1")] string deviceCommand, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceCommandV1> DevicesGetCommandResponseAsync(string deviceId, [DynamicValues("Workflow_GetCapabilities_V1")] string deviceCommand, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetCommandResponseAsync");
             try
@@ -3151,7 +3207,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId.ToString())}/commands/{Uri.EscapeDataString(deviceCommand.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceCommand>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DeviceCommandV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3531,15 +3587,15 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <remarks>Get the list of devices in an application.</remarks>
         /// <param name="application">Application</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Device"/> items across all pages.</returns>
-        public virtual AsyncPageable<Device> DevicesListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="DeviceV1"/> items across all pages.</returns>
+        public virtual AsyncPageable<DeviceV1> DevicesListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/v1/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<DeviceCollection, Device>(
+            return this.CreatePageable<DeviceCollection, DeviceV1>(
                 ct => this.CallConnectorAsync<DeviceCollection>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DeviceCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -3587,7 +3643,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplate">Device Template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Run a device command response.</returns>
-        public virtual async Task<DeviceCommand> DevicesRunCommandAsync(string deviceId, [DynamicValues("Workflow_GetCapabilities_V1")] string deviceCommand, DeviceCommand input, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceCommandV1> DevicesRunCommandAsync(string deviceId, [DynamicValues("Workflow_GetCapabilities_V1")] string deviceCommand, DeviceCommandV1 input, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesRunCommandAsync");
             try
@@ -3604,7 +3660,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId.ToString())}/commands/{Uri.EscapeDataString(deviceCommand.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceCommand>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<DeviceCommandV1>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3753,7 +3809,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="application">Application</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create or update a device response.</returns>
-        public virtual async Task<Device> DevicesSetAsync(string deviceId, Device input, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceV2> DevicesSetAsync(string deviceId, DeviceV2 input, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesSetAsync");
             try
@@ -3766,7 +3822,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<Device>(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync<DeviceV2>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3860,7 +3916,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="application">Application</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a device template by ID response.</returns>
-        public virtual async Task<DeviceTemplate> DeviceTemplatesGetAsync([DynamicValues("DeviceTemplates_List_V1")] string template, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceTemplateV1> DeviceTemplatesGetAsync([DynamicValues("DeviceTemplates_List_V1")] string template, [DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DeviceTemplatesGetAsync");
             try
@@ -3873,7 +3929,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
                 var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(template.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceTemplate>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DeviceTemplateV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3890,17 +3946,17 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <remarks>Get the list of device templates in an application.</remarks>
         /// <param name="application">Application</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="DeviceTemplate"/> items across all pages.</returns>
-        public virtual AsyncPageable<DeviceTemplate> DeviceTemplatesListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="DeviceTemplateV1"/> items across all pages.</returns>
+        public virtual AsyncPageable<DeviceTemplateV1> DeviceTemplatesListAsync([DynamicValues("Applications_List")] string application, CancellationToken cancellationToken = default)
         {
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
             queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
             var path = $"/api/v1/deviceTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<DeviceTemplateCollection, DeviceTemplate>(
-                ct => this.CallConnectorAsync<DeviceTemplateCollection>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<DeviceTemplateCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
+            return this.CreatePageable<DeviceTemplateCollectionV1, DeviceTemplateV1>(
+                ct => this.CallConnectorAsync<DeviceTemplateCollectionV1>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<DeviceTemplateCollectionV1>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
         }
 
@@ -3986,158 +4042,6 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var path = $"/api/v1/roles" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<RoleCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_DeviceCommand_V1
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="deviceTemplate">Device Template</param>
-        /// <param name="module">module</param>
-        /// <param name="component">component</param>
-        /// <param name="capability">capability</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_DeviceCommand_V1 response.</returns>
-        public virtual async Task<SchemaDeviceCommandResponse> SchemaDeviceCommandAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, string module = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceCommandAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
-                if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
-                if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
-                if (capability != default)
-                    queryParams.Add($"capability={Uri.EscapeDataString(capability.ToString())}");
-                var path = $"/api/v1/_internal/workflow/schema/DeviceCommand" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaDeviceCommandResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_DeviceProperties_V1
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="deviceTemplate">Device Template</param>
-        /// <param name="module">module</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_DeviceProperties_V1 response.</returns>
-        public virtual async Task<SchemaDevicePropertiesResponse> SchemaDevicePropertiesAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, [DynamicValues("Workflow_GetModules_V1")] string module = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDevicePropertiesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
-                if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
-                var path = $"/api/v1/_internal/workflow/schema/DeviceProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaDevicePropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_DeviceTelemetry_V1
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="deviceTemplate">Device Template</param>
-        /// <param name="module">module</param>
-        /// <param name="component">component</param>
-        /// <param name="capability">capability</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_DeviceTelemetry_V1 response.</returns>
-        public virtual async Task<SchemaDeviceTelemetryResponse> SchemaDeviceTelemetryAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, string module = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceTelemetryAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
-                if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
-                if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
-                if (capability != default)
-                    queryParams.Add($"capability={Uri.EscapeDataString(capability.ToString())}");
-                var path = $"/api/v1/_internal/workflow/schema/DeviceTelemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaDeviceTelemetryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Schema_User_V1
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="application">Application</param>
-        /// <param name="userType">user_type</param>
-        /// <param name="patch">patch</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_User_V1 response.</returns>
-        public virtual async Task<SchemaUserResponse> SchemaUserAsync([DynamicValues("Applications_List")] string application, string userType = default, bool? patch = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaUserAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (application is null)
-                    throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
-                if (userType != default)
-                    queryParams.Add($"user_type={Uri.EscapeDataString(userType.ToString())}");
-                if (patch.HasValue)
-                    queryParams.Add($"patch={Uri.EscapeDataString(patch.Value.ToString())}");
-                var path = $"/api/v1/_internal/workflow/schema/User" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<SchemaUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4313,6 +4217,99 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         }
 
         /// <summary>
+        /// Get the list of applications accessible to the signed-in user
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="Application"/> items across all pages.</returns>
+        public virtual AsyncPageable<Application> ApplicationsListAsync(CancellationToken cancellationToken = default)
+        {
+            var path = $"/api/preview/applications";
+            return this.CreatePageable<ApplicationCollection, Application>(
+                ct => this.CallConnectorAsync<ApplicationCollection>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ApplicationCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// Workflow_GetComponents
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="template">template</param>
+        /// <param name="module">module</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Workflow_GetComponents response.</returns>
+        public virtual async Task<List<JsonElement?>> WorkflowGetComponentsAsync([DynamicValues("Applications_List")] string application, string template, string module = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetComponentsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
+                queryParams.Add($"template={Uri.EscapeDataString(template.ToString())}");
+                if (module != default)
+                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
+                var path = $"/api/preview/_internal/workflow/components" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Workflow_GetCapabilities
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="template">template</param>
+        /// <param name="component">component</param>
+        /// <param name="module">module</param>
+        /// <param name="type">type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Workflow_GetCapabilities response.</returns>
+        public virtual async Task<List<JsonElement?>> WorkflowGetCapabilitiesAsync([DynamicValues("Applications_List")] string application, string template, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetCapabilitiesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (template is null)
+                    throw new ArgumentNullException(nameof(template));
+                queryParams.Add($"template={Uri.EscapeDataString(template.ToString())}");
+                if (component != default)
+                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
+                if (module != default)
+                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
+                if (type != default)
+                    queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                var path = $"/api/preview/_internal/workflow/capabilities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Workflow_GetCapabilities_V1
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -4323,9 +4320,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="type">type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetCapabilities_V1 response.</returns>
-        public virtual async Task<List<JsonElement?>> WorkflowGetCapabilitiesAsync([DynamicValues("Applications_List")] string application, string template, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> WorkflowGetCapabilitiesV1Async([DynamicValues("Applications_List")] string application, string template, string component = default, string module = default, string type = default, CancellationToken cancellationToken = default)
         {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetCapabilitiesAsync");
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetCapabilitiesV1Async");
             try
             {
                 var queryParams = new List<string>();
@@ -4363,9 +4360,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="module">module</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Workflow_GetComponents_V1 response.</returns>
-        public virtual async Task<List<JsonElement?>> WorkflowGetComponentsAsync([DynamicValues("Applications_List")] string application, string template, string module = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> WorkflowGetComponentsV1Async([DynamicValues("Applications_List")] string application, string template, string module = default, CancellationToken cancellationToken = default)
         {
-            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetComponentsAsync");
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetComponentsV1Async");
             try
             {
                 var queryParams = new List<string>();
@@ -4413,6 +4410,399 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var path = $"/api/v1/_internal/workflow/modules" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceCloudProperties
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplateId">Device Template ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceCloudProperties response.</returns>
+        public virtual async Task<SchemaDeviceCloudPropertiesResponse> SchemaDeviceCloudPropertiesAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceCloudPropertiesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplateId != default)
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
+                var path = $"/api/preview/_internal/workflow/schema/DeviceCloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDeviceCloudPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceCommand
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplateId">Device Template ID</param>
+        /// <param name="component">component</param>
+        /// <param name="capability">capability</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceCommand response.</returns>
+        public virtual async Task<SchemaDeviceCommandResponse> SchemaDeviceCommandAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceCommandAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplateId != default)
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
+                if (component != default)
+                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
+                if (capability != default)
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability.ToString())}");
+                var path = $"/api/preview/_internal/workflow/schema/DeviceCommand" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDeviceCommandResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceCommand_V1
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplate">Device Template</param>
+        /// <param name="module">module</param>
+        /// <param name="component">component</param>
+        /// <param name="capability">capability</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceCommand_V1 response.</returns>
+        public virtual async Task<SchemaDeviceCommandResponse> SchemaDeviceCommandV1Async([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, string module = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceCommandV1Async");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplate != default)
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
+                if (module != default)
+                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
+                if (component != default)
+                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
+                if (capability != default)
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability.ToString())}");
+                var path = $"/api/v1/_internal/workflow/schema/DeviceCommand" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDeviceCommandResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceProperties
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplateId">Device Template ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceProperties response.</returns>
+        public virtual async Task<SchemaDevicePropertiesResponse> SchemaDevicePropertiesAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDevicePropertiesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplateId != default)
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
+                var path = $"/api/preview/_internal/workflow/schema/DeviceProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDevicePropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceProperties_V1
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplate">Device Template</param>
+        /// <param name="module">module</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceProperties_V1 response.</returns>
+        public virtual async Task<SchemaDevicePropertiesResponse> SchemaDevicePropertiesV1Async([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, [DynamicValues("Workflow_GetModules_V1")] string module = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDevicePropertiesV1Async");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplate != default)
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
+                if (module != default)
+                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
+                var path = $"/api/v1/_internal/workflow/schema/DeviceProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDevicePropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceTelemetry
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplateId">Device Template ID</param>
+        /// <param name="component">component</param>
+        /// <param name="capability">capability</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceTelemetry response.</returns>
+        public virtual async Task<SchemaDeviceTelemetryResponse> SchemaDeviceTelemetryAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceTelemetryAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplateId != default)
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId.ToString())}");
+                if (component != default)
+                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
+                if (capability != default)
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability.ToString())}");
+                var path = $"/api/preview/_internal/workflow/schema/DeviceTelemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDeviceTelemetryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_DeviceTelemetry_V1
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="deviceTemplate">Device Template</param>
+        /// <param name="module">module</param>
+        /// <param name="component">component</param>
+        /// <param name="capability">capability</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_DeviceTelemetry_V1 response.</returns>
+        public virtual async Task<SchemaDeviceTelemetryResponse> SchemaDeviceTelemetryV1Async([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, string module = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceTelemetryV1Async");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (deviceTemplate != default)
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate.ToString())}");
+                if (module != default)
+                    queryParams.Add($"module={Uri.EscapeDataString(module.ToString())}");
+                if (component != default)
+                    queryParams.Add($"component={Uri.EscapeDataString(component.ToString())}");
+                if (capability != default)
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability.ToString())}");
+                var path = $"/api/v1/_internal/workflow/schema/DeviceTelemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaDeviceTelemetryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_Job
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="jobType">job_type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_Job response.</returns>
+        public virtual async Task<SchemaJobResponse> SchemaJobAsync([DynamicValues("Applications_List")] string application, string jobType = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaJobAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (jobType != default)
+                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
+                var path = $"/api/ga_2022_07_31/_internal/workflow/schema/Job" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_ScheduledJob
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="scheduledJobEndType">scheduled_job_end_type</param>
+        /// <param name="jobType">job_type</param>
+        /// <param name="patch">patch</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_ScheduledJob response.</returns>
+        public virtual async Task<SchemaScheduledJobResponse> SchemaScheduledJobAsync([DynamicValues("Applications_List")] string application, string scheduledJobEndType = default, string jobType = default, bool? patch = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaScheduledJobAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (scheduledJobEndType != default)
+                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduledJobEndType.ToString())}");
+                if (jobType != default)
+                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType.ToString())}");
+                if (patch.HasValue)
+                    queryParams.Add($"patch={Uri.EscapeDataString(patch.Value.ToString())}");
+                var path = $"/api/ga_2022_07_31/_internal/workflow/schema/ScheduledJob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaScheduledJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_User_V1
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="userType">user_type</param>
+        /// <param name="patch">patch</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Schema_User_V1 response.</returns>
+        public virtual async Task<SchemaUserResponse> SchemaUserAsync([DynamicValues("Applications_List")] string application, string userType = default, bool? patch = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaUserAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (userType != default)
+                    queryParams.Add($"user_type={Uri.EscapeDataString(userType.ToString())}");
+                if (patch.HasValue)
+                    queryParams.Add($"patch={Uri.EscapeDataString(patch.Value.ToString())}");
+                var path = $"/api/v1/_internal/workflow/schema/User" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SchemaUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Schema_WebhookActionBody
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="application">Application</param>
+        /// <param name="rule">rule</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task SchemaWebhookActionBodyAsync([DynamicValues("Applications_List")] string application, string rule = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaWebhookActionBodyAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (application is null)
+                    throw new ArgumentNullException(nameof(application));
+                queryParams.Add($"application={Uri.EscapeDataString(application.ToString())}");
+                if (rule != default)
+                    queryParams.Add($"rule={Uri.EscapeDataString(rule.ToString())}");
+                var path = $"/api/preview/_internal/workflow/schema/WebhookActionBody" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
