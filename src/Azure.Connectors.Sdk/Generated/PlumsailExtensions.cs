@@ -5986,195 +5986,6 @@ namespace Azure.Connectors.Sdk.Plumsail
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// AddWatermarkToPdfSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="type">Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync(string type, CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (type is null)
-                    throw new ArgumentNullException(nameof(type));
-                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
-                var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// RegexMatchSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="pattern">Pattern</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1DocumentsFlowSchemaRegExpMatchAsync(string pattern, CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaRegExpMatchAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (pattern is null)
-                    throw new ArgumentNullException(nameof(pattern));
-                queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
-                var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// ParseCsv
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="headers">headers</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1DocumentsFlowSchemaParseCsvAsync(string headers, CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaParseCsvAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (headers is null)
-                    throw new ArgumentNullException(nameof(headers));
-                queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
-                var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// SplitPdfSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfSplit">Type of split</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1DocumentsFlowSchemaSplitPdfAsync(string typeOfSplit, CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaSplitPdfAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (typeOfSplit is null)
-                    throw new ArgumentNullException(nameof(typeOfSplit));
-                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
-                var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetProcessesSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1ProcessesFlowSchemaGetProcessesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetProcessesAsync");
-            try
-            {
-                var path = $"/flow/v1/ProcessesFlow/Schema/GetProcesses";
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetJsonSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="processName">Process name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1ProcessesFlowSchemaGetJsonDataAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetJsonDataAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (processName is null)
-                    throw new ArgumentNullException(nameof(processName));
-                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
-                var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get schema of a process
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="processId">processId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync(string processId, CancellationToken cancellationToken = default)
-        {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync");
-            try
-            {
-                if (processId is null)
-                    throw new ArgumentNullException(nameof(processId));
-                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId.ToString())}/schema";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get Profile Info
         /// </summary>
         /// <remarks>Get Profile Info returns information about current user and license.</remarks>
@@ -7183,6 +6994,195 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// SplitPdfSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="typeOfSplit">Type of split</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1DocumentsFlowSchemaSplitPdfAsync(string typeOfSplit, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaSplitPdfAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (typeOfSplit is null)
+                    throw new ArgumentNullException(nameof(typeOfSplit));
+                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// AddWatermarkToPdfSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="type">Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync(string type, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaAddWatermarkToPdfAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (type is null)
+                    throw new ArgumentNullException(nameof(type));
+                queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetProcessesSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1ProcessesFlowSchemaGetProcessesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetProcessesAsync");
+            try
+            {
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetProcesses";
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// ParseCsv
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="headers">headers</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1DocumentsFlowSchemaParseCsvAsync(string headers, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaParseCsvAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (headers is null)
+                    throw new ArgumentNullException(nameof(headers));
+                queryParams.Add($"headers={Uri.EscapeDataString(headers.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetJsonSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="processName">Process name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1ProcessesFlowSchemaGetJsonDataAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetJsonDataAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
+                queryParams.Add($"processId={Uri.EscapeDataString(processName.ToString())}");
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get schema of a process
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="processId">processId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync(string processId, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync");
+            try
+            {
+                if (processId is null)
+                    throw new ArgumentNullException(nameof(processId));
+                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId.ToString())}/schema";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// RegexMatchSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="pattern">Pattern</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1DocumentsFlowSchemaRegExpMatchAsync(string pattern, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaRegExpMatchAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (pattern is null)
+                    throw new ArgumentNullException(nameof(pattern));
+                queryParams.Add($"pattern={Uri.EscapeDataString(pattern.ToString())}");
+                var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

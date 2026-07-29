@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **SQL Server metadata methods now address the default dataset; the server- and database-scoped forms moved to `V2` names** — the unversioned operation owns the unversioned method name, matching the Python SDK. Existing callers must rename:
+
+  | Before | After |
+  | --- | --- |
+  | `GetProceduresAsync(serverName, databaseName)` | `GetProceduresV2Async(serverName, databaseName)` |
+  | `GetProcedureAsync(serverName, databaseName, procedureName)` | `GetProcedureV2Async(serverName, databaseName, procedureName)` |
+  | `GetTableAsync(serverName, databaseName, tableName, ...)` | `GetTableV2Async(serverName, databaseName, tableName, ...)` |
+  | `GetPassThroughNativeQueryMetadataAsync(serverName, databaseName, SqlPassThroughNativeQueryBody)` | `GetPassThroughNativeQueryMetadataV2Async(serverName, databaseName, SqlPassThroughNativeQueryBody)` |
+
+  The unsuffixed names now bind to the default-dataset routes, which were previously absent from the client entirely. Compatibility overloads are deliberately not provided: generated code is never hand-edited, and two distinct Swagger routes must not share one method name. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PR 16576205)
+
 - **Cloudmersive Convert multipart operations removed** — 75 current managed-connector operations use Swagger 2.0 `formData`/multipart payloads that the SDK transport cannot compose, so the regenerated client no longer exposes those methods or their models. This includes `ConvertDocumentAutodetectGetInfoAsync`, `ConvertDocumentAutodetectToPdfAsync`, `ConvertDocumentDocxToPdfAsync`, `ConvertDocumentPdfToDocxAsync`, `ConvertImageGetImageInfoAsync`, `MergeDocumentPdfAsync`, and `SplitDocumentPdfByPageAsync`. The 53 non-multipart operations remain generated. (#210)
 - **DocuSign deprecated and removed operations are no longer generated** — removed `CreateEnvelopeFromTemplateAsync`, `ListEnvelopesAsync`, `SalesCopilotListEnvelopesAsync`, `ScpGetEmailSummaryAsync`, `ScpGetKeySalesAsync`, `ScpGetRelatedActivitiesAsync`, and `ScpGetRelatedRecordsAsync`. `CreateEnvelopeFromTemplateNoRecipientsAsync` remains available. (#210)
 - **Zoho Sign `CreateDocumentAsync` removed** — the operation remains in current managed-connector Swagger but requires a multipart/form-data `file` parameter, which the SDK transport cannot compose. (#210)
@@ -30,9 +41,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Zendesk regains four operations lost to internal versioned siblings** — `GetTablesAsync`, `GetItemsAsync`, `GetItemAsync` and the `GetTableAsync` discovery method are generated again, and the public `GetOnNewItems` trigger is registered alongside `GetOnUpdatedItemsV2` with its own typed callback payload. Version-collision resolution previously ran across the whole operation set, so each `x-ms-visibility: internal` `V2` sibling displaced its public counterpart and was then dropped as unreferenced. Surviving methods also carried a `[DynamicValues("GetTables")]` reference to an operation no longer present in the client. ([#220](https://github.com/Azure/Connectors-NET-SDK/issues/220), AzureUX-BPM PR 16576205)
+- **SQL Server regains four default-dataset discovery routes** — `GetProceduresAsync`, `GetProcedureAsync`, `GetTableAsync` and `GetPassThroughNativeQueryMetadataAsync` now address `/datasets/default/...` and are joined by `GetProceduresV2Async`, `GetProcedureV2Async`, `GetTableV2Async` and `GetPassThroughNativeQueryMetadataV2Async` for the server- and database-scoped routes. Each pair is a distinct contract that previously collapsed onto the V2 route alone. `GetTablesAsync` deliberately continues to target the versioned route because its unversioned sibling is marked deprecated. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PR 16576205)
 - **New operations from current managed connector Swagger** — DocuSign adds `GetDocGenTemplateTabsAsync` and `GetOrganizationsAsync`; Teams adds `RemoveMemberFromChatAsync` and `UpdateChannelPropertiesAsync`; SharePoint adds `GetDayOfWeekOptionsAsync`. (#210)
 
 ### Changed
+
+- **Discovery methods are now emitted after the public surface** — generated clients list customer-facing operations first, then the internal discovery methods retained for dynamic values and dynamic schema. Pipedrive and Plumsail change by this ordering alone; their operation and model sets are unchanged. (AzureUX-BPM PR 16576205)
+
+- **Generated types are documented from their own definition instead of from whatever reached them** — a type's summary was derived from the property or operation that happened to reach it first, which produced meaningless text and made the documentation depend on declaration order. A type reached through a bare envelope property such as `value` was summarized as `Item in value`, naming the wrapper rather than the element, and raw Swagger keys such as `x-ms-capabilities` and `sortRestrictions` were emitted as public API documentation. Zendesk `Table` and `Item` now carry their own names, three Zendesk metadata types gain real descriptions, and seventeen SQL Server summaries improve, for example `Item in List of datasets` becomes `Represents a database.` and `Response for GetTablesForDeleteItem` becomes `Represents a list of tables.` Documentation only; no operation, model, or wire change. (AzureUX-BPM PR 16600581)
 
 - **Regenerated all 97 existing connector clients** using AzureUX-BPM PR 16421737. Generation now uses Azure Identity instead of the legacy ARMClient executable, preserves valid ARM JSON before applying malformed-response fallbacks, filters operations marked `deprecated`, and correctly handles connectors that advertise both JSON and multipart content types. Office 365, Docuware, and SigningHub now regenerate successfully from current ARM exports. (#210)
 - **Corrected generated Swagger documentation text** — fixed `seperated`/`Comma-seperated` and `lists’s` in generated XML documentation. (#210)

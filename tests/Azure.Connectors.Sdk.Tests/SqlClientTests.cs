@@ -117,5 +117,178 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
+        [TestMethod]
+        public async Task GetProceduresAsync_TargetsDefaultDatasetRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{\"value\":[]}",
+                    invoke: client => client.GetProceduresAsync(cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/datasets/default/procedures",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The default-dataset discovery route was previously replaced by its server/database-scoped V2 sibling, which shares its version-stripped base name.");
+        }
+
+        [TestMethod]
+        public async Task GetProceduresV2Async_TargetsServerAndDatabaseScopedRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{\"value\":[]}",
+                    invoke: client => client.GetProceduresV2Async(
+                        serverName: "server1",
+                        databaseName: "db1",
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/v2/datasets/server1,db1/procedures",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The V2 discovery route keeps its version affix so it stays separately callable from the default-dataset route.");
+        }
+
+        [TestMethod]
+        public async Task GetTablesAsync_StillTargetsVersionedRoute()
+        {
+            // NOTE(daviburg): The unversioned GetTables route is marked deprecated in Swagger while
+            // GetTables_V2 is not, so collapsing to the V2 route remains correct. This guards against
+            // over-correcting the fix.
+            var request = await CaptureRequestAsync(
+                    responseJson: "{\"value\":[]}",
+                    invoke: client => client.GetTablesAsync(
+                        serverName: "server1",
+                        databaseName: "db1",
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/v2/datasets/server1,db1/tables",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "A deprecated unversioned route must still be superseded by its current versioned route.");
+        }
+
+        [TestMethod]
+        public async Task GetProcedureAsync_TargetsDefaultDatasetRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.GetProcedureAsync(procedureName: "sp_who", cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/$metadata.json/datasets/default/procedures/sp_who",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The default-dataset procedure metadata route must be restored.");
+        }
+
+        [TestMethod]
+        public async Task GetProcedureV2Async_TargetsServerAndDatabaseScopedRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.GetProcedureV2Async(
+                        serverName: "server1",
+                        databaseName: "db1",
+                        procedureName: "sp_who",
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/v2/$metadata.json/datasets/server1,db1/procedures/sp_who",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The scoped procedure metadata route keeps its own identity.");
+        }
+
+        [TestMethod]
+        public async Task GetTableAsync_TargetsDefaultDatasetRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.GetTableAsync(tableName: "Orders", cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/$metadata.json/datasets/default/tables/Orders",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The default-dataset table metadata route must be restored.");
+        }
+
+        [TestMethod]
+        public async Task GetTableV2Async_TargetsServerAndDatabaseScopedRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.GetTableV2Async(
+                        serverName: "server1",
+                        databaseName: "db1",
+                        tableName: "Orders",
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/v2/$metadata.json/datasets/server1,db1/tables/Orders",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The scoped table metadata route keeps its own identity.");
+        }
+
+        [TestMethod]
+        public async Task GetPassThroughNativeQueryMetadataAsync_TargetsDefaultDatasetRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.GetPassThroughNativeQueryMetadataAsync(
+                        input: new Sql.Models.PassThroughNativeQueryBody(),
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/$metadata.json/datasets/default/query/sql",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The default-dataset native query metadata route must be restored.");
+        }
+
+        [TestMethod]
+        public async Task GetPassThroughNativeQueryMetadataV2Async_TargetsServerAndDatabaseScopedRoute()
+        {
+            // NOTE(daviburg): The two routes take different request bodies, which is why collapsing them
+            // onto one method silently changed the wire contract as well as the path.
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.GetPassThroughNativeQueryMetadataV2Async(
+                        serverName: "server1",
+                        databaseName: "db1",
+                        input: new Sql.Models.SqlPassThroughNativeQueryBody(),
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/v2/$metadata.json/datasets/server1,db1/query/sql",
+                actual: request.RequestUri!.AbsolutePath,
+                message: "The scoped native query metadata route keeps its own identity.");
+        }
+
+        private static async Task<HttpRequestMessage> CaptureRequestAsync(
+            string responseJson,
+            Func<SqlClient, Task> invoke)
+        {
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent(responseJson)
+                });
+
+            using var client = new SqlClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
+
+            await invoke(client).ConfigureAwait(continueOnCapturedContext: false);
+
+            var request = clientSetup.GetLastRequest();
+            Assert.IsNotNull(request);
+            return request!;
+        }
     }
 }
