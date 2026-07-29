@@ -86,7 +86,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get rows (V2)
+    /// List of rows, with optional sensitivity label metadata.
     /// </summary>
     public class GetItemsResponse
     {
@@ -178,7 +178,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for When an item is created (V2)
+    /// List of Items
     /// </summary>
     public class SqlItemsList
     {
@@ -188,7 +188,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get tables (V2)
+    /// Represents a list of tables.
     /// </summary>
     public class GetTablesResponse
     {
@@ -277,7 +277,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for List the servers
+    /// List of servers.
     /// </summary>
     public class ODataServersList
     {
@@ -335,7 +335,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for List the databases
+    /// List of databases.
     /// </summary>
     public class DatabasesList
     {
@@ -345,7 +345,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for GetTablesForDeleteItem
+    /// Represents a list of tables.
     /// </summary>
     public class TablesList
     {
@@ -355,7 +355,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get stored procedures
+    /// Represents a list of procedures.
     /// </summary>
     public class ProceduresList
     {
@@ -379,7 +379,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get metadata of a Procedure
+    /// Procedure metadata
     /// </summary>
     public class ProcedureMetadata
     {
@@ -409,7 +409,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get metadata of a table for Patch operation
+    /// Table metadata
     /// </summary>
     public class TableMetadata
     {
@@ -443,7 +443,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// x-ms-capabilities
+    /// Metadata for a table (capabilities)
     /// </summary>
     public class TableCapabilitiesMetadata
     {
@@ -477,7 +477,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// sortRestrictions
+    /// Metadata for a table (sort restrictions)
     /// </summary>
     public class TableSortRestrictionsMetadata
     {
@@ -495,7 +495,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// filterRestrictions
+    /// Metadata for a table (filter restrictions)
     /// </summary>
     public class TableFilterRestrictionsMetadata
     {
@@ -513,7 +513,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// selectRestrictions
+    /// Metadata for a table (select restrictions)
     /// </summary>
     public class TableSelectRestrictionsMetadata
     {
@@ -523,7 +523,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// countRestrictions
+    /// Metadata for a table (count restrictions)
     /// </summary>
     public class TableCountRestrictionsMetadata
     {
@@ -533,7 +533,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get pass-through native SQL query metadata
+    /// Represents the metadata for a pass-through native query
     /// </summary>
     public class PassThroughNativeQueryMetadata
     {
@@ -551,7 +551,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// PassThroughNativeQueryBody
+    /// Input body to execute Pass-through Native Query (PNQ)
     /// </summary>
     public class PassThroughNativeQueryBody
     {
@@ -569,7 +569,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// SqlPassThroughNativeQueryBody
+    /// Input body to execute Pass-through Native Query (PNQ)
     /// </summary>
     public class SqlPassThroughNativeQueryBody
     {

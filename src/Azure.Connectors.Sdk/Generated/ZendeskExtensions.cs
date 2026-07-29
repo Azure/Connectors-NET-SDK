@@ -148,7 +148,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     }
 
     /// <summary>
-    /// sortRestrictions
+    /// Metadata for a table (sort restrictions)
     /// </summary>
     public class TableSortRestrictionsMetadata
     {
@@ -166,7 +166,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     }
 
     /// <summary>
-    /// filterRestrictions
+    /// Metadata for a table (filter restrictions)
     /// </summary>
     public class TableFilterRestrictionsMetadata
     {
@@ -184,7 +184,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     }
 
     /// <summary>
-    /// selectRestrictions
+    /// Metadata for a table (select restrictions)
     /// </summary>
     public class TableSelectRestrictionsMetadata
     {
