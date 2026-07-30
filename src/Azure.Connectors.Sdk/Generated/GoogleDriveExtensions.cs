@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     #region Types
 
     /// <summary>
-    /// Response for Get file metadata using id
+    /// Blob metadata
     /// </summary>
     public class BlobMetadata
     {
@@ -81,7 +81,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// Response for Get sheet metadata
+    /// Table metadata
     /// </summary>
     public class TableMetadata
     {
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// x-ms-capabilities
+    /// Metadata for a table (capabilities)
     /// </summary>
     public class TableCapabilitiesMetadata
     {
@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// sortRestrictions
+    /// Metadata for a table (sort restrictions)
     /// </summary>
     public class TableSortRestrictionsMetadata
     {
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// filterRestrictions
+    /// Metadata for a table (filter restrictions)
     /// </summary>
     public class TableFilterRestrictionsMetadata
     {
@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// selectRestrictions
+    /// Metadata for a table (select restrictions)
     /// </summary>
     public class TableSelectRestrictionsMetadata
     {
@@ -203,7 +203,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// Response for Get sheets
+    /// Represents a list of tables.
     /// </summary>
     public class TablesList
     {
@@ -213,7 +213,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
     }
 
     /// <summary>
-    /// Item in List of Tables
+    /// Represents a table.
     /// </summary>
     public class Table
     {
@@ -765,6 +765,43 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         }
 
         /// <summary>
+        /// Extract archive to folder
+        /// </summary>
+        /// <remarks>Extracts an archive file into a folder in Google Drive (example: .zip)</remarks>
+        /// <param name="sourceArchiveFilePath">Source archive file path</param>
+        /// <param name="destinationFolderPath">Destination folder path</param>
+        /// <param name="overwrite">Overwrite?</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Extract archive to folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.ExtractFolderAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (sourceArchiveFilePath is null)
+                    throw new ArgumentNullException(nameof(sourceArchiveFilePath));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                if (destinationFolderPath is null)
+                    throw new ArgumentNullException(nameof(destinationFolderPath));
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                if (overwrite.HasValue)
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get sheet metadata
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -811,43 +848,6 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Extract archive to folder
-        /// </summary>
-        /// <remarks>Extracts an archive file into a folder in Google Drive (example: .zip)</remarks>
-        /// <param name="sourceArchiveFilePath">Source archive file path</param>
-        /// <param name="destinationFolderPath">Destination folder path</param>
-        /// <param name="overwrite">Overwrite?</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Extract archive to folder response.</returns>
-        public virtual async Task<List<BlobMetadata>> ExtractFolderAsync(string sourceArchiveFilePath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.ExtractFolderAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceArchiveFilePath is null)
-                    throw new ArgumentNullException(nameof(sourceArchiveFilePath));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
-                if (destinationFolderPath is null)
-                    throw new ArgumentNullException(nameof(destinationFolderPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
-                if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-                var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

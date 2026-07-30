@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms.Models
     #region Types
 
     /// <summary>
-    /// Response for Get response details
+    /// Form response details
     /// </summary>
     [DynamicSchema("GetQuestions")]
     public class GetFormResponseByIdResult
@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms.Models
     }
 
     /// <summary>
-    /// Response for Get form details
+    /// Form details
     /// </summary>
     public class GetFormDetailsByIdResult
     {

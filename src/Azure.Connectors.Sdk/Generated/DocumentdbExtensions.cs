@@ -29,30 +29,6 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     #region Types
 
     /// <summary>
-    /// Response for Get Cosmos DB accounts
-    /// </summary>
-    public class CosmosDbAccountList
-    {
-        /// <summary>List of Azure Cosmos DB account names</summary>
-        [JsonPropertyName("value")]
-        public List<CosmosDbAccount> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of Azure Cosmos DB account names
-    /// </summary>
-    public class CosmosDbAccount
-    {
-        /// <summary>The name of the Azure Cosmos DB account.</summary>
-        [JsonPropertyName("Name")]
-        public string AzureCosmosDBAccountName { get; set; }
-
-        /// <summary>The display name of the Azure Cosmos DB account.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string AzureCosmosDBAccountDisplayName { get; set; }
-    }
-
-    /// <summary>
     /// Response for Create or update document (V3)
     /// </summary>
     public class PostDocumentsResponse
@@ -139,42 +115,6 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Get all collections (V2)
-    /// </summary>
-    public class GetCollectionsResponse
-    {
-        /// <summary>_rid</summary>
-        [JsonPropertyName("_rid")]
-        public string Rid { get; set; }
-
-        /// <summary>DocumentCollections</summary>
-        [JsonPropertyName("DocumentCollections")]
-        public List<JsonElement?> DocumentCollections { get; set; }
-
-        /// <summary>_count</summary>
-        [JsonPropertyName("_count")]
-        public int? Count { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get all databases (V2)
-    /// </summary>
-    public class GetDatabasesResponse
-    {
-        /// <summary>_rid</summary>
-        [JsonPropertyName("_rid")]
-        public string Rid { get; set; }
-
-        /// <summary>Databases</summary>
-        [JsonPropertyName("Databases")]
-        public List<JsonElement?> Databases { get; set; }
-
-        /// <summary>_count</summary>
-        [JsonPropertyName("_count")]
-        public int? Count { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get a document (V2)
     /// </summary>
     public class GetDocumentResponse
@@ -185,7 +125,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Item in List of columns along with their Sensitivity Labels
+    /// Data name with sensitivity label info
     /// </summary>
     public class DataWithSensitivityLabelInfo
     {
@@ -199,7 +139,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Item in List of Sensitivity Label Information
+    /// SensitivityLabel metadata info
     /// </summary>
     public class SensitivityLabelMetadata
     {
@@ -281,7 +221,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Query documents V5
+    /// Array of documents that match the requested query and the related metadata.
     /// </summary>
     public class QueryDocumentsResponse
     {
@@ -343,6 +283,66 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
+    /// List of Azure Cosmos DB account names
+    /// </summary>
+    public class CosmosDbAccountList
+    {
+        /// <summary>List of Azure Cosmos DB account names</summary>
+        [JsonPropertyName("value")]
+        public List<CosmosDbAccount> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Azure Cosmos DB account
+    /// </summary>
+    public class CosmosDbAccount
+    {
+        /// <summary>The name of the Azure Cosmos DB account.</summary>
+        [JsonPropertyName("Name")]
+        public string AzureCosmosDBAccountName { get; set; }
+
+        /// <summary>The display name of the Azure Cosmos DB account.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string AzureCosmosDBAccountDisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get all databases (V2)
+    /// </summary>
+    public class GetDatabasesResponse
+    {
+        /// <summary>_rid</summary>
+        [JsonPropertyName("_rid")]
+        public string Rid { get; set; }
+
+        /// <summary>Databases</summary>
+        [JsonPropertyName("Databases")]
+        public List<JsonElement?> Databases { get; set; }
+
+        /// <summary>_count</summary>
+        [JsonPropertyName("_count")]
+        public int? Count { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get all collections (V2)
+    /// </summary>
+    public class GetCollectionsResponse
+    {
+        /// <summary>_rid</summary>
+        [JsonPropertyName("_rid")]
+        public string Rid { get; set; }
+
+        /// <summary>DocumentCollections</summary>
+        [JsonPropertyName("DocumentCollections")]
+        public List<JsonElement?> DocumentCollections { get; set; }
+
+        /// <summary>_count</summary>
+        [JsonPropertyName("_count")]
+        public int? Count { get; set; }
+    }
+
+    /// <summary>
     /// postDocumentsRequest
     /// </summary>
     public class PostDocumentsRequest
@@ -377,32 +377,6 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     /// </summary>
     public static class DocumentDbModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="CosmosDbAccountList"/>.
-        /// </summary>
-        public static CosmosDbAccountList CosmosDbAccountList(
-            List<CosmosDbAccount> value = default)
-        {
-            return new CosmosDbAccountList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CosmosDbAccount"/>.
-        /// </summary>
-        public static CosmosDbAccount CosmosDbAccount(
-            string azureCosmosDBAccountName = default,
-            string azureCosmosDBAccountDisplayName = default)
-        {
-            return new CosmosDbAccount
-            {
-                AzureCosmosDBAccountName = azureCosmosDBAccountName,
-                AzureCosmosDBAccountDisplayName = azureCosmosDBAccountDisplayName,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="PostDocumentsResponse"/>.
         /// </summary>
@@ -458,38 +432,6 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
                 Ts = ts,
                 Body = body,
                 Id = id,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetCollectionsResponse"/>.
-        /// </summary>
-        public static GetCollectionsResponse GetCollectionsResponse(
-            string rid = default,
-            List<JsonElement?> documentCollections = default,
-            int? count = default)
-        {
-            return new GetCollectionsResponse
-            {
-                Rid = rid,
-                DocumentCollections = documentCollections,
-                Count = count,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetDatabasesResponse"/>.
-        /// </summary>
-        public static GetDatabasesResponse GetDatabasesResponse(
-            string rid = default,
-            List<JsonElement?> databases = default,
-            int? count = default)
-        {
-            return new GetDatabasesResponse
-            {
-                Rid = rid,
-                Databases = databases,
-                Count = count,
             };
         }
 
@@ -632,6 +574,64 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
                 Id = id,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CosmosDbAccountList"/>.
+        /// </summary>
+        public static CosmosDbAccountList CosmosDbAccountList(
+            List<CosmosDbAccount> value = default)
+        {
+            return new CosmosDbAccountList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CosmosDbAccount"/>.
+        /// </summary>
+        public static CosmosDbAccount CosmosDbAccount(
+            string azureCosmosDBAccountName = default,
+            string azureCosmosDBAccountDisplayName = default)
+        {
+            return new CosmosDbAccount
+            {
+                AzureCosmosDBAccountName = azureCosmosDBAccountName,
+                AzureCosmosDBAccountDisplayName = azureCosmosDBAccountDisplayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetDatabasesResponse"/>.
+        /// </summary>
+        public static GetDatabasesResponse GetDatabasesResponse(
+            string rid = default,
+            List<JsonElement?> databases = default,
+            int? count = default)
+        {
+            return new GetDatabasesResponse
+            {
+                Rid = rid,
+                Databases = databases,
+                Count = count,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetCollectionsResponse"/>.
+        /// </summary>
+        public static GetCollectionsResponse GetCollectionsResponse(
+            string rid = default,
+            List<JsonElement?> documentCollections = default,
+            int? count = default)
+        {
+            return new GetCollectionsResponse
+            {
+                Rid = rid,
+                DocumentCollections = documentCollections,
+                Count = count,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -706,30 +706,6 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get Cosmos DB accounts
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Cosmos DB accounts response.</returns>
-        public virtual async Task<CosmosDbAccountList> GetCosmosDbAccountsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCosmosDbAccountsAsync");
-            try
-            {
-                var path = $"/cosmosdbaccounts";
-                return await this
-                    .CallConnectorAsync<CosmosDbAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Create or update document (V3)
@@ -897,63 +873,6 @@ namespace Azure.Connectors.Sdk.Documentdb
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
                 return await this
                     .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get all collections (V2)
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
-        /// <param name="databaseId">Database ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all collections (V2) response.</returns>
-        public virtual async Task<GetCollectionsResponse> GetCollectionsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCollectionsAsync");
-            try
-            {
-                if (azureCosmosDBAccountName is null)
-                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
-                if (databaseId is null)
-                    throw new ArgumentNullException(nameof(databaseId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls";
-                return await this
-                    .CallConnectorAsync<GetCollectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get all databases (V2)
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all databases (V2) response.</returns>
-        public virtual async Task<GetDatabasesResponse> GetDatabasesAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDatabasesAsync");
-            try
-            {
-                if (azureCosmosDBAccountName is null)
-                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs";
-                return await this
-                    .CallConnectorAsync<GetDatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1202,6 +1121,87 @@ namespace Azure.Connectors.Sdk.Documentdb
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls/{Uri.EscapeDataString(collectionId.ToString())}/sprocs/{Uri.EscapeDataString(sprocId.ToString())}";
                 return await this
                     .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get Cosmos DB accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Cosmos DB accounts response.</returns>
+        public virtual async Task<CosmosDbAccountList> GetCosmosDbAccountsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCosmosDbAccountsAsync");
+            try
+            {
+                var path = $"/cosmosdbaccounts";
+                return await this
+                    .CallConnectorAsync<CosmosDbAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all databases (V2)
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all databases (V2) response.</returns>
+        public virtual async Task<GetDatabasesResponse> GetDatabasesAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDatabasesAsync");
+            try
+            {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs";
+                return await this
+                    .CallConnectorAsync<GetDatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all collections (V2)
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
+        /// <param name="databaseId">Database ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all collections (V2) response.</returns>
+        public virtual async Task<GetCollectionsResponse> GetCollectionsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCollectionsAsync");
+            try
+            {
+                if (azureCosmosDBAccountName is null)
+                    throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
+                if (databaseId is null)
+                    throw new ArgumentNullException(nameof(databaseId));
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName.ToString())}/dbs/{Uri.EscapeDataString(databaseId.ToString())}/colls";
+                return await this
+                    .CallConnectorAsync<GetCollectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

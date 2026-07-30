@@ -273,56 +273,6 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
-    /// Response for Get column names for a board ID
-    /// </summary>
-    public class GetColumnNamesSchemaResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Gets single column schema for a board ID
-    /// </summary>
-    public class GetSingleColumnSchemaResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get column names for a board ID for a webhook
-    /// </summary>
-    public class GetColumnNamesSchemaForWebhookResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get column names for a board ID for a webhook
-    /// </summary>
-    public class GetSchemaForGetItemsActionResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get column names for a board ID for an update webhook
-    /// </summary>
-    public class GetColumnNamesSchemaForUpdateWebhookResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
     /// Create an item
     /// </summary>
     public class CreateItemInput
@@ -687,26 +637,6 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
-    /// Response for Get subitem column names
-    /// </summary>
-    public class GetSubitemColumnNamesResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get subitem column names
-    /// </summary>
-    public class GetSubitemSchemaResponse
-    {
-        /// <summary>Schema of the requested schema type</summary>
-        [JsonPropertyName("schema")]
-        public JsonElement? Schema { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get subitems
     /// </summary>
     [DynamicSchema("GetSubitemSchema")]
@@ -836,6 +766,76 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// <summary>data</summary>
         [JsonPropertyName("data")]
         public JsonElement? Data { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get column names for a board ID
+    /// </summary>
+    public class GetColumnNamesSchemaResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Gets single column schema for a board ID
+    /// </summary>
+    public class GetSingleColumnSchemaResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get column names for a board ID for a webhook
+    /// </summary>
+    public class GetColumnNamesSchemaForWebhookResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get column names for a board ID for a webhook
+    /// </summary>
+    public class GetSchemaForGetItemsActionResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get column names for a board ID for an update webhook
+    /// </summary>
+    public class GetColumnNamesSchemaForUpdateWebhookResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get subitem column names
+    /// </summary>
+    public class GetSubitemColumnNamesResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get subitem column names
+    /// </summary>
+    public class GetSubitemSchemaResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
     }
 
     /// <summary>
@@ -1171,66 +1171,6 @@ namespace Azure.Connectors.Sdk.Monday.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetColumnNamesSchemaResponse"/>.
-        /// </summary>
-        public static GetColumnNamesSchemaResponse GetColumnNamesSchemaResponse(
-            JsonElement? schema = default)
-        {
-            return new GetColumnNamesSchemaResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetSingleColumnSchemaResponse"/>.
-        /// </summary>
-        public static GetSingleColumnSchemaResponse GetSingleColumnSchemaResponse(
-            JsonElement? schema = default)
-        {
-            return new GetSingleColumnSchemaResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetColumnNamesSchemaForWebhookResponse"/>.
-        /// </summary>
-        public static GetColumnNamesSchemaForWebhookResponse GetColumnNamesSchemaForWebhookResponse(
-            JsonElement? schema = default)
-        {
-            return new GetColumnNamesSchemaForWebhookResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetSchemaForGetItemsActionResponse"/>.
-        /// </summary>
-        public static GetSchemaForGetItemsActionResponse GetSchemaForGetItemsActionResponse(
-            JsonElement? schema = default)
-        {
-            return new GetSchemaForGetItemsActionResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetColumnNamesSchemaForUpdateWebhookResponse"/>.
-        /// </summary>
-        public static GetColumnNamesSchemaForUpdateWebhookResponse GetColumnNamesSchemaForUpdateWebhookResponse(
-            JsonElement? schema = default)
-        {
-            return new GetColumnNamesSchemaForUpdateWebhookResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="CreateItemInput"/>.
         /// </summary>
         public static CreateItemInput CreateItemInput(
@@ -1539,30 +1479,6 @@ namespace Azure.Connectors.Sdk.Monday.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetSubitemColumnNamesResponse"/>.
-        /// </summary>
-        public static GetSubitemColumnNamesResponse GetSubitemColumnNamesResponse(
-            JsonElement? schema = default)
-        {
-            return new GetSubitemColumnNamesResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetSubitemSchemaResponse"/>.
-        /// </summary>
-        public static GetSubitemSchemaResponse GetSubitemSchemaResponse(
-            JsonElement? schema = default)
-        {
-            return new GetSubitemSchemaResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="CreateUpdateInput"/>.
         /// </summary>
         public static CreateUpdateInput CreateUpdateInput(
@@ -1653,6 +1569,90 @@ namespace Azure.Connectors.Sdk.Monday.Models
             return new GetWorkspacesResponse
             {
                 Data = data,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnNamesSchemaResponse"/>.
+        /// </summary>
+        public static GetColumnNamesSchemaResponse GetColumnNamesSchemaResponse(
+            JsonElement? schema = default)
+        {
+            return new GetColumnNamesSchemaResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetSingleColumnSchemaResponse"/>.
+        /// </summary>
+        public static GetSingleColumnSchemaResponse GetSingleColumnSchemaResponse(
+            JsonElement? schema = default)
+        {
+            return new GetSingleColumnSchemaResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnNamesSchemaForWebhookResponse"/>.
+        /// </summary>
+        public static GetColumnNamesSchemaForWebhookResponse GetColumnNamesSchemaForWebhookResponse(
+            JsonElement? schema = default)
+        {
+            return new GetColumnNamesSchemaForWebhookResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetSchemaForGetItemsActionResponse"/>.
+        /// </summary>
+        public static GetSchemaForGetItemsActionResponse GetSchemaForGetItemsActionResponse(
+            JsonElement? schema = default)
+        {
+            return new GetSchemaForGetItemsActionResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnNamesSchemaForUpdateWebhookResponse"/>.
+        /// </summary>
+        public static GetColumnNamesSchemaForUpdateWebhookResponse GetColumnNamesSchemaForUpdateWebhookResponse(
+            JsonElement? schema = default)
+        {
+            return new GetColumnNamesSchemaForUpdateWebhookResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetSubitemColumnNamesResponse"/>.
+        /// </summary>
+        public static GetSubitemColumnNamesResponse GetSubitemColumnNamesResponse(
+            JsonElement? schema = default)
+        {
+            return new GetSubitemColumnNamesResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetSubitemSchemaResponse"/>.
+        /// </summary>
+        public static GetSubitemSchemaResponse GetSubitemSchemaResponse(
+            JsonElement? schema = default)
+        {
+            return new GetSubitemSchemaResponse
+            {
+                Schema = schema,
             };
         }
     }
@@ -1782,267 +1782,6 @@ namespace Azure.Connectors.Sdk.Monday
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get boards
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="workspaceId">workspaceId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get boards response.</returns>
-        public virtual async Task<List<JsonElement?>> GetBoardsAsync(string workspaceId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetBoardsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (workspaceId != default)
-                    queryParams.Add($"workspaceId={Uri.EscapeDataString(workspaceId.ToString())}");
-                var path = $"/getData/getBoards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get groups for the Get Items operation
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get groups for the Get Items operation response.</returns>
-        public virtual async Task<List<JsonElement?>> GetGroupsForGetItemsAsync(string boardId, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetGroupsForGetItemsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId is null)
-                    throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get columns for item filtering
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get columns for item filtering response.</returns>
-        public virtual async Task<List<JsonElement?>> GetColumnsForItemFilteringAsync(string boardId, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnsForItemFilteringAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId is null)
-                    throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get column filter operator
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="columnId">columnId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get column filter operator response.</returns>
-        public virtual async Task<List<JsonElement?>> GetColumnFilterOperatorAsync(string boardId, string columnId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnFilterOperatorAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId is null)
-                    throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                if (columnId != default)
-                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
-                var path = $"/getData/getColumnFilterOperator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get column names for a board ID
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get column names for a board ID response.</returns>
-        public virtual async Task<GetColumnNamesSchemaResponse> GetColumnNamesSchemaAsync(string boardId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                var path = $"/getSchema/getColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetColumnNamesSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets single column schema for a board ID
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="columnId">columnId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Gets single column schema for a board ID response.</returns>
-        public virtual async Task<GetSingleColumnSchemaResponse> GetSingleColumnSchemaAsync(string boardId = default, string columnId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSingleColumnSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                if (columnId != default)
-                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
-                var path = $"/getSchema/getSingleColumnSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetSingleColumnSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get column names for a board ID for a webhook
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get column names for a board ID for a webhook response.</returns>
-        public virtual async Task<GetColumnNamesSchemaForWebhookResponse> GetColumnNamesSchemaForWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForWebhookAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                var path = $"/getSchema/getColumnNamesForWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetColumnNamesSchemaForWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get column names for a board ID for a webhook
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get column names for a board ID for a webhook response.</returns>
-        public virtual async Task<GetSchemaForGetItemsActionResponse> GetSchemaForGetItemsActionAsync(string boardId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSchemaForGetItemsActionAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                var path = $"/getSchema/getSchemaForGetItemsAction" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetSchemaForGetItemsActionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get column names for a board ID for an update webhook
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="boardId">boardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get column names for a board ID for an update webhook response.</returns>
-        public virtual async Task<GetColumnNamesSchemaForUpdateWebhookResponse> GetColumnNamesSchemaForUpdateWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForUpdateWebhookAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
-                var path = $"/getSchema/getColumnNamesForUpdateWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetColumnNamesSchemaForUpdateWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Create an item
@@ -2284,64 +2023,6 @@ namespace Azure.Connectors.Sdk.Monday
                 var path = $"/executePowerAutomateAction/CreateSubitem";
                 return await this
                     .CallConnectorAsync<CreateSubitemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get subitem column names
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="parentBoardId">parentBoardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get subitem column names response.</returns>
-        public virtual async Task<GetSubitemColumnNamesResponse> GetSubitemColumnNamesAsync(string parentBoardId, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemColumnNamesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (parentBoardId is null)
-                    throw new ArgumentNullException(nameof(parentBoardId));
-                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
-                var path = $"/getSchema/getSubitemColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetSubitemColumnNamesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get subitem column names
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="parentBoardId">parentBoardId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get subitem column names response.</returns>
-        public virtual async Task<GetSubitemSchemaResponse> GetSubitemSchemaAsync(string parentBoardId, CancellationToken cancellationToken = default)
-        {
-            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (parentBoardId is null)
-                    throw new ArgumentNullException(nameof(parentBoardId));
-                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
-                var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetSubitemSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2611,6 +2292,325 @@ namespace Azure.Connectors.Sdk.Monday
                 var path = $"/getData/getWorkspacesV2";
                 return await this
                     .CallConnectorAsync<GetWorkspacesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get boards
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="workspaceId">workspaceId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get boards response.</returns>
+        public virtual async Task<List<JsonElement?>> GetBoardsAsync(string workspaceId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetBoardsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (workspaceId != default)
+                    queryParams.Add($"workspaceId={Uri.EscapeDataString(workspaceId.ToString())}");
+                var path = $"/getData/getBoards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get groups for the Get Items operation
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get groups for the Get Items operation response.</returns>
+        public virtual async Task<List<JsonElement?>> GetGroupsForGetItemsAsync(string boardId, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetGroupsForGetItemsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get columns for item filtering
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get columns for item filtering response.</returns>
+        public virtual async Task<List<JsonElement?>> GetColumnsForItemFilteringAsync(string boardId, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnsForItemFilteringAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column filter operator
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="columnId">columnId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column filter operator response.</returns>
+        public virtual async Task<List<JsonElement?>> GetColumnFilterOperatorAsync(string boardId, string columnId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnFilterOperatorAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId is null)
+                    throw new ArgumentNullException(nameof(boardId));
+                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                if (columnId != default)
+                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
+                var path = $"/getData/getColumnFilterOperator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names for a board ID
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names for a board ID response.</returns>
+        public virtual async Task<GetColumnNamesSchemaResponse> GetColumnNamesSchemaAsync(string boardId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets single column schema for a board ID
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="columnId">columnId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Gets single column schema for a board ID response.</returns>
+        public virtual async Task<GetSingleColumnSchemaResponse> GetSingleColumnSchemaAsync(string boardId = default, string columnId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSingleColumnSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                if (columnId != default)
+                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
+                var path = $"/getSchema/getSingleColumnSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSingleColumnSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names for a board ID for a webhook
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names for a board ID for a webhook response.</returns>
+        public virtual async Task<GetColumnNamesSchemaForWebhookResponse> GetColumnNamesSchemaForWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names for a board ID for a webhook
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names for a board ID for a webhook response.</returns>
+        public virtual async Task<GetSchemaForGetItemsActionResponse> GetSchemaForGetItemsActionAsync(string boardId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSchemaForGetItemsActionAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getSchemaForGetItemsAction" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSchemaForGetItemsActionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names for a board ID for an update webhook
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names for a board ID for an update webhook response.</returns>
+        public virtual async Task<GetColumnNamesSchemaForUpdateWebhookResponse> GetColumnNamesSchemaForUpdateWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForUpdateWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForUpdateWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForUpdateWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get subitem column names
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="parentBoardId">parentBoardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get subitem column names response.</returns>
+        public virtual async Task<GetSubitemColumnNamesResponse> GetSubitemColumnNamesAsync(string parentBoardId, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemColumnNamesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                var path = $"/getSchema/getSubitemColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSubitemColumnNamesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get subitem column names
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="parentBoardId">parentBoardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get subitem column names response.</returns>
+        public virtual async Task<GetSubitemSchemaResponse> GetSubitemSchemaAsync(string parentBoardId, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetSubitemSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSubitemSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

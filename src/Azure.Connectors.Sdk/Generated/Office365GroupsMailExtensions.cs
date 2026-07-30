@@ -45,7 +45,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Conversation object.
     /// </summary>
     public class Conversation
     {
@@ -80,7 +80,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in threads
+    /// Conversation thread object.
     /// </summary>
     public class ConversationThread
     {
@@ -137,7 +137,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in posts
+    /// Represents an individual Post item within a conversationThread entity.
     /// </summary>
     public class Post
     {
@@ -202,7 +202,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// body
+    /// Represents properties of the body of an item, such as a message, event or group post.
     /// </summary>
     public class ItemBody
     {
@@ -242,7 +242,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Response for Create a new conversation in a group
+    /// The response of with the created conversation details.
     /// </summary>
     public class CreateConversationResponse
     {
@@ -346,16 +346,6 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Response for List user groups
-    /// </summary>
-    public class ListGroupsResponse
-    {
-        /// <summary>Array with the groups the user is part of.</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
     /// Response for When a new email arrives to a group
     /// </summary>
     public class OnNewEmailInGroupResponse
@@ -366,7 +356,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in Response of the trigger.
+    /// When a new email arrives trigger response.
     /// </summary>
     public class ConversationTriggerResponse
     {
@@ -385,7 +375,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in threads
+    /// Conversation thread object.
     /// </summary>
     public class ConversationThreadTriggerResponse
     {
@@ -399,7 +389,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in posts
+    /// Represents an individual Post item within a conversationThread entity.
     /// </summary>
     public class PostTriggerResponse
     {
@@ -430,7 +420,17 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// ReplyConversationThreadBody
+    /// Response for List user groups
+    /// </summary>
+    public class ListGroupsResponse
+    {
+        /// <summary>Array with the groups the user is part of.</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Reply Conversation Thread body.
     /// </summary>
     public class ReplyConversationThreadBody
     {
@@ -472,7 +472,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// Item in File attachments to include.
+    /// File attachment.
     /// </summary>
     public class ClientSendAttachment
     {
@@ -490,7 +490,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// ForwardPost_V2Body
+    /// New forward post body.
     /// </summary>
     public class ForwardPostBody
     {
@@ -504,7 +504,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     }
 
     /// <summary>
-    /// CreateConversationBody
+    /// New Conversation body.
     /// </summary>
     public class CreateConversationBody
     {
@@ -775,18 +775,6 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ListGroupsResponse"/>.
-        /// </summary>
-        public static ListGroupsResponse ListGroupsResponse(
-            List<JsonElement?> value = default)
-        {
-            return new ListGroupsResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="OnNewEmailInGroupResponse"/>.
         /// </summary>
         public static OnNewEmailInGroupResponse OnNewEmailInGroupResponse(
@@ -841,6 +829,18 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
                 PostId = postId,
                 PostLastModifiedTimestamp = postLastModifiedTimestamp,
                 PostChangeKey = postChangeKey,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListGroupsResponse"/>.
+        /// </summary>
+        public static ListGroupsResponse ListGroupsResponse(
+            List<JsonElement?> value = default)
+        {
+            return new ListGroupsResponse
+            {
+                Value = value,
             };
         }
 
@@ -1002,6 +1002,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         /// </summary>
         public static class OnNewEmailInGroup
         {
+            /// <summary>
+            /// Pick a group from the drop down or enter group id.
+            /// Required.
+            /// Dynamic values from: ListGroups.
+            /// </summary>
+            public const string GroupId = "groupId";
+
             /// <summary>
             /// The '$filter' parameter.
             /// </summary>
@@ -1414,34 +1421,6 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         }
 
         /// <summary>
-        /// List user groups
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List user groups response.</returns>
-        public virtual async Task<ListGroupsResponse> ListGroupsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.ListGroupsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add("$filter=groupTypes%2Fany%28c%3Ac%20eq%20%27Unified%27%29");
-                queryParams.Add("$select=id%2CdisplayName");
-                queryParams.Add("$top=999");
-                var path = $"/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Reply to a conversation thread
         /// </summary>
         /// <remarks>Reply to a thread in a group conversation and add a new post to it.</remarks>
@@ -1555,6 +1534,34 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                 var path = $"/beta/groups/{Uri.EscapeDataString(groupMail.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/forward";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List user groups
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List user groups response.</returns>
+        public virtual async Task<ListGroupsResponse> ListGroupsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = Office365GroupsMailClient.ConnectorActivitySource.StartActivity("Office365GroupsMailClient.ListGroupsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("$filter=groupTypes%2Fany%28c%3Ac%20eq%20%27Unified%27%29");
+                queryParams.Add("$select=id%2CdisplayName");
+                queryParams.Add("$top=999");
+                var path = $"/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

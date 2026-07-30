@@ -315,6 +315,172 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     }
 
     /// <summary>
+    /// Response for Add deal (V2)
+    /// </summary>
+    public class DealResponseV2
+    {
+        /// <summary>Id of the deal.</summary>
+        [JsonPropertyName("id")]
+        public int? DealId { get; set; }
+
+        /// <summary>creator_user_id</summary>
+        [JsonPropertyName("creator_user_id")]
+        public JsonElement? Creator { get; set; }
+
+        /// <summary>user_id</summary>
+        [JsonPropertyName("user_id")]
+        public JsonElement? User { get; set; }
+
+        /// <summary>person_id</summary>
+        [JsonPropertyName("person_id")]
+        public JsonElement? Contact { get; set; }
+
+        /// <summary>org_id</summary>
+        [JsonPropertyName("org_id")]
+        public JsonElement? Organization { get; set; }
+
+        /// <summary>Open, won, lost or deleted.</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
+        /// <summary>Title of the deal.</summary>
+        [JsonPropertyName("title")]
+        public string DealTitle { get; set; }
+
+        /// <summary>Monetary value of the deal.</summary>
+        [JsonPropertyName("value")]
+        public double? DealValue { get; set; }
+
+        /// <summary>Currency associated with the deal value.</summary>
+        [JsonPropertyName("currency")]
+        public string Currency { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("add_time")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("update_time")]
+        [JsonInclude]
+        public DateTime? UpdatedDateTime { get; init; }
+
+        /// <summary>ID of stage the deal is placed in a pipeline.</summary>
+        [JsonPropertyName("stage_id")]
+        public int? StageId { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("stage_change_time")]
+        [JsonInclude]
+        public DateTime? StageUpdatedDateTime { get; init; }
+
+        /// <summary>True if the deal is active.</summary>
+        [JsonPropertyName("active")]
+        public bool? IsActive { get; set; }
+
+        /// <summary>True if the deal has been deleted.</summary>
+        [JsonPropertyName("deleted")]
+        public bool? IsDeleted { get; set; }
+
+        /// <summary>yyyy-MM-dd</summary>
+        [JsonPropertyName("next_activity_date")]
+        public string NextActivityDate { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("next_activity_time")]
+        public string NextActivityTime { get; set; }
+
+        /// <summary>Id of the next activity.</summary>
+        [JsonPropertyName("next_activity_id")]
+        public int? NextActivityId { get; set; }
+
+        /// <summary>Id of the last activity.</summary>
+        [JsonPropertyName("last_activity_id")]
+        public int? LastActivityId { get; set; }
+
+        /// <summary>yyyy-MM-dd</summary>
+        [JsonPropertyName("last_activity_date")]
+        public string LastActivityDate { get; set; }
+
+        /// <summary>Message about why the deal was lost (to be used when status=lost).</summary>
+        [JsonPropertyName("lost_reason")]
+        public string LostReason { get; set; }
+
+        /// <summary>Owner, followers or entire company.</summary>
+        [JsonPropertyName("visible_to")]
+        public string Visibility { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("close_time")]
+        [JsonInclude]
+        public DateTime? ClosedDateTime { get; init; }
+
+        /// <summary>Id of pipeline the deal is associated with.</summary>
+        [JsonPropertyName("pipeline_id")]
+        public int? PipelineId { get; set; }
+
+        /// <summary>Number of products associated with the deal.</summary>
+        [JsonPropertyName("products_count")]
+        public int? ProductsCount { get; set; }
+
+        /// <summary>Number of files associated with the deal.</summary>
+        [JsonPropertyName("files_count")]
+        public int? FilesCount { get; set; }
+
+        /// <summary>Number of notes associated with the deal.</summary>
+        [JsonPropertyName("notes_count")]
+        public int? NotesCount { get; set; }
+
+        /// <summary>Number of followers associated with the deal.</summary>
+        [JsonPropertyName("followers_count")]
+        public int? FollowersCount { get; set; }
+
+        /// <summary>Number of email messages associated with the deal.</summary>
+        [JsonPropertyName("email_messages_count")]
+        public int? EmailMessageCount { get; set; }
+
+        /// <summary>Number of activities associated with the deal.</summary>
+        [JsonPropertyName("activities_count")]
+        public int? ActivitiesCount { get; set; }
+
+        /// <summary>Number of done activities associated with the deal.</summary>
+        [JsonPropertyName("done_activities_count")]
+        public int? DoneActivitiesCount { get; set; }
+
+        /// <summary>Number of undone activities associated with the deals.</summary>
+        [JsonPropertyName("undone_activities_count")]
+        public int? UndoneActivitiesCount { get; set; }
+
+        /// <summary>Number of referenced activities associated with the deal.</summary>
+        [JsonPropertyName("reference_activities_count")]
+        public int? ReferencedActivitiesCount { get; set; }
+
+        /// <summary>Number of participants associated with the deal.</summary>
+        [JsonPropertyName("participants_count")]
+        public int? ParticipantsCount { get; set; }
+
+        /// <summary>yyyy-MM-dd</summary>
+        [JsonPropertyName("expected_close_date")]
+        public string ExpectedCloseDate { get; set; }
+
+        /// <summary>Subject of next activity associated with the deal.</summary>
+        [JsonPropertyName("next_activity_subject")]
+        public string NextActivitySubject { get; set; }
+
+        /// <summary>Type of next activity associated with the deal.</summary>
+        [JsonPropertyName("next_activity_type")]
+        public string NextActivityType { get; set; }
+
+        /// <summary>Duration of next activity associated with the deal.</summary>
+        [JsonPropertyName("next_activity_duration")]
+        public string NextActivityDuration { get; set; }
+
+        /// <summary>Notes for next activity associated with the deal</summary>
+        [JsonPropertyName("next_activity_note")]
+        public string NextActivityNote { get; set; }
+    }
+
+    /// <summary>
     /// Response for List deals
     /// </summary>
     public class ListDealsResponse
@@ -672,6 +838,94 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="DealResponseV2"/>.
+        /// </summary>
+        public static DealResponseV2 DealResponseV2(
+            int? dealId = default,
+            JsonElement? creator = default,
+            JsonElement? user = default,
+            JsonElement? contact = default,
+            JsonElement? organization = default,
+            string status = default,
+            string dealTitle = default,
+            double? dealValue = default,
+            string currency = default,
+            DateTime? createdDateTime = default,
+            DateTime? updatedDateTime = default,
+            int? stageId = default,
+            DateTime? stageUpdatedDateTime = default,
+            bool? isActive = default,
+            bool? isDeleted = default,
+            string nextActivityDate = default,
+            string nextActivityTime = default,
+            int? nextActivityId = default,
+            int? lastActivityId = default,
+            string lastActivityDate = default,
+            string lostReason = default,
+            string visibility = default,
+            DateTime? closedDateTime = default,
+            int? pipelineId = default,
+            int? productsCount = default,
+            int? filesCount = default,
+            int? notesCount = default,
+            int? followersCount = default,
+            int? emailMessageCount = default,
+            int? activitiesCount = default,
+            int? doneActivitiesCount = default,
+            int? undoneActivitiesCount = default,
+            int? referencedActivitiesCount = default,
+            int? participantsCount = default,
+            string expectedCloseDate = default,
+            string nextActivitySubject = default,
+            string nextActivityType = default,
+            string nextActivityDuration = default,
+            string nextActivityNote = default)
+        {
+            return new DealResponseV2
+            {
+                DealId = dealId,
+                Creator = creator,
+                User = user,
+                Contact = contact,
+                Organization = organization,
+                Status = status,
+                DealTitle = dealTitle,
+                DealValue = dealValue,
+                Currency = currency,
+                CreatedDateTime = createdDateTime,
+                UpdatedDateTime = updatedDateTime,
+                StageId = stageId,
+                StageUpdatedDateTime = stageUpdatedDateTime,
+                IsActive = isActive,
+                IsDeleted = isDeleted,
+                NextActivityDate = nextActivityDate,
+                NextActivityTime = nextActivityTime,
+                NextActivityId = nextActivityId,
+                LastActivityId = lastActivityId,
+                LastActivityDate = lastActivityDate,
+                LostReason = lostReason,
+                Visibility = visibility,
+                ClosedDateTime = closedDateTime,
+                PipelineId = pipelineId,
+                ProductsCount = productsCount,
+                FilesCount = filesCount,
+                NotesCount = notesCount,
+                FollowersCount = followersCount,
+                EmailMessageCount = emailMessageCount,
+                ActivitiesCount = activitiesCount,
+                DoneActivitiesCount = doneActivitiesCount,
+                UndoneActivitiesCount = undoneActivitiesCount,
+                ReferencedActivitiesCount = referencedActivitiesCount,
+                ParticipantsCount = participantsCount,
+                ExpectedCloseDate = expectedCloseDate,
+                NextActivitySubject = nextActivitySubject,
+                NextActivityType = nextActivityType,
+                NextActivityDuration = nextActivityDuration,
+                NextActivityNote = nextActivityNote,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="ListDealsResponse"/>.
         /// </summary>
         public static ListDealsResponse ListDealsResponse(
@@ -790,7 +1044,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     /// Typed trigger payload for the OnTrigNewDeal trigger (Pipedrive "When a new deal is added (V2)", operationId: TrigNewDealV2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PipedriveOnTrigNewDealTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class PipedriveOnTrigNewDealTriggerPayload : TriggerCallbackPayload<DealResponse>
+    public class PipedriveOnTrigNewDealTriggerPayload : TriggerCallbackPayload<DealResponseV2>
     {
     }
 
@@ -1021,14 +1275,14 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add deal (V2) response.</returns>
-        public virtual async Task<DealResponse> AddDealAsync(AddDealRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<DealResponseV2> AddDealAsync(AddDealRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.AddDealAsync");
             try
             {
                 var path = $"/connector-v2/v1/deals";
                 return await this
-                    .CallConnectorAsync<DealResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<DealResponseV2>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1047,14 +1301,14 @@ namespace Azure.Connectors.Sdk.Pipedrive
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update deal stage (V2) response.</returns>
-        public virtual async Task<DealResponse> UpdateDealStageAsync([DynamicValues("ListDeals")] int dealId, UpdateDealStageRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<DealResponseV2> UpdateDealStageAsync([DynamicValues("ListDeals")] int dealId, UpdateDealStageRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.UpdateDealStageAsync");
             try
             {
                 var path = $"/connector-v2/update_stage_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
                 return await this
-                    .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync<DealResponseV2>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

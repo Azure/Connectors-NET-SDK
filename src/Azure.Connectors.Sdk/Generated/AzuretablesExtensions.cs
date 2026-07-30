@@ -29,30 +29,6 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     #region Types
 
     /// <summary>
-    /// Response for Get storage accounts
-    /// </summary>
-    public class StorageAccountList
-    {
-        /// <summary>List of storage account names</summary>
-        [JsonPropertyName("value")]
-        public List<StorageAccount> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of storage account names
-    /// </summary>
-    public class StorageAccount
-    {
-        /// <summary>The name of the storage account.</summary>
-        [JsonPropertyName("Name")]
-        public string StorageAccountNameOrTableEndpoint { get; set; }
-
-        /// <summary>The display name of the storage account.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string StorageAccountDisplayName { get; set; }
-    }
-
-    /// <summary>
     /// Insert Entity (V2)
     /// </summary>
     public class CreateEntityInput
@@ -65,7 +41,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Response for Insert Entity (V2)
+    /// Data for a single entity
     /// </summary>
     public class InsertEntityResponse
     {
@@ -87,7 +63,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Response for Create table (V2)
+    /// The metadata for the table
     /// </summary>
     public class GetTableResponse
     {
@@ -101,7 +77,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Response for Get entities (V2)
+    /// Entity Response Object
     /// </summary>
     public class GetEntitiesResponse
     {
@@ -115,7 +91,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Item in List of Entities
+    /// An entity
     /// </summary>
     public class EntityItem
     {
@@ -133,7 +109,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Response for Get entity (V2)
+    /// An entity
     /// </summary>
     public class GetEntityResponse
     {
@@ -155,7 +131,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Response for List tables (V2)
+    /// Table query response object
     /// </summary>
     public class GetTablesResponse
     {
@@ -216,6 +192,30 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
+    /// <summary>
+    /// List of storage account names
+    /// </summary>
+    public class StorageAccountList
+    {
+        /// <summary>List of storage account names</summary>
+        [JsonPropertyName("value")]
+        public List<StorageAccount> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Storage account
+    /// </summary>
+    public class StorageAccount
+    {
+        /// <summary>The name of the storage account.</summary>
+        [JsonPropertyName("Name")]
+        public string StorageAccountNameOrTableEndpoint { get; set; }
+
+        /// <summary>The display name of the storage account.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string StorageAccountDisplayName { get; set; }
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -227,32 +227,6 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     /// </summary>
     public static class AzureTablesModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="StorageAccountList"/>.
-        /// </summary>
-        public static StorageAccountList StorageAccountList(
-            List<StorageAccount> value = default)
-        {
-            return new StorageAccountList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="StorageAccount"/>.
-        /// </summary>
-        public static StorageAccount StorageAccount(
-            string storageAccountNameOrTableEndpoint = default,
-            string storageAccountDisplayName = default)
-        {
-            return new StorageAccount
-            {
-                StorageAccountNameOrTableEndpoint = storageAccountNameOrTableEndpoint,
-                StorageAccountDisplayName = storageAccountDisplayName,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="InsertEntityResponse"/>.
         /// </summary>
@@ -346,6 +320,32 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
                 ListOfTables = listOfTables,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccountList"/>.
+        /// </summary>
+        public static StorageAccountList StorageAccountList(
+            List<StorageAccount> value = default)
+        {
+            return new StorageAccountList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccount"/>.
+        /// </summary>
+        public static StorageAccount StorageAccount(
+            string storageAccountNameOrTableEndpoint = default,
+            string storageAccountDisplayName = default)
+        {
+            return new StorageAccount
+            {
+                StorageAccountNameOrTableEndpoint = storageAccountNameOrTableEndpoint,
+                StorageAccountDisplayName = storageAccountDisplayName,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -420,30 +420,6 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get storage accounts
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get storage accounts response.</returns>
-        public virtual async Task<StorageAccountList> GetStorageAccountsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetStorageAccountsAsync");
-            try
-            {
-                var path = $"/v2/GetStorageAccounts";
-                return await this
-                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Insert Entity (V2)
@@ -836,6 +812,30 @@ namespace Azure.Connectors.Sdk.Azuretables
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint.ToString()))}/tables/{Uri.EscapeDataString(table.ToString())}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey.ToString())}',RowKey='{Uri.EscapeDataString(rowKey.ToString())}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get storage accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get storage accounts response.</returns>
+        public virtual async Task<StorageAccountList> GetStorageAccountsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetStorageAccountsAsync");
+            try
+            {
+                var path = $"/v2/GetStorageAccounts";
+                return await this
+                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

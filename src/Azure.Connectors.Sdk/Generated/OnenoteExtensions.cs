@@ -112,7 +112,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// links
+    /// The links associated with the OneNote page.
     /// </summary>
     public class Link
     {
@@ -184,7 +184,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// The fields included in a section list item.
     /// </summary>
     public class SectionListItem
     {
@@ -202,7 +202,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Response for When a new section is created
+    /// Response for a new section.
     /// </summary>
     public class NewSectionResponse
     {
@@ -212,7 +212,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing a specific section.
+    /// The fields included in a section.
     /// </summary>
     public class SectionResponse
     {
@@ -276,7 +276,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Response for When a new section group is created
+    /// Response for a new section group.
     /// </summary>
     public class NewSectionGroupResponse
     {
@@ -286,7 +286,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing a specific section group.
+    /// The fields included in a section group.
     /// </summary>
     public class SectionGroupResponse
     {
@@ -324,7 +324,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Response for When a new page is created in a section
+    /// Response for a new page.
     /// </summary>
     public class NewPageResponse
     {

@@ -31,31 +31,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     #region Types
 
     /// <summary>
-    /// Response for Get storage accounts
-    /// </summary>
-    public class StorageAccountList
-    {
-        /// <summary>List of storage account names</summary>
-        [JsonPropertyName("value")]
-        public List<StorageAccount> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of storage account names
-    /// </summary>
-    public class StorageAccount
-    {
-        /// <summary>The name of the storage account.</summary>
-        [JsonPropertyName("Name")]
-        public string StorageAccountName { get; set; }
-
-        /// <summary>The display name of the storage account.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string StorageAccountDisplayName { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Copy blob (V2)
+    /// Blob metadata
     /// </summary>
     public class BlobMetadata
     {
@@ -103,7 +79,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
-    /// Response for Create SAS URI by path (V2)
+    /// Shared access signature
     /// </summary>
     public class SharedAccessSignature
     {
@@ -113,7 +89,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
-    /// Response for Get available access policies (V2)
+    /// The set of parameters to generate a SAS link.
     /// </summary>
     public class SharedAccessSignatureBlobPolicy
     {
@@ -143,7 +119,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
-    /// Response for Get Blob Metadata (V2)
+    /// Data with sensitivity label info
     /// </summary>
     public class DataWithSensitivityLabelInfo
     {
@@ -195,7 +171,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
-    /// Item in Sensitivity label metadata info list
+    /// SensitivityLabel metadata info
     /// </summary>
     public class SensitivityLabelMetadata
     {
@@ -241,7 +217,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
-    /// Response for Lists blobs (V2)
+    /// Represents a list of blobs alongside their respective sensitivity label metadata.
     /// </summary>
     public class ListOfBlobsWithSensitivityLabels
     {
@@ -251,7 +227,7 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     }
 
     /// <summary>
-    /// Response for Lists blobs in the root folder  (V2)
+    /// Represents a page of blob metadata.
     /// </summary>
     public class BlobMetadataPage : IPageable<BlobMetadata>
     {
@@ -267,6 +243,30 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
         /// <summary>A marker which can be used to retrieve the next page.</summary>
         [JsonPropertyName("nextPageMarker")]
         public string NextPageMarker { get; set; }
+    }
+
+    /// <summary>
+    /// List of storage account names
+    /// </summary>
+    public class StorageAccountList
+    {
+        /// <summary>List of storage account names</summary>
+        [JsonPropertyName("value")]
+        public List<StorageAccount> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Storage account
+    /// </summary>
+    public class StorageAccount
+    {
+        /// <summary>The name of the storage account.</summary>
+        [JsonPropertyName("Name")]
+        public string StorageAccountName { get; set; }
+
+        /// <summary>The display name of the storage account.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string StorageAccountDisplayName { get; set; }
     }
 
     /// <summary>
@@ -405,32 +405,6 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
     /// </summary>
     public static class AzureBlobModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="StorageAccountList"/>.
-        /// </summary>
-        public static StorageAccountList StorageAccountList(
-            List<StorageAccount> value = default)
-        {
-            return new StorageAccountList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="StorageAccount"/>.
-        /// </summary>
-        public static StorageAccount StorageAccount(
-            string storageAccountName = default,
-            string storageAccountDisplayName = default)
-        {
-            return new StorageAccount
-            {
-                StorageAccountName = storageAccountName,
-                StorageAccountDisplayName = storageAccountDisplayName,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="BlobMetadata"/>.
         /// </summary>
@@ -584,6 +558,32 @@ namespace Azure.Connectors.Sdk.AzureBlob.Models
                 NextPageMarker = nextPageMarker,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccountList"/>.
+        /// </summary>
+        public static StorageAccountList StorageAccountList(
+            List<StorageAccount> value = default)
+        {
+            return new StorageAccountList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccount"/>.
+        /// </summary>
+        public static StorageAccount StorageAccount(
+            string storageAccountName = default,
+            string storageAccountDisplayName = default)
+        {
+            return new StorageAccount
+            {
+                StorageAccountName = storageAccountName,
+                StorageAccountDisplayName = storageAccountDisplayName,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -657,6 +657,13 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// </summary>
         public static class OnUpdatedFiles
         {
+            /// <summary>
+            /// Azure Storage account name or blob endpoint.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
             /// <summary>
             /// Select a container.
             /// Required.
@@ -746,30 +753,6 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get storage accounts
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get storage accounts response.</returns>
-        public virtual async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetDataSetsAsync");
-            try
-            {
-                var path = $"/v2/codeless/GetDataSets";
-                return await this
-                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Copy blob (V2)
@@ -1299,6 +1282,30 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob.ToString()))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get storage accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get storage accounts response.</returns>
+        public virtual async Task<StorageAccountList> GetDataSetsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetDataSetsAsync");
+            try
+            {
+                var path = $"/v2/codeless/GetDataSets";
+                return await this
+                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

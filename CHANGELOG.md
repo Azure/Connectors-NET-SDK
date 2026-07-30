@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **All connector clients regenerated; version-affixed models are no longer collapsed onto one name** — the generator stripped a version affix from a definition name without knowing which definitions a connector retains, so `FooV1` and `FooV2` both claimed `Foo` and only one type was emitted. The dropped one produced a model that compiled and looked complete while omitting fields the service returns. Names are now decided against the retained definition set: a single claimant still strips the affix, several claimants describing the same wire shape still collapse to one type, and claimants with differing shapes keep their affixes so no shape is lost.
+
+  `AzureIoTCentral` is the clearest case and shipped separately in #225: `Device` became `DeviceV1` and `DeviceV2`, making the `organizations` property reachable. In this regeneration the same fix reaches `AzureAD`, `Office365`, `Pipedrive` and `Planner`. Callers referencing a previously collapsed model name on those clients must move to the affixed name.
+
+  The remaining 71 regenerated clients carry accumulated output from generator fixes that merged after their last regeneration, rather than new behaviour introduced here. (AzureUX-BPM PR 16618864)
+
 - **SQL Server metadata methods now address the default dataset; the server- and database-scoped forms moved to `V2` names** — the unversioned operation owns the unversioned method name, matching the Python SDK. Existing callers must rename:
 
   | Before | After |

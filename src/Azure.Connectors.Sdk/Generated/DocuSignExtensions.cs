@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Get document generation form fields from template (bulk send templates only)
+    /// Document generation form fields from the template
     /// </summary>
     public class GetDocGenTemplateTabsResponse
     {
@@ -519,30 +519,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Get organizations
-    /// </summary>
-    public class GetOrganizationsResponse
-    {
-        /// <summary>list of organizations</summary>
-        [JsonPropertyName("organizations")]
-        public List<Organization> Organizations { get; set; }
-    }
-
-    /// <summary>
-    /// Item in list of organizations
-    /// </summary>
-    public class Organization
-    {
-        /// <summary>The id of the organization.</summary>
-        [JsonPropertyName("id")]
-        public string OrganizationId { get; set; }
-
-        /// <summary>The name of the organization.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-    }
-
-    /// <summary>
     /// Response for Login
     /// </summary>
     public class GetLoginAccountsResponse
@@ -567,30 +543,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Get All Workflow Ids
-    /// </summary>
-    public class GetWorkFlowIdsResponse
-    {
-        /// <summary>Workflow ID</summary>
-        [JsonPropertyName("workflowIds")]
-        public List<WorkflowId> WorkflowIDs { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Workflow ID
-    /// </summary>
-    public class WorkflowId
-    {
-        /// <summary>The name of workflowID</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>The type of workflowID</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
     /// Response for List templates
     /// </summary>
     public class ListTemplatesResponse
@@ -612,78 +564,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// <summary>The name of the template.</summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
-    }
-
-    /// <summary>
-    /// Response for GetSigningGroups
-    /// </summary>
-    public class ListSigningGroupResponse
-    {
-        /// <summary>List of all signing groups</summary>
-        [JsonPropertyName("signingGroups")]
-        public List<SigningGroup> SigningGroups { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of all signing groups
-    /// </summary>
-    public class SigningGroup
-    {
-        /// <summary>The ID of the signing group.</summary>
-        [JsonPropertyName("signingGroupId")]
-        public string SigningGroupId { get; set; }
-
-        /// <summary>The name of the signing group.</summary>
-        [JsonPropertyName("groupName")]
-        public string SigningGroupName { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List folders
-    /// </summary>
-    public class ListFoldersResponse
-    {
-        /// <summary>Folders</summary>
-        [JsonPropertyName("folders")]
-        public List<Folder> Folders { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Folders
-    /// </summary>
-    public class Folder
-    {
-        /// <summary>The name of the folder.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>The id of the folder.</summary>
-        [JsonPropertyName("folderId")]
-        public string FolderId { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List envelopes
-    /// </summary>
-    public class ListEnvelopesResponse
-    {
-        /// <summary>The envelopes within a folder.</summary>
-        [JsonPropertyName("folderItems")]
-        public List<FolderItem> FolderItems { get; set; }
-    }
-
-    /// <summary>
-    /// Item in The envelopes within a folder.
-    /// </summary>
-    public class FolderItem
-    {
-        /// <summary>The id of the envelope.</summary>
-        [JsonPropertyName("envelopeId")]
-        public string EnvelopeId { get; set; }
-
-        /// <summary>The subject of the envelope.</summary>
-        [JsonPropertyName("subject")]
-        public string Subject { get; set; }
     }
 
     /// <summary>
@@ -753,30 +633,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Get the signers of a template in dynamic schema format
-    /// </summary>
-    public class GetDynamicSignersResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get the signers of a template in dynamic schema format
-    /// </summary>
-    public class GetDynamicRecipientsResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
     /// Response for Add tabs for a recipient on an envelope
     /// </summary>
     public class AddRecipientTabsResponse
@@ -811,197 +667,9 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Get Maestro Workflow Definitions
-    /// </summary>
-    public class WorkflowDefinitionsResponse
-    {
-        /// <summary>WorkflowDefinitions</summary>
-        [JsonPropertyName("WorkflowDefinitions")]
-        public List<WorkflowDefinition> WorkflowDefinitions { get; set; }
-    }
-
-    /// <summary>
-    /// Item in WorkflowDefinitions
-    /// </summary>
-    public class WorkflowDefinition
-    {
-        /// <summary>Id</summary>
-        [JsonPropertyName("Id")]
-        public string Id { get; set; }
-
-        /// <summary>Name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get Maestro Workflow Definition
-    /// </summary>
-    public class WorkflowDefinitionResponse
-    {
-        /// <summary>Id</summary>
-        [JsonPropertyName("Id")]
-        public string Id { get; set; }
-
-        /// <summary>Name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>PayloadSchema</summary>
-        [JsonPropertyName("PayloadSchema")]
-        public List<WorkflowDefPayloadSchema> PayloadSchema { get; set; }
-    }
-
-    /// <summary>
-    /// Item in PayloadSchema
-    /// </summary>
-    public class WorkflowDefPayloadSchema
-    {
-        /// <summary>Name</summary>
-        [JsonPropertyName("PropertyName")]
-        public string PropertyName { get; set; }
-
-        /// <summary>Type</summary>
-        [JsonPropertyName("Type")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Start Docusign workflow
+    /// TriggerMaestroFlowResponse
     /// </summary>
     public class TriggerMaestroFlowResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForTabTypes
-    /// </summary>
-    public class TabTypesResponse
-    {
-        /// <summary>Tab types</summary>
-        [JsonPropertyName("tabTypes")]
-        public List<TabType> TabTypes { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Tab types
-    /// </summary>
-    public class TabType
-    {
-        /// <summary>Display name of the tab.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Type of the tab.</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForRecipientTypes
-    /// </summary>
-    public class RecipientTypesResponse
-    {
-        /// <summary>Recipient types</summary>
-        [JsonPropertyName("tabTypes")]
-        public List<RecipientType> RecipientTypes { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Recipient types
-    /// </summary>
-    public class RecipientType
-    {
-        /// <summary>Display name of the recipient type.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Type of the recipient.</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForSignatureTypes
-    /// </summary>
-    public class SignatureTypesResponse
-    {
-        /// <summary>Signature types</summary>
-        [JsonPropertyName("tabTypes")]
-        public List<SignatureType> SignatureTypes { get; set; }
-    }
-
-    /// <summary>
-    /// Item in Signature types
-    /// </summary>
-    public class SignatureType
-    {
-        /// <summary>Display name of the signature type.</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Type of the signature.</summary>
-        [JsonPropertyName("type")]
-        public string Type { get; set; }
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForAnchorTabSchema
-    /// </summary>
-    public class StaticResponseForAnchorTabSchemaResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForCompositeTemplates
-    /// </summary>
-    public class StaticResponseForCompositeTemplatesResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForRecipientTypeSchema
-    /// </summary>
-    public class StaticResponseForRecipientTypeSchemaResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForEmbeddedSenderSchema
-    /// </summary>
-    public class StaticResponseForEmbeddedSenderSchemaResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForVerificationTypeSchema
-    /// </summary>
-    public class StaticResponseForVerificationTypeSchemaResponse
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
@@ -1014,18 +682,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     /// Response for Show build Number (For reference only. Do not include in a flow for execution)
     /// </summary>
     public class BuildNumberResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for StaticResponseForBuildNumberSchema
-    /// </summary>
-    public class StaticResponseForBuildNumberSchemaResponse
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
@@ -1091,7 +747,315 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for StaticResponseForEmbeddedSigningSchemaV2
+    /// Response for Get organizations
+    /// </summary>
+    public class GetOrganizationsResponse
+    {
+        /// <summary>list of organizations</summary>
+        [JsonPropertyName("organizations")]
+        public List<Organization> Organizations { get; set; }
+    }
+
+    /// <summary>
+    /// Item in list of organizations
+    /// </summary>
+    public class Organization
+    {
+        /// <summary>The id of the organization.</summary>
+        [JsonPropertyName("id")]
+        public string OrganizationId { get; set; }
+
+        /// <summary>The name of the organization.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List folders
+    /// </summary>
+    public class ListFoldersResponse
+    {
+        /// <summary>Folders</summary>
+        [JsonPropertyName("folders")]
+        public List<Folder> Folders { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Folders
+    /// </summary>
+    public class Folder
+    {
+        /// <summary>The name of the folder.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>The id of the folder.</summary>
+        [JsonPropertyName("folderId")]
+        public string FolderId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List envelopes
+    /// </summary>
+    public class ListEnvelopesResponse
+    {
+        /// <summary>The envelopes within a folder.</summary>
+        [JsonPropertyName("folderItems")]
+        public List<FolderItem> FolderItems { get; set; }
+    }
+
+    /// <summary>
+    /// Item in The envelopes within a folder.
+    /// </summary>
+    public class FolderItem
+    {
+        /// <summary>The id of the envelope.</summary>
+        [JsonPropertyName("envelopeId")]
+        public string EnvelopeId { get; set; }
+
+        /// <summary>The subject of the envelope.</summary>
+        [JsonPropertyName("subject")]
+        public string Subject { get; set; }
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForRecipientTypes
+    /// </summary>
+    public class RecipientTypesResponse
+    {
+        /// <summary>Recipient types</summary>
+        [JsonPropertyName("tabTypes")]
+        public List<RecipientType> RecipientTypes { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Recipient types
+    /// </summary>
+    public class RecipientType
+    {
+        /// <summary>Display name of the recipient type.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Type of the recipient.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForSignatureTypes
+    /// </summary>
+    public class SignatureTypesResponse
+    {
+        /// <summary>Signature types</summary>
+        [JsonPropertyName("tabTypes")]
+        public List<SignatureType> SignatureTypes { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Signature types
+    /// </summary>
+    public class SignatureType
+    {
+        /// <summary>Display name of the signature type.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Type of the signature.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// Response for GetSigningGroups
+    /// </summary>
+    public class ListSigningGroupResponse
+    {
+        /// <summary>List of all signing groups</summary>
+        [JsonPropertyName("signingGroups")]
+        public List<SigningGroup> SigningGroups { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of all signing groups
+    /// </summary>
+    public class SigningGroup
+    {
+        /// <summary>The ID of the signing group.</summary>
+        [JsonPropertyName("signingGroupId")]
+        public string SigningGroupId { get; set; }
+
+        /// <summary>The name of the signing group.</summary>
+        [JsonPropertyName("groupName")]
+        public string SigningGroupName { get; set; }
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForTabTypes
+    /// </summary>
+    public class TabTypesResponse
+    {
+        /// <summary>Tab types</summary>
+        [JsonPropertyName("tabTypes")]
+        public List<TabType> TabTypes { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Tab types
+    /// </summary>
+    public class TabType
+    {
+        /// <summary>Display name of the tab.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Type of the tab.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// WorkflowDefinitions Response
+    /// </summary>
+    public class WorkflowDefinitionsResponse
+    {
+        /// <summary>WorkflowDefinitions</summary>
+        [JsonPropertyName("WorkflowDefinitions")]
+        public List<WorkflowDefinition> WorkflowDefinitions { get; set; }
+    }
+
+    /// <summary>
+    /// WorkflowDefinition
+    /// </summary>
+    public class WorkflowDefinition
+    {
+        /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get All Workflow Ids
+    /// </summary>
+    public class GetWorkFlowIdsResponse
+    {
+        /// <summary>Workflow ID</summary>
+        [JsonPropertyName("workflowIds")]
+        public List<WorkflowId> WorkflowIDs { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Workflow ID
+    /// </summary>
+    public class WorkflowId
+    {
+        /// <summary>The name of workflowID</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>The type of workflowID</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// WorkflowDefinitionResponse
+    /// </summary>
+    public class WorkflowDefinitionResponse
+    {
+        /// <summary>Id</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>PayloadSchema</summary>
+        [JsonPropertyName("PayloadSchema")]
+        public List<WorkflowDefPayloadSchema> PayloadSchema { get; set; }
+    }
+
+    /// <summary>
+    /// WorkflowDefPayloadSchema
+    /// </summary>
+    public class WorkflowDefPayloadSchema
+    {
+        /// <summary>Name</summary>
+        [JsonPropertyName("PropertyName")]
+        public string PropertyName { get; set; }
+
+        /// <summary>Type</summary>
+        [JsonPropertyName("Type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get the signers of a template in dynamic schema format
+    /// </summary>
+    public class GetDynamicSignersResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Get the signers of a template in dynamic schema format
+    /// </summary>
+    public class GetDynamicRecipientsResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForRecipientTypeSchema
+    /// </summary>
+    public class StaticResponseForRecipientTypeSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForVerificationTypeSchema
+    /// </summary>
+    public class StaticResponseForVerificationTypeSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForEmbeddedSenderSchema
+    /// </summary>
+    public class StaticResponseForEmbeddedSenderSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForEmbeddedSigningSchema
     /// </summary>
     public class StaticResponseForEmbeddedSigningSchemaResponse
     {
@@ -1103,7 +1067,43 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// MaestroInputVariables
+    /// Response for StaticResponseForBuildNumberSchema
+    /// </summary>
+    public class StaticResponseForBuildNumberSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForAnchorTabSchema
+    /// </summary>
+    public class StaticResponseForAnchorTabSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for StaticResponseForCompositeTemplates
+    /// </summary>
+    public class StaticResponseForCompositeTemplatesResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// An object that represents input variables based on a workflow.
     /// </summary>
     [DynamicSchema("GetMaestroWorkflowDefinition")]
     public class MaestroInputVariables
@@ -1117,7 +1117,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// DynamicSigners
+    /// An object that represents signers based on a template.
     /// </summary>
     [DynamicSchema("GetDynamicSigners")]
     public class DynamicSigners
@@ -1131,7 +1131,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// DynamicRecipients
+    /// An object that represents recipients based on a template.
     /// </summary>
     [DynamicSchema("GetDynamicRecipients")]
     public class DynamicRecipients
@@ -1145,7 +1145,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// AdditionalRecipientParamsSchema
+    /// An object that represents the parameters for a specific recipient type.
     /// </summary>
     [DynamicSchema("StaticResponseForRecipientTypeSchema")]
     public class AdditionalRecipientParamsSchema
@@ -1159,7 +1159,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// AdditionalRecipientData
+    /// An object that represents additional parameters of a recipient.
     /// </summary>
     [DynamicSchema("StaticResponseForVerificationTypeSchema")]
     public class AdditionalRecipientData
@@ -1173,7 +1173,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// AdditionalURLForSenderView
+    /// Addtional Return URL
     /// </summary>
     [DynamicSchema("StaticResponseForEmbeddedSenderSchema")]
     public class AdditionalURLForSenderView
@@ -1187,7 +1187,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// DynamicSigningUrlFields
+    /// Addtional Return URL
     /// </summary>
     [DynamicSchema("StaticResponseForEmbeddedSigningSchemaV2")]
     public class DynamicSigningUrlFields
@@ -1201,7 +1201,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// BuildNumberSchema
+    /// Build number schema
     /// </summary>
     [DynamicSchema("StaticResponseForBuildNumberSchema")]
     public class BuildNumberSchema
@@ -1215,7 +1215,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// AccountCustomFields
+    /// An object that represents custom fields.
     /// </summary>
     [DynamicSchema("GetCustomFields")]
     public class AccountCustomFields
@@ -1229,7 +1229,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// AnchorTabSchema
+    /// An object that represents the schema for a specific anchor tab.
     /// </summary>
     [DynamicSchema("StaticResponseForAnchorTabSchema")]
     public class AnchorTabSchema
@@ -1243,7 +1243,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// CompositeTemplateSchema
+    /// An object that represents the schema for composite templates.
     /// </summary>
     [DynamicSchema("StaticResponseForCompositeTemplates")]
     public class CompositeTemplateSchema
@@ -1624,32 +1624,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetOrganizationsResponse"/>.
-        /// </summary>
-        public static GetOrganizationsResponse GetOrganizationsResponse(
-            List<Organization> organizations = default)
-        {
-            return new GetOrganizationsResponse
-            {
-                Organizations = organizations,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Organization"/>.
-        /// </summary>
-        public static Organization Organization(
-            string organizationId = default,
-            string name = default)
-        {
-            return new Organization
-            {
-                OrganizationId = organizationId,
-                Name = name,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="GetLoginAccountsResponse"/>.
         /// </summary>
         public static GetLoginAccountsResponse GetLoginAccountsResponse(
@@ -1676,32 +1650,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetWorkFlowIdsResponse"/>.
-        /// </summary>
-        public static GetWorkFlowIdsResponse GetWorkFlowIdsResponse(
-            List<WorkflowId> workflowIDs = default)
-        {
-            return new GetWorkFlowIdsResponse
-            {
-                WorkflowIDs = workflowIDs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WorkflowId"/>.
-        /// </summary>
-        public static WorkflowId WorkflowId(
-            string name = default,
-            string type = default)
-        {
-            return new WorkflowId
-            {
-                Name = name,
-                Type = type,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="ListTemplatesResponse"/>.
         /// </summary>
         public static ListTemplatesResponse ListTemplatesResponse(
@@ -1724,84 +1672,6 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
             {
                 TemplateId = templateId,
                 Name = name,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListSigningGroupResponse"/>.
-        /// </summary>
-        public static ListSigningGroupResponse ListSigningGroupResponse(
-            List<SigningGroup> signingGroups = default)
-        {
-            return new ListSigningGroupResponse
-            {
-                SigningGroups = signingGroups,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SigningGroup"/>.
-        /// </summary>
-        public static SigningGroup SigningGroup(
-            string signingGroupId = default,
-            string signingGroupName = default)
-        {
-            return new SigningGroup
-            {
-                SigningGroupId = signingGroupId,
-                SigningGroupName = signingGroupName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListFoldersResponse"/>.
-        /// </summary>
-        public static ListFoldersResponse ListFoldersResponse(
-            List<Folder> folders = default)
-        {
-            return new ListFoldersResponse
-            {
-                Folders = folders,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Folder"/>.
-        /// </summary>
-        public static Folder Folder(
-            string name = default,
-            string folderId = default)
-        {
-            return new Folder
-            {
-                Name = name,
-                FolderId = folderId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListEnvelopesResponse"/>.
-        /// </summary>
-        public static ListEnvelopesResponse ListEnvelopesResponse(
-            List<FolderItem> folderItems = default)
-        {
-            return new ListEnvelopesResponse
-            {
-                FolderItems = folderItems,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FolderItem"/>.
-        /// </summary>
-        public static FolderItem FolderItem(
-            string envelopeId = default,
-            string subject = default)
-        {
-            return new FolderItem
-            {
-                EnvelopeId = envelopeId,
-                Subject = subject,
             };
         }
 
@@ -1912,84 +1782,116 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WorkflowDefinitionsResponse"/>.
+        /// Creates a new instance of <see cref="CreateHookEnvelopeInput"/>.
         /// </summary>
-        public static WorkflowDefinitionsResponse WorkflowDefinitionsResponse(
-            List<WorkflowDefinition> workflowDefinitions = default)
+        public static CreateHookEnvelopeInput CreateHookEnvelopeInput(
+            string allUsers = default,
+            string allowEnvelopePublish = default,
+            string includeDocumentFields = default,
+            string requiresAcknowledgement = default,
+            string urlToPublishTo = default,
+            string connectConfigurationName = default,
+            List<string> triggerEvents = default)
         {
-            return new WorkflowDefinitionsResponse
+            return new CreateHookEnvelopeInput
             {
-                WorkflowDefinitions = workflowDefinitions,
+                AllUsers = allUsers,
+                AllowEnvelopePublish = allowEnvelopePublish,
+                IncludeDocumentFields = includeDocumentFields,
+                RequiresAcknowledgement = requiresAcknowledgement,
+                UrlToPublishTo = urlToPublishTo,
+                ConnectConfigurationName = connectConfigurationName,
+                TriggerEvents = triggerEvents,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WorkflowDefinition"/>.
+        /// Creates a new instance of <see cref="EmbeddedSigningResponse"/>.
         /// </summary>
-        public static WorkflowDefinition WorkflowDefinition(
-            string id = default,
+        public static EmbeddedSigningResponse EmbeddedSigningResponse(
+            string url = default)
+        {
+            return new EmbeddedSigningResponse
+            {
+                URL = url,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetOrganizationsResponse"/>.
+        /// </summary>
+        public static GetOrganizationsResponse GetOrganizationsResponse(
+            List<Organization> organizations = default)
+        {
+            return new GetOrganizationsResponse
+            {
+                Organizations = organizations,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Organization"/>.
+        /// </summary>
+        public static Organization Organization(
+            string organizationId = default,
             string name = default)
         {
-            return new WorkflowDefinition
+            return new Organization
             {
-                Id = id,
+                OrganizationId = organizationId,
                 Name = name,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WorkflowDefinitionResponse"/>.
+        /// Creates a new instance of <see cref="ListFoldersResponse"/>.
         /// </summary>
-        public static WorkflowDefinitionResponse WorkflowDefinitionResponse(
-            string id = default,
+        public static ListFoldersResponse ListFoldersResponse(
+            List<Folder> folders = default)
+        {
+            return new ListFoldersResponse
+            {
+                Folders = folders,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Folder"/>.
+        /// </summary>
+        public static Folder Folder(
             string name = default,
-            List<WorkflowDefPayloadSchema> payloadSchema = default)
+            string folderId = default)
         {
-            return new WorkflowDefinitionResponse
-            {
-                Id = id,
-                Name = name,
-                PayloadSchema = payloadSchema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WorkflowDefPayloadSchema"/>.
-        /// </summary>
-        public static WorkflowDefPayloadSchema WorkflowDefPayloadSchema(
-            string propertyName = default,
-            string type = default)
-        {
-            return new WorkflowDefPayloadSchema
-            {
-                PropertyName = propertyName,
-                Type = type,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TabTypesResponse"/>.
-        /// </summary>
-        public static TabTypesResponse TabTypesResponse(
-            List<TabType> tabTypes = default)
-        {
-            return new TabTypesResponse
-            {
-                TabTypes = tabTypes,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TabType"/>.
-        /// </summary>
-        public static TabType TabType(
-            string name = default,
-            string type = default)
-        {
-            return new TabType
+            return new Folder
             {
                 Name = name,
-                Type = type,
+                FolderId = folderId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListEnvelopesResponse"/>.
+        /// </summary>
+        public static ListEnvelopesResponse ListEnvelopesResponse(
+            List<FolderItem> folderItems = default)
+        {
+            return new ListEnvelopesResponse
+            {
+                FolderItems = folderItems,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FolderItem"/>.
+        /// </summary>
+        public static FolderItem FolderItem(
+            string envelopeId = default,
+            string subject = default)
+        {
+            return new FolderItem
+            {
+                EnvelopeId = envelopeId,
+                Subject = subject,
             };
         }
 
@@ -2046,38 +1948,136 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="CreateHookEnvelopeInput"/>.
+        /// Creates a new instance of <see cref="ListSigningGroupResponse"/>.
         /// </summary>
-        public static CreateHookEnvelopeInput CreateHookEnvelopeInput(
-            string allUsers = default,
-            string allowEnvelopePublish = default,
-            string includeDocumentFields = default,
-            string requiresAcknowledgement = default,
-            string urlToPublishTo = default,
-            string connectConfigurationName = default,
-            List<string> triggerEvents = default)
+        public static ListSigningGroupResponse ListSigningGroupResponse(
+            List<SigningGroup> signingGroups = default)
         {
-            return new CreateHookEnvelopeInput
+            return new ListSigningGroupResponse
             {
-                AllUsers = allUsers,
-                AllowEnvelopePublish = allowEnvelopePublish,
-                IncludeDocumentFields = includeDocumentFields,
-                RequiresAcknowledgement = requiresAcknowledgement,
-                UrlToPublishTo = urlToPublishTo,
-                ConnectConfigurationName = connectConfigurationName,
-                TriggerEvents = triggerEvents,
+                SigningGroups = signingGroups,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="EmbeddedSigningResponse"/>.
+        /// Creates a new instance of <see cref="SigningGroup"/>.
         /// </summary>
-        public static EmbeddedSigningResponse EmbeddedSigningResponse(
-            string url = default)
+        public static SigningGroup SigningGroup(
+            string signingGroupId = default,
+            string signingGroupName = default)
         {
-            return new EmbeddedSigningResponse
+            return new SigningGroup
             {
-                URL = url,
+                SigningGroupId = signingGroupId,
+                SigningGroupName = signingGroupName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TabTypesResponse"/>.
+        /// </summary>
+        public static TabTypesResponse TabTypesResponse(
+            List<TabType> tabTypes = default)
+        {
+            return new TabTypesResponse
+            {
+                TabTypes = tabTypes,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TabType"/>.
+        /// </summary>
+        public static TabType TabType(
+            string name = default,
+            string type = default)
+        {
+            return new TabType
+            {
+                Name = name,
+                Type = type,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowDefinitionsResponse"/>.
+        /// </summary>
+        public static WorkflowDefinitionsResponse WorkflowDefinitionsResponse(
+            List<WorkflowDefinition> workflowDefinitions = default)
+        {
+            return new WorkflowDefinitionsResponse
+            {
+                WorkflowDefinitions = workflowDefinitions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowDefinition"/>.
+        /// </summary>
+        public static WorkflowDefinition WorkflowDefinition(
+            string id = default,
+            string name = default)
+        {
+            return new WorkflowDefinition
+            {
+                Id = id,
+                Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetWorkFlowIdsResponse"/>.
+        /// </summary>
+        public static GetWorkFlowIdsResponse GetWorkFlowIdsResponse(
+            List<WorkflowId> workflowIDs = default)
+        {
+            return new GetWorkFlowIdsResponse
+            {
+                WorkflowIDs = workflowIDs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowId"/>.
+        /// </summary>
+        public static WorkflowId WorkflowId(
+            string name = default,
+            string type = default)
+        {
+            return new WorkflowId
+            {
+                Name = name,
+                Type = type,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowDefinitionResponse"/>.
+        /// </summary>
+        public static WorkflowDefinitionResponse WorkflowDefinitionResponse(
+            string id = default,
+            string name = default,
+            List<WorkflowDefPayloadSchema> payloadSchema = default)
+        {
+            return new WorkflowDefinitionResponse
+            {
+                Id = id,
+                Name = name,
+                PayloadSchema = payloadSchema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowDefPayloadSchema"/>.
+        /// </summary>
+        public static WorkflowDefPayloadSchema WorkflowDefPayloadSchema(
+            string propertyName = default,
+            string type = default)
+        {
+            return new WorkflowDefPayloadSchema
+            {
+                PropertyName = propertyName,
+                Type = type,
             };
         }
 
@@ -2125,6 +2125,46 @@ namespace Azure.Connectors.Sdk.DocuSign
     }
 
     #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the DocuSign connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class DocuSignTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnCreateOrgHookEnvelope trigger operation (operationId: CreateOrgHookEnvelope).
+        /// </summary>
+        public static class OnCreateOrgHookEnvelope
+        {
+            /// <summary>
+            /// Enter or select an organization ID.
+            /// Required.
+            /// Dynamic values from: GetOrganizations.
+            /// </summary>
+            public const string OrganizationId = "organizationId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnCreateHookEnvelope trigger operation (operationId: CreateHookEnvelopeV4).
+        /// </summary>
+        public static class OnCreateHookEnvelope
+        {
+            /// <summary>
+            /// Enter an account ID, or select an account from the dropdown list.
+            /// Required.
+            /// Dynamic values from: GetLoginAccounts.
+            /// </summary>
+            public const string AccountId = "accountId";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
 
     #region Client
 
@@ -3274,32 +3314,6 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Get organizations
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get organizations response.</returns>
-        public virtual async Task<GetOrganizationsResponse> GetOrganizationsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetOrganizationsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add("mode=org_admin");
-                var path = $"/Management/v2/organizations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Login
         /// </summary>
         /// <remarks>Login</remarks>
@@ -3313,59 +3327,6 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var path = $"/oauth/userinfo";
                 return await this
                     .CallConnectorAsync<GetLoginAccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get All Workflow Ids
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get All Workflow Ids response.</returns>
-        public virtual async Task<GetWorkFlowIdsResponse> GetAllWorkflowIDsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAllWorkflowIDsAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/all_identity_verification";
-                return await this
-                    .CallConnectorAsync<GetWorkFlowIdsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get custom fields from an account
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetCustomFieldsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetCustomFieldsAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/custom_fields";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3393,116 +3354,6 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates";
                 return await this
                     .CallConnectorAsync<ListTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetSigningGroups
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetSigningGroups response.</returns>
-        public virtual async Task<ListSigningGroupResponse> GetSigningGroupsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetSigningGroupsAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/signing_groups";
-                return await this
-                    .CallConnectorAsync<ListSigningGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get account custom fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetAccountCustomFieldsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAccountCustomFieldsAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/account_custom_fields";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List folders
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List folders response.</returns>
-        public virtual async Task<ListFoldersResponse> GetFolderListAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderListAsync");
-            try
-            {
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/folders";
-                return await this
-                    .CallConnectorAsync<ListFoldersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List envelopes
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="accountId">Account ID</param>
-        /// <param name="folder">Folder</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List envelopes response.</returns>
-        public virtual async Task<ListEnvelopesResponse> GetFolderEnvelopeListAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetFolderList")] string folder, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderEnvelopeListAsync");
-            try
-            {
-                if (accountId is null)
-                    throw new ArgumentNullException(nameof(accountId));
-                if (folder is null)
-                    throw new ArgumentNullException(nameof(folder));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/folders/{Uri.EscapeDataString(folder.ToString())}";
-                return await this
-                    .CallConnectorAsync<ListEnvelopesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3629,66 +3480,6 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/get_document_info" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeDocument>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get the signers of a template in dynamic schema format
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="accountId">Account Id</param>
-        /// <param name="templateId">Template Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the signers of a template in dynamic schema format response.</returns>
-        public virtual async Task<GetDynamicSignersResponse> GetDynamicSignersAsync(string accountId, string templateId, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDynamicSignersAsync");
-            try
-            {
-                if (accountId is null)
-                    throw new ArgumentNullException(nameof(accountId));
-                if (templateId is null)
-                    throw new ArgumentNullException(nameof(templateId));
-                var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/recipients";
-                return await this
-                    .CallConnectorAsync<GetDynamicSignersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get the signers of a template in dynamic schema format
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="accountId">Account Id</param>
-        /// <param name="templateId">Template Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the signers of a template in dynamic schema format response.</returns>
-        public virtual async Task<GetDynamicRecipientsResponse> GetDynamicRecipientsAsync(string accountId, string templateId, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDynamicRecipientsAsync");
-            try
-            {
-                if (accountId is null)
-                    throw new ArgumentNullException(nameof(accountId));
-                if (templateId is null)
-                    throw new ArgumentNullException(nameof(templateId));
-                var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}";
-                return await this
-                    .CallConnectorAsync<GetDynamicRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3843,63 +3634,6 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Get Maestro Workflow Definitions
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="accountId">accountId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Maestro Workflow Definitions response.</returns>
-        public virtual async Task<WorkflowDefinitionsResponse> GetMaestroWorkflowDefinitionsAsync(string accountId, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetMaestroWorkflowDefinitionsAsync");
-            try
-            {
-                if (accountId is null)
-                    throw new ArgumentNullException(nameof(accountId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows";
-                return await this
-                    .CallConnectorAsync<WorkflowDefinitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get Maestro Workflow Definition
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="accountId">accountId</param>
-        /// <param name="workflowId">workflowId</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Maestro Workflow Definition response.</returns>
-        public virtual async Task<WorkflowDefinitionResponse> GetMaestroWorkflowDefinitionAsync(string accountId, string workflowId, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetMaestroWorkflowDefinitionAsync");
-            try
-            {
-                if (accountId is null)
-                    throw new ArgumentNullException(nameof(accountId));
-                if (workflowId is null)
-                    throw new ArgumentNullException(nameof(workflowId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows/{Uri.EscapeDataString(workflowId.ToString())}";
-                return await this
-                    .CallConnectorAsync<WorkflowDefinitionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Start Docusign workflow
         /// </summary>
         /// <remarks>Start Docusign workflow</remarks>
@@ -3936,221 +3670,6 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// StaticResponseForTabTypes
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForTabTypes response.</returns>
-        public virtual async Task<TabTypesResponse> StaticResponseForTabTypesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForTabTypesAsync");
-            try
-            {
-                var path = $"/tab_types";
-                return await this
-                    .CallConnectorAsync<TabTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForRecipientTypes
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForRecipientTypes response.</returns>
-        public virtual async Task<RecipientTypesResponse> StaticResponseForRecipientTypesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForRecipientTypesAsync");
-            try
-            {
-                var path = $"/recipient_types";
-                return await this
-                    .CallConnectorAsync<RecipientTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForSignatureTypes
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForSignatureTypes response.</returns>
-        public virtual async Task<SignatureTypesResponse> StaticResponseForSignatureTypesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForSignatureTypesAsync");
-            try
-            {
-                var path = $"/signature_types";
-                return await this
-                    .CallConnectorAsync<SignatureTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForAnchorTabSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tabType">tab type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForAnchorTabSchema response.</returns>
-        public virtual async Task<StaticResponseForAnchorTabSchemaResponse> StaticResponseForAnchorTabSchemaAsync(string tabType, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForAnchorTabSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (tabType is null)
-                    throw new ArgumentNullException(nameof(tabType));
-                queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
-                var path = $"/anchortab_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<StaticResponseForAnchorTabSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForCompositeTemplates
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForCompositeTemplates response.</returns>
-        public virtual async Task<StaticResponseForCompositeTemplatesResponse> StaticResponseForCompositeTemplatesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForCompositeTemplatesAsync");
-            try
-            {
-                var path = $"/composite_templates_schema";
-                return await this
-                    .CallConnectorAsync<StaticResponseForCompositeTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForRecipientTypeSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="recipientType">recipient type</param>
-        /// <param name="signatureType">signature type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForRecipientTypeSchema response.</returns>
-        public virtual async Task<StaticResponseForRecipientTypeSchemaResponse> StaticResponseForRecipientTypeSchemaAsync(string recipientType, string signatureType = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForRecipientTypeSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (recipientType is null)
-                    throw new ArgumentNullException(nameof(recipientType));
-                queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
-                if (signatureType != default)
-                    queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
-                var path = $"/recipienttype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<StaticResponseForRecipientTypeSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForEmbeddedSenderSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="returnURL">Return URL</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForEmbeddedSenderSchema response.</returns>
-        public virtual async Task<StaticResponseForEmbeddedSenderSchemaResponse> StaticResponseForEmbeddedSenderSchemaAsync(string returnURL, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSenderSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (returnURL is null)
-                    throw new ArgumentNullException(nameof(returnURL));
-                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                var path = $"/embeddedSender_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<StaticResponseForEmbeddedSenderSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForVerificationTypeSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="verificationType">Verification Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForVerificationTypeSchema response.</returns>
-        public virtual async Task<StaticResponseForVerificationTypeSchemaResponse> StaticResponseForVerificationTypeSchemaAsync(string verificationType, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForVerificationTypeSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (verificationType is null)
-                    throw new ArgumentNullException(nameof(verificationType));
-                queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
-                var path = $"/verificationtype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<StaticResponseForVerificationTypeSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Show build Number (For reference only. Do not include in a flow for execution)
         /// </summary>
         /// <remarks>Identifier for the currently deployed build.</remarks>
@@ -4165,30 +3684,6 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var path = $"/build_number";
                 return await this
                     .CallConnectorAsync<BuildNumberResponse>(HttpMethod.Put, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForBuildNumberSchema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForBuildNumberSchema response.</returns>
-        public virtual async Task<StaticResponseForBuildNumberSchemaResponse> StaticResponseForBuildNumberSchemaAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForBuildNumberSchemaAsync");
-            try
-            {
-                var path = $"/build_number_schema";
-                return await this
-                    .CallConnectorAsync<StaticResponseForBuildNumberSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4392,6 +3887,477 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
+        /// Get organizations
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get organizations response.</returns>
+        public virtual async Task<GetOrganizationsResponse> GetOrganizationsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetOrganizationsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("mode=org_admin");
+                var path = $"/Management/v2/organizations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get account custom fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="account">Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetAccountCustomFieldsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAccountCustomFieldsAsync");
+            try
+            {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/account_custom_fields";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List folders
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="account">Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List folders response.</returns>
+        public virtual async Task<ListFoldersResponse> GetFolderListAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderListAsync");
+            try
+            {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/folders";
+                return await this
+                    .CallConnectorAsync<ListFoldersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List envelopes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="accountId">Account ID</param>
+        /// <param name="folder">Folder</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List envelopes response.</returns>
+        public virtual async Task<ListEnvelopesResponse> GetFolderEnvelopeListAsync([DynamicValues("GetLoginAccounts")] string accountId, [DynamicValues("GetFolderList")] string folder, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetFolderEnvelopeListAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/folders/{Uri.EscapeDataString(folder.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListEnvelopesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForRecipientTypes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForRecipientTypes response.</returns>
+        public virtual async Task<RecipientTypesResponse> StaticResponseForRecipientTypesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForRecipientTypesAsync");
+            try
+            {
+                var path = $"/recipient_types";
+                return await this
+                    .CallConnectorAsync<RecipientTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForSignatureTypes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForSignatureTypes response.</returns>
+        public virtual async Task<SignatureTypesResponse> StaticResponseForSignatureTypesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForSignatureTypesAsync");
+            try
+            {
+                var path = $"/signature_types";
+                return await this
+                    .CallConnectorAsync<SignatureTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetSigningGroups
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="account">Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The GetSigningGroups response.</returns>
+        public virtual async Task<ListSigningGroupResponse> GetSigningGroupsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetSigningGroupsAsync");
+            try
+            {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/signing_groups";
+                return await this
+                    .CallConnectorAsync<ListSigningGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForTabTypes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForTabTypes response.</returns>
+        public virtual async Task<TabTypesResponse> StaticResponseForTabTypesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForTabTypesAsync");
+            try
+            {
+                var path = $"/tab_types";
+                return await this
+                    .CallConnectorAsync<TabTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get Maestro Workflow Definitions
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="accountId">accountId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Maestro Workflow Definitions response.</returns>
+        public virtual async Task<WorkflowDefinitionsResponse> GetMaestroWorkflowDefinitionsAsync(string accountId, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetMaestroWorkflowDefinitionsAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows";
+                return await this
+                    .CallConnectorAsync<WorkflowDefinitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get All Workflow Ids
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="account">Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get All Workflow Ids response.</returns>
+        public virtual async Task<GetWorkFlowIdsResponse> GetAllWorkflowIDsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetAllWorkflowIDsAsync");
+            try
+            {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/all_identity_verification";
+                return await this
+                    .CallConnectorAsync<GetWorkFlowIdsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get Maestro Workflow Definition
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="accountId">accountId</param>
+        /// <param name="workflowId">workflowId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Maestro Workflow Definition response.</returns>
+        public virtual async Task<WorkflowDefinitionResponse> GetMaestroWorkflowDefinitionAsync(string accountId, string workflowId, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetMaestroWorkflowDefinitionAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (workflowId is null)
+                    throw new ArgumentNullException(nameof(workflowId));
+                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows/{Uri.EscapeDataString(workflowId.ToString())}";
+                return await this
+                    .CallConnectorAsync<WorkflowDefinitionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the signers of a template in dynamic schema format
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="accountId">Account Id</param>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get the signers of a template in dynamic schema format response.</returns>
+        public virtual async Task<GetDynamicSignersResponse> GetDynamicSignersAsync(string accountId, string templateId, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDynamicSignersAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/recipients";
+                return await this
+                    .CallConnectorAsync<GetDynamicSignersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the signers of a template in dynamic schema format
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="accountId">Account Id</param>
+        /// <param name="templateId">Template Id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get the signers of a template in dynamic schema format response.</returns>
+        public virtual async Task<GetDynamicRecipientsResponse> GetDynamicRecipientsAsync(string accountId, string templateId, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetDynamicRecipientsAsync");
+            try
+            {
+                if (accountId is null)
+                    throw new ArgumentNullException(nameof(accountId));
+                if (templateId is null)
+                    throw new ArgumentNullException(nameof(templateId));
+                var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetDynamicRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForRecipientTypeSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="recipientType">recipient type</param>
+        /// <param name="signatureType">signature type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForRecipientTypeSchema response.</returns>
+        public virtual async Task<StaticResponseForRecipientTypeSchemaResponse> StaticResponseForRecipientTypeSchemaAsync(string recipientType, string signatureType = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForRecipientTypeSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (recipientType is null)
+                    throw new ArgumentNullException(nameof(recipientType));
+                queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
+                if (signatureType != default)
+                    queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
+                var path = $"/recipienttype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StaticResponseForRecipientTypeSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForVerificationTypeSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="verificationType">Verification Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForVerificationTypeSchema response.</returns>
+        public virtual async Task<StaticResponseForVerificationTypeSchemaResponse> StaticResponseForVerificationTypeSchemaAsync(string verificationType, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForVerificationTypeSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (verificationType is null)
+                    throw new ArgumentNullException(nameof(verificationType));
+                queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
+                var path = $"/verificationtype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StaticResponseForVerificationTypeSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForEmbeddedSenderSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="returnURL">Return URL</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForEmbeddedSenderSchema response.</returns>
+        public virtual async Task<StaticResponseForEmbeddedSenderSchemaResponse> StaticResponseForEmbeddedSenderSchemaAsync(string returnURL, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSenderSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (returnURL is null)
+                    throw new ArgumentNullException(nameof(returnURL));
+                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
+                var path = $"/embeddedSender_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StaticResponseForEmbeddedSenderSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForEmbeddedSigningSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="returnURL">Return URL</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForEmbeddedSigningSchema response.</returns>
+        public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaAsync(string returnURL, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSigningSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (returnURL is null)
+                    throw new ArgumentNullException(nameof(returnURL));
+                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
+                var path = $"/embeddedSigning_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StaticResponseForEmbeddedSigningSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// StaticResponseForEmbeddedSigningSchemaV2
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -4399,9 +4365,9 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <param name="isThisAnPersonSigner">Is This an Person Signer?</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The StaticResponseForEmbeddedSigningSchemaV2 response.</returns>
-        public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaAsync(string returnURL, string isThisAnPersonSigner, CancellationToken cancellationToken = default)
+        public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaV2Async(string returnURL, string isThisAnPersonSigner, CancellationToken cancellationToken = default)
         {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSigningSchemaAsync");
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSigningSchemaV2Async");
             try
             {
                 var queryParams = new List<string>();
@@ -4414,6 +4380,109 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var path = $"/embeddedSigning_schema_v2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StaticResponseForEmbeddedSigningSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForBuildNumberSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForBuildNumberSchema response.</returns>
+        public virtual async Task<StaticResponseForBuildNumberSchemaResponse> StaticResponseForBuildNumberSchemaAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForBuildNumberSchemaAsync");
+            try
+            {
+                var path = $"/build_number_schema";
+                return await this
+                    .CallConnectorAsync<StaticResponseForBuildNumberSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get custom fields from an account
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="account">Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetCustomFieldsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GetCustomFieldsAsync");
+            try
+            {
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/custom_fields";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForAnchorTabSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="tabType">tab type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForAnchorTabSchema response.</returns>
+        public virtual async Task<StaticResponseForAnchorTabSchemaResponse> StaticResponseForAnchorTabSchemaAsync(string tabType, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForAnchorTabSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (tabType is null)
+                    throw new ArgumentNullException(nameof(tabType));
+                queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
+                var path = $"/anchortab_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<StaticResponseForAnchorTabSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// StaticResponseForCompositeTemplates
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The StaticResponseForCompositeTemplates response.</returns>
+        public virtual async Task<StaticResponseForCompositeTemplatesResponse> StaticResponseForCompositeTemplatesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForCompositeTemplatesAsync");
+            try
+            {
+                var path = $"/composite_templates_schema";
+                return await this
+                    .CallConnectorAsync<StaticResponseForCompositeTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

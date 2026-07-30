@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Response for Alerts - Create alert
+    /// A single alert entity
     /// </summary>
     public class Alert
     {
@@ -241,7 +241,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Response for Actions - Start automated investigation on a machine
+    /// A single investigation entity
     /// </summary>
     public class Investigation
     {
@@ -275,7 +275,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Response for Actions - Get single machine action
+    /// A single machine action entity
     /// </summary>
     public class MachineAction
     {
@@ -321,7 +321,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Item in Live response machine action commands
+    /// A single command in Live Response machine action entity
     /// </summary>
     public class LiveResponseCommandStatus
     {
@@ -403,7 +403,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Response for Files - Get the statistics for the given file
+    /// A single file statistics entity
     /// </summary>
     public class FileStats
     {
@@ -441,7 +441,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Response for Domains - Get the statistics for the given domain name
+    /// A single ip address statistics entity
     /// </summary>
     public class DomainStats
     {
@@ -463,7 +463,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Response for Ips - Get the statistics for the given ip address
+    /// A single ip address statistics entity
     /// </summary>
     public class IpStats
     {
@@ -613,7 +613,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Item in The remediation activities returned
+    /// A single remediation activity entity
     /// </summary>
     public class RemediationActivity
     {
@@ -753,7 +753,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
-    /// Item in The machines returned
+    /// A single machine entity
     /// </summary>
     public class Machine
     {

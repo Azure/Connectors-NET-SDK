@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     #region Types
 
     /// <summary>
-    /// Response for List tasks
+    /// An Insightly Tasks response object.
     /// </summary>
     public class ListTasksResponse
     {
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in A collection of tasks
+    /// An Insightly Task Object
     /// </summary>
     public class TaskObject
     {
@@ -176,7 +176,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Response for List projects
+    /// A Insightly Project response object
     /// </summary>
     public class ListProjectsResponse
     {
@@ -186,7 +186,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in A collection of projects
+    /// An Insightly Project Object
     /// </summary>
     public class Project
     {
@@ -276,7 +276,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Response for List leads
+    /// A Insightly Lead response object
     /// </summary>
     public class ListLeadsResponse
     {
@@ -286,7 +286,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in A collection of leads
+    /// An Insightly Lead Object
     /// </summary>
     public class Lead
     {
@@ -443,7 +443,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Response for List contacts
+    /// A Insightly contact response object
     /// </summary>
     public class ListContactsResponse
     {
@@ -453,7 +453,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in A collection of contacts
+    /// An Insightly Contact Object
     /// </summary>
     public class Contact
     {
@@ -585,7 +585,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Response for List users
+    /// A Insightly User response object
     /// </summary>
     public class ListUsersResponse
     {
@@ -595,7 +595,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in A collection of users
+    /// An Insightly User Object
     /// </summary>
     public class User
     {
@@ -687,7 +687,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Response for When an event is created
+    /// A Insightly Event response object
     /// </summary>
     public class ListEventsResponse
     {
@@ -697,7 +697,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in A collection of events
+    /// An Insightly Event Object
     /// </summary>
     public class Event
     {
@@ -755,7 +755,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Response for Add organization
+    /// An Insightly Organization Object
     /// </summary>
     public class Organization
     {
@@ -815,7 +815,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in Organization Addresses
+    /// An Insightly Contact Address Object
     /// </summary>
     public class Address
     {
@@ -849,7 +849,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Item in Contact Information
+    /// An Insightly Contact Information Object
     /// </summary>
     public class ContactInfo
     {
@@ -875,7 +875,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// TaskRequest
+    /// An Insightly Task Request Object
     /// </summary>
     public class TaskRequest
     {
@@ -910,7 +910,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Tag
+    /// A Tag Object
     /// </summary>
     public class Tag
     {
@@ -920,7 +920,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// ProjectRequest
+    /// An Insightly Project Object
     /// </summary>
     public class ProjectRequest
     {
@@ -970,7 +970,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// LeadRequest
+    /// An Insightly LeadRequest Object
     /// </summary>
     public class LeadRequest
     {
@@ -1057,7 +1057,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// ContactRequest
+    /// An Insightly Contact Request Object
     /// </summary>
     public class ContactRequest
     {
@@ -1099,7 +1099,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// OrganizationRequest
+    /// An Insightly Organization Request Object
     /// </summary>
     public class OrganizationRequest
     {

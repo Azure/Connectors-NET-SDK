@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Rss.Models
     #region Types
 
     /// <summary>
-    /// Response for When a feed item is published
+    /// Represents a wrapper object for batch trigger response
     /// </summary>
     public class TriggerBatchResponseFeedItem
     {
@@ -40,7 +40,7 @@ namespace Azure.Connectors.Sdk.Rss.Models
     }
 
     /// <summary>
-    /// Item in A list of the response objects
+    /// Represents an RSS feed item.
     /// </summary>
     public class FeedItem
     {

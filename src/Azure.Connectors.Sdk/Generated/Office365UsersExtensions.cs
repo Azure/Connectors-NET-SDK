@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     #region Types
 
     /// <summary>
-    /// Response for Get my trending documents
+    /// List of trending documents
     /// </summary>
     public class MyTrendingDocumentsResponse
     {
@@ -40,7 +40,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Trending documents from Graph API
     /// </summary>
     public class GraphTrending
     {
@@ -146,7 +146,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Response for Get relevant people
+    /// Represents a list from the Graph API
     /// </summary>
     public class LinklessEntityListResponseListPerson
     {
@@ -156,7 +156,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Item in Value
+    /// Represents a Person
     /// </summary>
     public class Person
     {
@@ -226,7 +226,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Item in Collection of the person&apos;s email addresses with a relevance score
+    /// Represents a scored email address
     /// </summary>
     public class ScoredEmailAddress
     {
@@ -240,7 +240,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Item in The person&apos;s phone numbers
+    /// Represents a phone number
     /// </summary>
     public class Phone
     {
@@ -254,7 +254,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Response for Get user photo metadata
+    /// Photo Metadata class
     /// </summary>
     public class ClientPhotoMetadata
     {
@@ -281,7 +281,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Response for Get trending documents
+    /// List of trending documents
     /// </summary>
     public class TrendingDocumentsResponse
     {
@@ -303,7 +303,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Response for Get direct reports (V2)
+    /// List of direct reports
     /// </summary>
     public class DirectReportsResponse
     {
@@ -313,7 +313,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Item in Value
+    /// User from Graph API
     /// </summary>
     public class GraphUser
     {
@@ -443,7 +443,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Response for Search for users (V2)
+    /// Class representing entity list response from an Office API.
     /// </summary>
     public class EntityListResponseIReadOnlyListUser : IPageable<User>
     {
@@ -457,7 +457,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// Item in Value
+    /// Represents a User object in the directory
     /// </summary>
     public class User
     {
@@ -536,7 +536,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
     }
 
     /// <summary>
-    /// GraphUserUpdateable_V1
+    /// Updateable parts of user from Graph API
     /// </summary>
     public class GraphUserUpdateable
     {

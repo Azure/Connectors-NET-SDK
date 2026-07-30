@@ -30,7 +30,31 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     #region Types
 
     /// <summary>
-    /// Response for List subscriptions
+    /// Response for Get status of job
+    /// </summary>
+    public class CreateJobResponse
+    {
+        /// <summary>Resource ID of the Job</summary>
+        [JsonPropertyName("id")]
+        public string ResourceId { get; set; }
+
+        /// <summary>properties</summary>
+        [JsonPropertyName("properties")]
+        public JsonElement? Properties { get; set; }
+    }
+
+    /// <summary>
+    /// Create job
+    /// </summary>
+    public class CreateJobInput
+    {
+        /// <summary>properties</summary>
+        [JsonPropertyName("properties")]
+        public JsonElement? Properties { get; set; }
+    }
+
+    /// <summary>
+    /// Subscription list operation response.
     /// </summary>
     public class SubscriptionListResult : IPageable<Subscription>
     {
@@ -44,7 +68,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     }
 
     /// <summary>
-    /// Item in The subscriptions.
+    /// Subscription information.
     /// </summary>
     public class Subscription
     {
@@ -79,7 +103,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     }
 
     /// <summary>
-    /// Response for List resource groups
+    /// List of resource groups.
     /// </summary>
     public class ResourceGroupListResult : IPageable<ResourceGroup>
     {
@@ -94,7 +118,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     }
 
     /// <summary>
-    /// Item in The list of resource groups.
+    /// Resource group information.
     /// </summary>
     public class ResourceGroup
     {
@@ -125,20 +149,6 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     }
 
     /// <summary>
-    /// Response for Get status of job
-    /// </summary>
-    public class CreateJobResponse
-    {
-        /// <summary>Resource ID of the Job</summary>
-        [JsonPropertyName("id")]
-        public string ResourceId { get; set; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public JsonElement? Properties { get; set; }
-    }
-
-    /// <summary>
     /// Response for List runbooks
     /// </summary>
     public class RunbookListResults
@@ -146,16 +156,6 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
         /// <summary>value</summary>
         [JsonPropertyName("value")]
         public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Create job
-    /// </summary>
-    public class CreateJobInput
-    {
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public JsonElement? Properties { get; set; }
     }
 
     /// <summary>
@@ -230,6 +230,32 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
     /// </summary>
     public static class AzureAutomationModelFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateJobResponse"/>.
+        /// </summary>
+        public static CreateJobResponse CreateJobResponse(
+            string resourceId = default,
+            JsonElement? properties = default)
+        {
+            return new CreateJobResponse
+            {
+                ResourceId = resourceId,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CreateJobInput"/>.
+        /// </summary>
+        public static CreateJobInput CreateJobInput(
+            JsonElement? properties = default)
+        {
+            return new CreateJobInput
+            {
+                Properties = properties,
+            };
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="SubscriptionListResult"/>.
         /// </summary>
@@ -309,20 +335,6 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="CreateJobResponse"/>.
-        /// </summary>
-        public static CreateJobResponse CreateJobResponse(
-            string resourceId = default,
-            JsonElement? properties = default)
-        {
-            return new CreateJobResponse
-            {
-                ResourceId = resourceId,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="RunbookListResults"/>.
         /// </summary>
         public static RunbookListResults RunbookListResults(
@@ -331,18 +343,6 @@ namespace Azure.Connectors.Sdk.AzureAutomation.Models
             return new RunbookListResults
             {
                 Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateJobInput"/>.
-        /// </summary>
-        public static CreateJobInput CreateJobInput(
-            JsonElement? properties = default)
-        {
-            return new CreateJobInput
-            {
-                Properties = properties,
             };
         }
     }
@@ -421,75 +421,6 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// List subscriptions
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-        public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2015-11-01");
-            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<SubscriptionListResult, Subscription>(
-                ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List resource groups
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
-        {
-            if (subscription is null)
-                throw new ArgumentNullException(nameof(subscription));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2015-10-31");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
-                ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List Automation accounts
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List Automation accounts response.</returns>
-        public virtual async Task<AutomationAccountResponse> AutomationAccountsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.AutomationAccountsListAsync");
-            try
-            {
-                if (subscription is null)
-                    throw new ArgumentNullException(nameof(subscription));
-                if (resourceGroup is null)
-                    throw new ArgumentNullException(nameof(resourceGroup));
-                var queryParams = new List<string>();
-                queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<AutomationAccountResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get job output
         /// </summary>
         /// <remarks>Get outputs of an Azure Automation job.</remarks>
@@ -566,41 +497,6 @@ namespace Azure.Connectors.Sdk.AzureAutomation
         }
 
         /// <summary>
-        /// List runbooks
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="automationAccount">Automation Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List runbooks response.</returns>
-        public virtual async Task<RunbookListResults> RunbooksListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.RunbooksListAsync");
-            try
-            {
-                if (subscription is null)
-                    throw new ArgumentNullException(nameof(subscription));
-                if (resourceGroup is null)
-                    throw new ArgumentNullException(nameof(resourceGroup));
-                if (automationAccount is null)
-                    throw new ArgumentNullException(nameof(automationAccount));
-                var queryParams = new List<string>();
-                queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/runbooks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<RunbookListResults>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Create job
         /// </summary>
         /// <remarks>Create Job to run on hybrid worker</remarks>
@@ -632,6 +528,110 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                 var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateJobResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List subscriptions
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
+        public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2015-11-01");
+            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<SubscriptionListResult, Subscription>(
+                ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List resource groups
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
+        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscription, CancellationToken cancellationToken = default)
+        {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2015-10-31");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
+                ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List Automation accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Automation accounts response.</returns>
+        public virtual async Task<AutomationAccountResponse> AutomationAccountsListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.AutomationAccountsListAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2015-10-31");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AutomationAccountResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List runbooks
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="automationAccount">Automation Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List runbooks response.</returns>
+        public virtual async Task<RunbookListResults> RunbooksListAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.RunbooksListAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (automationAccount is null)
+                    throw new ArgumentNullException(nameof(automationAccount));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2015-10-31");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/runbooks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<RunbookListResults>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

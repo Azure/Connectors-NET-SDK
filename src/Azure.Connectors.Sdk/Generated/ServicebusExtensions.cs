@@ -30,21 +30,7 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
     #region Types
 
     /// <summary>
-    /// Response for Get all entities
-    /// </summary>
-    public class ServiceBusEntity
-    {
-        /// <summary>The entity name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>The display name for the entity</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-    }
-
-    /// <summary>
-    /// Response for When a message is received in a queue (auto-complete)
+    /// Service Bus Message
     /// </summary>
     public class ServiceBusMessage
     {
@@ -121,13 +107,27 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
     }
 
     /// <summary>
-    /// Response for Create a topic subscription
+    /// The topic subscription.
     /// </summary>
     public class Subscription
     {
         /// <summary>Subscription name.</summary>
         [JsonPropertyName("SubscriptionName")]
         public string SubscriptionName { get; set; }
+    }
+
+    /// <summary>
+    /// Entity with name and display name.
+    /// </summary>
+    public class ServiceBusEntity
+    {
+        /// <summary>The entity name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>The display name for the entity</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
     }
 
     /// <summary>
@@ -153,20 +153,6 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
     /// </summary>
     public static class ServiceBusModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="ServiceBusEntity"/>.
-        /// </summary>
-        public static ServiceBusEntity ServiceBusEntity(
-            string name = default,
-            string displayName = default)
-        {
-            return new ServiceBusEntity
-            {
-                Name = name,
-                DisplayName = displayName,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="ServiceBusMessage"/>.
         /// </summary>
@@ -214,6 +200,20 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
             return new Subscription
             {
                 SubscriptionName = subscriptionName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ServiceBusEntity"/>.
+        /// </summary>
+        public static ServiceBusEntity ServiceBusEntity(
+            string name = default,
+            string displayName = default)
+        {
+            return new ServiceBusEntity
+            {
+                Name = name,
+                DisplayName = displayName,
             };
         }
     }
@@ -355,6 +355,13 @@ namespace Azure.Connectors.Sdk.Servicebus
         public static class OnGetMessageFromQueue
         {
             /// <summary>
+            /// Name of the queue
+            /// Required.
+            /// Dynamic values from: GetQueues.
+            /// </summary>
+            public const string QueueName = "queueName";
+
+            /// <summary>
             /// Queue type - Main or DeadLetter
             /// Default: Main.
             /// Allowed values: Main, DeadLetter.
@@ -368,6 +375,13 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// </summary>
         public static class OnGetNewMessageFromQueueWithPeekLock
         {
+            /// <summary>
+            /// Name of the queue
+            /// Required.
+            /// Dynamic values from: GetQueues.
+            /// </summary>
+            public const string QueueName = "queueName";
+
             /// <summary>
             /// Queue type - Main or DeadLetter
             /// Default: Main.
@@ -390,6 +404,13 @@ namespace Azure.Connectors.Sdk.Servicebus
         public static class OnGetMessagesFromQueue
         {
             /// <summary>
+            /// Name of the queue
+            /// Required.
+            /// Dynamic values from: GetQueues.
+            /// </summary>
+            public const string QueueName = "queueName";
+
+            /// <summary>
             /// The maximum number of messages to return in the batch
             /// Default: 20.
             /// </summary>
@@ -409,6 +430,13 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// </summary>
         public static class OnGetNewMessagesFromQueueWithPeekLock
         {
+            /// <summary>
+            /// Name of the queue
+            /// Required.
+            /// Dynamic values from: GetQueues.
+            /// </summary>
+            public const string QueueName = "queueName";
+
             /// <summary>
             /// The maximum number of messages to return in the batch
             /// Default: 20.
@@ -437,6 +465,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         public static class OnGetMessageFromTopic
         {
             /// <summary>
+            /// Name of the topic
+            /// Required.
+            /// Dynamic values from: GetTopics.
+            /// </summary>
+            public const string TopicName = "topicName";
+
+            /// <summary>
+            /// Name of the topic subscription
+            /// Required.
+            /// Dynamic values from: GetSubscriptions.
+            /// </summary>
+            public const string SubscriptionName = "subscriptionName";
+
+            /// <summary>
             /// Subscription type - Main or DeadLetter
             /// Default: Main.
             /// Allowed values: Main, DeadLetter.
@@ -450,6 +492,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// </summary>
         public static class OnGetNewMessageFromTopicWithPeekLock
         {
+            /// <summary>
+            /// Name of the topic
+            /// Required.
+            /// Dynamic values from: GetTopics.
+            /// </summary>
+            public const string TopicName = "topicName";
+
+            /// <summary>
+            /// Name of the topic subscription
+            /// Required.
+            /// Dynamic values from: GetSubscriptions.
+            /// </summary>
+            public const string SubscriptionName = "subscriptionName";
+
             /// <summary>
             /// Subscription type - Main or DeadLetter
             /// Default: Main.
@@ -472,6 +528,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         public static class OnGetMessagesFromTopic
         {
             /// <summary>
+            /// Name of the topic
+            /// Required.
+            /// Dynamic values from: GetTopics.
+            /// </summary>
+            public const string TopicName = "topicName";
+
+            /// <summary>
+            /// Name of the topic subscription
+            /// Required.
+            /// Dynamic values from: GetSubscriptions.
+            /// </summary>
+            public const string SubscriptionName = "subscriptionName";
+
+            /// <summary>
             /// The maximum number of messages to return in the batch
             /// Default: 20.
             /// </summary>
@@ -491,6 +561,20 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// </summary>
         public static class OnGetNewMessagesFromTopicWithPeekLock
         {
+            /// <summary>
+            /// Name of the topic
+            /// Required.
+            /// Dynamic values from: GetTopics.
+            /// </summary>
+            public const string TopicName = "topicName";
+
+            /// <summary>
+            /// Name of the topic subscription
+            /// Required.
+            /// Dynamic values from: GetSubscriptions.
+            /// </summary>
+            public const string SubscriptionName = "subscriptionName";
+
             /// <summary>
             /// The maximum number of messages to return in the batch
             /// Default: 20.
@@ -582,153 +666,6 @@ namespace Azure.Connectors.Sdk.Servicebus
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get all queues
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all queues response.</returns>
-        public virtual async Task<List<string>> GetQueuesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetQueuesAsync");
-            try
-            {
-                var path = $"/queues";
-                return await this
-                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get all topics
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all topics response.</returns>
-        public virtual async Task<List<string>> GetTopicsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetTopicsAsync");
-            try
-            {
-                var path = $"/topics";
-                return await this
-                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get the subscriptions for a topic
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="topicName">Topic name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the subscriptions for a topic response.</returns>
-        public virtual async Task<List<string>> GetSubscriptionsAsync(string topicName, CancellationToken cancellationToken = default)
-        {
-            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSubscriptionsAsync");
-            try
-            {
-                if (topicName is null)
-                    throw new ArgumentNullException(nameof(topicName));
-                var path = $"/topics/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions";
-                return await this
-                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get all entities
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all entities response.</returns>
-        public virtual async Task<List<ServiceBusEntity>> GetEntitiesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetEntitiesAsync");
-            try
-            {
-                var path = $"/entities";
-                return await this
-                    .CallConnectorAsync<List<ServiceBusEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get the list of system properties
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the list of system properties response.</returns>
-        public virtual async Task<List<string>> GetSystemPropertiesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSystemPropertiesAsync");
-            try
-            {
-                var path = $"/systemproperties";
-                return await this
-                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get session options
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get session options response.</returns>
-        public virtual async Task<List<string>> GetSessionOptionsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSessionOptionsAsync");
-            try
-            {
-                var path = $"/sessionoptions";
-                return await this
-                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Send message
@@ -1505,6 +1442,153 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all entities
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all entities response.</returns>
+        public virtual async Task<List<ServiceBusEntity>> GetEntitiesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetEntitiesAsync");
+            try
+            {
+                var path = $"/entities";
+                return await this
+                    .CallConnectorAsync<List<ServiceBusEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the list of system properties
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get the list of system properties response.</returns>
+        public virtual async Task<List<string>> GetSystemPropertiesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSystemPropertiesAsync");
+            try
+            {
+                var path = $"/systemproperties";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all queues
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all queues response.</returns>
+        public virtual async Task<List<string>> GetQueuesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetQueuesAsync");
+            try
+            {
+                var path = $"/queues";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get session options
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get session options response.</returns>
+        public virtual async Task<List<string>> GetSessionOptionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSessionOptionsAsync");
+            try
+            {
+                var path = $"/sessionoptions";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get all topics
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get all topics response.</returns>
+        public virtual async Task<List<string>> GetTopicsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetTopicsAsync");
+            try
+            {
+                var path = $"/topics";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the subscriptions for a topic
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="topicName">Topic name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get the subscriptions for a topic response.</returns>
+        public virtual async Task<List<string>> GetSubscriptionsAsync(string topicName, CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceBusConnectorClient.ConnectorActivitySource.StartActivity("ServiceBusConnectorClient.GetSubscriptionsAsync");
+            try
+            {
+                if (topicName is null)
+                    throw new ArgumentNullException(nameof(topicName));
+                var path = $"/topics/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions";
+                return await this
+                    .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

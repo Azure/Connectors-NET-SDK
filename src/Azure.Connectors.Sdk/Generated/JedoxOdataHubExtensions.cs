@@ -437,18 +437,6 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     }
 
     /// <summary>
-    /// Response for Get View Cell Result Schema
-    /// </summary>
-    public class GetViewCellResultSchemaResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
     /// Response for Get Extract Rows Result Schema
     /// </summary>
     public class GetExtractRowsResultSchemaResponse
@@ -464,6 +452,18 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub.Models
     /// Response for Get Transform Rows Result Schema
     /// </summary>
     public class GetTransformRowsResultSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Get View Cell Result Schema
+    /// </summary>
+    public class GetViewCellResultSchemaResponse
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
@@ -2055,34 +2055,6 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
         }
 
         /// <summary>
-        /// Get View Cell Result Schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="databaseIdentifier">Database Identifier</param>
-        /// <param name="viewIdentifier">View Identifier</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get View Cell Result Schema response.</returns>
-        public virtual async Task<GetViewCellResultSchemaResponse> GetViewCellResultSchemaAsync(int databaseIdentifier, string viewIdentifier, CancellationToken cancellationToken = default)
-        {
-            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetViewCellResultSchemaAsync");
-            try
-            {
-                if (viewIdentifier is null)
-                    throw new ArgumentNullException(nameof(viewIdentifier));
-                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/views/{Uri.EscapeDataString(viewIdentifier.ToString())}/cells";
-                return await this
-                    .CallConnectorAsync<GetViewCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get Extract Rows Result Schema
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -2138,6 +2110,34 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                 var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier.ToString())}/{Uri.EscapeDataString(projectName.ToString())}/transforms/{Uri.EscapeDataString(transformName.ToString())}/rows";
                 return await this
                     .CallConnectorAsync<GetTransformRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get View Cell Result Schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="databaseIdentifier">Database Identifier</param>
+        /// <param name="viewIdentifier">View Identifier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get View Cell Result Schema response.</returns>
+        public virtual async Task<GetViewCellResultSchemaResponse> GetViewCellResultSchemaAsync(int databaseIdentifier, string viewIdentifier, CancellationToken cancellationToken = default)
+        {
+            using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetViewCellResultSchemaAsync");
+            try
+            {
+                if (viewIdentifier is null)
+                    throw new ArgumentNullException(nameof(viewIdentifier));
+                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(databaseIdentifier.ToString())}/views/{Uri.EscapeDataString(viewIdentifier.ToString())}/cells";
+                return await this
+                    .CallConnectorAsync<GetViewCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

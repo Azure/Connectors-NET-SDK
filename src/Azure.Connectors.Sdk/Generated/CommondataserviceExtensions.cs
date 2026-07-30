@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     #region Types
 
     /// <summary>
-    /// Response for GetDataSetsMetadata
+    /// Dataset metadata
     /// </summary>
     public class DataSetsMetadata
     {
@@ -44,7 +44,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// tabular
+    /// Tabular dataset metadata
     /// </summary>
     public class TabularDataSetsMetadata
     {
@@ -70,7 +70,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// blob
+    /// Blob dataset metadata
     /// </summary>
     public class BlobDataSetsMetadata
     {
@@ -102,7 +102,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Response for Associates one row to another on the provided relationship
+    /// Table item table
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -120,7 +120,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Response for Retrieves all collection valued relationship items as an expand would
+    /// List of Items
     /// </summary>
     public class ItemsList
     {
@@ -130,7 +130,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Response for GetDataSets_V2
+    /// List of datasets
     /// </summary>
     public class DataSetsList
     {
@@ -140,7 +140,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Item in List of datasets
+    /// Dataset
     /// </summary>
     public class DataSet
     {
@@ -159,7 +159,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Item in Pass-through Native Queries
+    /// static schema for pass-through native query execution
     /// </summary>
     public class PassThroughNativeQuery
     {
@@ -183,7 +183,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Response for Get table metadata - Patch
+    /// Table metadata
     /// </summary>
     public class TableMetadata
     {
@@ -217,7 +217,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// x-ms-capabilities
+    /// Metadata for a table (capabilities)
     /// </summary>
     public class TableCapabilitiesMetadata
     {
@@ -247,7 +247,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// sortRestrictions
+    /// Metadata for a table (sort restrictions)
     /// </summary>
     public class TableSortRestrictionsMetadata
     {
@@ -265,7 +265,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// filterRestrictions
+    /// Metadata for a table (filter restrictions)
     /// </summary>
     public class TableFilterRestrictionsMetadata
     {
@@ -283,7 +283,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// selectRestrictions
+    /// Metadata for a table (select restrictions)
     /// </summary>
     public class TableSelectRestrictionsMetadata
     {
@@ -305,7 +305,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Response for GetTables_V2
+    /// Represents a list of tables.
     /// </summary>
     public class TablesList
     {
@@ -315,7 +315,7 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     }
 
     /// <summary>
-    /// Item in List of Tables
+    /// Represents a table.
     /// </summary>
     public class Table
     {

@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     #region Types
 
     /// <summary>
-    /// Response for List the cards in a board
+    /// A Trello Card Object
     /// </summary>
     public class Card
     {
@@ -120,7 +120,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Item in The check item states in the card.
+    /// A Trello Item State Object
     /// </summary>
     public class CheckItemState
     {
@@ -134,7 +134,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// badges
+    /// A Trello Badges Object
     /// </summary>
     public class Badges
     {
@@ -180,7 +180,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Item in The set of board checklists.
+    /// A Trello Checklist Object
     /// </summary>
     public class Checklist
     {
@@ -210,7 +210,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Item in The list of the checklist items
+    /// A Trello Checkitem Object
     /// </summary>
     public class Checkitem
     {
@@ -248,7 +248,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for Get a card by id
+    /// A Trello Card Object
     /// </summary>
     public class CardWithChecklists
     {
@@ -350,7 +350,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for List boards
+    /// A Trello Board Object
     /// </summary>
     public class Board
     {
@@ -432,7 +432,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// labelNames
+    /// A Trello Label Object
     /// </summary>
     public class Label
     {
@@ -478,7 +478,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Item in The set of board memberships.
+    /// A Trello Membership Object
     /// </summary>
     public class Membership
     {
@@ -500,7 +500,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// perfs
+    /// A Trello Perfs Object
     /// </summary>
     public class Perfs
     {
@@ -574,7 +574,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for Get a board by Id
+    /// A Trello Board Object
     /// </summary>
     public class BoardWithChecklists
     {
@@ -660,7 +660,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for List the card lists in a board
+    /// A Trello List Object
     /// </summary>
     public class List
     {
@@ -698,7 +698,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for Update a list
+    /// A Trello List Object
     /// </summary>
     public class CreateListResponse
     {
@@ -720,7 +720,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for List teams you are a member of
+    /// A Trello Team
     /// </summary>
     public class Team
     {
@@ -758,7 +758,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// prefs
+    /// A Trello Team Preference Object
     /// </summary>
     public class TeamPreferences
     {
@@ -768,7 +768,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for List members of a team
+    /// A Trello Member Object
     /// </summary>
     public class Member
     {
@@ -790,7 +790,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for List labels of a board
+    /// A Trello Label Object
     /// </summary>
     public class BoardLabel
     {
@@ -808,7 +808,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for List comments for a card
+    /// The model for getting a comment
     /// </summary>
     public class Comment
     {
@@ -826,7 +826,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// Response for When a new card is added to a board (V3)
+    /// A Trello Card Object
     /// </summary>
     public class CardInAction
     {
@@ -852,7 +852,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// UpdateCard_V2
+    /// Model for updating a card in Trello.
     /// </summary>
     public class UpdateCard
     {
@@ -898,7 +898,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// CreateCard_V2
+    /// Model for creating a new card in Trello.
     /// </summary>
     public class CreateCard
     {
@@ -948,7 +948,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// UpdateBoard
+    /// A Trello Board Object used to create a board
     /// </summary>
     public class UpdateBoard
     {
@@ -1002,7 +1002,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// CommentPost
+    /// The model for posting a comment
     /// </summary>
     public class CommentPost
     {
@@ -1012,7 +1012,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// CreateBoard
+    /// A Trello Board Object used to create a board
     /// </summary>
     public class CreateBoard
     {
@@ -1066,7 +1066,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
     }
 
     /// <summary>
-    /// CreateList
+    /// A Trello List Object
     /// </summary>
     public class CreateList
     {
@@ -2444,6 +2444,20 @@ namespace Azure.Connectors.Sdk.Trello
     public static class TrelloTriggerParameters
     {
         /// <summary>
+        /// Input parameters for the OnNewCardInBoard trigger operation (operationId: OnNewCardInBoardV3).
+        /// </summary>
+        public static class OnNewCardInBoard
+        {
+            /// <summary>
+            /// The unique board id.
+            /// Required.
+            /// Dynamic values from: ListBoardsSimple.
+            /// </summary>
+            public const string BoardId = "board_id";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnNewCardInList trigger operation (operationId: OnNewCardInListV3).
         /// </summary>
         public static class OnNewCardInList
@@ -2454,6 +2468,13 @@ namespace Azure.Connectors.Sdk.Trello
             /// Dynamic values from: ListBoardsSimple.
             /// </summary>
             public const string BoardId = "board_id";
+
+            /// <summary>
+            /// The unique id of the list in the specified board.
+            /// Required.
+            /// Dynamic values from: ListListsSimple.
+            /// </summary>
+            public const string ListId = "list_id";
 
         }
 

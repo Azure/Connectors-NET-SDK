@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Dropbox.Models
     #region Types
 
     /// <summary>
-    /// Response for Get file metadata
+    /// Blob metadata
     /// </summary>
     public class BlobMetadata
     {
@@ -611,6 +611,57 @@ namespace Azure.Connectors.Sdk.Dropbox
                 var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List files in folder
+        /// </summary>
+        /// <remarks>This operation gets the list of files and subfolders in a folder.</remarks>
+        /// <param name="folder">Folder</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List files in folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ListFolderAsync(string folder, CancellationToken cancellationToken = default)
+        {
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.ListFolderAsync");
+            try
+            {
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folder.ToString()))}";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List files in root folder
+        /// </summary>
+        /// <remarks>This operation gets the list of files and subfolders in the root folder.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List files in root folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.ListRootFolderAsync");
+            try
+            {
+                var path = $"/datasets/default/folders";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

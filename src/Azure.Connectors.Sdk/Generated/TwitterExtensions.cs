@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     #region Types
 
     /// <summary>
-    /// Response for Get user timeline
+    /// Represents a tweet post.
     /// </summary>
     public class TweetModel
     {
@@ -84,7 +84,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// Item in List of users mentioned in the tweet
+    /// Represents a user mentioned in a tweet.
     /// </summary>
     public class UserMentionsModel
     {
@@ -102,7 +102,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// OriginalTweet
+    /// Represents an original tweet post.
     /// </summary>
     public class OriginalTweetModel
     {
@@ -152,7 +152,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// Item in The list of user mentioned in the tweet
+    /// Represents a user mentioned in an original tweet.
     /// </summary>
     public class OriginalTweetUserMentionsModel
     {
@@ -170,7 +170,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// UserDetails
+    /// Represents a user who posted an original tweet
     /// </summary>
     public class OriginalTweetUserDetailsModel
     {
@@ -216,7 +216,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// UserDetails
+    /// Represents a user.
     /// </summary>
     public class UserDetailsModel
     {
@@ -262,7 +262,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// Response for Post a tweet
+    /// Represents the response of a tweet post.
     /// </summary>
     public class TweetResponseModel
     {
@@ -272,7 +272,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
     }
 
     /// <summary>
-    /// Response for When a new tweet is posted
+    /// Represents a wrapper object for batch trigger response
     /// </summary>
     public class TriggerBatchResponseTweetModel
     {

@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     #region Types
 
     /// <summary>
-    /// Response for List calendars
+    /// List of one or multiple calendars.
     /// </summary>
     public class CalendarList
     {
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// Item in Calendars in the list.
+    /// Details about a single Google calendar.
     /// </summary>
     public class CalendarListEntry
     {
@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// Response for List the events on a calendar
+    /// List of events in a calendar.
     /// </summary>
     public class CalendarEventList
     {
@@ -75,7 +75,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// Item in Events in the calendar.
+    /// Details of a single calendar event.
     /// </summary>
     public class ResponseEvent
     {
@@ -153,7 +153,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// Response for When an event is added, updated or deleted from a calendar
+    /// List of events in a calendar.
     /// </summary>
     public class CalendarEventChangedList
     {
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// Item in Changed events in the calendar.
+    /// Details of a single calendar event and what action changes the event.
     /// </summary>
     public class ResponseEventWithActionType
     {
@@ -233,7 +233,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// RequestEvent
+    /// An event to upload to Google Calendar
     /// </summary>
     public class RequestEvent
     {
@@ -271,7 +271,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
     }
 
     /// <summary>
-    /// PatchEvent
+    /// Event changes to upload to Google Calendar.
     /// </summary>
     public class PatchEvent
     {
@@ -670,14 +670,77 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
     public static class GoogleCalendarTriggerParameters
     {
         /// <summary>
+        /// Input parameters for the OnNewEventInCalendar trigger operation (operationId: OnNewEventInCalendar).
+        /// </summary>
+        public static class OnNewEventInCalendar
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnUpdatedEventInCalendar trigger operation (operationId: OnUpdatedEventInCalendar).
+        /// </summary>
+        public static class OnUpdatedEventInCalendar
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnDeletedEventInCalendar trigger operation (operationId: OnDeletedEventInCalendar).
+        /// </summary>
+        public static class OnDeletedEventInCalendar
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnChangedEventInCalendar trigger operation (operationId: OnChangedEventInCalendar).
         /// </summary>
         public static class OnChangedEventInCalendar
         {
             /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+            /// <summary>
             /// Whether to expand recurring events into instances.
             /// </summary>
             public const string SingleEvents = "singleEvents";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnEventStarted trigger operation (operationId: OnEventStarted).
+        /// </summary>
+        public static class OnEventStarted
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
 
         }
 
@@ -767,32 +830,6 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
                 if (minimumAccessRole != default)
                     queryParams.Add($"minAccessRole={Uri.EscapeDataString(minimumAccessRole.ToString())}");
                 var path = $"/users/me/calendarList" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List writable calendars
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List writable calendars response.</returns>
-        public virtual async Task<CalendarList> ListWritableCalendarsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.ListWritableCalendarsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add("minAccessRole=writer");
-                var path = $"/users/me/calendarList/1" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -951,6 +988,32 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
                 var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List writable calendars
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List writable calendars response.</returns>
+        public virtual async Task<CalendarList> ListWritableCalendarsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = GoogleCalendarClient.ConnectorActivitySource.StartActivity("GoogleCalendarClient.ListWritableCalendarsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("minAccessRole=writer");
+                var path = $"/users/me/calendarList/1" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

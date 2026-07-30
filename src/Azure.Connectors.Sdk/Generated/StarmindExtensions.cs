@@ -247,7 +247,7 @@ namespace Azure.Connectors.Sdk.Starmind.Models
     }
 
     /// <summary>
-    /// UserV3
+    /// User object containing user information.
     /// </summary>
     public class User
     {

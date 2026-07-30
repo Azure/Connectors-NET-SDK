@@ -155,6 +155,32 @@ namespace Azure.Connectors.Sdk.FormstackForms
 
     #endregion Trigger Operation Constants
 
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the FormstackForms connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class FormstackFormsTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnFormstackFormSubmitted trigger operation (operationId: FormstackFormSubmitted).
+        /// </summary>
+        public static class OnFormstackFormSubmitted
+        {
+            /// <summary>
+            /// Your Formstack Form
+            /// Required.
+            /// Dynamic values from: GetAvailableForms.
+            /// </summary>
+            public const string FormId = "form_id";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
     #region Client
 
     /// <summary>

@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     #region Types
 
     /// <summary>
-    /// AttachmentV2
+    /// Email attachment (V2)
     /// </summary>
     public class Attachment
     {
@@ -51,7 +51,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     }
 
     /// <summary>
-    /// EmailV3
+    /// SMTP email (v3)
     /// </summary>
     public class Email
     {

@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Box.Models
     #region Types
 
     /// <summary>
-    /// Response for Get file metadata using id
+    /// Blob metadata
     /// </summary>
     public class BlobMetadata
     {
@@ -551,6 +551,57 @@ namespace Azure.Connectors.Sdk.Box
                 var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List files and folders in folder
+        /// </summary>
+        /// <remarks>Lists the files and folders in a Box folder.</remarks>
+        /// <param name="folderId">Folder Id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List files and folders in folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ListFolderAsync(string folderId, CancellationToken cancellationToken = default)
+        {
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.ListFolderAsync");
+            try
+            {
+                if (folderId is null)
+                    throw new ArgumentNullException(nameof(folderId));
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List files and folders in root folder
+        /// </summary>
+        /// <remarks>Lists the files and folders in the Box root folder.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List files and folders in root folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ListRootFolderAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = BoxClient.ConnectorActivitySource.StartActivity("BoxClient.ListRootFolderAsync");
+            try
+            {
+                var path = $"/datasets/default/folders";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -1707,6 +1707,32 @@ namespace Azure.Connectors.Sdk.TextRequest
 
     #endregion Trigger Operation Constants
 
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the TextRequest connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class TextRequestTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnTextingWebhook trigger operation (operationId: TextingWebhook).
+        /// </summary>
+        public static class OnTextingWebhook
+        {
+            /// <summary>
+            /// Id of dashboard to add trigger to
+            /// Required.
+            /// Dynamic values from: GetDashboards.
+            /// </summary>
+            public const string DashboardId = "dashboard_id";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
     #region Client
 
     /// <summary>

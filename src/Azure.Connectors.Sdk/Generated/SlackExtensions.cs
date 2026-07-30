@@ -51,7 +51,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     }
 
     /// <summary>
-    /// channel
+    /// The Channel
     /// </summary>
     public class Channel
     {
@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     }
 
     /// <summary>
-    /// Response for Post message (V2)
+    /// Details of the message posted to a Slack channel.
     /// </summary>
     public class PostMessageResponse
     {
@@ -119,7 +119,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     }
 
     /// <summary>
-    /// PostMessageRequest
+    /// Represents the values used to post a message.
     /// </summary>
     public class PostMessageRequest
     {

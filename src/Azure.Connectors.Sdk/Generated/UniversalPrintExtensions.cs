@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.UniversalPrint.Models
     #region Types
 
     /// <summary>
-    /// Response for List recently used shares
+    /// The response for listing printer shares.
     /// </summary>
     public class ListRecentSharesResponse
     {
@@ -136,30 +136,6 @@ namespace Azure.Connectors.Sdk.UniversalPrint
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// List recently used shares
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List recently used shares response.</returns>
-        public virtual async Task<ListRecentSharesResponse> ListRecentSharesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = UniversalPrintClient.ConnectorActivitySource.StartActivity("UniversalPrintClient.ListRecentSharesAsync");
-            try
-            {
-                var path = $"/beta/me/print/recentPrinterShares";
-                return await this
-                    .CallConnectorAsync<ListRecentSharesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Print PDF
         /// </summary>
         /// <remarks>Prints the given pdf.</remarks>
@@ -212,6 +188,30 @@ namespace Azure.Connectors.Sdk.UniversalPrint
                 var path = $"/v1.0/print/shares" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List recently used shares
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List recently used shares response.</returns>
+        public virtual async Task<ListRecentSharesResponse> ListRecentSharesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = UniversalPrintClient.ConnectorActivitySource.StartActivity("UniversalPrintClient.ListRecentSharesAsync");
+            try
+            {
+                var path = $"/beta/me/print/recentPrinterShares";
+                return await this
+                    .CallConnectorAsync<ListRecentSharesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

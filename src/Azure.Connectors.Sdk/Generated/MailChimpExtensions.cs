@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     #region Types
 
     /// <summary>
-    /// Response for List campaigns
+    /// Response when getting campaigns
     /// </summary>
     public class GetCampaignsResponse
     {
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing a campaign
+    /// New Campaign Result Model
     /// </summary>
     public class CampaignResponseModel
     {
@@ -118,7 +118,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in List settings for the campaign
+    /// Settings for the campaign
     /// </summary>
     public class Recipient
     {
@@ -132,7 +132,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// segment_opts
+    /// An object representing all segmentation options
     /// </summary>
     public class SegmentOpts
     {
@@ -146,7 +146,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// settings
+    /// Settings for the campaign
     /// </summary>
     public class Settings
     {
@@ -204,7 +204,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// variate_settings
+    /// Settings for the campaign
     /// </summary>
     public class VariateSettings
     {
@@ -238,7 +238,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// tracking
+    /// Settings for the campaign
     /// </summary>
     public class Tracking
     {
@@ -284,7 +284,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// salesforce
+    /// Salesforce tracking options for a campaign. Must be using MailChimp’s built-in Salesforce integration
     /// </summary>
     public class Salesforce
     {
@@ -298,7 +298,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// highrise
+    /// Highrise tracking options for a campaign. Must be using MailChimp’s built-in Highrise integration
     /// </summary>
     public class Highrise
     {
@@ -312,7 +312,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// capsule
+    /// Capsule tracking options for a campaign. Must be using MailChimp’s built-in Capsule integration
     /// </summary>
     public class Capsule
     {
@@ -322,7 +322,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// rss_opts
+    /// RSS options for a campaign
     /// </summary>
     public class RSSOpts
     {
@@ -344,7 +344,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// schedule
+    /// The schedule for sending the RSS Campaign
     /// </summary>
     public class Schedule
     {
@@ -366,7 +366,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// daily_send
+    /// The days of the week to send a daily RSS Campaign.
     /// </summary>
     public class DailySend
     {
@@ -400,7 +400,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// ab_split_opts
+    /// A/B Testing options for a campaign
     /// </summary>
     public class ABSplitOpts
     {
@@ -458,7 +458,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// social_card
+    /// Settings for the campaign
     /// </summary>
     public class SocialCard
     {
@@ -476,7 +476,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// report_summary
+    /// For sent campaigns, a summary of opens, clicks, and unsubscribes
     /// </summary>
     public class ReportSummary
     {
@@ -506,7 +506,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// delivery_status
+    /// Updates on campaigns in the process of sending
     /// </summary>
     public class DeliveryStatus
     {
@@ -532,7 +532,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in A list of link types and descriptions for the API schema documents
+    /// Capsule tracking options for a campaign. Must be using MailChimp’s built-in Capsule integration
     /// </summary>
     public class Link
     {
@@ -558,7 +558,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Response for Get all the lists
+    /// Response when getting lists
     /// </summary>
     public class GetListsResponseModel
     {
@@ -572,7 +572,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing a list
+    /// Create New List Result Model
     /// </summary>
     public class CreateNewListResponseModel
     {
@@ -650,7 +650,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// contact
+    /// Capsule tracking options for a campaign. Must be using MailChimp’s built-in Capsule integration
     /// </summary>
     public class Contact
     {
@@ -688,7 +688,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// campaign_defaults
+    /// Capsule tracking options for a campaign. Must be using MailChimp’s built-in Capsule integration
     /// </summary>
     public class CampaignDefaults
     {
@@ -710,7 +710,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// stats
+    /// Stats for the list. Many of these are cached for at least five minutes
     /// </summary>
     public class Stats
     {
@@ -780,7 +780,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Response for Subscribe or unsubscribe list members
+    /// Response when subscribing or unsubscribing list members in a batch
     /// </summary>
     public class GetAddMembersBatchResponseModel
     {
@@ -798,7 +798,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Response for Show list members
+    /// Response when querying for all members in a list
     /// </summary>
     public class GetAllMembersResponseModel
     {
@@ -816,7 +816,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing a specific list member
+    /// Member Result Model
     /// </summary>
     public class MemberResponseModel
     {
@@ -904,7 +904,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// merge_fields
+    /// Merged fields containing User First name and last name
     /// </summary>
     public class FirstAndLastName
     {
@@ -918,7 +918,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// location
+    /// Subscriber location information
     /// </summary>
     public class Location
     {
@@ -932,7 +932,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// last_note
+    /// THe most recent Note added about this member
     /// </summary>
     public class LastNote
     {
@@ -955,7 +955,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Response for When a Member has been added to a list
+    /// Response when getting members in a list
     /// </summary>
     public class GetMembersResponseModel
     {
@@ -973,7 +973,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing a specific list member
+    /// New Campaign Result Model
     /// </summary>
     public class AddUserResponseModel
     {
@@ -1061,7 +1061,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// NewCampaignRequestV2
+    /// Body parameters to create a new campaign (V2)
     /// </summary>
     public class NewCampaignRequest
     {
@@ -1095,7 +1095,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// NewListRequest
+    /// Body parameters to create a new campaign
     /// </summary>
     public class NewListRequest
     {
@@ -1137,7 +1137,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// NewMembersInListRequest
+    /// Add new members to the list
     /// </summary>
     public class NewMembersInListRequest
     {
@@ -1151,7 +1151,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// Item in An array of objects, each representing an email address and the subscription status for a specific list. Up to 500 members may be added or updated with each API call.
+    /// Add a new member to the list
     /// </summary>
     public class NewMemberInListRequest
     {
@@ -1185,7 +1185,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
     }
 
     /// <summary>
-    /// UpdateMemberInListRequest
+    /// Body parameters to update a member in a list
     /// </summary>
     public class UpdateMemberInListRequest
     {

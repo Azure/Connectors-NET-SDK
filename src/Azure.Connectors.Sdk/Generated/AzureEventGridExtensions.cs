@@ -29,17 +29,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     #region Types
 
     /// <summary>
-    /// Response for TopicTypes_List
-    /// </summary>
-    public class TopicTypesResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List subscriptions
+    /// Subscription list operation response.
     /// </summary>
     public class SubscriptionListResult
     {
@@ -70,6 +60,16 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     }
 
     /// <summary>
+    /// Response for TopicTypes_List
+    /// </summary>
+    public class TopicTypesResponse
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
+    }
+
+    /// <summary>
     /// EventRequest
     /// </summary>
     public class EventRequest
@@ -90,18 +90,6 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     /// </summary>
     public static class AzureEventGridModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="TopicTypesResponse"/>.
-        /// </summary>
-        public static TopicTypesResponse TopicTypesResponse(
-            List<JsonElement?> value = default)
-        {
-            return new TopicTypesResponse
-            {
-                Value = value,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="SubscriptionListResult"/>.
         /// </summary>
@@ -127,6 +115,18 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
                 Id = id,
                 SubscriptionId = subscriptionId,
                 DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TopicTypesResponse"/>.
+        /// </summary>
+        public static TopicTypesResponse TopicTypesResponse(
+            List<JsonElement?> value = default)
+        {
+            return new TopicTypesResponse
+            {
+                Value = value,
             };
         }
 
@@ -187,6 +187,20 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
             /// Default: 2017-09-15-preview.
             /// </summary>
             public const string XMsApiVersion = "x-ms-api-version";
+
+            /// <summary>
+            /// The unique identifier for the Microsoft Azure subscription. The subscription ID forms part of the ID for every Azure resource.
+            /// Required.
+            /// Dynamic values from: Subscriptions_List.
+            /// </summary>
+            public const string SubscriptionId = "subscriptionId";
+
+            /// <summary>
+            /// Type of resource to create event subscription on.
+            /// Required.
+            /// Dynamic values from: TopicTypes_List.
+            /// </summary>
+            public const string ResourceType = "resourceType";
 
             /// <summary>
             /// Name to use for the new Event Grid subscription.
@@ -266,32 +280,6 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// TopicTypes_List
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The TopicTypes_List response.</returns>
-        public virtual async Task<TopicTypesResponse> TopicTypesListAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureEventGridClient.ConnectorActivitySource.StartActivity("AzureEventGridClient.TopicTypesListAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add("x-ms-api-version=2017-09-15-preview");
-                var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// List subscriptions
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -307,6 +295,32 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
                 var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// TopicTypes_List
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The TopicTypes_List response.</returns>
+        public virtual async Task<TopicTypesResponse> TopicTypesListAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureEventGridClient.ConnectorActivitySource.StartActivity("AzureEventGridClient.TopicTypesListAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2017-09-15-preview");
+                var path = $"/providers/Microsoft.EventGrid/topicTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TopicTypesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

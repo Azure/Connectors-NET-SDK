@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     #region Types
 
     /// <summary>
-    /// Response for Create an issue
+    /// Properties of a GitHub issue.
     /// </summary>
     public class IssueDetailsModel
     {
@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// assignee
+    /// Properties of a GitHub user.
     /// </summary>
     public class UserDetailsModel
     {
@@ -195,7 +195,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Get all issues of a repository
+    /// Model for fetching single API response
     /// </summary>
     public class GeneralAPIModel
     {
@@ -207,7 +207,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Get a repository public key
+    /// The public key used for setting Actions Secrets.
     /// </summary>
     public class ActionsPublicKey
     {
@@ -237,7 +237,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Create a repository using a template
+    /// A git repository
     /// </summary>
     public class RepositoryDetails
     {
@@ -591,7 +591,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// license
+    /// License Details
     /// </summary>
     public class LicenseDetails
     {
@@ -621,7 +621,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Create a reference
+    /// Git references within a repository
     /// </summary>
     public class GitReference
     {
@@ -643,7 +643,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Merge a pull request
+    /// Pull Request Merge Result.
     /// </summary>
     public class PullRequestMergeResult
     {
@@ -661,7 +661,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Get a pull request
+    /// Pull requests let you tell others about changes you&apos;ve pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary.
     /// </summary>
     public class PullRequest
     {
@@ -847,7 +847,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Item in The list of labels associated with the pull request.
+    /// Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
     /// </summary>
     public class Label
     {
@@ -881,7 +881,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// milestone
+    /// A collection of related issues and pull requests.
     /// </summary>
     public class Milestone
     {
@@ -951,7 +951,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Item in The list of requested teams to this pull request.
+    /// Groups of organization members that gives permissions on specified repositories.
     /// </summary>
     public class TeamDetails
     {
@@ -1051,7 +1051,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Compare two commits
+    /// Commit Comparison
     /// </summary>
     public class CommitComparison
     {
@@ -1109,7 +1109,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// base_commit
+    /// Commit
     /// </summary>
     public class Commit
     {
@@ -1159,7 +1159,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Item in files
+    /// Diff Entry
     /// </summary>
     public class DiffEntry
     {
@@ -1209,7 +1209,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for When a pull request is created or modified
+    /// Webhook creation response.
     /// </summary>
     public class WebhookCreationResponse
     {
@@ -1263,7 +1263,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Response for Find issues by state and keyword
+    /// Model for fetching search results
     /// </summary>
     public class MultipleSearchFetchModel
     {
@@ -1273,7 +1273,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// IssueBasicDetailsModel
+    /// Properties of an issue.
     /// </summary>
     public class IssueBasicDetailsModel
     {
@@ -1287,7 +1287,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// IssueUpdateModel
+    /// Properties of an issue update.
     /// </summary>
     public class IssueUpdateModel
     {
@@ -1325,7 +1325,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// MilestoneUpdateModel
+    /// Properties of a milestone update.
     /// </summary>
     public class MilestoneUpdateModel
     {
@@ -1369,7 +1369,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// GitUser
+    /// Metaproperties for Git author/committer information.
     /// </summary>
     public class GitUser
     {
@@ -1397,7 +1397,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// RepositoryDispatchEvent
+    /// Repository Dispatch Event raised
     /// </summary>
     public class RepositoryDispatchEvent
     {
@@ -1447,7 +1447,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// RepositoryMiniDetails
+    /// A git repository
     /// </summary>
     public class RepositoryMiniDetails
     {
@@ -1547,7 +1547,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// PullRequestCreateRequest
+    /// Pull Request Creation Request.
     /// </summary>
     public class PullRequestCreateRequest
     {
@@ -1577,7 +1577,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// PullRequestMergeRequest
+    /// Pull Request Merge Request.
     /// </summary>
     public class PullRequestMergeRequest
     {
@@ -1625,7 +1625,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// WebhookRequestBody
+    /// Webhook request body.
     /// </summary>
     public class WebhookRequestBody
     {
@@ -1647,7 +1647,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// RequestReviewersBody
+    /// Request Reviewers body.
     /// </summary>
     public class RequestReviewersBody
     {
@@ -2977,6 +2977,18 @@ namespace Azure.Connectors.Sdk.GitHub
         /// </summary>
         public static class OnWebhookPullRequestTrigger
         {
+            /// <summary>
+            /// Name of the repository owner.
+            /// Required.
+            /// </summary>
+            public const string RepositoryOwner = "repositoryOwner";
+
+            /// <summary>
+            /// Name of the repository.
+            /// Required.
+            /// </summary>
+            public const string RepositoryName = "repositoryName";
+
             /// <summary>
             /// The 'Accept' parameter.
             /// Required.

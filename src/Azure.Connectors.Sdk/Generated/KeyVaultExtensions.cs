@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     #region Types
 
     /// <summary>
-    /// Response for List keys
+    /// Collection of keys
     /// </summary>
     public class KeyMetadataCollection
     {
@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// Item in The keys
+    /// Metadata of a key
     /// </summary>
     public class KeyMetadata
     {
@@ -86,7 +86,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// Response for Encrypt data with key
+    /// Result of encryption operation
     /// </summary>
     public class KeyEncryptOutput
     {
@@ -96,7 +96,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// Response for Decrypt data with key
+    /// Result of decryption operation
     /// </summary>
     public class KeyDecryptOutput
     {
@@ -106,7 +106,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// Response for List secrets
+    /// Collection of secrets
     /// </summary>
     public class SecretMetadataCollection
     {
@@ -120,7 +120,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// Item in The secrets
+    /// Metadata of a secret
     /// </summary>
     public class SecretMetadata
     {
@@ -159,7 +159,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// Response for Get secret
+    /// The secret
     /// </summary>
     public class Secret
     {
@@ -202,7 +202,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// KeyEncryptInput
+    /// Input for encryption operation
     /// </summary>
     public class KeyEncryptInput
     {
@@ -216,7 +216,7 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
     }
 
     /// <summary>
-    /// KeyDecryptInput
+    /// Input for decryption operation
     /// </summary>
     public class KeyDecryptInput
     {
