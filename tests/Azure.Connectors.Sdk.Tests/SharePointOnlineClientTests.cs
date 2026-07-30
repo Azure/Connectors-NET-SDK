@@ -291,5 +291,71 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("copied-1", result.Id);
             Assert.AreEqual("report-copy.pdf", result.Name);
         }
+        [TestMethod]
+        public async Task ListRootFolderAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            });
+
+            var result = await client
+                .ListRootFolderAsync(siteAddress: "https://contoso.sharepoint.com/sites/test",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task ListRootFolderAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            });
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListRootFolderAsync(siteAddress: "https://contoso.sharepoint.com/sites/test",
+                    cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public async Task ListFolderAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            });
+
+            var result = await client
+                .ListFolderAsync(siteAddress: "https://contoso.sharepoint.com/sites/test",
+                    fileIdentifier: "folder1",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task ListFolderAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            });
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListFolderAsync(siteAddress: "https://contoso.sharepoint.com/sites/test",
+                    fileIdentifier: "folder1",
+                    cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 }

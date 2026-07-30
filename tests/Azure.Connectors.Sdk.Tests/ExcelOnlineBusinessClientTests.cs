@@ -155,5 +155,45 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("Sheet1!A1:D20", deserialized.Name);
             Assert.AreEqual("SalesTable", deserialized.Title);
         }
+        [TestMethod]
+        public async Task GetSingleScriptV2Async_WithMockedResponse_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .GetSingleScriptV2Async(chosenScriptSource: "me",
+                    chosenScriptDrive: "drive1",
+                    chosenScript: "script1",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task GetSingleScriptV2Async_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.GetSingleScriptV2Async(chosenScriptSource: "me",
+                    chosenScriptDrive: "drive1",
+                    chosenScript: "script1",
+                    cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 }

@@ -117,5 +117,75 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
+        [TestMethod]
+        public async Task ListRootFolderAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .ListRootFolderAsync(cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task ListRootFolderAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListRootFolderAsync(cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public async Task ListFolderAsync_WithMockedResponse_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("[]")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .ListFolderAsync(folderId: "folder1",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task ListFolderAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.BadRequest,
+                Content = new StringContent("{\"error\": \"Bad request\"}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
+                client.ListFolderAsync(folderId: "folder1",
+                    cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
     }
 }
