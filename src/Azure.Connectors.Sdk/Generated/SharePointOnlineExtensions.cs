@@ -30,210 +30,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     #region Types
 
     /// <summary>
-    /// Response for Get list metadata
-    /// </summary>
-    public class TableMetadata
-    {
-        /// <summary>Table name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Table title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>Table permission</summary>
-        [JsonPropertyName("x-ms-permission")]
-        public string XMsPermission { get; set; }
-
-        /// <summary>x-ms-capabilities</summary>
-        [JsonPropertyName("x-ms-capabilities")]
-        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-
-        /// <summary>referencedEntities</summary>
-        [JsonPropertyName("referencedEntities")]
-        public ObjectEntity ReferencedEntities { get; set; }
-
-        /// <summary>URL link</summary>
-        [JsonPropertyName("webUrl")]
-        public string WebUrl { get; set; }
-    }
-
-    /// <summary>
-    /// x-ms-capabilities
-    /// </summary>
-    public class TableCapabilitiesMetadata
-    {
-        /// <summary>sortRestrictions</summary>
-        [JsonPropertyName("sortRestrictions")]
-        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
-
-        /// <summary>filterRestrictions</summary>
-        [JsonPropertyName("filterRestrictions")]
-        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
-
-        /// <summary>selectRestrictions</summary>
-        [JsonPropertyName("selectRestrictions")]
-        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
-
-        /// <summary>countRestrictions</summary>
-        [JsonPropertyName("countRestrictions")]
-        public TableCountRestrictionsMetadata CountRestrictions { get; set; }
-
-        /// <summary>Server paging restrictions</summary>
-        [JsonPropertyName("isOnlyServerPagable")]
-        public bool? IsOnlyServerPagable { get; set; }
-
-        /// <summary>List of supported filter capabilities</summary>
-        [JsonPropertyName("filterFunctionSupport")]
-        public List<string> FilterFunctionSupport { get; set; }
-
-        /// <summary>List of supported server-driven paging capabilities</summary>
-        [JsonPropertyName("serverPagingOptions")]
-        public List<string> ServerPagingOptions { get; set; }
-    }
-
-    /// <summary>
-    /// sortRestrictions
-    /// </summary>
-    public class TableSortRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has sortable columns</summary>
-        [JsonPropertyName("sortable")]
-        public bool? Sortable { get; set; }
-
-        /// <summary>List of unsortable properties</summary>
-        [JsonPropertyName("unsortableProperties")]
-        public List<string> UnsortableProperties { get; set; }
-
-        /// <summary>List of properties which support ascending order only</summary>
-        [JsonPropertyName("ascendingOnlyProperties")]
-        public List<string> AscendingOnlyProperties { get; set; }
-    }
-
-    /// <summary>
-    /// filterRestrictions
-    /// </summary>
-    public class TableFilterRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has filterable columns</summary>
-        [JsonPropertyName("filterable")]
-        public bool? Filterable { get; set; }
-
-        /// <summary>List of non filterable properties</summary>
-        [JsonPropertyName("nonFilterableProperties")]
-        public List<string> NonFilterableProperties { get; set; }
-
-        /// <summary>List of required properties</summary>
-        [JsonPropertyName("requiredProperties")]
-        public List<string> RequiredProperties { get; set; }
-    }
-
-    /// <summary>
-    /// selectRestrictions
-    /// </summary>
-    public class TableSelectRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has selectable columns</summary>
-        [JsonPropertyName("selectable")]
-        public bool? Selectable { get; set; }
-    }
-
-    /// <summary>
-    /// countRestrictions
-    /// </summary>
-    public class TableCountRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has countable columns</summary>
-        [JsonPropertyName("countable")]
-        public bool? Countable { get; set; }
-    }
-
-    /// <summary>
-    /// schema
-    /// </summary>
-    public class ObjectEntity
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get metadata about the return type of the GetItemChanges operation
-    /// </summary>
-    public class GetItemChangesMetadataResponse
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get datasets
-    /// </summary>
-    public class DataSetsList
-    {
-        /// <summary>List of datasets</summary>
-        [JsonPropertyName("value")]
-        public List<DataSet> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of datasets
-    /// </summary>
-    public class DataSet
-    {
-        /// <summary>Dataset name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Dataset display name</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Pass-through Native Queries</summary>
-        [JsonPropertyName("query")]
-        [JsonInclude]
-        public List<PassThroughNativeQuery> Query { get; init; }
-    }
-
-    /// <summary>
-    /// Item in Pass-through Native Queries
-    /// </summary>
-    public class PassThroughNativeQuery
-    {
-        /// <summary>Query language</summary>
-        [JsonPropertyName("Language")]
-        public string Language { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Agreements Solution - Get Templates
-    /// </summary>
-    public class Table
-    {
-        /// <summary>The name of the table. The name is used at runtime.</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>The display name of the table.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Additional table properties provided by the connector to the clients.</summary>
-        [JsonPropertyName("DynamicProperties")]
-        [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
-    }
-
-    /// <summary>
     /// Agreements Solution - Generate document within Agreements Solution workspace
     /// </summary>
     [DynamicSchema("GetAgreementsSolutionTemplateFields")]
@@ -248,7 +44,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Agreements Solution - Generate document within Agreements Solution workspace
+    /// The SharePoint version of the BlobMetadataResponse extends the object by adding some additional fields that we want serialized
     /// </summary>
     public class SPBlobMetadataResponse
     {
@@ -300,7 +96,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Get all lists and libraries
+    /// Represents a list of tables.
     /// </summary>
     public class TablesList
     {
@@ -310,7 +106,26 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Approve hub site join request
+    /// Represents a table.
+    /// </summary>
+    public class Table
+    {
+        /// <summary>The name of the table. The name is used at runtime.</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>The display name of the table.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Additional table properties provided by the connector to the clients.</summary>
+        [JsonPropertyName("DynamicProperties")]
+        [JsonInclude]
+        public JsonElement? DynamicProperties { get; init; }
+    }
+
+    /// <summary>
+    /// Result object of ApproveHubSiteJoin action
     /// </summary>
     public class ApproveHubSiteJoinResponse
     {
@@ -320,7 +135,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Create sharing link for a file or folder
+    /// Internal structure for sharing links
     /// </summary>
     public class SharingLinkPermission
     {
@@ -330,7 +145,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// link
+    /// Internal structure for sharing links
     /// </summary>
     public class SharingLink
     {
@@ -340,7 +155,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Copy file (deprecated)
+    /// Blob metadata
     /// </summary>
     public class BlobMetadata
     {
@@ -388,7 +203,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Update file
+    /// Represents blob datasets metadata response
     /// </summary>
     public class BlobMetadataResponse
     {
@@ -464,7 +279,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Resolve person
+    /// SharePoint expanded user field
     /// </summary>
     public class SPListExpandedUser
     {
@@ -498,21 +313,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Returns User fields for a list
-    /// </summary>
-    public class SPListEntity
-    {
-        /// <summary>The Id of the SPField</summary>
-        [JsonPropertyName("Id")]
-        public string Id { get; set; }
-
-        /// <summary>What type of entity (field) this is</summary>
-        [JsonPropertyName("EntityType")]
-        public string EntityType { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get form metadata (preview)
+    /// Represents a table form with its metadata
     /// </summary>
     public class TableForm
     {
@@ -558,7 +359,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Item in Gets or sets Form Fields
+    /// Represents metadata for a form field
     /// </summary>
     public class FormFieldMetadata
     {
@@ -598,7 +399,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Get files (properties only)
+    /// List of Items
     /// </summary>
     public class ItemsList
     {
@@ -608,7 +409,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Item in List of Items
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -710,7 +511,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Create an approval request for an item or file
+    /// Output object of the new approval request
     /// </summary>
     public class ApprovalData
     {
@@ -762,7 +563,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Set content approval status
+    /// SetApprovalStatus output
     /// </summary>
     public class SetApprovalStatusOutput
     {
@@ -789,7 +590,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for Get attachments
+    /// SharePoint list item attachment
     /// </summary>
     public class SPListItemAttachment
     {
@@ -807,7 +608,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Response for When a file is deleted
+    /// List of Deleted items
     /// </summary>
     public class DeletedItemList
     {
@@ -817,7 +618,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// Item in List of Deleted Items
+    /// An item deleted from a SharePoint list or library
     /// </summary>
     public class DeletedItem
     {
@@ -862,7 +663,206 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// CopyFileParameters
+    /// List of datasets
+    /// </summary>
+    public class DataSetsList
+    {
+        /// <summary>List of datasets</summary>
+        [JsonPropertyName("value")]
+        public List<DataSet> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Dataset
+    /// </summary>
+    public class DataSet
+    {
+        /// <summary>Dataset name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Dataset display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Pass-through Native Queries</summary>
+        [JsonPropertyName("query")]
+        [JsonInclude]
+        public List<PassThroughNativeQuery> Query { get; init; }
+    }
+
+    /// <summary>
+    /// static schema for pass-through native query execution
+    /// </summary>
+    public class PassThroughNativeQuery
+    {
+        /// <summary>Query language</summary>
+        [JsonPropertyName("Language")]
+        public string Language { get; set; }
+    }
+
+    /// <summary>
+    /// Table metadata
+    /// </summary>
+    public class TableMetadata
+    {
+        /// <summary>Table name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Table title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Table permission</summary>
+        [JsonPropertyName("x-ms-permission")]
+        public string XMsPermission { get; set; }
+
+        /// <summary>x-ms-capabilities</summary>
+        [JsonPropertyName("x-ms-capabilities")]
+        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+
+        /// <summary>referencedEntities</summary>
+        [JsonPropertyName("referencedEntities")]
+        public ObjectEntity ReferencedEntities { get; set; }
+
+        /// <summary>URL link</summary>
+        [JsonPropertyName("webUrl")]
+        public string WebUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (capabilities)
+    /// </summary>
+    public class TableCapabilitiesMetadata
+    {
+        /// <summary>sortRestrictions</summary>
+        [JsonPropertyName("sortRestrictions")]
+        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
+
+        /// <summary>filterRestrictions</summary>
+        [JsonPropertyName("filterRestrictions")]
+        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
+
+        /// <summary>selectRestrictions</summary>
+        [JsonPropertyName("selectRestrictions")]
+        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>countRestrictions</summary>
+        [JsonPropertyName("countRestrictions")]
+        public TableCountRestrictionsMetadata CountRestrictions { get; set; }
+
+        /// <summary>Server paging restrictions</summary>
+        [JsonPropertyName("isOnlyServerPagable")]
+        public bool? IsOnlyServerPagable { get; set; }
+
+        /// <summary>List of supported filter capabilities</summary>
+        [JsonPropertyName("filterFunctionSupport")]
+        public List<string> FilterFunctionSupport { get; set; }
+
+        /// <summary>List of supported server-driven paging capabilities</summary>
+        [JsonPropertyName("serverPagingOptions")]
+        public List<string> ServerPagingOptions { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (sort restrictions)
+    /// </summary>
+    public class TableSortRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has sortable columns</summary>
+        [JsonPropertyName("sortable")]
+        public bool? Sortable { get; set; }
+
+        /// <summary>List of unsortable properties</summary>
+        [JsonPropertyName("unsortableProperties")]
+        public List<string> UnsortableProperties { get; set; }
+
+        /// <summary>List of properties which support ascending order only</summary>
+        [JsonPropertyName("ascendingOnlyProperties")]
+        public List<string> AscendingOnlyProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (filter restrictions)
+    /// </summary>
+    public class TableFilterRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has filterable columns</summary>
+        [JsonPropertyName("filterable")]
+        public bool? Filterable { get; set; }
+
+        /// <summary>List of non filterable properties</summary>
+        [JsonPropertyName("nonFilterableProperties")]
+        public List<string> NonFilterableProperties { get; set; }
+
+        /// <summary>List of required properties</summary>
+        [JsonPropertyName("requiredProperties")]
+        public List<string> RequiredProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (select restrictions)
+    /// </summary>
+    public class TableSelectRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has selectable columns</summary>
+        [JsonPropertyName("selectable")]
+        public bool? Selectable { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (count restrictions)
+    /// </summary>
+    public class TableCountRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has countable columns</summary>
+        [JsonPropertyName("countable")]
+        public bool? Countable { get; set; }
+    }
+
+    /// <summary>
+    /// schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Lightweight object representing a list &quot;entity&quot; (field)
+    /// </summary>
+    public class SPListEntity
+    {
+        /// <summary>The Id of the SPField</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>What type of entity (field) this is</summary>
+        [JsonPropertyName("EntityType")]
+        public string EntityType { get; set; }
+    }
+
+    /// <summary>
+    /// Output object of GetItemChangesMetadata operation
+    /// </summary>
+    public class GetItemChangesMetadataResponse
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Body parameters for SharePoint copy file operation
     /// </summary>
     public class CopyFileParameters
     {
@@ -884,7 +884,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// CopyFolderParameters
+    /// Body parameters for SharePoint copy folder operation
     /// </summary>
     public class CopyFolderParameters
     {
@@ -924,7 +924,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// CreateNewFolderParameters
+    /// Body parameters for SharePoint Create New Folder operation
     /// </summary>
     public class CreateNewFolderParameters
     {
@@ -934,7 +934,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// FileCheckInParameters
+    /// Body parameters for SharePoint checkin file operation
     /// </summary>
     public class FileCheckInParameters
     {
@@ -948,7 +948,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// ItemGrantAccessBody
+    /// Parameters for grant access action
     /// </summary>
     public class ItemGrantAccessBody
     {
@@ -970,7 +970,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// ItemPermissionCreateLinkBody
+    /// Parameters for add permission action
     /// </summary>
     public class ItemPermissionCreateLinkBody
     {
@@ -988,7 +988,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// MoveFileParameters
+    /// Body parameters for SharePoint move file operation
     /// </summary>
     public class MoveFileParameters
     {
@@ -1010,7 +1010,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// MoveFolderParameters
+    /// Body parameters for SharePoint move folder operation
     /// </summary>
     public class MoveFolderParameters
     {
@@ -1032,7 +1032,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// PatchFileItemWithPredictedValuesParameters
+    /// Body parameters for SharePoint PatchFileItemWithPredictedValues HttpRequest operation
     /// </summary>
     public class PatchFileItemWithPredictedValuesParameters
     {
@@ -1046,7 +1046,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     }
 
     /// <summary>
-    /// SharePointHttpRequestBodyParameters
+    /// Body parameters for SharePoint HttpRequest operation
     /// </summary>
     public class SharePointHttpRequestBodyParameters
     {
@@ -1140,178 +1140,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     public static class SharePointOnlineModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TableMetadata"/>.
-        /// </summary>
-        public static TableMetadata TableMetadata(
-            string name = default,
-            string title = default,
-            string xMsPermission = default,
-            TableCapabilitiesMetadata xMsCapabilities = default,
-            ObjectEntity schema = default,
-            ObjectEntity referencedEntities = default,
-            string webUrl = default)
-        {
-            return new TableMetadata
-            {
-                Name = name,
-                Title = title,
-                XMsPermission = xMsPermission,
-                XMsCapabilities = xMsCapabilities,
-                Schema = schema,
-                ReferencedEntities = referencedEntities,
-                WebUrl = webUrl,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
-        /// </summary>
-        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
-            TableSortRestrictionsMetadata sortRestrictions = default,
-            TableFilterRestrictionsMetadata filterRestrictions = default,
-            TableSelectRestrictionsMetadata selectRestrictions = default,
-            TableCountRestrictionsMetadata countRestrictions = default,
-            bool? isOnlyServerPagable = default,
-            List<string> filterFunctionSupport = default,
-            List<string> serverPagingOptions = default)
-        {
-            return new TableCapabilitiesMetadata
-            {
-                SortRestrictions = sortRestrictions,
-                FilterRestrictions = filterRestrictions,
-                SelectRestrictions = selectRestrictions,
-                CountRestrictions = countRestrictions,
-                IsOnlyServerPagable = isOnlyServerPagable,
-                FilterFunctionSupport = filterFunctionSupport,
-                ServerPagingOptions = serverPagingOptions,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
-            bool? sortable = default,
-            List<string> unsortableProperties = default,
-            List<string> ascendingOnlyProperties = default)
-        {
-            return new TableSortRestrictionsMetadata
-            {
-                Sortable = sortable,
-                UnsortableProperties = unsortableProperties,
-                AscendingOnlyProperties = ascendingOnlyProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
-            bool? filterable = default,
-            List<string> nonFilterableProperties = default,
-            List<string> requiredProperties = default)
-        {
-            return new TableFilterRestrictionsMetadata
-            {
-                Filterable = filterable,
-                NonFilterableProperties = nonFilterableProperties,
-                RequiredProperties = requiredProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
-            bool? selectable = default)
-        {
-            return new TableSelectRestrictionsMetadata
-            {
-                Selectable = selectable,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableCountRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableCountRestrictionsMetadata TableCountRestrictionsMetadata(
-            bool? countable = default)
-        {
-            return new TableCountRestrictionsMetadata
-            {
-                Countable = countable,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetItemChangesMetadataResponse"/>.
-        /// </summary>
-        public static GetItemChangesMetadataResponse GetItemChangesMetadataResponse(
-            ObjectEntity schema = default)
-        {
-            return new GetItemChangesMetadataResponse
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DataSetsList"/>.
-        /// </summary>
-        public static DataSetsList DataSetsList(
-            List<DataSet> value = default)
-        {
-            return new DataSetsList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DataSet"/>.
-        /// </summary>
-        public static DataSet DataSet(
-            string name = default,
-            string displayName = default,
-            List<PassThroughNativeQuery> query = default)
-        {
-            return new DataSet
-            {
-                Name = name,
-                DisplayName = displayName,
-                Query = query,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PassThroughNativeQuery"/>.
-        /// </summary>
-        public static PassThroughNativeQuery PassThroughNativeQuery(
-            string language = default)
-        {
-            return new PassThroughNativeQuery
-            {
-                Language = language,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Table"/>.
-        /// </summary>
-        public static Table Table(
-            string name = default,
-            string displayName = default,
-            JsonElement? dynamicProperties = default)
-        {
-            return new Table
-            {
-                Name = name,
-                DisplayName = displayName,
-                DynamicProperties = dynamicProperties,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="SPBlobMetadataResponse"/>.
         /// </summary>
         public static SPBlobMetadataResponse SPBlobMetadataResponse(
@@ -1352,6 +1180,22 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
             return new TablesList
             {
                 Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Table"/>.
+        /// </summary>
+        public static Table Table(
+            string name = default,
+            string displayName = default,
+            JsonElement? dynamicProperties = default)
+        {
+            return new Table
+            {
+                Name = name,
+                DisplayName = displayName,
+                DynamicProperties = dynamicProperties,
             };
         }
 
@@ -1472,20 +1316,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 Department = department,
                 JobTitle = jobTitle,
                 Type = type,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SPListEntity"/>.
-        /// </summary>
-        public static SPListEntity SPListEntity(
-            string id = default,
-            string entityType = default)
-        {
-            return new SPListEntity
-            {
-                Id = id,
-                EntityType = entityType,
             };
         }
 
@@ -1642,6 +1472,176 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
                 DeletedBy = deletedBy,
                 TimeDeleted = timeDeleted,
                 IsFolder = isFolder,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataSetsList"/>.
+        /// </summary>
+        public static DataSetsList DataSetsList(
+            List<DataSet> value = default)
+        {
+            return new DataSetsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataSet"/>.
+        /// </summary>
+        public static DataSet DataSet(
+            string name = default,
+            string displayName = default,
+            List<PassThroughNativeQuery> query = default)
+        {
+            return new DataSet
+            {
+                Name = name,
+                DisplayName = displayName,
+                Query = query,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PassThroughNativeQuery"/>.
+        /// </summary>
+        public static PassThroughNativeQuery PassThroughNativeQuery(
+            string language = default)
+        {
+            return new PassThroughNativeQuery
+            {
+                Language = language,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableMetadata"/>.
+        /// </summary>
+        public static TableMetadata TableMetadata(
+            string name = default,
+            string title = default,
+            string xMsPermission = default,
+            TableCapabilitiesMetadata xMsCapabilities = default,
+            ObjectEntity schema = default,
+            ObjectEntity referencedEntities = default,
+            string webUrl = default)
+        {
+            return new TableMetadata
+            {
+                Name = name,
+                Title = title,
+                XMsPermission = xMsPermission,
+                XMsCapabilities = xMsCapabilities,
+                Schema = schema,
+                ReferencedEntities = referencedEntities,
+                WebUrl = webUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
+        /// </summary>
+        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
+            TableSortRestrictionsMetadata sortRestrictions = default,
+            TableFilterRestrictionsMetadata filterRestrictions = default,
+            TableSelectRestrictionsMetadata selectRestrictions = default,
+            TableCountRestrictionsMetadata countRestrictions = default,
+            bool? isOnlyServerPagable = default,
+            List<string> filterFunctionSupport = default,
+            List<string> serverPagingOptions = default)
+        {
+            return new TableCapabilitiesMetadata
+            {
+                SortRestrictions = sortRestrictions,
+                FilterRestrictions = filterRestrictions,
+                SelectRestrictions = selectRestrictions,
+                CountRestrictions = countRestrictions,
+                IsOnlyServerPagable = isOnlyServerPagable,
+                FilterFunctionSupport = filterFunctionSupport,
+                ServerPagingOptions = serverPagingOptions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
+            bool? sortable = default,
+            List<string> unsortableProperties = default,
+            List<string> ascendingOnlyProperties = default)
+        {
+            return new TableSortRestrictionsMetadata
+            {
+                Sortable = sortable,
+                UnsortableProperties = unsortableProperties,
+                AscendingOnlyProperties = ascendingOnlyProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
+            bool? filterable = default,
+            List<string> nonFilterableProperties = default,
+            List<string> requiredProperties = default)
+        {
+            return new TableFilterRestrictionsMetadata
+            {
+                Filterable = filterable,
+                NonFilterableProperties = nonFilterableProperties,
+                RequiredProperties = requiredProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
+            bool? selectable = default)
+        {
+            return new TableSelectRestrictionsMetadata
+            {
+                Selectable = selectable,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCountRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableCountRestrictionsMetadata TableCountRestrictionsMetadata(
+            bool? countable = default)
+        {
+            return new TableCountRestrictionsMetadata
+            {
+                Countable = countable,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SPListEntity"/>.
+        /// </summary>
+        public static SPListEntity SPListEntity(
+            string id = default,
+            string entityType = default)
+        {
+            return new SPListEntity
+            {
+                Id = id,
+                EntityType = entityType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetItemChangesMetadataResponse"/>.
+        /// </summary>
+        public static GetItemChangesMetadataResponse GetItemChangesMetadataResponse(
+            ObjectEntity schema = default)
+        {
+            return new GetItemChangesMetadataResponse
+            {
+                Schema = schema,
             };
         }
 
@@ -2043,6 +2043,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public static class OnChangedItems
         {
             /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint list name
+            /// Required.
+            /// Dynamic values from: GetTablesForListsAndLibraries.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Select a folder, or leave blank for the whole library
             /// </summary>
             public const string FolderPath = "folderPath";
@@ -2061,9 +2075,44 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public static class OnDeletedFileItems
         {
             /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint library name
+            /// Required.
+            /// Dynamic values from: GetTablesForLibraries.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Select a folder, or leave blank for the whole library
             /// </summary>
             public const string FolderPath = "folderPath";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnDeletedItems trigger operation (operationId: GetOnDeletedItems).
+        /// </summary>
+        public static class OnDeletedItems
+        {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint list name
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
 
         }
 
@@ -2072,6 +2121,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnNewFileItems
         {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint library name
+            /// Required.
+            /// Dynamic values from: GetTablesForLibraries.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// Select a folder, or leave blank for the whole library
             /// </summary>
@@ -2091,6 +2154,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public static class OnNewItems
         {
             /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint list name
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Avoid column threshold issues by only using columns defined in a view
             /// Dynamic values from: GetTableViews.
             /// </summary>
@@ -2103,6 +2180,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnNewItemsFromForm
         {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint list or library name
+            /// Required.
+            /// Dynamic values from: GetTablesForListsAndLibraries.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// Form identifier
             /// Required.
@@ -2123,6 +2214,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnRecurrenceDigest
         {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint list or library name.
+            /// Required.
+            /// Dynamic values from: GetTablesForListsAndLibraries.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// Include item updates in the digest.
             /// Required.
@@ -2166,6 +2271,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public static class OnUpdatedFileClassifiedTimes
         {
             /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint library name
+            /// Required.
+            /// Dynamic values from: GetTablesForLibraries.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Select a folder, or leave blank for the whole library
             /// </summary>
             public const string FolderPath = "folderPath";
@@ -2183,6 +2302,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnUpdatedFileItems
         {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint library name
+            /// Required.
+            /// Dynamic values from: GetTablesForLibraries.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// Select a folder, or leave blank for the whole library
             /// </summary>
@@ -2202,6 +2335,20 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public static class OnUpdatedItems
         {
             /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// SharePoint list name
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Avoid column threshold issues by only using columns defined in a view
             /// Dynamic values from: GetTableViews.
             /// </summary>
@@ -2214,6 +2361,13 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnNewFile
         {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
             /// <summary>
             /// Select a folder.
             /// Required.
@@ -2239,6 +2393,13 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// </summary>
         public static class OnUpdatedFile
         {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
             /// <summary>
             /// Select a folder.
             /// Required.
@@ -2336,124 +2497,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Get list metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="listName">List Name</param>
-        /// <param name="limitColumnsByView">Limit Columns by View</param>
-        /// <param name="limitColumnsByContentType">Limit Columns by Content Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get list metadata response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, string limitColumnsByContentType = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listName is null)
-                    throw new ArgumentNullException(nameof(listName));
-                var queryParams = new List<string>();
-                if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                if (limitColumnsByContentType != default)
-                    queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get metadata about the return type of the GetItemChanges operation
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="listOrLibraryName">List or Library Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata about the return type of the GetItemChanges operation response.</returns>
-        public virtual async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemChangesMetadataAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listOrLibraryName is null)
-                    throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/changes";
-                return await this
-                    .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get datasets
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get datasets response.</returns>
-        public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDataSetsAsync");
-            try
-            {
-                var path = $"/datasets";
-                return await this
-                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Agreements Solution - Get Templates
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Agreements Solution - Get Templates response.</returns>
-        public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplatesAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Agreements Solution - Generate document within Agreements Solution workspace
         /// </summary>
         /// <remarks>Use this action to create documents based on modern templates in a Agreements Solution workspace. This is behind a payment wall currently in planning (either license or PayG).</remarks>
@@ -2478,36 +2521,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionWorkspace.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Agreements Solution - Get template fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="agreementsSolutionTemplate">Agreements Solution template</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Agreements Solution - Get template fields response.</returns>
-        public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplateFieldsAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                if (agreementsSolutionTemplate is null)
-                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/fields";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2898,6 +2911,63 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
+        /// List root folder
+        /// </summary>
+        /// <remarks>Returns files in the root SharePoint folder.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List root folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ListRootFolderAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.ListRootFolderAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/folders";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List folder
+        /// </summary>
+        /// <remarks>Returns files contained in a SharePoint folder.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="fileIdentifier">File Identifier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List folder response.</returns>
+        public virtual async Task<List<BlobMetadata>> ListFolderAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.ListFolderAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/folders/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                return await this
+                    .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get file metadata using path
         /// </summary>
         /// <remarks>Gets information about the file such as size, etag, created date, etc. Uses a file path to pick the file. Use &quot;Get file properties&quot; action to get to the values stored in the columns in the library.</remarks>
@@ -3275,69 +3345,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
-        /// Get document generation forms
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="documentLibraryName">Document Library Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get document generation forms response.</returns>
-        public virtual async Task<List<Table>> GetDocGenFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormsAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (documentLibraryName is null)
-                    throw new ArgumentNullException(nameof(documentLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/docgenforms";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get document generation form fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="sharePointListName">SharePoint list name</param>
-        /// <param name="formIdentifier">Form identifier</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get document generation form fields response.</returns>
-        public virtual async Task<TableMetadata> GetDocGenFormFieldsAsync(string dataset, string sharePointListName, string formIdentifier, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormFieldsAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                if (sharePointListName is null)
-                    throw new ArgumentNullException(nameof(sharePointListName));
-                if (formIdentifier is null)
-                    throw new ArgumentNullException(nameof(formIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointListName.ToString()))}/docgenforms/{Uri.EscapeDataString(Uri.EscapeDataString(formIdentifier.ToString()))}/fields";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Resolve person
         /// </summary>
         /// <remarks>Returns a single matching user value so it can be assigned to a column of type person. If there are no matches, or multiple matches, this action will error out.</remarks>
@@ -3368,70 +3375,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/entities/{Uri.EscapeDataString(Uri.EscapeDataString(column.ToString()))}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Returns User fields for a list
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="listName">List Name</param>
-        /// <param name="limitColumnsByView">Limit Columns by View</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Returns User fields for a list response.</returns>
-        public virtual async Task<List<SPListEntity>> GetEntitiesForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetEntitiesForUserAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listName is null)
-                    throw new ArgumentNullException(nameof(listName));
-                var queryParams = new List<string>();
-                if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get list forms
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="listName">List Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get list forms response.</returns>
-        public virtual async Task<List<Table>> GetTableFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormsAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listName is null)
-                    throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/forms";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3552,36 +3495,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get list image fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="listName">List Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get list image fields response.</returns>
-        public virtual async Task<List<Table>> GetListImageFieldsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetListImageFieldsAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listName is null)
-                    throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/imagefields";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4292,36 +4205,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
-        /// Get document library templates
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="sharePointDocumentLibraryName">SharePoint document library name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get document library templates response.</returns>
-        public virtual async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyTemplatesAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                if (sharePointDocumentLibraryName is null)
-                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates";
-                return await this
-                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Generate document using Microsoft Syntex (preview)
         /// </summary>
         /// <remarks>Use this action to create documents based on modern templates from Microsoft Syntex. This preview requires a Syntex license. Pricing is subject to change. For more info see: https://docs.microsoft.com/en-us/microsoft-365/contentunderstanding/content-assembly.</remarks>
@@ -4366,39 +4249,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
-        /// Get placeholders from template
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
-        /// <param name="sharePointDocumentLibraryName">SharePoint document library name</param>
-        /// <param name="documentTemplate">Document template</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get placeholders from template response.</returns>
-        public virtual async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyPlaceholdersAsync");
-            try
-            {
-                if (dataset is null)
-                    throw new ArgumentNullException(nameof(dataset));
-                if (sharePointDocumentLibraryName is null)
-                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
-                if (documentTemplate is null)
-                    throw new ArgumentNullException(nameof(documentTemplate));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(documentTemplate.ToString()))}/placeholders";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get list views
         /// </summary>
         /// <remarks>Gets views from a SharePoint list.</remarks>
@@ -4418,213 +4268,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/views";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get libraries where Content Approval is supported
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get libraries where Content Approval is supported response.</returns>
-        public virtual async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForApprovalAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/approval";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get libraries
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get libraries response.</returns>
-        public virtual async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLibrariesAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/libraries";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get lists and libraries where lightweight approvals is enabled
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get lists and libraries where lightweight approvals is enabled response.</returns>
-        public virtual async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLightweightApprovalAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/lightweightapproval";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get lists and libraries
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="siteAddress">Site Address</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get lists and libraries response.</returns>
-        public virtual async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForListsAndLibrariesAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/listsandlibraries";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get the appropriate creation schema for the approval request type
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="approvalType">Approval Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the appropriate creation schema for the approval request type response.</returns>
-        public virtual async Task<ObjectEntity> GetApprovalSchemaAsync(int approvalType, CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetApprovalSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
-                var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// When to send updates
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The When to send updates response.</returns>
-        public virtual async Task<ObjectEntity> GetDayOfWeekOptionsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDayOfWeekOptionsAsync");
-            try
-            {
-                var path = $"/getDayOfWeekOptions";
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get available approval request types
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get available approval request types response.</returns>
-        public virtual async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetApprovalTypesAsync");
-            try
-            {
-                var path = $"/getApprovalTypes";
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get SPViewScope options to use for folder querying behavior
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get SPViewScope options to use for folder querying behavior response.</returns>
-        public virtual async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetViewScopeOptionsAsync");
-            try
-            {
-                var path = $"/getViewScopeOptions";
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4665,6 +4308,551 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get datasets
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get datasets response.</returns>
+        public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDataSetsAsync");
+            try
+            {
+                var path = $"/datasets";
+                return await this
+                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Agreements Solution - Get Templates
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Agreements Solution - Get Templates response.</returns>
+        public virtual async Task<List<Table>> GetAgreementsSolutionTemplatesAsync(string dataset, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplatesAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Agreements Solution - Get template fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="agreementsSolutionTemplate">Agreements Solution template</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Agreements Solution - Get template fields response.</returns>
+        public virtual async Task<TableMetadata> GetAgreementsSolutionTemplateFieldsAsync(string dataset, string agreementsSolutionTemplate, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetAgreementsSolutionTemplateFieldsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (agreementsSolutionTemplate is null)
+                    throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/fields";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get libraries
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get libraries response.</returns>
+        public virtual async Task<TablesList> GetTablesForLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLibrariesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/libraries";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get lists and libraries
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get lists and libraries response.</returns>
+        public virtual async Task<TablesList> GetTablesForListsAndLibrariesAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForListsAndLibrariesAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/listsandlibraries";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Returns User fields for a list
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listName">List Name</param>
+        /// <param name="limitColumnsByView">Limit Columns by View</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Returns User fields for a list response.</returns>
+        public virtual async Task<List<SPListEntity>> GetEntitiesForUserAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetEntitiesForUserAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get list forms
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listName">List Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get list forms response.</returns>
+        public virtual async Task<List<Table>> GetTableFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableFormsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/forms";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation forms
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="documentLibraryName">Document Library Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation forms response.</returns>
+        public virtual async Task<List<Table>> GetDocGenFormsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string documentLibraryName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormsAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (documentLibraryName is null)
+                    throw new ArgumentNullException(nameof(documentLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/docgenforms";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document generation form fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="sharePointListName">SharePoint list name</param>
+        /// <param name="formIdentifier">Form identifier</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document generation form fields response.</returns>
+        public virtual async Task<TableMetadata> GetDocGenFormFieldsAsync(string dataset, string sharePointListName, string formIdentifier, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDocGenFormFieldsAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointListName is null)
+                    throw new ArgumentNullException(nameof(sharePointListName));
+                if (formIdentifier is null)
+                    throw new ArgumentNullException(nameof(formIdentifier));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointListName.ToString()))}/docgenforms/{Uri.EscapeDataString(Uri.EscapeDataString(formIdentifier.ToString()))}/fields";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get SPViewScope options to use for folder querying behavior
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get SPViewScope options to use for folder querying behavior response.</returns>
+        public virtual async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetViewScopeOptionsAsync");
+            try
+            {
+                var path = $"/getViewScopeOptions";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get list metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listName">List Name</param>
+        /// <param name="limitColumnsByView">Limit Columns by View</param>
+        /// <param name="limitColumnsByContentType">Limit Columns by Content Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get list metadata response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, [DynamicValues("GetTableViews")] string limitColumnsByView = default, string limitColumnsByContentType = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTableAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listName is null)
+                    throw new ArgumentNullException(nameof(listName));
+                var queryParams = new List<string>();
+                if (limitColumnsByView != default)
+                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                if (limitColumnsByContentType != default)
+                    queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get lists and libraries where lightweight approvals is enabled
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get lists and libraries where lightweight approvals is enabled response.</returns>
+        public virtual async Task<TablesList> GetTablesForLightweightApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForLightweightApprovalAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/lightweightapproval";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get available approval request types
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get available approval request types response.</returns>
+        public virtual async Task<ObjectEntity> GetApprovalTypesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetApprovalTypesAsync");
+            try
+            {
+                var path = $"/getApprovalTypes";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get the appropriate creation schema for the approval request type
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="approvalType">Approval Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get the appropriate creation schema for the approval request type response.</returns>
+        public virtual async Task<ObjectEntity> GetApprovalSchemaAsync(int approvalType, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetApprovalSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
+                var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get libraries where Content Approval is supported
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get libraries where Content Approval is supported response.</returns>
+        public virtual async Task<TablesList> GetTablesForApprovalAsync([DynamicValues("GetDataSets")] string siteAddress, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetTablesForApprovalAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/approval";
+                return await this
+                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// When to send updates
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The When to send updates response.</returns>
+        public virtual async Task<ObjectEntity> GetDayOfWeekOptionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetDayOfWeekOptionsAsync");
+            try
+            {
+                var path = $"/getDayOfWeekOptions";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get document library templates
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="sharePointDocumentLibraryName">SharePoint document library name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document library templates response.</returns>
+        public virtual async Task<List<Table>> GetContentAssemblyTemplatesAsync(string dataset, string sharePointDocumentLibraryName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyTemplatesAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointDocumentLibraryName is null)
+                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates";
+                return await this
+                    .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get placeholders from template
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="dataset">Example: https://contoso.sharepoint.com/sites/sitename</param>
+        /// <param name="sharePointDocumentLibraryName">SharePoint document library name</param>
+        /// <param name="documentTemplate">Document template</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get placeholders from template response.</returns>
+        public virtual async Task<TableMetadata> GetContentAssemblyPlaceholdersAsync(string dataset, string sharePointDocumentLibraryName, string documentTemplate, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetContentAssemblyPlaceholdersAsync");
+            try
+            {
+                if (dataset is null)
+                    throw new ArgumentNullException(nameof(dataset));
+                if (sharePointDocumentLibraryName is null)
+                    throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
+                if (documentTemplate is null)
+                    throw new ArgumentNullException(nameof(documentTemplate));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(documentTemplate.ToString()))}/placeholders";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get metadata about the return type of the GetItemChanges operation
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="listOrLibraryName">List or Library Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get metadata about the return type of the GetItemChanges operation response.</returns>
+        public virtual async Task<GetItemChangesMetadataResponse> GetItemChangesMetadataAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForListsAndLibraries")] string listOrLibraryName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemChangesMetadataAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (listOrLibraryName is null)
+                    throw new ArgumentNullException(nameof(listOrLibraryName));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/changes";
+                return await this
+                    .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

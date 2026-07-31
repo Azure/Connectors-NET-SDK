@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
     #region Types
 
     /// <summary>
-    /// Response for Update a to-do list
+    /// An Microsoft To-Do list.
     /// </summary>
     public class TodoList
     {
@@ -60,7 +60,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
     }
 
     /// <summary>
-    /// Response for Add a to-do (V3)
+    /// A Microsoft To-Do object.
     /// </summary>
     public class ToDo
     {
@@ -128,7 +128,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
     }
 
     /// <summary>
-    /// CreateToDo_V2
+    /// A Microsoft To-Do.
     /// </summary>
     public class CreateToDo
     {
@@ -164,7 +164,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
     }
 
     /// <summary>
-    /// UpdateToDo_V2
+    /// A Microsoft To-Do.
     /// </summary>
     public class UpdateToDo
     {
@@ -200,7 +200,7 @@ namespace Azure.Connectors.Sdk.Todo.Models
     }
 
     /// <summary>
-    /// CreateToDoList_V2
+    /// A Microsoft To-Do list.
     /// </summary>
     public class CreateToDoList
     {
@@ -529,6 +529,46 @@ namespace Azure.Connectors.Sdk.Todo
     }
 
     #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the Todo connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class TodoTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnNewToDoInFolder trigger operation (operationId: OnNewToDoInFolderV2).
+        /// </summary>
+        public static class OnNewToDoInFolder
+        {
+            /// <summary>
+            /// To-do list
+            /// Required.
+            /// Dynamic values from: GetAllTodoListsV2.
+            /// </summary>
+            public const string FolderId = "folderId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnUpdateToDoInFolder trigger operation (operationId: OnUpdateToDoInFolderV2).
+        /// </summary>
+        public static class OnUpdateToDoInFolder
+        {
+            /// <summary>
+            /// To-do list
+            /// Required.
+            /// Dynamic values from: GetAllTodoListsV2.
+            /// </summary>
+            public const string FolderId = "folderId";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
 
     #region Client
 

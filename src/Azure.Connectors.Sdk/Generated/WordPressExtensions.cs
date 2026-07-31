@@ -289,7 +289,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
     }
 
     /// <summary>
-    /// Response for List sites
+    /// A list of sites
     /// </summary>
     public class SiteList
     {
@@ -299,7 +299,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
     }
 
     /// <summary>
-    /// Item in List of sites
+    /// List of site items
     /// </summary>
     public class Site
     {
@@ -357,7 +357,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
     }
 
     /// <summary>
-    /// CreatePostModel
+    /// A Blogger post object for new post requests
     /// </summary>
     public class CreatePostModel
     {

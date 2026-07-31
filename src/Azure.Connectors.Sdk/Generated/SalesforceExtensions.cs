@@ -30,129 +30,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     #region Types
 
     /// <summary>
-    /// Response for Get object metadata
-    /// </summary>
-    public class TableMetadata
-    {
-        /// <summary>Table name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Table title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>Table permission</summary>
-        [JsonPropertyName("x-ms-permission")]
-        public string XMsPermission { get; set; }
-
-        /// <summary>x-ms-capabilities</summary>
-        [JsonPropertyName("x-ms-capabilities")]
-        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-
-        /// <summary>referencedEntities</summary>
-        [JsonPropertyName("referencedEntities")]
-        public ObjectEntity ReferencedEntities { get; set; }
-
-        /// <summary>URL link</summary>
-        [JsonPropertyName("webUrl")]
-        public string WebUrl { get; set; }
-    }
-
-    /// <summary>
-    /// x-ms-capabilities
-    /// </summary>
-    public class TableCapabilitiesMetadata
-    {
-        /// <summary>sortRestrictions</summary>
-        [JsonPropertyName("sortRestrictions")]
-        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
-
-        /// <summary>filterRestrictions</summary>
-        [JsonPropertyName("filterRestrictions")]
-        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
-
-        /// <summary>selectRestrictions</summary>
-        [JsonPropertyName("selectRestrictions")]
-        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
-
-        /// <summary>Server paging restrictions</summary>
-        [JsonPropertyName("isOnlyServerPagable")]
-        public bool? IsOnlyServerPagable { get; set; }
-
-        /// <summary>List of supported filter capabilities</summary>
-        [JsonPropertyName("filterFunctionSupport")]
-        public List<string> FilterFunctionSupport { get; set; }
-
-        /// <summary>List of supported server-driven paging capabilities</summary>
-        [JsonPropertyName("serverPagingOptions")]
-        public List<string> ServerPagingOptions { get; set; }
-    }
-
-    /// <summary>
-    /// sortRestrictions
-    /// </summary>
-    public class TableSortRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has sortable columns</summary>
-        [JsonPropertyName("sortable")]
-        public bool? Sortable { get; set; }
-
-        /// <summary>List of unsortable properties</summary>
-        [JsonPropertyName("unsortableProperties")]
-        public List<string> UnsortableProperties { get; set; }
-
-        /// <summary>List of properties which support ascending order only</summary>
-        [JsonPropertyName("ascendingOnlyProperties")]
-        public List<string> AscendingOnlyProperties { get; set; }
-    }
-
-    /// <summary>
-    /// filterRestrictions
-    /// </summary>
-    public class TableFilterRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has filterable columns</summary>
-        [JsonPropertyName("filterable")]
-        public bool? Filterable { get; set; }
-
-        /// <summary>List of non filterable properties</summary>
-        [JsonPropertyName("nonFilterableProperties")]
-        public List<string> NonFilterableProperties { get; set; }
-
-        /// <summary>List of required properties</summary>
-        [JsonPropertyName("requiredProperties")]
-        public List<string> RequiredProperties { get; set; }
-    }
-
-    /// <summary>
-    /// selectRestrictions
-    /// </summary>
-    public class TableSelectRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has selectable columns</summary>
-        [JsonPropertyName("selectable")]
-        public bool? Selectable { get; set; }
-    }
-
-    /// <summary>
-    /// schema
-    /// </summary>
-    public class ObjectEntity
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get object types
+    /// Represents a list of tables.
     /// </summary>
     public class TablesList
     {
@@ -162,7 +40,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Item in List of Tables
+    /// Represents a table.
     /// </summary>
     public class Table
     {
@@ -181,30 +59,6 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Response for Get External ID Fields
-    /// </summary>
-    public class ExternalIdFieldsList
-    {
-        /// <summary>List of external ID fields.</summary>
-        [JsonPropertyName("value")]
-        public List<ExternalIdField> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of external ID fields.
-    /// </summary>
-    public class ExternalIdField
-    {
-        /// <summary>Name of the external ID field, used at runtime.</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Display name of the external ID field.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get a Record by External ID
     /// </summary>
     [DynamicSchema("GetMetadataForGetItem")]
@@ -219,7 +73,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Response for Get records
+    /// List of Items
     /// </summary>
     public class ItemsList
     {
@@ -229,7 +83,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Item in List of Items
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -244,6 +98,18 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
         public JsonElement? DynamicProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Execute a SOQL query
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -265,7 +131,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Item in records
+    /// JobInfo
     /// </summary>
     public class JobInfo
     {
@@ -413,7 +279,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Response for Execute SOSL search query
+    /// SOSL search query response
     /// </summary>
     public class SOSLSearchQueryResponse
     {
@@ -427,7 +293,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Item in A list of search records returned by an SOSL search query
+    /// Individual record returned by SOSL query
     /// </summary>
     public class SearchRecordObject
     {
@@ -483,7 +349,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Response for Create a job (V2)
+    /// Output for &apos;CreateJobV2&apos; operation
     /// </summary>
     public class CreateJobResponse
     {
@@ -647,7 +513,141 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// CreateJobParameters
+    /// Represents a list of external ID fields.
+    /// </summary>
+    public class ExternalIdFieldsList
+    {
+        /// <summary>List of external ID fields.</summary>
+        [JsonPropertyName("value")]
+        public List<ExternalIdField> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Represents an external ID field.
+    /// </summary>
+    public class ExternalIdField
+    {
+        /// <summary>Name of the external ID field, used at runtime.</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Display name of the external ID field.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Table metadata
+    /// </summary>
+    public class TableMetadata
+    {
+        /// <summary>Table name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Table title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Table permission</summary>
+        [JsonPropertyName("x-ms-permission")]
+        public string XMsPermission { get; set; }
+
+        /// <summary>x-ms-capabilities</summary>
+        [JsonPropertyName("x-ms-capabilities")]
+        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+
+        /// <summary>referencedEntities</summary>
+        [JsonPropertyName("referencedEntities")]
+        public ObjectEntity ReferencedEntities { get; set; }
+
+        /// <summary>URL link</summary>
+        [JsonPropertyName("webUrl")]
+        public string WebUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (capabilities)
+    /// </summary>
+    public class TableCapabilitiesMetadata
+    {
+        /// <summary>sortRestrictions</summary>
+        [JsonPropertyName("sortRestrictions")]
+        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
+
+        /// <summary>filterRestrictions</summary>
+        [JsonPropertyName("filterRestrictions")]
+        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
+
+        /// <summary>selectRestrictions</summary>
+        [JsonPropertyName("selectRestrictions")]
+        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>Server paging restrictions</summary>
+        [JsonPropertyName("isOnlyServerPagable")]
+        public bool? IsOnlyServerPagable { get; set; }
+
+        /// <summary>List of supported filter capabilities</summary>
+        [JsonPropertyName("filterFunctionSupport")]
+        public List<string> FilterFunctionSupport { get; set; }
+
+        /// <summary>List of supported server-driven paging capabilities</summary>
+        [JsonPropertyName("serverPagingOptions")]
+        public List<string> ServerPagingOptions { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (sort restrictions)
+    /// </summary>
+    public class TableSortRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has sortable columns</summary>
+        [JsonPropertyName("sortable")]
+        public bool? Sortable { get; set; }
+
+        /// <summary>List of unsortable properties</summary>
+        [JsonPropertyName("unsortableProperties")]
+        public List<string> UnsortableProperties { get; set; }
+
+        /// <summary>List of properties which support ascending order only</summary>
+        [JsonPropertyName("ascendingOnlyProperties")]
+        public List<string> AscendingOnlyProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (filter restrictions)
+    /// </summary>
+    public class TableFilterRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has filterable columns</summary>
+        [JsonPropertyName("filterable")]
+        public bool? Filterable { get; set; }
+
+        /// <summary>List of non filterable properties</summary>
+        [JsonPropertyName("nonFilterableProperties")]
+        public List<string> NonFilterableProperties { get; set; }
+
+        /// <summary>List of required properties</summary>
+        [JsonPropertyName("requiredProperties")]
+        public List<string> RequiredProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (select restrictions)
+    /// </summary>
+    public class TableSelectRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has selectable columns</summary>
+        [JsonPropertyName("selectable")]
+        public bool? Selectable { get; set; }
+    }
+
+    /// <summary>
+    /// Parameters for &apos;CreateJobV2&apos; operation
     /// </summary>
     public class CreateJobParameters
     {
@@ -677,7 +677,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// ExecuteSoqlQueryParameters
+    /// Input body for Execute Soql Query operation
     /// </summary>
     public class ExecuteSoqlQueryParameters
     {
@@ -1027,96 +1027,6 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     public static class SalesforceModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TableMetadata"/>.
-        /// </summary>
-        public static TableMetadata TableMetadata(
-            string name = default,
-            string title = default,
-            string xMsPermission = default,
-            TableCapabilitiesMetadata xMsCapabilities = default,
-            ObjectEntity schema = default,
-            ObjectEntity referencedEntities = default,
-            string webUrl = default)
-        {
-            return new TableMetadata
-            {
-                Name = name,
-                Title = title,
-                XMsPermission = xMsPermission,
-                XMsCapabilities = xMsCapabilities,
-                Schema = schema,
-                ReferencedEntities = referencedEntities,
-                WebUrl = webUrl,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
-        /// </summary>
-        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
-            TableSortRestrictionsMetadata sortRestrictions = default,
-            TableFilterRestrictionsMetadata filterRestrictions = default,
-            TableSelectRestrictionsMetadata selectRestrictions = default,
-            bool? isOnlyServerPagable = default,
-            List<string> filterFunctionSupport = default,
-            List<string> serverPagingOptions = default)
-        {
-            return new TableCapabilitiesMetadata
-            {
-                SortRestrictions = sortRestrictions,
-                FilterRestrictions = filterRestrictions,
-                SelectRestrictions = selectRestrictions,
-                IsOnlyServerPagable = isOnlyServerPagable,
-                FilterFunctionSupport = filterFunctionSupport,
-                ServerPagingOptions = serverPagingOptions,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
-            bool? sortable = default,
-            List<string> unsortableProperties = default,
-            List<string> ascendingOnlyProperties = default)
-        {
-            return new TableSortRestrictionsMetadata
-            {
-                Sortable = sortable,
-                UnsortableProperties = unsortableProperties,
-                AscendingOnlyProperties = ascendingOnlyProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
-            bool? filterable = default,
-            List<string> nonFilterableProperties = default,
-            List<string> requiredProperties = default)
-        {
-            return new TableFilterRestrictionsMetadata
-            {
-                Filterable = filterable,
-                NonFilterableProperties = nonFilterableProperties,
-                RequiredProperties = requiredProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
-        /// </summary>
-        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
-            bool? selectable = default)
-        {
-            return new TableSelectRestrictionsMetadata
-            {
-                Selectable = selectable,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="TablesList"/>.
         /// </summary>
         public static TablesList TablesList(
@@ -1141,32 +1051,6 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
                 Name = name,
                 DisplayName = displayName,
                 DynamicProperties = dynamicProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ExternalIdFieldsList"/>.
-        /// </summary>
-        public static ExternalIdFieldsList ExternalIdFieldsList(
-            List<ExternalIdField> value = default)
-        {
-            return new ExternalIdFieldsList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ExternalIdField"/>.
-        /// </summary>
-        public static ExternalIdField ExternalIdField(
-            string name = default,
-            string displayName = default)
-        {
-            return new ExternalIdField
-            {
-                Name = name,
-                DisplayName = displayName,
             };
         }
 
@@ -1389,6 +1273,122 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ExternalIdFieldsList"/>.
+        /// </summary>
+        public static ExternalIdFieldsList ExternalIdFieldsList(
+            List<ExternalIdField> value = default)
+        {
+            return new ExternalIdFieldsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ExternalIdField"/>.
+        /// </summary>
+        public static ExternalIdField ExternalIdField(
+            string name = default,
+            string displayName = default)
+        {
+            return new ExternalIdField
+            {
+                Name = name,
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableMetadata"/>.
+        /// </summary>
+        public static TableMetadata TableMetadata(
+            string name = default,
+            string title = default,
+            string xMsPermission = default,
+            TableCapabilitiesMetadata xMsCapabilities = default,
+            ObjectEntity schema = default,
+            ObjectEntity referencedEntities = default,
+            string webUrl = default)
+        {
+            return new TableMetadata
+            {
+                Name = name,
+                Title = title,
+                XMsPermission = xMsPermission,
+                XMsCapabilities = xMsCapabilities,
+                Schema = schema,
+                ReferencedEntities = referencedEntities,
+                WebUrl = webUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableCapabilitiesMetadata"/>.
+        /// </summary>
+        public static TableCapabilitiesMetadata TableCapabilitiesMetadata(
+            TableSortRestrictionsMetadata sortRestrictions = default,
+            TableFilterRestrictionsMetadata filterRestrictions = default,
+            TableSelectRestrictionsMetadata selectRestrictions = default,
+            bool? isOnlyServerPagable = default,
+            List<string> filterFunctionSupport = default,
+            List<string> serverPagingOptions = default)
+        {
+            return new TableCapabilitiesMetadata
+            {
+                SortRestrictions = sortRestrictions,
+                FilterRestrictions = filterRestrictions,
+                SelectRestrictions = selectRestrictions,
+                IsOnlyServerPagable = isOnlyServerPagable,
+                FilterFunctionSupport = filterFunctionSupport,
+                ServerPagingOptions = serverPagingOptions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSortRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSortRestrictionsMetadata TableSortRestrictionsMetadata(
+            bool? sortable = default,
+            List<string> unsortableProperties = default,
+            List<string> ascendingOnlyProperties = default)
+        {
+            return new TableSortRestrictionsMetadata
+            {
+                Sortable = sortable,
+                UnsortableProperties = unsortableProperties,
+                AscendingOnlyProperties = ascendingOnlyProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableFilterRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableFilterRestrictionsMetadata TableFilterRestrictionsMetadata(
+            bool? filterable = default,
+            List<string> nonFilterableProperties = default,
+            List<string> requiredProperties = default)
+        {
+            return new TableFilterRestrictionsMetadata
+            {
+                Filterable = filterable,
+                NonFilterableProperties = nonFilterableProperties,
+                RequiredProperties = requiredProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TableSelectRestrictionsMetadata"/>.
+        /// </summary>
+        public static TableSelectRestrictionsMetadata TableSelectRestrictionsMetadata(
+            bool? selectable = default)
+        {
+            return new TableSelectRestrictionsMetadata
+            {
+                Selectable = selectable,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="CreateJobParameters"/>.
         /// </summary>
         public static CreateJobParameters CreateJobParameters(
@@ -1548,6 +1548,13 @@ namespace Azure.Connectors.Sdk.Salesforce
         public static class OnNewItems
         {
             /// <summary>
+            /// The Salesforce object type like &apos;Leads&apos;.
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
             public const string Filter = "$filter";
@@ -1569,6 +1576,13 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// </summary>
         public static class OnUpdatedItems
         {
+            /// <summary>
+            /// The Salesforce object type like &apos;Leads&apos;.
+            /// Required.
+            /// Dynamic values from: GetTables.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
@@ -1657,114 +1671,6 @@ namespace Azure.Connectors.Sdk.Salesforce
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Get object metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="salesforceObjectType">Salesforce Object Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get object metadata response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetTables")] string salesforceObjectType, CancellationToken cancellationToken = default)
-        {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetTableAsync");
-            try
-            {
-                if (salesforceObjectType is null)
-                    throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetMetadataForGetItem
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="table">table</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetMetadataForGetItem response.</returns>
-        public virtual async Task<TableMetadata> GetMetadataForGetItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
-        {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForGetItemAsync");
-            try
-            {
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/getitem";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetMetadataForPatchItem
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="table">table</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetMetadataForPatchItem response.</returns>
-        public virtual async Task<TableMetadata> GetMetadataForPatchItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
-        {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPatchItemAsync");
-            try
-            {
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/patchitem";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetMetadataForPostItem
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="table">table</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetMetadataForPostItem response.</returns>
-        public virtual async Task<TableMetadata> GetMetadataForPostItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
-        {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPostItemAsync");
-            try
-            {
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/postitem";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get object types
         /// </summary>
         /// <remarks>This operation lists the available Salesforce object types.</remarks>
@@ -1778,33 +1684,6 @@ namespace Azure.Connectors.Sdk.Salesforce
                 var path = $"/datasets/default/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get External ID Fields
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="salesforceObjectType">Salesforce Object Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get External ID Fields response.</returns>
-        public virtual async Task<ExternalIdFieldsList> GetExternalIdFieldsAsync([DynamicValues("GetTables")] string salesforceObjectType, CancellationToken cancellationToken = default)
-        {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetExternalIdFieldsAsync");
-            try
-            {
-                if (salesforceObjectType is null)
-                    throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/externalIdFields";
-                return await this
-                    .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2591,6 +2470,141 @@ namespace Azure.Connectors.Sdk.Salesforce
                 var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get External ID Fields
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="salesforceObjectType">Salesforce Object Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get External ID Fields response.</returns>
+        public virtual async Task<ExternalIdFieldsList> GetExternalIdFieldsAsync([DynamicValues("GetTables")] string salesforceObjectType, CancellationToken cancellationToken = default)
+        {
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetExternalIdFieldsAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}/externalIdFields";
+                return await this
+                    .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetMetadataForPatchItem
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="table">table</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The GetMetadataForPatchItem response.</returns>
+        public virtual async Task<TableMetadata> GetMetadataForPatchItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
+        {
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPatchItemAsync");
+            try
+            {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/patchitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetMetadataForPostItem
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="table">table</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The GetMetadataForPostItem response.</returns>
+        public virtual async Task<TableMetadata> GetMetadataForPostItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
+        {
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForPostItemAsync");
+            try
+            {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/postitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetMetadataForGetItem
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="table">table</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The GetMetadataForGetItem response.</returns>
+        public virtual async Task<TableMetadata> GetMetadataForGetItemAsync([DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
+        {
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetMetadataForGetItemAsync");
+            try
+            {
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table.ToString()))}/getitem";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get object metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="salesforceObjectType">Salesforce Object Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get object metadata response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetTables")] string salesforceObjectType, CancellationToken cancellationToken = default)
+        {
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetTableAsync");
+            try
+            {
+                if (salesforceObjectType is null)
+                    throw new ArgumentNullException(nameof(salesforceObjectType));
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType.ToString()))}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

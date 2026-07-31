@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     #region Types
 
     /// <summary>
-    /// Response for Ping
+    /// A confirmation that the current application has access to the Open API
     /// </summary>
     public class Pong
     {
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a shop payment account ledger&apos;s entries
+    /// A set of payment account ledger entry resources
     /// </summary>
     public class PaymentAccountLedgerEntries
     {
@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The payment account ledger entry resources found.
+    /// Represents an entry in a shop&apos;s ledger.
     /// </summary>
     public class PaymentAccountLedgerEntry
     {
@@ -91,7 +91,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a payment from a payment account ledger entry ID
+    /// Represents several payments made with Etsy Payments. All monetary amounts are in USD pennies unless otherwise specified.
     /// </summary>
     public class Payments
     {
@@ -105,7 +105,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of payments.
+    /// Represents a payment made with Etsy Payments. All monetary amounts are in USD pennies unless otherwise specified.
     /// </summary>
     public class Payment
     {
@@ -210,7 +210,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// amount_gross
+    /// A representation of an amount of money.
     /// </summary>
     public class Money
     {
@@ -228,7 +228,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in List of refund objects on an Etsy Payments transaction. All monetary amounts are in USD pennies unless otherwise specified.
+    /// Represents a refund, which applies to a prior Etsy payment. All monetary amounts are in USD pennies unless otherwise specified.
     /// </summary>
     public class PaymentAdjustment
     {
@@ -280,7 +280,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a receipt
+    /// The record of a purchase from a shop. Shop receipts display monetary values using the shop&apos;s currency.
     /// </summary>
     public class ShopReceipt
     {
@@ -420,7 +420,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of shipment statements for this receipt.
+    /// The record of one shipment event for a ShopReceipt. A receipt may have many ShopReceiptShipment records.
     /// </summary>
     public class ShopReceiptShipment
     {
@@ -443,7 +443,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get receipts
+    /// The receipts for a specific Shop.
     /// </summary>
     public class ShopReceipts
     {
@@ -475,7 +475,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Retrieve a listing&apos;s transactions
+    /// A set of shop receipt transaction resources
     /// </summary>
     public class ShopReceiptTransactions
     {
@@ -489,7 +489,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The shop receipt transaction resources found.
+    /// A transaction object associated with a shop receipt. Etsy generates one transaction per listing purchased as recorded on the order receipt.
     /// </summary>
     public class ShopReceiptTransaction
     {
@@ -570,7 +570,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get reviews
+    /// A set of transaction review records left by Users.
     /// </summary>
     public class TransactionReviews
     {
@@ -584,7 +584,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The TransactionReview resources found.
+    /// A transaction review record left by a User.
     /// </summary>
     public class TransactionReview
     {
@@ -628,7 +628,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get shipping carriers
+    /// Represents several ShippingCarriers.
     /// </summary>
     public class ShippingCarriers
     {
@@ -642,7 +642,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in results
+    /// A supported shipping carrier, which is used to calculate an Estimated Delivery Date.
     /// </summary>
     public class ShippingCarrier
     {
@@ -664,7 +664,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in Set of domestic mail classes of this shipping carrier.
+    /// A shipping carrier&apos;s mail class, which is used to calculate an Estimated Delivery Date.
     /// </summary>
     public class ShippingCarrierMailClass
     {
@@ -678,7 +678,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get shipping profiles
+    /// Represents a profile used to set a listing&apos;s shipping information. Please note that it&apos;s not possible to create calculated shipping templates via the API. However, you can associate calculated shipping profiles created from Shop Manager with listings using the API.
     /// </summary>
     public class ShopShippingProfile
     {
@@ -732,7 +732,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of shipping profile destinations available for this shipping profile.
+    /// Represents a shipping destination assigned to a shipping profile.
     /// </summary>
     public class ShopShippingProfileDestination
     {
@@ -782,7 +782,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of shipping profile upgrades available for this shipping profile.
+    /// A representation of a shipping profile upgrade option.
     /// </summary>
     public class ShopShippingProfileUpgrade
     {
@@ -928,7 +928,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get profile destinations by shipping profile
+    /// Represents a list of shipping destination objects.
     /// </summary>
     public class ShopShippingProfileDestinations
     {
@@ -1018,7 +1018,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get shipping profile upgrades
+    /// A list of shipping upgrade options.
     /// </summary>
     public class ShopShippingProfileUpgrades
     {
@@ -1130,7 +1130,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Update a shop
+    /// A shop created by an Etsy user.
     /// </summary>
     public class Shop
     {
@@ -1312,7 +1312,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Search shops
+    /// A set of Shop records.
     /// </summary>
     public class Shops
     {
@@ -1326,7 +1326,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get shop sections
+    /// All the sections in a sprecific Shop.
     /// </summary>
     public class ShopSections
     {
@@ -1340,7 +1340,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The list of requested resources.
+    /// A section within a shop, into which a user can sort listings.
     /// </summary>
     public class ShopSection
     {
@@ -1376,7 +1376,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get user
+    /// Represents a single user of the site
     /// </summary>
     public class User
     {
@@ -1443,7 +1443,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get user&apos;s address
+    /// Represents a user&apos;s address.
     /// </summary>
     public class UserAddress
     {
@@ -1493,7 +1493,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get user addresses
+    /// Represents several UserAddress records.
     /// </summary>
     public class UserAddresses
     {
@@ -1507,7 +1507,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get seller taxonomy nodes
+    /// A list of taxonomy nodes from the seller taxonomy tree.
     /// </summary>
     public class SellerTaxonomyNodes
     {
@@ -1521,7 +1521,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The list of requested resources.
+    /// A taxonomy node in the seller taxonomy tree.
     /// </summary>
     public class SellerTaxonomyNode
     {
@@ -1551,7 +1551,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get product properties by taxonomy ID
+    /// A list of product property definitions.
     /// </summary>
     public class TaxonomyNodeProperties
     {
@@ -1565,7 +1565,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The list of requested resources.
+    /// A product property definition.
     /// </summary>
     public class TaxonomyNodeProperty
     {
@@ -1611,7 +1611,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of available scales.
+    /// A scale defnining the assignable increments for the property values available to specific product properties.
     /// </summary>
     public class TaxonomyPropertyScale
     {
@@ -1629,7 +1629,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of supported property value strings for this property.
+    /// A property value for a specific product property, which may also employ a specific scale.
     /// </summary>
     public class TaxonomyPropertyValue
     {
@@ -1651,7 +1651,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get listings by shop
+    /// A set of shop listing resources.
     /// </summary>
     public class ShopListings
     {
@@ -1665,7 +1665,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The shop listing resources found.
+    /// A listing from a shop, which contains a product quantity, title, description, price, etc.
     /// </summary>
     public class ShopListing
     {
@@ -1978,7 +1978,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get listings by ID
+    /// A set of shop listing resources with associations.
     /// </summary>
     public class ShopListingsWithAssociations
     {
@@ -2010,7 +2010,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Update a listing property
+    /// A representation of structured data values.
     /// </summary>
     public class ListingPropertyValue
     {
@@ -2040,7 +2040,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a listing&apos;s properties
+    /// Represents several listing property values.
     /// </summary>
     public class ListingPropertyValues
     {
@@ -2184,7 +2184,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a file from a listing
+    /// A file associated with a digital listing.
     /// </summary>
     public class ShopListingFile
     {
@@ -2223,7 +2223,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get all listing files
+    /// Represents several ShopListingFiles.
     /// </summary>
     public class ShopListingFiles
     {
@@ -2259,7 +2259,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a listing image
+    /// Reference urls and metadata for an image associated with a specific listing. The `url_fullxfull` parameter contains the URL for full-sized binary image file.
     /// </summary>
     public class ListingImage
     {
@@ -2337,7 +2337,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a listing&apos;s images
+    /// Represents a list of listing image resources, each of which contains the reference URLs and metadata for an image.
     /// </summary>
     public class ListingImages
     {
@@ -2377,7 +2377,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a listing&apos;s inventory
+    /// A representation of a single listing&apos;s inventory record with associations
     /// </summary>
     public class ListingInventoryWithAssociations
     {
@@ -2403,7 +2403,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A JSON array of products available in a listing, even if only one product. All field names in the JSON blobs are lowercase.
+    /// A representation of a product for a listing.
     /// </summary>
     public class ListingInventoryProduct
     {
@@ -2429,7 +2429,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in A list of product offering entries for this product.
+    /// A representation of an offering for a listing.
     /// </summary>
     public class ListingInventoryProductOffering
     {
@@ -2477,7 +2477,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Update a listing&apos;s inventory
+    /// A representation of a single listing&apos;s inventory record.
     /// </summary>
     public class ListingInventory
     {
@@ -2499,7 +2499,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get a listing&apos;s translation
+    /// Represents the translation data for a Listing.
     /// </summary>
     public class ListingTranslation
     {
@@ -2561,7 +2561,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Response for Get listing&apos;s variation images
+    /// Represents several listing variation images.
     /// </summary>
     public class ListingVariationImages
     {
@@ -2575,7 +2575,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
     }
 
     /// <summary>
-    /// Item in The variation images results.
+    /// A representation of the associations of variations and images on a listing.
     /// </summary>
     public class ListingVariationImage
     {

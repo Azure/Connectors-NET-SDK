@@ -29,147 +29,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     #region Types
 
     /// <summary>
-    /// Response for Get actions metadata
-    /// </summary>
-    public class ProcedureMetadata
-    {
-        /// <summary>Procedure name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Procedure title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// schema
-    /// </summary>
-    public class ObjectEntity
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get metadata of a exportable table
-    /// </summary>
-    public class TableMetadata
-    {
-        /// <summary>Table name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Table title</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>Table permission</summary>
-        [JsonPropertyName("x-ms-permission")]
-        public string XMsPermission { get; set; }
-
-        /// <summary>x-ms-capabilities</summary>
-        [JsonPropertyName("x-ms-capabilities")]
-        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-
-        /// <summary>referencedEntities</summary>
-        [JsonPropertyName("referencedEntities")]
-        public ObjectEntity ReferencedEntities { get; set; }
-
-        /// <summary>Url link</summary>
-        [JsonPropertyName("webUrl")]
-        public string WebUrl { get; set; }
-    }
-
-    /// <summary>
-    /// x-ms-capabilities
-    /// </summary>
-    public class TableCapabilitiesMetadata
-    {
-        /// <summary>sortRestrictions</summary>
-        [JsonPropertyName("sortRestrictions")]
-        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
-
-        /// <summary>filterRestrictions</summary>
-        [JsonPropertyName("filterRestrictions")]
-        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
-
-        /// <summary>selectRestrictions</summary>
-        [JsonPropertyName("selectRestrictions")]
-        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
-
-        /// <summary>Server paging restrictions</summary>
-        [JsonPropertyName("isOnlyServerPagable")]
-        public bool? IsOnlyServerPagable { get; set; }
-
-        /// <summary>List of supported filter capabilities</summary>
-        [JsonPropertyName("filterFunctionSupport")]
-        public List<string> FilterFunctionSupport { get; set; }
-
-        /// <summary>List of supported server-driven paging capabilities</summary>
-        [JsonPropertyName("serverPagingOptions")]
-        public List<string> ServerPagingOptions { get; set; }
-    }
-
-    /// <summary>
-    /// sortRestrictions
-    /// </summary>
-    public class TableSortRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has sortable columns</summary>
-        [JsonPropertyName("sortable")]
-        public bool? Sortable { get; set; }
-
-        /// <summary>List of unsortable properties</summary>
-        [JsonPropertyName("unsortableProperties")]
-        public List<string> UnsortableProperties { get; set; }
-
-        /// <summary>List of properties which support ascending order only</summary>
-        [JsonPropertyName("ascendingOnlyProperties")]
-        public List<string> AscendingOnlyProperties { get; set; }
-    }
-
-    /// <summary>
-    /// filterRestrictions
-    /// </summary>
-    public class TableFilterRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has filterable columns</summary>
-        [JsonPropertyName("filterable")]
-        public bool? Filterable { get; set; }
-
-        /// <summary>List of non filterable properties</summary>
-        [JsonPropertyName("nonFilterableProperties")]
-        public List<string> NonFilterableProperties { get; set; }
-
-        /// <summary>List of required properties</summary>
-        [JsonPropertyName("requiredProperties")]
-        public List<string> RequiredProperties { get; set; }
-    }
-
-    /// <summary>
-    /// selectRestrictions
-    /// </summary>
-    public class TableSelectRestrictionsMetadata
-    {
-        /// <summary>Indicates whether this table has selectable columns</summary>
-        [JsonPropertyName("selectable")]
-        public bool? Selectable { get; set; }
-    }
-
-    /// <summary>
-    /// Response for When a Business Event occurs
+    /// Model for Business Events Subscription response
     /// </summary>
     public class BusinessEventSubscriptionResponse
     {
@@ -191,82 +51,6 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// Response for Gets legal entities
-    /// </summary>
-    public class TriggerFieldDataList
-    {
-        /// <summary>List of business event categories</summary>
-        [JsonPropertyName("value")]
-        public List<TriggerFieldData> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of business event categories
-    /// </summary>
-    public class TriggerFieldData
-    {
-        /// <summary>Business event data name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Business event data display name</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Gets business events
-    /// </summary>
-    public class BusinessEventsList
-    {
-        /// <summary>List of business events</summary>
-        [JsonPropertyName("value")]
-        public List<BusinessEventData> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of business events
-    /// </summary>
-    public class BusinessEventData
-    {
-        /// <summary>Business event Id</summary>
-        [JsonPropertyName("Id")]
-        public string Id { get; set; }
-
-        /// <summary>Business event data name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Business event data display name</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get actions
-    /// </summary>
-    public class ProceduresList
-    {
-        /// <summary>List of Procedures</summary>
-        [JsonPropertyName("value")]
-        public List<Procedure> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of Procedures
-    /// </summary>
-    public class Procedure
-    {
-        /// <summary>Procedure name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Procedure display name</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-    }
-
-    /// <summary>
     /// Execute action
     /// </summary>
     [DynamicSchema("GetProcedure")]
@@ -281,7 +65,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// Response for Execute action
+    /// Result of procedure execution
     /// </summary>
     public class AxOnlineProcedureResult
     {
@@ -296,46 +80,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// Response for Get instances
-    /// </summary>
-    public class DataSetsList
-    {
-        /// <summary>List of datasets</summary>
-        [JsonPropertyName("value")]
-        public List<DataSet> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of datasets
-    /// </summary>
-    public class DataSet
-    {
-        /// <summary>Dataset name</summary>
-        [JsonPropertyName("Name")]
-        public string Name { get; set; }
-
-        /// <summary>Dataset display name</summary>
-        [JsonPropertyName("DisplayName")]
-        public string DisplayName { get; set; }
-
-        /// <summary>Pass-through Native Queries</summary>
-        [JsonPropertyName("query")]
-        [JsonInclude]
-        public List<PassThroughNativeQuery> Query { get; init; }
-    }
-
-    /// <summary>
-    /// Item in Pass-through Native Queries
-    /// </summary>
-    public class PassThroughNativeQuery
-    {
-        /// <summary>Query language</summary>
-        [JsonPropertyName("Language")]
-        public string Language { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Lists items present in table
+    /// List of Items
     /// </summary>
     public class ItemsList
     {
@@ -345,7 +90,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// Item in List of Items
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -433,7 +178,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// Response for Lists exportable tables
+    /// Represents a list of tables.
     /// </summary>
     public class TablesList
     {
@@ -443,7 +188,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// Item in List of Tables
+    /// Represents a table.
     /// </summary>
     public class Table
     {
@@ -462,7 +207,262 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     }
 
     /// <summary>
-    /// BusinessEventSubscription
+    /// List of datasets
+    /// </summary>
+    public class DataSetsList
+    {
+        /// <summary>List of datasets</summary>
+        [JsonPropertyName("value")]
+        public List<DataSet> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Dataset
+    /// </summary>
+    public class DataSet
+    {
+        /// <summary>Dataset name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Dataset display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Pass-through Native Queries</summary>
+        [JsonPropertyName("query")]
+        [JsonInclude]
+        public List<PassThroughNativeQuery> Query { get; init; }
+    }
+
+    /// <summary>
+    /// static schema for pass-through native query execution
+    /// </summary>
+    public class PassThroughNativeQuery
+    {
+        /// <summary>Query language</summary>
+        [JsonPropertyName("Language")]
+        public string Language { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a list of Business event categories.
+    /// </summary>
+    public class TriggerFieldDataList
+    {
+        /// <summary>List of business event categories</summary>
+        [JsonPropertyName("value")]
+        public List<TriggerFieldData> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Business event model
+    /// </summary>
+    public class TriggerFieldData
+    {
+        /// <summary>Business event data name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Business event data display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a list of Business events.
+    /// </summary>
+    public class BusinessEventsList
+    {
+        /// <summary>List of business events</summary>
+        [JsonPropertyName("value")]
+        public List<BusinessEventData> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Business event model
+    /// </summary>
+    public class BusinessEventData
+    {
+        /// <summary>Business event Id</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Business event data name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Business event data display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a list of procedures.
+    /// </summary>
+    public class ProceduresList
+    {
+        /// <summary>List of Procedures</summary>
+        [JsonPropertyName("value")]
+        public List<Procedure> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Procedure
+    /// </summary>
+    public class Procedure
+    {
+        /// <summary>Procedure name</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Procedure display name</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// Procedure metadata
+    /// </summary>
+    public class ProcedureMetadata
+    {
+        /// <summary>Procedure name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Procedure title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Table metadata
+    /// </summary>
+    public class TableMetadata
+    {
+        /// <summary>Table name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Table title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Table permission</summary>
+        [JsonPropertyName("x-ms-permission")]
+        public string XMsPermission { get; set; }
+
+        /// <summary>x-ms-capabilities</summary>
+        [JsonPropertyName("x-ms-capabilities")]
+        public TableCapabilitiesMetadata XMsCapabilities { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+
+        /// <summary>referencedEntities</summary>
+        [JsonPropertyName("referencedEntities")]
+        public ObjectEntity ReferencedEntities { get; set; }
+
+        /// <summary>Url link</summary>
+        [JsonPropertyName("webUrl")]
+        public string WebUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (capabilities)
+    /// </summary>
+    public class TableCapabilitiesMetadata
+    {
+        /// <summary>sortRestrictions</summary>
+        [JsonPropertyName("sortRestrictions")]
+        public TableSortRestrictionsMetadata SortRestrictions { get; set; }
+
+        /// <summary>filterRestrictions</summary>
+        [JsonPropertyName("filterRestrictions")]
+        public TableFilterRestrictionsMetadata FilterRestrictions { get; set; }
+
+        /// <summary>selectRestrictions</summary>
+        [JsonPropertyName("selectRestrictions")]
+        public TableSelectRestrictionsMetadata SelectRestrictions { get; set; }
+
+        /// <summary>Server paging restrictions</summary>
+        [JsonPropertyName("isOnlyServerPagable")]
+        public bool? IsOnlyServerPagable { get; set; }
+
+        /// <summary>List of supported filter capabilities</summary>
+        [JsonPropertyName("filterFunctionSupport")]
+        public List<string> FilterFunctionSupport { get; set; }
+
+        /// <summary>List of supported server-driven paging capabilities</summary>
+        [JsonPropertyName("serverPagingOptions")]
+        public List<string> ServerPagingOptions { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (sort restrictions)
+    /// </summary>
+    public class TableSortRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has sortable columns</summary>
+        [JsonPropertyName("sortable")]
+        public bool? Sortable { get; set; }
+
+        /// <summary>List of unsortable properties</summary>
+        [JsonPropertyName("unsortableProperties")]
+        public List<string> UnsortableProperties { get; set; }
+
+        /// <summary>List of properties which support ascending order only</summary>
+        [JsonPropertyName("ascendingOnlyProperties")]
+        public List<string> AscendingOnlyProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (filter restrictions)
+    /// </summary>
+    public class TableFilterRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has filterable columns</summary>
+        [JsonPropertyName("filterable")]
+        public bool? Filterable { get; set; }
+
+        /// <summary>List of non filterable properties</summary>
+        [JsonPropertyName("nonFilterableProperties")]
+        public List<string> NonFilterableProperties { get; set; }
+
+        /// <summary>List of required properties</summary>
+        [JsonPropertyName("requiredProperties")]
+        public List<string> RequiredProperties { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata for a table (select restrictions)
+    /// </summary>
+    public class TableSelectRestrictionsMetadata
+    {
+        /// <summary>Indicates whether this table has selectable columns</summary>
+        [JsonPropertyName("selectable")]
+        public bool? Selectable { get; set; }
+    }
+
+    /// <summary>
+    /// Described the subscription information for Business events
     /// </summary>
     public class BusinessEventSubscription
     {
@@ -482,6 +482,210 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     /// </summary>
     public static class DynamicsAXModelFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="BusinessEventSubscriptionResponse"/>.
+        /// </summary>
+        public static BusinessEventSubscriptionResponse BusinessEventSubscriptionResponse(
+            string id = default,
+            string resource = default,
+            string notificationType = default,
+            string notificationUrl = default)
+        {
+            return new BusinessEventSubscriptionResponse
+            {
+                Id = id,
+                Resource = resource,
+                NotificationType = notificationType,
+                NotificationUrl = notificationUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AxOnlineProcedureResult"/>.
+        /// </summary>
+        public static AxOnlineProcedureResult AxOnlineProcedureResult(
+            string value = default,
+            JsonElement? outputParameters = default)
+        {
+            return new AxOnlineProcedureResult
+            {
+                Value = value,
+                OutputParameters = outputParameters,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ItemsList"/>.
+        /// </summary>
+        public static ItemsList ItemsList(
+            List<Item> value = default)
+        {
+            return new ItemsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Item"/>.
+        /// </summary>
+        public static Item Item(
+            JsonElement? dynamicProperties = default)
+        {
+            return new Item
+            {
+                DynamicProperties = dynamicProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TablesList"/>.
+        /// </summary>
+        public static TablesList TablesList(
+            List<Table> value = default)
+        {
+            return new TablesList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Table"/>.
+        /// </summary>
+        public static Table Table(
+            string name = default,
+            string displayName = default,
+            JsonElement? dynamicProperties = default)
+        {
+            return new Table
+            {
+                Name = name,
+                DisplayName = displayName,
+                DynamicProperties = dynamicProperties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataSetsList"/>.
+        /// </summary>
+        public static DataSetsList DataSetsList(
+            List<DataSet> value = default)
+        {
+            return new DataSetsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataSet"/>.
+        /// </summary>
+        public static DataSet DataSet(
+            string name = default,
+            string displayName = default,
+            List<PassThroughNativeQuery> query = default)
+        {
+            return new DataSet
+            {
+                Name = name,
+                DisplayName = displayName,
+                Query = query,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PassThroughNativeQuery"/>.
+        /// </summary>
+        public static PassThroughNativeQuery PassThroughNativeQuery(
+            string language = default)
+        {
+            return new PassThroughNativeQuery
+            {
+                Language = language,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TriggerFieldDataList"/>.
+        /// </summary>
+        public static TriggerFieldDataList TriggerFieldDataList(
+            List<TriggerFieldData> value = default)
+        {
+            return new TriggerFieldDataList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TriggerFieldData"/>.
+        /// </summary>
+        public static TriggerFieldData TriggerFieldData(
+            string name = default,
+            string displayName = default)
+        {
+            return new TriggerFieldData
+            {
+                Name = name,
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BusinessEventsList"/>.
+        /// </summary>
+        public static BusinessEventsList BusinessEventsList(
+            List<BusinessEventData> value = default)
+        {
+            return new BusinessEventsList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="BusinessEventData"/>.
+        /// </summary>
+        public static BusinessEventData BusinessEventData(
+            string id = default,
+            string name = default,
+            string displayName = default)
+        {
+            return new BusinessEventData
+            {
+                Id = id,
+                Name = name,
+                DisplayName = displayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProceduresList"/>.
+        /// </summary>
+        public static ProceduresList ProceduresList(
+            List<Procedure> value = default)
+        {
+            return new ProceduresList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Procedure"/>.
+        /// </summary>
+        public static Procedure Procedure(
+            string name = default,
+            string displayName = default)
+        {
+            return new Procedure
+            {
+                Name = name,
+                DisplayName = displayName,
+            };
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="ProcedureMetadata"/>.
         /// </summary>
@@ -589,210 +793,6 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="BusinessEventSubscriptionResponse"/>.
-        /// </summary>
-        public static BusinessEventSubscriptionResponse BusinessEventSubscriptionResponse(
-            string id = default,
-            string resource = default,
-            string notificationType = default,
-            string notificationUrl = default)
-        {
-            return new BusinessEventSubscriptionResponse
-            {
-                Id = id,
-                Resource = resource,
-                NotificationType = notificationType,
-                NotificationUrl = notificationUrl,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TriggerFieldDataList"/>.
-        /// </summary>
-        public static TriggerFieldDataList TriggerFieldDataList(
-            List<TriggerFieldData> value = default)
-        {
-            return new TriggerFieldDataList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TriggerFieldData"/>.
-        /// </summary>
-        public static TriggerFieldData TriggerFieldData(
-            string name = default,
-            string displayName = default)
-        {
-            return new TriggerFieldData
-            {
-                Name = name,
-                DisplayName = displayName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BusinessEventsList"/>.
-        /// </summary>
-        public static BusinessEventsList BusinessEventsList(
-            List<BusinessEventData> value = default)
-        {
-            return new BusinessEventsList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="BusinessEventData"/>.
-        /// </summary>
-        public static BusinessEventData BusinessEventData(
-            string id = default,
-            string name = default,
-            string displayName = default)
-        {
-            return new BusinessEventData
-            {
-                Id = id,
-                Name = name,
-                DisplayName = displayName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ProceduresList"/>.
-        /// </summary>
-        public static ProceduresList ProceduresList(
-            List<Procedure> value = default)
-        {
-            return new ProceduresList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Procedure"/>.
-        /// </summary>
-        public static Procedure Procedure(
-            string name = default,
-            string displayName = default)
-        {
-            return new Procedure
-            {
-                Name = name,
-                DisplayName = displayName,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="AxOnlineProcedureResult"/>.
-        /// </summary>
-        public static AxOnlineProcedureResult AxOnlineProcedureResult(
-            string value = default,
-            JsonElement? outputParameters = default)
-        {
-            return new AxOnlineProcedureResult
-            {
-                Value = value,
-                OutputParameters = outputParameters,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DataSetsList"/>.
-        /// </summary>
-        public static DataSetsList DataSetsList(
-            List<DataSet> value = default)
-        {
-            return new DataSetsList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DataSet"/>.
-        /// </summary>
-        public static DataSet DataSet(
-            string name = default,
-            string displayName = default,
-            List<PassThroughNativeQuery> query = default)
-        {
-            return new DataSet
-            {
-                Name = name,
-                DisplayName = displayName,
-                Query = query,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PassThroughNativeQuery"/>.
-        /// </summary>
-        public static PassThroughNativeQuery PassThroughNativeQuery(
-            string language = default)
-        {
-            return new PassThroughNativeQuery
-            {
-                Language = language,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ItemsList"/>.
-        /// </summary>
-        public static ItemsList ItemsList(
-            List<Item> value = default)
-        {
-            return new ItemsList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Item"/>.
-        /// </summary>
-        public static Item Item(
-            JsonElement? dynamicProperties = default)
-        {
-            return new Item
-            {
-                DynamicProperties = dynamicProperties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TablesList"/>.
-        /// </summary>
-        public static TablesList TablesList(
-            List<Table> value = default)
-        {
-            return new TablesList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Table"/>.
-        /// </summary>
-        public static Table Table(
-            string name = default,
-            string displayName = default,
-            JsonElement? dynamicProperties = default)
-        {
-            return new Table
-            {
-                Name = name,
-                DisplayName = displayName,
-                DynamicProperties = dynamicProperties,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="BusinessEventSubscription"/>.
         /// </summary>
         public static BusinessEventSubscription BusinessEventSubscription(
@@ -844,11 +844,25 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         public static class OnSubscribeOnABusinessEvent
         {
             /// <summary>
+            /// Select an Environment.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
             /// Business event category.
             /// Required.
             /// Dynamic values from: GetBusinessEventCategories.
             /// </summary>
             public const string Businesseventcategory = "businesseventcategory";
+
+            /// <summary>
+            /// Name of the business event.
+            /// Required.
+            /// Dynamic values from: GetBusinessEvents.
+            /// </summary>
+            public const string Businessevent = "businessevent";
 
             /// <summary>
             /// Name of the legal entity.
@@ -929,216 +943,6 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Get actions metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="instance">Instance</param>
-        /// <param name="action">Action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get actions metadata response.</returns>
-        public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetProcedures")] string action, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProcedureAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                if (action is null)
-                    throw new ArgumentNullException(nameof(action));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action.ToString()))}";
-                return await this
-                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get metadata of a exportable table
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="datasetName">dataset name</param>
-        /// <param name="tableName">table name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata of a exportable table response.</returns>
-        public virtual async Task<TableMetadata> GetExportableTableAsync([DynamicValues("GetDataSets")] string datasetName, [DynamicValues("GetExportableTables")] string tableName, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetExportableTableAsync");
-            try
-            {
-                if (datasetName is null)
-                    throw new ArgumentNullException(nameof(datasetName));
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(datasetName.ToString()))}/exportabletables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get entity metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="instance">Instance</param>
-        /// <param name="entityName">Entity name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get entity metadata response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetTableAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                if (entityName is null)
-                    throw new ArgumentNullException(nameof(entityName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets legal entities
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="instance">Instance</param>
-        /// <param name="category">Category</param>
-        /// <param name="businessEvent">Business event</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Gets legal entities response.</returns>
-        public virtual async Task<TriggerFieldDataList> GetLegalEntitiesAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetBusinessEventCategories")] string category, [DynamicValues("GetBusinessEvents")] string businessEvent, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetLegalEntitiesAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                var queryParams = new List<string>();
-                if (category is null)
-                    throw new ArgumentNullException(nameof(category));
-                queryParams.Add($"businesseventcategory={Uri.EscapeDataString(category.ToString())}");
-                if (businessEvent is null)
-                    throw new ArgumentNullException(nameof(businessEvent));
-                queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets business events categories
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="instance">Instance</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Gets business events categories response.</returns>
-        public virtual async Task<TriggerFieldDataList> GetBusinessEventCategoriesAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventCategoriesAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/businesseventcategories";
-                return await this
-                    .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets business events
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="instance">Instance</param>
-        /// <param name="businessEventCategory">BusinessEventCategory</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Gets business events response.</returns>
-        public virtual async Task<BusinessEventsList> GetBusinessEventsAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetBusinessEventCategories")] string businessEventCategory, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventsAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                if (businessEventCategory is null)
-                    throw new ArgumentNullException(nameof(businessEventCategory));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/businesseventcategories/{Uri.EscapeDataString(Uri.EscapeDataString(businessEventCategory.ToString()))}/businessevents";
-                return await this
-                    .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get actions
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="instance">Instance</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get actions response.</returns>
-        public virtual async Task<ProceduresList> GetProceduresAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProceduresAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures";
-                return await this
-                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Execute action
         /// </summary>
         /// <remarks>Execute action</remarks>
@@ -1159,30 +963,6 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action.ToString()))}";
                 return await this
                     .CallConnectorAsync<AxOnlineProcedureResult>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get instances
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get instances response.</returns>
-        public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetDataSetsAsync");
-            try
-            {
-                var path = $"/datasets";
-                return await this
-                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1376,33 +1156,6 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         }
 
         /// <summary>
-        /// Lists exportable tables
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="datasetName">dataset name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Lists exportable tables response.</returns>
-        public virtual async Task<TablesList> GetExportableTablesAsync([DynamicValues("GetDataSets")] string datasetName, CancellationToken cancellationToken = default)
-        {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetExportableTablesAsync");
-            try
-            {
-                if (datasetName is null)
-                    throw new ArgumentNullException(nameof(datasetName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(datasetName.ToString()))}/exportabletables";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get list of entities
         /// </summary>
         /// <remarks>Retrieves a list of entities</remarks>
@@ -1419,6 +1172,210 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                 var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get instances
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get instances response.</returns>
+        public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetDataSetsAsync");
+            try
+            {
+                var path = $"/datasets";
+                return await this
+                    .CallConnectorAsync<DataSetsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets business events categories
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="instance">Instance</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Gets business events categories response.</returns>
+        public virtual async Task<TriggerFieldDataList> GetBusinessEventCategoriesAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventCategoriesAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/businesseventcategories";
+                return await this
+                    .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets business events
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="instance">Instance</param>
+        /// <param name="businessEventCategory">BusinessEventCategory</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Gets business events response.</returns>
+        public virtual async Task<BusinessEventsList> GetBusinessEventsAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetBusinessEventCategories")] string businessEventCategory, CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetBusinessEventsAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (businessEventCategory is null)
+                    throw new ArgumentNullException(nameof(businessEventCategory));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/businesseventcategories/{Uri.EscapeDataString(Uri.EscapeDataString(businessEventCategory.ToString()))}/businessevents";
+                return await this
+                    .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets legal entities
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="instance">Instance</param>
+        /// <param name="category">Category</param>
+        /// <param name="businessEvent">Business event</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Gets legal entities response.</returns>
+        public virtual async Task<TriggerFieldDataList> GetLegalEntitiesAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetBusinessEventCategories")] string category, [DynamicValues("GetBusinessEvents")] string businessEvent, CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetLegalEntitiesAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var queryParams = new List<string>();
+                if (category is null)
+                    throw new ArgumentNullException(nameof(category));
+                queryParams.Add($"businesseventcategory={Uri.EscapeDataString(category.ToString())}");
+                if (businessEvent is null)
+                    throw new ArgumentNullException(nameof(businessEvent));
+                queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent.ToString())}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get actions
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="instance">Instance</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get actions response.</returns>
+        public virtual async Task<ProceduresList> GetProceduresAsync([DynamicValues("GetDataSets")] string instance, CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProceduresAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures";
+                return await this
+                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get actions metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="instance">Instance</param>
+        /// <param name="action">Action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get actions metadata response.</returns>
+        public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetProcedures")] string action, CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetProcedureAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (action is null)
+                    throw new ArgumentNullException(nameof(action));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action.ToString()))}";
+                return await this
+                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get entity metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="instance">Instance</param>
+        /// <param name="entityName">Entity name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get entity metadata response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, CancellationToken cancellationToken = default)
+        {
+            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetTableAsync");
+            try
+            {
+                if (instance is null)
+                    throw new ArgumentNullException(nameof(instance));
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName.ToString()))}";
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

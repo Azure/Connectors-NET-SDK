@@ -1807,68 +1807,6 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get issue types (V2)
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="project">Project</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get issue types (V2) response.</returns>
-        public virtual async Task<List<JsonElement?>> ListIssueTypesAsync([DynamicValues("ListProjects_V3")] string project, CancellationToken cancellationToken = default)
-        {
-            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (project is null)
-                    throw new ArgumentNullException(nameof(project));
-                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-                var path = $"/v2/types/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get issue types fields (V2)
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="project">Project</param>
-        /// <param name="issueTypes">Issue Types</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get issue types fields (V2) response.</returns>
-        public virtual async Task<List<JsonElement?>> ListIssueTypesFieldsAsync(string project, string issueTypes, CancellationToken cancellationToken = default)
-        {
-            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesFieldsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (project is null)
-                    throw new ArgumentNullException(nameof(project));
-                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
-                if (issueTypes is null)
-                    throw new ArgumentNullException(nameof(issueTypes));
-                queryParams.Add($"issuetypeIds={Uri.EscapeDataString(issueTypes.ToString())}");
-                var path = $"/v3/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get projects (V2)
         /// </summary>
         /// <remarks>This operation is used to retrieve a list of projects for your Jira instance.</remarks>
@@ -1963,6 +1901,68 @@ namespace Azure.Connectors.Sdk.Jira
                 var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey.ToString())}";
                 return await this
                     .CallConnectorAsync<UpdateProjectResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get issue types (V2)
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="project">Project</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get issue types (V2) response.</returns>
+        public virtual async Task<List<JsonElement?>> ListIssueTypesAsync([DynamicValues("ListProjects_V3")] string project, CancellationToken cancellationToken = default)
+        {
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (project is null)
+                    throw new ArgumentNullException(nameof(project));
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
+                var path = $"/v2/types/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get issue types fields (V2)
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="project">Project</param>
+        /// <param name="issueTypes">Issue Types</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get issue types fields (V2) response.</returns>
+        public virtual async Task<List<JsonElement?>> ListIssueTypesFieldsAsync(string project, string issueTypes, CancellationToken cancellationToken = default)
+        {
+            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesFieldsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (project is null)
+                    throw new ArgumentNullException(nameof(project));
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project.ToString())}");
+                if (issueTypes is null)
+                    throw new ArgumentNullException(nameof(issueTypes));
+                queryParams.Add($"issuetypeIds={Uri.EscapeDataString(issueTypes.ToString())}");
+                var path = $"/v3/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

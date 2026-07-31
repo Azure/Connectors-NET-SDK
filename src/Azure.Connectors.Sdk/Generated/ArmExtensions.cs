@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     #region Types
 
     /// <summary>
-    /// Response for Lists the subscription locations
+    /// Location list operation response.
     /// </summary>
     public class LocationListResult
     {
@@ -40,7 +40,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The locations.
+    /// Location information.
     /// </summary>
     public class Location
     {
@@ -76,7 +76,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Read a subscription
+    /// Subscription information.
     /// </summary>
     public class Subscription
     {
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// subscriptionPolicies
+    /// Subscription policies.
     /// </summary>
     public class SubscriptionPolicies
     {
@@ -136,7 +136,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for List subscriptions
+    /// Subscription list operation response.
     /// </summary>
     public class SubscriptionListResult : IPageable<Subscription>
     {
@@ -150,7 +150,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Read a template deployment
+    /// Deployment information.
     /// </summary>
     public class DeploymentExtended
     {
@@ -169,7 +169,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// properties
+    /// Deployment properties with additional details.
     /// </summary>
     public class DeploymentPropertiesExtended
     {
@@ -229,7 +229,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The list of resource providers needed for the deployment.
+    /// Resource provider information.
     /// </summary>
     public class Provider
     {
@@ -254,7 +254,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The collection of provider resource types.
+    /// Resource type managed by the resource provider.
     /// </summary>
     public class ProviderResourceType
     {
@@ -292,7 +292,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The aliases that are supported by this resource type.
+    /// The alias type. 
     /// </summary>
     public class AliasType
     {
@@ -306,7 +306,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The paths for an alias.
+    /// The type of the paths for alias. 
     /// </summary>
     public class AliasPathType
     {
@@ -320,7 +320,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The list of deployment dependencies.
+    /// Deployment dependency information.
     /// </summary>
     public class Dependency
     {
@@ -342,7 +342,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The list of dependencies.
+    /// Deployment dependency information.
     /// </summary>
     public class BasicDependency
     {
@@ -360,7 +360,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// templateLink
+    /// Entity representing the reference to the template.
     /// </summary>
     public class TemplateLink
     {
@@ -374,7 +374,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// parametersLink
+    /// Entity representing the reference to the deployment paramaters.
     /// </summary>
     public class ParametersLink
     {
@@ -398,7 +398,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Validate a template deployment
+    /// Information from validate template deployment response.
     /// </summary>
     public class DeploymentValidateResult
     {
@@ -438,7 +438,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Export deployment template
+    /// The deployment export result. 
     /// </summary>
     public class DeploymentExportResult
     {
@@ -448,7 +448,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for List template deployments
+    /// List of deployments.
     /// </summary>
     public class DeploymentListResult : IPageable<DeploymentExtended>
     {
@@ -463,7 +463,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Read a template deployment operation
+    /// Deployment operation information.
     /// </summary>
     public class DeploymentOperation
     {
@@ -483,7 +483,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// properties
+    /// Deployment operation properties.
     /// </summary>
     public class DeploymentOperationProperties
     {
@@ -526,7 +526,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// targetResource
+    /// Target resource.
     /// </summary>
     public class TargetResource
     {
@@ -554,7 +554,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Lists template deployment operations
+    /// List of deployment operations.
     /// </summary>
     public class DeploymentOperationsListResult : IPageable<DeploymentOperation>
     {
@@ -569,7 +569,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for List resource providers
+    /// List of resource providers.
     /// </summary>
     public class ProviderListResult : IPageable<Provider>
     {
@@ -584,7 +584,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for List resources by resource group
+    /// List of resources.
     /// </summary>
     public class ResourceListResult : IPageable<GenericResource>
     {
@@ -599,7 +599,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Item in The list of resources.
+    /// Resource information.
     /// </summary>
     public class GenericResource
     {
@@ -653,7 +653,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// plan
+    /// Plan for the resource.
     /// </summary>
     public class Plan
     {
@@ -675,7 +675,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// sku
+    /// Sku for the resource.
     /// </summary>
     public class Sku
     {
@@ -705,7 +705,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// identity
+    /// Identity for the resource.
     /// </summary>
     public class Identity
     {
@@ -725,7 +725,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Read a resource group
+    /// Resource group information.
     /// </summary>
     public class ResourceGroup
     {
@@ -758,7 +758,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// properties
+    /// The resource group properties.
     /// </summary>
     public class ResourceGroupProperties
     {
@@ -783,7 +783,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for List resource groups
+    /// List of resource groups.
     /// </summary>
     public class ResourceGroupListResult : IPageable<ResourceGroup>
     {
@@ -810,7 +810,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Invoke resource operation
+    /// The response from the action operation.
     /// </summary>
     public class ResourcesInvokeResponse
     {
@@ -834,7 +834,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Invoke resource operation in provider
+    /// The response from the operation.
     /// </summary>
     public class ProviderResourcesInvokeResponse
     {
@@ -846,7 +846,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Create or update a subscription resource tag value
+    /// Tag information.
     /// </summary>
     public class TagValue
     {
@@ -864,7 +864,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// count
+    /// Tag count.
     /// </summary>
     public class TagCount
     {
@@ -878,7 +878,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for Create or update a subscription resource tag name
+    /// Tag details.
     /// </summary>
     public class TagDetails
     {
@@ -900,7 +900,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Response for List subscription resource tags
+    /// List of subscription tags.
     /// </summary>
     public class TagsListResult : IPageable<TagDetails>
     {
@@ -915,7 +915,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// DeploymentProperties
+    /// Deployment properties.
     /// </summary>
     public class DeploymentProperties
     {
@@ -945,7 +945,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// Deployment
+    /// Deployment operation parameters.
     /// </summary>
     public class Deployment
     {
@@ -955,7 +955,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     }
 
     /// <summary>
-    /// ExportTemplateRequest
+    /// Export resource group template request parameters.
     /// </summary>
     public class ExportTemplateRequest
     {

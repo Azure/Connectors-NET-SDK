@@ -105,21 +105,33 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     }
 
     /// <summary>
-    /// Response for Get All Checklist Instances
+    /// Create Checklist Instance
     /// </summary>
-    public class GetAllChecklistInstancesResponse
+    public class ChecklistInstancesInput
     {
-        /// <summary>The list of checklist instances.</summary>
-        [JsonPropertyName("results")]
-        public List<ChecklistInstance> ChecklistInstances { get; set; }
+        /// <summary>Select a checklist master</summary>
+        [JsonPropertyName("procedureId")]
+        public int? ProcedureId { get; set; }
 
-        /// <summary>The total number of checklist instances.</summary>
-        [JsonPropertyName("_total")]
-        public int? Total { get; set; }
+        /// <summary>The title of the checklist instance</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Select the user to add as a collaborator</summary>
+        [JsonPropertyName("userId")]
+        public int? UserId { get; set; }
+
+        /// <summary>Select the company role to add as a collaborator.</summary>
+        [JsonPropertyName("companyRoleId")]
+        public int? CompanyRoleId { get; set; }
+
+        /// <summary>The name of the bot creating the instance</summary>
+        [JsonPropertyName("bot")]
+        public string BotName { get; set; }
     }
 
     /// <summary>
-    /// Item in The list of checklist instances.
+    /// Response for Create Checklist Instance
     /// </summary>
     public class ChecklistInstance
     {
@@ -158,32 +170,6 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// <summary>The latest date and time the checklist instance could be due.</summary>
         [JsonPropertyName("latestDue")]
         public DateTime? InstanceLatestDueDate { get; set; }
-    }
-
-    /// <summary>
-    /// Create Checklist Instance
-    /// </summary>
-    public class ChecklistInstancesInput
-    {
-        /// <summary>Select a checklist master</summary>
-        [JsonPropertyName("procedureId")]
-        public int? ProcedureId { get; set; }
-
-        /// <summary>The title of the checklist instance</summary>
-        [JsonPropertyName("title")]
-        public string Title { get; set; }
-
-        /// <summary>Select the user to add as a collaborator</summary>
-        [JsonPropertyName("userId")]
-        public int? UserId { get; set; }
-
-        /// <summary>Select the company role to add as a collaborator.</summary>
-        [JsonPropertyName("companyRoleId")]
-        public int? CompanyRoleId { get; set; }
-
-        /// <summary>The name of the bot creating the instance</summary>
-        [JsonPropertyName("bot")]
-        public string BotName { get; set; }
     }
 
     /// <summary>
@@ -444,6 +430,20 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         public string CallbackURL { get; set; }
     }
 
+    /// <summary>
+    /// Response for Get All Checklist Instances
+    /// </summary>
+    public class GetAllChecklistInstancesResponse
+    {
+        /// <summary>The list of checklist instances.</summary>
+        [JsonPropertyName("results")]
+        public List<ChecklistInstance> ChecklistInstances { get; set; }
+
+        /// <summary>The total number of checklist instances.</summary>
+        [JsonPropertyName("_total")]
+        public int? Total { get; set; }
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -508,16 +508,22 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetAllChecklistInstancesResponse"/>.
+        /// Creates a new instance of <see cref="ChecklistInstancesInput"/>.
         /// </summary>
-        public static GetAllChecklistInstancesResponse GetAllChecklistInstancesResponse(
-            List<ChecklistInstance> checklistInstances = default,
-            int? total = default)
+        public static ChecklistInstancesInput ChecklistInstancesInput(
+            int? procedureId = default,
+            string title = default,
+            int? userId = default,
+            int? companyRoleId = default,
+            string botName = default)
         {
-            return new GetAllChecklistInstancesResponse
+            return new ChecklistInstancesInput
             {
-                ChecklistInstances = checklistInstances,
-                Total = total,
+                ProcedureId = procedureId,
+                Title = title,
+                UserId = userId,
+                CompanyRoleId = companyRoleId,
+                BotName = botName,
             };
         }
 
@@ -546,26 +552,6 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 InstanceFinishDate = instanceFinishDate,
                 InstanceEarliestDueDate = instanceEarliestDueDate,
                 InstanceLatestDueDate = instanceLatestDueDate,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ChecklistInstancesInput"/>.
-        /// </summary>
-        public static ChecklistInstancesInput ChecklistInstancesInput(
-            int? procedureId = default,
-            string title = default,
-            int? userId = default,
-            int? companyRoleId = default,
-            string botName = default)
-        {
-            return new ChecklistInstancesInput
-            {
-                ProcedureId = procedureId,
-                Title = title,
-                UserId = userId,
-                CompanyRoleId = companyRoleId,
-                BotName = botName,
             };
         }
 
@@ -770,6 +756,20 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 CallbackURL = callbackURL,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetAllChecklistInstancesResponse"/>.
+        /// </summary>
+        public static GetAllChecklistInstancesResponse GetAllChecklistInstancesResponse(
+            List<ChecklistInstance> checklistInstances = default,
+            int? total = default)
+        {
+            return new GetAllChecklistInstancesResponse
+            {
+                ChecklistInstances = checklistInstances,
+                Total = total,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -903,40 +903,6 @@ namespace Azure.Connectors.Sdk.Waywedo
                 var path = $"/v1/ChecklistInstanceComments";
                 return await this
                     .CallConnectorAsync<ChecklistComment>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get All Checklist Instances
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="limit">Limit</param>
-        /// <param name="offset">Offset</param>
-        /// <param name="status">Status</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get All Checklist Instances response.</returns>
-        public virtual async Task<GetAllChecklistInstancesResponse> GetAllChecklistInstancesAsync(int? limit = default, int? offset = default, int? status = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.GetAllChecklistInstancesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-                if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                if (status.HasValue)
-                    queryParams.Add($"status={Uri.EscapeDataString(status.Value.ToString())}");
-                var path = $"/v1/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetAllChecklistInstancesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1269,6 +1235,40 @@ namespace Azure.Connectors.Sdk.Waywedo
                 var path = $"/v1/Users";
                 return await this
                     .CallConnectorAsync<UsersPostResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get All Checklist Instances
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="limit">Limit</param>
+        /// <param name="offset">Offset</param>
+        /// <param name="status">Status</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get All Checklist Instances response.</returns>
+        public virtual async Task<GetAllChecklistInstancesResponse> GetAllChecklistInstancesAsync(int? limit = default, int? offset = default, int? status = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.GetAllChecklistInstancesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (limit.HasValue)
+                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                if (offset.HasValue)
+                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                if (status.HasValue)
+                    queryParams.Add($"status={Uri.EscapeDataString(status.Value.ToString())}");
+                var path = $"/v1/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetAllChecklistInstancesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

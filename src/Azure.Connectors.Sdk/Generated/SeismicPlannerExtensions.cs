@@ -117,7 +117,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
     }
 
     /// <summary>
-    /// meta
+    /// Metadata object
     /// </summary>
     public class Meta
     {
@@ -829,7 +829,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
     }
 
     /// <summary>
-    /// requestFormCustomPropertyOption
+    /// Request form custom properties
     /// </summary>
     public class RequestFormCustomProperties
     {
@@ -945,7 +945,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
     }
 
     /// <summary>
-    /// valueSchemaProperty
+    /// Value schema definition
     /// </summary>
     public class ValueSchemaPropertyDefinition
     {

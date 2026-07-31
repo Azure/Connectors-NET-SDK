@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     #region Types
 
     /// <summary>
-    /// Response for Create table
+    /// Table metadata
     /// </summary>
     public class TableMetadata
     {
@@ -63,7 +63,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// x-ms-capabilities
+    /// Metadata for a table (capabilities)
     /// </summary>
     public class TableCapabilitiesMetadata
     {
@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// sortRestrictions
+    /// Metadata for a table (sort restrictions)
     /// </summary>
     public class TableSortRestrictionsMetadata
     {
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// filterRestrictions
+    /// Metadata for a table (filter restrictions)
     /// </summary>
     public class TableFilterRestrictionsMetadata
     {
@@ -129,7 +129,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// selectRestrictions
+    /// Metadata for a table (select restrictions)
     /// </summary>
     public class TableSelectRestrictionsMetadata
     {
@@ -151,7 +151,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// Response for List rows present in a table
+    /// List of Items
     /// </summary>
     public class ItemsList
     {
@@ -161,7 +161,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// Item in List of Items
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -189,7 +189,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// WorksheetMetadata
     /// </summary>
     public class WorksheetMetadata
     {
@@ -241,7 +241,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline.Models
     }
 
     /// <summary>
-    /// TableToCreate
+    /// Table to create.
     /// </summary>
     public class TableToCreate
     {
@@ -893,41 +893,6 @@ namespace Azure.Connectors.Sdk.ExcelOnline
         }
 
         /// <summary>
-        /// Get table columns
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="documentLibrary">Document Library</param>
-        /// <param name="file">File</param>
-        /// <param name="table">Table</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get table columns response.</returns>
-        public virtual async Task<GetColumnsResponse> GetColumnsAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
-        {
-            using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetColumnsAsync");
-            try
-            {
-                if (documentLibrary is null)
-                    throw new ArgumentNullException(nameof(documentLibrary));
-                if (@file is null)
-                    throw new ArgumentNullException(nameof(@file));
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var queryParams = new List<string>();
-                queryParams.Add("source=me");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Add a row into a table
         /// </summary>
         /// <remarks>Add a new row into the Excel table.</remarks>
@@ -956,6 +921,41 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get table columns
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get table columns response.</returns>
+        public virtual async Task<GetColumnsResponse> GetColumnsAsync(string documentLibrary, string @file, [DynamicValues("GetTables")] string table, CancellationToken cancellationToken = default)
+        {
+            using var activity = ExcelOnlineClient.ConnectorActivitySource.StartActivity("ExcelOnlineClient.GetColumnsAsync");
+            try
+            {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var queryParams = new List<string>();
+                queryParams.Add("source=me");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

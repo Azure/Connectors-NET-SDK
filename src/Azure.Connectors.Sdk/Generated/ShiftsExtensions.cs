@@ -29,21 +29,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     #region Types
 
     /// <summary>
-    /// Response for List teams
-    /// </summary>
-    public class GetAllTeamsResponse
-    {
-        /// <summary>@odata.context</summary>
-        [JsonPropertyName("@odata.context")]
-        public string Context { get; set; }
-
-        /// <summary>List of one or more Teams you are a part of.</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> TeamsList { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get a Schedule&apos;s details
+    /// Schedule Entity.
     /// </summary>
     public class ScheduleResponse
     {
@@ -79,7 +65,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Time Off instances
+    /// Time Off Entity.
     /// </summary>
     public class TimeOffResponse
     {
@@ -119,7 +105,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// userInfo
+    /// User Info
     /// </summary>
     public class UserInfo
     {
@@ -133,7 +119,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// teamInfo
+    /// Team Info
     /// </summary>
     public class TeamInfo
     {
@@ -147,7 +133,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// sharedTimeOff
+    /// Shared version of the Time Off.
     /// </summary>
     public class SharedTimeOff
     {
@@ -169,7 +155,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// draftTimeOff
+    /// Preliminary version of the Time Off
     /// </summary>
     public class DraftTimeOff
     {
@@ -205,7 +191,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Shifts
+    /// Shift Entity.
     /// </summary>
     public class ShiftResponse
     {
@@ -253,7 +239,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// schedulingGroupInfo
+    /// Scheduling Group Info
     /// </summary>
     public class SchedulingGroupInfo
     {
@@ -271,7 +257,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// sharedShift
+    /// Shared version of the Shift.
     /// </summary>
     public class SharedShift
     {
@@ -301,7 +287,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// draftShift
+    /// Preliminary version of the Shift
     /// </summary>
     public class DraftShift
     {
@@ -345,7 +331,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Open Shifts
+    /// Open Shift Entity
     /// </summary>
     public class OpenShiftResponse
     {
@@ -385,7 +371,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// sharedOpenShift
+    /// Shared version of the Open Shift
     /// </summary>
     public class SharedOpenShift
     {
@@ -419,7 +405,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// draftOpenShift
+    /// Preliminary version of the Open Shift
     /// </summary>
     public class DraftOpenShift
     {
@@ -453,7 +439,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Response for List all Time Off Reasons in a team
+    /// The list of Time Off Reasons.
     /// </summary>
     public class GetTimeOffReasonsResponse
     {
@@ -481,7 +467,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Scheduling Groups.
+    /// Scheduling Group Entity
     /// </summary>
     public class SchedulingGroupResponse
     {
@@ -517,7 +503,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Time Off requests.
+    /// Time Off Request Entity
     /// </summary>
     public class TimeOffRequestResponse
     {
@@ -580,7 +566,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Approve a Time Off request
+    /// Manager approves a Time Off request.
     /// </summary>
     public class TimeOffRequestApproveInput
     {
@@ -602,7 +588,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Decline a Time Off request
+    /// Manager declines a Time Off request.
     /// </summary>
     public class TimeOffRequestDeclineInput
     {
@@ -638,7 +624,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Offer Shift requests.
+    /// Offer Shift Request Entity
     /// </summary>
     public class OfferShiftRequestResponse
     {
@@ -705,7 +691,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Approve an Offer Shift request
+    /// Approve an Offer Shift request.
     /// </summary>
     public class OfferShiftRequestApproveInput
     {
@@ -727,7 +713,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Decline an Offer Shift request
+    /// Recipient/Manager declines an Offer Shift request.
     /// </summary>
     public class OfferShiftRequestDeclineInput
     {
@@ -763,7 +749,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Swap Shifts Change Requests.
+    /// Swap Shift Request Entity
     /// </summary>
     public class SwapShiftsChangeRequestResponse
     {
@@ -834,7 +820,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Approve a Swap Shifts request
+    /// Approve a Swap Shifts change request.
     /// </summary>
     public class SwapShiftsChangeRequestApproveInput
     {
@@ -856,7 +842,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Decline a Swap Shifts request
+    /// Decline a Swap Shifts change request.
     /// </summary>
     public class SwapShiftsChangeRequestDeclineInput
     {
@@ -892,7 +878,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Item in List of Open Shift Change Requests.
+    /// Open Shift Change Request Entity
     /// </summary>
     public class OpenShiftChangeRequestResponse
     {
@@ -947,7 +933,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Approve an Open Shift request
+    /// Manager approves an Open Shift change request.
     /// </summary>
     public class OpenShiftChangeRequestApproveInput
     {
@@ -969,7 +955,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// Decline an Open Shift request
+    /// Manager declines an Open Shift change request.
     /// </summary>
     public class OpenShiftChangeRequestDeclineInput
     {
@@ -1033,6 +1019,20 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
+    /// Response for List teams
+    /// </summary>
+    public class GetAllTeamsResponse
+    {
+        /// <summary>@odata.context</summary>
+        [JsonPropertyName("@odata.context")]
+        public string Context { get; set; }
+
+        /// <summary>List of one or more Teams you are a part of.</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> TeamsList { get; set; }
+    }
+
+    /// <summary>
     /// WebHookRequest
     /// </summary>
     public class WebHookRequest
@@ -1057,7 +1057,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// CreateShiftRequest
+    /// Create Shift Request Entity
     /// </summary>
     public class CreateShiftRequest
     {
@@ -1075,7 +1075,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
-    /// CreateTimeOffRequest
+    /// Create Time Off Request Entity
     /// </summary>
     public class CreateTimeOffRequest
     {
@@ -1151,20 +1151,6 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// </summary>
     public static class ShiftsModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="GetAllTeamsResponse"/>.
-        /// </summary>
-        public static GetAllTeamsResponse GetAllTeamsResponse(
-            string context = default,
-            List<JsonElement?> teamsList = default)
-        {
-            return new GetAllTeamsResponse
-            {
-                Context = context,
-                TeamsList = teamsList,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="ScheduleResponse"/>.
         /// </summary>
@@ -1874,6 +1860,20 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="GetAllTeamsResponse"/>.
+        /// </summary>
+        public static GetAllTeamsResponse GetAllTeamsResponse(
+            string context = default,
+            List<JsonElement?> teamsList = default)
+        {
+            return new GetAllTeamsResponse
+            {
+                Context = context,
+                TeamsList = teamsList,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WebHookRequest"/>.
         /// </summary>
         public static WebHookRequest WebHookRequest(
@@ -1975,6 +1975,88 @@ namespace Azure.Connectors.Sdk.Shifts
 
     #endregion Trigger Operation Constants
 
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the Shifts connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class ShiftsTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnTriggerForOpenShiftChangeRequests trigger operation (operationId: TriggerForOpenShiftChangeRequests).
+        /// </summary>
+        public static class OnTriggerForOpenShiftChangeRequests
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTriggerForSwapShiftsChangeRequests trigger operation (operationId: TriggerForSwapShiftsChangeRequests).
+        /// </summary>
+        public static class OnTriggerForSwapShiftsChangeRequests
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTriggerForOfferShiftRequests trigger operation (operationId: TriggerForOfferShiftRequests).
+        /// </summary>
+        public static class OnTriggerForOfferShiftRequests
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTriggerForTimeOffRequests trigger operation (operationId: TriggerForTimeOffRequests).
+        /// </summary>
+        public static class OnTriggerForTimeOffRequests
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTriggerForShifts trigger operation (operationId: TriggerForShifts).
+        /// </summary>
+        public static class OnTriggerForShifts
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
     #region Client
 
     /// <summary>
@@ -2040,30 +2122,6 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// List teams
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List teams response.</returns>
-        public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetAllTeamsAsync");
-            try
-            {
-                var path = $"/v1.0/me/joinedTeams";
-                return await this
-                    .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Get a Schedule&apos;s details
@@ -3189,6 +3247,30 @@ namespace Azure.Connectors.Sdk.Shifts
                 var path = $"/beta/me/joinedTeams/getTimesOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List teams
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List teams response.</returns>
+        public virtual async Task<GetAllTeamsResponse> GetAllTeamsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.GetAllTeamsAsync");
+            try
+            {
+                var path = $"/v1.0/me/joinedTeams";
+                return await this
+                    .CallConnectorAsync<GetAllTeamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

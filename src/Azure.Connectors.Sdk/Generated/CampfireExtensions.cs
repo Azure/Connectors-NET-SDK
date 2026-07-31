@@ -29,27 +29,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     #region Types
 
     /// <summary>
-    /// Response for List accounts
-    /// </summary>
-    public class AccountsResponse
-    {
-        /// <summary>Collection Of Accounts</summary>
-        [JsonPropertyName("accounts")]
-        public List<JsonElement?> Accounts { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List Rooms
-    /// </summary>
-    public class RoomsResponse
-    {
-        /// <summary>Collection of Rooms</summary>
-        [JsonPropertyName("rooms")]
-        public List<JsonElement?> Rooms { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Create a message
+    /// A message
     /// </summary>
     public class CreateMessageResponse
     {
@@ -59,7 +39,17 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     }
 
     /// <summary>
-    /// Response for When a new message is received
+    /// Collection of Room Data
+    /// </summary>
+    public class RoomsResponse
+    {
+        /// <summary>Collection of Rooms</summary>
+        [JsonPropertyName("rooms")]
+        public List<JsonElement?> Rooms { get; set; }
+    }
+
+    /// <summary>
+    /// A collection of message data in Campfire
     /// </summary>
     public class MessagesResponse
     {
@@ -69,7 +59,7 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     }
 
     /// <summary>
-    /// Response for When a file is uploaded
+    /// Data for uploaded files in Campfire
     /// </summary>
     public class UploadResponse
     {
@@ -88,6 +78,16 @@ namespace Azure.Connectors.Sdk.Campfire.Models
         public JsonElement? User { get; set; }
     }
 
+    /// <summary>
+    /// Account data for an account in Campfire
+    /// </summary>
+    public class AccountsResponse
+    {
+        /// <summary>Collection Of Accounts</summary>
+        [JsonPropertyName("accounts")]
+        public List<JsonElement?> Accounts { get; set; }
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -100,14 +100,14 @@ namespace Azure.Connectors.Sdk.Campfire.Models
     public static class CampfireModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AccountsResponse"/>.
+        /// Creates a new instance of <see cref="CreateMessageResponse"/>.
         /// </summary>
-        public static AccountsResponse AccountsResponse(
-            List<JsonElement?> accounts = default)
+        public static CreateMessageResponse CreateMessageResponse(
+            JsonElement? message = default)
         {
-            return new AccountsResponse
+            return new CreateMessageResponse
             {
-                Accounts = accounts,
+                Message = message,
             };
         }
 
@@ -120,18 +120,6 @@ namespace Azure.Connectors.Sdk.Campfire.Models
             return new RoomsResponse
             {
                 Rooms = rooms,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CreateMessageResponse"/>.
-        /// </summary>
-        public static CreateMessageResponse CreateMessageResponse(
-            JsonElement? message = default)
-        {
-            return new CreateMessageResponse
-            {
-                Message = message,
             };
         }
 
@@ -168,6 +156,18 @@ namespace Azure.Connectors.Sdk.Campfire.Models
             return new UserResponse
             {
                 User = user,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccountsResponse"/>.
+        /// </summary>
+        public static AccountsResponse AccountsResponse(
+            List<JsonElement?> accounts = default)
+        {
+            return new AccountsResponse
+            {
+                Accounts = accounts,
             };
         }
     }
@@ -241,6 +241,13 @@ namespace Azure.Connectors.Sdk.Campfire
             /// </summary>
             public const string Account = "account";
 
+            /// <summary>
+            /// A room associated with the account
+            /// Required.
+            /// Dynamic values from: ListRooms.
+            /// </summary>
+            public const string RoomId = "roomId";
+
         }
 
         /// <summary>
@@ -254,6 +261,13 @@ namespace Azure.Connectors.Sdk.Campfire
             /// Dynamic values from: ListAccounts.
             /// </summary>
             public const string Account = "account";
+
+            /// <summary>
+            /// A room associated with the account
+            /// Required.
+            /// Dynamic values from: ListRooms.
+            /// </summary>
+            public const string RoomId = "roomId";
 
         }
 
@@ -328,63 +342,6 @@ namespace Azure.Connectors.Sdk.Campfire
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// List accounts
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="parentOperation">parentOperation</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List accounts response.</returns>
-        public virtual async Task<AccountsResponse> ListAccountsAsync(string parentOperation = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.ListAccountsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (parentOperation != default)
-                    queryParams.Add($"parentOperation={Uri.EscapeDataString(parentOperation.ToString())}");
-                var path = $"/authorization.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<AccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List Rooms
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="account">Account</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List Rooms response.</returns>
-        public virtual async Task<RoomsResponse> ListRoomsAsync([DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
-        {
-            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.ListRoomsAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (account is null)
-                    throw new ArgumentNullException(nameof(account));
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-                var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<RoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Create a message
         /// </summary>
         /// <remarks>Sends a message to the given room.</remarks>
@@ -440,6 +397,63 @@ namespace Azure.Connectors.Sdk.Campfire
                 var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="parentOperation">parentOperation</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List accounts response.</returns>
+        public virtual async Task<AccountsResponse> ListAccountsAsync(string parentOperation = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.ListAccountsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentOperation != default)
+                    queryParams.Add($"parentOperation={Uri.EscapeDataString(parentOperation.ToString())}");
+                var path = $"/authorization.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<AccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List Rooms
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="account">Account</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Rooms response.</returns>
+        public virtual async Task<RoomsResponse> ListRoomsAsync([DynamicValues("ListAccounts")] string account, CancellationToken cancellationToken = default)
+        {
+            using var activity = CampfireClient.ConnectorActivitySource.StartActivity("CampfireClient.ListRoomsAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (account is null)
+                    throw new ArgumentNullException(nameof(account));
+                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+                var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<RoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

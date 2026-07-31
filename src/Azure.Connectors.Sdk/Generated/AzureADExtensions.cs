@@ -317,7 +317,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
     /// <summary>
     /// Response for Check group membership (V2)
     /// </summary>
-    public class GetMemberGroupsResponse
+    public class GetMemberGroupsResponseV2
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
@@ -688,12 +688,12 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetMemberGroupsResponse"/>.
+        /// Creates a new instance of <see cref="GetMemberGroupsResponseV2"/>.
         /// </summary>
-        public static GetMemberGroupsResponse GetMemberGroupsResponse(
+        public static GetMemberGroupsResponseV2 GetMemberGroupsResponseV2(
             List<string> value = default)
         {
-            return new GetMemberGroupsResponse
+            return new GetMemberGroupsResponseV2
             {
                 Value = value,
             };
@@ -1217,7 +1217,7 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Check group membership (V2) response.</returns>
-        public virtual async Task<GetMemberGroupsResponse> CheckMemberGroupsAsync(string userIdOrPrincipalName, CheckMemberGroupsRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMemberGroupsResponseV2> CheckMemberGroupsAsync(string userIdOrPrincipalName, CheckMemberGroupsRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CheckMemberGroupsAsync");
             try
@@ -1226,7 +1226,7 @@ namespace Azure.Connectors.Sdk.AzureAD
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/checkMemberGroups";
                 return await this
-                    .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<GetMemberGroupsResponseV2>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1245,7 +1245,7 @@ namespace Azure.Connectors.Sdk.AzureAD
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get groups of a user (V2) response.</returns>
-        public virtual async Task<GetMemberGroupsResponse> GetMemberGroupsAsync(string userIdOrPrincipalName, GetMemberGroupsRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMemberGroupsResponseV2> GetMemberGroupsAsync(string userIdOrPrincipalName, GetMemberGroupsRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetMemberGroupsAsync");
             try
@@ -1254,7 +1254,7 @@ namespace Azure.Connectors.Sdk.AzureAD
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
                 var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/getMemberGroups";
                 return await this
-                    .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<GetMemberGroupsResponseV2>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

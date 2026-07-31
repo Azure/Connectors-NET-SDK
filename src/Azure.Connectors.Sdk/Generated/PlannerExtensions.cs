@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// <summary>
     /// Response for Remove assignees from a task
     /// </summary>
-    public class GetTaskResponse
+    public class GetTaskResponseV2
     {
         /// <summary>createdBy</summary>
         [JsonPropertyName("createdBy")]
@@ -107,7 +107,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     }
 
     /// <summary>
-    /// appliedCategories
+    /// The categories to which the task has been applied.
     /// </summary>
     public class AppliedCategories
     {
@@ -233,16 +233,6 @@ namespace Azure.Connectors.Sdk.Planner.Models
     }
 
     /// <summary>
-    /// Response for List groups that I am member of
-    /// </summary>
-    public class ListGroupsResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get plan details
     /// </summary>
     public class GetPlanDetailsResponse
@@ -297,6 +287,76 @@ namespace Azure.Connectors.Sdk.Planner.Models
     }
 
     /// <summary>
+    /// Response for Create a task
+    /// </summary>
+    public class GetTaskResponseV3
+    {
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public JsonElement? CreatedBy { get; set; }
+
+        /// <summary>The id of the plan this task belongs to.</summary>
+        [JsonPropertyName("planId")]
+        public string PlanId { get; set; }
+
+        /// <summary>The id of the bucket this task belongs to.</summary>
+        [JsonPropertyName("bucketId")]
+        public string BucketId { get; set; }
+
+        /// <summary>The title of the task.</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>The completion percentage of the task.</summary>
+        [JsonPropertyName("percentComplete")]
+        public int? PercentComplete { get; set; }
+
+        /// <summary>The start datetime of the task.</summary>
+        [JsonPropertyName("startDateTime")]
+        [JsonInclude]
+        public DateTime? StartDateTime { get; init; }
+
+        /// <summary>The datetime the task was created.</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>The datetime the task is due.</summary>
+        [JsonPropertyName("dueDateTime")]
+        [JsonInclude]
+        public DateTime? DueDateTime { get; init; }
+
+        /// <summary>Set to true if the task has a description.</summary>
+        [JsonPropertyName("hasDescription")]
+        public bool? HasDescription { get; set; }
+
+        /// <summary>The datetime the task was completed.</summary>
+        [JsonPropertyName("completedDateTime")]
+        [JsonInclude]
+        public DateTime? CompletedDateTime { get; init; }
+
+        /// <summary>The number of external references that exist on the task.</summary>
+        [JsonPropertyName("referenceCount")]
+        public int? ReferenceCount { get; set; }
+
+        /// <summary>The id of the task.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>appliedCategories</summary>
+        [JsonPropertyName("appliedCategories")]
+        public AppliedCategories AppliedCategories { get; set; }
+
+        /// <summary>Priority of the task. Valid range of values is between 0 and 10 (inclusive), with increasing value being lower priority (0 has the highest priority and 10 has the lowest priority). Currently, Planner interprets values 0 and 1 as &quot;urgent&quot;, 2 and 3 and 4 as &quot;important&quot;, 5, 6, and 7 as &quot;medium&quot;, and 8, 9, and 10 as &quot;low&quot;. Currently, Planner sets the value 1 for &quot;urgent&quot;, 3 for &quot;important&quot;, 5 for &quot;medium&quot;, and 9 for &quot;low&quot;.</summary>
+        [JsonPropertyName("priority")]
+        public int? Priority { get; set; }
+
+        /// <summary>_assignments</summary>
+        [JsonPropertyName("_assignments")]
+        public List<JsonElement?> Assignments { get; set; }
+    }
+
+    /// <summary>
     /// Response for Get task details
     /// </summary>
     public class GetTaskDetailsResponse
@@ -331,15 +391,25 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// <summary>
     /// Response for List my tasks
     /// </summary>
-    public class ListTasksResponse : IPageable<GetTaskResponse>
+    public class ListTasksResponse : IPageable<GetTaskResponseV2>
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<GetTaskResponse> Value { get; set; }
+        public List<GetTaskResponseV2> Value { get; set; }
 
         /// <summary>Link to get next page of results</summary>
         [JsonPropertyName("@odata.nextLink")]
         public string NextLink { get; set; }
+    }
+
+    /// <summary>
+    /// Response for List groups that I am member of
+    /// </summary>
+    public class ListGroupsResponse
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -460,9 +530,9 @@ namespace Azure.Connectors.Sdk.Planner.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetTaskResponse"/>.
+        /// Creates a new instance of <see cref="GetTaskResponseV2"/>.
         /// </summary>
-        public static GetTaskResponse GetTaskResponse(
+        public static GetTaskResponseV2 GetTaskResponseV2(
             JsonElement? createdBy = default,
             string planId = default,
             string bucketId = default,
@@ -478,7 +548,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
             AppliedCategories appliedCategories = default,
             List<JsonElement?> assignments = default)
         {
-            return new GetTaskResponse
+            return new GetTaskResponseV2
             {
                 CreatedBy = createdBy,
                 PlanId = planId,
@@ -582,18 +652,6 @@ namespace Azure.Connectors.Sdk.Planner.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ListGroupsResponse"/>.
-        /// </summary>
-        public static ListGroupsResponse ListGroupsResponse(
-            List<JsonElement?> value = default)
-        {
-            return new ListGroupsResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="GetPlanDetailsResponse"/>.
         /// </summary>
         public static GetPlanDetailsResponse GetPlanDetailsResponse(
@@ -642,6 +700,46 @@ namespace Azure.Connectors.Sdk.Planner.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="GetTaskResponseV3"/>.
+        /// </summary>
+        public static GetTaskResponseV3 GetTaskResponseV3(
+            JsonElement? createdBy = default,
+            string planId = default,
+            string bucketId = default,
+            string title = default,
+            int? percentComplete = default,
+            DateTime? startDateTime = default,
+            DateTime? createdDateTime = default,
+            DateTime? dueDateTime = default,
+            bool? hasDescription = default,
+            DateTime? completedDateTime = default,
+            int? referenceCount = default,
+            string id = default,
+            AppliedCategories appliedCategories = default,
+            int? priority = default,
+            List<JsonElement?> assignments = default)
+        {
+            return new GetTaskResponseV3
+            {
+                CreatedBy = createdBy,
+                PlanId = planId,
+                BucketId = bucketId,
+                Title = title,
+                PercentComplete = percentComplete,
+                StartDateTime = startDateTime,
+                CreatedDateTime = createdDateTime,
+                DueDateTime = dueDateTime,
+                HasDescription = hasDescription,
+                CompletedDateTime = completedDateTime,
+                ReferenceCount = referenceCount,
+                Id = id,
+                AppliedCategories = appliedCategories,
+                Priority = priority,
+                Assignments = assignments,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GetTaskDetailsResponse"/>.
         /// </summary>
         public static GetTaskDetailsResponse GetTaskDetailsResponse(
@@ -675,13 +773,25 @@ namespace Azure.Connectors.Sdk.Planner.Models
         /// Creates a new instance of <see cref="ListTasksResponse"/>.
         /// </summary>
         public static ListTasksResponse ListTasksResponse(
-            List<GetTaskResponse> value = default,
+            List<GetTaskResponseV2> value = default,
             string nextLink = default)
         {
             return new ListTasksResponse
             {
                 Value = value,
                 NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListGroupsResponse"/>.
+        /// </summary>
+        public static ListGroupsResponse ListGroupsResponse(
+            List<JsonElement?> value = default)
+        {
+            return new ListGroupsResponse
+            {
+                Value = value,
             };
         }
 
@@ -760,7 +870,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// Typed trigger payload for the OnCompleteTask trigger (Planner "When a task is completed", operationId: OnCompleteTask_V3).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnCompleteTaskTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class PlannerOnCompleteTaskTriggerPayload : TriggerCallbackPayload<GetTaskResponse>
+    public class PlannerOnCompleteTaskTriggerPayload : TriggerCallbackPayload<GetTaskResponseV2>
     {
     }
 
@@ -768,7 +878,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// Typed trigger payload for the OnNewTask trigger (Planner "When a new task is created", operationId: OnNewTask_V3).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnNewTaskTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class PlannerOnNewTaskTriggerPayload : TriggerCallbackPayload<GetTaskResponse>
+    public class PlannerOnNewTaskTriggerPayload : TriggerCallbackPayload<GetTaskResponseV2>
     {
     }
 
@@ -776,7 +886,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     /// Typed trigger payload for the OnTaskAssignedToMe trigger (Planner "When a task is assigned to me", operationId: OnTaskAssignedToMe_V2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlannerOnTaskAssignedToMeTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class PlannerOnTaskAssignedToMeTriggerPayload : TriggerCallbackPayload<GetTaskResponse>
+    public class PlannerOnTaskAssignedToMeTriggerPayload : TriggerCallbackPayload<GetTaskResponseV2>
     {
     }
 
@@ -860,6 +970,13 @@ namespace Azure.Connectors.Sdk.Planner
             /// </summary>
             public const string GroupId = "groupId";
 
+            /// <summary>
+            /// The unique identifier of the plan.
+            /// Required.
+            /// Dynamic values from: ListGroupPlans.
+            /// </summary>
+            public const string Id = "id";
+
         }
 
         /// <summary>
@@ -873,6 +990,13 @@ namespace Azure.Connectors.Sdk.Planner
             /// Dynamic values from: ListGroups.
             /// </summary>
             public const string GroupId = "groupId";
+
+            /// <summary>
+            /// The unique identifier of the plan.
+            /// Required.
+            /// Dynamic values from: ListGroupPlans.
+            /// </summary>
+            public const string Id = "id";
 
         }
 
@@ -980,7 +1104,7 @@ namespace Azure.Connectors.Sdk.Planner
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Remove assignees from a task response.</returns>
-        public virtual async Task<GetTaskResponse> UnassignUsersAsync([DynamicValues("ListMyTasks_V2")] string taskId, UnassignUsersInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTaskResponseV2> UnassignUsersAsync([DynamicValues("ListMyTasks_V2")] string taskId, UnassignUsersInput input, CancellationToken cancellationToken = default)
         {
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.UnassignUsersAsync");
             try
@@ -989,7 +1113,7 @@ namespace Azure.Connectors.Sdk.Planner
                     throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/unassignusers";
                 return await this
-                    .CallConnectorAsync<GetTaskResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1008,7 +1132,7 @@ namespace Azure.Connectors.Sdk.Planner
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add assignees to a task response.</returns>
-        public virtual async Task<GetTaskResponse> AssignUsersAsync([DynamicValues("ListMyTasks_V2")] string taskId, AssignUsersInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTaskResponseV2> AssignUsersAsync([DynamicValues("ListMyTasks_V2")] string taskId, AssignUsersInput input, CancellationToken cancellationToken = default)
         {
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.AssignUsersAsync");
             try
@@ -1017,7 +1141,7 @@ namespace Azure.Connectors.Sdk.Planner
                     throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/assignusers";
                 return await this
-                    .CallConnectorAsync<GetTaskResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1045,30 +1169,6 @@ namespace Azure.Connectors.Sdk.Planner
                 var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/planner/plans";
                 return await this
                     .CallConnectorAsync<ListMyPlansResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List groups that I am member of
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List groups that I am member of response.</returns>
-        public virtual async Task<ListGroupsResponse> ListGroupsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.ListGroupsAsync");
-            try
-            {
-                var path = $"/v1.0/me/memberOf";
-                return await this
-                    .CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1138,14 +1238,14 @@ namespace Azure.Connectors.Sdk.Planner
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a task response.</returns>
-        public virtual async Task<GetTaskResponse> CreateTaskAsync(CreateTaskRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTaskResponseV3> CreateTaskAsync(CreateTaskRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.CreateTaskAsync");
             try
             {
                 var path = $"/v2/beta/planner/tasks";
                 return await this
-                    .CallConnectorAsync<GetTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<GetTaskResponseV3>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1163,7 +1263,7 @@ namespace Azure.Connectors.Sdk.Planner
         /// <param name="taskId">Task Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a task response.</returns>
-        public virtual async Task<GetTaskResponse> GetTaskAsync([DynamicValues("ListMyTasks_V2")] string taskId, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTaskResponseV2> GetTaskAsync([DynamicValues("ListMyTasks_V2")] string taskId, CancellationToken cancellationToken = default)
         {
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.GetTaskAsync");
             try
@@ -1172,7 +1272,7 @@ namespace Azure.Connectors.Sdk.Planner
                     throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
-                    .CallConnectorAsync<GetTaskResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1247,11 +1347,11 @@ namespace Azure.Connectors.Sdk.Planner
         /// </summary>
         /// <remarks>List the tasks assigned to me.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="GetTaskResponse"/> items across all pages.</returns>
-        public virtual AsyncPageable<GetTaskResponse> ListMyTasksAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="GetTaskResponseV2"/> items across all pages.</returns>
+        public virtual AsyncPageable<GetTaskResponseV2> ListMyTasksAsync(CancellationToken cancellationToken = default)
         {
             var path = $"/v1.0/me/planner/tasks";
-            return this.CreatePageable<ListTasksResponse, GetTaskResponse>(
+            return this.CreatePageable<ListTasksResponse, GetTaskResponseV2>(
                 ct => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -1264,8 +1364,8 @@ namespace Azure.Connectors.Sdk.Planner
         /// <param name="planId">Plan Id</param>
         /// <param name="groupId">Group Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="GetTaskResponse"/> items across all pages.</returns>
-        public virtual AsyncPageable<GetTaskResponse> ListTasksAsync([DynamicValues("ListGroupPlans")] string planId, [DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="GetTaskResponseV2"/> items across all pages.</returns>
+        public virtual AsyncPageable<GetTaskResponseV2> ListTasksAsync([DynamicValues("ListGroupPlans")] string planId, [DynamicValues("ListGroups")] string groupId, CancellationToken cancellationToken = default)
         {
             if (planId is null)
                 throw new ArgumentNullException(nameof(planId));
@@ -1274,7 +1374,7 @@ namespace Azure.Connectors.Sdk.Planner
                 throw new ArgumentNullException(nameof(groupId));
             queryParams.Add($"groupId={Uri.EscapeDataString(groupId.ToString())}");
             var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ListTasksResponse, GetTaskResponse>(
+            return this.CreatePageable<ListTasksResponse, GetTaskResponseV2>(
                 ct => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
@@ -1288,7 +1388,7 @@ namespace Azure.Connectors.Sdk.Planner
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a task (V2) response.</returns>
-        public virtual async Task<GetTaskResponse> UpdateTaskAsync([DynamicValues("ListMyTasks_V2")] string taskId, UpdateTaskRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTaskResponseV2> UpdateTaskAsync([DynamicValues("ListMyTasks_V2")] string taskId, UpdateTaskRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.UpdateTaskAsync");
             try
@@ -1297,7 +1397,7 @@ namespace Azure.Connectors.Sdk.Planner
                     throw new ArgumentNullException(nameof(taskId));
                 var path = $"/v2/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}";
                 return await this
-                    .CallConnectorAsync<GetTaskResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1326,6 +1426,30 @@ namespace Azure.Connectors.Sdk.Planner
                 var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId.ToString())}/details";
                 return await this
                     .CallConnectorAsync<GetTaskDetailsResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List groups that I am member of
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List groups that I am member of response.</returns>
+        public virtual async Task<ListGroupsResponse> ListGroupsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.ListGroupsAsync");
+            try
+            {
+                var path = $"/v1.0/me/memberOf";
+                return await this
+                    .CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

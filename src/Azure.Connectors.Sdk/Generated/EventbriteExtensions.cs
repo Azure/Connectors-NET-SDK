@@ -30,26 +30,6 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     #region Types
 
     /// <summary>
-    /// Response for Get categories
-    /// </summary>
-    public class GetCategoriesResponse
-    {
-        /// <summary>categories</summary>
-        [JsonPropertyName("categories")]
-        public List<JsonElement?> Categories { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get organization events
-    /// </summary>
-    public class GetMyEventsResponse
-    {
-        /// <summary>events</summary>
-        [JsonPropertyName("events")]
-        public List<JsonElement?> Events { get; set; }
-    }
-
-    /// <summary>
     /// Response for Create event (V2)
     /// </summary>
     public class CreateEventResponse
@@ -110,6 +90,16 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     }
 
     /// <summary>
+    /// Response for Get organizers (V2)
+    /// </summary>
+    public class GetOrganizersResponse
+    {
+        /// <summary>organizers</summary>
+        [JsonPropertyName("organizers")]
+        public List<JsonElement?> Organizer { get; set; }
+    }
+
+    /// <summary>
     /// Response for Get venues (V2)
     /// </summary>
     public class GetMyVenuesResponse
@@ -120,13 +110,23 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     }
 
     /// <summary>
-    /// Response for Get organizers (V2)
+    /// Response for Get categories
     /// </summary>
-    public class GetOrganizersResponse
+    public class GetCategoriesResponse
     {
-        /// <summary>organizers</summary>
-        [JsonPropertyName("organizers")]
-        public List<JsonElement?> Organizer { get; set; }
+        /// <summary>categories</summary>
+        [JsonPropertyName("categories")]
+        public List<JsonElement?> Categories { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get organization events
+    /// </summary>
+    public class GetMyEventsResponse
+    {
+        /// <summary>events</summary>
+        [JsonPropertyName("events")]
+        public List<JsonElement?> Events { get; set; }
     }
 
     #endregion Types
@@ -140,30 +140,6 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     /// </summary>
     public static class EventbriteModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="GetCategoriesResponse"/>.
-        /// </summary>
-        public static GetCategoriesResponse GetCategoriesResponse(
-            List<JsonElement?> categories = default)
-        {
-            return new GetCategoriesResponse
-            {
-                Categories = categories,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMyEventsResponse"/>.
-        /// </summary>
-        public static GetMyEventsResponse GetMyEventsResponse(
-            List<JsonElement?> events = default)
-        {
-            return new GetMyEventsResponse
-            {
-                Events = events,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="CreateEventResponse"/>.
         /// </summary>
@@ -201,6 +177,18 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="GetOrganizersResponse"/>.
+        /// </summary>
+        public static GetOrganizersResponse GetOrganizersResponse(
+            List<JsonElement?> organizer = default)
+        {
+            return new GetOrganizersResponse
+            {
+                Organizer = organizer,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GetMyVenuesResponse"/>.
         /// </summary>
         public static GetMyVenuesResponse GetMyVenuesResponse(
@@ -213,14 +201,26 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetOrganizersResponse"/>.
+        /// Creates a new instance of <see cref="GetCategoriesResponse"/>.
         /// </summary>
-        public static GetOrganizersResponse GetOrganizersResponse(
-            List<JsonElement?> organizer = default)
+        public static GetCategoriesResponse GetCategoriesResponse(
+            List<JsonElement?> categories = default)
         {
-            return new GetOrganizersResponse
+            return new GetCategoriesResponse
             {
-                Organizer = organizer,
+                Categories = categories,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMyEventsResponse"/>.
+        /// </summary>
+        public static GetMyEventsResponse GetMyEventsResponse(
+            List<JsonElement?> events = default)
+        {
+            return new GetMyEventsResponse
+            {
+                Events = events,
             };
         }
     }
@@ -312,6 +312,13 @@ namespace Azure.Connectors.Sdk.Eventbrite
         public static class OnNewEvent
         {
             /// <summary>
+            /// Select the organization.
+            /// Required.
+            /// Dynamic values from: GetOrganizations.
+            /// </summary>
+            public const string OrganizationId = "organization_id";
+
+            /// <summary>
             /// The organizer of the event.
             /// Required.
             /// Dynamic values from: GetOrganizersV2.
@@ -338,6 +345,13 @@ namespace Azure.Connectors.Sdk.Eventbrite
             /// Dynamic values from: GetOrganizations.
             /// </summary>
             public const string OrganizationId = "organization_id";
+
+            /// <summary>
+            /// Event to trigger on changed order.
+            /// Required.
+            /// Dynamic values from: GetOrganizationEvents.
+            /// </summary>
+            public const string Id = "id";
 
         }
 
@@ -410,90 +424,6 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get categories
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get categories response.</returns>
-        public virtual async Task<GetCategoriesResponse> GetCategoriesAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetCategoriesAsync");
-            try
-            {
-                var path = $"/v3/categories/";
-                return await this
-                    .CallConnectorAsync<GetCategoriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// GetOrganizations
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetOrganizations response.</returns>
-        public virtual async Task<List<JsonElement?>> GetOrganizationsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationsAsync");
-            try
-            {
-                var path = $"/v3/users/me/organizations/";
-                return await this
-                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get organization events
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="organization">Organization</param>
-        /// <param name="orderBy">Order By</param>
-        /// <param name="status">Status</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get organization events response.</returns>
-        public virtual async Task<GetMyEventsResponse> GetOrganizationEventsAsync([DynamicValues("GetOrganizations")] string organization, string orderBy, string status, CancellationToken cancellationToken = default)
-        {
-            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationEventsAsync");
-            try
-            {
-                if (organization is null)
-                    throw new ArgumentNullException(nameof(organization));
-                var queryParams = new List<string>();
-                if (orderBy is null)
-                    throw new ArgumentNullException(nameof(orderBy));
-                queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
-                if (status is null)
-                    throw new ArgumentNullException(nameof(status));
-                queryParams.Add($"status={Uri.EscapeDataString(status.ToString())}");
-                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetMyEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Create event (V2)
@@ -588,60 +518,6 @@ namespace Azure.Connectors.Sdk.Eventbrite
         }
 
         /// <summary>
-        /// Get venues (V2)
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="organization">Organization</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get venues (V2) response.</returns>
-        public virtual async Task<GetMyVenuesResponse> GetMyVenuesAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
-        {
-            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetMyVenuesAsync");
-            try
-            {
-                if (organization is null)
-                    throw new ArgumentNullException(nameof(organization));
-                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/venues/";
-                return await this
-                    .CallConnectorAsync<GetMyVenuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get organizers (V2)
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="organization">Organization</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get organizers (V2) response.</returns>
-        public virtual async Task<GetOrganizersResponse> GetOrganizersAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
-        {
-            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizersAsync");
-            try
-            {
-                if (organization is null)
-                    throw new ArgumentNullException(nameof(organization));
-                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/organizers/";
-                return await this
-                    .CallConnectorAsync<GetOrganizersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Update event (V2)
         /// </summary>
         /// <remarks>Update an existing event.</remarks>
@@ -723,6 +599,144 @@ namespace Azure.Connectors.Sdk.Eventbrite
                 var path = $"/v2/v3/events/{Uri.EscapeDataString(@event.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// GetOrganizations
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The GetOrganizations response.</returns>
+        public virtual async Task<List<JsonElement?>> GetOrganizationsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationsAsync");
+            try
+            {
+                var path = $"/v3/users/me/organizations/";
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get organizers (V2)
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="organization">Organization</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get organizers (V2) response.</returns>
+        public virtual async Task<GetOrganizersResponse> GetOrganizersAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
+        {
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizersAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/organizers/";
+                return await this
+                    .CallConnectorAsync<GetOrganizersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get venues (V2)
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="organization">Organization</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get venues (V2) response.</returns>
+        public virtual async Task<GetMyVenuesResponse> GetMyVenuesAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
+        {
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetMyVenuesAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/venues/";
+                return await this
+                    .CallConnectorAsync<GetMyVenuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get categories
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get categories response.</returns>
+        public virtual async Task<GetCategoriesResponse> GetCategoriesAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetCategoriesAsync");
+            try
+            {
+                var path = $"/v3/categories/";
+                return await this
+                    .CallConnectorAsync<GetCategoriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get organization events
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="organization">Organization</param>
+        /// <param name="orderBy">Order By</param>
+        /// <param name="status">Status</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get organization events response.</returns>
+        public virtual async Task<GetMyEventsResponse> GetOrganizationEventsAsync([DynamicValues("GetOrganizations")] string organization, string orderBy, string status, CancellationToken cancellationToken = default)
+        {
+            using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizationEventsAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var queryParams = new List<string>();
+                if (orderBy is null)
+                    throw new ArgumentNullException(nameof(orderBy));
+                queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
+                if (status is null)
+                    throw new ArgumentNullException(nameof(status));
+                queryParams.Add($"status={Uri.EscapeDataString(status.ToString())}");
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization.ToString())}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetMyEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

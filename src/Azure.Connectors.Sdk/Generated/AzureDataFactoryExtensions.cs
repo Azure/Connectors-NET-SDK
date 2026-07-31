@@ -30,47 +30,6 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     #region Types
 
     /// <summary>
-    /// Response for List pipelines
-    /// </summary>
-    public class PipelineListResult : IPageable<Pipeline>
-    {
-        /// <summary>The list of Data Factories.</summary>
-        [JsonPropertyName("value")]
-        public List<Pipeline> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; init; }
-    }
-
-    /// <summary>
-    /// Item in The list of Data Factories.
-    /// </summary>
-    public class Pipeline
-    {
-        /// <summary>The resource identifier.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; init; }
-
-        /// <summary>The resource name of the pipeline.</summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; init; }
-
-        /// <summary>The pipeline properties.</summary>
-        [JsonPropertyName("properties")]
-        [JsonInclude]
-        public JsonElement? Properties { get; init; }
-
-        /// <summary>Etag identifies change in the resource.</summary>
-        [JsonPropertyName("etag")]
-        [JsonInclude]
-        public string Etag { get; init; }
-    }
-
-    /// <summary>
     /// Response for Create a pipeline run
     /// </summary>
     public class CreatePipelineRunResponse
@@ -81,63 +40,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// Response for List Factories
-    /// </summary>
-    public class DataFactoryListResult : IPageable<DataFactory>
-    {
-        /// <summary>The list of Data Factories.</summary>
-        [JsonPropertyName("value")]
-        public List<DataFactory> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; init; }
-    }
-
-    /// <summary>
-    /// Item in The list of Data Factories.
-    /// </summary>
-    public class DataFactory
-    {
-        /// <summary>The resource name.</summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; init; }
-
-        /// <summary>The resource tags.</summary>
-        [JsonPropertyName("tags")]
-        [JsonInclude]
-        public JsonElement? Tags { get; init; }
-
-        /// <summary>Data Factory additional properties.</summary>
-        [JsonPropertyName("properties")]
-        [JsonInclude]
-        public JsonElement? Properties { get; init; }
-
-        /// <summary>Managed service identity of the factory.</summary>
-        [JsonPropertyName("identity")]
-        [JsonInclude]
-        public JsonElement? Identity { get; init; }
-
-        /// <summary>The resource identitfier.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; init; }
-
-        /// <summary>The resource type.</summary>
-        [JsonPropertyName("type")]
-        [JsonInclude]
-        public string Type { get; init; }
-
-        /// <summary>The resource location</summary>
-        [JsonPropertyName("location")]
-        [JsonInclude]
-        public string Location { get; init; }
-    }
-
-    /// <summary>
-    /// Response for Get a pipeline run
+    /// Information about a pipeline run.
     /// </summary>
     public class PipelineRun
     {
@@ -198,7 +101,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// Response for List subscriptions
+    /// Subscription list operation response.
     /// </summary>
     public class SubscriptionListResult : IPageable<Subscription>
     {
@@ -212,7 +115,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// Item in The subscriptions.
+    /// Subscription information.
     /// </summary>
     public class Subscription
     {
@@ -251,7 +154,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// subscriptionPolicies
+    /// Subscription policies.
     /// </summary>
     public class SubscriptionPolicies
     {
@@ -272,7 +175,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// Response for List resource groups
+    /// List of resource groups.
     /// </summary>
     public class ResourceGroupListResult : IPageable<ResourceGroup>
     {
@@ -287,7 +190,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// Item in The list of resource groups.
+    /// Resource group information.
     /// </summary>
     public class ResourceGroup
     {
@@ -320,7 +223,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// properties
+    /// The resource group properties.
     /// </summary>
     public class ResourceGroupProperties
     {
@@ -331,7 +234,104 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// Activity
+    /// List of Data Factories.
+    /// </summary>
+    public class DataFactoryListResult : IPageable<DataFactory>
+    {
+        /// <summary>The list of Data Factories.</summary>
+        [JsonPropertyName("value")]
+        public List<DataFactory> Value { get; set; }
+
+        /// <summary>The URL to get the next set of results.</summary>
+        [JsonPropertyName("nextLink")]
+        [JsonInclude]
+        public string NextLink { get; init; }
+    }
+
+    /// <summary>
+    /// DataFactory information.
+    /// </summary>
+    public class DataFactory
+    {
+        /// <summary>The resource name.</summary>
+        [JsonPropertyName("name")]
+        [JsonInclude]
+        public string Name { get; init; }
+
+        /// <summary>The resource tags.</summary>
+        [JsonPropertyName("tags")]
+        [JsonInclude]
+        public JsonElement? Tags { get; init; }
+
+        /// <summary>Data Factory additional properties.</summary>
+        [JsonPropertyName("properties")]
+        [JsonInclude]
+        public JsonElement? Properties { get; init; }
+
+        /// <summary>Managed service identity of the factory.</summary>
+        [JsonPropertyName("identity")]
+        [JsonInclude]
+        public JsonElement? Identity { get; init; }
+
+        /// <summary>The resource identitfier.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string Id { get; init; }
+
+        /// <summary>The resource type.</summary>
+        [JsonPropertyName("type")]
+        [JsonInclude]
+        public string Type { get; init; }
+
+        /// <summary>The resource location</summary>
+        [JsonPropertyName("location")]
+        [JsonInclude]
+        public string Location { get; init; }
+    }
+
+    /// <summary>
+    /// List of pipelines.
+    /// </summary>
+    public class PipelineListResult : IPageable<Pipeline>
+    {
+        /// <summary>The list of Data Factories.</summary>
+        [JsonPropertyName("value")]
+        public List<Pipeline> Value { get; set; }
+
+        /// <summary>The URL to get the next set of results.</summary>
+        [JsonPropertyName("nextLink")]
+        [JsonInclude]
+        public string NextLink { get; init; }
+    }
+
+    /// <summary>
+    /// Pipeline information.
+    /// </summary>
+    public class Pipeline
+    {
+        /// <summary>The resource identifier.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string Id { get; init; }
+
+        /// <summary>The resource name of the pipeline.</summary>
+        [JsonPropertyName("name")]
+        [JsonInclude]
+        public string Name { get; init; }
+
+        /// <summary>The pipeline properties.</summary>
+        [JsonPropertyName("properties")]
+        [JsonInclude]
+        public JsonElement? Properties { get; init; }
+
+        /// <summary>Etag identifies change in the resource.</summary>
+        [JsonPropertyName("etag")]
+        [JsonInclude]
+        public string Etag { get; init; }
+    }
+
+    /// <summary>
+    /// Pipeline activity.
     /// </summary>
     public class Activity
     {
@@ -343,7 +343,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     }
 
     /// <summary>
-    /// ParameterValueSpecification
+    /// An object mapping parameter names to argument values.
     /// </summary>
     public class ParameterValueSpecification
     {
@@ -482,38 +482,6 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
     public static class AzureDataFactoryModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipelineListResult"/>.
-        /// </summary>
-        public static PipelineListResult PipelineListResult(
-            List<Pipeline> value = default,
-            string nextLink = default)
-        {
-            return new PipelineListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Pipeline"/>.
-        /// </summary>
-        public static Pipeline Pipeline(
-            string id = default,
-            string name = default,
-            JsonElement? properties = default,
-            string etag = default)
-        {
-            return new Pipeline
-            {
-                Id = id,
-                Name = name,
-                Properties = properties,
-                Etag = etag,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="CreatePipelineRunResponse"/>.
         /// </summary>
         public static CreatePipelineRunResponse CreatePipelineRunResponse(
@@ -522,44 +490,6 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
             return new CreatePipelineRunResponse
             {
                 RunId = runId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DataFactoryListResult"/>.
-        /// </summary>
-        public static DataFactoryListResult DataFactoryListResult(
-            List<DataFactory> value = default,
-            string nextLink = default)
-        {
-            return new DataFactoryListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DataFactory"/>.
-        /// </summary>
-        public static DataFactory DataFactory(
-            string name = default,
-            JsonElement? tags = default,
-            JsonElement? properties = default,
-            JsonElement? identity = default,
-            string id = default,
-            string type = default,
-            string location = default)
-        {
-            return new DataFactory
-            {
-                Name = name,
-                Tags = tags,
-                Properties = properties,
-                Identity = identity,
-                Id = id,
-                Type = type,
-                Location = location,
             };
         }
 
@@ -696,6 +626,76 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
                 ProvisioningState = provisioningState,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataFactoryListResult"/>.
+        /// </summary>
+        public static DataFactoryListResult DataFactoryListResult(
+            List<DataFactory> value = default,
+            string nextLink = default)
+        {
+            return new DataFactoryListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DataFactory"/>.
+        /// </summary>
+        public static DataFactory DataFactory(
+            string name = default,
+            JsonElement? tags = default,
+            JsonElement? properties = default,
+            JsonElement? identity = default,
+            string id = default,
+            string type = default,
+            string location = default)
+        {
+            return new DataFactory
+            {
+                Name = name,
+                Tags = tags,
+                Properties = properties,
+                Identity = identity,
+                Id = id,
+                Type = type,
+                Location = location,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PipelineListResult"/>.
+        /// </summary>
+        public static PipelineListResult PipelineListResult(
+            List<Pipeline> value = default,
+            string nextLink = default)
+        {
+            return new PipelineListResult
+            {
+                Value = value,
+                NextLink = nextLink,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Pipeline"/>.
+        /// </summary>
+        public static Pipeline Pipeline(
+            string id = default,
+            string name = default,
+            JsonElement? properties = default,
+            string etag = default)
+        {
+            return new Pipeline
+            {
+                Id = id,
+                Name = name,
+                Properties = properties,
+                Etag = etag,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -770,32 +770,6 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// List pipelines
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="dataFactoryName">Data Factory Name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Pipeline"/> items across all pages.</returns>
-        public virtual AsyncPageable<Pipeline> ListPipelinesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, CancellationToken cancellationToken = default)
-        {
-            if (subscription is null)
-                throw new ArgumentNullException(nameof(subscription));
-            if (resourceGroup is null)
-                throw new ArgumentNullException(nameof(resourceGroup));
-            if (dataFactoryName is null)
-                throw new ArgumentNullException(nameof(dataFactoryName));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<PipelineListResult, Pipeline>(
-                ct => this.CallConnectorAsync<PipelineListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<PipelineListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
 
         /// <summary>
         /// Create a pipeline run
@@ -877,29 +851,6 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
         }
 
         /// <summary>
-        /// List Factories
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="DataFactory"/> items across all pages.</returns>
-        public virtual AsyncPageable<DataFactory> ListDataFactoriesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, CancellationToken cancellationToken = default)
-        {
-            if (subscription is null)
-                throw new ArgumentNullException(nameof(subscription));
-            if (resourceGroup is null)
-                throw new ArgumentNullException(nameof(resourceGroup));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<DataFactoryListResult, DataFactory>(
-                ct => this.CallConnectorAsync<DataFactoryListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<DataFactoryListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
         /// Get a pipeline run
         /// </summary>
         /// <remarks>Get a particular pipeline run execution</remarks>
@@ -977,6 +928,55 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List Factories
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="DataFactory"/> items across all pages.</returns>
+        public virtual AsyncPageable<DataFactory> ListDataFactoriesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, CancellationToken cancellationToken = default)
+        {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2017-09-01-preview");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<DataFactoryListResult, DataFactory>(
+                ct => this.CallConnectorAsync<DataFactoryListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<DataFactoryListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List pipelines
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="dataFactoryName">Data Factory Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="Pipeline"/> items across all pages.</returns>
+        public virtual AsyncPageable<Pipeline> ListPipelinesAsync([DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, [DynamicValues("ListDataFactories")] string dataFactoryName, CancellationToken cancellationToken = default)
+        {
+            if (subscription is null)
+                throw new ArgumentNullException(nameof(subscription));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            if (dataFactoryName is null)
+                throw new ArgumentNullException(nameof(dataFactoryName));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2017-09-01-preview");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<PipelineListResult, Pipeline>(
+                ct => this.CallConnectorAsync<PipelineListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<PipelineListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
                 cancellationToken);
         }
 

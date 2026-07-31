@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     #region Types
 
     /// <summary>
-    /// Response for Create table
+    /// Table metadata
     /// </summary>
     public class TableMetadata
     {
@@ -63,7 +63,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// x-ms-capabilities
+    /// Metadata for a table (capabilities)
     /// </summary>
     public class TableCapabilitiesMetadata
     {
@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// sortRestrictions
+    /// Metadata for a table (sort restrictions)
     /// </summary>
     public class TableSortRestrictionsMetadata
     {
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// filterRestrictions
+    /// Metadata for a table (filter restrictions)
     /// </summary>
     public class TableFilterRestrictionsMetadata
     {
@@ -129,7 +129,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// selectRestrictions
+    /// Metadata for a table (select restrictions)
     /// </summary>
     public class TableSelectRestrictionsMetadata
     {
@@ -151,7 +151,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Response for List rows present in a table
+    /// List of Items
     /// </summary>
     public class ItemsList
     {
@@ -165,7 +165,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Item in List of Items
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable")]
     public class Item
@@ -229,7 +229,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Response for List all comments present in a workbook
+    /// Details about a comment
     /// </summary>
     public class CommentsList
     {
@@ -239,7 +239,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Item in List of Comments
+    /// Details about a comment
     /// </summary>
     public class Comment
     {
@@ -257,7 +257,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Response for Get a row
+    /// Table item entity
     /// </summary>
     [DynamicSchema("GetTable")]
     public class GetItemResponse
@@ -279,26 +279,6 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Response for Get sources
-    /// </summary>
-    public class GetSourcesResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get drives
-    /// </summary>
-    public class GetDrivesResponse
-    {
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get worksheets
     /// </summary>
     public class GetAllWorksheetsResponse
@@ -313,7 +293,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// WorksheetMetadata
     /// </summary>
     public class WorksheetMetadata
     {
@@ -359,6 +339,54 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
+    /// Run script from SharePoint library
+    /// </summary>
+    [DynamicSchema("GetSingleScriptV2")]
+    public class RunScriptProdInput
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Information about a single script&apos;s return schema.
+    /// </summary>
+    [DynamicSchema("GetSingleScriptV2")]
+    public class RunScriptProdResponse
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Get sources
+    /// </summary>
+    public class GetSourcesResponse
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get drives
+    /// </summary>
+    public class GetDrivesResponse
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<JsonElement?> Value { get; set; }
+    }
+
+    /// <summary>
     /// Response for Get table columns
     /// </summary>
     public class GetColumnsResponse
@@ -379,35 +407,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// Run script from SharePoint library
-    /// </summary>
-    [DynamicSchema("GetSingleScriptV2")]
-    public class RunScriptProdInput
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Run script from SharePoint library
-    /// </summary>
-    [DynamicSchema("GetSingleScriptV2")]
-    public class RunScriptProdResponse
-    {
-        /// <summary>
-        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
-        /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// TableToCreate
+    /// Table to create.
     /// </summary>
     public class TableToCreate
     {
@@ -425,7 +425,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     }
 
     /// <summary>
-    /// CommentDetails
+    /// Details about a comment
     /// </summary>
     public class CommentDetails
     {
@@ -638,30 +638,6 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GetSourcesResponse"/>.
-        /// </summary>
-        public static GetSourcesResponse GetSourcesResponse(
-            List<JsonElement?> value = default)
-        {
-            return new GetSourcesResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetDrivesResponse"/>.
-        /// </summary>
-        public static GetDrivesResponse GetDrivesResponse(
-            List<JsonElement?> value = default)
-        {
-            return new GetDrivesResponse
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="GetAllWorksheetsResponse"/>.
         /// </summary>
         public static GetAllWorksheetsResponse GetAllWorksheetsResponse(
@@ -716,6 +692,30 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
             {
                 Value = value,
                 SensitivityLabelInfo = sensitivityLabelInfo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetSourcesResponse"/>.
+        /// </summary>
+        public static GetSourcesResponse GetSourcesResponse(
+            List<JsonElement?> value = default)
+        {
+            return new GetSourcesResponse
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetDrivesResponse"/>.
+        /// </summary>
+        public static GetDrivesResponse GetDrivesResponse(
+            List<JsonElement?> value = default)
+        {
+            return new GetDrivesResponse
+            {
+                Value = value,
             };
         }
 
@@ -1243,63 +1243,6 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         }
 
         /// <summary>
-        /// Get sources
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="top">Top</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get sources response.</returns>
-        public virtual async Task<GetSourcesResponse> GetSourcesAsync(string top = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSourcesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (top != default)
-                    queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
-                var path = $"/codeless/v1.0/sources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetSourcesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get drives
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="location">Location</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get drives response.</returns>
-        public virtual async Task<GetDrivesResponse> GetDrivesAsync([DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
-        {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetDrivesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (location is null)
-                    throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get worksheets
         /// </summary>
         /// <remarks>Get a list of worksheets in the Excel workbook.</remarks>
@@ -1418,18 +1361,20 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         }
 
         /// <summary>
-        /// Get metadata of a table
+        /// Add a row into a table
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <remarks>Add a new row into the Excel table.</remarks>
         /// <param name="documentLibrary">Document Library</param>
         /// <param name="file">File</param>
         /// <param name="table">Table</param>
+        /// <param name="input">The request body.</param>
         /// <param name="location">Location</param>
+        /// <param name="dateTimeFormat">DateTime Format</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
+        /// <returns>The Add a row into a table response.</returns>
+        public virtual async Task<Item> AddRowAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, Item input, [DynamicValues("GetSources")] string location, string dateTimeFormat = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetTableAsync");
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.AddRowAsync");
             try
             {
                 if (documentLibrary is null)
@@ -1442,9 +1387,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/metadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (dateTimeFormat != default)
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
+                var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1456,34 +1403,98 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         }
 
         /// <summary>
-        /// Get raw and formatted metadata of a table
+        /// Run script from SharePoint library
         /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="documentLibrary">Document Library</param>
-        /// <param name="file">File</param>
-        /// <param name="table">Table</param>
-        /// <param name="location">Location</param>
+        /// <remarks>Runs an Office Script against an Excel workbook. Use this action when the script is saved outside of the default location.</remarks>
+        /// <param name="workbookLibrary">Workbook Library</param>
+        /// <param name="workbook">Workbook</param>
+        /// <param name="scriptLibrary">Script Library</param>
+        /// <param name="script">Script</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="workbookLocation">Workbook Location</param>
+        /// <param name="scriptLocation">Script Location</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get raw and formatted metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetRawAndFormattedTableAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
+        /// <returns>The Run script from SharePoint library response.</returns>
+        public virtual async Task<RunScriptProdResponse> RunScriptProdAsync([DynamicValues("GetDrives")] string workbookLibrary, string workbook, [DynamicValues("GetDrives")] string scriptLibrary, string script, RunScriptProdInput input, [DynamicValues("GetSources")] string workbookLocation, [DynamicValues("GetSources")] string scriptLocation, CancellationToken cancellationToken = default)
         {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetRawAndFormattedTableAsync");
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.RunScriptProdAsync");
             try
             {
-                if (documentLibrary is null)
-                    throw new ArgumentNullException(nameof(documentLibrary));
-                if (@file is null)
-                    throw new ArgumentNullException(nameof(@file));
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
+                if (workbookLibrary is null)
+                    throw new ArgumentNullException(nameof(workbookLibrary));
+                if (workbook is null)
+                    throw new ArgumentNullException(nameof(workbook));
+                if (scriptLibrary is null)
+                    throw new ArgumentNullException(nameof(scriptLibrary));
+                if (script is null)
+                    throw new ArgumentNullException(nameof(script));
                 var queryParams = new List<string>();
-                queryParams.Add("formattedPostfix=Formatted");
+                if (workbookLocation is null)
+                    throw new ArgumentNullException(nameof(workbookLocation));
+                queryParams.Add($"source={Uri.EscapeDataString(workbookLocation.ToString())}");
+                if (scriptLocation is null)
+                    throw new ArgumentNullException(nameof(scriptLocation));
+                queryParams.Add($"scriptSource={Uri.EscapeDataString(scriptLocation.ToString())}");
+                var path = $"/v2/officescripting/api/unattended/run/{Uri.EscapeDataString(workbookLibrary.ToString())}/{Uri.EscapeDataString(Uri.EscapeDataString(workbook.ToString()))}/{Uri.EscapeDataString(scriptLibrary.ToString())}/{Uri.EscapeDataString(Uri.EscapeDataString(script.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<RunScriptProdResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get sources
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="top">Top</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get sources response.</returns>
+        public virtual async Task<GetSourcesResponse> GetSourcesAsync(string top = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSourcesAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (top != default)
+                    queryParams.Add($"$top={Uri.EscapeDataString(top.ToString())}");
+                var path = $"/codeless/v1.0/sources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSourcesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get drives
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="location">Location</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get drives response.</returns>
+        public virtual async Task<GetDrivesResponse> GetDrivesAsync([DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
+        {
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetDrivesAsync");
+            try
+            {
+                var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rawandformattedtablemetadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1533,48 +1544,6 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         }
 
         /// <summary>
-        /// Add a row into a table
-        /// </summary>
-        /// <remarks>Add a new row into the Excel table.</remarks>
-        /// <param name="documentLibrary">Document Library</param>
-        /// <param name="file">File</param>
-        /// <param name="table">Table</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="location">Location</param>
-        /// <param name="dateTimeFormat">DateTime Format</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add a row into a table response.</returns>
-        public virtual async Task<Item> AddRowAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, Item input, [DynamicValues("GetSources")] string location, string dateTimeFormat = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.AddRowAsync");
-            try
-            {
-                if (documentLibrary is null)
-                    throw new ArgumentNullException(nameof(documentLibrary));
-                if (@file is null)
-                    throw new ArgumentNullException(nameof(@file));
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var queryParams = new List<string>();
-                if (location is null)
-                    throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-                var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Gets one script
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -1583,9 +1552,9 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         /// <param name="chosenScript">Chosen script</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Gets one script response.</returns>
-        public virtual async Task<GetSingleScriptResponse> GetSingleScriptAsync(string chosenScriptSource, string chosenScriptDrive, string chosenScript, CancellationToken cancellationToken = default)
+        public virtual async Task<GetSingleScriptResponse> GetSingleScriptV2Async(string chosenScriptSource, string chosenScriptDrive, string chosenScript, CancellationToken cancellationToken = default)
         {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSingleScriptAsync");
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSingleScriptV2Async");
             try
             {
                 var queryParams = new List<string>();
@@ -1612,41 +1581,101 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         }
 
         /// <summary>
-        /// Run script from SharePoint library
+        /// Get metadata of a table
         /// </summary>
-        /// <remarks>Runs an Office Script against an Excel workbook. Use this action when the script is saved outside of the default location.</remarks>
-        /// <param name="workbookLibrary">Workbook Library</param>
-        /// <param name="workbook">Workbook</param>
-        /// <param name="scriptLibrary">Script Library</param>
-        /// <param name="script">Script</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="workbookLocation">Workbook Location</param>
-        /// <param name="scriptLocation">Script Location</param>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="location">Location</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Run script from SharePoint library response.</returns>
-        public virtual async Task<RunScriptProdResponse> RunScriptProdAsync([DynamicValues("GetDrives")] string workbookLibrary, string workbook, [DynamicValues("GetDrives")] string scriptLibrary, string script, RunScriptProdInput input, [DynamicValues("GetSources")] string workbookLocation, [DynamicValues("GetSources")] string scriptLocation, CancellationToken cancellationToken = default)
+        /// <returns>The Get metadata of a table response.</returns>
+        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
         {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.RunScriptProdAsync");
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetTableAsync");
             try
             {
-                if (workbookLibrary is null)
-                    throw new ArgumentNullException(nameof(workbookLibrary));
-                if (workbook is null)
-                    throw new ArgumentNullException(nameof(workbook));
-                if (scriptLibrary is null)
-                    throw new ArgumentNullException(nameof(scriptLibrary));
-                if (script is null)
-                    throw new ArgumentNullException(nameof(script));
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
-                if (workbookLocation is null)
-                    throw new ArgumentNullException(nameof(workbookLocation));
-                queryParams.Add($"source={Uri.EscapeDataString(workbookLocation.ToString())}");
-                if (scriptLocation is null)
-                    throw new ArgumentNullException(nameof(scriptLocation));
-                queryParams.Add($"scriptSource={Uri.EscapeDataString(scriptLocation.ToString())}");
-                var path = $"/v2/officescripting/api/unattended/run/{Uri.EscapeDataString(workbookLibrary.ToString())}/{Uri.EscapeDataString(Uri.EscapeDataString(workbook.ToString()))}/{Uri.EscapeDataString(scriptLibrary.ToString())}/{Uri.EscapeDataString(Uri.EscapeDataString(script.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
+                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/metadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<RunScriptProdResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets one script
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="chosenScript">Chosen script</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Gets one script response.</returns>
+        public virtual async Task<GetSingleScriptResponse> GetSingleScriptAsync(string chosenScript, CancellationToken cancellationToken = default)
+        {
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSingleScriptAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (chosenScript is null)
+                    throw new ArgumentNullException(nameof(chosenScript));
+                queryParams.Add($"scriptId={Uri.EscapeDataString(chosenScript.ToString())}");
+                var path = $"/officescripting/api/storage/script" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetSingleScriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get raw and formatted metadata of a table
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="table">Table</param>
+        /// <param name="location">Location</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get raw and formatted metadata of a table response.</returns>
+        public virtual async Task<TableMetadata> GetRawAndFormattedTableAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
+        {
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetRawAndFormattedTableAsync");
+            try
+            {
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                if (table is null)
+                    throw new ArgumentNullException(nameof(table));
+                var queryParams = new List<string>();
+                queryParams.Add("formattedPostfix=Formatted");
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
+                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rawandformattedtablemetadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

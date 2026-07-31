@@ -1925,7 +1925,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
-    /// Response for Add or Update Address to Organization
+    /// Address Save Data.
     /// </summary>
     public class AddressSaveData
     {
@@ -2327,7 +2327,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
-    /// Response for Add Email to Individual
+    /// Email Data.
     /// </summary>
     public class EmailData
     {

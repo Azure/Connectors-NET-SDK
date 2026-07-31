@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     #region Types
 
     /// <summary>
-    /// Response for Get email
+    /// Receive Email Message
     /// </summary>
     public class ClientReceiveMessage
     {
@@ -104,7 +104,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Item in The file attachments for the message
+    /// File Attachment
     /// </summary>
     public class ClientReceiveFileAttachment
     {
@@ -143,7 +143,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Move email
+    /// Receive Email Message
     /// </summary>
     public class ClientReceiveMessageStringEnums
     {
@@ -217,7 +217,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Send email with options
+    /// Base response model that connector returns to LA engine
     /// </summary>
     public class SubscriptionResponse
     {
@@ -239,7 +239,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Get calendars
+    /// Entity list response
     /// </summary>
     public class EntityListResponseTable
     {
@@ -249,7 +249,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Item in List of values
+    /// Represents a table.
     /// </summary>
     public class Table
     {
@@ -268,7 +268,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Get contacts
+    /// Entity list response
     /// </summary>
     public class EntityListResponseContactResponse
     {
@@ -278,7 +278,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Item in List of values
+    /// Contact response
     /// </summary>
     public class ContactResponse
     {
@@ -466,7 +466,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Get event (V2)
+    /// Connector specific calendar event model class for the client
     /// </summary>
     public class CalendarEventClientReceiveStringEnums
     {
@@ -587,7 +587,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Get events (V3)
+    /// The list of calendar items
     /// </summary>
     public class CalendarEventListClientReceive
     {
@@ -597,7 +597,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Item in List of calendar items
+    /// Connector specific calendar event model class for the client
     /// </summary>
     public class CalendarEventClientReceive
     {
@@ -718,7 +718,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for When an event is added, updated or deleted (V2)
+    /// The list of calendar items with action type
     /// </summary>
     public class CalendarEventListWithActionType
     {
@@ -728,7 +728,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Item in List of calendar items
+    /// Calendar event model with action type
     /// </summary>
     public class CalendarEventClientWithActionType
     {
@@ -861,7 +861,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Get emails (V2)
+    /// Represents a wrapper object for batch response
     /// </summary>
     public class BatchResponseClientReceiveMessage
     {
@@ -872,7 +872,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for Get calendar view of events (V2)
+    /// Entity list response
     /// </summary>
     public class EntityListResponseCalendarEventClientReceiveStringEnums
     {
@@ -882,7 +882,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Response for When an email is flagged (V2)
+    /// Represents a wrapper object for batch trigger response
     /// </summary>
     public class TriggerBatchResponseClientReceiveMessage
     {
@@ -892,7 +892,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// ClientSendAttachment
+    /// Attachment
     /// </summary>
     public class ClientSendAttachment
     {
@@ -906,7 +906,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// ClientSendHtmlMessage
+    /// Send HTML Email Message
     /// </summary>
     public class ClientSendHtmlMessage
     {
@@ -948,7 +948,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// ReplyHtmlMessage
+    /// Properties of an HTML email reply message.
     /// </summary>
     public class ReplyHtmlMessage
     {
@@ -986,7 +986,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// OptionsEmailSubscription
+    /// Model for Options Email Subscription
     /// </summary>
     public class OptionsEmailSubscription
     {
@@ -1000,7 +1000,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Message
+    /// User Options Email Message. This is the message expected as part of user input
     /// </summary>
     public class MessageWithOptions
     {
@@ -1050,7 +1050,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// ApprovalEmailSubscription
+    /// Model for Approval Email Subscription
     /// </summary>
     public class ApprovalEmailSubscription
     {
@@ -1064,7 +1064,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// Message
+    /// Approval Email Message. This is the message expected as part of user input
     /// </summary>
     public class ApprovalMessage
     {
@@ -1114,7 +1114,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// CalendarEventHtmlClient
+    /// Connector specific calendar event model class for the html client
     /// </summary>
     public class CalendarEventHtmlClient
     {
@@ -1336,7 +1336,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// ResponseToEventInvite
+    /// Response to an event invite
     /// </summary>
     public class ResponseToEventInvite
     {
@@ -1350,7 +1350,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
-    /// DirectForwardMessage
+    /// Directly forward message
     /// </summary>
     public class DirectForwardMessage
     {
@@ -3152,6 +3152,13 @@ namespace Azure.Connectors.Sdk.Outlook
         public static class OnCalendarGetOnChangedItems
         {
             /// <summary>
+            /// Select a calendar
+            /// Required.
+            /// Dynamic values from: CalendarGetTables.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Number of incoming days in calendar to be tracked
             /// Default: 300.
             /// </summary>
@@ -3170,6 +3177,13 @@ namespace Azure.Connectors.Sdk.Outlook
         /// </summary>
         public static class OnCalendarGetOnNewItems
         {
+            /// <summary>
+            /// Select a calendar
+            /// Required.
+            /// Dynamic values from: CalendarGetTables.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
@@ -3197,6 +3211,13 @@ namespace Azure.Connectors.Sdk.Outlook
         /// </summary>
         public static class OnCalendarGetOnUpdatedItems
         {
+            /// <summary>
+            /// Select a calendar
+            /// Required.
+            /// Dynamic values from: CalendarGetTables.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>

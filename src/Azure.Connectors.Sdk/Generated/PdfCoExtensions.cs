@@ -645,7 +645,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Search Text
     /// </summary>
-    public class PDFSerarchTextResponse
+    public class PDFSearchTextResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -5212,9 +5212,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSerarchTextResponse"/>.
+        /// Creates a new instance of <see cref="PDFSearchTextResponse"/>.
         /// </summary>
-        public static PDFSerarchTextResponse PDFSerarchTextResponse(
+        public static PDFSearchTextResponse PDFSearchTextResponse(
             List<JsonElement?> body = default,
             string url = default,
             string jobId = default,
@@ -5226,7 +5226,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFSerarchTextResponse
+            return new PDFSearchTextResponse
             {
                 Body = body,
                 Url = url,
@@ -7893,14 +7893,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Search Text response.</returns>
-        public virtual async Task<PDFSerarchTextResponse> PDFSerarchTextAsync(PDFSerarchTextInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PDFSearchTextResponse> PDFSerarchTextAsync(PDFSerarchTextInput input, CancellationToken cancellationToken = default)
         {
             using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSerarchTextAsync");
             try
             {
                 var path = $"/v1/pdf/find";
                 return await this
-                    .CallConnectorAsync<PDFSerarchTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PDFSearchTextResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

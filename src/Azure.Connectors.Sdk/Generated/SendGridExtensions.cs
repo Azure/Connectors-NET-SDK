@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     #region Types
 
     /// <summary>
-    /// Response for Add a global suppression
+    /// Add global suppress Response
     /// </summary>
     public class AddGlobalSuppressRequestAndResponse
     {
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     }
 
     /// <summary>
-    /// Response for Get the global suppression
+    /// Add global suppress Response
     /// </summary>
     public class GetGlobalSuppressResponse
     {
@@ -61,67 +61,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     }
 
     /// <summary>
-    /// Response for List Recipient Lists
-    /// </summary>
-    public class RecipientLists
-    {
-        /// <summary>List of recipient lists</summary>
-        [JsonPropertyName("lists")]
-        public List<RecipientList> RecipientListsValue { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of recipient lists
-    /// </summary>
-    public class RecipientList
-    {
-        /// <summary>Unique list id</summary>
-        [JsonPropertyName("id")]
-        public int? Id { get; set; }
-
-        /// <summary>Name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>Recipient count</summary>
-        [JsonPropertyName("recipient_count")]
-        public int? RecipientCount { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List Recipients
-    /// </summary>
-    public class Recipients
-    {
-        /// <summary>List of recipients</summary>
-        [JsonPropertyName("recipients")]
-        public List<Recipient> RecipientList { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of recipients
-    /// </summary>
-    public class Recipient
-    {
-        /// <summary>Email address</summary>
-        [JsonPropertyName("email")]
-        public string Email { get; set; }
-
-        /// <summary>Last name</summary>
-        [JsonPropertyName("last_name")]
-        public string Last { get; set; }
-
-        /// <summary>First name</summary>
-        [JsonPropertyName("first_name")]
-        public string First { get; set; }
-
-        /// <summary>Unique recipient id</summary>
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get bounce for an email
+    /// Get Bounce Response
     /// </summary>
     public class Bounce
     {
@@ -143,7 +83,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     }
 
     /// <summary>
-    /// Response for Check if email is in unsubscribed email list
+    /// Email Is Unsubscribed Response
     /// </summary>
     public class EmailIsUnsubscribedResponse
     {
@@ -153,7 +93,67 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     }
 
     /// <summary>
-    /// EmailRequestV5
+    /// List Recipients Response Item
+    /// </summary>
+    public class RecipientLists
+    {
+        /// <summary>List of recipient lists</summary>
+        [JsonPropertyName("lists")]
+        public List<RecipientList> RecipientListsValue { get; set; }
+    }
+
+    /// <summary>
+    /// Recipient list
+    /// </summary>
+    public class RecipientList
+    {
+        /// <summary>Unique list id</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>Name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Recipient count</summary>
+        [JsonPropertyName("recipient_count")]
+        public int? RecipientCount { get; set; }
+    }
+
+    /// <summary>
+    /// List of recipients
+    /// </summary>
+    public class Recipients
+    {
+        /// <summary>List of recipients</summary>
+        [JsonPropertyName("recipients")]
+        public List<Recipient> RecipientList { get; set; }
+    }
+
+    /// <summary>
+    /// SendGrid recipient
+    /// </summary>
+    public class Recipient
+    {
+        /// <summary>Email address</summary>
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        /// <summary>Last name</summary>
+        [JsonPropertyName("last_name")]
+        public string Last { get; set; }
+
+        /// <summary>First name</summary>
+        [JsonPropertyName("first_name")]
+        public string First { get; set; }
+
+        /// <summary>Unique recipient id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// Include multipart attachments
     /// </summary>
     public class EmailRequest
     {
@@ -207,7 +207,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
     }
 
     /// <summary>
-    /// Item in Attachments
+    /// Attachment
     /// </summary>
     public class EmailAttachment
     {
@@ -256,6 +256,36 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
             return new GetGlobalSuppressResponse
             {
                 RecipientEmail = recipientEmail,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Bounce"/>.
+        /// </summary>
+        public static Bounce Bounce(
+            int? created = default,
+            string email = default,
+            string reason = default,
+            string status = default)
+        {
+            return new Bounce
+            {
+                Created = created,
+                Email = email,
+                Reason = reason,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailIsUnsubscribedResponse"/>.
+        /// </summary>
+        public static EmailIsUnsubscribedResponse EmailIsUnsubscribedResponse(
+            bool? isEmailUnsubscribed = default)
+        {
+            return new EmailIsUnsubscribedResponse
+            {
+                IsEmailUnsubscribed = isEmailUnsubscribed,
             };
         }
 
@@ -314,36 +344,6 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
                 Last = last,
                 First = first,
                 Id = id,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="Bounce"/>.
-        /// </summary>
-        public static Bounce Bounce(
-            int? created = default,
-            string email = default,
-            string reason = default,
-            string status = default)
-        {
-            return new Bounce
-            {
-                Created = created,
-                Email = email,
-                Reason = reason,
-                Status = status,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="EmailIsUnsubscribedResponse"/>.
-        /// </summary>
-        public static EmailIsUnsubscribedResponse EmailIsUnsubscribedResponse(
-            bool? isEmailUnsubscribed = default)
-        {
-            return new EmailIsUnsubscribedResponse
-            {
-                IsEmailUnsubscribed = isEmailUnsubscribed,
             };
         }
 
@@ -580,54 +580,6 @@ namespace Azure.Connectors.Sdk.SendGrid
         }
 
         /// <summary>
-        /// List Recipient Lists
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List Recipient Lists response.</returns>
-        public virtual async Task<RecipientLists> ListRecipientListsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.ListRecipientListsAsync");
-            try
-            {
-                var path = $"/v3/contactdb/lists";
-                return await this
-                    .CallConnectorAsync<RecipientLists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List Recipients
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List Recipients response.</returns>
-        public virtual async Task<Recipients> ListRecipientsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.ListRecipientsAsync");
-            try
-            {
-                var path = $"/v3/contactdb/recipients";
-                return await this
-                    .CallConnectorAsync<Recipients>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Get bounce for an email
         /// </summary>
         /// <remarks>Get a specific bounce for a given email address.</remarks>
@@ -722,6 +674,54 @@ namespace Azure.Connectors.Sdk.SendGrid
                 var path = $"/v4/mail/send";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List Recipient Lists
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Recipient Lists response.</returns>
+        public virtual async Task<RecipientLists> ListRecipientListsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.ListRecipientListsAsync");
+            try
+            {
+                var path = $"/v3/contactdb/lists";
+                return await this
+                    .CallConnectorAsync<RecipientLists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List Recipients
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List Recipients response.</returns>
+        public virtual async Task<Recipients> ListRecipientsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.ListRecipientsAsync");
+            try
+            {
+                var path = $"/v3/contactdb/recipients";
+                return await this
+                    .CallConnectorAsync<Recipients>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

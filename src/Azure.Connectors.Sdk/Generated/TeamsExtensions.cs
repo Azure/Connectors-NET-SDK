@@ -31,7 +31,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     #region Types
 
     /// <summary>
-    /// Response for Create a Teams meeting
+    /// Response for new meeting that was created
     /// </summary>
     public class NewMeetingResponse
     {
@@ -187,7 +187,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of the teams you are associated with
+    /// Represents a team that is associated with a user
     /// </summary>
     public class AssociatedTeamInfo
     {
@@ -219,7 +219,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of one or more channels for a specific team
+    /// Get team channel details response
     /// </summary>
     public class GetChannelResponse
     {
@@ -330,7 +330,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of one or more channels for a specific team
+    /// Channel resource with owner team ID
     /// </summary>
     public class ChannelWithOwnerTeamId
     {
@@ -391,7 +391,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for Get an @mention token for a team tag
+    /// @mention token for a tag
     /// </summary>
     public class AtMentionTagResponse
     {
@@ -437,7 +437,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for List replies of a channel message
+    /// List replies response schema
     /// </summary>
     public class ListRepliesResponseSchema
     {
@@ -447,7 +447,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for List chat or channel members
+    /// List members response schema
     /// </summary>
     public class ListMembersResponseSchema
     {
@@ -457,7 +457,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for When a new channel message is added
+    /// A message in a channel, one on one chat, or group chat
     /// </summary>
     public class ChatMessage
     {
@@ -539,99 +539,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for Get unified action input metadata
-    /// </summary>
-    public class UnifiedActionSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// schema
-    /// </summary>
-    public class ObjectEntity
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get response schema
-    /// </summary>
-    public class DynamicResponseSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get adaptive card input metadata
-    /// </summary>
-    public class ConnectorMetadata
-    {
-        /// <summary>metadatatype</summary>
-        [JsonPropertyName("metadatatype")]
-        public string Metadatatype { get; set; }
-
-        /// <summary>activitytype</summary>
-        [JsonPropertyName("activitytype")]
-        public string Activitytype { get; set; }
-
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get selected message hybrid trigger output metadata
-    /// </summary>
-    public class SelectedMessageTriggerMetadata
-    {
-        /// <summary>TeamsFlowRunContext</summary>
-        [JsonPropertyName("TeamsFlowRunContext")]
-        public ObjectEntity TeamsFlowRunContext { get; set; }
-
-        /// <summary>CardOutputs</summary>
-        [JsonPropertyName("CardOutputs")]
-        public ObjectEntity CardOutputs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get compose message hybrid trigger output metadata
-    /// </summary>
-    public class ComposeMessageTriggerMetadata
-    {
-        /// <summary>TeamsFlowRunContext</summary>
-        [JsonPropertyName("TeamsFlowRunContext")]
-        public ObjectEntity TeamsFlowRunContext { get; set; }
-
-        /// <summary>CardOutputs</summary>
-        [JsonPropertyName("CardOutputs")]
-        public ObjectEntity CardOutputs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get compose message hybrid trigger output metadata
-    /// </summary>
-    public class CardResponseTriggerMetadata
-    {
-        /// <summary>TeamsFlowRunContext</summary>
-        [JsonPropertyName("TeamsFlowRunContext")]
-        public ObjectEntity TeamsFlowRunContext { get; set; }
-
-        /// <summary>CardOutputs</summary>
-        [JsonPropertyName("CardOutputs")]
-        public ObjectEntity CardOutputs { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get a team
+    /// Get team response
     /// </summary>
     public class GetTeamResponse
     {
@@ -681,7 +589,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// memberSettings
+    /// Settings to configure whether members can perform certain actions, for example, create channels and add bots, in the team
     /// </summary>
     public class MemberSettings
     {
@@ -707,7 +615,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// guestSettings
+    /// Settings to configure whether guests can create, update, or delete channels in the team
     /// </summary>
     public class GuestSettings
     {
@@ -721,7 +629,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// messagingSettings
+    /// Settings to configure messaging and mentions in the team
     /// </summary>
     public class MessagingSettings
     {
@@ -747,7 +655,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// funSettings
+    /// Settings to configure use of Giphy, memes, and stickers in the team
     /// </summary>
     public class FunSettings
     {
@@ -769,7 +677,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// discoverySettings
+    /// Settings to configure team discoverability by others.
     /// </summary>
     public class DiscoverySettings
     {
@@ -779,7 +687,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for Get an @mention token for a user
+    /// @mention Token
     /// </summary>
     public class AtMentionUser
     {
@@ -789,7 +697,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for Create a chat
+    /// Response for new chat that was created
     /// </summary>
     public class NewChatResponse
     {
@@ -898,56 +806,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Get message details response schema
-    /// </summary>
-    public class GetMessageDetailsSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for List members input schema
-    /// </summary>
-    public class ListMembersSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Input schema for webhook trigger
-    /// </summary>
-    public class WebhookTriggerSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Conversation location for where to post
-    /// </summary>
-    public class GetMessageLocationsResponse
-    {
-        /// <summary>valid locations to post a message or reply, make verbose</summary>
-        [JsonPropertyName("locations")]
-        public List<JsonElement?> Locations { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get feed notification input metadata
-    /// </summary>
-    public class PostFeedSchema
-    {
-        /// <summary>schema</summary>
-        [JsonPropertyName("schema")]
-        public ObjectEntity Schema { get; set; }
     }
 
     /// <summary>
@@ -1062,7 +920,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of transcripts
+    /// A call transcript
     /// </summary>
     public class CallTranscriptResponse
     {
@@ -1107,7 +965,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of recordings
+    /// A call recording
     /// </summary>
     public class CallRecordingResponse
     {
@@ -1156,7 +1014,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of sections
+    /// A teamwork section
     /// </summary>
     public class SectionResponse
     {
@@ -1259,7 +1117,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of section items
+    /// An item (chat, channel, meeting, or community) within a teamwork section
     /// </summary>
     public class SectionItemResponse
     {
@@ -1336,7 +1194,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Response for Create a tag for a team
+    /// The created tag for a team
     /// </summary>
     public class CreateTagResponseSchema
     {
@@ -1416,7 +1274,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Item in List of AI insights
+    /// An AI-generated insight for an online meeting
     /// </summary>
     public class AiInsightResponse
     {
@@ -1441,6 +1299,148 @@ namespace Azure.Connectors.Sdk.Teams.Models
         [JsonPropertyName("endDateTime")]
         [JsonInclude]
         public DateTime? EndDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// Response for Conversation location for where to post
+    /// </summary>
+    public class GetMessageLocationsResponse
+    {
+        /// <summary>valid locations to post a message or reply, make verbose</summary>
+        [JsonPropertyName("locations")]
+        public List<JsonElement?> Locations { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get message details response schema
+    /// </summary>
+    public class GetMessageDetailsSchema
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for List members input schema
+    /// </summary>
+    public class ListMembersSchema
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get notification input metadata
+    /// </summary>
+    public class ConnectorMetadata
+    {
+        /// <summary>metadatatype</summary>
+        [JsonPropertyName("metadatatype")]
+        public string Metadatatype { get; set; }
+
+        /// <summary>activitytype</summary>
+        [JsonPropertyName("activitytype")]
+        public string Activitytype { get; set; }
+
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get feed notification input metadata
+    /// </summary>
+    public class PostFeedSchema
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get unified action input metadata
+    /// </summary>
+    public class UnifiedActionSchema
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata of data coming from Microsoft Teams for a selected message
+    /// </summary>
+    public class SelectedMessageTriggerMetadata
+    {
+        /// <summary>TeamsFlowRunContext</summary>
+        [JsonPropertyName("TeamsFlowRunContext")]
+        public ObjectEntity TeamsFlowRunContext { get; set; }
+
+        /// <summary>CardOutputs</summary>
+        [JsonPropertyName("CardOutputs")]
+        public ObjectEntity CardOutputs { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata of data coming from Microsoft Teams for composing a message
+    /// </summary>
+    public class ComposeMessageTriggerMetadata
+    {
+        /// <summary>TeamsFlowRunContext</summary>
+        [JsonPropertyName("TeamsFlowRunContext")]
+        public ObjectEntity TeamsFlowRunContext { get; set; }
+
+        /// <summary>CardOutputs</summary>
+        [JsonPropertyName("CardOutputs")]
+        public ObjectEntity CardOutputs { get; set; }
+    }
+
+    /// <summary>
+    /// Metadata of data coming from Microsoft Teams for a response to an adaptive card
+    /// </summary>
+    public class CardResponseTriggerMetadata
+    {
+        /// <summary>TeamsFlowRunContext</summary>
+        [JsonPropertyName("TeamsFlowRunContext")]
+        public ObjectEntity TeamsFlowRunContext { get; set; }
+
+        /// <summary>CardOutputs</summary>
+        [JsonPropertyName("CardOutputs")]
+        public ObjectEntity CardOutputs { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Input schema for webhook trigger
+    /// </summary>
+    public class WebhookTriggerSchema
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get response schema
+    /// </summary>
+    public class DynamicResponseSchema
+    {
+        /// <summary>schema</summary>
+        [JsonPropertyName("schema")]
+        public ObjectEntity Schema { get; set; }
     }
 
     /// <summary>
@@ -1608,7 +1608,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// NewChat
+    /// New chat event model
     /// </summary>
     public class NewChat
     {
@@ -1622,7 +1622,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// NewMeeting
+    /// New meeting event model
     /// </summary>
     public class NewMeeting
     {
@@ -2416,88 +2416,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UnifiedActionSchema"/>.
-        /// </summary>
-        public static UnifiedActionSchema UnifiedActionSchema(
-            ObjectEntity schema = default)
-        {
-            return new UnifiedActionSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="DynamicResponseSchema"/>.
-        /// </summary>
-        public static DynamicResponseSchema DynamicResponseSchema(
-            ObjectEntity schema = default)
-        {
-            return new DynamicResponseSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ConnectorMetadata"/>.
-        /// </summary>
-        public static ConnectorMetadata ConnectorMetadata(
-            string metadatatype = default,
-            string activitytype = default,
-            ObjectEntity schema = default)
-        {
-            return new ConnectorMetadata
-            {
-                Metadatatype = metadatatype,
-                Activitytype = activitytype,
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SelectedMessageTriggerMetadata"/>.
-        /// </summary>
-        public static SelectedMessageTriggerMetadata SelectedMessageTriggerMetadata(
-            ObjectEntity teamsFlowRunContext = default,
-            ObjectEntity cardOutputs = default)
-        {
-            return new SelectedMessageTriggerMetadata
-            {
-                TeamsFlowRunContext = teamsFlowRunContext,
-                CardOutputs = cardOutputs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ComposeMessageTriggerMetadata"/>.
-        /// </summary>
-        public static ComposeMessageTriggerMetadata ComposeMessageTriggerMetadata(
-            ObjectEntity teamsFlowRunContext = default,
-            ObjectEntity cardOutputs = default)
-        {
-            return new ComposeMessageTriggerMetadata
-            {
-                TeamsFlowRunContext = teamsFlowRunContext,
-                CardOutputs = cardOutputs,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="CardResponseTriggerMetadata"/>.
-        /// </summary>
-        public static CardResponseTriggerMetadata CardResponseTriggerMetadata(
-            ObjectEntity teamsFlowRunContext = default,
-            ObjectEntity cardOutputs = default)
-        {
-            return new CardResponseTriggerMetadata
-            {
-                TeamsFlowRunContext = teamsFlowRunContext,
-                CardOutputs = cardOutputs,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="GetTeamResponse"/>.
         /// </summary>
         public static GetTeamResponse GetTeamResponse(
@@ -2720,66 +2638,6 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 NotificationUrl = notificationUrl,
                 Body = body,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMessageDetailsSchema"/>.
-        /// </summary>
-        public static GetMessageDetailsSchema GetMessageDetailsSchema(
-            ObjectEntity schema = default)
-        {
-            return new GetMessageDetailsSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListMembersSchema"/>.
-        /// </summary>
-        public static ListMembersSchema ListMembersSchema(
-            ObjectEntity schema = default)
-        {
-            return new ListMembersSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WebhookTriggerSchema"/>.
-        /// </summary>
-        public static WebhookTriggerSchema WebhookTriggerSchema(
-            ObjectEntity schema = default)
-        {
-            return new WebhookTriggerSchema
-            {
-                Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetMessageLocationsResponse"/>.
-        /// </summary>
-        public static GetMessageLocationsResponse GetMessageLocationsResponse(
-            List<JsonElement?> locations = default)
-        {
-            return new GetMessageLocationsResponse
-            {
-                Locations = locations,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PostFeedSchema"/>.
-        /// </summary>
-        public static PostFeedSchema PostFeedSchema(
-            ObjectEntity schema = default)
-        {
-            return new PostFeedSchema
-            {
-                Schema = schema,
             };
         }
 
@@ -3180,6 +3038,148 @@ namespace Azure.Connectors.Sdk.Teams.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="GetMessageLocationsResponse"/>.
+        /// </summary>
+        public static GetMessageLocationsResponse GetMessageLocationsResponse(
+            List<JsonElement?> locations = default)
+        {
+            return new GetMessageLocationsResponse
+            {
+                Locations = locations,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetMessageDetailsSchema"/>.
+        /// </summary>
+        public static GetMessageDetailsSchema GetMessageDetailsSchema(
+            ObjectEntity schema = default)
+        {
+            return new GetMessageDetailsSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListMembersSchema"/>.
+        /// </summary>
+        public static ListMembersSchema ListMembersSchema(
+            ObjectEntity schema = default)
+        {
+            return new ListMembersSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ConnectorMetadata"/>.
+        /// </summary>
+        public static ConnectorMetadata ConnectorMetadata(
+            string metadatatype = default,
+            string activitytype = default,
+            ObjectEntity schema = default)
+        {
+            return new ConnectorMetadata
+            {
+                Metadatatype = metadatatype,
+                Activitytype = activitytype,
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostFeedSchema"/>.
+        /// </summary>
+        public static PostFeedSchema PostFeedSchema(
+            ObjectEntity schema = default)
+        {
+            return new PostFeedSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UnifiedActionSchema"/>.
+        /// </summary>
+        public static UnifiedActionSchema UnifiedActionSchema(
+            ObjectEntity schema = default)
+        {
+            return new UnifiedActionSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SelectedMessageTriggerMetadata"/>.
+        /// </summary>
+        public static SelectedMessageTriggerMetadata SelectedMessageTriggerMetadata(
+            ObjectEntity teamsFlowRunContext = default,
+            ObjectEntity cardOutputs = default)
+        {
+            return new SelectedMessageTriggerMetadata
+            {
+                TeamsFlowRunContext = teamsFlowRunContext,
+                CardOutputs = cardOutputs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ComposeMessageTriggerMetadata"/>.
+        /// </summary>
+        public static ComposeMessageTriggerMetadata ComposeMessageTriggerMetadata(
+            ObjectEntity teamsFlowRunContext = default,
+            ObjectEntity cardOutputs = default)
+        {
+            return new ComposeMessageTriggerMetadata
+            {
+                TeamsFlowRunContext = teamsFlowRunContext,
+                CardOutputs = cardOutputs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CardResponseTriggerMetadata"/>.
+        /// </summary>
+        public static CardResponseTriggerMetadata CardResponseTriggerMetadata(
+            ObjectEntity teamsFlowRunContext = default,
+            ObjectEntity cardOutputs = default)
+        {
+            return new CardResponseTriggerMetadata
+            {
+                TeamsFlowRunContext = teamsFlowRunContext,
+                CardOutputs = cardOutputs,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookTriggerSchema"/>.
+        /// </summary>
+        public static WebhookTriggerSchema WebhookTriggerSchema(
+            ObjectEntity schema = default)
+        {
+            return new WebhookTriggerSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DynamicResponseSchema"/>.
+        /// </summary>
+        public static DynamicResponseSchema DynamicResponseSchema(
+            ObjectEntity schema = default)
+        {
+            return new DynamicResponseSchema
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="PostMessageToSelfRequest"/>.
         /// </summary>
         public static PostMessageToSelfRequest PostMessageToSelfRequest(
@@ -3392,6 +3392,20 @@ namespace Azure.Connectors.Sdk.Teams
         public static class OnNewChannelMessage
         {
             /// <summary>
+            /// Select team
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string GroupId = "groupId";
+
+            /// <summary>
+            /// Channel ID
+            /// Required.
+            /// Dynamic values from: GetChannelsForGroup.
+            /// </summary>
+            public const string ChannelId = "channelId";
+
+            /// <summary>
             /// Top.
             /// Default: 50.
             /// </summary>
@@ -3405,10 +3419,38 @@ namespace Azure.Connectors.Sdk.Teams
         public static class OnNewChannelMessageMentioningMe
         {
             /// <summary>
+            /// Select team
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string GroupId = "groupId";
+
+            /// <summary>
+            /// Channel ID
+            /// Required.
+            /// Dynamic values from: GetChannelsForGroup.
+            /// </summary>
+            public const string ChannelId = "channelId";
+
+            /// <summary>
             /// Top.
             /// Default: 50.
             /// </summary>
             public const string Top = "$top";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWebhookAtMentionTrigger trigger operation (operationId: WebhookAtMentionTrigger).
+        /// </summary>
+        public static class OnWebhookAtMentionTrigger
+        {
+            /// <summary>
+            /// Choose message type
+            /// Required.
+            /// Allowed values: groupchat, channel.
+            /// </summary>
+            public const string ThreadType = "threadType";
 
         }
 
@@ -3437,6 +3479,13 @@ namespace Azure.Connectors.Sdk.Teams
             /// </summary>
             public const string RunningPolicy = "runningPolicy";
 
+            /// <summary>
+            /// Choose message type
+            /// Required.
+            /// Allowed values: groupchat, channel.
+            /// </summary>
+            public const string ThreadType = "threadType";
+
         }
 
         /// <summary>
@@ -3445,10 +3494,31 @@ namespace Azure.Connectors.Sdk.Teams
         public static class OnWebhookKeywordTrigger
         {
             /// <summary>
+            /// Choose message type
+            /// Required.
+            /// Allowed values: groupchat, channel.
+            /// </summary>
+            public const string ThreadType = "threadType";
+
+            /// <summary>
             /// A comma separated list of keywords to search for
             /// Required.
             /// </summary>
             public const string Search = "$search";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWebhookNewMessageTrigger trigger operation (operationId: WebhookNewMessageTrigger).
+        /// </summary>
+        public static class OnWebhookNewMessageTrigger
+        {
+            /// <summary>
+            /// Choose message type
+            /// Required.
+            /// Allowed values: groupchat, channel.
+            /// </summary>
+            public const string ThreadType = "threadType";
 
         }
 
@@ -4006,126 +4076,6 @@ namespace Azure.Connectors.Sdk.Teams
         }
 
         /// <summary>
-        /// Get unified action input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="unifiedAction">Unified Action</param>
-        /// <param name="postAs">Post as</param>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get unified action input metadata response.</returns>
-        public virtual async Task<UnifiedActionSchema> GetUnifiedActionSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetUnifiedActionSchemaAsync");
-            try
-            {
-                if (unifiedAction is null)
-                    throw new ArgumentNullException(nameof(unifiedAction));
-                if (postAs is null)
-                    throw new ArgumentNullException(nameof(postAs));
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
-                return await this
-                    .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get response schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="unifiedAction">Unified Action</param>
-        /// <param name="postAs">Post as</param>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get response schema response.</returns>
-        public virtual async Task<DynamicResponseSchema> GetPostToConversationResponseSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetPostToConversationResponseSchemaAsync");
-            try
-            {
-                if (unifiedAction is null)
-                    throw new ArgumentNullException(nameof(unifiedAction));
-                if (postAs is null)
-                    throw new ArgumentNullException(nameof(postAs));
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
-                return await this
-                    .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get adaptive card input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get adaptive card input metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetAdaptiveCardInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAdaptiveCardInputMetadataAsync");
-            try
-            {
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-                return await this
-                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get notification input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get notification input metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetNotificationInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetNotificationInputMetadataAsync");
-            try
-            {
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
-                return await this
-                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Post a choice of options as the Flow bot to a user
         /// </summary>
         /// <remarks>Send a set of options to a Microsoft Teams user, that they must respond to before the flow will continue. This action will pause the flow until the user response to the options</remarks>
@@ -4139,194 +4089,6 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/flowbot/actions/messagewithoptions/recipienttypes/user/$subscriptions";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get message with options subscription input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message with options subscription input metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionInputMetadataAsync");
-            try
-            {
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
-                return await this
-                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get message with options subscription output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message with options subscription output metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionOutputMetadataAsync");
-            try
-            {
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-                return await this
-                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get flow continuation subscription output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get flow continuation subscription output metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionOutputMetadataAsync");
-            try
-            {
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-                return await this
-                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get flow continuation subscription output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get flow continuation subscription output metadata response.</returns>
-        public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync(string postAs, string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync");
-            try
-            {
-                if (postAs is null)
-                    throw new ArgumentNullException(nameof(postAs));
-                if (typeOfTheRecipientOfTheAction is null)
-                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
-                var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
-                return await this
-                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get selected message hybrid trigger output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get selected message hybrid trigger output metadata response.</returns>
-        public virtual async Task<SelectedMessageTriggerMetadata> GetSelectedMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSelectedMessageTriggerOutputsMetadataAsync");
-            try
-            {
-                var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
-                return await this
-                    .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get compose message hybrid trigger output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
-        public virtual async Task<ComposeMessageTriggerMetadata> GetComposeMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetComposeMessageTriggerOutputsMetadataAsync");
-            try
-            {
-                var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
-                return await this
-                    .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get compose message hybrid trigger output metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
-        public virtual async Task<CardResponseTriggerMetadata> GetCardResponseTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCardResponseTriggerOutputsMetadataAsync");
-            try
-            {
-                var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
-                return await this
-                    .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4822,204 +4584,6 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/v1.0/teams/conversation/updateAdaptivecard/poster/{Uri.EscapeDataString(postAs.ToString())}/location/{Uri.EscapeDataString(postIn.ToString())}";
                 return await this
                     .CallConnectorAsync<PostToConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get message details response schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message details response schema response.</returns>
-        public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsInputSchemaAsync");
-            try
-            {
-                if (messageType is null)
-                    throw new ArgumentNullException(nameof(messageType));
-                var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-                return await this
-                    .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get message details input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get message details input metadata response.</returns>
-        public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsResponseSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsResponseSchemaAsync");
-            try
-            {
-                if (messageType is null)
-                    throw new ArgumentNullException(nameof(messageType));
-                var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-                return await this
-                    .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List members input schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List members input schema response.</returns>
-        public virtual async Task<ListMembersSchema> ListMembersInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMembersInputSchemaAsync");
-            try
-            {
-                if (messageType is null)
-                    throw new ArgumentNullException(nameof(messageType));
-                var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-                return await this
-                    .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Input schema for webhook trigger
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Input schema for webhook trigger response.</returns>
-        public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerRequestSchemaAsync(string messageType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerRequestSchemaAsync");
-            try
-            {
-                if (messageType is null)
-                    throw new ArgumentNullException(nameof(messageType));
-                var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-                return await this
-                    .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Response schema for webhook trigger
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="triggerType">Trigger type</param>
-        /// <param name="messageType">Message type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Response schema for webhook trigger response.</returns>
-        public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerResponseSchemaAsync(string triggerType, string messageType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerResponseSchemaAsync");
-            try
-            {
-                if (triggerType is null)
-                    throw new ArgumentNullException(nameof(triggerType));
-                if (messageType is null)
-                    throw new ArgumentNullException(nameof(messageType));
-                var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
-                return await this
-                    .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Conversation location for where to post
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="messageType">Message Type</param>
-        /// <param name="postAs">Post as</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Conversation location for where to post response.</returns>
-        public virtual async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageLocationsAsync");
-            try
-            {
-                if (messageType is null)
-                    throw new ArgumentNullException(nameof(messageType));
-                if (postAs is null)
-                    throw new ArgumentNullException(nameof(postAs));
-                var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
-                return await this
-                    .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get feed notification input metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="postAs">Post as</param>
-        /// <param name="notificationType">Notification type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get feed notification input metadata response.</returns>
-        public virtual async Task<PostFeedSchema> GetFeedNotificationInputSchemaAsync(string postAs, string notificationType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFeedNotificationInputSchemaAsync");
-            try
-            {
-                if (postAs is null)
-                    throw new ArgumentNullException(nameof(postAs));
-                if (notificationType is null)
-                    throw new ArgumentNullException(nameof(notificationType));
-                var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
-                return await this
-                    .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5553,33 +5117,6 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId.ToString())}/items/{Uri.EscapeDataString(sectionItemId.ToString())}/move";
                 return await this
                     .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get subscription scope input schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="scopeType">scopeType</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get subscription scope input schema response.</returns>
-        public virtual async Task<ObjectEntity> GetSubscriptionScopeSchemaAsync(string scopeType, CancellationToken cancellationToken = default)
-        {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSubscriptionScopeSchemaAsync");
-            try
-            {
-                if (scopeType is null)
-                    throw new ArgumentNullException(nameof(scopeType));
-                var path = $"/internalparameters/triggers/subscriptionscope/{Uri.EscapeDataString(scopeType.ToString())}/schema";
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6129,6 +5666,539 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId.ToString())}/aiInsights/{Uri.EscapeDataString(aIInsightId.ToString())}";
                 return await this
                     .CallConnectorAsync<AiInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Conversation location for where to post
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="messageType">Message Type</param>
+        /// <param name="postAs">Post as</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Conversation location for where to post response.</returns>
+        public virtual async Task<GetMessageLocationsResponse> GetMessageLocationsAsync(string messageType, string postAs, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageLocationsAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                var path = $"/flowbot/messageType/{Uri.EscapeDataString(messageType.ToString())}/poster/{Uri.EscapeDataString(postAs.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageLocationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get message details response schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="messageType">Message type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get message details response schema response.</returns>
+        public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsInputSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/getmessagedetailsinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get message details input metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="messageType">Message type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get message details input metadata response.</returns>
+        public virtual async Task<GetMessageDetailsSchema> GetMessageDetailsResponseSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageDetailsResponseSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/getmessagedetailsresponseschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<GetMessageDetailsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// List members input schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="messageType">Message type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The List members input schema response.</returns>
+        public virtual async Task<ListMembersSchema> ListMembersInputSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListMembersInputSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/listmembersinputschema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<ListMembersSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get notification input metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get notification input metadata response.</returns>
+        public virtual async Task<ConnectorMetadata> GetNotificationInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetNotificationInputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/notification/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get feed notification input metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="postAs">Post as</param>
+        /// <param name="notificationType">Notification type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get feed notification input metadata response.</returns>
+        public virtual async Task<PostFeedSchema> GetFeedNotificationInputSchemaAsync(string postAs, string notificationType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFeedNotificationInputSchemaAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (notificationType is null)
+                    throw new ArgumentNullException(nameof(notificationType));
+                var path = $"/flowbot/getfeednotificationinputschema/poster/{Uri.EscapeDataString(postAs.ToString())}/notificationType/{Uri.EscapeDataString(notificationType.ToString())}";
+                return await this
+                    .CallConnectorAsync<PostFeedSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get unified action input metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="unifiedAction">Unified Action</param>
+        /// <param name="postAs">Post as</param>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get unified action input metadata response.</returns>
+        public virtual async Task<UnifiedActionSchema> GetUnifiedActionSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetUnifiedActionSchemaAsync");
+            try
+            {
+                if (unifiedAction is null)
+                    throw new ArgumentNullException(nameof(unifiedAction));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/schema";
+                return await this
+                    .CallConnectorAsync<UnifiedActionSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get adaptive card input metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get adaptive card input metadata response.</returns>
+        public virtual async Task<ConnectorMetadata> GetAdaptiveCardInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAdaptiveCardInputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/adaptivecard/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/inputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get message with options subscription input metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get message with options subscription input metadata response.</returns>
+        public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionInputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionInputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptioninputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get message with options subscription output metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get message with options subscription output metadata response.</returns>
+        public virtual async Task<ConnectorMetadata> GetMessageWithOptionsSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetMessageWithOptionsSubscriptionOutputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/messagewithoptions/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get selected message hybrid trigger output metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get selected message hybrid trigger output metadata response.</returns>
+        public virtual async Task<SelectedMessageTriggerMetadata> GetSelectedMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSelectedMessageTriggerOutputsMetadataAsync");
+            try
+            {
+                var path = $"/flowbot/triggers/selectedmessage/$metadata.json/selectedmessageoutputs";
+                return await this
+                    .CallConnectorAsync<SelectedMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get compose message hybrid trigger output metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
+        public virtual async Task<ComposeMessageTriggerMetadata> GetComposeMessageTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetComposeMessageTriggerOutputsMetadataAsync");
+            try
+            {
+                var path = $"/flowbot/triggers/composemessage/$metadata.json/composemessageoutputs";
+                return await this
+                    .CallConnectorAsync<ComposeMessageTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get compose message hybrid trigger output metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get compose message hybrid trigger output metadata response.</returns>
+        public virtual async Task<CardResponseTriggerMetadata> GetCardResponseTriggerOutputsMetadataAsync(string input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetCardResponseTriggerOutputsMetadataAsync");
+            try
+            {
+                var path = $"/flowbot/triggers/cardresponse/$metadata.json/cardresponseoutputs";
+                return await this
+                    .CallConnectorAsync<CardResponseTriggerMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Input schema for webhook trigger
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="messageType">Message type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Input schema for webhook trigger response.</returns>
+        public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerRequestSchemaAsync(string messageType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerRequestSchemaAsync");
+            try
+            {
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/webhookTrigger/inputSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Response schema for webhook trigger
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="triggerType">Trigger type</param>
+        /// <param name="messageType">Message type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Response schema for webhook trigger response.</returns>
+        public virtual async Task<WebhookTriggerSchema> GetWebhookTriggerResponseSchemaAsync(string triggerType, string messageType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetWebhookTriggerResponseSchemaAsync");
+            try
+            {
+                if (triggerType is null)
+                    throw new ArgumentNullException(nameof(triggerType));
+                if (messageType is null)
+                    throw new ArgumentNullException(nameof(messageType));
+                var path = $"/flowbot/webhookTrigger/triggerType/{Uri.EscapeDataString(triggerType.ToString())}/responseSchema/threadType/{Uri.EscapeDataString(messageType.ToString())}";
+                return await this
+                    .CallConnectorAsync<WebhookTriggerSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get response schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="unifiedAction">Unified Action</param>
+        /// <param name="postAs">Post as</param>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get response schema response.</returns>
+        public virtual async Task<DynamicResponseSchema> GetPostToConversationResponseSchemaAsync(string unifiedAction, string postAs, string typeOfTheRecipientOfTheAction, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetPostToConversationResponseSchemaAsync");
+            try
+            {
+                if (unifiedAction is null)
+                    throw new ArgumentNullException(nameof(unifiedAction));
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/{Uri.EscapeDataString(unifiedAction.ToString())}/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/response/schema";
+                return await this
+                    .CallConnectorAsync<DynamicResponseSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get flow continuation subscription output metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get flow continuation subscription output metadata response.</returns>
+        public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionOutputMetadataAsync(string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionOutputMetadataAsync");
+            try
+            {
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/flowcontinuation/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get flow continuation subscription output metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="postAs">Post as</param>
+        /// <param name="typeOfTheRecipientOfTheAction">Type of the recipient of the action</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get flow continuation subscription output metadata response.</returns>
+        public virtual async Task<ConnectorMetadata> GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync(string postAs, string typeOfTheRecipientOfTheAction, string input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetFlowContinuationSubscriptionWithPosterOutputMetadataAsync");
+            try
+            {
+                if (postAs is null)
+                    throw new ArgumentNullException(nameof(postAs));
+                if (typeOfTheRecipientOfTheAction is null)
+                    throw new ArgumentNullException(nameof(typeOfTheRecipientOfTheAction));
+                var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs.ToString())}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction.ToString())}/$metadata.json/subscriptionoutputs";
+                return await this
+                    .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get subscription scope input schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="scopeType">scopeType</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get subscription scope input schema response.</returns>
+        public virtual async Task<ObjectEntity> GetSubscriptionScopeSchemaAsync(string scopeType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSubscriptionScopeSchemaAsync");
+            try
+            {
+                if (scopeType is null)
+                    throw new ArgumentNullException(nameof(scopeType));
+                var path = $"/internalparameters/triggers/subscriptionscope/{Uri.EscapeDataString(scopeType.ToString())}/schema";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

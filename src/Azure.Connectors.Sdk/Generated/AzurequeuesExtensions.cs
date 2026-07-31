@@ -29,30 +29,6 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     #region Types
 
     /// <summary>
-    /// Response for Get storage accounts
-    /// </summary>
-    public class StorageAccountList
-    {
-        /// <summary>List of storage account names</summary>
-        [JsonPropertyName("value")]
-        public List<StorageAccount> Value { get; set; }
-    }
-
-    /// <summary>
-    /// Item in List of storage account names
-    /// </summary>
-    public class StorageAccount
-    {
-        /// <summary>The name or queue endpoint of the storage account.</summary>
-        [JsonPropertyName("Name")]
-        public string StorageAccountNameOrQueueEndpoint { get; set; }
-
-        /// <summary>The display name of the storage account.</summary>
-        [JsonPropertyName("DisplayName")]
-        public string StorageAccountDisplayName { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get messages (V2)
     /// </summary>
     public class Messages
@@ -116,6 +92,30 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
         public string Name { get; set; }
     }
 
+    /// <summary>
+    /// List of storage account names
+    /// </summary>
+    public class StorageAccountList
+    {
+        /// <summary>List of storage account names</summary>
+        [JsonPropertyName("value")]
+        public List<StorageAccount> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Storage account
+    /// </summary>
+    public class StorageAccount
+    {
+        /// <summary>The name or queue endpoint of the storage account.</summary>
+        [JsonPropertyName("Name")]
+        public string StorageAccountNameOrQueueEndpoint { get; set; }
+
+        /// <summary>The display name of the storage account.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string StorageAccountDisplayName { get; set; }
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -127,32 +127,6 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     /// </summary>
     public static class AzureQueuesModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="StorageAccountList"/>.
-        /// </summary>
-        public static StorageAccountList StorageAccountList(
-            List<StorageAccount> value = default)
-        {
-            return new StorageAccountList
-            {
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="StorageAccount"/>.
-        /// </summary>
-        public static StorageAccount StorageAccount(
-            string storageAccountNameOrQueueEndpoint = default,
-            string storageAccountDisplayName = default)
-        {
-            return new StorageAccount
-            {
-                StorageAccountNameOrQueueEndpoint = storageAccountNameOrQueueEndpoint,
-                StorageAccountDisplayName = storageAccountDisplayName,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="Messages"/>.
         /// </summary>
@@ -186,6 +160,32 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
             return new QueueInfo
             {
                 Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccountList"/>.
+        /// </summary>
+        public static StorageAccountList StorageAccountList(
+            List<StorageAccount> value = default)
+        {
+            return new StorageAccountList
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StorageAccount"/>.
+        /// </summary>
+        public static StorageAccount StorageAccount(
+            string storageAccountNameOrQueueEndpoint = default,
+            string storageAccountDisplayName = default)
+        {
+            return new StorageAccount
+            {
+                StorageAccountNameOrQueueEndpoint = storageAccountNameOrQueueEndpoint,
+                StorageAccountDisplayName = storageAccountDisplayName,
             };
         }
     }
@@ -352,30 +352,6 @@ namespace Azure.Connectors.Sdk.Azurequeues
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Get storage accounts
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get storage accounts response.</returns>
-        public virtual async Task<StorageAccountList> GetStorageAccountsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.GetStorageAccountsAsync");
-            try
-            {
-                var path = $"/v2/GetStorageAccounts";
-                return await this
-                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Delete message (V2)
         /// </summary>
         /// <remarks>Delete a specific message from the queue.</remarks>
@@ -528,6 +504,30 @@ namespace Azure.Connectors.Sdk.Azurequeues
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString()))}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get storage accounts
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get storage accounts response.</returns>
+        public virtual async Task<StorageAccountList> GetStorageAccountsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.GetStorageAccountsAsync");
+            try
+            {
+                var path = $"/v2/GetStorageAccounts";
+                return await this
+                    .CallConnectorAsync<StorageAccountList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

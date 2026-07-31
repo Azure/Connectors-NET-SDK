@@ -31,7 +31,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     #region Types
 
     /// <summary>
-    /// Response for Get file metadata
+    /// Blob metadata
     /// </summary>
     public class BlobMetadata
     {
@@ -87,7 +87,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     }
 
     /// <summary>
-    /// Response for Get file thumbnail
+    /// Thumbnail response data
     /// </summary>
     public class Thumbnail
     {
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     }
 
     /// <summary>
-    /// Response for List files in folder
+    /// Represents a page of blob metadata.
     /// </summary>
     public class BlobMetadataPage : IPageable<BlobMetadata>
     {

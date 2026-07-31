@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     #region Types
 
     /// <summary>
-    /// Response for List task lists
+    /// A list of task lists.
     /// </summary>
     public class TaskListList
     {
@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     }
 
     /// <summary>
-    /// Item in Task lists in the lists.
+    /// A task list.
     /// </summary>
     public class TaskListEntry
     {
@@ -61,7 +61,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     }
 
     /// <summary>
-    /// Response for Lists the tasks for a task list
+    /// A list of tasks.
     /// </summary>
     public class TaskList
     {
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     }
 
     /// <summary>
-    /// Item in The tasks in the list.
+    /// A task.
     /// </summary>
     public class TaskObject
     {
@@ -117,7 +117,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     }
 
     /// <summary>
-    /// TaskListCreate
+    /// Object used to create a task list
     /// </summary>
     public class TaskListCreate
     {
@@ -127,7 +127,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
     }
 
     /// <summary>
-    /// TaskCreate
+    /// Represents the values used to create a task.
     /// </summary>
     public class TaskCreate
     {
@@ -295,6 +295,60 @@ namespace Azure.Connectors.Sdk.GoogleTasks
     }
 
     #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the GoogleTasks connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class GoogleTasksTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnNewTaskInList trigger operation (operationId: OnNewTaskInList).
+        /// </summary>
+        public static class OnNewTaskInList
+        {
+            /// <summary>
+            /// The id of the task list.
+            /// Required.
+            /// Dynamic values from: ListTaskLists.
+            /// </summary>
+            public const string TaskListId = "taskListId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnDueTaskInList trigger operation (operationId: OnDueTaskInList).
+        /// </summary>
+        public static class OnDueTaskInList
+        {
+            /// <summary>
+            /// The id of the task list.
+            /// Required.
+            /// Dynamic values from: ListTaskLists.
+            /// </summary>
+            public const string TaskListId = "taskListId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnCompletedTaskInList trigger operation (operationId: OnCompletedTaskInListV2).
+        /// </summary>
+        public static class OnCompletedTaskInList
+        {
+            /// <summary>
+            /// The id of the task list
+            /// Required.
+            /// Dynamic values from: ListTaskLists.
+            /// </summary>
+            public const string TaskListId = "taskListId";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
 
     #region Client
 

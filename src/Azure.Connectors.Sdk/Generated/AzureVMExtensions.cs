@@ -30,7 +30,74 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     #region Types
 
     /// <summary>
-    /// Response for List subscriptions
+    /// Virtual Machine information.
+    /// </summary>
+    public class VirtualMachineInScaleSet
+    {
+        /// <summary>The ID of the virtual machine.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string Id { get; init; }
+
+        /// <summary>The Name of the virtual machine.</summary>
+        [JsonPropertyName("name")]
+        [JsonInclude]
+        public string Name { get; init; }
+
+        /// <summary>The instance Id of the virtual machine.</summary>
+        [JsonPropertyName("instanceId")]
+        [JsonInclude]
+        public string InstanceId { get; init; }
+
+        /// <summary>properties</summary>
+        [JsonPropertyName("properties")]
+        public VirtualMachineInScaleSetProperties Properties { get; set; }
+    }
+
+    /// <summary>
+    /// Virtual Machine properties.
+    /// </summary>
+    public class VirtualMachineInScaleSetProperties
+    {
+        /// <summary>The state of the virtual machine.</summary>
+        [JsonPropertyName("provisioningState")]
+        [JsonInclude]
+        public string ProvisioningState { get; init; }
+    }
+
+    /// <summary>
+    /// Virtual Machine information.
+    /// </summary>
+    public class VirtualMachine
+    {
+        /// <summary>The ID of the virtual machine.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string Id { get; init; }
+
+        /// <summary>The Name of the virtual machine.</summary>
+        [JsonPropertyName("name")]
+        [JsonInclude]
+        public string Name { get; init; }
+
+        /// <summary>properties</summary>
+        [JsonPropertyName("properties")]
+        public VirtualMachineProperties Properties { get; set; }
+    }
+
+    /// <summary>
+    /// Virtual Machine properties.
+    /// </summary>
+    public class VirtualMachineProperties
+    {
+        /// <summary>The state of the virtual machine.</summary>
+        [JsonPropertyName("provisioningState")]
+        [JsonInclude]
+        public string ProvisioningState { get; init; }
+    }
+
+    /// <summary>
+    /// Subscription list operation response.
     /// </summary>
     public class SubscriptionListResult : IPageable<Subscription>
     {
@@ -44,7 +111,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Item in The subscriptions.
+    /// Subscription information.
     /// </summary>
     public class Subscription
     {
@@ -79,7 +146,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Response for List resource groups
+    /// List of resource groups.
     /// </summary>
     public class ResourceGroupListResult : IPageable<ResourceGroup>
     {
@@ -94,7 +161,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Item in The list of resource groups.
+    /// Resource group information.
     /// </summary>
     public class ResourceGroup
     {
@@ -115,53 +182,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Response for List virtual machines
-    /// </summary>
-    public class VirtualMachineListResult : IPageable<VirtualMachine>
-    {
-        /// <summary>The list of virtual machines.</summary>
-        [JsonPropertyName("value")]
-        public List<VirtualMachine> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results.</summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; init; }
-    }
-
-    /// <summary>
-    /// Item in The list of virtual machines.
-    /// </summary>
-    public class VirtualMachine
-    {
-        /// <summary>The ID of the virtual machine.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; init; }
-
-        /// <summary>The Name of the virtual machine.</summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; init; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public VirtualMachineProperties Properties { get; set; }
-    }
-
-    /// <summary>
-    /// properties
-    /// </summary>
-    public class VirtualMachineProperties
-    {
-        /// <summary>The state of the virtual machine.</summary>
-        [JsonPropertyName("provisioningState")]
-        [JsonInclude]
-        public string ProvisioningState { get; init; }
-    }
-
-    /// <summary>
-    /// Response for List virtual machine scale sets
+    /// List of virtual machine scale sets.
     /// </summary>
     public class VirtualMachineScaleSetListResult : IPageable<VirtualMachineScaleSet>
     {
@@ -176,7 +197,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Item in The list of virtual machine scale sets.
+    /// Virtual Machine scale set information.
     /// </summary>
     public class VirtualMachineScaleSet
     {
@@ -196,7 +217,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// properties
+    /// Virtual Machine scale set properties.
     /// </summary>
     public class VirtualMachineScaleSetProperties
     {
@@ -207,7 +228,7 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Response for List virtual machines in a VM scale set
+    /// List of virtual machines in a VM scale set.
     /// </summary>
     public class VirtualMachineInScaleSetListResult : IPageable<VirtualMachineInScaleSet>
     {
@@ -222,39 +243,18 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     }
 
     /// <summary>
-    /// Item in The list of virtual machines in a VM scale set.
+    /// List of virtual machines.
     /// </summary>
-    public class VirtualMachineInScaleSet
+    public class VirtualMachineListResult : IPageable<VirtualMachine>
     {
-        /// <summary>The ID of the virtual machine.</summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; init; }
+        /// <summary>The list of virtual machines.</summary>
+        [JsonPropertyName("value")]
+        public List<VirtualMachine> Value { get; set; }
 
-        /// <summary>The Name of the virtual machine.</summary>
-        [JsonPropertyName("name")]
+        /// <summary>The URL to get the next set of results.</summary>
+        [JsonPropertyName("nextLink")]
         [JsonInclude]
-        public string Name { get; init; }
-
-        /// <summary>The instance Id of the virtual machine.</summary>
-        [JsonPropertyName("instanceId")]
-        [JsonInclude]
-        public string InstanceId { get; init; }
-
-        /// <summary>properties</summary>
-        [JsonPropertyName("properties")]
-        public VirtualMachineInScaleSetProperties Properties { get; set; }
-    }
-
-    /// <summary>
-    /// properties
-    /// </summary>
-    public class VirtualMachineInScaleSetProperties
-    {
-        /// <summary>The state of the virtual machine.</summary>
-        [JsonPropertyName("provisioningState")]
-        [JsonInclude]
-        public string ProvisioningState { get; init; }
+        public string NextLink { get; init; }
     }
 
     /// <summary>
@@ -330,6 +330,64 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
     public static class AzureVMModelFactory
     {
         /// <summary>
+        /// Creates a new instance of <see cref="VirtualMachineInScaleSet"/>.
+        /// </summary>
+        public static VirtualMachineInScaleSet VirtualMachineInScaleSet(
+            string id = default,
+            string name = default,
+            string instanceId = default,
+            VirtualMachineInScaleSetProperties properties = default)
+        {
+            return new VirtualMachineInScaleSet
+            {
+                Id = id,
+                Name = name,
+                InstanceId = instanceId,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="VirtualMachineInScaleSetProperties"/>.
+        /// </summary>
+        public static VirtualMachineInScaleSetProperties VirtualMachineInScaleSetProperties(
+            string provisioningState = default)
+        {
+            return new VirtualMachineInScaleSetProperties
+            {
+                ProvisioningState = provisioningState,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="VirtualMachine"/>.
+        /// </summary>
+        public static VirtualMachine VirtualMachine(
+            string id = default,
+            string name = default,
+            VirtualMachineProperties properties = default)
+        {
+            return new VirtualMachine
+            {
+                Id = id,
+                Name = name,
+                Properties = properties,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="VirtualMachineProperties"/>.
+        /// </summary>
+        public static VirtualMachineProperties VirtualMachineProperties(
+            string provisioningState = default)
+        {
+            return new VirtualMachineProperties
+            {
+                ProvisioningState = provisioningState,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="SubscriptionListResult"/>.
         /// </summary>
         public static SubscriptionListResult SubscriptionListResult(
@@ -396,48 +454,6 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="VirtualMachineListResult"/>.
-        /// </summary>
-        public static VirtualMachineListResult VirtualMachineListResult(
-            List<VirtualMachine> value = default,
-            string nextLink = default)
-        {
-            return new VirtualMachineListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="VirtualMachine"/>.
-        /// </summary>
-        public static VirtualMachine VirtualMachine(
-            string id = default,
-            string name = default,
-            VirtualMachineProperties properties = default)
-        {
-            return new VirtualMachine
-            {
-                Id = id,
-                Name = name,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="VirtualMachineProperties"/>.
-        /// </summary>
-        public static VirtualMachineProperties VirtualMachineProperties(
-            string provisioningState = default)
-        {
-            return new VirtualMachineProperties
-            {
-                ProvisioningState = provisioningState,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="VirtualMachineScaleSetListResult"/>.
         /// </summary>
         public static VirtualMachineScaleSetListResult VirtualMachineScaleSetListResult(
@@ -494,32 +510,16 @@ namespace Azure.Connectors.Sdk.AzureVM.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="VirtualMachineInScaleSet"/>.
+        /// Creates a new instance of <see cref="VirtualMachineListResult"/>.
         /// </summary>
-        public static VirtualMachineInScaleSet VirtualMachineInScaleSet(
-            string id = default,
-            string name = default,
-            string instanceId = default,
-            VirtualMachineInScaleSetProperties properties = default)
+        public static VirtualMachineListResult VirtualMachineListResult(
+            List<VirtualMachine> value = default,
+            string nextLink = default)
         {
-            return new VirtualMachineInScaleSet
+            return new VirtualMachineListResult
             {
-                Id = id,
-                Name = name,
-                InstanceId = instanceId,
-                Properties = properties,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="VirtualMachineInScaleSetProperties"/>.
-        /// </summary>
-        public static VirtualMachineInScaleSetProperties VirtualMachineInScaleSetProperties(
-            string provisioningState = default)
-        {
-            return new VirtualMachineInScaleSetProperties
-            {
-                ProvisioningState = provisioningState,
+                Value = value,
+                NextLink = nextLink,
             };
         }
     }
@@ -596,115 +596,6 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// List subscriptions
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
-        public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2020-01-01");
-            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<SubscriptionListResult, Subscription>(
-                ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List resource groups
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscriptionId">Subscription Id</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
-        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, CancellationToken cancellationToken = default)
-        {
-            if (subscriptionId is null)
-                throw new ArgumentNullException(nameof(subscriptionId));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2020-01-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
-                ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List virtual machines
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscriptionId">Subscription Id</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="VirtualMachine"/> items across all pages.</returns>
-        public virtual AsyncPageable<VirtualMachine> VirtualMachinesListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
-        {
-            if (subscriptionId is null)
-                throw new ArgumentNullException(nameof(subscriptionId));
-            if (resourceGroup is null)
-                throw new ArgumentNullException(nameof(resourceGroup));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2019-12-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Compute/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<VirtualMachineListResult, VirtualMachine>(
-                ct => this.CallConnectorAsync<VirtualMachineListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<VirtualMachineListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List virtual machine scale sets
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscriptionId">Subscription Id</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="VirtualMachineScaleSet"/> items across all pages.</returns>
-        public virtual AsyncPageable<VirtualMachineScaleSet> VirtualMachineScaleSetsListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
-        {
-            if (subscriptionId is null)
-                throw new ArgumentNullException(nameof(subscriptionId));
-            if (resourceGroup is null)
-                throw new ArgumentNullException(nameof(resourceGroup));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2019-12-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Compute/virtualMachineScaleSets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<VirtualMachineScaleSetListResult, VirtualMachineScaleSet>(
-                ct => this.CallConnectorAsync<VirtualMachineScaleSetListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<VirtualMachineScaleSetListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
-
-        /// <summary>
-        /// List virtual machines in a VM scale set
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="subscriptionId">Subscription Id</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="VirtualMachineInScaleSet"/> items across all pages.</returns>
-        public virtual AsyncPageable<VirtualMachineInScaleSet> VirtualMachinesInScaleSetListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, CancellationToken cancellationToken = default)
-        {
-            if (subscriptionId is null)
-                throw new ArgumentNullException(nameof(subscriptionId));
-            if (resourceGroup is null)
-                throw new ArgumentNullException(nameof(resourceGroup));
-            if (virtualMachineScaleSet is null)
-                throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-            var queryParams = new List<string>();
-            queryParams.Add("x-ms-api-version=2019-12-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet.ToString())}/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<VirtualMachineInScaleSetListResult, VirtualMachineInScaleSet>(
-                ct => this.CallConnectorAsync<VirtualMachineInScaleSetListResult>(HttpMethod.Get, path, cancellationToken: ct),
-                (nextLink, ct) => this.CallConnectorAsync<VirtualMachineInScaleSetListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
-                cancellationToken);
-        }
 
         /// <summary>
         /// Get virtual machine in a VM scale set
@@ -1203,6 +1094,115 @@ namespace Azure.Connectors.Sdk.AzureVM
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// List subscriptions
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="Subscription"/> items across all pages.</returns>
+        public virtual AsyncPageable<Subscription> SubscriptionsListAsync(CancellationToken cancellationToken = default)
+        {
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2020-01-01");
+            var path = $"/subscriptions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<SubscriptionListResult, Subscription>(
+                ct => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<SubscriptionListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List resource groups
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscriptionId">Subscription Id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="ResourceGroup"/> items across all pages.</returns>
+        public virtual AsyncPageable<ResourceGroup> ResourceGroupsListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId is null)
+                throw new ArgumentNullException(nameof(subscriptionId));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2020-01-01");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
+                ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List virtual machine scale sets
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscriptionId">Subscription Id</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="VirtualMachineScaleSet"/> items across all pages.</returns>
+        public virtual AsyncPageable<VirtualMachineScaleSet> VirtualMachineScaleSetsListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId is null)
+                throw new ArgumentNullException(nameof(subscriptionId));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2019-12-01");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Compute/virtualMachineScaleSets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<VirtualMachineScaleSetListResult, VirtualMachineScaleSet>(
+                ct => this.CallConnectorAsync<VirtualMachineScaleSetListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<VirtualMachineScaleSetListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List virtual machines in a VM scale set
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscriptionId">Subscription Id</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="VirtualMachineInScaleSet"/> items across all pages.</returns>
+        public virtual AsyncPageable<VirtualMachineInScaleSet> VirtualMachinesInScaleSetListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId is null)
+                throw new ArgumentNullException(nameof(subscriptionId));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            if (virtualMachineScaleSet is null)
+                throw new ArgumentNullException(nameof(virtualMachineScaleSet));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2019-12-01");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet.ToString())}/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<VirtualMachineInScaleSetListResult, VirtualMachineInScaleSet>(
+                ct => this.CallConnectorAsync<VirtualMachineInScaleSetListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<VirtualMachineInScaleSetListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
+        }
+
+        /// <summary>
+        /// List virtual machines
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscriptionId">Subscription Id</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>An async enumerable of <see cref="VirtualMachine"/> items across all pages.</returns>
+        public virtual AsyncPageable<VirtualMachine> VirtualMachinesListAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, CancellationToken cancellationToken = default)
+        {
+            if (subscriptionId is null)
+                throw new ArgumentNullException(nameof(subscriptionId));
+            if (resourceGroup is null)
+                throw new ArgumentNullException(nameof(resourceGroup));
+            var queryParams = new List<string>();
+            queryParams.Add("x-ms-api-version=2019-12-01");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Compute/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<VirtualMachineListResult, VirtualMachine>(
+                ct => this.CallConnectorAsync<VirtualMachineListResult>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<VirtualMachineListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
     }

@@ -29,24 +29,6 @@ namespace Azure.Connectors.Sdk.Typeform.Models
     #region Types
 
     /// <summary>
-    /// Response for List forms
-    /// </summary>
-    public class ListFormsResponse
-    {
-        /// <summary>Total number of forms.</summary>
-        [JsonPropertyName("total_items")]
-        public int? TotalItems { get; set; }
-
-        /// <summary>Number of pages of results.</summary>
-        [JsonPropertyName("page_count")]
-        public int? PageCount { get; set; }
-
-        /// <summary>Forms in response.</summary>
-        [JsonPropertyName("items")]
-        public List<JsonElement?> Items { get; set; }
-    }
-
-    /// <summary>
     /// When a response is submitted
     /// </summary>
     public class NewResponseWebhookInput
@@ -61,7 +43,7 @@ namespace Azure.Connectors.Sdk.Typeform.Models
     }
 
     /// <summary>
-    /// Response for When a response is submitted
+    /// A JSON that contains information on the newly created webhook
     /// </summary>
     public class WebhookCreationResponse
     {
@@ -94,6 +76,24 @@ namespace Azure.Connectors.Sdk.Typeform.Models
         public DateTime? UpdatedAt { get; set; }
     }
 
+    /// <summary>
+    /// Response for List forms
+    /// </summary>
+    public class ListFormsResponse
+    {
+        /// <summary>Total number of forms.</summary>
+        [JsonPropertyName("total_items")]
+        public int? TotalItems { get; set; }
+
+        /// <summary>Number of pages of results.</summary>
+        [JsonPropertyName("page_count")]
+        public int? PageCount { get; set; }
+
+        /// <summary>Forms in response.</summary>
+        [JsonPropertyName("items")]
+        public List<JsonElement?> Items { get; set; }
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -105,22 +105,6 @@ namespace Azure.Connectors.Sdk.Typeform.Models
     /// </summary>
     public static class TypeformModelFactory
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="ListFormsResponse"/>.
-        /// </summary>
-        public static ListFormsResponse ListFormsResponse(
-            int? totalItems = default,
-            int? pageCount = default,
-            List<JsonElement?> items = default)
-        {
-            return new ListFormsResponse
-            {
-                TotalItems = totalItems,
-                PageCount = pageCount,
-                Items = items,
-            };
-        }
-
         /// <summary>
         /// Creates a new instance of <see cref="NewResponseWebhookInput"/>.
         /// </summary>
@@ -158,6 +142,22 @@ namespace Azure.Connectors.Sdk.Typeform.Models
                 UpdatedAt = updatedAt,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ListFormsResponse"/>.
+        /// </summary>
+        public static ListFormsResponse ListFormsResponse(
+            int? totalItems = default,
+            int? pageCount = default,
+            List<JsonElement?> items = default)
+        {
+            return new ListFormsResponse
+            {
+                TotalItems = totalItems,
+                PageCount = pageCount,
+                Items = items,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -184,6 +184,38 @@ namespace Azure.Connectors.Sdk.Typeform
     }
 
     #endregion Trigger Operation Constants
+
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the Typeform connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class TypeformTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnNewResponseWebhook trigger operation (operationId: NewResponseWebhook_V2).
+        /// </summary>
+        public static class OnNewResponseWebhook
+        {
+            /// <summary>
+            /// Select a form from the dropdown.
+            /// Required.
+            /// Dynamic values from: ListForms_V2.
+            /// </summary>
+            public const string FormId = "form_id";
+
+            /// <summary>
+            /// Unique name you want to use for the webhook.
+            /// Required.
+            /// </summary>
+            public const string Tag = "tag";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
 
     #region Client
 
@@ -278,6 +310,33 @@ namespace Azure.Connectors.Sdk.Typeform
                 var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="form">Form</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get schema response.</returns>
+        public virtual async Task<string> GetSchemaAsync([DynamicValues("ListForms_V2")] string form, CancellationToken cancellationToken = default)
+        {
+            using var activity = TypeformClient.ConnectorActivitySource.StartActivity("TypeformClient.GetSchemaAsync");
+            try
+            {
+                if (form is null)
+                    throw new ArgumentNullException(nameof(form));
+                var path = $"/forms/{Uri.EscapeDataString(form.ToString())}";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

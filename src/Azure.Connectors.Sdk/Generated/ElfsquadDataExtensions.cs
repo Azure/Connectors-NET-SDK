@@ -200,6 +200,32 @@ namespace Azure.Connectors.Sdk.ElfsquadData
 
     #endregion Trigger Operation Constants
 
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the ElfsquadData connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class ElfsquadDataTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnCreateTrigger trigger operation (operationId: create_trigger).
+        /// </summary>
+        public static class OnCreateTrigger
+        {
+            /// <summary>
+            /// Trigger name
+            /// Required.
+            /// Dynamic values from: get_triggers.
+            /// </summary>
+            public const string TriggerName = "trigger_name";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
     #region Client
 
     /// <summary>
@@ -265,127 +291,6 @@ namespace Azure.Connectors.Sdk.ElfsquadData
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get schemas
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetSchemasAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetSchemasAsync");
-            try
-            {
-                var path = $"/data/1";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get triggers
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetTriggersAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetTriggersAsync");
-            try
-            {
-                var path = $"/data/1/$triggers";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get function
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetFunctionsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetFunctionsAsync");
-            try
-            {
-                var path = $"/data/1/$functions";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get function definition
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="functionPath">function_path</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetFunctionDefinitionAsync(string functionPath, CancellationToken cancellationToken = default)
-        {
-            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetFunctionDefinitionAsync");
-            try
-            {
-                if (functionPath is null)
-                    throw new ArgumentNullException(nameof(functionPath));
-                var path = $"/data/1/$functions/$schema/{Uri.EscapeDataString(functionPath.ToString())}";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="entityName">entity_name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetSchemaAsync(string entityName, CancellationToken cancellationToken = default)
-        {
-            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetSchemaAsync");
-            try
-            {
-                if (entityName is null)
-                    throw new ArgumentNullException(nameof(entityName));
-                var path = $"/data/1/{Uri.EscapeDataString(entityName.ToString())}/$schema";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Get entities
@@ -562,6 +467,127 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                 var path = $"/{Uri.EscapeDataString(pathOfTheFunction.ToString())}";
                 return await this
                     .CallConnectorAsync<InvokeFunctionResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get triggers
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetTriggersAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetTriggersAsync");
+            try
+            {
+                var path = $"/data/1/$triggers";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get schemas
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetSchemasAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetSchemasAsync");
+            try
+            {
+                var path = $"/data/1";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="entityName">entity_name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetSchemaAsync(string entityName, CancellationToken cancellationToken = default)
+        {
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetSchemaAsync");
+            try
+            {
+                if (entityName is null)
+                    throw new ArgumentNullException(nameof(entityName));
+                var path = $"/data/1/{Uri.EscapeDataString(entityName.ToString())}/$schema";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get function
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetFunctionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetFunctionsAsync");
+            try
+            {
+                var path = $"/data/1/$functions";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get function definition
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="functionPath">function_path</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetFunctionDefinitionAsync(string functionPath, CancellationToken cancellationToken = default)
+        {
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetFunctionDefinitionAsync");
+            try
+            {
+                if (functionPath is null)
+                    throw new ArgumentNullException(nameof(functionPath));
+                var path = $"/data/1/$functions/$schema/{Uri.EscapeDataString(functionPath.ToString())}";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

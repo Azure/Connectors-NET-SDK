@@ -616,6 +616,20 @@ namespace Azure.Connectors.Sdk.Office365Groups
 
         }
 
+        /// <summary>
+        /// Input parameters for the OnNewEvent trigger operation (operationId: OnNewEvent).
+        /// </summary>
+        public static class OnNewEvent
+        {
+            /// <summary>
+            /// Pick a group from the drop down or enter group id.
+            /// Required.
+            /// Dynamic values from: ListOwnedGroups_V2.
+            /// </summary>
+            public const string GroupId = "groupId";
+
+        }
+
     }
 
     #endregion Trigger Parameter Metadata

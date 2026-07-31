@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     #region Types
 
     /// <summary>
-    /// Response for Get my networks
+    /// Properties of a single network.
     /// </summary>
     public class Network
     {
@@ -47,7 +47,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// Response for Get groups
+    /// Properties of a single Viva Engage entity.
     /// </summary>
     public class YammerEntity
     {
@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// Response for Get user details
+    /// Properties of Viva Engage user.
     /// </summary>
     public class User
     {
@@ -111,7 +111,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// Response for Get all messages (V3)
+    /// List of one or multiple messages.
     /// </summary>
     public class PageableMessageList
     {
@@ -121,7 +121,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Properties of a single Viva Engage message.
     /// </summary>
     public class Message
     {
@@ -211,7 +211,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// body
+    /// Content associated with a single message.
     /// </summary>
     public class MessageBody
     {
@@ -229,7 +229,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// liked_by
+    /// Liked By
     /// </summary>
     public class LikedBy
     {
@@ -243,7 +243,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// Response for When there is a new message in my followed feed (V2)
+    /// List of one or multiple messages.
     /// </summary>
     public class MessageList
     {
@@ -253,7 +253,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     }
 
     /// <summary>
-    /// PostOperationRequestV2
+    /// Represents a post request for Viva Engage Connector to post to Viva Engage.
     /// </summary>
     public class PostOperationRequest
     {
@@ -552,6 +552,13 @@ namespace Azure.Connectors.Sdk.Yammer
             /// Dynamic values from: GetNetworks.
             /// </summary>
             public const string NetworkId = "network_id";
+
+            /// <summary>
+            /// Unique identifier of the group.
+            /// Required.
+            /// Dynamic values from: GetGroups.
+            /// </summary>
+            public const string GroupId = "group_id";
 
             /// <summary>
             /// Trigger state

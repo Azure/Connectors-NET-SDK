@@ -213,6 +213,60 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
 
     #endregion Trigger Operation Constants
 
+    #region Trigger Parameter Metadata
+
+    /// <summary>
+    /// Trigger input parameter name constants for the MicrosoftBookings connector.
+    /// These correspond to the Connector Namespace TriggerConfig <c>parameters</c> array.
+    /// </summary>
+    public static class MicrosoftBookingsTriggerParameters
+    {
+        /// <summary>
+        /// Input parameters for the OnCreateAppointment trigger operation (operationId: CreateAppointment).
+        /// </summary>
+        public static class OnCreateAppointment
+        {
+            /// <summary>
+            /// Select a booking page
+            /// Required.
+            /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
+            /// </summary>
+            public const string SMTPAddress = "SMTPAddress";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnUpdateAppointment trigger operation (operationId: UpdateAppointment).
+        /// </summary>
+        public static class OnUpdateAppointment
+        {
+            /// <summary>
+            /// Select a booking page
+            /// Required.
+            /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
+            /// </summary>
+            public const string SMTPAddress = "SMTPAddress";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnCancelAppointment trigger operation (operationId: CancelAppointment).
+        /// </summary>
+        public static class OnCancelAppointment
+        {
+            /// <summary>
+            /// Select a booking page
+            /// Required.
+            /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
+            /// </summary>
+            public const string SMTPAddress = "SMTPAddress";
+
+        }
+
+    }
+
+    #endregion Trigger Parameter Metadata
+
     #region Client
 
     /// <summary>

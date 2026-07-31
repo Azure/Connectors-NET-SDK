@@ -39,7 +39,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Row
     /// </summary>
     [DynamicSchema("listKustoResultsSchemaPost")]
     public class Row
@@ -47,18 +47,6 @@ namespace Azure.Connectors.Sdk.Kusto.Models
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
         /// Populate this dictionary with the properties returned by the schema API.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
-    /// Response for Query schema
-    /// </summary>
-    public class ObjectEntity
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
@@ -136,6 +124,18 @@ namespace Azure.Connectors.Sdk.Kusto.Models
         /// <summary>error</summary>
         [JsonPropertyName("error")]
         public JsonElement? Error { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Query schema
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -550,31 +550,6 @@ namespace Azure.Connectors.Sdk.Kusto
         }
 
         /// <summary>
-        /// Query schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Query schema response.</returns>
-        public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
-        {
-            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.ListKustoResultsSchemaAsync");
-            try
-            {
-                var path = $"/ListKustoResultsSchema";
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Run KQL query and render a chart
         /// </summary>
         /// <remarks>Runs the KQL query and returns result as a chart of your choice e.g TableName | where Timestamp &gt; ago(1h) | project timestamp, value.</remarks>
@@ -668,6 +643,31 @@ namespace Azure.Connectors.Sdk.Kusto
                 var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Query schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Query schema response.</returns>
+        public virtual async Task<ObjectEntity> ListKustoResultsSchemaAsync(QueryAndListSchema input, CancellationToken cancellationToken = default)
+        {
+            using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.ListKustoResultsSchemaAsync");
+            try
+            {
+                var path = $"/ListKustoResultsSchema";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

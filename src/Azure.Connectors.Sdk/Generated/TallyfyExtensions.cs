@@ -29,30 +29,6 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     #region Types
 
     /// <summary>
-    /// Response for Get organization&apos;s users
-    /// </summary>
-    public class GetOrganizationUsersResponse
-    {
-        /// <summary>data</summary>
-        [JsonPropertyName("data")]
-        public List<JsonElement?> Data { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get user&apos;s organizations
-    /// </summary>
-    public class GetUserOrganizationsResponse
-    {
-        /// <summary>data</summary>
-        [JsonPropertyName("data")]
-        public List<JsonElement?> Data { get; set; }
-
-        /// <summary>meta</summary>
-        [JsonPropertyName("meta")]
-        public JsonElement? Meta { get; set; }
-    }
-
-    /// <summary>
     /// Response for Get a member&apos;s tasks
     /// </summary>
     public class GetUserTasksResponse
@@ -337,6 +313,30 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     }
 
     /// <summary>
+    /// Response for Get user&apos;s organizations
+    /// </summary>
+    public class GetUserOrganizationsResponse
+    {
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public List<JsonElement?> Data { get; set; }
+
+        /// <summary>meta</summary>
+        [JsonPropertyName("meta")]
+        public JsonElement? Meta { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get organization&apos;s users
+    /// </summary>
+    public class GetOrganizationUsersResponse
+    {
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public List<JsonElement?> Data { get; set; }
+    }
+
+    /// <summary>
     /// Extensible enum for known Label values.
     /// </summary>
     [JsonConverter(typeof(Label.LabelJsonConverter))]
@@ -565,32 +565,6 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
     public static class TallyfyModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GetOrganizationUsersResponse"/>.
-        /// </summary>
-        public static GetOrganizationUsersResponse GetOrganizationUsersResponse(
-            List<JsonElement?> data = default)
-        {
-            return new GetOrganizationUsersResponse
-            {
-                Data = data,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetUserOrganizationsResponse"/>.
-        /// </summary>
-        public static GetUserOrganizationsResponse GetUserOrganizationsResponse(
-            List<JsonElement?> data = default,
-            JsonElement? meta = default)
-        {
-            return new GetUserOrganizationsResponse
-            {
-                Data = data,
-                Meta = meta,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="GetUserTasksResponse"/>.
         /// </summary>
         public static GetUserTasksResponse GetUserTasksResponse(
@@ -761,6 +735,32 @@ namespace Azure.Connectors.Sdk.Tallyfy.Models
                 StepType = stepType,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetUserOrganizationsResponse"/>.
+        /// </summary>
+        public static GetUserOrganizationsResponse GetUserOrganizationsResponse(
+            List<JsonElement?> data = default,
+            JsonElement? meta = default)
+        {
+            return new GetUserOrganizationsResponse
+            {
+                Data = data,
+                Meta = meta,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetOrganizationUsersResponse"/>.
+        /// </summary>
+        public static GetOrganizationUsersResponse GetOrganizationUsersResponse(
+            List<JsonElement?> data = default)
+        {
+            return new GetOrganizationUsersResponse
+            {
+                Data = data,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -835,57 +835,6 @@ namespace Azure.Connectors.Sdk.Tallyfy
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
-
-        /// <summary>
-        /// Get organization&apos;s users
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="organization">Organization</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get organization&apos;s users response.</returns>
-        public virtual async Task<GetOrganizationUsersResponse> GetOrganizationUsersAsync([DynamicValues("Get_User_Organizations")] string organization, CancellationToken cancellationToken = default)
-        {
-            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetOrganizationUsersAsync");
-            try
-            {
-                if (organization is null)
-                    throw new ArgumentNullException(nameof(organization));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users";
-                return await this
-                    .CallConnectorAsync<GetOrganizationUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get user&apos;s organizations
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get user&apos;s organizations response.</returns>
-        public virtual async Task<GetUserOrganizationsResponse> GetUserOrganizationsAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetUserOrganizationsAsync");
-            try
-            {
-                var path = $"/me/organizations";
-                return await this
-                    .CallConnectorAsync<GetUserOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
 
         /// <summary>
         /// Get a member&apos;s tasks
@@ -1292,6 +1241,57 @@ namespace Azure.Connectors.Sdk.Tallyfy
                 var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/blueprints/{Uri.EscapeDataString(blueprintId.ToString())}/steps/{Uri.EscapeDataString(stepId.ToString())}/edit-step-type";
                 return await this
                     .CallConnectorAsync<EditStepTypeResponse>(HttpMethod.Put, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get user&apos;s organizations
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get user&apos;s organizations response.</returns>
+        public virtual async Task<GetUserOrganizationsResponse> GetUserOrganizationsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetUserOrganizationsAsync");
+            try
+            {
+                var path = $"/me/organizations";
+                return await this
+                    .CallConnectorAsync<GetUserOrganizationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get organization&apos;s users
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="organization">Organization</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get organization&apos;s users response.</returns>
+        public virtual async Task<GetOrganizationUsersResponse> GetOrganizationUsersAsync([DynamicValues("Get_User_Organizations")] string organization, CancellationToken cancellationToken = default)
+        {
+            using var activity = TallyfyClient.ConnectorActivitySource.StartActivity("TallyfyClient.GetOrganizationUsersAsync");
+            try
+            {
+                if (organization is null)
+                    throw new ArgumentNullException(nameof(organization));
+                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users";
+                return await this
+                    .CallConnectorAsync<GetOrganizationUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

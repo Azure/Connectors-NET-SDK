@@ -29,18 +29,6 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
     #region Types
 
     /// <summary>
-    /// Response for Fetches the schema of the selected file
-    /// </summary>
-    public class GetFileSchemaResponse
-    {
-        /// <summary>
-        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
-        /// </summary>
-        [JsonExtensionData]
-        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
-    }
-
-    /// <summary>
     /// Populate a Microsoft Word template
     /// </summary>
     [DynamicSchema("GetFileSchema")]
@@ -75,7 +63,19 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness.Models
     }
 
     /// <summary>
-    /// ContentBody
+    /// Response for Fetches the schema of the selected file
+    /// </summary>
+    public class GetFileSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Content for the word document
     /// </summary>
     public class ContentBody
     {
@@ -206,43 +206,6 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Fetches the schema of the selected file
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="source">source</param>
-        /// <param name="drive">drive</param>
-        /// <param name="file">file</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Fetches the schema of the selected file response.</returns>
-        public virtual async Task<GetFileSchemaResponse> GetFileSchemaAsync(string source, string drive, string @file, CancellationToken cancellationToken = default)
-        {
-            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFileSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (source is null)
-                    throw new ArgumentNullException(nameof(source));
-                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
-                if (drive is null)
-                    throw new ArgumentNullException(nameof(drive));
-                queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
-                if (@file is null)
-                    throw new ArgumentNullException(nameof(@file));
-                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
-                var path = $"/api/templates/schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetFileSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Populate a Microsoft Word template
         /// </summary>
         /// <remarks>Reads a Microsoft Word template to then fill the template fields with selected dynamic values to generate a Word Document.</remarks>
@@ -310,6 +273,50 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         }
 
         /// <summary>
+        /// Convert Word Document to PDF
+        /// </summary>
+        /// <remarks>Gets a PDF version of the selected file</remarks>
+        /// <param name="location">Location</param>
+        /// <param name="documentLibrary">Document Library</param>
+        /// <param name="file">File</param>
+        /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
+        /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Word Document to PDF response.</returns>
+        public virtual async Task<byte[]> GetFilePDFAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFilePDFAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("format=pdf");
+                if (location is null)
+                    throw new ArgumentNullException(nameof(location));
+                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
+                if (documentLibrary is null)
+                    throw new ArgumentNullException(nameof(documentLibrary));
+                queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
+                if (@file is null)
+                    throw new ArgumentNullException(nameof(@file));
+                queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
+                if (extractSensitivityLabel.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                if (sensitivityLabelMetadata.HasValue)
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
+                var path = $"/api/templates/convertFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get sources
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -360,39 +367,32 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         }
 
         /// <summary>
-        /// Convert Word Document to PDF
+        /// Fetches the schema of the selected file
         /// </summary>
-        /// <remarks>Gets a PDF version of the selected file</remarks>
-        /// <param name="location">Location</param>
-        /// <param name="documentLibrary">Document Library</param>
-        /// <param name="file">File</param>
-        /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
-        /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="source">source</param>
+        /// <param name="drive">drive</param>
+        /// <param name="file">file</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Convert Word Document to PDF response.</returns>
-        public virtual async Task<byte[]> GetFilePDFAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        /// <returns>The Fetches the schema of the selected file response.</returns>
+        public virtual async Task<GetFileSchemaResponse> GetFileSchemaAsync(string source, string drive, string @file, CancellationToken cancellationToken = default)
         {
-            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFilePDFAsync");
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFileSchemaAsync");
             try
             {
                 var queryParams = new List<string>();
-                queryParams.Add("format=pdf");
-                if (location is null)
-                    throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                if (documentLibrary is null)
-                    throw new ArgumentNullException(nameof(documentLibrary));
-                queryParams.Add($"drive={Uri.EscapeDataString(documentLibrary.ToString())}");
+                if (source is null)
+                    throw new ArgumentNullException(nameof(source));
+                queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                if (drive is null)
+                    throw new ArgumentNullException(nameof(drive));
+                queryParams.Add($"drive={Uri.EscapeDataString(drive.ToString())}");
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
                 queryParams.Add($"file={Uri.EscapeDataString(@file.ToString())}");
-                if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
-                if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
-                var path = $"/api/templates/convertFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/api/templates/schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<GetFileSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

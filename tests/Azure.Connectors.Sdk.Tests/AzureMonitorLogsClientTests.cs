@@ -392,5 +392,54 @@ namespace Azure.Connectors.Sdk.Tests
             // Assert - calling Dispose again should not throw (idempotent)
             client.Dispose();
         }
+        [TestMethod]
+        public async Task QuerySchemaV2Async_WithMockedResponse_ReturnsExpected()
+        {
+            // Arrange
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{}")
+            };
+
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(responseMessage)
+                .Callback(() => { })
+                .Verifiable();
+
+            var mockCredential = new Mock<TokenCredential>();
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AccessToken("mock-token", DateTimeOffset.UtcNow.AddHours(1)));
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            using var client = new AzureMonitorLogsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object,
+                options: options);
+
+            // Act
+            var result = await client
+                .QuerySchemaV2Async(
+                    input: "Heartbeat | take 10",
+                    subscription: "sub-1",
+                    resourceGroup: "rg-1",
+                    resourceType: "Microsoft.OperationalInsights/workspaces",
+                    resourceName: "my-workspace",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
     }
 }

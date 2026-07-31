@@ -44,7 +44,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Draft an email message
+    /// Received message from outlook rest api
     /// </summary>
     public class OutlookReceiveMessage
     {
@@ -129,7 +129,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in Attachments
+    /// Attachment
     /// </summary>
     public class OutlookReceiveAttachment
     {
@@ -222,7 +222,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in Internet message headers
+    /// Class representing a data structure for an Internet message header which is considered as SMTP header by Exchange
     /// </summary>
     public class InternetMessageHeader
     {
@@ -264,7 +264,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Send email with options
+    /// Base response model that connector returns to LA engine
     /// </summary>
     public class SubscriptionResponse
     {
@@ -328,7 +328,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get event (V3)
+    /// Connector specific calendar event model class for the client with Graph API
     /// </summary>
     public class GraphCalendarEventClientReceive
     {
@@ -467,7 +467,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get events (V4)
+    /// The list of calendar items returned by Graph API
     /// </summary>
     public class GraphCalendarEventListClientReceive
     {
@@ -477,7 +477,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for When an event is added, updated or deleted (V3)
+    /// The list of calendar items with action type
     /// </summary>
     public class GraphCalendarEventListWithActionType
     {
@@ -487,7 +487,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in List of calendar items
+    /// Graph calendar event model with action type
     /// </summary>
     public class GraphCalendarEventClientWithActionType
     {
@@ -648,7 +648,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get contact (V2)
+    /// Contact
     /// </summary>
     public class ContactResponse
     {
@@ -702,7 +702,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The contact&apos;s email addresses</summary>
         [JsonPropertyName("emailAddresses")]
-        public List<EmailAddress> EmailAddresses { get; set; }
+        public List<EmailAddressV2> EmailAddresses { get; set; }
 
         /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
         [JsonPropertyName("imAddresses")]
@@ -796,6 +796,20 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
+    /// Item in The contact&apos;s email addresses
+    /// </summary>
+    public class EmailAddressV2
+    {
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>address</summary>
+        [JsonPropertyName("address")]
+        public string Address { get; set; }
+    }
+
+    /// <summary>
     /// homeAddress
     /// </summary>
     public class PhysicalAddress
@@ -822,7 +836,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get contacts (V2)
+    /// Entity list response
     /// </summary>
     public class EntityListResponseContactResponse
     {
@@ -832,7 +846,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get contact folders (V2)
+    /// Entity list response
     /// </summary>
     public class EntityListResponseGraphContactFolder
     {
@@ -842,7 +856,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in List of values
+    /// Contact folder data model returned by Graph API
     /// </summary>
     public class GraphContactFolder
     {
@@ -1009,7 +1023,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get email (V2)
+    /// Graph Client Receive Email Message
     /// </summary>
     public class GraphClientReceiveMessage
     {
@@ -1087,7 +1101,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in The file attachments for the message
+    /// File Attachment
     /// </summary>
     public class GraphClientReceiveFileAttachment
     {
@@ -1126,7 +1140,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get emails (V3)
+    /// Represents a wrapper object for batch response
     /// </summary>
     public class BatchResponseGraphClientReceiveMessage
     {
@@ -1137,7 +1151,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get calendar view of events (V3)
+    /// Entity list response
     /// </summary>
     public class EntityListResponseGraphCalendarEventClientReceive
     {
@@ -1171,7 +1185,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Item in value
+    /// Mail tips client model returned to the caller
     /// </summary>
     public class MailTipsClientReceive
     {
@@ -1201,7 +1215,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// automaticReplies
+    /// Automatic replies as part of mail tips
     /// </summary>
     public class MailTipsAutomaticReplies
     {
@@ -1251,7 +1265,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for When an email is flagged (V4)
+    /// Represents a wrapper object for batch trigger response
     /// </summary>
     public class TriggerBatchResponseGraphClientReceiveMessage
     {
@@ -1271,7 +1285,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// automaticRepliesSetting
+    /// Automatic replies setting model for the connector
     /// </summary>
     public class AutomaticRepliesSettingClient
     {
@@ -1311,7 +1325,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// ClientSendAttachment
+    /// Attachment
     /// </summary>
     public class ClientSendAttachment
     {
@@ -1325,7 +1339,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// ClientSendHtmlMessage
+    /// Send HTML Email Message
     /// </summary>
     public class SendEmailInput
     {
@@ -1371,7 +1385,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// ClientDraftHtmlMessage
+    /// Draft an HTML Email Message
     /// </summary>
     public class DraftEmailInput
     {
@@ -1417,7 +1431,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// ReplyHtmlMessage
+    /// Properties of an HTML email reply message.
     /// </summary>
     public class ReplyEmailInput
     {
@@ -1455,7 +1469,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// OptionsEmailSubscription
+    /// Model for Options Email Subscription
     /// </summary>
     public class OptionsEmailSubscription
     {
@@ -1469,7 +1483,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Message
+    /// User Options Email Message. This is the message expected as part of user input
     /// </summary>
     public class MessageWithOptions
     {
@@ -1523,7 +1537,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// ApprovalEmailSubscription
+    /// Model for Approval Email Subscription
     /// </summary>
     public class ApprovalEmailSubscription
     {
@@ -1537,7 +1551,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Message
+    /// Approval Email Message. This is the message expected as part of user input
     /// </summary>
     public class ApprovalMessage
     {
@@ -1587,7 +1601,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// SharedMailboxClientSendHtmlMessage
+    /// Shared Mailbox Send HTML Email Message
     /// </summary>
     public class SharedMailboxSendEmailInput
     {
@@ -1633,7 +1647,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// GraphCalendarEventClient
+    /// Connector specific calendar event model class for the client for graph API
     /// </summary>
     public class GraphCalendarEventClient
     {
@@ -1723,7 +1737,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// UpdateEmailFlag
+    /// Update email flag body
     /// </summary>
     public class UpdateEmailFlag
     {
@@ -1733,7 +1747,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// ResponseToEventInvite
+    /// Response to an event invite
     /// </summary>
     public class ResponseToEventInvite
     {
@@ -1747,7 +1761,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// DirectForwardMessage
+    /// Directly forward message
     /// </summary>
     public class DirectForwardMessage
     {
@@ -1761,7 +1775,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// DateTimeTimeZone_V2
+    /// DateTimeTimeZone
     /// </summary>
     public class DateTimeTimeZone
     {
@@ -1775,7 +1789,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Contact_V2
+    /// Contact
     /// </summary>
     public class Contact
     {
@@ -1829,7 +1843,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The contact&apos;s email addresses</summary>
         [JsonPropertyName("emailAddresses")]
-        public List<EmailAddress> EmailAddresses { get; set; }
+        public List<EmailAddressV2> EmailAddresses { get; set; }
 
         /// <summary>The contact&apos;s instant messaging (IM) addresses</summary>
         [JsonPropertyName("imAddresses")]
@@ -3367,7 +3381,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             string surname = default,
             string title = default,
             string generation = default,
-            List<EmailAddress> emailAddresses = default,
+            List<EmailAddressV2> emailAddresses = default,
             List<string> imAddresses = default,
             string jobTitle = default,
             string companyName = default,
@@ -3428,6 +3442,20 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 ChangeKey = changeKey,
                 CreatedTime = createdTime,
                 LastModifiedTime = lastModifiedTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailAddressV2"/>.
+        /// </summary>
+        public static EmailAddressV2 EmailAddressV2(
+            string name = default,
+            string address = default)
+        {
+            return new EmailAddressV2
+            {
+                Name = name,
+                Address = address,
             };
         }
 
@@ -4201,7 +4229,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             string surname = default,
             string title = default,
             string generation = default,
-            List<EmailAddress> emailAddresses = default,
+            List<EmailAddressV2> emailAddresses = default,
             List<string> imAddresses = default,
             string jobTitle = default,
             string companyName = default,
@@ -4467,6 +4495,13 @@ namespace Azure.Connectors.Sdk.Office365
         public static class OnCalendarChangedItems
         {
             /// <summary>
+            /// Select a calendar
+            /// Required.
+            /// Dynamic values from: CalendarGetTables_V2.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
             /// Number of incoming days in calendar to be tracked
             /// Default: 300.
             /// </summary>
@@ -4485,6 +4520,13 @@ namespace Azure.Connectors.Sdk.Office365
         /// </summary>
         public static class OnCalendarNewItems
         {
+            /// <summary>
+            /// Select a calendar
+            /// Required.
+            /// Dynamic values from: CalendarGetTables_V2.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>
@@ -4517,6 +4559,13 @@ namespace Azure.Connectors.Sdk.Office365
         /// </summary>
         public static class OnCalendarUpdatedItems
         {
+            /// <summary>
+            /// Select a calendar
+            /// Required.
+            /// Dynamic values from: CalendarGetTables_V2.
+            /// </summary>
+            public const string Table = "table";
+
             /// <summary>
             /// An ODATA filter query to restrict the entries returned (e.g. stringColumn eq &apos;string&apos; OR numberColumn lt 123).
             /// </summary>

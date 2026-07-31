@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     #region Types
 
     /// <summary>
-    /// Response for Create a blank Word DOCX document
+    /// Result of creating a blank Word document
     /// </summary>
     public class CreateBlankDocxResponse
     {
@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Deletes a table row in an existing table in a Word DOCX document
+    /// Result of running an Delete Table Row command
     /// </summary>
     public class DeleteDocxTableRowResponse
     {
@@ -57,7 +57,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Deletes a range of multiple table rows in an existing table in a Word
+    /// Result of running an Delete Table Row Range command
     /// </summary>
     public class DeleteDocxTableRowRangeResponse
     {
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get body from a Word DOCX document
+    /// Result of running a Get-Body command
     /// </summary>
     public class GetDocxBodyResponse
     {
@@ -103,7 +103,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in All paragraphs anywhere in the document; these objects are not sequentially placed but are scatted across document
+    /// A paragraph in a Word Document (DOCX) file; there is where text, content and formatting are stored - similar to the paragraph tag in HTML
     /// </summary>
     public class DocxParagraph
     {
@@ -125,7 +125,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in The content runs in the paragraph - this is where text is stored; similar to a span in HTML
+    /// A content run in a Word Document (DOCX) file
     /// </summary>
     public class DocxRun
     {
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Text items inside the run; this is where the actual text content is stored
+    /// Unit of text content in a Word Document (DOCX) file
     /// </summary>
     public class DocxText
     {
@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in All tables anywhere in the document; these objects are not sequentially placed but are scatted across the document
+    /// A table in a Word Document (DOCX) file
     /// </summary>
     public class DocxTable
     {
@@ -343,7 +343,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Rows in the table; this is where the contents is located
+    /// A row in a Word Document (DOCX) file
     /// </summary>
     public class DocxTableRow
     {
@@ -361,7 +361,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Cells in the row; this is where the contents of the row is stored
+    /// A cell in a Word Document (DOCX) file
     /// </summary>
     public class DocxTableCell
     {
@@ -399,7 +399,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get comments from a Word DOCX document hierarchically
+    /// Result of getting comments hierarchically from a Word Document DOCX
     /// </summary>
     public class GetDocxCommentsHierarchicalResponse
     {
@@ -417,7 +417,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Comments in the document
+    /// Top-level Comment in a Word Document
     /// </summary>
     public class DocxTopLevelComment
     {
@@ -451,7 +451,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Child comments, that are replies to this one
+    /// Comment in a Word Document
     /// </summary>
     public class DocxComment
     {
@@ -493,7 +493,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get content of a footer from a Word DOCX document
+    /// Result of running a Get-Tables command
     /// </summary>
     public class GetDocxHeadersAndFootersResponse
     {
@@ -511,7 +511,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Footers
+    /// Footer in a Word Document (DOCX)
     /// </summary>
     public class DocxFooter
     {
@@ -529,7 +529,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Sections that the footer is applied to
+    /// Section of a Word Document (DOCX)
     /// </summary>
     public class DocxSection
     {
@@ -543,7 +543,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Headers
+    /// Header of a Word Document (DOCX)
     /// </summary>
     public class DocxHeader
     {
@@ -561,7 +561,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get images from a Word DOCX document
+    /// Result of running a Get-Images command
     /// </summary>
     public class GetDocxImagesResponse
     {
@@ -633,7 +633,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get pages and content from a Word DOCX document
+    /// Result of getting pages from a Word Document DOCX
     /// </summary>
     public class GetDocxPagesResponse
     {
@@ -651,7 +651,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Pages in the document
+    /// One page in a Word Document DOCX
     /// </summary>
     public class DocxPage
     {
@@ -665,7 +665,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get sections from a Word DOCX document
+    /// Result of running a Get-Sections command
     /// </summary>
     public class GetDocxSectionsResponse
     {
@@ -679,7 +679,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get styles from a Word DOCX document
+    /// Result of running a Get-Tables command
     /// </summary>
     public class GetDocxStylesResponse
     {
@@ -693,7 +693,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Styles in the DOCX document
+    /// Style in a DOCX Word Document
     /// </summary>
     public class DocxStyle
     {
@@ -727,7 +727,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Gets the contents of an existing table row in an existing table in a W
+    /// Result of running an Get Table Row command
     /// </summary>
     public class GetDocxTableRowResponse
     {
@@ -741,7 +741,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get a specific table by index in a Word DOCX document
+    /// Result of running a Get-Tables by Index command
     /// </summary>
     public class GetDocxTableByIndexResponse
     {
@@ -755,7 +755,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get all tables in Word DOCX document
+    /// Result of running a Get-Tables command
     /// </summary>
     public class GetDocxTablesResponse
     {
@@ -769,7 +769,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Insert a new comment into a Word DOCX document attached to a paragraph
+    /// Result of running an Insert-Comment-on-Paragraph command
     /// </summary>
     public class InsertDocxCommentOnParagraphResponse
     {
@@ -783,7 +783,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Insert image into a Word DOCX document
+    /// Result of running a set-footer command
     /// </summary>
     public class DocxInsertImageResponse
     {
@@ -797,7 +797,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Insert a new paragraph into a Word DOCX document
+    /// Result of running an Insert-Paragraph command
     /// </summary>
     public class InsertDocxInsertParagraphResponse
     {
@@ -811,7 +811,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Insert a new table into a Word DOCX document
+    /// Result of running an Insert-Tables command
     /// </summary>
     public class InsertDocxTablesResponse
     {
@@ -825,7 +825,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Insert a new row into an existing table in a Word DOCX document
+    /// Result of running an Insert-Table Row command
     /// </summary>
     public class InsertDocxTableRowResponse
     {
@@ -839,7 +839,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Remove headers and footers from Word DOCX document
+    /// Result of running a Remove Headers and Footers command
     /// </summary>
     public class RemoveDocxHeadersAndFootersResponse
     {
@@ -853,7 +853,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Delete any object in a Word DOCX document
+    /// Result of running an Remove-Object command
     /// </summary>
     public class DocxRemoveObjectResponse
     {
@@ -867,7 +867,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Set the footer in a Word DOCX document
+    /// Result of running a set-footer command
     /// </summary>
     public class DocxSetFooterResponse
     {
@@ -881,7 +881,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Set the header in a Word DOCX document
+    /// Result of running a set-header command
     /// </summary>
     public class DocxSetHeaderResponse
     {
@@ -895,7 +895,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Update, set contents of a table cell in an existing table in a Word DO
+    /// Result of running an Update Table Cell command
     /// </summary>
     public class UpdateDocxTableCellResponse
     {
@@ -909,7 +909,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Update, set contents of a table row in an existing table in a Word DOCX document
+    /// Result of running an Update Table Row command
     /// </summary>
     public class UpdateDocxTableRowResponse
     {
@@ -923,7 +923,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Clear cell contents in an Excel XLSX spreadsheet, worksheet by index
+    /// Result of running a Clear XLSX Cell command
     /// </summary>
     public class ClearXlsxCellResponse
     {
@@ -937,7 +937,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Create a blank Excel XLSX spreadsheet
+    /// Result of creating a blank worksheet
     /// </summary>
     public class CreateBlankSpreadsheetResponse
     {
@@ -951,7 +951,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Create a new Excel XLSX spreadsheet from column and row data
+    /// Result of creating a new worksheet from rows and cells
     /// </summary>
     public class CreateSpreadsheetFromDataResponse
     {
@@ -977,7 +977,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get cell from an Excel XLSX spreadsheet, worksheet by cell identifier
+    /// Result of running a Get-Cell command
     /// </summary>
     public class GetXlsxCellByIdentifierResponse
     {
@@ -991,7 +991,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Requested Cell in the Excel XLSX document
+    /// Cell in an Excel Spreadsheet worksheet
     /// </summary>
     public class XlsxSpreadsheetCell
     {
@@ -1017,7 +1017,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get cell from an Excel XLSX spreadsheet, worksheet by index
+    /// Result of running a Get-Cell command
     /// </summary>
     public class GetXlsxCellResponse
     {
@@ -1031,7 +1031,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get rows and cells from a Excel XLSX spreadsheet, worksheet
+    /// Result of running a Get-Columns command
     /// </summary>
     public class GetXlsxColumnsResponse
     {
@@ -1045,7 +1045,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Spreadsheet Columns in the XLSX document
+    /// Column in an Excel spreadsheet worksheet
     /// </summary>
     public class XlsxSpreadsheetColumn
     {
@@ -1059,7 +1059,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get images from a Excel XLSX spreadsheet, worksheet
+    /// Result of running a Get-Images command
     /// </summary>
     public class GetXlsxImagesResponse
     {
@@ -1099,7 +1099,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get rows and cells from a Excel XLSX spreadsheet, worksheet
+    /// Result of running a Get-Worksheets command
     /// </summary>
     public class GetXlsxRowsAndCellsResponse
     {
@@ -1113,7 +1113,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Spreadsheet Rows in the Excel XLSX document
+    /// Row in an Excel spreadsheet worksheet
     /// </summary>
     public class XlsxSpreadsheetRow
     {
@@ -1127,7 +1127,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get styles from a Excel XLSX spreadsheet, worksheet
+    /// Result of running a Get-Worksheets command
     /// </summary>
     public class GetXlsxStylesResponse
     {
@@ -1141,7 +1141,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Cell styles
+    /// Style in an Excel spreadsheet
     /// </summary>
     public class DocxCellStyle
     {
@@ -1163,7 +1163,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Get worksheets from a Excel XLSX spreadsheet
+    /// Result of running a Get-Worksheets command
     /// </summary>
     public class GetXlsxWorksheetsResponse
     {
@@ -1177,7 +1177,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Item in Worksheets in the Excel XLSX spreadsheet
+    /// A worksheet (tab) in an Excel (XLSX) spreadsheet
     /// </summary>
     public class XlsxWorksheet
     {
@@ -1191,7 +1191,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Insert a new worksheet into an Excel XLSX spreadsheet
+    /// Result of running a Get-Worksheets command
     /// </summary>
     public class InsertXlsxWorksheetResponse
     {
@@ -1205,7 +1205,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Set, update cell contents in an Excel XLSX spreadsheet, worksheet by c
+    /// Result of running a Set Cell by identifier in XLSX Worksheets command
     /// </summary>
     public class SetXlsxCellByIdentifierResponse
     {
@@ -1219,7 +1219,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Set, update cell contents in an Excel XLSX spreadsheet, worksheet by index
+    /// Result of running a Set Cell in XLSX Worksheets command
     /// </summary>
     public class SetXlsxCellResponse
     {
@@ -1245,7 +1245,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Apply HTML template
+    /// Response from an HTML template application
     /// </summary>
     public class HtmlTemplateApplicationResponse
     {
@@ -1271,7 +1271,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Convert HTML string to text (txt)
+    /// Result of running the HTML to Text operation
     /// </summary>
     public class HtmlToTextResponse
     {
@@ -1285,7 +1285,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// Response for Convert website URL page to text (txt)
+    /// Result of running the URL website to Text operation
     /// </summary>
     public class UrlToTextResponse
     {
@@ -1299,7 +1299,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// ClearXlsxCellRequest
+    /// Input to a Clear Cell in XLSX Worksheet request
     /// </summary>
     public class ClearXlsxCellRequest
     {
@@ -1325,7 +1325,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// CreateBlankDocxRequest
+    /// Input to a Create Blank Word Document request
     /// </summary>
     public class CreateBlankDocxRequest
     {
@@ -1335,7 +1335,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// CreateBlankSpreadsheetRequest
+    /// Input to a Create Blank Spreadsheet request
     /// </summary>
     public class CreateBlankSpreadsheetRequest
     {
@@ -1345,7 +1345,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// CreateSpreadsheetFromDataRequest
+    /// Input to Create a new Spreadsheet request
     /// </summary>
     public class CreateSpreadsheetFromDataRequest
     {
@@ -1359,7 +1359,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DeleteDocxTableRowRangeRequest
+    /// Input to a delete DOCX table row range request
     /// </summary>
     public class DeleteDocxTableRowRangeRequest
     {
@@ -1385,7 +1385,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DeleteDocxTableRowRequest
+    /// Input to a delete DOCX table row request
     /// </summary>
     public class DeleteDocxTableRowRequest
     {
@@ -1407,7 +1407,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DocxInsertCommentOnParagraphRequest
+    /// Input to a Insert Comment on Paragraph request
     /// </summary>
     public class DocxInsertCommentOnParagraphRequest
     {
@@ -1429,7 +1429,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DocxInsertImageRequest
+    /// Input to set-footer command
     /// </summary>
     public class DocxInsertImageRequest
     {
@@ -1471,7 +1471,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DocxRemoveObjectRequest
+    /// Input to a Insert Paragraph request
     /// </summary>
     public class DocxRemoveObjectRequest
     {
@@ -1489,7 +1489,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DocxSetFooterAddPageNumberRequest
+    /// Input to set-footer/add-page-number command
     /// </summary>
     public class DocxSetFooterAddPageNumberRequest
     {
@@ -1507,7 +1507,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DocxSetFooterRequest
+    /// Input to set-footer command
     /// </summary>
     public class DocxSetFooterRequest
     {
@@ -1525,7 +1525,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// DocxSetHeaderRequest
+    /// Input to a set-header command
     /// </summary>
     public class DocxSetHeaderRequest
     {
@@ -1543,7 +1543,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// FinishEditingRequest
+    /// Input to a Finish Editing request
     /// </summary>
     public class FinishEditingRequest
     {
@@ -1553,7 +1553,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxBodyRequest
+    /// Input to a Get Body request
     /// </summary>
     public class GetDocxBodyRequest
     {
@@ -1567,7 +1567,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxGetCommentsHierarchicalRequest
+    /// Input to a Get Word DOCX Document comments hierarchically request
     /// </summary>
     public class GetDocxGetCommentsHierarchicalRequest
     {
@@ -1581,7 +1581,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxHeadersAndFootersRequest
+    /// Input to a Get Tables request
     /// </summary>
     public class GetDocxHeadersAndFootersRequest
     {
@@ -1595,7 +1595,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxImagesRequest
+    /// Input to a Get Images request
     /// </summary>
     public class GetDocxImagesRequest
     {
@@ -1609,7 +1609,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxPagesRequest
+    /// Input to a Get Word DOCX Document Pages request
     /// </summary>
     public class GetDocxPagesRequest
     {
@@ -1623,7 +1623,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxSectionsRequest
+    /// Input to a Get Sections request
     /// </summary>
     public class GetDocxSectionsRequest
     {
@@ -1637,7 +1637,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxStylesRequest
+    /// Input to a Get Tables request
     /// </summary>
     public class GetDocxStylesRequest
     {
@@ -1651,7 +1651,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxTableByIndexRequest
+    /// Input to a Get Tables by Index request
     /// </summary>
     public class GetDocxTableByIndexRequest
     {
@@ -1669,7 +1669,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxTableRowRequest
+    /// Input to a get DOCX table row request
     /// </summary>
     public class GetDocxTableRowRequest
     {
@@ -1691,7 +1691,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetDocxTablesRequest
+    /// Input to a Get Tables request
     /// </summary>
     public class GetDocxTablesRequest
     {
@@ -1705,7 +1705,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxCellByIdentifierRequest
+    /// Input to a Get Cell by cell identifier request
     /// </summary>
     public class GetXlsxCellByIdentifierRequest
     {
@@ -1727,7 +1727,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxCellRequest
+    /// Input to a Get Cell request
     /// </summary>
     public class GetXlsxCellRequest
     {
@@ -1753,7 +1753,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxColumnsRequest
+    /// Input to a Get Columns request
     /// </summary>
     public class GetXlsxColumnsRequest
     {
@@ -1771,7 +1771,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxImagesRequest
+    /// Input to a Get Images request
     /// </summary>
     public class GetXlsxImagesRequest
     {
@@ -1789,7 +1789,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxRowsAndCellsRequest
+    /// Input to a Get Worksheets request
     /// </summary>
     public class GetXlsxRowsAndCellsRequest
     {
@@ -1807,7 +1807,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxStylesRequest
+    /// Input to a Get Worksheets request
     /// </summary>
     public class GetXlsxStylesRequest
     {
@@ -1821,7 +1821,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// GetXlsxWorksheetsRequest
+    /// Input to a Get Worksheets request
     /// </summary>
     public class GetXlsxWorksheetsRequest
     {
@@ -1835,7 +1835,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// HtmlTemplateApplicationRequest
+    /// HTML template application request
     /// </summary>
     public class HtmlTemplateApplicationRequest
     {
@@ -1871,7 +1871,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// HtmlToOfficeRequest
+    /// Details of the HTML to Office request
     /// </summary>
     public class HtmlToOfficeRequest
     {
@@ -1881,7 +1881,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// HtmlToPdfRequest
+    /// Details of the HTML to PDF request
     /// </summary>
     public class HtmlToPdfRequest
     {
@@ -1895,7 +1895,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// HtmlToPngRequest
+    /// Details of the HTML to PNG request
     /// </summary>
     public class HtmlToPngRequest
     {
@@ -1917,7 +1917,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// HtmlToTextRequest
+    /// Details of the HTML to Text request
     /// </summary>
     public class HtmlToTextRequest
     {
@@ -1927,7 +1927,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// InsertDocxInsertParagraphRequest
+    /// Input to a Insert Paragraph request
     /// </summary>
     public class InsertDocxInsertParagraphRequest
     {
@@ -1953,7 +1953,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// InsertDocxTableRowRequest
+    /// Input to a Insert Table Row request
     /// </summary>
     public class InsertDocxTableRowRequest
     {
@@ -1979,7 +1979,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// InsertDocxTablesRequest
+    /// Input to a Insert Tables request
     /// </summary>
     public class InsertDocxTablesRequest
     {
@@ -2005,7 +2005,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// InsertXlsxWorksheetRequest
+    /// Input to a Get Worksheets request
     /// </summary>
     public class InsertXlsxWorksheetRequest
     {
@@ -2023,7 +2023,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// RemoveDocxHeadersAndFootersRequest
+    /// Input to a Remove Headers and Footers request
     /// </summary>
     public class RemoveDocxHeadersAndFootersRequest
     {
@@ -2045,7 +2045,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// RemoveDocxPagesRequest
+    /// Input to a Remove Word DOCX Document Pages request
     /// </summary>
     public class RemoveDocxPagesRequest
     {
@@ -2067,7 +2067,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// RemovePptxSlidesRequest
+    /// Input to a Remove PowerPoint PPTX Presentation Slides request
     /// </summary>
     public class RemovePptxSlidesRequest
     {
@@ -2089,7 +2089,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// RemoveXlsxWorksheetRequest
+    /// Input to a Remove Excel XLSX Spreadsheet worksheet request
     /// </summary>
     public class RemoveXlsxWorksheetRequest
     {
@@ -2107,7 +2107,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// ReplaceStringRequest
+    /// Input to a string replacement request
     /// </summary>
     public class ReplaceStringRequest
     {
@@ -2133,7 +2133,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// ScreenshotRequest
+    /// Details of the screenshot request
     /// </summary>
     public class ScreenshotRequest
     {
@@ -2155,7 +2155,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// SetXlsxCellByIdentifierRequest
+    /// Input to a Set Cell by identifier in XLSX Worksheets request
     /// </summary>
     public class SetXlsxCellByIdentifierRequest
     {
@@ -2181,7 +2181,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// SetXlsxCellRequest
+    /// Input to a Set Cell in XLSX Worksheets request
     /// </summary>
     public class SetXlsxCellRequest
     {
@@ -2211,7 +2211,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// UpdateDocxTableCellRequest
+    /// Input to a Update Table Cell request
     /// </summary>
     public class UpdateDocxTableCellRequest
     {
@@ -2241,7 +2241,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// UpdateDocxTableRowRequest
+    /// Input to a Update Table Row request
     /// </summary>
     public class UpdateDocxTableRowRequest
     {
@@ -2267,7 +2267,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
-    /// UrlToTextRequest
+    /// Details of the URL website to Text request
     /// </summary>
     public class UrlToTextRequest
     {
