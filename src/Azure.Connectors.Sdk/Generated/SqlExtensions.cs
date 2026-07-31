@@ -1379,10 +1379,10 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="selectQuery">Select Query</param>
         /// <param name="count">Count</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get rows (V2) response.</returns>
-        public virtual async Task<GetItemsResponse> GetItemsAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTables_V2")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? skipCount = default, int? topCount = default, string selectQuery = default, bool? count = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetItemsResponse> GetItemsAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTables_V2")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? skipCount = default, int? topCount = default, string selectQuery = default, bool? count = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemsAsync");
             try
@@ -1410,8 +1410,8 @@ namespace Azure.Connectors.Sdk.Sql
                     queryParams.Add($"$count={Uri.EscapeDataString(count.Value.ToString())}");
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1432,10 +1432,10 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get tables (V2) response.</returns>
-        public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesAsync");
             try
@@ -1447,8 +1447,8 @@ namespace Azure.Connectors.Sdk.Sql
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1870,10 +1870,10 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="databaseName">Database name</param>
         /// <param name="tableName">Table name</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetTableV2Async(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TableMetadata> GetTableV2Async(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableV2Async");
             try
@@ -1887,8 +1887,8 @@ namespace Azure.Connectors.Sdk.Sql
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)

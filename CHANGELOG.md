@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   The remaining 71 regenerated clients carry accumulated output from generator fixes that merged after their last regeneration, rather than new behaviour introduced here. (AzureUX-BPM PR 16618864)
 
+- **`purviewAcccountName` parameter corrected to `purviewAccountName` on SQL Server and Azure Blob Storage** — the shared Purview query parameter declares its `name` correctly but carries a triple-c typo in its `x-ms-summary`, and the generator derives the C# identifier from the summary. The misspelling therefore reached the public API surface while the wire query key was always correct, so this changes the identifier only, not request behaviour. Callers passing the parameter positionally are unaffected; callers using a named argument must rename it. Affects 12 occurrences in `SqlExtensions` and 20 in `AzureBlobExtensions`. (AzureUX-BPM PR 16639935)
+
 - **SQL Server metadata methods now address the default dataset; the server- and database-scoped forms moved to `V2` names** — the unversioned operation owns the unversioned method name, matching the Python SDK. Existing callers must rename:
 
   | Before | After |

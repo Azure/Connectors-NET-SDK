@@ -1010,10 +1010,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="blob">Blob</param>
         /// <param name="inferContentType">Infer content type</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get blob content (V2) response.</returns>
-        public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentAsync");
             try
@@ -1027,8 +1027,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob.ToString()))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1050,10 +1050,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="blobPath">Blob path</param>
         /// <param name="inferContentType">Infer content type</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get blob content using path (V2) response.</returns>
-        public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentByPathAsync");
             try
@@ -1069,8 +1069,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1091,10 +1091,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
         /// <param name="blob">Blob</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Blob Metadata (V2) response.</returns>
-        public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataAsync");
             try
@@ -1106,8 +1106,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1128,10 +1128,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
         /// <param name="blobPath">Blob path</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Blob Metadata using path (V2) response.</returns>
-        public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataByPathAsync");
             try
@@ -1145,8 +1145,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add($"path={Uri.EscapeDataString(blobPath.ToString())}");
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1169,10 +1169,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="pagingMarker">Paging Marker</param>
         /// <param name="flatListing">Flat Listing</param>
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
-        /// <param name="purviewAcccountName">Purview Acccount Name</param>
+        /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists blobs (V2) response.</returns>
-        public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool? flatListing = default, bool? extractMIPLabels = default, string purviewAcccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool? flatListing = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ListFolderAsync");
             try
@@ -1188,8 +1188,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     queryParams.Add($"useFlatListing={Uri.EscapeDataString(flatListing.Value.ToString())}");
                 if (extractMIPLabels.HasValue)
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
-                if (purviewAcccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAcccountName.ToString())}");
+                if (purviewAccountName != default)
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint.ToString()))}/foldersV2/{Uri.EscapeDataString(Uri.EscapeDataString(folder.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOfBlobsWithSensitivityLabels>(HttpMethod.Get, path, cancellationToken: cancellationToken)
