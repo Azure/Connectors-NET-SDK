@@ -642,6 +642,44 @@ namespace Azure.Connectors.Sdk.AzureAutomation
             }
         }
 
+        /// <summary>
+        /// Get runbook
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="subscription">Subscription</param>
+        /// <param name="resourceGroup">Resource Group</param>
+        /// <param name="automationAccount">Automation Account</param>
+        /// <param name="runbookName">Runbook Name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get runbook response.</returns>
+        public virtual async Task<RunbookListResults> GetRunbookAsync([DynamicValues("Subscriptions_List")] string subscription, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("AutomationAccounts_List")] string automationAccount, string runbookName, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureAutomationClient.ConnectorActivitySource.StartActivity("AzureAutomationClient.GetRunbookAsync");
+            try
+            {
+                if (subscription is null)
+                    throw new ArgumentNullException(nameof(subscription));
+                if (resourceGroup is null)
+                    throw new ArgumentNullException(nameof(resourceGroup));
+                if (automationAccount is null)
+                    throw new ArgumentNullException(nameof(automationAccount));
+                if (runbookName is null)
+                    throw new ArgumentNullException(nameof(runbookName));
+                var queryParams = new List<string>();
+                queryParams.Add("x-ms-api-version=2015-10-31");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount.ToString())}/runbooks/{Uri.EscapeDataString(runbookName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<RunbookListResults>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
     }
 
     #endregion Client

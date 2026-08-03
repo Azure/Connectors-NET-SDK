@@ -271,6 +271,32 @@ namespace Azure.Connectors.Sdk.FormstackForms
             }
         }
 
+        /// <summary>
+        /// Returns Form Schema from Webhook API
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="formId">form_id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetFormSchemaAsync(int formId, CancellationToken cancellationToken = default)
+        {
+            using var activity = FormstackFormsClient.ConnectorActivitySource.StartActivity("FormstackFormsClient.GetFormSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("file_transfer_type=base64encode");
+                var path = $"/api/v2/form/{Uri.EscapeDataString(formId.ToString())}/webhookopenapi/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
     }
 
     #endregion Client

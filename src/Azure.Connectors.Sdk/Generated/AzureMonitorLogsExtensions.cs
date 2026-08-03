@@ -765,6 +765,35 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                 cancellationToken);
         }
 
+        /// <summary>
+        /// Returns the control schema according to to the given time range type
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="timeRangeType">Time Range type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Returns the control schema according to to the given time range type response.</returns>
+        public virtual async Task<ObjectEntity> GetTimeRangeSelectionControlAsync(string timeRangeType, CancellationToken cancellationToken = default)
+        {
+            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.GetTimeRangeSelectionControlAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (timeRangeType is null)
+                    throw new ArgumentNullException(nameof(timeRangeType));
+                queryParams.Add($"timerangetype={Uri.EscapeDataString(timeRangeType.ToString())}");
+                var path = $"/getTimeRangeSelectionControl" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
     }
 
     #endregion Client

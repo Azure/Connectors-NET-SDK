@@ -46,12 +46,62 @@ for the registration and callback flow.
 ## Discovery Contract
 
 Routes marked `x-ms-visibility: internal` are discovery helpers, not ordinary
-connector actions. The generator may retain them when a public operation's
-dynamic values or dynamic schema metadata references their operation ID. In that
-case, the generated SDK may expose an explicitly marked callable discovery API
-so infrastructure consumers, such as the SDK LSP, can enumerate dynamic values
-or schemas. It must remain distinct from customer-facing action methods and must
-not be presented as a normal connector operation.
+connector actions. Outside an explicit connector curation policy, a target that
+supports callable discovery methods retains a helper when an operation that
+survives public route selection references its operation ID. Reachability is
+transitive: a retained discovery helper can itself reference another helper.
+
+DirectClient currently recognizes `x-ms-dynamic-values` on operation parameters
+and `x-ms-dynamic-schema` on parameters and schemas. Dynamic-schema pins can occur
+on request or response schemas, trigger notification-content schemas, and
+referenced definitions at any schema depth. The interchangeable
+`x-ms-dynamic-properties` alias is a measured follow-up and is not yet recognized
+by DirectClient.
+
+Deep traversal is schema-aware. It follows `schema`, `properties`, `items`,
+`allOf`, schema-valued `additionalProperties`, and `#/definitions/` references,
+starting from operation and path-item parameters (including shared `#/parameters/`
+references), responses, and `x-ms-notification-content`. This deep pass collects
+`x-ms-dynamic-schema` pins only. It does not treat `example`, `default`, `enum`,
+`x-ms-examples`, or other instance data as schemas merely because they contain a
+pin-shaped object. The generator also preserves legacy shallow document-level pins
+for compatibility; new deep retention is scoped to schemas reachable from selected
+operations.
+
+Each language target declares or inherits whether it attaches callable discovery
+methods. Outside explicit connector curation, public-operation collision resolution
+runs first, and a target that opts out returns the resolved public surface before
+discovery methods can participate in later collision or retained-type preparation.
+C# and Python retain discovery methods; TypeScript opts out. A retaining target
+must preserve each unambiguous reachable operation ID and its exact HTTP route. An
+opt-out target must still preserve the same public action and trigger contract.
+
+Explicit connector curation is a separate route-selection policy and takes
+precedence over the per-target discovery policy. It may allow internal routes to
+participate in selection and naming even for a target that normally omits
+discovery methods. TypeScript's emitter continues to omit internal methods from
+the callable surface after curated selection.
+
+When retained revisions of one discovery family simplify to the same identifier,
+the current revision owns the unversioned name. Older versioned revisions keep
+their affixes and remain callable because the retention rules above still select
+them. C# marks superseded revisions with `EditorBrowsable(Never)`; Python currently
+has no equivalent browsing marker. If the simplified name is already claimed by a
+public operation, every discovery revision keeps its affix. The whole family also
+keeps affixes when an older operation has no version affix to retain, rather than
+assigning that operation's unversioned name to the current revision.
+
+Affix preservation is not a proof of identifier uniqueness. Distinct operation
+IDs can still normalize to the same language identifier. The generator reports
+those residual collisions, and validation must treat any resulting unreachable
+route as unresolved contract loss rather than successful disambiguation.
+
+Callable discovery APIs exist for infrastructure consumers, such as the SDK LSP,
+to enumerate dynamic values or schemas. Targets with a presentation mechanism must
+distinguish them from customer-facing actions. C# emits a discovery-specific XML
+remark and hides superseded revisions from IntelliSense. Python currently exposes
+discovery methods without an equivalent marker; closing that presentation gap
+remains a follow-up, not a difference in operation ID or route identity.
 
 ## Deterministic Identity
 
@@ -61,6 +111,12 @@ heuristics at runtime. Any rename or route substitution must be implemented in
 the generator as an explicit, tested rule so every language target can apply the
 same contract decision.
 
+Discovery methods use deterministic first-reference order. Across generator
+revisions, growing the reachable set must preserve the relative order of helpers
+that were already retained. A shipped method name rebinding to another route, or
+a shipped route moving to a different method name, is an explicit identity change
+and must never pass validation silently.
+
 ## Validation Requirements
 
 Generated-client validation must use a pinned Swagger snapshot and pinned
@@ -68,16 +124,29 @@ generator revision. Live ARM Swagger is useful for refreshes but is not a stable
 byte-for-byte test input because descriptions and metadata can change outside a
 pull request.
 
-For each generated connector and language target, validation must confirm:
+For each generated connector and language target, pinned-contract validation must
+confirm:
 
 1. Callable actions match the intended non-trigger Swagger operations after
    documented route-selection policy is applied.
 2. Trigger operations are represented as registration and callback contracts,
    not ordinary invocations.
-3. Internal discovery operations remain non-public unless explicitly required by
-   a documented SDK metadata mechanism.
+3. Every discovery operation retained by a target maps to its exact Swagger route.
+   An emitted dynamic-metadata operation ID that exists in the pinned Swagger must
+   resolve to exactly one retained route; missing or ambiguous upstream references
+   are input defects and must be reported.
 4. Outbound JSON keys and values match the Swagger request schema exactly.
 5. Inbound JSON binds to the corresponding Swagger response or trigger schema.
+
+When prior generated output exists, regression validation must additionally
+confirm:
+
+1. Previously retained discovery routes preserve relative order when new routes
+   are added.
+2. Existing method-name-to-route and route-to-method-name mappings do not change
+   unexpectedly.
+3. Intentional rebinds or renames are explicitly reviewed, recorded as breaking
+   changes in the release notes, and isolated from unrelated output changes.
 
 Cross-language validation should emit a deterministic report for each connector
 that records the pinned Swagger input, generator revision, public operation

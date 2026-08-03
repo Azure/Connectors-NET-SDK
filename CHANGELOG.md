@@ -7,13 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-<!-- MAINTAINER NOTE: Before tagging a release, (1) cut [Unreleased] content into a
-     new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD), (2) add a
-     reference link at the bottom, (3) update [Unreleased] compare base, and (4) copy
-     the same content into release_notes.md for NuGet packaging. Do NOT put HTML
-     comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
+<!-- MAINTAINER NOTE: release_notes.md continuously mirrors this [Unreleased]
+  content for NuGet packaging. Before tagging a release, (1) cut this content
+  into a new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD),
+  (2) add a reference link at the bottom, (3) update [Unreleased] compare base,
+  and (4) rename the mirrored release_notes.md heading to the same version/date.
+  Do NOT put HTML comments in release_notes.md — it is packed verbatim. -->
 
 ### Breaking Changes
+
+- **Typeform `GetSchemaAsync` now calls the current V3 schema route** — the retained `NewResponseWebhook_V2` trigger's payload pins `GetSchema_V3`, but the generator previously stopped before the nested pin and bound the plain method name to the V2 route associated with a trigger revision it drops. `GetSchemaAsync` now calls `/v3/forms/{form_id}`. The previous `/forms/{form_id}` route remains callable as the public compatibility helper `GetSchemaV2Async`, which represents an internal-visibility Swagger operation and, as a superseded revision, is hidden from IntelliSense with `EditorBrowsable(Never)`. Callers that intentionally relied on the old route must call that helper explicitly rather than treating it as the current long-term surface. (AzureUX-BPM PR 16671915)
 
 - **All connector clients regenerated; version-affixed models are no longer collapsed onto one name** — the generator stripped a version affix from a definition name without knowing which definitions a connector retains, so `FooV1` and `FooV2` both claimed `Foo` and only one type was emitted. The dropped one produced a model that compiled and looked complete while omitting fields the service returns. Names are now decided against the retained definition set: a single claimant still strips the affix, several claimants describing the same wire shape still collapse to one type, and claimants with differing shapes keep their affixes so no shape is lost.
 
@@ -48,6 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Word Online Business drive discovery hides its internal source parameter** — internal discovery method `GetDrivesAsync` no longer exposes `source`; it sends the owner-declared default `source=me`. (#210)
 
 ### Added
+
+- **Discovery helpers retained from nested trigger and response schemas** — regenerated Azure Automation, Azure Monitor Logs, Elfsquad Data, Formstack Forms, Monday, Typeform, and Microsoft Defender ATP clients now include helpers pinned by nested trigger and response schemas in connector Swagger. Added `GetRunbookAsync`, `GetTimeRangeSelectionControlAsync`, `GetTriggerSchemaAsync`, `GetFormSchemaAsync`, three Monday column-schema helpers, `GetSchemaV2Async`, and `AdvancedHuntingSchemaAsync`, plus five response/request models and four model-factory methods. Elfsquad Data's `GetTriggerSchemaAsync` and Formstack Forms' `GetFormSchemaAsync` return `Task` because owner Swagger declares no success response schema. Azure Automation's single-runbook route is likewise typed as `RunbookListResults` because that is the response definition declared by owner Swagger for both runbook routes. (AzureUX-BPM PR 16671915)
 
 - **Zendesk regains four operations lost to internal versioned siblings** — `GetTablesAsync`, `GetItemsAsync`, `GetItemAsync` and the `GetTableAsync` discovery method are generated again, and the public `GetOnNewItems` trigger is registered alongside `GetOnUpdatedItemsV2` with its own typed callback payload. Version-collision resolution previously ran across the whole operation set, so each `x-ms-visibility: internal` `V2` sibling displaced its public counterpart and was then dropped as unreferenced. Surviving methods also carried a `[DynamicValues("GetTables")]` reference to an operation no longer present in the client. ([#220](https://github.com/Azure/Connectors-NET-SDK/issues/220), AzureUX-BPM PR 16576205)
 - **SQL Server regains four default-dataset discovery routes** — `GetProceduresAsync`, `GetProcedureAsync`, `GetTableAsync` and `GetPassThroughNativeQueryMetadataAsync` now address `/datasets/default/...` and are joined by `GetProceduresV2Async`, `GetProcedureV2Async`, `GetTableV2Async` and `GetPassThroughNativeQueryMetadataV2Async` for the server- and database-scoped routes. Each pair is a distinct contract that previously collapsed onto the V2 route alone. `GetTablesAsync` deliberately continues to target the versioned route because its unversioned sibling is marked deprecated. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PR 16576205)

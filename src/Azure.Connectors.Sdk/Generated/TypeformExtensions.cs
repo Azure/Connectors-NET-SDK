@@ -327,6 +327,34 @@ namespace Azure.Connectors.Sdk.Typeform
         /// <param name="form">Form</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get schema response.</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual async Task<string> GetSchemaV2Async([DynamicValues("ListForms_V2")] string form, CancellationToken cancellationToken = default)
+        {
+            using var activity = TypeformClient.ConnectorActivitySource.StartActivity("TypeformClient.GetSchemaV2Async");
+            try
+            {
+                if (form is null)
+                    throw new ArgumentNullException(nameof(form));
+                var path = $"/forms/{Uri.EscapeDataString(form.ToString())}";
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="form">Form</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get schema response.</returns>
         public virtual async Task<string> GetSchemaAsync([DynamicValues("ListForms_V2")] string form, CancellationToken cancellationToken = default)
         {
             using var activity = TypeformClient.ConnectorActivitySource.StartActivity("TypeformClient.GetSchemaAsync");
@@ -334,7 +362,7 @@ namespace Azure.Connectors.Sdk.Typeform
             {
                 if (form is null)
                     throw new ArgumentNullException(nameof(form));
-                var path = $"/forms/{Uri.EscapeDataString(form.ToString())}";
+                var path = $"/v3/forms/{Uri.EscapeDataString(form.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
