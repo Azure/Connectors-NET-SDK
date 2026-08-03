@@ -1210,13 +1210,13 @@ namespace Azure.Connectors.Sdk.AzureAD
         }
 
         /// <summary>
-        /// Check group membership (V2)
+        /// Check group membership
         /// </summary>
         /// <remarks>If the user is a member of the given group, the result will contain the given id. Otherwise the result will be empty.</remarks>
         /// <param name="userIdOrPrincipalName">User Id or Principal Name</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Check group membership (V2) response.</returns>
+        /// <returns>The Check group membership response.</returns>
         public virtual async Task<GetMemberGroupsResponseV2> CheckMemberGroupsAsync(string userIdOrPrincipalName, CheckMemberGroupsRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.CheckMemberGroupsAsync");
@@ -1238,13 +1238,13 @@ namespace Azure.Connectors.Sdk.AzureAD
         }
 
         /// <summary>
-        /// Get groups of a user (V2)
+        /// Get groups of a user
         /// </summary>
         /// <remarks>Get the groups a user is a member of.</remarks>
         /// <param name="userIdOrPrincipalName">User Id or Principal Name</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get groups of a user (V2) response.</returns>
+        /// <returns>The Get groups of a user response.</returns>
         public virtual async Task<GetMemberGroupsResponseV2> GetMemberGroupsAsync(string userIdOrPrincipalName, GetMemberGroupsRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureADClient.ConnectorActivitySource.StartActivity("AzureADClient.GetMemberGroupsAsync");

@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     #region Types
 
     /// <summary>
-    /// Response for Execute a SQL query (V2)
+    /// Response for Execute a SQL query
     /// </summary>
     [DynamicSchema("GetPassThroughNativeQueryMetadata_V2")]
     public class ExecutePassThroughNativeQueryResponse
@@ -44,7 +44,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Execute stored procedure (V2)
+    /// Execute stored procedure
     /// </summary>
     [DynamicSchema("GetProcedure_V2")]
     public class ExecuteProcedureInput
@@ -58,7 +58,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Execute stored procedure (V2)
+    /// Response for Execute stored procedure
     /// </summary>
     [DynamicSchema("GetProcedure_V2")]
     public class ExecuteProcedureResponse
@@ -72,7 +72,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Get row (V2)
+    /// Response for Get row
     /// </summary>
     [DynamicSchema("GetTable_V2")]
     public class GetItemResponse
@@ -221,7 +221,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Update row (V2)
+    /// Update row
     /// </summary>
     [DynamicSchema("GetTableForPatch_V2")]
     public class PatchItemInput
@@ -235,7 +235,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Update row (V2)
+    /// Response for Update row
     /// </summary>
     [DynamicSchema("GetTable_V2")]
     public class PatchItemResponse
@@ -249,7 +249,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Insert row (V2)
+    /// Insert row
     /// </summary>
     [DynamicSchema("GetTable_V2")]
     public class PostItemInput
@@ -263,7 +263,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
-    /// Response for Insert row (V2)
+    /// Response for Insert row
     /// </summary>
     [DynamicSchema("GetTable_V2")]
     public class PostItemResponse
@@ -1034,13 +1034,13 @@ namespace Azure.Connectors.Sdk.Sql
     public static class SqlTriggerOperations
     {
         /// <summary>
-        /// When an item is created (V2).
+        /// When an item is created.
         /// Payload type: <see cref="SqlOnNewItemsTriggerPayload"/>.
         /// </summary>
         public const string OnNewItems = "GetOnNewItems_V2";
 
         /// <summary>
-        /// When an item is modified (V2).
+        /// When an item is modified.
         /// Payload type: <see cref="SqlOnUpdatedItemsTriggerPayload"/>.
         /// </summary>
         public const string OnUpdatedItems = "GetOnUpdatedItems_V2";
@@ -1229,7 +1229,7 @@ namespace Azure.Connectors.Sdk.Sql
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Delete row (V2)
+        /// Delete row
         /// </summary>
         /// <remarks>This operation deletes a row from a table.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1264,14 +1264,14 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Execute a SQL query (V2)
+        /// Execute a SQL query
         /// </summary>
-        /// <remarks>Execute a SQL query (V2)</remarks>
+        /// <remarks>Execute a SQL query</remarks>
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Execute a SQL query (V2) response.</returns>
+        /// <returns>The Execute a SQL query response.</returns>
         public virtual async Task<ExecutePassThroughNativeQueryResponse> ExecutePassThroughNativeQueryAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecutePassThroughNativeQueryAsync");
@@ -1295,7 +1295,7 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Execute stored procedure (V2)
+        /// Execute stored procedure
         /// </summary>
         /// <remarks>This operation runs a stored procedure.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1303,7 +1303,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="procedureName">Procedure name</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Execute stored procedure (V2) response.</returns>
+        /// <returns>The Execute stored procedure response.</returns>
         public virtual async Task<ExecuteProcedureResponse> ExecuteProcedureAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetProcedures_V2")] string procedureName, ExecuteProcedureInput input, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecuteProcedureAsync");
@@ -1329,7 +1329,7 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Get row (V2)
+        /// Get row
         /// </summary>
         /// <remarks>This operation gets a row from a table.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1337,7 +1337,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="tableName">Table name</param>
         /// <param name="rowId">Row id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get row (V2) response.</returns>
+        /// <returns>The Get row response.</returns>
         public virtual async Task<GetItemResponse> GetItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, string rowId, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemAsync");
@@ -1365,7 +1365,7 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Get rows (V2)
+        /// Get rows
         /// </summary>
         /// <remarks>This operation gets rows from a table.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1381,7 +1381,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get rows (V2) response.</returns>
+        /// <returns>The Get rows response.</returns>
         public virtual async Task<GetItemsResponse> GetItemsAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTables_V2")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? skipCount = default, int? topCount = default, string selectQuery = default, bool? count = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemsAsync");
@@ -1426,7 +1426,7 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Get tables (V2)
+        /// Get tables
         /// </summary>
         /// <remarks>This operation gets tables from a database.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1434,7 +1434,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get tables (V2) response.</returns>
+        /// <returns>The Get tables response.</returns>
         public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesAsync");
@@ -1463,7 +1463,7 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Update row (V2)
+        /// Update row
         /// </summary>
         /// <remarks>This operation updates an existing row in a table.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1472,7 +1472,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="rowId">Row id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update row (V2) response.</returns>
+        /// <returns>The Update row response.</returns>
         public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPatchItem_V2")] string tableName, string rowId, PatchItemInput input, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PatchItemAsync");
@@ -1500,7 +1500,7 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
-        /// Insert row (V2)
+        /// Insert row
         /// </summary>
         /// <remarks>This operation inserts a new row into a table.</remarks>
         /// <param name="serverName">Server name</param>
@@ -1508,7 +1508,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="tableName">Table name</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Insert row (V2) response.</returns>
+        /// <returns>The Insert row response.</returns>
         public virtual async Task<PostItemResponse> PostItemAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTablesForPostItem_V2")] string tableName, PostItemInput input, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.PostItemAsync");

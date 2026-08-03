@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
     #region Types
 
     /// <summary>
-    /// Response for Delete message (v2)
+    /// Response for Delete message
     /// </summary>
     public class Item
     {
@@ -116,7 +116,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
     }
 
     /// <summary>
-    /// Response for Delete messages (v2)
+    /// Response for Delete messages
     /// </summary>
     public class ItemsList
     {
@@ -126,7 +126,7 @@ namespace Azure.Connectors.Sdk.Mq.Models
     }
 
     /// <summary>
-    /// Response for Send message (v2)
+    /// Response for Send message
     /// </summary>
     public class SendResponse
     {
@@ -642,12 +642,12 @@ namespace Azure.Connectors.Sdk.Mq
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Delete message (v2)
+        /// Delete message
         /// </summary>
         /// <remarks>Deletes one message from the queue, by doing a destructive get.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete message (v2) response.</returns>
+        /// <returns>The Delete message response.</returns>
         public virtual async Task<Item> DeleteAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.DeleteAsync");
@@ -667,12 +667,12 @@ namespace Azure.Connectors.Sdk.Mq
         }
 
         /// <summary>
-        /// Delete messages (v2)
+        /// Delete messages
         /// </summary>
         /// <remarks>Deletes messages from the queue, by doing a destructive get.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete messages (v2) response.</returns>
+        /// <returns>The Delete messages response.</returns>
         public virtual async Task<ItemsList> DeleteAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.DeleteAllAsync");
@@ -692,12 +692,12 @@ namespace Azure.Connectors.Sdk.Mq
         }
 
         /// <summary>
-        /// Browse message (v2)
+        /// Browse message
         /// </summary>
         /// <remarks>Browse one message from the queue.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Browse message (v2) response.</returns>
+        /// <returns>The Browse message response.</returns>
         public virtual async Task<Item> ReadAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReadAsync");
@@ -717,12 +717,12 @@ namespace Azure.Connectors.Sdk.Mq
         }
 
         /// <summary>
-        /// Browse messages (v2)
+        /// Browse messages
         /// </summary>
         /// <remarks>Browse messages in a queue.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Browse messages (v2) response.</returns>
+        /// <returns>The Browse messages response.</returns>
         public virtual async Task<ItemsList> ReadAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReadAllAsync");
@@ -742,12 +742,12 @@ namespace Azure.Connectors.Sdk.Mq
         }
 
         /// <summary>
-        /// Receive message (v2)
+        /// Receive message
         /// </summary>
         /// <remarks>Returns one message from the queue, by doing a destructive get.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Receive message (v2) response.</returns>
+        /// <returns>The Receive message response.</returns>
         public virtual async Task<Item> ReceiveAsync(SingleGetValidOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReceiveAsync");
@@ -767,12 +767,12 @@ namespace Azure.Connectors.Sdk.Mq
         }
 
         /// <summary>
-        /// Receive messages (v2)
+        /// Receive messages
         /// </summary>
         /// <remarks>Returns messages from the queue, by doing a destructive get.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Receive messages (v2) response.</returns>
+        /// <returns>The Receive messages response.</returns>
         public virtual async Task<ItemsList> ReceiveAllAsync(MultipleGetValidOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.ReceiveAllAsync");
@@ -792,12 +792,12 @@ namespace Azure.Connectors.Sdk.Mq
         }
 
         /// <summary>
-        /// Send message (v2)
+        /// Send message
         /// </summary>
         /// <remarks>Send a message to a queue.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send message (v2) response.</returns>
+        /// <returns>The Send message response.</returns>
         public virtual async Task<SendResponse> SendAsync(SendValidDataOptions input, CancellationToken cancellationToken = default)
         {
             using var activity = MqClient.ConnectorActivitySource.StartActivity("MqClient.SendAsync");
