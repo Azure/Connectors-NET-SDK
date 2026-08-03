@@ -429,7 +429,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Update record (V3)
+    /// Update record
     /// </summary>
     [DynamicSchema("GetMetadataForPatchItem")]
     public class PatchItemInput
@@ -443,7 +443,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Response for Update record (V3)
+    /// Response for Update record
     /// </summary>
     [DynamicSchema("GetMetadataForPatchItem")]
     public class PatchItemResponse
@@ -457,7 +457,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Insert or Update (Upsert) a Record by External ID (V2)
+    /// Insert or Update (Upsert) a Record by External ID
     /// </summary>
     [DynamicSchema("GetMetadataForPatchItem")]
     public class PatchItemByExternalIdInput
@@ -471,7 +471,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     }
 
     /// <summary>
-    /// Response for Insert or Update (Upsert) a Record by External ID (V2)
+    /// Response for Insert or Update (Upsert) a Record by External ID
     /// </summary>
     [DynamicSchema("GetMetadataForGetItem")]
     public class PatchItemByExternalIdResponse
@@ -2325,12 +2325,12 @@ namespace Azure.Connectors.Sdk.Salesforce
         }
 
         /// <summary>
-        /// Create a job (V2)
+        /// Create a job
         /// </summary>
         /// <remarks>Creates a job, which represents a bulk operation (and associated data) that is sent to Salesforce for asynchronous processing. Provide job data via an Upload Job Data request.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a job (V2) response.</returns>
+        /// <returns>The Create a job response.</returns>
         public virtual async Task<CreateJobResponse> CreateJobAsync(CreateJobParameters input, CancellationToken cancellationToken = default)
         {
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.CreateJobAsync");
@@ -2384,7 +2384,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         }
 
         /// <summary>
-        /// Update record (V3)
+        /// Update record
         /// </summary>
         /// <remarks>This operation updates a record and allows null values.</remarks>
         /// <param name="salesforceObjectType">Salesforce Object Type</param>
@@ -2392,7 +2392,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="input">The request body.</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update record (V3) response.</returns>
+        /// <returns>The Update record response.</returns>
         public virtual async Task<PatchItemResponse> PatchItemAsync([DynamicValues("GetTables")] string salesforceObjectType, string recordId, PatchItemInput input, string selectQuery = default, CancellationToken cancellationToken = default)
         {
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PatchItemAsync");
@@ -2419,7 +2419,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         }
 
         /// <summary>
-        /// Insert or Update (Upsert) a Record by External ID (V2)
+        /// Insert or Update (Upsert) a Record by External ID
         /// </summary>
         /// <remarks>This operation inserts or updates (upserts) a record using an external ID.</remarks>
         /// <param name="salesforceObjectType">Salesforce Object Type</param>
@@ -2427,7 +2427,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="externalId">External ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Insert or Update (Upsert) a Record by External ID (V2) response.</returns>
+        /// <returns>The Insert or Update (Upsert) a Record by External ID response.</returns>
         public virtual async Task<PatchItemByExternalIdResponse> PatchItemByExternalIdAsync([DynamicValues("GetTables")] string salesforceObjectType, [DynamicValues("GetExternalIdFields")] string externalIdField, string externalId, PatchItemByExternalIdInput input, CancellationToken cancellationToken = default)
         {
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.PatchItemByExternalIdAsync");

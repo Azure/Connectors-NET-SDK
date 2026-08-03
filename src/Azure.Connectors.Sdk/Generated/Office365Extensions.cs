@@ -638,7 +638,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get calendars (V2)
+    /// Response for Get calendars
     /// </summary>
     public class CalendarGetTablesResponse
     {
@@ -874,7 +874,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Find meeting times (V2)
+    /// Find meeting times
     /// </summary>
     public class FindMeetingTimesInput
     {
@@ -920,7 +920,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Find meeting times (V2)
+    /// Response for Find meeting times
     /// </summary>
     public class FindMeetingTimesResponse
     {
@@ -934,7 +934,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get Attachment (V2)
+    /// Response for Get Attachment
     /// </summary>
     public class GetAttachmentResponse
     {
@@ -1161,7 +1161,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Get mail tips for a mailbox (V2)
+    /// Get mail tips for a mailbox
     /// </summary>
     public class GetMailTipsInput
     {
@@ -1175,7 +1175,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get mail tips for a mailbox (V2)
+    /// Response for Get mail tips for a mailbox
     /// </summary>
     public class GetMailTipsResponse
     {
@@ -1225,7 +1225,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get room lists (V2)
+    /// Response for Get room lists
     /// </summary>
     public class GetRoomListsResponse
     {
@@ -1235,7 +1235,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get rooms (V2)
+    /// Response for Get rooms
     /// </summary>
     public class GetRoomsResponse
     {
@@ -1245,7 +1245,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Get rooms in room list (V2)
+    /// Response for Get rooms in room list
     /// </summary>
     public class GetRoomsInRoomListResponse
     {
@@ -1255,7 +1255,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Mark as read or unread (V3)
+    /// Mark as read or unread
     /// </summary>
     public class MarkAsReadInput
     {
@@ -1275,7 +1275,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Set up automatic replies (V2)
+    /// Set up automatic replies
     /// </summary>
     public class SetAutomaticRepliesSettingInput
     {
@@ -1315,7 +1315,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Response for Set up automatic replies (V2)
+    /// Response for Set up automatic replies
     /// </summary>
     public class SetAutomaticRepliesSettingResponse
     {
@@ -4430,49 +4430,49 @@ namespace Azure.Connectors.Sdk.Office365
     public static class Office365TriggerOperations
     {
         /// <summary>
-        /// When an event is added, updated or deleted (V3).
+        /// When an event is added, updated or deleted.
         /// Payload type: <see cref="Office365OnCalendarChangedItemsTriggerPayload"/>.
         /// </summary>
         public const string OnCalendarChangedItems = "CalendarGetOnChangedItemsV3";
 
         /// <summary>
-        /// When a new event is created (V3).
+        /// When a new event is created.
         /// Payload type: <see cref="Office365OnCalendarNewItemsTriggerPayload"/>.
         /// </summary>
         public const string OnCalendarNewItems = "CalendarGetOnNewItemsV3";
 
         /// <summary>
-        /// When an event is modified (V3).
+        /// When an event is modified.
         /// Payload type: <see cref="Office365OnCalendarUpdatedItemsTriggerPayload"/>.
         /// </summary>
         public const string OnCalendarUpdatedItems = "CalendarGetOnUpdatedItemsV3";
 
         /// <summary>
-        /// When an email is flagged (V4).
+        /// When an email is flagged.
         /// Payload type: <see cref="Office365OnFlaggedEmailTriggerPayload"/>.
         /// </summary>
         public const string OnFlaggedEmail = "OnFlaggedEmailV4";
 
         /// <summary>
-        /// When a new email arrives (V3).
+        /// When a new email arrives.
         /// Payload type: <see cref="Office365OnNewEmailTriggerPayload"/>.
         /// </summary>
         public const string OnNewEmail = "OnNewEmailV3";
 
         /// <summary>
-        /// When a new email mentioning me arrives (V3).
+        /// When a new email mentioning me arrives.
         /// Payload type: <see cref="Office365OnNewEmailMentioningMeTriggerPayload"/>.
         /// </summary>
         public const string OnNewEmailMentioningMe = "OnNewMentionMeEmailV3";
 
         /// <summary>
-        /// When an upcoming event is starting soon (V3).
+        /// When an upcoming event is starting soon.
         /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
         /// </summary>
         public const string OnUpcomingEvents = "OnUpcomingEventsV3";
 
         /// <summary>
-        /// When a new email arrives in a shared mailbox (V2).
+        /// When a new email arrives in a shared mailbox.
         /// Payload type: <see cref="Office365OnSharedMailboxNewEmailTriggerPayload"/>.
         /// </summary>
         public const string OnSharedMailboxNewEmail = "SharedMailboxOnNewEmailV2";
@@ -5293,7 +5293,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Delete event (V2)
+        /// Delete event
         /// </summary>
         /// <remarks>This operation deletes an event in a calendar.</remarks>
         /// <param name="calendarId">Calendar id</param>
@@ -5322,13 +5322,13 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get event (V3)
+        /// Get event
         /// </summary>
-        /// <remarks>This operation gets a specific event from a calendar using Graph API. (V3)</remarks>
+        /// <remarks>This operation gets a specific event from a calendar using Graph API.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="itemId">Item id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get event (V3) response.</returns>
+        /// <returns>The Get event response.</returns>
         public virtual async Task<GraphCalendarEventClientReceive> CalendarGetItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string itemId, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.CalendarGetItemAsync");
@@ -5352,16 +5352,16 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get events (V4)
+        /// Get events
         /// </summary>
-        /// <remarks>This operation gets events from a calendar using Graph API. (V4)</remarks>
+        /// <remarks>This operation gets events from a calendar using Graph API.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="orderBy">Order By</param>
         /// <param name="topCount">Top Count</param>
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get events (V4) response.</returns>
+        /// <returns>The Get events response.</returns>
         public virtual async Task<GraphCalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.CalendarGetItemsAsync");
@@ -5392,11 +5392,11 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get calendars (V2)
+        /// Get calendars
         /// </summary>
         /// <remarks>This operation lists available calendars.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get calendars (V2) response.</returns>
+        /// <returns>The Get calendars response.</returns>
         public virtual async Task<CalendarGetTablesResponse> CalendarGetTablesAsync(CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.CalendarGetTablesAsync");
@@ -5420,14 +5420,14 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Update event (V4)
+        /// Update event
         /// </summary>
         /// <remarks>This operation updates an event in a calendar using Graph API.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="id">Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update event (V4) response.</returns>
+        /// <returns>The Update event response.</returns>
         public virtual async Task<GraphCalendarEventClientReceive> CalendarPatchItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string id, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.CalendarPatchItemAsync");
@@ -5451,13 +5451,13 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Create event (V4)
+        /// Create event
         /// </summary>
         /// <remarks>This operation creates a new event in a calendar.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create event (V4) response.</returns>
+        /// <returns>The Create event response.</returns>
         public virtual async Task<GraphCalendarEventClientReceive> CalendarPostItemAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, GraphCalendarEventClient input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.CalendarPostItemAsync");
@@ -5479,7 +5479,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Delete contact (V2)
+        /// Delete contact
         /// </summary>
         /// <remarks>This operation deletes a contact from a contacts folder.</remarks>
         /// <param name="folderId">Folder id</param>
@@ -5508,13 +5508,13 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get contact (V2)
+        /// Get contact
         /// </summary>
         /// <remarks>This operation gets a specific contact from a contacts folder.</remarks>
         /// <param name="folderId">Folder id</param>
         /// <param name="itemId">Item id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contact (V2) response.</returns>
+        /// <returns>The Get contact response.</returns>
         public virtual async Task<ContactResponse> ContactGetItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string itemId, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ContactGetItemAsync");
@@ -5538,7 +5538,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get contacts (V2)
+        /// Get contacts
         /// </summary>
         /// <remarks>This operation gets contacts from a contacts folder.</remarks>
         /// <param name="folderId">Folder id</param>
@@ -5547,7 +5547,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="topCount">Top Count</param>
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contacts (V2) response.</returns>
+        /// <returns>The Get contacts response.</returns>
         public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ContactGetItemsAsync");
@@ -5578,11 +5578,11 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get contact folders (V2)
+        /// Get contact folders
         /// </summary>
         /// <remarks>This operation lists available contacts folders using Graph API</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contact folders (V2) response.</returns>
+        /// <returns>The Get contact folders response.</returns>
         public virtual async Task<EntityListResponseGraphContactFolder> ContactGetTablesAsync(CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ContactGetTablesAsync");
@@ -5602,14 +5602,14 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Update contact (V2)
+        /// Update contact
         /// </summary>
         /// <remarks>This operation updates a contact in a contacts folder.</remarks>
         /// <param name="folderId">Folder id</param>
         /// <param name="id">Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update contact (V2) response.</returns>
+        /// <returns>The Update contact response.</returns>
         public virtual async Task<ContactResponse> ContactPatchItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, string id, Contact input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ContactPatchItemAsync");
@@ -5633,13 +5633,13 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Create contact (V2)
+        /// Create contact
         /// </summary>
         /// <remarks>This operation creates a new contact in a contacts folder.</remarks>
         /// <param name="folderId">Folder id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create contact (V2) response.</returns>
+        /// <returns>The Create contact response.</returns>
         public virtual async Task<ContactResponse> ContactPostItemAsync([DynamicValues("ContactGetTablesV2")] string folderId, Contact input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ContactPostItemAsync");
@@ -5661,7 +5661,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Delete email (V2)
+        /// Delete email
         /// </summary>
         /// <remarks>This operation deletes an email by id.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -5691,13 +5691,13 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Export email (V2)
+        /// Export email
         /// </summary>
         /// <remarks>Export the content of the email in the EML file format.</remarks>
         /// <param name="messageId">Message Id</param>
         /// <param name="originalMailboxAddress">Original Mailbox Address</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Export email (V2) response.</returns>
+        /// <returns>The Export email response.</returns>
         public virtual async Task<byte[]> ExportEmailAsync(string messageId, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ExportEmailAsync");
@@ -5722,12 +5722,12 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Find meeting times (V2)
+        /// Find meeting times
         /// </summary>
         /// <remarks>Find meeting time suggestions based on organizer, attendee availability, and time or location constraints</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Find meeting times (V2) response.</returns>
+        /// <returns>The Find meeting times response.</returns>
         public virtual async Task<FindMeetingTimesResponse> FindMeetingTimesAsync(FindMeetingTimesInput input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.FindMeetingTimesAsync");
@@ -5747,7 +5747,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Flag email (V2)
+        /// Flag email
         /// </summary>
         /// <remarks>This operation updates an email flag.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -5778,7 +5778,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Forward an email (V2)
+        /// Forward an email
         /// </summary>
         /// <remarks>Forward an email.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -5815,7 +5815,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get Attachment (V2)
+        /// Get Attachment
         /// </summary>
         /// <remarks>This operation gets an email attachment by id.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -5824,7 +5824,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Attachment (V2) response.</returns>
+        /// <returns>The Get Attachment response.</returns>
         public virtual async Task<GetAttachmentResponse> GetAttachmentAsync(string messageId, string attachementId, string originalMailboxAddress = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetAttachmentAsync");
@@ -5855,7 +5855,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get email (V2)
+        /// Get email
         /// </summary>
         /// <remarks>This operation gets an email by id.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -5865,7 +5865,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get email (V2) response.</returns>
+        /// <returns>The Get email response.</returns>
         public virtual async Task<GraphClientReceiveMessage> GetEmailAsync(string messageId, string originalMailboxAddress = default, bool? includeAttachments = default, string internetMessageId = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetEmailAsync");
@@ -5898,7 +5898,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get emails (V3)
+        /// Get emails
         /// </summary>
         /// <remarks>This operation gets emails from a folder via graph apis. Please note that filtering related to these fields: To, Cc, To Or Cc, From, Importance, Fetch Only With Attachments, Subject Filter, is performed using first 250 items in a given mail folder. To avoid that limitation you can use &apos;Search Query&apos; field.</remarks>
         /// <param name="folder">Folder</param>
@@ -5915,7 +5915,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="searchQuery">Search Query</param>
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get emails (V3) response.</returns>
+        /// <returns>The Get emails response.</returns>
         public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetEmailsAsync");
@@ -5963,7 +5963,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get calendar view of events (V3)
+        /// Get calendar view of events
         /// </summary>
         /// <remarks>This operation gets all events (including instances of recurrences) in a calendar using Graph API. Recurrence property is null in this case.</remarks>
         /// <param name="calendarId">Calendar Id</param>
@@ -5975,7 +5975,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="skipCount">Skip Count</param>
         /// <param name="search">Search</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get calendar view of events (V3) response.</returns>
+        /// <returns>The Get calendar view of events response.</returns>
         public virtual async Task<EntityListResponseGraphCalendarEventClientReceive> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables_V2")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string search = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetEventsCalendarViewAsync");
@@ -6015,12 +6015,12 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get mail tips for a mailbox (V2)
+        /// Get mail tips for a mailbox
         /// </summary>
         /// <remarks>Get mail tips for a mailbox such as automatic replies / OOF message or if the mailbox is full. This is not available in GccHigh and Mooncake.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get mail tips for a mailbox (V2) response.</returns>
+        /// <returns>The Get mail tips for a mailbox response.</returns>
         public virtual async Task<GetMailTipsResponse> GetMailTipsAsync(GetMailTipsInput input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetMailTipsAsync");
@@ -6040,11 +6040,11 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get room lists (V2)
+        /// Get room lists
         /// </summary>
         /// <remarks>Get all the room lists defined in the user&apos;s tenant</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get room lists (V2) response.</returns>
+        /// <returns>The Get room lists response.</returns>
         public virtual async Task<GetRoomListsResponse> GetRoomListsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetRoomListsAsync");
@@ -6064,11 +6064,11 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get rooms (V2)
+        /// Get rooms
         /// </summary>
         /// <remarks>Get all the meeting rooms defined in the user&apos;s tenant</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get rooms (V2) response.</returns>
+        /// <returns>The Get rooms response.</returns>
         public virtual async Task<GetRoomsResponse> GetRoomsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetRoomsAsync");
@@ -6088,12 +6088,12 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Get rooms in room list (V2)
+        /// Get rooms in room list
         /// </summary>
         /// <remarks>Get the meeting rooms in a specific room list</remarks>
         /// <param name="roomList">Room list</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get rooms in room list (V2) response.</returns>
+        /// <returns>The Get rooms in room list response.</returns>
         public virtual async Task<GetRoomsInRoomListResponse> GetRoomsInRoomListAsync([DynamicValues("GetRoomLists_V2")] string roomList, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetRoomsInRoomListAsync");
@@ -6115,7 +6115,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Mark as read or unread (V3)
+        /// Mark as read or unread
         /// </summary>
         /// <remarks>This operation marks an email as read/unread.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -6146,14 +6146,14 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Move email (V2)
+        /// Move email
         /// </summary>
         /// <remarks>This operation moves an email to the specified folder within the same mailbox.</remarks>
         /// <param name="messageId">Message Id</param>
         /// <param name="folder">Folder</param>
         /// <param name="originalMailboxAddress">Original Mailbox Address</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Move email (V2) response.</returns>
+        /// <returns>The Move email response.</returns>
         public virtual async Task<GraphClientReceiveMessage> MoveAsync(string messageId, string folder, string originalMailboxAddress = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.MoveAsync");
@@ -6181,7 +6181,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Reply to email (V3)
+        /// Reply to email
         /// </summary>
         /// <remarks>This operation replies to an email.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -6212,7 +6212,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Respond to an event invite (V2)
+        /// Respond to an event invite
         /// </summary>
         /// <remarks>Respond to an event invite.</remarks>
         /// <param name="eventId">Event Id</param>
@@ -6242,7 +6242,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Send an email (V2)
+        /// Send an email
         /// </summary>
         /// <remarks>This operation sends an email message.</remarks>
         /// <param name="input">The request body.</param>
@@ -6266,12 +6266,12 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Set up automatic replies (V2)
+        /// Set up automatic replies
         /// </summary>
         /// <remarks>Set the automatic replies setting for your mailbox.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Set up automatic replies (V2) response.</returns>
+        /// <returns>The Set up automatic replies response.</returns>
         public virtual async Task<SetAutomaticRepliesSettingResponse> SetAutomaticRepliesSettingAsync(SetAutomaticRepliesSettingInput input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.SetAutomaticRepliesSettingAsync");
@@ -6291,7 +6291,7 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Send an email from a shared mailbox (V2)
+        /// Send an email from a shared mailbox
         /// </summary>
         /// <remarks>This operation sends an email from a shared mailbox. Your account should have permission to access the mailbox for this operation to succeed.</remarks>
         /// <param name="input">The request body.</param>

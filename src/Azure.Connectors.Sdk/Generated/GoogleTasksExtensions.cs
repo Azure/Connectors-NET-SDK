@@ -288,7 +288,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         public const string OnDueTaskInList = "OnDueTaskInList";
 
         /// <summary>
-        /// When a task is completed in a task list (V2).
+        /// When a task is completed in a task list.
         /// </summary>
         public const string OnCompletedTaskInList = "OnCompletedTaskInListV2";
 

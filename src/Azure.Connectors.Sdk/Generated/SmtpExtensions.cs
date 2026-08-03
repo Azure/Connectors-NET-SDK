@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     #region Types
 
     /// <summary>
-    /// Email attachment (V2)
+    /// Email attachment
     /// </summary>
     public class Attachment
     {
@@ -51,7 +51,7 @@ namespace Azure.Connectors.Sdk.Smtp.Models
     }
 
     /// <summary>
-    /// SMTP email (v3)
+    /// SMTP email
     /// </summary>
     public class Email
     {
@@ -285,7 +285,7 @@ namespace Azure.Connectors.Sdk.Smtp
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Send Email (V3)
+        /// Send Email
         /// </summary>
         /// <remarks>This operation sends an email to one or more recipients.</remarks>
         /// <param name="input">The request body.</param>

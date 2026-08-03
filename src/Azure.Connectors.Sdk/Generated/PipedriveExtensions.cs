@@ -1092,7 +1092,7 @@ namespace Azure.Connectors.Sdk.Pipedrive
         public const string OnTrigNewActivity = "TrigNewActivity";
 
         /// <summary>
-        /// When a new deal is added (V2).
+        /// When a new deal is added.
         /// Payload type: <see cref="PipedriveOnTrigNewDealTriggerPayload"/>.
         /// </summary>
         public const string OnTrigNewDeal = "TrigNewDealV2";
@@ -1269,12 +1269,12 @@ namespace Azure.Connectors.Sdk.Pipedrive
         }
 
         /// <summary>
-        /// Add deal (V2)
+        /// Add deal
         /// </summary>
         /// <remarks>This operation creates a new deal for the authorized account.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add deal (V2) response.</returns>
+        /// <returns>The Add deal response.</returns>
         public virtual async Task<DealResponseV2> AddDealAsync(AddDealRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.AddDealAsync");
@@ -1294,13 +1294,13 @@ namespace Azure.Connectors.Sdk.Pipedrive
         }
 
         /// <summary>
-        /// Update deal stage (V2)
+        /// Update deal stage
         /// </summary>
         /// <remarks>This operation is used to update the stage associated with a deal, given its id.</remarks>
         /// <param name="dealId">Deal Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update deal stage (V2) response.</returns>
+        /// <returns>The Update deal stage response.</returns>
         public virtual async Task<DealResponseV2> UpdateDealStageAsync([DynamicValues("ListDeals")] int dealId, UpdateDealStageRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.UpdateDealStageAsync");

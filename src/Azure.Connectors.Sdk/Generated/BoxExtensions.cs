@@ -183,13 +183,13 @@ namespace Azure.Connectors.Sdk.Box
     public static class BoxTriggerOperations
     {
         /// <summary>
-        /// When a file is created (properties only) (V2).
+        /// When a file is created (properties only).
         /// Payload type: <see cref="BoxOnNewFilesTriggerPayload"/>.
         /// </summary>
         public const string OnNewFiles = "OnNewFilesV2";
 
         /// <summary>
-        /// When a file is modified (properties only) (V2).
+        /// When a file is modified (properties only).
         /// Payload type: <see cref="BoxOnUpdatedFilesTriggerPayload"/>.
         /// </summary>
         public const string OnUpdatedFiles = "OnUpdatedFilesV2";

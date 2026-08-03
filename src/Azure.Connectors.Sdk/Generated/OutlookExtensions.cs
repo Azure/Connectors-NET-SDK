@@ -3093,43 +3093,43 @@ namespace Azure.Connectors.Sdk.Outlook
     public static class OutlookTriggerOperations
     {
         /// <summary>
-        /// When an event is added, updated or deleted (V2).
+        /// When an event is added, updated or deleted.
         /// Payload type: <see cref="OutlookOnCalendarGetOnChangedItemsTriggerPayload"/>.
         /// </summary>
         public const string OnCalendarGetOnChangedItems = "CalendarGetOnChangedItemsV2";
 
         /// <summary>
-        /// When a new event is created (V2).
+        /// When a new event is created.
         /// Payload type: <see cref="OutlookOnCalendarGetOnNewItemsTriggerPayload"/>.
         /// </summary>
         public const string OnCalendarGetOnNewItems = "CalendarGetOnNewItemsV2";
 
         /// <summary>
-        /// When an event is modified (V2).
+        /// When an event is modified.
         /// Payload type: <see cref="OutlookOnCalendarGetOnUpdatedItemsTriggerPayload"/>.
         /// </summary>
         public const string OnCalendarGetOnUpdatedItems = "CalendarGetOnUpdatedItemsV2";
 
         /// <summary>
-        /// When an email is flagged (V2).
+        /// When an email is flagged.
         /// Payload type: <see cref="OutlookOnFlaggedEmailTriggerPayload"/>.
         /// </summary>
         public const string OnFlaggedEmail = "OnFlaggedEmailV2";
 
         /// <summary>
-        /// When a new email arrives (V2).
+        /// When a new email arrives.
         /// Payload type: <see cref="OutlookOnNewEmailTriggerPayload"/>.
         /// </summary>
         public const string OnNewEmail = "OnNewEmailV2";
 
         /// <summary>
-        /// When a new email mentioning me arrives (V2).
+        /// When a new email mentioning me arrives.
         /// Payload type: <see cref="OutlookOnNewMentionMeEmailTriggerPayload"/>.
         /// </summary>
         public const string OnNewMentionMeEmail = "OnNewMentionMeEmailV2";
 
         /// <summary>
-        /// When an upcoming event is starting soon (V2).
+        /// When an upcoming event is starting soon.
         /// Payload type: <see cref="OutlookOnUpcomingEventsTriggerPayload"/>.
         /// </summary>
         public const string OnUpcomingEvents = "OnUpcomingEventsV2";
@@ -4027,13 +4027,13 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Get event (V2)
+        /// Get event
         /// </summary>
-        /// <remarks>This operation gets a specific event from a calendar. (V2)</remarks>
+        /// <remarks>This operation gets a specific event from a calendar.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="itemId">Item id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get event (V2) response.</returns>
+        /// <returns>The Get event response.</returns>
         public virtual async Task<CalendarEventClientReceiveStringEnums> CalendarGetItemAsync([DynamicValues("CalendarGetTables")] string calendarId, string itemId, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetItemAsync");
@@ -4057,16 +4057,16 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Get events (V3)
+        /// Get events
         /// </summary>
-        /// <remarks>This operation gets events from a calendar. (V3)</remarks>
+        /// <remarks>This operation gets events from a calendar.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="orderBy">Order By</param>
         /// <param name="topCount">Top Count</param>
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get events (V3) response.</returns>
+        /// <returns>The Get events response.</returns>
         public virtual async Task<CalendarEventListClientReceive> CalendarGetItemsAsync([DynamicValues("CalendarGetTables")] string calendarId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarGetItemsAsync");
@@ -4097,14 +4097,14 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Update event (V3)
+        /// Update event
         /// </summary>
         /// <remarks>This operation updates an event in a calendar.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="id">Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update event (V3) response.</returns>
+        /// <returns>The Update event response.</returns>
         public virtual async Task<CalendarEventClientReceiveStringEnums> CalendarPatchItemAsync([DynamicValues("CalendarGetTables")] string calendarId, string id, CalendarEventHtmlClient input, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarPatchItemAsync");
@@ -4128,13 +4128,13 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Create event (V3)
+        /// Create event
         /// </summary>
         /// <remarks>This operation creates a new event in a calendar.</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create event (V3) response.</returns>
+        /// <returns>The Create event response.</returns>
         public virtual async Task<CalendarEventClientReceiveStringEnums> CalendarPostItemAsync([DynamicValues("CalendarGetTables")] string calendarId, CalendarEventHtmlClient input, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.CalendarPostItemAsync");
@@ -4156,7 +4156,7 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Get emails (V2)
+        /// Get emails
         /// </summary>
         /// <remarks>This operation gets emails from a folder.</remarks>
         /// <param name="folder">Folder</param>
@@ -4172,7 +4172,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="searchQuery">Search Query</param>
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get emails (V2) response.</returns>
+        /// <returns>The Get emails response.</returns>
         public virtual async Task<BatchResponseClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEmailsAsync");
@@ -4218,9 +4218,9 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Get calendar view of events (V2)
+        /// Get calendar view of events
         /// </summary>
-        /// <remarks>This operation gets all events (including instances of recurrences) in a calendar. (V2)</remarks>
+        /// <remarks>This operation gets all events (including instances of recurrences) in a calendar.</remarks>
         /// <param name="calendarId">Calendar Id</param>
         /// <param name="startTime">Start Time</param>
         /// <param name="endTime">End Time</param>
@@ -4230,7 +4230,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="skipCount">Skip Count</param>
         /// <param name="search">Search</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get calendar view of events (V2) response.</returns>
+        /// <returns>The Get calendar view of events response.</returns>
         public virtual async Task<EntityListResponseCalendarEventClientReceiveStringEnums> GetEventsCalendarViewAsync([DynamicValues("CalendarGetTables")] string calendarId, string startTime, string endTime, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string search = default, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEventsCalendarViewAsync");
@@ -4270,7 +4270,7 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Reply to email (V3)
+        /// Reply to email
         /// </summary>
         /// <remarks>This operation replies to an email.</remarks>
         /// <param name="messageId">Message Id</param>
@@ -4297,7 +4297,7 @@ namespace Azure.Connectors.Sdk.Outlook
         }
 
         /// <summary>
-        /// Send an email (V2)
+        /// Send an email
         /// </summary>
         /// <remarks>This operation sends an email message.</remarks>
         /// <param name="input">The request body.</param>

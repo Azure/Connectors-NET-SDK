@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     #region Types
 
     /// <summary>
-    /// Response for Get messages (V2)
+    /// Response for Get messages
     /// </summary>
     public class Messages
     {
@@ -83,7 +83,7 @@ namespace Azure.Connectors.Sdk.Azurequeues.Models
     }
 
     /// <summary>
-    /// Response for List queues (V2)
+    /// Response for List queues
     /// </summary>
     public class QueueInfo
     {
@@ -352,7 +352,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Delete message (V2)
+        /// Delete message
         /// </summary>
         /// <remarks>Delete a specific message from the queue.</remarks>
         /// <param name="storageAccountNameOrQueueEndpoint">Storage account name or queue endpoint</param>
@@ -389,7 +389,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         }
 
         /// <summary>
-        /// Get messages (V2)
+        /// Get messages
         /// </summary>
         /// <remarks>Get a specific set of messages from the queue. The messages will be hidden but remain on the queue until the delete action is used.</remarks>
         /// <param name="storageAccountNameOrQueueEndpoint">Storage account name or queue endpoint</param>
@@ -397,7 +397,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         /// <param name="numberOfMessages">Number of Messages</param>
         /// <param name="visibilityTimeout">Visibility Timeout</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get messages (V2) response.</returns>
+        /// <returns>The Get messages response.</returns>
         public virtual async Task<Messages> GetMessagesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, [DynamicValues("ListQueues_V2")] string queueName, string numberOfMessages = default, string visibilityTimeout = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.GetMessagesAsync");
@@ -426,12 +426,12 @@ namespace Azure.Connectors.Sdk.Azurequeues
         }
 
         /// <summary>
-        /// List queues (V2)
+        /// List queues
         /// </summary>
         /// <remarks>List all the queues for your storage account.</remarks>
         /// <param name="storageAccountNameOrQueueEndpoint">Storage account name or queue endpoint</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List queues (V2) response.</returns>
+        /// <returns>The List queues response.</returns>
         public virtual async Task<List<QueueInfo>> ListQueuesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, CancellationToken cancellationToken = default)
         {
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.ListQueuesAsync");
@@ -453,7 +453,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
         }
 
         /// <summary>
-        /// Put a message on a queue (V2)
+        /// Put a message on a queue
         /// </summary>
         /// <remarks>Adds a message to the given queue.</remarks>
         /// <param name="storageAccountNameOrQueueEndpoint">Storage account name or queue endpoint</param>
@@ -483,13 +483,13 @@ namespace Azure.Connectors.Sdk.Azurequeues
         }
 
         /// <summary>
-        /// Create a new queue (V2)
+        /// Create a new queue
         /// </summary>
         /// <remarks>Adds a queue to your account.</remarks>
         /// <param name="storageAccountNameOrQueueEndpoint">Storage account name or queue endpoint</param>
         /// <param name="queueName">Queue Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a new queue (V2) response.</returns>
+        /// <returns>The Create a new queue response.</returns>
         public virtual async Task<string> PutQueueAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrQueueEndpoint, string queueName, CancellationToken cancellationToken = default)
         {
             using var activity = AzureQueuesClient.ConnectorActivitySource.StartActivity("AzureQueuesClient.PutQueueAsync");

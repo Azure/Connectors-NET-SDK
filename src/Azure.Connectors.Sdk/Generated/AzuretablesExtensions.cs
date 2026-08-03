@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     #region Types
 
     /// <summary>
-    /// Insert Entity (V2)
+    /// Insert Entity
     /// </summary>
     public class CreateEntityInput
     {
@@ -145,7 +145,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Insert or Merge Entity (V2)
+    /// Insert or Merge Entity
     /// </summary>
     public class InsertMergeEntityInput
     {
@@ -157,7 +157,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Insert or Replace Entity (V2)
+    /// Insert or Replace Entity
     /// </summary>
     public class InsertReplaceEntityInput
     {
@@ -169,7 +169,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Merge Entity (V2)
+    /// Merge Entity
     /// </summary>
     public class MergeEntityInput
     {
@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk.Azuretables.Models
     }
 
     /// <summary>
-    /// Replace Entity (V2)
+    /// Replace Entity
     /// </summary>
     public class ReplaceEntityInput
     {
@@ -422,14 +422,14 @@ namespace Azure.Connectors.Sdk.Azuretables
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Insert Entity (V2)
+        /// Insert Entity
         /// </summary>
         /// <remarks>Operation to add an entity to a table.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
         /// <param name="table">Table</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Insert Entity (V2) response.</returns>
+        /// <returns>The Insert Entity response.</returns>
         public virtual async Task<InsertEntityResponse> CreateEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, CreateEntityInput input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.CreateEntityAsync");
@@ -453,13 +453,13 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Create table (V2)
+        /// Create table
         /// </summary>
         /// <remarks>This operation adds a table to the storage account.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create table (V2) response.</returns>
+        /// <returns>The Create table response.</returns>
         public virtual async Task<GetTableResponse> CreateTableAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, string input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.CreateTableAsync");
@@ -481,7 +481,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Delete Entity (V2)
+        /// Delete Entity
         /// </summary>
         /// <remarks>Operation to delete an entity.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -516,7 +516,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Delete a table (V2)
+        /// Delete a table
         /// </summary>
         /// <remarks>Delete a table.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -545,7 +545,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Get entities (V2)
+        /// Get entities
         /// </summary>
         /// <remarks>This operation queries the entities in a table.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -553,7 +553,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get entities (V2) response.</returns>
+        /// <returns>The Get entities response.</returns>
         public virtual async Task<GetEntitiesResponse> GetEntitiesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string filterQuery = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetEntitiesAsync");
@@ -582,7 +582,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Get entity (V2)
+        /// Get entity
         /// </summary>
         /// <remarks>This operation gets the entity in a table based on the partition and row key.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -591,7 +591,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         /// <param name="rowKey">Row Key</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get entity (V2) response.</returns>
+        /// <returns>The Get entity response.</returns>
         public virtual async Task<GetEntityResponse> GetEntityAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, string partitionKey, string rowKey, string selectQuery = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetEntityAsync");
@@ -622,13 +622,13 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Get a table (V2)
+        /// Get a table
         /// </summary>
         /// <remarks>This operation gets the metadata of a table.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
         /// <param name="table">Table</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get a table (V2) response.</returns>
+        /// <returns>The Get a table response.</returns>
         public virtual async Task<GetTableResponse> GetTableAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, [DynamicValues("GetTables_V2")] string table, CancellationToken cancellationToken = default)
         {
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetTableAsync");
@@ -652,12 +652,12 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// List tables (V2)
+        /// List tables
         /// </summary>
         /// <remarks>List all the tables for your storage account.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List tables (V2) response.</returns>
+        /// <returns>The List tables response.</returns>
         public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetStorageAccounts")] string storageAccountNameOrTableEndpoint, CancellationToken cancellationToken = default)
         {
             using var activity = AzureTablesClient.ConnectorActivitySource.StartActivity("AzureTablesClient.GetTablesAsync");
@@ -679,7 +679,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Insert or Merge Entity (V2)
+        /// Insert or Merge Entity
         /// </summary>
         /// <remarks>Operation to merge data with an entity in a table, creating a new entity if needed.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -715,7 +715,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Insert or Replace Entity (V2)
+        /// Insert or Replace Entity
         /// </summary>
         /// <remarks>Operation to replace an entity in a table, creating a new entity if needed.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -751,7 +751,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Merge Entity (V2)
+        /// Merge Entity
         /// </summary>
         /// <remarks>Operation to merge data with an entity in a table.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>
@@ -787,7 +787,7 @@ namespace Azure.Connectors.Sdk.Azuretables
         }
 
         /// <summary>
-        /// Replace Entity (V2)
+        /// Replace Entity
         /// </summary>
         /// <remarks>Operation to replace an entity in a table.</remarks>
         /// <param name="storageAccountNameOrTableEndpoint">Storage account name or table endpoint</param>

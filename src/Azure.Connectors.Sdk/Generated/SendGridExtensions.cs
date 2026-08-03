@@ -660,12 +660,12 @@ namespace Azure.Connectors.Sdk.SendGrid
         }
 
         /// <summary>
-        /// Send email (V4)
+        /// Send email
         /// </summary>
         /// <remarks>Sends an email (V4). Limited to 1000 recipients.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send email (V4) response.</returns>
+        /// <returns>The Send email response.</returns>
         public virtual async Task<ObjectEntity> SendEmailAsync(EmailRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = SendGridClient.ConnectorActivitySource.StartActivity("SendGridClient.SendEmailAsync");
