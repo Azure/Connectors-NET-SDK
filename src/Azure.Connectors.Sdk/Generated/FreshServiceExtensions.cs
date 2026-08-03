@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     #region Types
 
     /// <summary>
-    /// Response for Add a note to a ticket (V2)
+    /// Response for Add a note to a ticket
     /// </summary>
     public class AddNoteResponse
     {
@@ -40,7 +40,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     }
 
     /// <summary>
-    /// Response for Create a ticket (V2)
+    /// Response for Create a ticket
     /// </summary>
     public class CreateUpdateTicketResponse
     {
@@ -50,7 +50,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     }
 
     /// <summary>
-    /// Response for When a ticket is created (V2)
+    /// Response for When a ticket is created
     /// </summary>
     public class ListTicketResponse
     {
@@ -713,7 +713,7 @@ namespace Azure.Connectors.Sdk.FreshService
     public static class FreshServiceTriggerOperations
     {
         /// <summary>
-        /// When a ticket is created (V2).
+        /// When a ticket is created.
         /// Payload type: <see cref="FreshServiceOnTicketCreatedTriggerPayload"/>.
         /// </summary>
         public const string OnTicketCreated = "OnTicketCreatedV2";
@@ -789,13 +789,13 @@ namespace Azure.Connectors.Sdk.FreshService
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Add a note to a ticket (V2)
+        /// Add a note to a ticket
         /// </summary>
         /// <remarks>Add a private or public note to a ticket.</remarks>
         /// <param name="ticketId">Ticket Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add a note to a ticket (V2) response.</returns>
+        /// <returns>The Add a note to a ticket response.</returns>
         public virtual async Task<AddNoteResponse> AddNoteAsync(int ticketId, AddNoteRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.AddNoteAsync");
@@ -815,12 +815,12 @@ namespace Azure.Connectors.Sdk.FreshService
         }
 
         /// <summary>
-        /// Create a ticket (V2)
+        /// Create a ticket
         /// </summary>
         /// <remarks>Create a ticket.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a ticket (V2) response.</returns>
+        /// <returns>The Create a ticket response.</returns>
         public virtual async Task<CreateUpdateTicketResponse> CreateTicketAsync(CreateTicketRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.CreateTicketAsync");
@@ -840,13 +840,13 @@ namespace Azure.Connectors.Sdk.FreshService
         }
 
         /// <summary>
-        /// Update a ticket (V2)
+        /// Update a ticket
         /// </summary>
         /// <remarks>Update a ticket (only specified values will be updated).</remarks>
         /// <param name="ticketId">Ticket Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update a ticket (V2) response.</returns>
+        /// <returns>The Update a ticket response.</returns>
         public virtual async Task<CreateUpdateTicketResponse> UpdateTicketAsync(int ticketId, UpdateTicketRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.UpdateTicketAsync");

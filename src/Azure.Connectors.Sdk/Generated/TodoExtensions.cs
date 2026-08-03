@@ -515,13 +515,13 @@ namespace Azure.Connectors.Sdk.Todo
     public static class TodoTriggerOperations
     {
         /// <summary>
-        /// When a new to-do in a specific folder is created (V2).
+        /// When a new to-do in a specific folder is created.
         /// Payload type: <see cref="TodoOnNewToDoInFolderTriggerPayload"/>.
         /// </summary>
         public const string OnNewToDoInFolder = "OnNewToDoInFolderV2";
 
         /// <summary>
-        /// When a to-do in a specific folder is updated (V2).
+        /// When a to-do in a specific folder is updated.
         /// Payload type: <see cref="TodoOnUpdateToDoInFolderTriggerPayload"/>.
         /// </summary>
         public const string OnUpdateToDoInFolder = "OnUpdateToDoInFolderV2";
@@ -691,13 +691,13 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// Add a to-do (V3)
+        /// Add a to-do
         /// </summary>
         /// <remarks>This operation is used to create a to-do in the specified to-do list.</remarks>
         /// <param name="toDoList">To-do List</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add a to-do (V3) response.</returns>
+        /// <returns>The Add a to-do response.</returns>
         public virtual async Task<ToDo> CreateToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, CreateToDo input, CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.CreateToDoAsync");
@@ -719,12 +719,12 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// Create a to-do list (V2)
+        /// Create a to-do list
         /// </summary>
         /// <remarks>This operation is used to create a new to-do list.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a to-do list (V2) response.</returns>
+        /// <returns>The Create a to-do list response.</returns>
         public virtual async Task<TodoList> CreateToDoListAsync(CreateToDoList input, CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.CreateToDoListAsync");
@@ -744,7 +744,7 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// Delete to-do (V2)
+        /// Delete to-do
         /// </summary>
         /// <remarks>This operation is used to delete a task.</remarks>
         /// <param name="toDoList">To-do List</param>
@@ -773,11 +773,11 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// List all to-do lists (V2)
+        /// List all to-do lists
         /// </summary>
         /// <remarks>Returns a list of all the to-do lists.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all to-do lists (V2) response.</returns>
+        /// <returns>The List all to-do lists response.</returns>
         public virtual async Task<List<TodoList>> GetAllTodoListsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetAllTodoListsAsync");
@@ -797,13 +797,13 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// Get a to-do (V3)
+        /// Get a to-do
         /// </summary>
         /// <remarks>This operation is used to get the to-do with the given Id.</remarks>
         /// <param name="toDoList">To-do List</param>
         /// <param name="toDoTask">To-do task</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get a to-do (V3) response.</returns>
+        /// <returns>The Get a to-do response.</returns>
         public virtual async Task<ToDo> GetToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, [DynamicValues("ListToDosByFolderV2")] string toDoTask, CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetToDoAsync");
@@ -827,12 +827,12 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// Get a to-do list (V2)
+        /// Get a to-do list
         /// </summary>
         /// <remarks>This operation is used to get a specific to-do list.</remarks>
         /// <param name="toDoList">To-do List</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get a to-do list (V2) response.</returns>
+        /// <returns>The Get a to-do list response.</returns>
         public virtual async Task<TodoList> GetToDoListAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.GetToDoListAsync");
@@ -854,13 +854,13 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// List to-dos by folder (V2)
+        /// List to-dos by folder
         /// </summary>
         /// <remarks>This operation is used to retrieve all to-dos from a specific list.</remarks>
         /// <param name="toDoList">To-do List</param>
         /// <param name="topCount">Top Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List to-dos by folder (V2) response.</returns>
+        /// <returns>The List to-dos by folder response.</returns>
         public virtual async Task<List<ToDo>> ListToDosByFolderAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, int? topCount = default, CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.ListToDosByFolderAsync");
@@ -885,14 +885,14 @@ namespace Azure.Connectors.Sdk.Todo
         }
 
         /// <summary>
-        /// Update to-do (V2)
+        /// Update to-do
         /// </summary>
         /// <remarks>This operation is used to update a specific to-do.</remarks>
         /// <param name="toDoList">To-do List</param>
         /// <param name="toDoTask">To-do task</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update to-do (V2) response.</returns>
+        /// <returns>The Update to-do response.</returns>
         public virtual async Task<ToDo> UpdateToDoAsync([DynamicValues("GetAllTodoListsV2")] string toDoList, [DynamicValues("ListToDosByFolderV2")] string toDoTask, UpdateToDo input, CancellationToken cancellationToken = default)
         {
             using var activity = TodoClient.ConnectorActivitySource.StartActivity("TodoClient.UpdateToDoAsync");

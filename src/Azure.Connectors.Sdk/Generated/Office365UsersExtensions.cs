@@ -1223,14 +1223,14 @@ namespace Azure.Connectors.Sdk.Office365Users
         }
 
         /// <summary>
-        /// Get direct reports (V2)
+        /// Get direct reports
         /// </summary>
         /// <remarks>Retrieves the user profiles of the specified user&apos;s direct reports. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
         /// <param name="userUPN">User (UPN)</param>
         /// <param name="selectFields">Select fields</param>
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get direct reports (V2) response.</returns>
+        /// <returns>The Get direct reports response.</returns>
         public virtual async Task<DirectReportsResponse> DirectReportsAsync(string userUPN, string selectFields = default, int? top = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.DirectReportsAsync");
@@ -1257,13 +1257,13 @@ namespace Azure.Connectors.Sdk.Office365Users
         }
 
         /// <summary>
-        /// Get manager (V2)
+        /// Get manager
         /// </summary>
         /// <remarks>Retrieves the profile of the specified user&apos;s manager. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
         /// <param name="userUPN">User (UPN)</param>
         /// <param name="selectFields">Select fields</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get manager (V2) response.</returns>
+        /// <returns>The Get manager response.</returns>
         public virtual async Task<GraphUser> ManagerAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.ManagerAsync");
@@ -1288,12 +1288,12 @@ namespace Azure.Connectors.Sdk.Office365Users
         }
 
         /// <summary>
-        /// Get my profile (V2)
+        /// Get my profile
         /// </summary>
         /// <remarks>Retrieves the profile of the current user. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
         /// <param name="selectFields">Select fields</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get my profile (V2) response.</returns>
+        /// <returns>The Get my profile response.</returns>
         public virtual async Task<GraphUser> MyProfileAsync(string selectFields = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.MyProfileAsync");
@@ -1316,7 +1316,7 @@ namespace Azure.Connectors.Sdk.Office365Users
         }
 
         /// <summary>
-        /// Search for users (V2)
+        /// Search for users
         /// </summary>
         /// <remarks>Retrieves the user profiles that match the search term (V2).</remarks>
         /// <param name="searchTerm">Search term</param>
@@ -1341,12 +1341,12 @@ namespace Azure.Connectors.Sdk.Office365Users
         }
 
         /// <summary>
-        /// Get user photo (V2)
+        /// Get user photo
         /// </summary>
         /// <remarks>Retrieves the photo of the specified user if they have one</remarks>
         /// <param name="userUPN">User (UPN)</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get user photo (V2) response.</returns>
+        /// <returns>The Get user photo response.</returns>
         public virtual async Task<byte[]> UserPhotoAsync(string userUPN, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserPhotoAsync");
@@ -1368,13 +1368,13 @@ namespace Azure.Connectors.Sdk.Office365Users
         }
 
         /// <summary>
-        /// Get user profile (V2)
+        /// Get user profile
         /// </summary>
         /// <remarks>Retrieves the profile of a specific user. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
         /// <param name="userUPN">User (UPN)</param>
         /// <param name="selectFields">Select fields</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get user profile (V2) response.</returns>
+        /// <returns>The Get user profile response.</returns>
         public virtual async Task<GraphUser> UserProfileAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserProfileAsync");

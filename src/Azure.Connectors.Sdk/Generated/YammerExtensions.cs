@@ -501,12 +501,12 @@ namespace Azure.Connectors.Sdk.Yammer
     public static class YammerTriggerOperations
     {
         /// <summary>
-        /// When there is a new message in my followed feed (V2).
+        /// When there is a new message in my followed feed.
         /// </summary>
         public const string OnNewMessagesFollowing = "OnNewMessagesFollowingV2";
 
         /// <summary>
-        /// When there is a new message in a group (V2).
+        /// When there is a new message in a group.
         /// </summary>
         public const string OnNewMessagesInGroup = "OnNewMessagesInGroupV2";
 
@@ -749,7 +749,7 @@ namespace Azure.Connectors.Sdk.Yammer
         }
 
         /// <summary>
-        /// Get all messages (V3)
+        /// Get all messages
         /// </summary>
         /// <remarks>This operation returns all public messages in the logged in user&apos;s Viva Engage network. Corresponds to &quot;All&quot; conversations in the Viva Engage web interface.</remarks>
         /// <param name="uniqueIdentifierOfTheNetwork">Unique identifier of the network</param>
@@ -758,7 +758,7 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all messages (V3) response.</returns>
+        /// <returns>The Get all messages response.</returns>
         public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetAllMessagesAsync");
@@ -789,7 +789,7 @@ namespace Azure.Connectors.Sdk.Yammer
         }
 
         /// <summary>
-        /// Get the messages from my Following feed (V3)
+        /// Get the messages from my Following feed
         /// </summary>
         /// <remarks>This operation returns the messages from Following feed which is conversations involving people, groups and topics that the user is following.</remarks>
         /// <param name="networkId">Network ID</param>
@@ -798,7 +798,7 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the messages from my Following feed (V3) response.</returns>
+        /// <returns>The Get the messages from my Following feed response.</returns>
         public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesFollowingAsync");
@@ -829,7 +829,7 @@ namespace Azure.Connectors.Sdk.Yammer
         }
 
         /// <summary>
-        /// Get messages in a group (V3)
+        /// Get messages in a group
         /// </summary>
         /// <remarks>This operation returns the messages posted in a group.</remarks>
         /// <param name="groupId">Group ID</param>
@@ -839,7 +839,7 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get messages in a group (V3) response.</returns>
+        /// <returns>The Get messages in a group response.</returns>
         public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInGroupAsync");
@@ -870,12 +870,12 @@ namespace Azure.Connectors.Sdk.Yammer
         }
 
         /// <summary>
-        /// Get messages in a thread (V3)
+        /// Get messages in a thread
         /// </summary>
         /// <remarks>This operation returns the messages posted in a thread.</remarks>
         /// <param name="threadId">Thread ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get messages in a thread (V3) response.</returns>
+        /// <returns>The Get messages in a thread response.</returns>
         public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadId, CancellationToken cancellationToken = default)
         {
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInThreadAsync");
@@ -895,13 +895,13 @@ namespace Azure.Connectors.Sdk.Yammer
         }
 
         /// <summary>
-        /// Post message (V2)
+        /// Post message
         /// </summary>
         /// <remarks>This operation is used to post a Message to a Group or All Company Feed. If group ID is provided, message will be posted to the specified group else it will be posted in All Company Feed.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="networkId">Network ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Post message (V2) response.</returns>
+        /// <returns>The Post message response.</returns>
         public virtual async Task<MessageList> PostMessageAsync(PostOperationRequest input, [DynamicValues("GetNetworks")] string networkId = default, CancellationToken cancellationToken = default)
         {
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.PostMessageAsync");

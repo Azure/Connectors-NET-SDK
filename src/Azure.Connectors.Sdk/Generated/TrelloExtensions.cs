@@ -2420,13 +2420,13 @@ namespace Azure.Connectors.Sdk.Trello
     public static class TrelloTriggerOperations
     {
         /// <summary>
-        /// When a new card is added to a board (V3).
+        /// When a new card is added to a board.
         /// Payload type: <see cref="TrelloOnNewCardInBoardTriggerPayload"/>.
         /// </summary>
         public const string OnNewCardInBoard = "OnNewCardInBoardV3";
 
         /// <summary>
-        /// When a new card is added to a list (V3).
+        /// When a new card is added to a list.
         /// Payload type: <see cref="TrelloOnNewCardInListTriggerPayload"/>.
         /// </summary>
         public const string OnNewCardInList = "OnNewCardInListV3";

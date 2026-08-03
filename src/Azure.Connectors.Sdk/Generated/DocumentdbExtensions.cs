@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     #region Types
 
     /// <summary>
-    /// Response for Create or update document (V3)
+    /// Response for Create or update document
     /// </summary>
     public class PostDocumentsResponse
     {
@@ -59,7 +59,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Create stored procedure (V2)
+    /// Create stored procedure
     /// </summary>
     public class CreateStoredProcedureInput
     {
@@ -73,7 +73,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Create stored procedure (V2)
+    /// Response for Create stored procedure
     /// </summary>
     public class CreateStoredProcedureResponse
     {
@@ -103,7 +103,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Execute stored procedure (V2)
+    /// Response for Execute stored procedure
     /// </summary>
     public class ObjectWithoutType
     {
@@ -115,7 +115,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Get a document (V2)
+    /// Response for Get a document
     /// </summary>
     public class GetDocumentResponse
     {
@@ -185,7 +185,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Get all documents (V3)
+    /// Response for Get all documents
     /// </summary>
     public class GetDocumentsResponse
     {
@@ -203,7 +203,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Get stored procedures (V2)
+    /// Response for Get stored procedures
     /// </summary>
     public class GetStoredProceduresResponse
     {
@@ -255,7 +255,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Replace a document (V2)
+    /// Response for Replace a document
     /// </summary>
     public class PutDocumentResponse
     {
@@ -269,7 +269,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Replace stored procedure (V2)
+    /// Replace stored procedure
     /// </summary>
     public class ReplaceStoredProcedureInput
     {
@@ -307,7 +307,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Get all databases (V2)
+    /// Response for Get all databases
     /// </summary>
     public class GetDatabasesResponse
     {
@@ -325,7 +325,7 @@ namespace Azure.Connectors.Sdk.Documentdb.Models
     }
 
     /// <summary>
-    /// Response for Get all collections (V2)
+    /// Response for Get all collections
     /// </summary>
     public class GetCollectionsResponse
     {
@@ -708,7 +708,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Create or update document (V3)
+        /// Create or update document
         /// </summary>
         /// <remarks>Create or update document. When creating a document in DocumentDB, the body must include an id property.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -716,7 +716,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="collectionId">Collection ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create or update document (V3) response.</returns>
+        /// <returns>The Create or update document response.</returns>
         public virtual async Task<PostDocumentsResponse> CreateDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, PostDocumentsRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.CreateDocumentAsync");
@@ -742,7 +742,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Create stored procedure (V2)
+        /// Create stored procedure
         /// </summary>
         /// <remarks>Create stored procedure (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -750,7 +750,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="collectionId">Collection ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create stored procedure (V2) response.</returns>
+        /// <returns>The Create stored procedure response.</returns>
         public virtual async Task<CreateStoredProcedureResponse> CreateStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, CreateStoredProcedureInput input, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.CreateStoredProcedureAsync");
@@ -776,7 +776,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Delete a document (V2)
+        /// Delete a document
         /// </summary>
         /// <remarks>Delete a document (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -811,7 +811,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Delete stored procedure (V2)
+        /// Delete stored procedure
         /// </summary>
         /// <remarks>Delete stored procedure (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -819,7 +819,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="collectionId">Collection ID</param>
         /// <param name="sprocId">Sproc ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Delete stored procedure (V2) response.</returns>
+        /// <returns>The Delete stored procedure response.</returns>
         public virtual async Task<string> DeleteStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, [DynamicValues("GetStoredProcedures_V2")] string sprocId, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.DeleteStoredProcedureAsync");
@@ -847,7 +847,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Execute stored procedure (V2)
+        /// Execute stored procedure
         /// </summary>
         /// <remarks>Execute stored procedure in specified collection (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -856,7 +856,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="sprocId">Sproc ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Execute stored procedure (V2) response.</returns>
+        /// <returns>The Execute stored procedure response.</returns>
         public virtual async Task<ObjectWithoutType> ExecuteStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, [DynamicValues("GetStoredProcedures_V2")] string sprocId, string input, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ExecuteStoredProcedureAsync");
@@ -884,7 +884,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Get a document (V2)
+        /// Get a document
         /// </summary>
         /// <remarks>Get a document (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -894,7 +894,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get a document (V2) response.</returns>
+        /// <returns>The Get a document response.</returns>
         public virtual async Task<GetDocumentResponse> GetDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, bool? extractSensitivityLabel = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDocumentAsync");
@@ -927,7 +927,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Get all documents (V3)
+        /// Get all documents
         /// </summary>
         /// <remarks>Get all documents (V3).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -936,7 +936,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all documents (V3) response.</returns>
+        /// <returns>The Get all documents response.</returns>
         public virtual async Task<GetDocumentsResponse> GetDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, bool? extractSensitivityLabel = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDocumentsAsync");
@@ -967,14 +967,14 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Get stored procedures (V2)
+        /// Get stored procedures
         /// </summary>
         /// <remarks>Get stored procedures in the specified collection (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get stored procedures (V2) response.</returns>
+        /// <returns>The Get stored procedures response.</returns>
         public virtual async Task<GetStoredProceduresResponse> GetStoredProceduresAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetStoredProceduresAsync");
@@ -1058,7 +1058,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Replace a document (V2)
+        /// Replace a document
         /// </summary>
         /// <remarks>Replace a document (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -1067,7 +1067,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="documentId">Document ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Replace a document (V2) response.</returns>
+        /// <returns>The Replace a document response.</returns>
         public virtual async Task<PutDocumentResponse> ReplaceDocumentAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, string documentId, PutDocumentRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ReplaceDocumentAsync");
@@ -1095,7 +1095,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Replace stored procedure (V2)
+        /// Replace stored procedure
         /// </summary>
         /// <remarks>Replace stored procedure (V2).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -1104,7 +1104,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="sprocId">Sproc ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Replace stored procedure (V2) response.</returns>
+        /// <returns>The Replace stored procedure response.</returns>
         public virtual async Task<CreateStoredProcedureResponse> ReplaceStoredProcedureAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string collectionId, [DynamicValues("GetStoredProcedures_V2")] string sprocId, ReplaceStoredProcedureInput input, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.ReplaceStoredProcedureAsync");
@@ -1156,12 +1156,12 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Get all databases (V2)
+        /// Get all databases
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all databases (V2) response.</returns>
+        /// <returns>The Get all databases response.</returns>
         public virtual async Task<GetDatabasesResponse> GetDatabasesAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetDatabasesAsync");
@@ -1183,13 +1183,13 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Get all collections (V2)
+        /// Get all collections
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all collections (V2) response.</returns>
+        /// <returns>The Get all collections response.</returns>
         public virtual async Task<GetCollectionsResponse> GetCollectionsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.GetCollectionsAsync");

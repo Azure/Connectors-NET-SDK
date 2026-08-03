@@ -603,12 +603,12 @@ namespace Azure.Connectors.Sdk.Slack
         }
 
         /// <summary>
-        /// Post message (V2)
+        /// Post message
         /// </summary>
         /// <remarks>This operation is used to post a message to the specified channel.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Post message (V2) response.</returns>
+        /// <returns>The Post message response.</returns>
         public virtual async Task<PostMessageResponse> PostMessageAsync(PostMessageRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.PostMessageAsync");

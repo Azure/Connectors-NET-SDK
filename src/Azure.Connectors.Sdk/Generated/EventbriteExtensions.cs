@@ -30,7 +30,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     #region Types
 
     /// <summary>
-    /// Response for Create event (V2)
+    /// Response for Create event
     /// </summary>
     public class CreateEventResponse
     {
@@ -90,7 +90,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     }
 
     /// <summary>
-    /// Response for Get organizers (V2)
+    /// Response for Get organizers
     /// </summary>
     public class GetOrganizersResponse
     {
@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
     }
 
     /// <summary>
-    /// Response for Get venues (V2)
+    /// Response for Get venues
     /// </summary>
     public class GetMyVenuesResponse
     {
@@ -283,13 +283,13 @@ namespace Azure.Connectors.Sdk.Eventbrite
     public static class EventbriteTriggerOperations
     {
         /// <summary>
-        /// When an event is created (V2).
+        /// When an event is created.
         /// Payload type: <see cref="EventbriteOnNewEventTriggerPayload"/>.
         /// </summary>
         public const string OnNewEvent = "OnNewEventV2";
 
         /// <summary>
-        /// When an order changes (V2).
+        /// When an order changes.
         /// Payload type: <see cref="EventbriteOnOrderChangedTriggerPayload"/>.
         /// </summary>
         public const string OnOrderChanged = "OnOrderChangedV2";
@@ -426,7 +426,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Create event (V2)
+        /// Create event
         /// </summary>
         /// <remarks>Create a new Eventbrite event.</remarks>
         /// <param name="organization">Organization</param>
@@ -450,7 +450,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <param name="hideEndDate">Hide end date</param>
         /// <param name="showRemaining">Show Remaining</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create event (V2) response.</returns>
+        /// <returns>The Create event response.</returns>
         public virtual async Task<CreateEventResponse> CreateEventAsync([DynamicValues("GetOrganizations")] string organization, string name, string description, string start, string end, string startTimezone, string endTimezone, string eventCurrency, [DynamicValues("GetOrganizersV2")] string organizer = default, [DynamicValues("GetMyVenuesV2")] string venue = default, [DynamicValues("GetCategories")] string category = default, string password = default, string capacity = default, bool? shareable = default, bool? inviteOnly = default, bool? onlineEvent = default, bool? listed = default, bool? hideStartDate = default, bool? hideEndDate = default, bool? showRemaining = default, CancellationToken cancellationToken = default)
         {
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.CreateEventAsync");
@@ -518,7 +518,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
         }
 
         /// <summary>
-        /// Update event (V2)
+        /// Update event
         /// </summary>
         /// <remarks>Update an existing event.</remarks>
         /// <param name="event">Event</param>
@@ -543,7 +543,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
         /// <param name="hideEndDate">Hide end date</param>
         /// <param name="showRemaining">Show Remaining</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update event (V2) response.</returns>
+        /// <returns>The Update event response.</returns>
         public virtual async Task<CreateEventResponse> UpdateEventAsync([DynamicValues("GetOrganizationEvents")] string @event, [DynamicValues("GetOrganizations")] string organization, string startTimezone, string endTimezone, string eventCurrency, string name = default, string description = default, string start = default, string end = default, [DynamicValues("GetOrganizersV2")] string organizer = default, [DynamicValues("GetMyVenuesV2")] string venue = default, [DynamicValues("GetCategories")] string category = default, string password = default, string capacity = default, bool? shareable = default, bool? inviteOnly = default, bool? onlineEvent = default, bool? listed = default, bool? hideStartDate = default, bool? hideEndDate = default, bool? showRemaining = default, CancellationToken cancellationToken = default)
         {
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.UpdateEventAsync");
@@ -634,12 +634,12 @@ namespace Azure.Connectors.Sdk.Eventbrite
         }
 
         /// <summary>
-        /// Get organizers (V2)
+        /// Get organizers
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="organization">Organization</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get organizers (V2) response.</returns>
+        /// <returns>The Get organizers response.</returns>
         public virtual async Task<GetOrganizersResponse> GetOrganizersAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
         {
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetOrganizersAsync");
@@ -661,12 +661,12 @@ namespace Azure.Connectors.Sdk.Eventbrite
         }
 
         /// <summary>
-        /// Get venues (V2)
+        /// Get venues
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="organization">Organization</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get venues (V2) response.</returns>
+        /// <returns>The Get venues response.</returns>
         public virtual async Task<GetMyVenuesResponse> GetMyVenuesAsync([DynamicValues("GetOrganizations")] string organization, CancellationToken cancellationToken = default)
         {
             using var activity = EventbriteClient.ConnectorActivitySource.StartActivity("EventbriteClient.GetMyVenuesAsync");

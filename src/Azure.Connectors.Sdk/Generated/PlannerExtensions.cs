@@ -1381,13 +1381,13 @@ namespace Azure.Connectors.Sdk.Planner
         }
 
         /// <summary>
-        /// Update a task (V2)
+        /// Update a task
         /// </summary>
         /// <remarks>Update an existing Planner task.</remarks>
         /// <param name="taskId">Task Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update a task (V2) response.</returns>
+        /// <returns>The Update a task response.</returns>
         public virtual async Task<GetTaskResponseV2> UpdateTaskAsync([DynamicValues("ListMyTasks_V2")] string taskId, UpdateTaskRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PlannerClient.ConnectorActivitySource.StartActivity("PlannerClient.UpdateTaskAsync");

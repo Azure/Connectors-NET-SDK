@@ -635,7 +635,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
     public static class AzureBlobTriggerOperations
     {
         /// <summary>
-        /// When a blob is added or modified (properties only) (V2).
+        /// When a blob is added or modified (properties only).
         /// Payload type: <see cref="AzureBlobOnUpdatedFilesTriggerPayload"/>.
         /// </summary>
         public const string OnUpdatedFiles = "OnUpdatedFiles_V2";
@@ -755,7 +755,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Copy blob (V2)
+        /// Copy blob
         /// </summary>
         /// <remarks>This operation copies a blob. If blob is being deleted/renamed on server right after it was copied, connector may return HTTP 404 error by it&apos;s design. Please use a delay for 1 minute before deleting or renaming newly created blob. Chunk transfer is not supported in this action. If source and destination are present in same storage account, please use relative path. Otherwise, maximum size of a source for copy blob operation is 50 MB.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -763,7 +763,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="destinationBlobPath">Destination blob path</param>
         /// <param name="overwrite">Overwrite?</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Copy blob (V2) response.</returns>
+        /// <returns>The Copy blob response.</returns>
         public virtual async Task<BlobMetadata> CopyFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceUrl, string destinationBlobPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CopyFileAsync");
@@ -795,7 +795,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Create block blob (V2)
+        /// Create block blob
         /// </summary>
         /// <remarks>This operation uploads a block blob to Azure Blob Storage.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -831,7 +831,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Create blob (V2)
+        /// Create blob
         /// </summary>
         /// <remarks>This operation uploads a blob to Azure Blob Storage.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -839,7 +839,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="folderPath">Folder path</param>
         /// <param name="blobName">Blob name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create blob (V2) response.</returns>
+        /// <returns>The Create blob response.</returns>
         public virtual async Task<BlobMetadata> CreateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, byte[] input, string folderPath, string blobName, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateFileAsync");
@@ -869,14 +869,14 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Create SAS URI by path (V2)
+        /// Create SAS URI by path
         /// </summary>
         /// <remarks>This operation creates a SAS link for a blob using the path.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
         /// <param name="input">The request body.</param>
         /// <param name="blobPath">Blob path</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create SAS URI by path (V2) response.</returns>
+        /// <returns>The Create SAS URI by path response.</returns>
         public virtual async Task<SharedAccessSignature> CreateShareLinkByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, SharedAccessSignatureBlobPolicy input, string blobPath, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.CreateShareLinkByPathAsync");
@@ -902,7 +902,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Delete blob (V2)
+        /// Delete blob
         /// </summary>
         /// <remarks>This operation deletes a blob.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -931,7 +931,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Extract archive to folder (V2)
+        /// Extract archive to folder
         /// </summary>
         /// <remarks>This operation extracts an archive blob into a folder (example: .zip).</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -939,7 +939,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="destinationFolderPath">Destination folder path</param>
         /// <param name="overwrite">Overwrite?</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Extract archive to folder (V2) response.</returns>
+        /// <returns>The Extract archive to folder response.</returns>
         public virtual async Task<List<BlobMetadata>> ExtractFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string sourceArchiveBlobPath, string destinationFolderPath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ExtractFolderAsync");
@@ -971,13 +971,13 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Get available access policies (V2)
+        /// Get available access policies
         /// </summary>
         /// <remarks>This operation gets available shared access policies for a blob.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
         /// <param name="blobPath">Blob path</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get available access policies (V2) response.</returns>
+        /// <returns>The Get available access policies response.</returns>
         public virtual async Task<List<SharedAccessSignatureBlobPolicy>> GetAccessPoliciesAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetAccessPoliciesAsync");
@@ -1003,7 +1003,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Get blob content (V2)
+        /// Get blob content
         /// </summary>
         /// <remarks>This operation retrieves blob contents using id.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1012,7 +1012,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get blob content (V2) response.</returns>
+        /// <returns>The Get blob content response.</returns>
         public virtual async Task<byte[]> GetFileContentAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentAsync");
@@ -1043,7 +1043,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Get blob content using path (V2)
+        /// Get blob content using path
         /// </summary>
         /// <remarks>This operation retrieves blob contents using path.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1052,7 +1052,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get blob content using path (V2) response.</returns>
+        /// <returns>The Get blob content using path response.</returns>
         public virtual async Task<byte[]> GetFileContentByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? inferContentType = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileContentByPathAsync");
@@ -1085,7 +1085,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Get Blob Metadata (V2)
+        /// Get Blob Metadata
         /// </summary>
         /// <remarks>This operation retrieves blob metadata using blob id.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1093,7 +1093,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Blob Metadata (V2) response.</returns>
+        /// <returns>The Get Blob Metadata response.</returns>
         public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataAsync");
@@ -1122,7 +1122,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Get Blob Metadata using path (V2)
+        /// Get Blob Metadata using path
         /// </summary>
         /// <remarks>This operation retrieves blob metadata using path.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1130,7 +1130,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Blob Metadata using path (V2) response.</returns>
+        /// <returns>The Get Blob Metadata using path response.</returns>
         public virtual async Task<DataWithSensitivityLabelInfo> GetFileMetadataByPathAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blobPath, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.GetFileMetadataByPathAsync");
@@ -1161,7 +1161,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Lists blobs (V2)
+        /// Lists blobs
         /// </summary>
         /// <remarks>This operation lists blobs in a container.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1171,7 +1171,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         /// <param name="extractMIPLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Lists blobs (V2) response.</returns>
+        /// <returns>The Lists blobs response.</returns>
         public virtual async Task<ListOfBlobsWithSensitivityLabels> ListFolderAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string folder, string pagingMarker = default, bool? flatListing = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.ListFolderAsync");
@@ -1204,7 +1204,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Lists blobs in the root folder  (V2)
+        /// Lists blobs in the root folder
         /// </summary>
         /// <remarks>This operation lists blobs in the Azure Blob Storage root folder.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1227,7 +1227,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Set blob tier by path (V2)
+        /// Set blob tier by path
         /// </summary>
         /// <remarks>This operation sets a tier for a block blob on a standard storage account using the path.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
@@ -1262,14 +1262,14 @@ namespace Azure.Connectors.Sdk.AzureBlob
         }
 
         /// <summary>
-        /// Update blob (V2)
+        /// Update blob
         /// </summary>
         /// <remarks>This operation updates a blob in Azure Blob Storage.</remarks>
         /// <param name="storageAccountNameOrBlobEndpoint">Storage account name or blob endpoint</param>
         /// <param name="blob">Blob</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update blob (V2) response.</returns>
+        /// <returns>The Update blob response.</returns>
         public virtual async Task<BlobMetadata> UpdateFileAsync([DynamicValues("GetDataSets")] string storageAccountNameOrBlobEndpoint, string blob, byte[] input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureBlobClient.ConnectorActivitySource.StartActivity("AzureBlobClient.UpdateFileAsync");

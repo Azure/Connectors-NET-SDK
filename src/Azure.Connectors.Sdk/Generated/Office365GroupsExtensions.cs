@@ -903,7 +903,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
         }
 
         /// <summary>
-        /// Delete event (V2)
+        /// Delete event
         /// </summary>
         /// <remarks>This operation deletes an event in a calendar.</remarks>
         /// <param name="groupId">Group Id</param>
@@ -932,13 +932,13 @@ namespace Azure.Connectors.Sdk.Office365Groups
         }
 
         /// <summary>
-        /// Create a group event (V2)
+        /// Create a group event
         /// </summary>
         /// <remarks>This operation is used to create a new event in a group calendar.</remarks>
         /// <param name="groupId">Group Id</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a group event (V2) response.</returns>
+        /// <returns>The Create a group event response.</returns>
         public virtual async Task<CreateCalendarEventResponse> CreateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, UpdateCalendarEventHTMLRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.CreateCalendarEventAsync");
