@@ -215,37 +215,6 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
-    /// <summary>
-    /// List of time range types. 
-    /// </summary>
-    public class TimeRangeListResult : IPageable<TimeRangeItem>
-    {
-        /// <summary>The list of time range. </summary>
-        [JsonPropertyName("value")]
-        public List<TimeRangeItem> Value { get; set; }
-
-        /// <summary>The URL to get the next set of results. </summary>
-        [JsonPropertyName("nextLink")]
-        [JsonInclude]
-        public string NextLink { get; init; }
-    }
-
-    /// <summary>
-    /// Time range item. 
-    /// </summary>
-    public class TimeRangeItem
-    {
-        /// <summary>The ID of the item. </summary>
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public int? Id { get; init; }
-
-        /// <summary>The Name of the item. </summary>
-        [JsonPropertyName("name")]
-        [JsonInclude]
-        public string Name { get; init; }
-    }
-
     #endregion Types
 
     #region Model Factory
@@ -397,34 +366,6 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
             string name = default)
         {
             return new ResourceItem
-            {
-                Id = id,
-                Name = name,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TimeRangeListResult"/>.
-        /// </summary>
-        public static TimeRangeListResult TimeRangeListResult(
-            List<TimeRangeItem> value = default,
-            string nextLink = default)
-        {
-            return new TimeRangeListResult
-            {
-                Value = value,
-                NextLink = nextLink,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TimeRangeItem"/>.
-        /// </summary>
-        public static TimeRangeItem TimeRangeItem(
-            int? id = default,
-            string name = default)
-        {
-            return new TimeRangeItem
             {
                 Id = id,
                 Name = name,
@@ -667,9 +608,9 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         /// <param name="resourceName">Resource Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get query schema response.</returns>
-        public virtual async Task<ObjectEntity> QuerySchemaV2Async(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
+        public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
         {
-            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.QuerySchemaV2Async");
+            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.QuerySchemaAsync");
             try
             {
                 var queryParams = new List<string>();
@@ -696,73 +637,6 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                 activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Get query schema
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="subscription">Subscription</param>
-        /// <param name="resourceGroup">Resource Group</param>
-        /// <param name="resourceType">Resource Type</param>
-        /// <param name="resourceName">Resource Name</param>
-        /// <param name="timeRange">Time Range</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get query schema response.</returns>
-        public virtual async Task<ObjectEntity> QuerySchemaAsync(string input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, [DynamicValues("ListTimeRangeTypes")] string timeRange, CancellationToken cancellationToken = default)
-        {
-            using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.QuerySchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (subscription is null)
-                    throw new ArgumentNullException(nameof(subscription));
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
-                if (resourceGroup is null)
-                    throw new ArgumentNullException(nameof(resourceGroup));
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
-                if (resourceType is null)
-                    throw new ArgumentNullException(nameof(resourceType));
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-                if (resourceName is null)
-                    throw new ArgumentNullException(nameof(resourceName));
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
-                if (timeRange is null)
-                    throw new ArgumentNullException(nameof(timeRange));
-                queryParams.Add($"timerange={Uri.EscapeDataString(timeRange.ToString())}");
-                var path = $"/querySchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List time range types
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="resourceType">Resource Type</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>An async enumerable of <see cref="TimeRangeItem"/> items across all pages.</returns>
-        public virtual AsyncPageable<TimeRangeItem> ListTimeRangeTypesAsync(string input, string resourceType, CancellationToken cancellationToken = default)
-        {
-            var queryParams = new List<string>();
-            if (resourceType is null)
-                throw new ArgumentNullException(nameof(resourceType));
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
-            var path = $"/listTimeRangeTypes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-            return this.CreatePageable<TimeRangeListResult, TimeRangeItem>(
-                ct => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, path, input, ct),
-                (nextLink, ct) => this.CallConnectorAsync<TimeRangeListResult>(HttpMethod.Post, nextLink, input, cancellationToken: ct),
-                cancellationToken);
         }
 
         /// <summary>

@@ -64,9 +64,10 @@ starting from operation and path-item parameters (including shared `#/parameters
 references), responses, and `x-ms-notification-content`. This deep pass collects
 `x-ms-dynamic-schema` pins only. It does not treat `example`, `default`, `enum`,
 `x-ms-examples`, or other instance data as schemas merely because they contain a
-pin-shaped object. The generator also preserves legacy shallow document-level pins
-for compatibility; new deep retention is scoped to schemas reachable from selected
-operations.
+pin-shaped object. Definitions used only by operations removed during route or
+version selection do not retain discovery helpers. Reachability starts from the
+selected public and trigger surface and continues transitively through retained
+discovery helpers.
 
 Each language target declares or inherits whether it attaches callable discovery
 methods. Outside explicit connector curation, public-operation collision resolution
@@ -82,14 +83,15 @@ participate in selection and naming even for a target that normally omits
 discovery methods. TypeScript's emitter continues to omit internal methods from
 the callable surface after curated selection.
 
-When retained revisions of one discovery family simplify to the same identifier,
-the current revision owns the unversioned name. Older versioned revisions keep
-their affixes and remain callable because the retention rules above still select
-them. C# marks superseded revisions with `EditorBrowsable(Never)`; Python currently
-has no equivalent browsing marker. If the simplified name is already claimed by a
-public operation, every discovery revision keeps its affix. The whole family also
-keeps affixes when an older operation has no version affix to retain, rather than
-assigning that operation's unversioned name to the current revision.
+When independently reachable revisions of one discovery family simplify to the
+same identifier, the current revision owns the unversioned name. Older reachable
+versioned revisions keep their affixes and remain callable; an unreachable revision
+is not retained merely because it belongs to the same family. C# marks retained
+superseded revisions with `EditorBrowsable(Never)`; Python currently has no
+equivalent browsing marker. If the simplified name is already claimed by a public
+operation, every reachable discovery revision keeps its affix. The whole reachable
+family also keeps affixes when an older operation has no version affix to retain,
+rather than assigning that operation's unversioned name to the current revision.
 
 Affix preservation is not a proof of identifier uniqueness. Distinct operation
 IDs can still normalize to the same language identifier. The generator reports

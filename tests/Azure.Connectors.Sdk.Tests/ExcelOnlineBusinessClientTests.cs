@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static ExcelOnlineBusinessClient CreateMockedClient(HttpResponseMessage response)
+        private static ExcelOnlineBusinessClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -44,7 +44,7 @@ namespace Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response)
-                .Callback(() => { })
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => requestCallback?.Invoke(request))
                 .Verifiable();
 
             var options = new ConnectorClientOptions();
@@ -156,28 +156,30 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("SalesTable", deserialized.Title);
         }
         [TestMethod]
-        public async Task GetSingleScriptV2Async_WithMockedResponse_ReturnsExpected()
+        public async Task GetSingleScriptAsync_WithMockedResponse_ReturnsExpected()
         {
+            HttpRequestMessage? capturedRequest = null;
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{}")
             };
 
-            using var client = CreateMockedClient(responseMessage);
+            using var client = CreateMockedClient(responseMessage, request => capturedRequest = request);
 
             var result = await client
-                .GetSingleScriptV2Async(chosenScriptSource: "me",
+                .GetSingleScriptAsync(chosenScriptSource: "me",
                     chosenScriptDrive: "drive1",
                     chosenScript: "script1",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
+            Assert.AreEqual("/connection/v2/officescripting/api/storage/script", capturedRequest!.RequestUri!.AbsolutePath);
         }
 
         [TestMethod]
-        public async Task GetSingleScriptV2Async_WithErrorResponse_ThrowsConnectorException()
+        public async Task GetSingleScriptAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
@@ -188,7 +190,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.GetSingleScriptV2Async(chosenScriptSource: "me",
+                client.GetSingleScriptAsync(chosenScriptSource: "me",
                     chosenScriptDrive: "drive1",
                     chosenScript: "script1",
                     cancellationToken: CancellationToken.None))

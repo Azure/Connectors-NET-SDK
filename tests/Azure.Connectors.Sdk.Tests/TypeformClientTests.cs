@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static TypeformClient CreateMockedClient(HttpResponseMessage response)
+        private static TypeformClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -38,7 +38,7 @@ namespace Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response)
-                .Callback(() => { })
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => requestCallback?.Invoke(request))
                 .Verifiable();
 
             var options = new ConnectorClientOptions();
@@ -118,13 +118,14 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetSchemaAsync_WithMockedResponse_ReturnsExpected()
         {
+            HttpRequestMessage? capturedRequest = null;
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("\"schema\"")
             };
 
-            using var client = CreateMockedClient(responseMessage);
+            using var client = CreateMockedClient(responseMessage, request => capturedRequest = request);
 
             var result = await client
                 .GetSchemaAsync(form: "form1",
@@ -132,6 +133,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
+            Assert.AreEqual("/connection/v3/forms/form1", capturedRequest!.RequestUri!.AbsolutePath);
         }
 
         [TestMethod]
