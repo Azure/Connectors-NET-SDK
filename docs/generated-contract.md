@@ -73,9 +73,13 @@ Each language target declares or inherits whether it attaches callable discovery
 methods. Outside explicit connector curation, public-operation collision resolution
 runs first, and a target that opts out returns the resolved public surface before
 discovery methods can participate in later collision or retained-type preparation.
-C# and Python retain discovery methods; TypeScript opts out. A retaining target
-must preserve each unambiguous reachable operation ID and its exact HTTP route. An
-opt-out target must still preserve the same public action and trigger contract.
+C# and Python retain discovery methods; TypeScript currently opts out as an explicit
+target policy. Swagger `x-ms-visibility: internal` describes the operation's connector
+role; it does not prescribe a C# `internal`, TypeScript `protected`, or other language
+access modifier. Retained helpers must remain callable by infrastructure consumers
+without subclassing. A retaining target must preserve each unambiguous reachable
+operation ID and its exact HTTP route. An opt-out target must still preserve the same
+public action and trigger contract.
 
 Explicit connector curation is a separate route-selection policy and takes
 precedence over the per-target discovery policy. It may allow internal routes to
