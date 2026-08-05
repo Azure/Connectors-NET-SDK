@@ -839,6 +839,36 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
+    /// Response for Get column names schema for column changes
+    /// </summary>
+    public class GetColumnNamesSchemaForItemNameChangeWebhookResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get column names schema for column changes
+    /// </summary>
+    public class GetColumnNamesSchemaForSubitemNameChangeWebhookResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get column names schema for column changes
+    /// </summary>
+    public class GetColumnNamesSchemaForColumnChangesWebhookResponse
+    {
+        /// <summary>Schema of the requested schema type</summary>
+        [JsonPropertyName("schema")]
+        public JsonElement? Schema { get; set; }
+    }
+
+    /// <summary>
     /// Extensible enum for known ColumnType values.
     /// </summary>
     [JsonConverter(typeof(ColumnType.ColumnTypeJsonConverter))]
@@ -1651,6 +1681,42 @@ namespace Azure.Connectors.Sdk.Monday.Models
             JsonElement? schema = default)
         {
             return new GetSubitemSchemaResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnNamesSchemaForItemNameChangeWebhookResponse"/>.
+        /// </summary>
+        public static GetColumnNamesSchemaForItemNameChangeWebhookResponse GetColumnNamesSchemaForItemNameChangeWebhookResponse(
+            JsonElement? schema = default)
+        {
+            return new GetColumnNamesSchemaForItemNameChangeWebhookResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnNamesSchemaForSubitemNameChangeWebhookResponse"/>.
+        /// </summary>
+        public static GetColumnNamesSchemaForSubitemNameChangeWebhookResponse GetColumnNamesSchemaForSubitemNameChangeWebhookResponse(
+            JsonElement? schema = default)
+        {
+            return new GetColumnNamesSchemaForSubitemNameChangeWebhookResponse
+            {
+                Schema = schema,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetColumnNamesSchemaForColumnChangesWebhookResponse"/>.
+        /// </summary>
+        public static GetColumnNamesSchemaForColumnChangesWebhookResponse GetColumnNamesSchemaForColumnChangesWebhookResponse(
+            JsonElement? schema = default)
+        {
+            return new GetColumnNamesSchemaForColumnChangesWebhookResponse
             {
                 Schema = schema,
             };
@@ -2611,6 +2677,91 @@ namespace Azure.Connectors.Sdk.Monday
                 var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSubitemSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names schema for column changes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names schema for column changes response.</returns>
+        public virtual async Task<GetColumnNamesSchemaForItemNameChangeWebhookResponse> GetColumnNamesSchemaForItemNameChangeWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForItemNameChangeWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForItemNameChangeWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForItemNameChangeWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names schema for column changes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="parentBoardId">parentBoardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names schema for column changes response.</returns>
+        public virtual async Task<GetColumnNamesSchemaForSubitemNameChangeWebhookResponse> GetColumnNamesSchemaForSubitemNameChangeWebhookAsync(string parentBoardId, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForSubitemNameChangeWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (parentBoardId is null)
+                    throw new ArgumentNullException(nameof(parentBoardId));
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForSubitemNameChangeWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForSubitemNameChangeWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get column names schema for column changes
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="boardId">boardId</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get column names schema for column changes response.</returns>
+        public virtual async Task<GetColumnNamesSchemaForColumnChangesWebhookResponse> GetColumnNamesSchemaForColumnChangesWebhookAsync(string boardId = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = MondayClient.ConnectorActivitySource.StartActivity("MondayClient.GetColumnNamesSchemaForColumnChangesWebhookAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (boardId != default)
+                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                var path = $"/getSchema/getColumnNamesForColumnChangesWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<GetColumnNamesSchemaForColumnChangesWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

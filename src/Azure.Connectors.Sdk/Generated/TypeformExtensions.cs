@@ -334,7 +334,7 @@ namespace Azure.Connectors.Sdk.Typeform
             {
                 if (form is null)
                     throw new ArgumentNullException(nameof(form));
-                var path = $"/forms/{Uri.EscapeDataString(form.ToString())}";
+                var path = $"/v3/forms/{Uri.EscapeDataString(form.ToString())}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

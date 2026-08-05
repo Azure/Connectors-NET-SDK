@@ -553,24 +553,6 @@ namespace Azure.Connectors.Sdk.Sql.Models
     /// <summary>
     /// Input body to execute Pass-through Native Query (PNQ)
     /// </summary>
-    public class PassThroughNativeQueryBody
-    {
-        /// <summary>Query Text</summary>
-        [JsonPropertyName("query")]
-        public string Query { get; set; }
-
-        /// <summary>Formal Parameters</summary>
-        [JsonPropertyName("formalParameters")]
-        public JsonElement? FormalParameters { get; set; }
-
-        /// <summary>Actual parameters</summary>
-        [JsonPropertyName("actualParameters")]
-        public JsonElement? ActualParameters { get; set; }
-    }
-
-    /// <summary>
-    /// Input body to execute Pass-through Native Query (PNQ)
-    /// </summary>
     public class SqlPassThroughNativeQueryBody
     {
         /// <summary>Actual parameters</summary>
@@ -940,22 +922,6 @@ namespace Azure.Connectors.Sdk.Sql.Models
                 Name = name,
                 Title = title,
                 Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PassThroughNativeQueryBody"/>.
-        /// </summary>
-        public static PassThroughNativeQueryBody PassThroughNativeQueryBody(
-            string query = default,
-            JsonElement? formalParameters = default,
-            JsonElement? actualParameters = default)
-        {
-            return new PassThroughNativeQueryBody
-            {
-                Query = query,
-                FormalParameters = formalParameters,
-                ActualParameters = actualParameters,
             };
         }
 
@@ -1873,9 +1839,9 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetTableV2Async(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TableMetadata> GetTableAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableV2Async");
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
             try
             {
                 if (serverName is null)
@@ -1911,9 +1877,9 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get pass-through native SQL query metadata response.</returns>
-        public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataV2Async([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
+        public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, SqlPassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataV2Async");
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataAsync");
             try
             {
                 if (serverName is null)
@@ -1921,58 +1887,6 @@ namespace Azure.Connectors.Sdk.Sql
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
-                return await this
-                    .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get table metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="tableName">Table name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get table metadata response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync([DynamicValues("GetTables")] string tableName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
-            try
-            {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get pass-through native SQL query metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get pass-through native SQL query metadata response.</returns>
-        public virtual async Task<PassThroughNativeQueryMetadata> GetPassThroughNativeQueryMetadataAsync(PassThroughNativeQueryBody input, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetPassThroughNativeQueryMetadataAsync");
-            try
-            {
-                var path = $"/$metadata.json/datasets/default/query/sql";
                 return await this
                     .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

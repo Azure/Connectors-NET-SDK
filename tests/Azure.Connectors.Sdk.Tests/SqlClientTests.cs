@@ -201,25 +201,11 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task GetTableAsync_TargetsDefaultDatasetRoute()
+        public async Task GetTableAsync_TargetsServerAndDatabaseScopedRoute()
         {
             var request = await CaptureRequestAsync(
                     responseJson: "{}",
-                    invoke: client => client.GetTableAsync(tableName: "Orders", cancellationToken: CancellationToken.None))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.AreEqual(
-                expected: "/connection/$metadata.json/datasets/default/tables/Orders",
-                actual: request.RequestUri!.AbsolutePath,
-                message: "The default-dataset table metadata route must be restored.");
-        }
-
-        [TestMethod]
-        public async Task GetTableV2Async_TargetsServerAndDatabaseScopedRoute()
-        {
-            var request = await CaptureRequestAsync(
-                    responseJson: "{}",
-                    invoke: client => client.GetTableV2Async(
+                    invoke: client => client.GetTableAsync(
                         serverName: "server1",
                         databaseName: "db1",
                         tableName: "Orders",
@@ -233,29 +219,11 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task GetPassThroughNativeQueryMetadataAsync_TargetsDefaultDatasetRoute()
+        public async Task GetPassThroughNativeQueryMetadataAsync_TargetsServerAndDatabaseScopedRoute()
         {
             var request = await CaptureRequestAsync(
                     responseJson: "{}",
                     invoke: client => client.GetPassThroughNativeQueryMetadataAsync(
-                        input: new Sql.Models.PassThroughNativeQueryBody(),
-                        cancellationToken: CancellationToken.None))
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.AreEqual(
-                expected: "/connection/$metadata.json/datasets/default/query/sql",
-                actual: request.RequestUri!.AbsolutePath,
-                message: "The default-dataset native query metadata route must be restored.");
-        }
-
-        [TestMethod]
-        public async Task GetPassThroughNativeQueryMetadataV2Async_TargetsServerAndDatabaseScopedRoute()
-        {
-            // NOTE(daviburg): The two routes take different request bodies, which is why collapsing them
-            // onto one method silently changed the wire contract as well as the path.
-            var request = await CaptureRequestAsync(
-                    responseJson: "{}",
-                    invoke: client => client.GetPassThroughNativeQueryMetadataV2Async(
                         serverName: "server1",
                         databaseName: "db1",
                         input: new Sql.Models.SqlPassThroughNativeQueryBody(),

@@ -1552,9 +1552,9 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         /// <param name="chosenScript">Chosen script</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Gets one script response.</returns>
-        public virtual async Task<GetSingleScriptResponse> GetSingleScriptV2Async(string chosenScriptSource, string chosenScriptDrive, string chosenScript, CancellationToken cancellationToken = default)
+        public virtual async Task<GetSingleScriptResponse> GetSingleScriptAsync(string chosenScriptSource, string chosenScriptDrive, string chosenScript, CancellationToken cancellationToken = default)
         {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSingleScriptV2Async");
+            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSingleScriptAsync");
             try
             {
                 var queryParams = new List<string>();
@@ -1606,74 +1606,6 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                     throw new ArgumentNullException(nameof(location));
                 queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
                 var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/metadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets one script
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="chosenScript">Chosen script</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Gets one script response.</returns>
-        public virtual async Task<GetSingleScriptResponse> GetSingleScriptAsync(string chosenScript, CancellationToken cancellationToken = default)
-        {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetSingleScriptAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (chosenScript is null)
-                    throw new ArgumentNullException(nameof(chosenScript));
-                queryParams.Add($"scriptId={Uri.EscapeDataString(chosenScript.ToString())}");
-                var path = $"/officescripting/api/storage/script" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetSingleScriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get raw and formatted metadata of a table
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="documentLibrary">Document Library</param>
-        /// <param name="file">File</param>
-        /// <param name="table">Table</param>
-        /// <param name="location">Location</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get raw and formatted metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetRawAndFormattedTableAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, CancellationToken cancellationToken = default)
-        {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetRawAndFormattedTableAsync");
-            try
-            {
-                if (documentLibrary is null)
-                    throw new ArgumentNullException(nameof(documentLibrary));
-                if (@file is null)
-                    throw new ArgumentNullException(nameof(@file));
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var queryParams = new List<string>();
-                queryParams.Add("formattedPostfix=Formatted");
-                if (location is null)
-                    throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(location.ToString())}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rawandformattedtablemetadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

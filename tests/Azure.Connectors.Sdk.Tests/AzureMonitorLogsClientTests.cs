@@ -393,9 +393,10 @@ namespace Azure.Connectors.Sdk.Tests
             client.Dispose();
         }
         [TestMethod]
-        public async Task QuerySchemaV2Async_WithMockedResponse_ReturnsExpected()
+        public async Task QuerySchemaAsync_WithMockedResponse_ReturnsExpected()
         {
             // Arrange
+            HttpRequestMessage? capturedRequest = null;
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
@@ -409,7 +410,7 @@ namespace Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(responseMessage)
-                .Callback(() => { })
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => capturedRequest = request)
                 .Verifiable();
 
             var mockCredential = new Mock<TokenCredential>();
@@ -428,7 +429,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var result = await client
-                .QuerySchemaV2Async(
+                .QuerySchemaAsync(
                     input: "Heartbeat | take 10",
                     subscription: "sub-1",
                     resourceGroup: "rg-1",
@@ -439,6 +440,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.AreEqual("/connection/querySchemaV2", capturedRequest!.RequestUri!.AbsolutePath);
         }
 
     }

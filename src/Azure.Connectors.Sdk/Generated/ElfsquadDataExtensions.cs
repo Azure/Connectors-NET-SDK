@@ -598,6 +598,32 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             }
         }
 
+        /// <summary>
+        /// Get trigger schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="triggerName">trigger_name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task GetTriggerSchemaAsync(string triggerName, CancellationToken cancellationToken = default)
+        {
+            using var activity = ElfsquadDataClient.ConnectorActivitySource.StartActivity("ElfsquadDataClient.GetTriggerSchemaAsync");
+            try
+            {
+                if (triggerName is null)
+                    throw new ArgumentNullException(nameof(triggerName));
+                var path = $"/data/1/$triggers/{Uri.EscapeDataString(triggerName.ToString())}/$schema";
+                await this
+                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
     }
 
     #endregion Client

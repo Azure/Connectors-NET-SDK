@@ -499,16 +499,6 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     }
 
     /// <summary>
-    /// Tokens coming from Power Bi input data
-    /// </summary>
-    public class PowerBiButtonClickedOutputs
-    {
-        /// <summary>PowerBiInputs</summary>
-        [JsonPropertyName("PowerBiInputs")]
-        public JsonElement? PowerBiInputs { get; set; }
-    }
-
-    /// <summary>
     /// Query specification.
     /// </summary>
     public class QuerySpecification
@@ -1500,18 +1490,6 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
             return new Columns
             {
                 Schema = schema,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PowerBiButtonClickedOutputs"/>.
-        /// </summary>
-        public static PowerBiButtonClickedOutputs PowerBiButtonClickedOutputs(
-            JsonElement? powerBiInputs = default)
-        {
-            return new PowerBiButtonClickedOutputs
-            {
-                PowerBiInputs = powerBiInputs,
             };
         }
 
@@ -2902,31 +2880,6 @@ namespace Azure.Connectors.Sdk.PowerBI
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace.ToString())}/datasets/{Uri.EscapeDataString(dataset.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Columns>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get PowerBi Button Clicked hybrid trigger output
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get PowerBi Button Clicked hybrid trigger output response.</returns>
-        public virtual async Task<PowerBiButtonClickedOutputs> GetPowerBiButtonClickedOutputsAsync(string input, CancellationToken cancellationToken = default)
-        {
-            using var activity = PowerBIClient.ConnectorActivitySource.StartActivity("PowerBIClient.GetPowerBiButtonClickedOutputsAsync");
-            try
-            {
-                var path = $"/powerbihybridtriggeroutput/triggers/PowerBiButtonClicked/PowerBiButtonClickedOutputs";
-                return await this
-                    .CallConnectorAsync<PowerBiButtonClickedOutputs>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

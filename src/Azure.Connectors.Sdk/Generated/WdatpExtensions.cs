@@ -899,6 +899,28 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
+    /// Advanced Hunting Schema
+    /// </summary>
+    public class AdvancedHuntingSchemaInput
+    {
+        /// <summary>The query to run</summary>
+        [JsonPropertyName("Query")]
+        public string Query { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Advanced Hunting Schema
+    /// </summary>
+    public class AdvancedHuntingSchemaResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// WebHookSubscriptionRequest
     /// </summary>
     public class WebHookSubscriptionRequest
@@ -2349,6 +2371,18 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="AdvancedHuntingSchemaInput"/>.
+        /// </summary>
+        public static AdvancedHuntingSchemaInput AdvancedHuntingSchemaInput(
+            string query = default)
+        {
+            return new AdvancedHuntingSchemaInput
+            {
+                Query = query,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WebHookSubscriptionRequest"/>.
         /// </summary>
         public static WebHookSubscriptionRequest WebHookSubscriptionRequest(
@@ -3379,6 +3413,31 @@ namespace Azure.Connectors.Sdk.Wdatp
                 var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}/tags";
                 return await this
                     .CallConnectorAsync<Machine>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Advanced Hunting Schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Advanced Hunting Schema response.</returns>
+        public virtual async Task<AdvancedHuntingSchemaResponse> AdvancedHuntingSchemaAsync(AdvancedHuntingSchemaInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = WdatpClient.ConnectorActivitySource.StartActivity("WdatpClient.AdvancedHuntingSchemaAsync");
+            try
+            {
+                var path = $"/api/advancedqueries/schema";
+                return await this
+                    .CallConnectorAsync<AdvancedHuntingSchemaResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

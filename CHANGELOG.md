@@ -7,13 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-<!-- MAINTAINER NOTE: Before tagging a release, (1) cut [Unreleased] content into a
-     new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD), (2) add a
-     reference link at the bottom, (3) update [Unreleased] compare base, and (4) copy
-     the same content into release_notes.md for NuGet packaging. Do NOT put HTML
-     comments in release_notes.md — it is packed verbatim into <releaseNotes>. -->
+<!-- MAINTAINER NOTE: release_notes.md continuously mirrors this [Unreleased]
+  content for NuGet packaging. Before tagging a release, (1) cut this content
+  into a new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD),
+  (2) add a reference link at the bottom, (3) update [Unreleased] compare base,
+  and (4) rename the mirrored release_notes.md heading to the same version/date.
+  Do NOT put HTML comments in release_notes.md — it is packed verbatim. -->
 
 ### Breaking Changes
+
+- **Unreferenced discovery helpers and their models are no longer retained** — discovery reachability now starts from the selected public and trigger surface and continues transitively through retained helpers. This removes methods that survived only because the generator scanned every Swagger definition: `ExcelOnlineBusiness.GetRawAndFormattedTableAsync`; `GoogleDrive.GetTableAsync` and `GetTablesAsync`; `PowerBI.GetPowerBiButtonClickedOutputsAsync`; and Teams' `GetAdaptiveCardInputMetadataAsync`, `GetFlowContinuationSubscriptionOutputMetadataAsync`, `GetNotificationInputMetadataAsync`, `GetCardResponseTriggerOutputsMetadataAsync`, `GetComposeMessageTriggerOutputsMetadataAsync`, `GetSelectedMessageTriggerOutputsMetadataAsync`, and `GetSubscriptionScopeSchemaAsync`.
+
+  The removed public models are `GoogleDrive.Models.TableMetadata`, `TableCapabilitiesMetadata`, `TableSortRestrictionsMetadata`, `TableFilterRestrictionsMetadata`, `TableSelectRestrictionsMetadata`, `ObjectEntity`, `TablesList`, and `Table`; `PowerBI.Models.PowerBiButtonClickedOutputs`; and `Teams.Models.SelectedMessageTriggerMetadata`, `ComposeMessageTriggerMetadata`, and `CardResponseTriggerMetadata`. Their model-factory methods are also removed. (AzureUX-BPM PR 16671915)
 
 - **All connector clients regenerated; version-affixed models are no longer collapsed onto one name** — the generator stripped a version affix from a definition name without knowing which definitions a connector retains, so `FooV1` and `FooV2` both claimed `Foo` and only one type was emitted. The dropped one produced a model that compiled and looked complete while omitting fields the service returns. Names are now decided against the retained definition set: a single claimant still strips the affix, several claimants describing the same wire shape still collapse to one type, and claimants with differing shapes keep their affixes so no shape is lost.
 
@@ -23,16 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`purviewAcccountName` parameter corrected to `purviewAccountName` on SQL Server and Azure Blob Storage** — the shared Purview query parameter declares its `name` correctly but carries a triple-c typo in its `x-ms-summary`, and the generator derives the C# identifier from the summary. The misspelling therefore reached the public API surface while the wire query key was always correct, so this changes the identifier only, not request behaviour. Callers passing the parameter positionally are unaffected; callers using a named argument must rename it. Affects 12 occurrences in `SqlExtensions` and 20 in `AzureBlobExtensions`. (AzureUX-BPM PR 16639935)
 
-- **SQL Server metadata methods now address the default dataset; the server- and database-scoped forms moved to `V2` names** — the unversioned operation owns the unversioned method name, matching the Python SDK. Existing callers must rename:
+- **SQL Server procedure metadata methods now expose distinct default and scoped routes** — the unversioned procedure operations own the plain method names, matching the Python SDK. Existing callers to the scoped procedure routes must rename:
 
   | Before | After |
   | --- | --- |
   | `GetProceduresAsync(serverName, databaseName)` | `GetProceduresV2Async(serverName, databaseName)` |
   | `GetProcedureAsync(serverName, databaseName, procedureName)` | `GetProcedureV2Async(serverName, databaseName, procedureName)` |
-  | `GetTableAsync(serverName, databaseName, tableName, ...)` | `GetTableV2Async(serverName, databaseName, tableName, ...)` |
-  | `GetPassThroughNativeQueryMetadataAsync(serverName, databaseName, SqlPassThroughNativeQueryBody)` | `GetPassThroughNativeQueryMetadataV2Async(serverName, databaseName, SqlPassThroughNativeQueryBody)` |
 
-  The unsuffixed names now bind to the default-dataset routes, which were previously absent from the client entirely. Compatibility overloads are deliberately not provided: generated code is never hand-edited, and two distinct Swagger routes must not share one method name. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PR 16576205)
+  `GetTableAsync` and `GetPassThroughNativeQueryMetadataAsync` continue to bind to the server- and database-scoped V2 routes because the default-dataset siblings are not reachable from the selected public surface. Compatibility overloads are deliberately not provided: generated code is never hand-edited, and unreachable internal Swagger routes are not retained. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PRs 16576205 and 16671915)
 
 - **Cloudmersive Convert multipart operations removed** — 75 current managed-connector operations use Swagger 2.0 `formData`/multipart payloads that the SDK transport cannot compose, so the regenerated client no longer exposes those methods or their models. This includes `ConvertDocumentAutodetectGetInfoAsync`, `ConvertDocumentAutodetectToPdfAsync`, `ConvertDocumentDocxToPdfAsync`, `ConvertDocumentPdfToDocxAsync`, `ConvertImageGetImageInfoAsync`, `MergeDocumentPdfAsync`, and `SplitDocumentPdfByPageAsync`. The 53 non-multipart operations remain generated. (#210)
 - **DocuSign deprecated and removed operations are no longer generated** — removed `CreateEnvelopeFromTemplateAsync`, `ListEnvelopesAsync`, `SalesCopilotListEnvelopesAsync`, `ScpGetEmailSummaryAsync`, `ScpGetKeySalesAsync`, `ScpGetRelatedActivitiesAsync`, and `ScpGetRelatedRecordsAsync`. `CreateEnvelopeFromTemplateNoRecipientsAsync` remains available. (#210)
@@ -49,8 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Discovery helpers retained from nested trigger and response schemas** — regenerated Azure Automation, Azure Monitor Logs, Elfsquad Data, Formstack Forms, Monday, Typeform, and Microsoft Defender ATP clients now include helpers pinned by nested trigger and response schemas in connector Swagger. Added `GetRunbookAsync`, `GetTimeRangeSelectionControlAsync`, `GetTriggerSchemaAsync`, `GetFormSchemaAsync`, three Monday column-schema helpers, Typeform's current `GetSchemaAsync`, and `AdvancedHuntingSchemaAsync`, plus five response/request models and four model-factory methods. Elfsquad Data's `GetTriggerSchemaAsync` and Formstack Forms' `GetFormSchemaAsync` return `Task` because owner Swagger declares no success response schema. Azure Automation's single-runbook route is likewise typed as `RunbookListResults` because that is the response definition declared by owner Swagger for both runbook routes. (AzureUX-BPM PR 16671915)
+
 - **Zendesk regains four operations lost to internal versioned siblings** — `GetTablesAsync`, `GetItemsAsync`, `GetItemAsync` and the `GetTableAsync` discovery method are generated again, and the public `GetOnNewItems` trigger is registered alongside `GetOnUpdatedItemsV2` with its own typed callback payload. Version-collision resolution previously ran across the whole operation set, so each `x-ms-visibility: internal` `V2` sibling displaced its public counterpart and was then dropped as unreferenced. Surviving methods also carried a `[DynamicValues("GetTables")]` reference to an operation no longer present in the client. ([#220](https://github.com/Azure/Connectors-NET-SDK/issues/220), AzureUX-BPM PR 16576205)
-- **SQL Server regains four default-dataset discovery routes** — `GetProceduresAsync`, `GetProcedureAsync`, `GetTableAsync` and `GetPassThroughNativeQueryMetadataAsync` now address `/datasets/default/...` and are joined by `GetProceduresV2Async`, `GetProcedureV2Async`, `GetTableV2Async` and `GetPassThroughNativeQueryMetadataV2Async` for the server- and database-scoped routes. Each pair is a distinct contract that previously collapsed onto the V2 route alone. `GetTablesAsync` deliberately continues to target the versioned route because its unversioned sibling is marked deprecated. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PR 16576205)
+- **SQL Server regains two default-dataset procedure discovery routes** — `GetProceduresAsync` and `GetProcedureAsync` now address `/datasets/default/...` and are joined by `GetProceduresV2Async` and `GetProcedureV2Async` for the server- and database-scoped routes. Each pair is a distinct reachable contract that previously collapsed onto the V2 route alone. `GetTableAsync`, `GetPassThroughNativeQueryMetadataAsync`, and `GetTablesAsync` deliberately continue to target versioned routes because their unversioned siblings are not reachable or are deprecated. ([#222](https://github.com/Azure/Connectors-NET-SDK/issues/222), AzureUX-BPM PRs 16576205 and 16671915)
 - **New operations from current managed connector Swagger** — DocuSign adds `GetDocGenTemplateTabsAsync` and `GetOrganizationsAsync`; Teams adds `RemoveMemberFromChatAsync` and `UpdateChannelPropertiesAsync`; SharePoint adds `GetDayOfWeekOptionsAsync`. (#210)
 
 ### Changed

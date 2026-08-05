@@ -37,7 +37,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static AzureIoTCentralClient CreateMockedClient(HttpResponseMessage response)
+        private static AzureIoTCentralClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -46,7 +46,7 @@ namespace Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response)
-                .Callback(() => { })
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => requestCallback?.Invoke(request))
                 .Verifiable();
 
             var options = new ConnectorClientOptions();
@@ -129,6 +129,48 @@ namespace Azure.Connectors.Sdk.Tests
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
                 client.DeviceGroupsGetAsync(deviceGroupId: "nonexistent", application: "app-id", cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public async Task SchemaDevicePropertiesAsync_TargetsV1Route()
+        {
+            HttpRequestMessage? capturedRequest = null;
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{}")
+            };
+
+            using var client = CreateMockedClient(responseMessage, request => capturedRequest = request);
+
+            await client
+                .SchemaDevicePropertiesAsync(application: "app-id", cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                "/connection/api/v1/_internal/workflow/schema/DeviceProperties",
+                capturedRequest!.RequestUri!.AbsolutePath);
+        }
+
+        [TestMethod]
+        public async Task SchemaDeviceTelemetryAsync_TargetsV1Route()
+        {
+            HttpRequestMessage? capturedRequest = null;
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{}")
+            };
+
+            using var client = CreateMockedClient(responseMessage, request => capturedRequest = request);
+
+            await client
+                .SchemaDeviceTelemetryAsync(application: "app-id", cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                "/connection/api/v1/_internal/workflow/schema/DeviceTelemetry",
+                capturedRequest!.RequestUri!.AbsolutePath);
         }
 
         [TestMethod]

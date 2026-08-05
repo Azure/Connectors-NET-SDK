@@ -431,7 +431,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     }
 
     /// <summary>
-    /// UpdateTask_Request_V3
+    /// UpdateTask_Request
     /// </summary>
     public class UpdateTaskRequest
     {
@@ -463,7 +463,7 @@ namespace Azure.Connectors.Sdk.Planner.Models
     }
 
     /// <summary>
-    /// CreateTask_Request_V4
+    /// CreateTask_Request
     /// </summary>
     public class CreateTaskRequest
     {
