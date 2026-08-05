@@ -273,14 +273,9 @@ namespace Azure.Connectors.Sdk.GoogleTasks
     public static class GoogleTasksTriggerOperations
     {
         /// <summary>
-        /// When a new task list is created.
+        /// When a task is completed in a task list.
         /// </summary>
-        public const string OnNewTaskList = "OnNewTaskList";
-
-        /// <summary>
-        /// When a task is added to a task list.
-        /// </summary>
-        public const string OnNewTaskInList = "OnNewTaskInList";
+        public const string OnCompletedTaskInList = "OnCompletedTaskInListV2";
 
         /// <summary>
         /// When a task is due in a task list.
@@ -288,9 +283,14 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         public const string OnDueTaskInList = "OnDueTaskInList";
 
         /// <summary>
-        /// When a task is completed in a task list.
+        /// When a task is added to a task list.
         /// </summary>
-        public const string OnCompletedTaskInList = "OnCompletedTaskInListV2";
+        public const string OnNewTaskInList = "OnNewTaskInList";
+
+        /// <summary>
+        /// When a new task list is created.
+        /// </summary>
+        public const string OnNewTaskList = "OnNewTaskList";
 
     }
 
@@ -305,12 +305,12 @@ namespace Azure.Connectors.Sdk.GoogleTasks
     public static class GoogleTasksTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnNewTaskInList trigger operation (operationId: OnNewTaskInList).
+        /// Input parameters for the OnCompletedTaskInList trigger operation (operationId: OnCompletedTaskInListV2).
         /// </summary>
-        public static class OnNewTaskInList
+        public static class OnCompletedTaskInList
         {
             /// <summary>
-            /// The id of the task list.
+            /// The id of the task list
             /// Required.
             /// Dynamic values from: ListTaskLists.
             /// </summary>
@@ -333,12 +333,12 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         }
 
         /// <summary>
-        /// Input parameters for the OnCompletedTaskInList trigger operation (operationId: OnCompletedTaskInListV2).
+        /// Input parameters for the OnNewTaskInList trigger operation (operationId: OnNewTaskInList).
         /// </summary>
-        public static class OnCompletedTaskInList
+        public static class OnNewTaskInList
         {
             /// <summary>
-            /// The id of the task list
+            /// The id of the task list.
             /// Required.
             /// Dynamic values from: ListTaskLists.
             /// </summary>

@@ -120,7 +120,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task StaticResponseForEmbeddedSigningSchemaV2Async_WithMockedResponse_ReturnsExpected()
+        public async Task StaticResponseForEmbeddedSigningSchemaAsync_WithMockedResponse_ReturnsExpected()
         {
             using var responseMessage = new HttpResponseMessage
             {
@@ -131,7 +131,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .StaticResponseForEmbeddedSigningSchemaV2Async(returnURL: "https://contoso.example/return",
+                .StaticResponseForEmbeddedSigningSchemaAsync(returnURL: "https://contoso.example/return",
                     isThisAnPersonSigner: "true",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -140,7 +140,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task StaticResponseForEmbeddedSigningSchemaV2Async_WithErrorResponse_ThrowsConnectorException()
+        public async Task StaticResponseForEmbeddedSigningSchemaAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
@@ -151,7 +151,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.StaticResponseForEmbeddedSigningSchemaV2Async(returnURL: "https://contoso.example/return",
+                client.StaticResponseForEmbeddedSigningSchemaAsync(returnURL: "https://contoso.example/return",
                     isThisAnPersonSigner: "true",
                     cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);

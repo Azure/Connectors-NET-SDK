@@ -633,6 +633,21 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
     public static class GoogleCalendarTriggerOperations
     {
         /// <summary>
+        /// When an event is added, updated or deleted from a calendar.
+        /// </summary>
+        public const string OnChangedEventInCalendar = "OnChangedEventInCalendar";
+
+        /// <summary>
+        /// When an event is deleted from a calendar.
+        /// </summary>
+        public const string OnDeletedEventInCalendar = "OnDeletedEventInCalendar";
+
+        /// <summary>
+        /// When an event starts.
+        /// </summary>
+        public const string OnEventStarted = "OnEventStarted";
+
+        /// <summary>
         /// When an event is added to a calendar.
         /// </summary>
         public const string OnNewEventInCalendar = "OnNewEventInCalendar";
@@ -641,21 +656,6 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         /// When an event is updated in a calendar.
         /// </summary>
         public const string OnUpdatedEventInCalendar = "OnUpdatedEventInCalendar";
-
-        /// <summary>
-        /// When an event is deleted from a calendar.
-        /// </summary>
-        public const string OnDeletedEventInCalendar = "OnDeletedEventInCalendar";
-
-        /// <summary>
-        /// When an event is added, updated or deleted from a calendar.
-        /// </summary>
-        public const string OnChangedEventInCalendar = "OnChangedEventInCalendar";
-
-        /// <summary>
-        /// When an event starts.
-        /// </summary>
-        public const string OnEventStarted = "OnEventStarted";
 
     }
 
@@ -669,48 +669,6 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
     /// </summary>
     public static class GoogleCalendarTriggerParameters
     {
-        /// <summary>
-        /// Input parameters for the OnNewEventInCalendar trigger operation (operationId: OnNewEventInCalendar).
-        /// </summary>
-        public static class OnNewEventInCalendar
-        {
-            /// <summary>
-            /// Unique ID of the calendar to fetch events from.
-            /// Required.
-            /// Dynamic values from: ListCalendars.
-            /// </summary>
-            public const string CalendarId = "calendar_id";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnUpdatedEventInCalendar trigger operation (operationId: OnUpdatedEventInCalendar).
-        /// </summary>
-        public static class OnUpdatedEventInCalendar
-        {
-            /// <summary>
-            /// Unique ID of the calendar to fetch events from.
-            /// Required.
-            /// Dynamic values from: ListCalendars.
-            /// </summary>
-            public const string CalendarId = "calendar_id";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnDeletedEventInCalendar trigger operation (operationId: OnDeletedEventInCalendar).
-        /// </summary>
-        public static class OnDeletedEventInCalendar
-        {
-            /// <summary>
-            /// Unique ID of the calendar to fetch events from.
-            /// Required.
-            /// Dynamic values from: ListCalendars.
-            /// </summary>
-            public const string CalendarId = "calendar_id";
-
-        }
-
         /// <summary>
         /// Input parameters for the OnChangedEventInCalendar trigger operation (operationId: OnChangedEventInCalendar).
         /// </summary>
@@ -731,9 +689,51 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
         }
 
         /// <summary>
+        /// Input parameters for the OnDeletedEventInCalendar trigger operation (operationId: OnDeletedEventInCalendar).
+        /// </summary>
+        public static class OnDeletedEventInCalendar
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnEventStarted trigger operation (operationId: OnEventStarted).
         /// </summary>
         public static class OnEventStarted
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewEventInCalendar trigger operation (operationId: OnNewEventInCalendar).
+        /// </summary>
+        public static class OnNewEventInCalendar
+        {
+            /// <summary>
+            /// Unique ID of the calendar to fetch events from.
+            /// Required.
+            /// Dynamic values from: ListCalendars.
+            /// </summary>
+            public const string CalendarId = "calendar_id";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnUpdatedEventInCalendar trigger operation (operationId: OnUpdatedEventInCalendar).
+        /// </summary>
+        public static class OnUpdatedEventInCalendar
         {
             /// <summary>
             /// Unique ID of the calendar to fetch events from.

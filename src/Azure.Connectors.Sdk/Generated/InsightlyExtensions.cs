@@ -1963,41 +1963,6 @@ namespace Azure.Connectors.Sdk.Insightly
     public static class InsightlyTriggerOperations
     {
         /// <summary>
-        /// When a task is assigned to me.
-        /// </summary>
-        public const string OnTaskAssignedToMe = "OnTaskAssignedToMe";
-
-        /// <summary>
-        /// When a task is created.
-        /// </summary>
-        public const string OnTaskCreated = "OnTaskCreated";
-
-        /// <summary>
-        /// When a task is updated.
-        /// </summary>
-        public const string OnTaskUpdated = "OnTaskUpdated";
-
-        /// <summary>
-        /// When a project is created.
-        /// </summary>
-        public const string OnProjectCreated = "OnProjectCreated";
-
-        /// <summary>
-        /// When a project is updated.
-        /// </summary>
-        public const string OnProjectUpdated = "OnProjectUpdated";
-
-        /// <summary>
-        /// When a lead is created.
-        /// </summary>
-        public const string OnLeadCreated = "OnLeadCreated";
-
-        /// <summary>
-        /// When a lead is updated.
-        /// </summary>
-        public const string OnLeadUpdated = "OnLeadUpdated";
-
-        /// <summary>
         /// When a contact is created.
         /// </summary>
         public const string OnContactCreated = "OnContactCreated";
@@ -2016,6 +1981,41 @@ namespace Azure.Connectors.Sdk.Insightly
         /// When an event is updated.
         /// </summary>
         public const string OnEventUpdated = "OnEventUpdated";
+
+        /// <summary>
+        /// When a lead is created.
+        /// </summary>
+        public const string OnLeadCreated = "OnLeadCreated";
+
+        /// <summary>
+        /// When a lead is updated.
+        /// </summary>
+        public const string OnLeadUpdated = "OnLeadUpdated";
+
+        /// <summary>
+        /// When a project is created.
+        /// </summary>
+        public const string OnProjectCreated = "OnProjectCreated";
+
+        /// <summary>
+        /// When a project is updated.
+        /// </summary>
+        public const string OnProjectUpdated = "OnProjectUpdated";
+
+        /// <summary>
+        /// When a task is assigned to me.
+        /// </summary>
+        public const string OnTaskAssignedToMe = "OnTaskAssignedToMe";
+
+        /// <summary>
+        /// When a task is created.
+        /// </summary>
+        public const string OnTaskCreated = "OnTaskCreated";
+
+        /// <summary>
+        /// When a task is updated.
+        /// </summary>
+        public const string OnTaskUpdated = "OnTaskUpdated";
 
     }
 
