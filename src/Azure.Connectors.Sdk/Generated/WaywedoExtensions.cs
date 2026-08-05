@@ -794,9 +794,9 @@ namespace Azure.Connectors.Sdk.Waywedo
         public const string OnChecklistCreateWebHook = "Checklist_Create_WebHook";
 
         /// <summary>
-        /// When a comment is added to a checklist.
+        /// When a checklist step is completed.
         /// </summary>
-        public const string OnNewCommentWebHook = "New_Comment_WebHook";
+        public const string OnChecklistStepCompletedWebHook = "Checklist_Step_Completed_WebHook";
 
         /// <summary>
         /// When a checklist is finished.
@@ -804,19 +804,19 @@ namespace Azure.Connectors.Sdk.Waywedo
         public const string OnFinishChecklistWebHook = "Finish_Checklist_WebHook";
 
         /// <summary>
-        /// When a supervisor is invited.
-        /// </summary>
-        public const string OnInviteSupervisorWebHook = "Invite_Supervisor_WebHook";
-
-        /// <summary>
         /// When a procedure is accepted.
         /// </summary>
         public const string OnGenerateAcceptancePDFWebHook = "Generate_Acceptance_PDF_WebHook";
 
         /// <summary>
-        /// When a checklist step is completed.
+        /// When a supervisor is invited.
         /// </summary>
-        public const string OnChecklistStepCompletedWebHook = "Checklist_Step_Completed_WebHook";
+        public const string OnInviteSupervisorWebHook = "Invite_Supervisor_WebHook";
+
+        /// <summary>
+        /// When a comment is added to a checklist.
+        /// </summary>
+        public const string OnNewCommentWebHook = "New_Comment_WebHook";
 
     }
 
