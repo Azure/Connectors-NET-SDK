@@ -1157,7 +1157,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Schema_DeviceProperties_V1
+    /// Response for Schema_DeviceProperties
     /// </summary>
     public class SchemaDevicePropertiesResponse
     {
@@ -1169,7 +1169,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Schema_DeviceTelemetry_V1
+    /// Response for Schema_DeviceTelemetry
     /// </summary>
     public class SchemaDeviceTelemetryResponse
     {
@@ -1205,7 +1205,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Response for Schema_User_V1
+    /// Response for Schema_User
     /// </summary>
     public class SchemaUserResponse
     {
@@ -4388,13 +4388,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         }
 
         /// <summary>
-        /// Workflow_GetModules_V1
+        /// Workflow_GetModules
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="application">Application</param>
         /// <param name="template">template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Workflow_GetModules_V1 response.</returns>
+        /// <returns>The Workflow_GetModules response.</returns>
         public virtual async Task<List<JsonElement?>> WorkflowGetModulesAsync([DynamicValues("Applications_List")] string application, string template, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.WorkflowGetModulesAsync");
@@ -4532,14 +4532,14 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         }
 
         /// <summary>
-        /// Schema_DeviceProperties_V1
+        /// Schema_DeviceProperties
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="application">Application</param>
         /// <param name="deviceTemplate">Device Template</param>
         /// <param name="module">module</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_DeviceProperties_V1 response.</returns>
+        /// <returns>The Schema_DeviceProperties response.</returns>
         public virtual async Task<SchemaDevicePropertiesResponse> SchemaDevicePropertiesAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, [DynamicValues("Workflow_GetModules_V1")] string module = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDevicePropertiesAsync");
@@ -4567,7 +4567,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         }
 
         /// <summary>
-        /// Schema_DeviceTelemetry_V1
+        /// Schema_DeviceTelemetry
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="application">Application</param>
@@ -4576,7 +4576,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="component">component</param>
         /// <param name="capability">capability</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_DeviceTelemetry_V1 response.</returns>
+        /// <returns>The Schema_DeviceTelemetry response.</returns>
         public virtual async Task<SchemaDeviceTelemetryResponse> SchemaDeviceTelemetryAsync([DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, string module = default, string component = default, string capability = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaDeviceTelemetryAsync");
@@ -4678,14 +4678,14 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         }
 
         /// <summary>
-        /// Schema_User_V1
+        /// Schema_User
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="application">Application</param>
         /// <param name="userType">user_type</param>
         /// <param name="patch">patch</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Schema_User_V1 response.</returns>
+        /// <returns>The Schema_User response.</returns>
         public virtual async Task<SchemaUserResponse> SchemaUserAsync([DynamicValues("Applications_List")] string application, string userType = default, bool? patch = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.SchemaUserAsync");

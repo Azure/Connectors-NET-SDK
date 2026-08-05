@@ -1270,11 +1270,11 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// GetDataSets_V2
+        /// GetDataSets
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetDataSets_V2 response.</returns>
+        /// <returns>The GetDataSets response.</returns>
         public virtual async Task<DataSetsList> GetDataSetsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetDataSetsAsync");
@@ -1565,12 +1565,12 @@ namespace Azure.Connectors.Sdk.Commondataservice
         }
 
         /// <summary>
-        /// GetTables_V2
+        /// GetTables
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="dataset">dataset</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTables_V2 response.</returns>
+        /// <returns>The GetTables response.</returns>
         public virtual async Task<TablesList> GetTablesAsync([DynamicValues("GetDataSets")] string dataset, CancellationToken cancellationToken = default)
         {
             using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetTablesAsync");
