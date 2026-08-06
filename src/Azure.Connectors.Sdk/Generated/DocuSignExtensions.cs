@@ -1055,7 +1055,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for StaticResponseForEmbeddedSigningSchemaV2
+    /// Response for StaticResponseForEmbeddedSigningSchema
     /// </summary>
     public class StaticResponseForEmbeddedSigningSchemaResponse
     {
@@ -4329,13 +4329,13 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// StaticResponseForEmbeddedSigningSchemaV2
+        /// StaticResponseForEmbeddedSigningSchema
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="returnURL">Return URL</param>
         /// <param name="isThisAnPersonSigner">Is This an Person Signer?</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForEmbeddedSigningSchemaV2 response.</returns>
+        /// <returns>The StaticResponseForEmbeddedSigningSchema response.</returns>
         public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaAsync(string returnURL, string isThisAnPersonSigner, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSigningSchemaAsync");
