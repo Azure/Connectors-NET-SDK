@@ -1000,7 +1000,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         }
 
         /// <summary>
-        /// Query documents V5
+        /// Query documents
         /// </summary>
         /// <remarks>Query documents (V5).</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
@@ -1015,7 +1015,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Query documents V5 response.</returns>
+        /// <returns>The Query documents response.</returns>
         public virtual async Task<QueryDocumentsResponse> QueryDocumentsAsync([DynamicValues("GetCosmosDbAccounts")] string azureCosmosDBAccountName, [DynamicValues("GetDatabases_V2")] string databaseId, [DynamicValues("GetCollections_V2")] string containerId, string sQLSyntaxQuery = default, string partitionKeyValue = default, int? maxItemCount = default, string continuationToken = default, string consistencyLevel = default, string sessionToken = default, bool? extractSensitivityLabel = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocumentDbClient.ConnectorActivitySource.StartActivity("DocumentDbClient.QueryDocumentsAsync");
