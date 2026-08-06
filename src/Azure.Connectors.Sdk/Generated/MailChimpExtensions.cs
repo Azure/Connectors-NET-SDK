@@ -2629,14 +2629,14 @@ namespace Azure.Connectors.Sdk.MailChimp
     public static class MailChimpTriggerOperations
     {
         /// <summary>
-        /// When a Member has been added to a list.
-        /// </summary>
-        public const string OnMemberSubscribed = "OnMemberSubscribed";
-
-        /// <summary>
         /// When a new list is created.
         /// </summary>
         public const string OnCreateList = "OnCreateList";
+
+        /// <summary>
+        /// When a Member has been added to a list.
+        /// </summary>
+        public const string OnMemberSubscribed = "OnMemberSubscribed";
 
     }
 

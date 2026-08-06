@@ -1740,14 +1740,9 @@ namespace Azure.Connectors.Sdk.Monday
     public static class MondayTriggerOperations
     {
         /// <summary>
-        /// When an item is created.
+        /// When any column changes.
         /// </summary>
-        public const string OnWebhookCreateItem = "WebhookCreateItem";
-
-        /// <summary>
-        /// When a new update is posted.
-        /// </summary>
-        public const string OnWebhookCreateUpdate = "WebhookCreateUpdate";
+        public const string OnWebhookAnyColumnChanges = "WebhookAnyColumnChanges";
 
         /// <summary>
         /// When an item&apos;s name changes.
@@ -1760,19 +1755,24 @@ namespace Azure.Connectors.Sdk.Monday
         public const string OnWebhookChangeSubitemName = "WebhookChangeSubitemName";
 
         /// <summary>
-        /// When a subitem is created.
-        /// </summary>
-        public const string OnWebhookCreateSubitem = "WebhookCreateSubitem";
-
-        /// <summary>
         /// When a column changes.
         /// </summary>
         public const string OnWebhookColumnChanges = "WebhookColumnChanges";
 
         /// <summary>
-        /// When any column changes.
+        /// When an item is created.
         /// </summary>
-        public const string OnWebhookAnyColumnChanges = "WebhookAnyColumnChanges";
+        public const string OnWebhookCreateItem = "WebhookCreateItem";
+
+        /// <summary>
+        /// When a subitem is created.
+        /// </summary>
+        public const string OnWebhookCreateSubitem = "WebhookCreateSubitem";
+
+        /// <summary>
+        /// When a new update is posted.
+        /// </summary>
+        public const string OnWebhookCreateUpdate = "WebhookCreateUpdate";
 
         /// <summary>
         /// When any subitem column changes.
