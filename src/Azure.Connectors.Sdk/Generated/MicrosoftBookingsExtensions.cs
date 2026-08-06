@@ -195,6 +195,11 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
     public static class MicrosoftBookingsTriggerOperations
     {
         /// <summary>
+        /// When an appointment is Cancelled.
+        /// </summary>
+        public const string OnCancelAppointment = "CancelAppointment";
+
+        /// <summary>
         /// When an appointment is created.
         /// </summary>
         public const string OnCreateAppointment = "CreateAppointment";
@@ -203,11 +208,6 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
         /// When an appointment is Updated.
         /// </summary>
         public const string OnUpdateAppointment = "UpdateAppointment";
-
-        /// <summary>
-        /// When an appointment is Cancelled.
-        /// </summary>
-        public const string OnCancelAppointment = "CancelAppointment";
 
     }
 
@@ -221,6 +221,20 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
     /// </summary>
     public static class MicrosoftBookingsTriggerParameters
     {
+        /// <summary>
+        /// Input parameters for the OnCancelAppointment trigger operation (operationId: CancelAppointment).
+        /// </summary>
+        public static class OnCancelAppointment
+        {
+            /// <summary>
+            /// Select a booking page
+            /// Required.
+            /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
+            /// </summary>
+            public const string SMTPAddress = "SMTPAddress";
+
+        }
+
         /// <summary>
         /// Input parameters for the OnCreateAppointment trigger operation (operationId: CreateAppointment).
         /// </summary>
@@ -239,20 +253,6 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
         /// Input parameters for the OnUpdateAppointment trigger operation (operationId: UpdateAppointment).
         /// </summary>
         public static class OnUpdateAppointment
-        {
-            /// <summary>
-            /// Select a booking page
-            /// Required.
-            /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
-            /// </summary>
-            public const string SMTPAddress = "SMTPAddress";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnCancelAppointment trigger operation (operationId: CancelAppointment).
-        /// </summary>
-        public static class OnCancelAppointment
         {
             /// <summary>
             /// Select a booking page

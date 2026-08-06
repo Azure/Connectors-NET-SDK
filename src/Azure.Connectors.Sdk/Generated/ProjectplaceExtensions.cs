@@ -540,14 +540,14 @@ namespace Azure.Connectors.Sdk.Projectplace
         public const string OnSetWebhookCardCreate = "set_webhook_card_create";
 
         /// <summary>
-        /// When a card&apos;s properties are changed.
-        /// </summary>
-        public const string OnSetWebhookPropertiesChange = "set_webhook_properties_change";
-
-        /// <summary>
         /// When a card is due.
         /// </summary>
         public const string OnSetWebhookCardDueDate = "set_webhook_card_due_date";
+
+        /// <summary>
+        /// When a card&apos;s properties are changed.
+        /// </summary>
+        public const string OnSetWebhookPropertiesChange = "set_webhook_properties_change";
 
     }
 

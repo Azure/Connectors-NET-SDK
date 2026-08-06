@@ -628,10 +628,10 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnNewSectionInNotebook trigger (Onenote "When a new section is created", operationId: OnNewSectionInNotebook).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewSectionInNotebookTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnNewPageInSection trigger (Onenote "When a new page is created in a section", operationId: OnNewPageInSection).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewPageInSectionTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class OnenoteOnNewSectionInNotebookTriggerPayload : TriggerCallbackPayload<SectionResponse>
+    public class OnenoteOnNewPageInSectionTriggerPayload : TriggerCallbackPayload<Page>
     {
     }
 
@@ -644,10 +644,10 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnNewPageInSection trigger (Onenote "When a new page is created in a section", operationId: OnNewPageInSection).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewPageInSectionTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnNewSectionInNotebook trigger (Onenote "When a new section is created", operationId: OnNewSectionInNotebook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OnenoteOnNewSectionInNotebookTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class OnenoteOnNewPageInSectionTriggerPayload : TriggerCallbackPayload<Page>
+    public class OnenoteOnNewSectionInNotebookTriggerPayload : TriggerCallbackPayload<SectionResponse>
     {
     }
 
@@ -667,9 +667,9 @@ namespace Azure.Connectors.Sdk.Onenote.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["OnNewSectionInNotebook"] = typeof(OnenoteOnNewSectionInNotebookTriggerPayload),
-                ["OnNewSectionGroupInNotebook"] = typeof(OnenoteOnNewSectionGroupInNotebookTriggerPayload),
                 ["OnNewPageInSection"] = typeof(OnenoteOnNewPageInSectionTriggerPayload),
+                ["OnNewSectionGroupInNotebook"] = typeof(OnenoteOnNewSectionGroupInNotebookTriggerPayload),
+                ["OnNewSectionInNotebook"] = typeof(OnenoteOnNewSectionInNotebookTriggerPayload),
             });
     }
 
@@ -690,10 +690,10 @@ namespace Azure.Connectors.Sdk.Onenote
     public static class OnenoteTriggerOperations
     {
         /// <summary>
-        /// When a new section is created.
-        /// Payload type: <see cref="OnenoteOnNewSectionInNotebookTriggerPayload"/>.
+        /// When a new page is created in a section.
+        /// Payload type: <see cref="OnenoteOnNewPageInSectionTriggerPayload"/>.
         /// </summary>
-        public const string OnNewSectionInNotebook = "OnNewSectionInNotebook";
+        public const string OnNewPageInSection = "OnNewPageInSection";
 
         /// <summary>
         /// When a new section group is created.
@@ -702,10 +702,10 @@ namespace Azure.Connectors.Sdk.Onenote
         public const string OnNewSectionGroupInNotebook = "OnNewSectionGroupInNotebook";
 
         /// <summary>
-        /// When a new page is created in a section.
-        /// Payload type: <see cref="OnenoteOnNewPageInSectionTriggerPayload"/>.
+        /// When a new section is created.
+        /// Payload type: <see cref="OnenoteOnNewSectionInNotebookTriggerPayload"/>.
         /// </summary>
-        public const string OnNewPageInSection = "OnNewPageInSection";
+        public const string OnNewSectionInNotebook = "OnNewSectionInNotebook";
 
     }
 
@@ -719,34 +719,6 @@ namespace Azure.Connectors.Sdk.Onenote
     /// </summary>
     public static class OnenoteTriggerParameters
     {
-        /// <summary>
-        /// Input parameters for the OnNewSectionInNotebook trigger operation (operationId: OnNewSectionInNotebook).
-        /// </summary>
-        public static class OnNewSectionInNotebook
-        {
-            /// <summary>
-            /// A key identifying the notebook. Note this is specific to the API and cannot be hand-typed.
-            /// Required.
-            /// Dynamic values from: GetNotebooks.
-            /// </summary>
-            public const string NotebookKey = "notebookKey";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnNewSectionGroupInNotebook trigger operation (operationId: OnNewSectionGroupInNotebook).
-        /// </summary>
-        public static class OnNewSectionGroupInNotebook
-        {
-            /// <summary>
-            /// A key identifying the notebook. Note this is specific to the API and cannot be hand-typed.
-            /// Required.
-            /// Dynamic values from: GetNotebooks.
-            /// </summary>
-            public const string NotebookKey = "notebookKey";
-
-        }
-
         /// <summary>
         /// Input parameters for the OnNewPageInSection trigger operation (operationId: OnNewPageInSection).
         /// </summary>
@@ -765,6 +737,34 @@ namespace Azure.Connectors.Sdk.Onenote
             /// Dynamic values from: GetSectionsInNotebook.
             /// </summary>
             public const string SectionId = "sectionId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewSectionGroupInNotebook trigger operation (operationId: OnNewSectionGroupInNotebook).
+        /// </summary>
+        public static class OnNewSectionGroupInNotebook
+        {
+            /// <summary>
+            /// A key identifying the notebook. Note this is specific to the API and cannot be hand-typed.
+            /// Required.
+            /// Dynamic values from: GetNotebooks.
+            /// </summary>
+            public const string NotebookKey = "notebookKey";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewSectionInNotebook trigger operation (operationId: OnNewSectionInNotebook).
+        /// </summary>
+        public static class OnNewSectionInNotebook
+        {
+            /// <summary>
+            /// A key identifying the notebook. Note this is specific to the API and cannot be hand-typed.
+            /// Required.
+            /// Dynamic values from: GetNotebooks.
+            /// </summary>
+            public const string NotebookKey = "notebookKey";
 
         }
 

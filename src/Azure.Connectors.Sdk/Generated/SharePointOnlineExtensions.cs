@@ -1974,6 +1974,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public const string OnDeletedItems = "GetOnDeletedItems";
 
         /// <summary>
+        /// When a file is created in a folder (deprecated).
+        /// </summary>
+        public const string OnNewFile = "OnNewFile";
+
+        /// <summary>
         /// When a file is created (properties only).
         /// Payload type: <see cref="SharePointOnlineOnNewFileItemsTriggerPayload"/>.
         /// </summary>
@@ -1998,6 +2003,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         public const string OnRecurrenceDigest = "GetOnRecurrenceDigest";
 
         /// <summary>
+        /// When a file is created or modified in a folder (deprecated).
+        /// </summary>
+        public const string OnUpdatedFile = "OnUpdatedFile";
+
+        /// <summary>
         /// When a file is classified by a Microsoft Syntex model.
         /// Payload type: <see cref="SharePointOnlineOnUpdatedFileClassifiedTimesTriggerPayload"/>.
         /// </summary>
@@ -2014,16 +2024,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// Payload type: <see cref="SharePointOnlineOnUpdatedItemsTriggerPayload"/>.
         /// </summary>
         public const string OnUpdatedItems = "GetOnUpdatedItems";
-
-        /// <summary>
-        /// When a file is created in a folder (deprecated).
-        /// </summary>
-        public const string OnNewFile = "OnNewFile";
-
-        /// <summary>
-        /// When a file is created or modified in a folder (deprecated).
-        /// </summary>
-        public const string OnUpdatedFile = "OnUpdatedFile";
 
     }
 
@@ -2113,6 +2113,38 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             /// Dynamic values from: GetTables.
             /// </summary>
             public const string Table = "table";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewFile trigger operation (operationId: OnNewFile).
+        /// </summary>
+        public static class OnNewFile
+        {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// Select a folder.
+            /// Required.
+            /// </summary>
+            public const string FolderId = "folderId";
+
+            /// <summary>
+            /// Infer content-type based on extension.
+            /// Default: true.
+            /// </summary>
+            public const string InferContentType = "inferContentType";
+
+            /// <summary>
+            /// The 'queryParametersSingleEncoded' parameter.
+            /// Default: true.
+            /// </summary>
+            public const string QueryParametersSingleEncoded = "queryParametersSingleEncoded";
 
         }
 
@@ -2266,6 +2298,44 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
+        /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFile).
+        /// </summary>
+        public static class OnUpdatedFile
+        {
+            /// <summary>
+            /// Example: https://contoso.sharepoint.com/sites/sitename.
+            /// Required.
+            /// Dynamic values from: GetDataSets.
+            /// </summary>
+            public const string Dataset = "dataset";
+
+            /// <summary>
+            /// Select a folder.
+            /// Required.
+            /// </summary>
+            public const string FolderId = "folderId";
+
+            /// <summary>
+            /// If set to true, file content will also be retrieved along with the trigger response.
+            /// Default: true.
+            /// </summary>
+            public const string IncludeFileContent = "includeFileContent";
+
+            /// <summary>
+            /// Infer content-type based on extension.
+            /// Default: true.
+            /// </summary>
+            public const string InferContentType = "inferContentType";
+
+            /// <summary>
+            /// The 'queryParametersSingleEncoded' parameter.
+            /// Default: true.
+            /// </summary>
+            public const string QueryParametersSingleEncoded = "queryParametersSingleEncoded";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnUpdatedFileClassifiedTimes trigger operation (operationId: GetOnUpdatedFileClassifiedTimes).
         /// </summary>
         public static class OnUpdatedFileClassifiedTimes
@@ -2353,76 +2423,6 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             /// Dynamic values from: GetTableViews.
             /// </summary>
             public const string View = "view";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnNewFile trigger operation (operationId: OnNewFile).
-        /// </summary>
-        public static class OnNewFile
-        {
-            /// <summary>
-            /// Example: https://contoso.sharepoint.com/sites/sitename.
-            /// Required.
-            /// Dynamic values from: GetDataSets.
-            /// </summary>
-            public const string Dataset = "dataset";
-
-            /// <summary>
-            /// Select a folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// Infer content-type based on extension.
-            /// Default: true.
-            /// </summary>
-            public const string InferContentType = "inferContentType";
-
-            /// <summary>
-            /// The 'queryParametersSingleEncoded' parameter.
-            /// Default: true.
-            /// </summary>
-            public const string QueryParametersSingleEncoded = "queryParametersSingleEncoded";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFile).
-        /// </summary>
-        public static class OnUpdatedFile
-        {
-            /// <summary>
-            /// Example: https://contoso.sharepoint.com/sites/sitename.
-            /// Required.
-            /// Dynamic values from: GetDataSets.
-            /// </summary>
-            public const string Dataset = "dataset";
-
-            /// <summary>
-            /// Select a folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// If set to true, file content will also be retrieved along with the trigger response.
-            /// Default: true.
-            /// </summary>
-            public const string IncludeFileContent = "includeFileContent";
-
-            /// <summary>
-            /// Infer content-type based on extension.
-            /// Default: true.
-            /// </summary>
-            public const string InferContentType = "inferContentType";
-
-            /// <summary>
-            /// The 'queryParametersSingleEncoded' parameter.
-            /// Default: true.
-            /// </summary>
-            public const string QueryParametersSingleEncoded = "queryParametersSingleEncoded";
 
         }
 
