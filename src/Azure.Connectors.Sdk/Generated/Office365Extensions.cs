@@ -4371,18 +4371,18 @@ namespace Azure.Connectors.Sdk.Office365.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnUpcomingEvents trigger (Office365 "When an upcoming event is starting soon (V3)", operationId: OnUpcomingEventsV3).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
-    {
-    }
-
-    /// <summary>
     /// Typed trigger payload for the OnSharedMailboxNewEmail trigger (Office365 "When a new email arrives in a shared mailbox (V2)", operationId: SharedMailboxOnNewEmailV2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnSharedMailboxNewEmailTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class Office365OnSharedMailboxNewEmailTriggerPayload : TriggerCallbackPayload<GraphClientReceiveMessage>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnUpcomingEvents trigger (Office365 "When an upcoming event is starting soon (V3)", operationId: OnUpcomingEventsV3).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;Office365OnUpcomingEventsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class Office365OnUpcomingEventsTriggerPayload : TriggerCallbackPayload<GraphCalendarEventClientReceive>
     {
     }
 
@@ -4408,8 +4408,8 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 ["OnFlaggedEmailV4"] = typeof(Office365OnFlaggedEmailTriggerPayload),
                 ["OnNewEmailV3"] = typeof(Office365OnNewEmailTriggerPayload),
                 ["OnNewMentionMeEmailV3"] = typeof(Office365OnNewEmailMentioningMeTriggerPayload),
-                ["OnUpcomingEventsV3"] = typeof(Office365OnUpcomingEventsTriggerPayload),
                 ["SharedMailboxOnNewEmailV2"] = typeof(Office365OnSharedMailboxNewEmailTriggerPayload),
+                ["OnUpcomingEventsV3"] = typeof(Office365OnUpcomingEventsTriggerPayload),
             });
     }
 
@@ -4466,16 +4466,16 @@ namespace Azure.Connectors.Sdk.Office365
         public const string OnNewEmailMentioningMe = "OnNewMentionMeEmailV3";
 
         /// <summary>
-        /// When an upcoming event is starting soon.
-        /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
-        /// </summary>
-        public const string OnUpcomingEvents = "OnUpcomingEventsV3";
-
-        /// <summary>
         /// When a new email arrives in a shared mailbox.
         /// Payload type: <see cref="Office365OnSharedMailboxNewEmailTriggerPayload"/>.
         /// </summary>
         public const string OnSharedMailboxNewEmail = "SharedMailboxOnNewEmailV2";
+
+        /// <summary>
+        /// When an upcoming event is starting soon.
+        /// Payload type: <see cref="Office365OnUpcomingEventsTriggerPayload"/>.
+        /// </summary>
+        public const string OnUpcomingEvents = "OnUpcomingEventsV3";
 
     }
 
@@ -4769,26 +4769,6 @@ namespace Azure.Connectors.Sdk.Office365
         }
 
         /// <summary>
-        /// Input parameters for the OnUpcomingEvents trigger operation (operationId: OnUpcomingEventsV3).
-        /// </summary>
-        public static class OnUpcomingEvents
-        {
-            /// <summary>
-            /// Unique identifier of the calendar.
-            /// Required.
-            /// Dynamic values from: CalendarGetTables_V2.
-            /// </summary>
-            public const string Table = "table";
-
-            /// <summary>
-            /// Time (in minutes) to look ahead for upcoming events.
-            /// Default: 15.
-            /// </summary>
-            public const string LookAheadTimeInMinutes = "lookAheadTimeInMinutes";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnSharedMailboxNewEmail trigger operation (operationId: SharedMailboxOnNewEmailV2).
         /// </summary>
         public static class OnSharedMailboxNewEmail
@@ -4853,6 +4833,26 @@ namespace Azure.Connectors.Sdk.Office365
             /// Special header to enable operation simulation.
             /// </summary>
             public const string XMsOperationContext = "x-ms-operation-context";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnUpcomingEvents trigger operation (operationId: OnUpcomingEventsV3).
+        /// </summary>
+        public static class OnUpcomingEvents
+        {
+            /// <summary>
+            /// Unique identifier of the calendar.
+            /// Required.
+            /// Dynamic values from: CalendarGetTables_V2.
+            /// </summary>
+            public const string Table = "table";
+
+            /// <summary>
+            /// Time (in minutes) to look ahead for upcoming events.
+            /// Default: 15.
+            /// </summary>
+            public const string LookAheadTimeInMinutes = "lookAheadTimeInMinutes";
 
         }
 

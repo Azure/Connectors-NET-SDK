@@ -231,18 +231,18 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnGetNewMessagesFromQueueWithPeekLock trigger (Servicebus "When one or more messages arrive in a queue (peek-lock)", operationId: GetNewMessagesFromQueueWithPeekLock).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload : TriggerCallbackPayload<ServiceBusMessage>
-    {
-    }
-
-    /// <summary>
     /// Typed trigger payload for the OnGetMessagesFromTopic trigger (Servicebus "When one or more messages arrive in a topic (auto-complete)", operationId: GetMessagesFromTopic).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ServicebusOnGetMessagesFromTopicTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class ServicebusOnGetMessagesFromTopicTriggerPayload : TriggerCallbackPayload<ServiceBusMessage>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnGetNewMessagesFromQueueWithPeekLock trigger (Servicebus "When one or more messages arrive in a queue (peek-lock)", operationId: GetNewMessagesFromQueueWithPeekLock).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload : TriggerCallbackPayload<ServiceBusMessage>
     {
     }
 
@@ -271,8 +271,8 @@ namespace Azure.Connectors.Sdk.Servicebus.Models
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
                 ["GetMessagesFromQueue"] = typeof(ServicebusOnGetMessagesFromQueueTriggerPayload),
-                ["GetNewMessagesFromQueueWithPeekLock"] = typeof(ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload),
                 ["GetMessagesFromTopic"] = typeof(ServicebusOnGetMessagesFromTopicTriggerPayload),
+                ["GetNewMessagesFromQueueWithPeekLock"] = typeof(ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload),
                 ["GetNewMessagesFromTopicWithPeekLock"] = typeof(ServicebusOnGetNewMessagesFromTopicWithPeekLockTriggerPayload),
             });
     }
@@ -299,9 +299,9 @@ namespace Azure.Connectors.Sdk.Servicebus
         public const string OnGetMessageFromQueue = "GetMessageFromQueue";
 
         /// <summary>
-        /// When a message is received in a queue (peek-lock).
+        /// When a message is received in a topic subscription (auto-complete).
         /// </summary>
-        public const string OnGetNewMessageFromQueueWithPeekLock = "GetNewMessageFromQueueWithPeekLock";
+        public const string OnGetMessageFromTopic = "GetMessageFromTopic";
 
         /// <summary>
         /// When one or more messages arrive in a queue (auto-complete).
@@ -310,15 +310,15 @@ namespace Azure.Connectors.Sdk.Servicebus
         public const string OnGetMessagesFromQueue = "GetMessagesFromQueue";
 
         /// <summary>
-        /// When one or more messages arrive in a queue (peek-lock).
-        /// Payload type: <see cref="ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload"/>.
+        /// When one or more messages arrive in a topic (auto-complete).
+        /// Payload type: <see cref="ServicebusOnGetMessagesFromTopicTriggerPayload"/>.
         /// </summary>
-        public const string OnGetNewMessagesFromQueueWithPeekLock = "GetNewMessagesFromQueueWithPeekLock";
+        public const string OnGetMessagesFromTopic = "GetMessagesFromTopic";
 
         /// <summary>
-        /// When a message is received in a topic subscription (auto-complete).
+        /// When a message is received in a queue (peek-lock).
         /// </summary>
-        public const string OnGetMessageFromTopic = "GetMessageFromTopic";
+        public const string OnGetNewMessageFromQueueWithPeekLock = "GetNewMessageFromQueueWithPeekLock";
 
         /// <summary>
         /// When a message is received in a topic subscription (peek-lock).
@@ -326,10 +326,10 @@ namespace Azure.Connectors.Sdk.Servicebus
         public const string OnGetNewMessageFromTopicWithPeekLock = "GetNewMessageFromTopicWithPeekLock";
 
         /// <summary>
-        /// When one or more messages arrive in a topic (auto-complete).
-        /// Payload type: <see cref="ServicebusOnGetMessagesFromTopicTriggerPayload"/>.
+        /// When one or more messages arrive in a queue (peek-lock).
+        /// Payload type: <see cref="ServicebusOnGetNewMessagesFromQueueWithPeekLockTriggerPayload"/>.
         /// </summary>
-        public const string OnGetMessagesFromTopic = "GetMessagesFromTopic";
+        public const string OnGetNewMessagesFromQueueWithPeekLock = "GetNewMessagesFromQueueWithPeekLock";
 
         /// <summary>
         /// When one or more messages arrive in a topic (peek-lock).
@@ -371,30 +371,30 @@ namespace Azure.Connectors.Sdk.Servicebus
         }
 
         /// <summary>
-        /// Input parameters for the OnGetNewMessageFromQueueWithPeekLock trigger operation (operationId: GetNewMessageFromQueueWithPeekLock).
+        /// Input parameters for the OnGetMessageFromTopic trigger operation (operationId: GetMessageFromTopic).
         /// </summary>
-        public static class OnGetNewMessageFromQueueWithPeekLock
+        public static class OnGetMessageFromTopic
         {
             /// <summary>
-            /// Name of the queue
+            /// Name of the topic
             /// Required.
-            /// Dynamic values from: GetQueues.
+            /// Dynamic values from: GetTopics.
             /// </summary>
-            public const string QueueName = "queueName";
+            public const string TopicName = "topicName";
 
             /// <summary>
-            /// Queue type - Main or DeadLetter
+            /// Name of the topic subscription
+            /// Required.
+            /// Dynamic values from: GetSubscriptions.
+            /// </summary>
+            public const string SubscriptionName = "subscriptionName";
+
+            /// <summary>
+            /// Subscription type - Main or DeadLetter
             /// Default: Main.
             /// Allowed values: Main, DeadLetter.
             /// </summary>
-            public const string QueueType = "queueType";
-
-            /// <summary>
-            /// Session id - None or Next Available or provide session id
-            /// Default: None.
-            /// Dynamic values from: GetSessionOptions.
-            /// </summary>
-            public const string SessionId = "sessionId";
+            public const string SubscriptionType = "subscriptionType";
 
         }
 
@@ -426,43 +426,9 @@ namespace Azure.Connectors.Sdk.Servicebus
         }
 
         /// <summary>
-        /// Input parameters for the OnGetNewMessagesFromQueueWithPeekLock trigger operation (operationId: GetNewMessagesFromQueueWithPeekLock).
+        /// Input parameters for the OnGetMessagesFromTopic trigger operation (operationId: GetMessagesFromTopic).
         /// </summary>
-        public static class OnGetNewMessagesFromQueueWithPeekLock
-        {
-            /// <summary>
-            /// Name of the queue
-            /// Required.
-            /// Dynamic values from: GetQueues.
-            /// </summary>
-            public const string QueueName = "queueName";
-
-            /// <summary>
-            /// The maximum number of messages to return in the batch
-            /// Default: 20.
-            /// </summary>
-            public const string MaxMessageCount = "maxMessageCount";
-
-            /// <summary>
-            /// Queue type - Main or DeadLetter
-            /// Default: Main.
-            /// Allowed values: Main, DeadLetter.
-            /// </summary>
-            public const string QueueType = "queueType";
-
-            /// <summary>
-            /// Session id - None or Next Available or provide session id
-            /// Default: None.
-            /// Dynamic values from: GetSessionOptions.
-            /// </summary>
-            public const string SessionId = "sessionId";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnGetMessageFromTopic trigger operation (operationId: GetMessageFromTopic).
-        /// </summary>
-        public static class OnGetMessageFromTopic
+        public static class OnGetMessagesFromTopic
         {
             /// <summary>
             /// Name of the topic
@@ -479,11 +445,45 @@ namespace Azure.Connectors.Sdk.Servicebus
             public const string SubscriptionName = "subscriptionName";
 
             /// <summary>
+            /// The maximum number of messages to return in the batch
+            /// Default: 20.
+            /// </summary>
+            public const string MaxMessageCount = "maxMessageCount";
+
+            /// <summary>
             /// Subscription type - Main or DeadLetter
             /// Default: Main.
             /// Allowed values: Main, DeadLetter.
             /// </summary>
             public const string SubscriptionType = "subscriptionType";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnGetNewMessageFromQueueWithPeekLock trigger operation (operationId: GetNewMessageFromQueueWithPeekLock).
+        /// </summary>
+        public static class OnGetNewMessageFromQueueWithPeekLock
+        {
+            /// <summary>
+            /// Name of the queue
+            /// Required.
+            /// Dynamic values from: GetQueues.
+            /// </summary>
+            public const string QueueName = "queueName";
+
+            /// <summary>
+            /// Queue type - Main or DeadLetter
+            /// Default: Main.
+            /// Allowed values: Main, DeadLetter.
+            /// </summary>
+            public const string QueueType = "queueType";
+
+            /// <summary>
+            /// Session id - None or Next Available or provide session id
+            /// Default: None.
+            /// Dynamic values from: GetSessionOptions.
+            /// </summary>
+            public const string SessionId = "sessionId";
 
         }
 
@@ -523,23 +523,16 @@ namespace Azure.Connectors.Sdk.Servicebus
         }
 
         /// <summary>
-        /// Input parameters for the OnGetMessagesFromTopic trigger operation (operationId: GetMessagesFromTopic).
+        /// Input parameters for the OnGetNewMessagesFromQueueWithPeekLock trigger operation (operationId: GetNewMessagesFromQueueWithPeekLock).
         /// </summary>
-        public static class OnGetMessagesFromTopic
+        public static class OnGetNewMessagesFromQueueWithPeekLock
         {
             /// <summary>
-            /// Name of the topic
+            /// Name of the queue
             /// Required.
-            /// Dynamic values from: GetTopics.
+            /// Dynamic values from: GetQueues.
             /// </summary>
-            public const string TopicName = "topicName";
-
-            /// <summary>
-            /// Name of the topic subscription
-            /// Required.
-            /// Dynamic values from: GetSubscriptions.
-            /// </summary>
-            public const string SubscriptionName = "subscriptionName";
+            public const string QueueName = "queueName";
 
             /// <summary>
             /// The maximum number of messages to return in the batch
@@ -548,11 +541,18 @@ namespace Azure.Connectors.Sdk.Servicebus
             public const string MaxMessageCount = "maxMessageCount";
 
             /// <summary>
-            /// Subscription type - Main or DeadLetter
+            /// Queue type - Main or DeadLetter
             /// Default: Main.
             /// Allowed values: Main, DeadLetter.
             /// </summary>
-            public const string SubscriptionType = "subscriptionType";
+            public const string QueueType = "queueType";
+
+            /// <summary>
+            /// Session id - None or Next Available or provide session id
+            /// Default: None.
+            /// Dynamic values from: GetSessionOptions.
+            /// </summary>
+            public const string SessionId = "sessionId";
 
         }
 
