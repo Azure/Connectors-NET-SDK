@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static DocuSignClient CreateMockedClient(HttpResponseMessage response)
+        private static DocuSignClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -38,7 +38,7 @@ namespace Azure.Connectors.Sdk.Tests
                     ItExpr.IsAny<HttpRequestMessage>(),
                     ItExpr.IsAny<CancellationToken>())
                 .ReturnsAsync(response)
-                .Callback(() => { })
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => requestCallback?.Invoke(request))
                 .Verifiable();
 
             var options = new ConnectorClientOptions();
@@ -122,13 +122,14 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task StaticResponseForEmbeddedSigningSchemaAsync_WithMockedResponse_ReturnsExpected()
         {
+            Uri? requestUri = null;
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,
                 Content = new StringContent("{}")
             };
 
-            using var client = CreateMockedClient(responseMessage);
+            using var client = CreateMockedClient(responseMessage, request => requestUri = request.RequestUri);
 
             var result = await client
                 .StaticResponseForEmbeddedSigningSchemaAsync(returnURL: "https://contoso.example/return",
@@ -137,6 +138,11 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
+            Assert.IsNotNull(requestUri);
+            var capturedRequestUri = requestUri ?? throw new InvalidOperationException(message: "The mocked handler did not capture a request URI.");
+            Assert.AreEqual(expected: "/connection/embeddedSigning_schema_v2", actual: capturedRequestUri.AbsolutePath);
+            Assert.IsTrue(capturedRequestUri.Query.Contains("returnUrl=https%3A%2F%2Fcontoso.example%2Freturn", StringComparison.Ordinal));
+            Assert.IsTrue(capturedRequestUri.Query.Contains("isInPersonSigner=true", StringComparison.Ordinal));
         }
 
         [TestMethod]
