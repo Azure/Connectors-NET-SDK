@@ -3808,7 +3808,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <summary>
         /// Generate Embedded Signing URL
         /// </summary>
-        /// <remarks>Generate Embedded Signing URL</remarks>
+        /// <remarks>Generate Embedded Signing URL (V2)</remarks>
         /// <param name="accountId">Account ID</param>
         /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
@@ -4333,7 +4333,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="returnURL">Return URL</param>
-        /// <param name="isThisAnPersonSigner">Is This an Person Signer?</param>
+        /// <param name="isThisAnPersonSigner">Is this an in-person signer?</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The StaticResponseForEmbeddedSigningSchema response.</returns>
         public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaAsync(string returnURL, string isThisAnPersonSigner, CancellationToken cancellationToken = default)
