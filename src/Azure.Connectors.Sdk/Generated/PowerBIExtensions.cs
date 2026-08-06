@@ -1743,14 +1743,19 @@ namespace Azure.Connectors.Sdk.PowerBI
     public static class PowerBITriggerOperations
     {
         /// <summary>
-        /// When someone assigns a new owner to a goal.
+        /// When a data driven alert is triggered.
         /// </summary>
-        public const string OnGoalsAssignedTrigger = "GoalsAssignedTrigger";
+        public const string OnCheckAlertStatus = "CheckAlertStatus";
 
         /// <summary>
         /// When a goal changes.
         /// </summary>
         public const string OnGoalChangeTrigger = "GoalChangeTrigger";
+
+        /// <summary>
+        /// When a data refresh for a goal fails.
+        /// </summary>
+        public const string OnGoalRefreshFailedTrigger = "GoalRefreshFailedTrigger";
 
         /// <summary>
         /// When status of a goal changes.
@@ -1763,19 +1768,14 @@ namespace Azure.Connectors.Sdk.PowerBI
         public const string OnGoalValueChangeTrigger = "GoalValueChangeTrigger";
 
         /// <summary>
-        /// When a data refresh for a goal fails.
-        /// </summary>
-        public const string OnGoalRefreshFailedTrigger = "GoalRefreshFailedTrigger";
-
-        /// <summary>
         /// When someone adds or edits a goal check-in.
         /// </summary>
         public const string OnGoalValueOrNoteUpsertTrigger = "GoalValueOrNoteUpsertTrigger";
 
         /// <summary>
-        /// When a data driven alert is triggered.
+        /// When someone assigns a new owner to a goal.
         /// </summary>
-        public const string OnCheckAlertStatus = "CheckAlertStatus";
+        public const string OnGoalsAssignedTrigger = "GoalsAssignedTrigger";
 
     }
 
@@ -1790,35 +1790,16 @@ namespace Azure.Connectors.Sdk.PowerBI
     public static class PowerBITriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnGoalsAssignedTrigger trigger operation (operationId: GoalsAssignedTrigger).
+        /// Input parameters for the OnCheckAlertStatus trigger operation (operationId: CheckAlertStatus).
         /// </summary>
-        public static class OnGoalsAssignedTrigger
+        public static class OnCheckAlertStatus
         {
             /// <summary>
-            /// The unique identifier of the workspace.
+            /// The alert id to track.
             /// Required.
-            /// Dynamic values from: ListGroups.
+            /// Dynamic values from: GetAlerts.
             /// </summary>
-            public const string Groupid = "groupid";
-
-            /// <summary>
-            /// The unique identifier of the scorecard.
-            /// Required.
-            /// Dynamic values from: GetScorecards.
-            /// </summary>
-            public const string ScorecardId = "scorecardId";
-
-            /// <summary>
-            /// E-mail of an owner. Can be yours. Can be empty when tracking any owner.
-            /// </summary>
-            public const string Owner = "owner";
-
-            /// <summary>
-            /// Number of seconds between checks for new data. Minimum is 300.
-            /// Required.
-            /// Default: 14400.
-            /// </summary>
-            public const string PollingInterval = "pollingInterval";
+            public const string AlertId = "alertId";
 
             /// <summary>
             /// Source of the call for tracing
@@ -1853,6 +1834,63 @@ namespace Azure.Connectors.Sdk.PowerBI
             /// Dynamic values from: GetMultipleGoals.
             /// </summary>
             public const string GoalId = "goalId";
+
+            /// <summary>
+            /// Number of seconds between checks for new data. Minimum is 300.
+            /// Required.
+            /// Default: 14400.
+            /// </summary>
+            public const string PollingInterval = "pollingInterval";
+
+            /// <summary>
+            /// Source of the call for tracing
+            /// Default: powerAutomate.
+            /// </summary>
+            public const string PbiSource = "pbi_source";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnGoalRefreshFailedTrigger trigger operation (operationId: GoalRefreshFailedTrigger).
+        /// </summary>
+        public static class OnGoalRefreshFailedTrigger
+        {
+            /// <summary>
+            /// The unique identifier of the workspace.
+            /// Required.
+            /// Dynamic values from: ListGroups.
+            /// </summary>
+            public const string Groupid = "groupid";
+
+            /// <summary>
+            /// The unique identifier of the scorecard.
+            /// Required.
+            /// Dynamic values from: GetScorecards.
+            /// </summary>
+            public const string ScorecardId = "scorecardId";
+
+            /// <summary>
+            /// The unique identifier of the goal.
+            /// Required.
+            /// Dynamic values from: GetMultipleGoals.
+            /// </summary>
+            public const string GoalId = "goalId";
+
+            /// <summary>
+            /// Will track the link for the goal&apos;s target.
+            /// Required.
+            /// Default: Yes.
+            /// Allowed values: Yes, No.
+            /// </summary>
+            public const string TrackTargetSource = "trackTargetSource";
+
+            /// <summary>
+            /// Will track the link for the goal&apos;s value.
+            /// Required.
+            /// Default: Yes.
+            /// Allowed values: Yes, No.
+            /// </summary>
+            public const string TrackValueSource = "trackValueSource";
 
             /// <summary>
             /// Number of seconds between checks for new data. Minimum is 300.
@@ -1952,63 +1990,6 @@ namespace Azure.Connectors.Sdk.PowerBI
         }
 
         /// <summary>
-        /// Input parameters for the OnGoalRefreshFailedTrigger trigger operation (operationId: GoalRefreshFailedTrigger).
-        /// </summary>
-        public static class OnGoalRefreshFailedTrigger
-        {
-            /// <summary>
-            /// The unique identifier of the workspace.
-            /// Required.
-            /// Dynamic values from: ListGroups.
-            /// </summary>
-            public const string Groupid = "groupid";
-
-            /// <summary>
-            /// The unique identifier of the scorecard.
-            /// Required.
-            /// Dynamic values from: GetScorecards.
-            /// </summary>
-            public const string ScorecardId = "scorecardId";
-
-            /// <summary>
-            /// The unique identifier of the goal.
-            /// Required.
-            /// Dynamic values from: GetMultipleGoals.
-            /// </summary>
-            public const string GoalId = "goalId";
-
-            /// <summary>
-            /// Will track the link for the goal&apos;s target.
-            /// Required.
-            /// Default: Yes.
-            /// Allowed values: Yes, No.
-            /// </summary>
-            public const string TrackTargetSource = "trackTargetSource";
-
-            /// <summary>
-            /// Will track the link for the goal&apos;s value.
-            /// Required.
-            /// Default: Yes.
-            /// Allowed values: Yes, No.
-            /// </summary>
-            public const string TrackValueSource = "trackValueSource";
-
-            /// <summary>
-            /// Number of seconds between checks for new data. Minimum is 300.
-            /// Required.
-            /// Default: 14400.
-            /// </summary>
-            public const string PollingInterval = "pollingInterval";
-
-            /// <summary>
-            /// Source of the call for tracing
-            /// Default: powerAutomate.
-            /// </summary>
-            public const string PbiSource = "pbi_source";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnGoalValueOrNoteUpsertTrigger trigger operation (operationId: GoalValueOrNoteUpsertTrigger).
         /// </summary>
         public static class OnGoalValueOrNoteUpsertTrigger
@@ -2050,16 +2031,35 @@ namespace Azure.Connectors.Sdk.PowerBI
         }
 
         /// <summary>
-        /// Input parameters for the OnCheckAlertStatus trigger operation (operationId: CheckAlertStatus).
+        /// Input parameters for the OnGoalsAssignedTrigger trigger operation (operationId: GoalsAssignedTrigger).
         /// </summary>
-        public static class OnCheckAlertStatus
+        public static class OnGoalsAssignedTrigger
         {
             /// <summary>
-            /// The alert id to track.
+            /// The unique identifier of the workspace.
             /// Required.
-            /// Dynamic values from: GetAlerts.
+            /// Dynamic values from: ListGroups.
             /// </summary>
-            public const string AlertId = "alertId";
+            public const string Groupid = "groupid";
+
+            /// <summary>
+            /// The unique identifier of the scorecard.
+            /// Required.
+            /// Dynamic values from: GetScorecards.
+            /// </summary>
+            public const string ScorecardId = "scorecardId";
+
+            /// <summary>
+            /// E-mail of an owner. Can be yours. Can be empty when tracking any owner.
+            /// </summary>
+            public const string Owner = "owner";
+
+            /// <summary>
+            /// Number of seconds between checks for new data. Minimum is 300.
+            /// Required.
+            /// Default: 14400.
+            /// </summary>
+            public const string PollingInterval = "pollingInterval";
 
             /// <summary>
             /// Source of the call for tracing

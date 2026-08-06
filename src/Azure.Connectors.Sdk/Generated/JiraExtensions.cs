@@ -184,7 +184,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Add comment (V2)
+    /// Response for Add comment
     /// </summary>
     public class CommentResponse
     {
@@ -203,7 +203,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Cancel Task (V2)
+    /// Response for Cancel Task
     /// </summary>
     public class CancelTaskResponse
     {
@@ -215,7 +215,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Create a new issue (V3)
+    /// Create a new issue
     /// </summary>
     [DynamicSchema("ListIssueTypesFields_V2")]
     public class CreateIssueInput
@@ -229,7 +229,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Create a new issue (V3)
+    /// Response for Create a new issue
     /// </summary>
     public class CreateIssueResponse
     {
@@ -243,7 +243,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Create a new project (V2)
+    /// Create a new project
     /// </summary>
     public class CreateProjectInput
     {
@@ -269,7 +269,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Create a new project (V2)
+    /// Response for Create a new project
     /// </summary>
     public class CreateProjectResponse
     {
@@ -283,7 +283,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Create Project Category (V2)
+    /// Create Project Category
     /// </summary>
     public class CreateProjectCategoryInput
     {
@@ -297,7 +297,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Create Project Category (V2)
+    /// Response for Create Project Category
     /// </summary>
     public class CreateProjectCategoryResponse
     {
@@ -309,7 +309,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Edit Issue (V2)
+    /// Edit Issue
     /// </summary>
     public class EditIssueInput
     {
@@ -335,7 +335,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Edit Issue (V2)
+    /// Response for Edit Issue
     /// </summary>
     public class EditIssueResponse
     {
@@ -347,7 +347,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Get Task (V2)
+    /// Response for Get Task
     /// </summary>
     public class GetTaskResponse
     {
@@ -359,7 +359,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Get User (V2)
+    /// Response for Get User
     /// </summary>
     public class GetUserResponse
     {
@@ -371,7 +371,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Get list of Filters (V2)
+    /// Response for Get list of Filters
     /// </summary>
     public class ListFiltersResponse
     {
@@ -385,7 +385,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Get projects (V2)
+    /// Response for Get projects
     /// </summary>
     public class ListProjectsResponse
     {
@@ -399,7 +399,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Update Project (V2)
+    /// Update Project
     /// </summary>
     public class UpdateProjectInput
     {
@@ -461,7 +461,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Response for Update Project (V2)
+    /// Response for Update Project
     /// </summary>
     public class UpdateProjectResponse
     {
@@ -951,10 +951,10 @@ namespace Azure.Connectors.Sdk.Jira.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnNewIssueDatacenter trigger (Jira "When a new issue is created (Datacenter)", operationId: OnNewIssue_Datacenter).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueDatacenterTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnCloseIssue trigger (Jira "When an issue is closed (V2)", operationId: OnCloseIssue_V2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnCloseIssueTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class JiraOnNewIssueDatacenterTriggerPayload : TriggerCallbackPayload<FullIssue>
+    public class JiraOnCloseIssueTriggerPayload : TriggerCallbackPayload<FullIssue>
     {
     }
 
@@ -967,22 +967,6 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnNewIssueJQLDatacenter trigger (Jira "When a new issue is returned by a JQL query (Datacenter)", operationId: OnNewIssueJQL_Datacenter).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJQLDatacenterTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class JiraOnNewIssueJQLDatacenterTriggerPayload : TriggerCallbackPayload<FullIssue>
-    {
-    }
-
-    /// <summary>
-    /// Typed trigger payload for the OnCloseIssue trigger (Jira "When an issue is closed (V2)", operationId: OnCloseIssue_V2).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnCloseIssueTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class JiraOnCloseIssueTriggerPayload : TriggerCallbackPayload<FullIssue>
-    {
-    }
-
-    /// <summary>
     /// Typed trigger payload for the OnNewIssue trigger (Jira "When a new issue is created (V2)", operationId: OnNewIssue_V2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueTriggerPayload&gt;(body)</c>.
     /// </summary>
@@ -991,10 +975,26 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
+    /// Typed trigger payload for the OnNewIssueDatacenter trigger (Jira "When a new issue is created (Datacenter)", operationId: OnNewIssue_Datacenter).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueDatacenterTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class JiraOnNewIssueDatacenterTriggerPayload : TriggerCallbackPayload<FullIssue>
+    {
+    }
+
+    /// <summary>
     /// Typed trigger payload for the OnNewIssueJQL trigger (Jira "When a new issue is returned by a JQL query (V2)", operationId: OnNewIssueJQL_V2).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJQLTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class JiraOnNewIssueJQLTriggerPayload : TriggerCallbackPayload<FullIssue>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewIssueJQLDatacenter trigger (Jira "When a new issue is returned by a JQL query (Datacenter)", operationId: OnNewIssueJQL_Datacenter).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJQLDatacenterTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class JiraOnNewIssueJQLDatacenterTriggerPayload : TriggerCallbackPayload<FullIssue>
     {
     }
 
@@ -1014,12 +1014,12 @@ namespace Azure.Connectors.Sdk.Jira.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["OnNewIssue_Datacenter"] = typeof(JiraOnNewIssueDatacenterTriggerPayload),
-                ["OnCloseIssue_Datacenter"] = typeof(JiraOnCloseIssueDatacenterTriggerPayload),
-                ["OnNewIssueJQL_Datacenter"] = typeof(JiraOnNewIssueJQLDatacenterTriggerPayload),
                 ["OnCloseIssue_V2"] = typeof(JiraOnCloseIssueTriggerPayload),
+                ["OnCloseIssue_Datacenter"] = typeof(JiraOnCloseIssueDatacenterTriggerPayload),
                 ["OnNewIssue_V2"] = typeof(JiraOnNewIssueTriggerPayload),
+                ["OnNewIssue_Datacenter"] = typeof(JiraOnNewIssueDatacenterTriggerPayload),
                 ["OnNewIssueJQL_V2"] = typeof(JiraOnNewIssueJQLTriggerPayload),
+                ["OnNewIssueJQL_Datacenter"] = typeof(JiraOnNewIssueJQLDatacenterTriggerPayload),
             });
     }
 
@@ -1040,10 +1040,10 @@ namespace Azure.Connectors.Sdk.Jira
     public static class JiraTriggerOperations
     {
         /// <summary>
-        /// When a new issue is created (Datacenter).
-        /// Payload type: <see cref="JiraOnNewIssueDatacenterTriggerPayload"/>.
+        /// When an issue is closed.
+        /// Payload type: <see cref="JiraOnCloseIssueTriggerPayload"/>.
         /// </summary>
-        public const string OnNewIssueDatacenter = "OnNewIssue_Datacenter";
+        public const string OnCloseIssue = "OnCloseIssue_V2";
 
         /// <summary>
         /// When an issue is closed (Datacenter).
@@ -1052,28 +1052,28 @@ namespace Azure.Connectors.Sdk.Jira
         public const string OnCloseIssueDatacenter = "OnCloseIssue_Datacenter";
 
         /// <summary>
-        /// When a new issue is returned by a JQL query (Datacenter).
-        /// Payload type: <see cref="JiraOnNewIssueJQLDatacenterTriggerPayload"/>.
-        /// </summary>
-        public const string OnNewIssueJQLDatacenter = "OnNewIssueJQL_Datacenter";
-
-        /// <summary>
-        /// When an issue is closed (V2).
-        /// Payload type: <see cref="JiraOnCloseIssueTriggerPayload"/>.
-        /// </summary>
-        public const string OnCloseIssue = "OnCloseIssue_V2";
-
-        /// <summary>
-        /// When a new issue is created (V2).
+        /// When a new issue is created.
         /// Payload type: <see cref="JiraOnNewIssueTriggerPayload"/>.
         /// </summary>
         public const string OnNewIssue = "OnNewIssue_V2";
 
         /// <summary>
-        /// When a new issue is returned by a JQL query (V2).
+        /// When a new issue is created (Datacenter).
+        /// Payload type: <see cref="JiraOnNewIssueDatacenterTriggerPayload"/>.
+        /// </summary>
+        public const string OnNewIssueDatacenter = "OnNewIssue_Datacenter";
+
+        /// <summary>
+        /// When a new issue is returned by a JQL query.
         /// Payload type: <see cref="JiraOnNewIssueJQLTriggerPayload"/>.
         /// </summary>
         public const string OnNewIssueJQL = "OnNewIssueJQL_V2";
+
+        /// <summary>
+        /// When a new issue is returned by a JQL query (Datacenter).
+        /// Payload type: <see cref="JiraOnNewIssueJQLDatacenterTriggerPayload"/>.
+        /// </summary>
+        public const string OnNewIssueJQLDatacenter = "OnNewIssueJQL_Datacenter";
 
     }
 
@@ -1088,9 +1088,9 @@ namespace Azure.Connectors.Sdk.Jira
     public static class JiraTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnNewIssueDatacenter trigger operation (operationId: OnNewIssue_Datacenter).
+        /// Input parameters for the OnCloseIssue trigger operation (operationId: OnCloseIssue_V2).
         /// </summary>
-        public static class OnNewIssueDatacenter
+        public static class OnCloseIssue
         {
             /// <summary>
             /// The url where your Jira instance is hosted (must support https). 
@@ -1128,46 +1128,6 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Input parameters for the OnNewIssueJQLDatacenter trigger operation (operationId: OnNewIssueJQL_Datacenter).
-        /// </summary>
-        public static class OnNewIssueJQLDatacenter
-        {
-            /// <summary>
-            /// The url where your Jira instance is hosted (must support https). 
-            /// Dynamic values from: ListResources.
-            /// </summary>
-            public const string XRequestJirainstance = "X-Request-Jirainstance";
-
-            /// <summary>
-            /// Query to use.
-            /// Required.
-            /// Default: .
-            /// </summary>
-            public const string Jql = "jql";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnCloseIssue trigger operation (operationId: OnCloseIssue_V2).
-        /// </summary>
-        public static class OnCloseIssue
-        {
-            /// <summary>
-            /// The url where your Jira instance is hosted (must support https). 
-            /// Dynamic values from: ListResources.
-            /// </summary>
-            public const string XRequestJirainstance = "X-Request-Jirainstance";
-
-            /// <summary>
-            /// Unique key of the project to look for new issues.
-            /// Required.
-            /// Dynamic values from: ListProjects_V3.
-            /// </summary>
-            public const string ProjectKey = "projectKey";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnNewIssue trigger operation (operationId: OnNewIssue_V2).
         /// </summary>
         public static class OnNewIssue
@@ -1188,9 +1148,49 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
+        /// Input parameters for the OnNewIssueDatacenter trigger operation (operationId: OnNewIssue_Datacenter).
+        /// </summary>
+        public static class OnNewIssueDatacenter
+        {
+            /// <summary>
+            /// The url where your Jira instance is hosted (must support https). 
+            /// Dynamic values from: ListResources.
+            /// </summary>
+            public const string XRequestJirainstance = "X-Request-Jirainstance";
+
+            /// <summary>
+            /// Unique key of the project to look for new issues.
+            /// Required.
+            /// Dynamic values from: ListProjects_V3.
+            /// </summary>
+            public const string ProjectKey = "projectKey";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnNewIssueJQL trigger operation (operationId: OnNewIssueJQL_V2).
         /// </summary>
         public static class OnNewIssueJQL
+        {
+            /// <summary>
+            /// The url where your Jira instance is hosted (must support https). 
+            /// Dynamic values from: ListResources.
+            /// </summary>
+            public const string XRequestJirainstance = "X-Request-Jirainstance";
+
+            /// <summary>
+            /// Query to use.
+            /// Required.
+            /// Default: .
+            /// </summary>
+            public const string Jql = "jql";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewIssueJQLDatacenter trigger operation (operationId: OnNewIssueJQL_Datacenter).
+        /// </summary>
+        public static class OnNewIssueJQLDatacenter
         {
             /// <summary>
             /// The url where your Jira instance is hosted (must support https). 
@@ -1466,13 +1466,13 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Add comment (V2)
+        /// Add comment
         /// </summary>
         /// <remarks>This operation is used to add a comment to an existing Jira issue.</remarks>
         /// <param name="issueKey">Issue Key</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add comment (V2) response.</returns>
+        /// <returns>The Add comment response.</returns>
         public virtual async Task<CommentResponse> AddCommentAsync(string issueKey, Comment input, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.AddCommentAsync");
@@ -1494,12 +1494,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Cancel Task (V2)
+        /// Cancel Task
         /// </summary>
         /// <remarks>Cancels a task. Permissions required: either of: Administer Jira or Creator of the task.</remarks>
         /// <param name="taskId">Task ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Cancel Task (V2) response.</returns>
+        /// <returns>The Cancel Task response.</returns>
         public virtual async Task<CancelTaskResponse> CancelTaskAsync(string taskId, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CancelTaskAsync");
@@ -1521,14 +1521,14 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Create a new issue (V3)
+        /// Create a new issue
         /// </summary>
         /// <remarks>This operation is used to create a new issue.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="project">Project</param>
         /// <param name="issueTypeId">Issue Type Id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a new issue (V3) response.</returns>
+        /// <returns>The Create a new issue response.</returns>
         public virtual async Task<CreateIssueResponse> CreateIssueAsync(CreateIssueInput input, [DynamicValues("ListProjects_V3")] string project, [DynamicValues("ListIssueTypes_V2")] string issueTypeId, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CreateIssueAsync");
@@ -1555,12 +1555,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Create a new project (V2)
+        /// Create a new project
         /// </summary>
         /// <remarks>This operation is used to create a new Jira project.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create a new project (V2) response.</returns>
+        /// <returns>The Create a new project response.</returns>
         public virtual async Task<CreateProjectResponse> CreateProjectAsync(CreateProjectInput input, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CreateProjectAsync");
@@ -1580,12 +1580,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Create Project Category (V2)
+        /// Create Project Category
         /// </summary>
         /// <remarks>Creates a project category. Permissions required: Administer Jira (global permissions)</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create Project Category (V2) response.</returns>
+        /// <returns>The Create Project Category response.</returns>
         public virtual async Task<CreateProjectCategoryResponse> CreateProjectCategoryAsync(CreateProjectCategoryInput input, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.CreateProjectCategoryAsync");
@@ -1605,7 +1605,7 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Delete Project (V2)
+        /// Delete Project
         /// </summary>
         /// <remarks>Deletes a project. Permissions required: Administer Jira (global permissions)</remarks>
         /// <param name="projectIdOrKey">Project ID or Key</param>
@@ -1635,7 +1635,7 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Edit Issue (V2)
+        /// Edit Issue
         /// </summary>
         /// <remarks>Edits an issue. A transition may be applied and issue properties updated as part of the edit. The edits to the issue&apos;s fields are defined using update and fields.</remarks>
         /// <param name="issueIdOrKey">Issue ID or Key</param>
@@ -1644,7 +1644,7 @@ namespace Azure.Connectors.Sdk.Jira
         /// <param name="overrideScreenSecurity">Override Screen Security</param>
         /// <param name="overrideEditableFlag">Override Editable Flag</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Edit Issue (V2) response.</returns>
+        /// <returns>The Edit Issue response.</returns>
         public virtual async Task<EditIssueResponse> EditIssueAsync(string issueIdOrKey, EditIssueInput input, bool? notifyUsers = default, bool? overrideScreenSecurity = default, bool? overrideEditableFlag = default, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.EditIssueAsync");
@@ -1673,11 +1673,11 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get All Project Categories (V2)
+        /// Get All Project Categories
         /// </summary>
         /// <remarks>Returns all project categories.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get All Project Categories (V2) response.</returns>
+        /// <returns>The Get All Project Categories response.</returns>
         public virtual async Task<List<JsonElement?>> GetAllProjectCategoriesAsync(CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetAllProjectCategoriesAsync");
@@ -1697,12 +1697,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get issue by key (V2)
+        /// Get issue by key
         /// </summary>
         /// <remarks>This operation is used to retrieve the issue object for a given issue Key.</remarks>
         /// <param name="issueKey">Issue Key</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get issue by key (V2) response.</returns>
+        /// <returns>The Get issue by key response.</returns>
         public virtual async Task<FullIssue> GetIssueAsync(string issueKey, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetIssueAsync");
@@ -1724,12 +1724,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get Task (V2)
+        /// Get Task
         /// </summary>
         /// <remarks>Returns the status of a long-running asynchronous task. When a task has finished, this operation returns the JSON blob applicable to the task.</remarks>
         /// <param name="taskId">Task ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Task (V2) response.</returns>
+        /// <returns>The Get Task response.</returns>
         public virtual async Task<GetTaskResponse> GetTaskAsync(string taskId, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetTaskAsync");
@@ -1751,13 +1751,13 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get User (V2)
+        /// Get User
         /// </summary>
         /// <remarks>Returns a user. Permissions required: Browse users and groups.</remarks>
         /// <param name="accountId">Account ID</param>
         /// <param name="expand">Expand</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get User (V2) response.</returns>
+        /// <returns>The Get User response.</returns>
         public virtual async Task<GetUserResponse> GetUserAsync(string accountId, string expand = default, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.GetUserAsync");
@@ -1783,11 +1783,11 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get list of Filters (V2)
+        /// Get list of Filters
         /// </summary>
         /// <remarks>This operation returns a list of Filters accessible to user.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get list of Filters (V2) response.</returns>
+        /// <returns>The Get list of Filters response.</returns>
         public virtual async Task<ListFiltersResponse> ListFiltersAsync(CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListFiltersAsync");
@@ -1807,11 +1807,11 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get projects (V2)
+        /// Get projects
         /// </summary>
         /// <remarks>This operation is used to retrieve a list of projects for your Jira instance.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get projects (V2) response.</returns>
+        /// <returns>The Get projects response.</returns>
         public virtual async Task<ListProjectsResponse> ListProjectsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListProjectsAsync");
@@ -1831,12 +1831,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// List users by project (V2)
+        /// List users by project
         /// </summary>
         /// <remarks>This operation is used to retrieve a list of all users associated with a project.</remarks>
         /// <param name="projectKey">Project key</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List users by project (V2) response.</returns>
+        /// <returns>The List users by project response.</returns>
         public virtual async Task<List<JsonElement?>> ListProjectUsersAsync([DynamicValues("ListProjects_V3")] string projectKey, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListProjectUsersAsync");
@@ -1860,7 +1860,7 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Remove Project Category (V2)
+        /// Remove Project Category
         /// </summary>
         /// <remarks>Deletes a project category. Permissions required: Administer Jira (global permissions)</remarks>
         /// <param name="projectId">Project ID</param>
@@ -1884,13 +1884,13 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Update Project (V2)
+        /// Update Project
         /// </summary>
         /// <remarks>Updates the project details of a project.</remarks>
         /// <param name="projectIdOrKey">Project ID or Key</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Update Project (V2) response.</returns>
+        /// <returns>The Update Project response.</returns>
         public virtual async Task<UpdateProjectResponse> UpdateProjectAsync(string projectIdOrKey, UpdateProjectInput input, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.UpdateProjectAsync");
@@ -1912,12 +1912,12 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get issue types (V2)
+        /// Get issue types
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="project">Project</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get issue types (V2) response.</returns>
+        /// <returns>The Get issue types response.</returns>
         public virtual async Task<List<JsonElement?>> ListIssueTypesAsync([DynamicValues("ListProjects_V3")] string project, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesAsync");
@@ -1941,13 +1941,13 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Get issue types fields (V2)
+        /// Get issue types fields
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="project">Project</param>
         /// <param name="issueTypes">Issue Types</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get issue types fields (V2) response.</returns>
+        /// <returns>The Get issue types fields response.</returns>
         public virtual async Task<List<JsonElement?>> ListIssueTypesFieldsAsync(string project, string issueTypes, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssueTypesFieldsAsync");
