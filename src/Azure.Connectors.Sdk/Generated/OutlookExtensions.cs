@@ -4029,7 +4029,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <summary>
         /// Get event
         /// </summary>
-        /// <remarks>This operation gets a specific event from a calendar.</remarks>
+        /// <remarks>This operation gets a specific event from a calendar. (V2)</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="itemId">Item id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -4059,7 +4059,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <summary>
         /// Get events
         /// </summary>
-        /// <remarks>This operation gets events from a calendar.</remarks>
+        /// <remarks>This operation gets events from a calendar. (V3)</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="orderBy">Order By</param>
@@ -4220,7 +4220,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <summary>
         /// Get calendar view of events
         /// </summary>
-        /// <remarks>This operation gets all events (including instances of recurrences) in a calendar.</remarks>
+        /// <remarks>This operation gets all events (including instances of recurrences) in a calendar. (V2)</remarks>
         /// <param name="calendarId">Calendar Id</param>
         /// <param name="startTime">Start Time</param>
         /// <param name="endTime">End Time</param>

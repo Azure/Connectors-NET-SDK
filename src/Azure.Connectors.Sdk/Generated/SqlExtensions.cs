@@ -1232,7 +1232,7 @@ namespace Azure.Connectors.Sdk.Sql
         /// <summary>
         /// Execute a SQL query
         /// </summary>
-        /// <remarks>Execute a SQL query</remarks>
+        /// <remarks>Execute a SQL query (V2)</remarks>
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="input">The request body.</param>

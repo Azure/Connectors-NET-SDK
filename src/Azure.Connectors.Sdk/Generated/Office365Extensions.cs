@@ -5324,7 +5324,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <summary>
         /// Get event
         /// </summary>
-        /// <remarks>This operation gets a specific event from a calendar using Graph API.</remarks>
+        /// <remarks>This operation gets a specific event from a calendar using Graph API. (V3)</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="itemId">Item id</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -5354,7 +5354,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <summary>
         /// Get events
         /// </summary>
-        /// <remarks>This operation gets events from a calendar using Graph API.</remarks>
+        /// <remarks>This operation gets events from a calendar using Graph API. (V4)</remarks>
         /// <param name="calendarId">Calendar id</param>
         /// <param name="filterQuery">Filter Query</param>
         /// <param name="orderBy">Order By</param>
