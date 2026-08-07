@@ -2940,7 +2940,7 @@ namespace Azure.Connectors.Sdk.MailChimp
         /// <summary>
         /// New Campaign
         /// </summary>
-        /// <remarks>Create a new campaign based on a Campaign Type, Recipients list and Campaign Settings (subject line, title, from_name and reply_to) (V2).</remarks>
+        /// <remarks>Create a new campaign based on a Campaign Type, Recipients list and Campaign Settings (subject line, title, from_name and reply_to).</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The New Campaign response.</returns>
