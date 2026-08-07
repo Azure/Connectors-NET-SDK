@@ -131,7 +131,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     }
 
     /// <summary>
-    /// CreateTicket_RequestV2
+    /// CreateTicket_Request
     /// </summary>
     public class CreateTicketRequest
     {
@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     }
 
     /// <summary>
-    /// UpdateTicket_RequestV2
+    /// UpdateTicket_Request
     /// </summary>
     public class UpdateTicketRequest
     {
@@ -215,7 +215,7 @@ namespace Azure.Connectors.Sdk.FreshService.Models
     }
 
     /// <summary>
-    /// AddNote_RequestV2
+    /// AddNote_Request
     /// </summary>
     public class AddNoteRequest
     {

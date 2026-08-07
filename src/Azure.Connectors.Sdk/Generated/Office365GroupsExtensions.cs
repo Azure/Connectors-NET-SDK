@@ -121,7 +121,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     }
 
     /// <summary>
-    /// Response for Send an HTTP request V2
+    /// Response for Send an HTTP request
     /// </summary>
     public class ObjectWithoutType
     {
@@ -960,12 +960,12 @@ namespace Azure.Connectors.Sdk.Office365Groups
         }
 
         /// <summary>
-        /// Send an HTTP request V2
+        /// Send an HTTP request
         /// </summary>
         /// <remarks>Construct a Microsoft Graph REST API request to invoke. There is one segment that is supported: /groups. Learn more: https://docs.microsoft.com/en-us/graph/use-the-api.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Send an HTTP request V2 response.</returns>
+        /// <returns>The Send an HTTP request response.</returns>
         public virtual async Task<ObjectWithoutType> HttpRequestAsync(byte[] input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.HttpRequestAsync");

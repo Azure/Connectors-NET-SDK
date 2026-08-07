@@ -537,7 +537,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     }
 
     /// <summary>
-    /// AddDealRequestV2
+    /// AddDealRequest
     /// </summary>
     public class AddDealRequest
     {
@@ -583,7 +583,7 @@ namespace Azure.Connectors.Sdk.Pipedrive.Models
     }
 
     /// <summary>
-    /// UpdateDealStageRequestV2
+    /// UpdateDealStageRequest
     /// </summary>
     public class UpdateDealStageRequest
     {

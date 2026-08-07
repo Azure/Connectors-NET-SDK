@@ -48,7 +48,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     }
 
     /// <summary>
-    /// Response for Run query and list results V2
+    /// Response for Run query and list results
     /// </summary>
     public class Table
     {
@@ -90,7 +90,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
     }
 
     /// <summary>
-    /// Response for Run query and visualize results V2
+    /// Response for Run query and visualize results
     /// </summary>
     public class VisualizeResults
     {
@@ -447,7 +447,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         public override string ToString() => base.ToString();
 
         /// <summary>
-        /// Run query and list results V2
+        /// Run query and list results
         /// </summary>
         /// <remarks>Returns each row as its own object. Use this action when you want to work with each row separately in the rest of the workflow. </remarks>
         /// <param name="input">The request body.</param>
@@ -456,7 +456,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         /// <param name="resourceType">Resource Type</param>
         /// <param name="resourceName">Resource Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Run query and list results V2 response.</returns>
+        /// <returns>The Run query and list results response.</returns>
         public virtual async Task<Table> QueryDataAsync(QueryDataInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, CancellationToken cancellationToken = default)
         {
             using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.QueryDataAsync");
@@ -489,7 +489,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         }
 
         /// <summary>
-        /// Run query and visualize results V2
+        /// Run query and visualize results
         /// </summary>
         /// <remarks>Returns all rows in the result set as a single formatted object. Use this action when you want to use the result set together in the rest of the workflow. </remarks>
         /// <param name="input">The request body.</param>
@@ -499,7 +499,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
         /// <param name="resourceName">Resource Name</param>
         /// <param name="chartType">Chart Type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Run query and visualize results V2 response.</returns>
+        /// <returns>The Run query and visualize results response.</returns>
         public virtual async Task<VisualizeResults> VisualizeQueryAsync(VisualizeQueryInput input, [DynamicValues("ListSubscriptions")] string subscription, [DynamicValues("ListResourceGroups")] string resourceGroup, string resourceType, [DynamicValues("ListResources")] string resourceName, string chartType, CancellationToken cancellationToken = default)
         {
             using var activity = AzureMonitorLogsClient.ConnectorActivitySource.StartActivity("AzureMonitorLogsClient.VisualizeQueryAsync");

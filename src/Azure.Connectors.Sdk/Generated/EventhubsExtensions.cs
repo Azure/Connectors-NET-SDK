@@ -520,13 +520,13 @@ namespace Azure.Connectors.Sdk.Eventhubs
         }
 
         /// <summary>
-        /// Generate event schema V2
+        /// Generate event schema
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="contentType">Content type</param>
         /// <param name="contentSchemaOfTheEvent">content schema of the event</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Generate event schema V2 response.</returns>
+        /// <returns>The Generate event schema response.</returns>
         public virtual async Task<ObjectEntity> GenerateEventSchemaAsync([DynamicValues("GetContentTypes")] string contentType, string contentSchemaOfTheEvent = default, CancellationToken cancellationToken = default)
         {
             using var activity = EventHubsClient.ConnectorActivitySource.StartActivity("EventHubsClient.GenerateEventSchemaAsync");
