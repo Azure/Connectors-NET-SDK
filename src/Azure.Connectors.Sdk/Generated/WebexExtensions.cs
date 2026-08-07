@@ -1561,9 +1561,9 @@ namespace Azure.Connectors.Sdk.Webex
     public static class WebexTriggerOperations
     {
         /// <summary>
-        /// When a membership is updated.
+        /// When a membership is created.
         /// </summary>
-        public const string OnMembershipsUpdated = "MembershipsUpdated";
+        public const string OnMembershipsCreated = "MembershipsCreated";
 
         /// <summary>
         /// When a membership is deleted.
@@ -1571,9 +1571,9 @@ namespace Azure.Connectors.Sdk.Webex
         public const string OnMembershipsDeleted = "MembershipsDeleted";
 
         /// <summary>
-        /// When a membership is created.
+        /// When a membership is updated.
         /// </summary>
-        public const string OnMembershipsCreated = "MembershipsCreated";
+        public const string OnMembershipsUpdated = "MembershipsUpdated";
 
         /// <summary>
         /// When a message is created.

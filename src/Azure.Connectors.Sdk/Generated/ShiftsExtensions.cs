@@ -1947,9 +1947,19 @@ namespace Azure.Connectors.Sdk.Shifts
     public static class ShiftsTriggerOperations
     {
         /// <summary>
+        /// When an Offer Shift request is created, updated or deleted.
+        /// </summary>
+        public const string OnTriggerForOfferShiftRequests = "TriggerForOfferShiftRequests";
+
+        /// <summary>
         /// When an Open Shift request is created, updated or deleted.
         /// </summary>
         public const string OnTriggerForOpenShiftChangeRequests = "TriggerForOpenShiftChangeRequests";
+
+        /// <summary>
+        /// When a Shift is created, updated or deleted.
+        /// </summary>
+        public const string OnTriggerForShifts = "TriggerForShifts";
 
         /// <summary>
         /// When a Swap Shifts request is created, updated or deleted.
@@ -1957,19 +1967,9 @@ namespace Azure.Connectors.Sdk.Shifts
         public const string OnTriggerForSwapShiftsChangeRequests = "TriggerForSwapShiftsChangeRequests";
 
         /// <summary>
-        /// When an Offer Shift request is created, updated or deleted.
-        /// </summary>
-        public const string OnTriggerForOfferShiftRequests = "TriggerForOfferShiftRequests";
-
-        /// <summary>
         /// When a Time Off request is created, updated or deleted.
         /// </summary>
         public const string OnTriggerForTimeOffRequests = "TriggerForTimeOffRequests";
-
-        /// <summary>
-        /// When a Shift is created, updated or deleted.
-        /// </summary>
-        public const string OnTriggerForShifts = "TriggerForShifts";
 
     }
 
@@ -1984,9 +1984,37 @@ namespace Azure.Connectors.Sdk.Shifts
     public static class ShiftsTriggerParameters
     {
         /// <summary>
+        /// Input parameters for the OnTriggerForOfferShiftRequests trigger operation (operationId: TriggerForOfferShiftRequests).
+        /// </summary>
+        public static class OnTriggerForOfferShiftRequests
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnTriggerForOpenShiftChangeRequests trigger operation (operationId: TriggerForOpenShiftChangeRequests).
         /// </summary>
         public static class OnTriggerForOpenShiftChangeRequests
+        {
+            /// <summary>
+            /// Add Team ID
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string TeamId = "teamId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTriggerForShifts trigger operation (operationId: TriggerForShifts).
+        /// </summary>
+        public static class OnTriggerForShifts
         {
             /// <summary>
             /// Add Team ID
@@ -2012,37 +2040,9 @@ namespace Azure.Connectors.Sdk.Shifts
         }
 
         /// <summary>
-        /// Input parameters for the OnTriggerForOfferShiftRequests trigger operation (operationId: TriggerForOfferShiftRequests).
-        /// </summary>
-        public static class OnTriggerForOfferShiftRequests
-        {
-            /// <summary>
-            /// Add Team ID
-            /// Required.
-            /// Dynamic values from: GetAllTeams.
-            /// </summary>
-            public const string TeamId = "teamId";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnTriggerForTimeOffRequests trigger operation (operationId: TriggerForTimeOffRequests).
         /// </summary>
         public static class OnTriggerForTimeOffRequests
-        {
-            /// <summary>
-            /// Add Team ID
-            /// Required.
-            /// Dynamic values from: GetAllTeams.
-            /// </summary>
-            public const string TeamId = "teamId";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnTriggerForShifts trigger operation (operationId: TriggerForShifts).
-        /// </summary>
-        public static class OnTriggerForShifts
         {
             /// <summary>
             /// Add Team ID
