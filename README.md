@@ -163,7 +163,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 ## Documentation
 
 - [docs/concepts.md](docs/concepts.md) - Key concepts, terminology, and architecture
-- [docs/generated-contract.md](docs/generated-contract.md) - Language-neutral rules for generated actions, triggers, discovery helpers, and Swagger wire contracts
+- [docs/generated-contract.md](docs/generated-contract.md) - Language-neutral rules for generated actions, model and JSON property names, triggers, discovery helpers, and Swagger wire contracts
 - [GENERATION.md](GENERATION.md) - How to generate connector code
 - [docs/connection-setup.md](docs/connection-setup.md) - Setting up connections for local testing
 - [docs/triggers.md](docs/triggers.md) - Trigger architecture, typed payloads, and the `ConnectorTriggerPayload` reader

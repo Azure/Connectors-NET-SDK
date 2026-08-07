@@ -8,15 +8,38 @@ language's Azure SDK guidelines.
 ## Source of Truth
 
 The connector Swagger document is the backend contract. A generated client may
-offer an idiomatic API surface, but it must always produce requests whose JSON
-property names, primitive and collection shapes, required properties, and
-referenced schemas comply with the Swagger operation definition.
+offer an idiomatic API surface, but its request and response payloads must use
+the JSON property names, primitive and collection shapes, required properties,
+and referenced schemas defined by the Swagger operation.
 
 There is no language-specific choice in the request wire format. If two SDKs
 serialize different payloads for the same Swagger operation, at least one SDK is
 incorrect. For `string/binary` Swagger request bodies, the wire contract is raw
 bytes with the declared content type, such as `application/octet-stream`, rather
 than a JSON object.
+
+### Model and JSON Property Names
+
+A model's customer-facing property name may follow its target language's naming
+conventions and use clearer connector metadata, while its JSON property name
+must remain the exact name defined by Swagger. For example, the .NET Azure Queues
+model intentionally contains:
+
+```csharp
+[JsonPropertyName("TimeNextVisible")]
+public string NextVisibleTime { get; set; }
+```
+
+`NextVisibleTime` is the public .NET API name, based on the customer-facing
+`x-ms-summary` value `Next Visible Time`. `TimeNextVisible` is the Swagger wire
+name. `[JsonPropertyName]` overrides serializer naming policies, so
+`System.Text.Json` still reads and writes `TimeNextVisible` on the wire.
+
+A difference between these names is not by itself a contract mismatch. Users
+should use the model property exposed by their SDK. Contributors must preserve
+the Swagger JSON name and follow [Deterministic Identity](#deterministic-identity)
+when correcting a generated API name; generated models must not be edited by
+hand.
 
 ## Action Contract
 
