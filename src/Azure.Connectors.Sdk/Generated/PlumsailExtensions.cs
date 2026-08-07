@@ -245,7 +245,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     }
 
     /// <summary>
-    /// Any2PdfRequestV2
+    /// Any2PdfRequest
     /// </summary>
     public class Any2PdfRequest
     {
@@ -697,7 +697,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     }
 
     /// <summary>
-    /// MergeAny2PdfRequestV2
+    /// MergeAny2PdfRequest
     /// </summary>
     public class MergeAny2PdfRequest
     {
@@ -787,7 +787,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     }
 
     /// <summary>
-    /// Pdf2ImageRequestV2
+    /// Pdf2ImageRequest
     /// </summary>
     public class Pdf2ImageRequest
     {
