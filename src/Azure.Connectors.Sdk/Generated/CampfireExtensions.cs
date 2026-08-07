@@ -189,14 +189,14 @@ namespace Azure.Connectors.Sdk.Campfire
     public static class CampfireTriggerOperations
     {
         /// <summary>
-        /// When a room is created.
-        /// </summary>
-        public const string OnNewRoom = "OnNewRoom";
-
-        /// <summary>
         /// When a new message is received.
         /// </summary>
         public const string OnNewMessage = "OnNewMessage";
+
+        /// <summary>
+        /// When a room is created.
+        /// </summary>
+        public const string OnNewRoom = "OnNewRoom";
 
         /// <summary>
         /// When a file is uploaded.
@@ -216,20 +216,6 @@ namespace Azure.Connectors.Sdk.Campfire
     public static class CampfireTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnNewRoom trigger operation (operationId: OnNewRoom).
-        /// </summary>
-        public static class OnNewRoom
-        {
-            /// <summary>
-            /// Account in Campfire
-            /// Required.
-            /// Dynamic values from: ListAccounts.
-            /// </summary>
-            public const string Account = "account";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnNewMessage trigger operation (operationId: OnNewMessage).
         /// </summary>
         public static class OnNewMessage
@@ -247,6 +233,20 @@ namespace Azure.Connectors.Sdk.Campfire
             /// Dynamic values from: ListRooms.
             /// </summary>
             public const string RoomId = "roomId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnNewRoom trigger operation (operationId: OnNewRoom).
+        /// </summary>
+        public static class OnNewRoom
+        {
+            /// <summary>
+            /// Account in Campfire
+            /// Required.
+            /// Dynamic values from: ListAccounts.
+            /// </summary>
+            public const string Account = "account";
 
         }
 

@@ -2876,10 +2876,10 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnIssueOpened trigger (GitHub "When a new issue is opened and assigned to me", operationId: IssueOpened).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnIssueOpenedTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnIssueAssigned trigger (GitHub "When an issue is assigned to me", operationId: IssueAssigned).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnIssueAssignedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class GitHubOnIssueOpenedTriggerPayload : TriggerCallbackPayload<IssueDetailsModel>
+    public class GitHubOnIssueAssignedTriggerPayload : TriggerCallbackPayload<IssueDetailsModel>
     {
     }
 
@@ -2892,10 +2892,10 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnIssueAssigned trigger (GitHub "When an issue is assigned to me", operationId: IssueAssigned).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnIssueAssignedTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnIssueOpened trigger (GitHub "When a new issue is opened and assigned to me", operationId: IssueOpened).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnIssueOpenedTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class GitHubOnIssueAssignedTriggerPayload : TriggerCallbackPayload<IssueDetailsModel>
+    public class GitHubOnIssueOpenedTriggerPayload : TriggerCallbackPayload<IssueDetailsModel>
     {
     }
 
@@ -2915,9 +2915,9 @@ namespace Azure.Connectors.Sdk.GitHub.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["IssueOpened"] = typeof(GitHubOnIssueOpenedTriggerPayload),
-                ["IssueClosed"] = typeof(GitHubOnIssueClosedTriggerPayload),
                 ["IssueAssigned"] = typeof(GitHubOnIssueAssignedTriggerPayload),
+                ["IssueClosed"] = typeof(GitHubOnIssueClosedTriggerPayload),
+                ["IssueOpened"] = typeof(GitHubOnIssueOpenedTriggerPayload),
             });
     }
 
@@ -2938,15 +2938,10 @@ namespace Azure.Connectors.Sdk.GitHub
     public static class GitHubTriggerOperations
     {
         /// <summary>
-        /// When a pull request is created or modified.
+        /// When an issue is assigned to me.
+        /// Payload type: <see cref="GitHubOnIssueAssignedTriggerPayload"/>.
         /// </summary>
-        public const string OnWebhookPullRequestTrigger = "WebhookPullRequestTrigger";
-
-        /// <summary>
-        /// When a new issue is opened and assigned to me.
-        /// Payload type: <see cref="GitHubOnIssueOpenedTriggerPayload"/>.
-        /// </summary>
-        public const string OnIssueOpened = "IssueOpened";
+        public const string OnIssueAssigned = "IssueAssigned";
 
         /// <summary>
         /// When an issue assigned to me is closed.
@@ -2955,10 +2950,15 @@ namespace Azure.Connectors.Sdk.GitHub
         public const string OnIssueClosed = "IssueClosed";
 
         /// <summary>
-        /// When an issue is assigned to me.
-        /// Payload type: <see cref="GitHubOnIssueAssignedTriggerPayload"/>.
+        /// When a new issue is opened and assigned to me.
+        /// Payload type: <see cref="GitHubOnIssueOpenedTriggerPayload"/>.
         /// </summary>
-        public const string OnIssueAssigned = "IssueAssigned";
+        public const string OnIssueOpened = "IssueOpened";
+
+        /// <summary>
+        /// When a pull request is created or modified.
+        /// </summary>
+        public const string OnWebhookPullRequestTrigger = "WebhookPullRequestTrigger";
 
     }
 
