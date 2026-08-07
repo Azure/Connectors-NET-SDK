@@ -744,7 +744,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Create stored procedure
         /// </summary>
-        /// <remarks>Create stored procedure (V2).</remarks>
+        /// <remarks>Create stored procedure.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -778,7 +778,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Delete a document
         /// </summary>
-        /// <remarks>Delete a document (V2).</remarks>
+        /// <remarks>Delete a document.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -813,7 +813,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Delete stored procedure
         /// </summary>
-        /// <remarks>Delete stored procedure (V2).</remarks>
+        /// <remarks>Delete stored procedure.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -849,7 +849,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Execute stored procedure
         /// </summary>
-        /// <remarks>Execute stored procedure in specified collection (V2).</remarks>
+        /// <remarks>Execute stored procedure in specified collection.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -886,7 +886,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Get a document
         /// </summary>
-        /// <remarks>Get a document (V2).</remarks>
+        /// <remarks>Get a document.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -929,7 +929,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Get all documents
         /// </summary>
-        /// <remarks>Get all documents (V3).</remarks>
+        /// <remarks>Get all documents.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -969,7 +969,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Get stored procedures
         /// </summary>
-        /// <remarks>Get stored procedures in the specified collection (V2).</remarks>
+        /// <remarks>Get stored procedures in the specified collection.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -1002,7 +1002,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Query documents
         /// </summary>
-        /// <remarks>Query documents (V5).</remarks>
+        /// <remarks>Query documents.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="containerId">Container ID</param>
@@ -1060,7 +1060,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Replace a document
         /// </summary>
-        /// <remarks>Replace a document (V2).</remarks>
+        /// <remarks>Replace a document.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
@@ -1097,7 +1097,7 @@ namespace Azure.Connectors.Sdk.Documentdb
         /// <summary>
         /// Replace stored procedure
         /// </summary>
-        /// <remarks>Replace stored procedure (V2).</remarks>
+        /// <remarks>Replace stored procedure.</remarks>
         /// <param name="azureCosmosDBAccountName">Azure Cosmos DB account name</param>
         /// <param name="databaseId">Database ID</param>
         /// <param name="collectionId">Collection ID</param>
