@@ -2452,15 +2452,15 @@ namespace Azure.Connectors.Sdk.Wdatp
     public static class WdatpTriggerOperations
     {
         /// <summary>
-        /// Triggers - Trigger when new WDATP alert occurs.
-        /// </summary>
-        public const string OnWebHooksCreateWebHook = "WebHooks_CreateWebHook";
-
-        /// <summary>
         /// Triggers when a new remediation activity is created (Preview).
         /// Payload type: <see cref="WdatpOnNewRemediationActivityTriggerPayload"/>.
         /// </summary>
         public const string OnNewRemediationActivity = "OnNewRemediationActivity";
+
+        /// <summary>
+        /// Triggers - Trigger when new WDATP alert occurs.
+        /// </summary>
+        public const string OnWebHooksCreateWebHook = "WebHooks_CreateWebHook";
 
     }
 

@@ -3187,18 +3187,18 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnTeamMemberRemoved trigger (Teams "When a new team member is removed", operationId: OnGroupMembershipRemoval).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberRemovedTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<JsonElement?>
-    {
-    }
-
-    /// <summary>
     /// Typed trigger payload for the OnTeamMemberAdded trigger (Teams "When a new team member is added", operationId: OnGroupMembershipAdd).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberAddedTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class TeamsOnTeamMemberAddedTriggerPayload : TriggerCallbackPayload<JsonElement?>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTeamMemberRemoved trigger (Teams "When a new team member is removed", operationId: OnGroupMembershipRemoval).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberRemovedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<JsonElement?>
     {
     }
 
@@ -3220,8 +3220,8 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 ["OnNewChannelMessage"] = typeof(TeamsOnNewChannelMessageTriggerPayload),
                 ["OnNewChannelMessageMentioningMe"] = typeof(TeamsOnNewChannelMessageMentioningMeTriggerPayload),
-                ["OnGroupMembershipRemoval"] = typeof(TeamsOnTeamMemberRemovedTriggerPayload),
                 ["OnGroupMembershipAdd"] = typeof(TeamsOnTeamMemberAddedTriggerPayload),
+                ["OnGroupMembershipRemoval"] = typeof(TeamsOnTeamMemberRemovedTriggerPayload),
             });
     }
 
@@ -3254,14 +3254,21 @@ namespace Azure.Connectors.Sdk.Teams
         public const string OnNewChannelMessageMentioningMe = "OnNewChannelMessageMentioningMe";
 
         /// <summary>
+        /// When a new team member is added.
+        /// Payload type: <see cref="TeamsOnTeamMemberAddedTriggerPayload"/>.
+        /// </summary>
+        public const string OnTeamMemberAdded = "OnGroupMembershipAdd";
+
+        /// <summary>
+        /// When a new team member is removed.
+        /// Payload type: <see cref="TeamsOnTeamMemberRemovedTriggerPayload"/>.
+        /// </summary>
+        public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
+
+        /// <summary>
         /// When I&apos;m @mentioned.
         /// </summary>
         public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
-
-        /// <summary>
-        /// When someone reacted to a message in chat.
-        /// </summary>
-        public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
 
         /// <summary>
         /// When a new chat message is added.
@@ -3274,21 +3281,14 @@ namespace Azure.Connectors.Sdk.Teams
         public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
 
         /// <summary>
+        /// When someone reacted to a message in chat.
+        /// </summary>
+        public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
+
+        /// <summary>
         /// When a new message is added to a chat or channel.
         /// </summary>
         public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
-
-        /// <summary>
-        /// When a new team member is removed.
-        /// Payload type: <see cref="TeamsOnTeamMemberRemovedTriggerPayload"/>.
-        /// </summary>
-        public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
-
-        /// <summary>
-        /// When a new team member is added.
-        /// Payload type: <see cref="TeamsOnTeamMemberAddedTriggerPayload"/>.
-        /// </summary>
-        public const string OnTeamMemberAdded = "OnGroupMembershipAdd";
 
     }
 
@@ -3357,6 +3357,46 @@ namespace Azure.Connectors.Sdk.Teams
         }
 
         /// <summary>
+        /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
+        /// </summary>
+        public static class OnTeamMemberAdded
+        {
+            /// <summary>
+            /// Select team
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string GroupId = "groupId";
+
+            /// <summary>
+            /// Select.
+            /// Default: members.
+            /// </summary>
+            public const string Select = "$select";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTeamMemberRemoved trigger operation (operationId: OnGroupMembershipRemoval).
+        /// </summary>
+        public static class OnTeamMemberRemoved
+        {
+            /// <summary>
+            /// Select team
+            /// Required.
+            /// Dynamic values from: GetAllTeams.
+            /// </summary>
+            public const string GroupId = "groupId";
+
+            /// <summary>
+            /// Select.
+            /// Default: members.
+            /// </summary>
+            public const string Select = "$select";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnWebhookAtMentionTrigger trigger operation (operationId: WebhookAtMentionTrigger).
         /// </summary>
         public static class OnWebhookAtMentionTrigger
@@ -3367,6 +3407,26 @@ namespace Azure.Connectors.Sdk.Teams
             /// Allowed values: groupchat, channel.
             /// </summary>
             public const string ThreadType = "threadType";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWebhookKeywordTrigger trigger operation (operationId: WebhookKeywordTrigger).
+        /// </summary>
+        public static class OnWebhookKeywordTrigger
+        {
+            /// <summary>
+            /// Choose message type
+            /// Required.
+            /// Allowed values: groupchat, channel.
+            /// </summary>
+            public const string ThreadType = "threadType";
+
+            /// <summary>
+            /// A comma separated list of keywords to search for
+            /// Required.
+            /// </summary>
+            public const string Search = "$search";
 
         }
 
@@ -3405,26 +3465,6 @@ namespace Azure.Connectors.Sdk.Teams
         }
 
         /// <summary>
-        /// Input parameters for the OnWebhookKeywordTrigger trigger operation (operationId: WebhookKeywordTrigger).
-        /// </summary>
-        public static class OnWebhookKeywordTrigger
-        {
-            /// <summary>
-            /// Choose message type
-            /// Required.
-            /// Allowed values: groupchat, channel.
-            /// </summary>
-            public const string ThreadType = "threadType";
-
-            /// <summary>
-            /// A comma separated list of keywords to search for
-            /// Required.
-            /// </summary>
-            public const string Search = "$search";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnWebhookNewMessageTrigger trigger operation (operationId: WebhookNewMessageTrigger).
         /// </summary>
         public static class OnWebhookNewMessageTrigger
@@ -3435,46 +3475,6 @@ namespace Azure.Connectors.Sdk.Teams
             /// Allowed values: groupchat, channel.
             /// </summary>
             public const string ThreadType = "threadType";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnTeamMemberRemoved trigger operation (operationId: OnGroupMembershipRemoval).
-        /// </summary>
-        public static class OnTeamMemberRemoved
-        {
-            /// <summary>
-            /// Select team
-            /// Required.
-            /// Dynamic values from: GetAllTeams.
-            /// </summary>
-            public const string GroupId = "groupId";
-
-            /// <summary>
-            /// Select.
-            /// Default: members.
-            /// </summary>
-            public const string Select = "$select";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
-        /// </summary>
-        public static class OnTeamMemberAdded
-        {
-            /// <summary>
-            /// Select team
-            /// Required.
-            /// Dynamic values from: GetAllTeams.
-            /// </summary>
-            public const string GroupId = "groupId";
-
-            /// <summary>
-            /// Select.
-            /// Default: members.
-            /// </summary>
-            public const string Select = "$select";
 
         }
 
