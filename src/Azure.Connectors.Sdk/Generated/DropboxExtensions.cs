@@ -182,15 +182,15 @@ namespace Azure.Connectors.Sdk.Dropbox
         public const string OnNewFile = "OnNewFile";
 
         /// <summary>
-        /// When a file is modified.
-        /// </summary>
-        public const string OnUpdatedFile = "OnUpdatedFile";
-
-        /// <summary>
         /// When a file is created (properties only).
         /// Payload type: <see cref="DropboxOnNewFilesTriggerPayload"/>.
         /// </summary>
         public const string OnNewFiles = "OnNewFiles";
+
+        /// <summary>
+        /// When a file is modified.
+        /// </summary>
+        public const string OnUpdatedFile = "OnUpdatedFile";
 
         /// <summary>
         /// When a file is modified (properties only).
@@ -236,6 +236,25 @@ namespace Azure.Connectors.Sdk.Dropbox
         }
 
         /// <summary>
+        /// Input parameters for the OnNewFiles trigger operation (operationId: OnNewFiles).
+        /// </summary>
+        public static class OnNewFiles
+        {
+            /// <summary>
+            /// The unique identifier of the folder.
+            /// Required.
+            /// </summary>
+            public const string FolderId = "folderId";
+
+            /// <summary>
+            /// Maximum number of files to return by single trigger run (1-100). Note that &apos;Split On&apos; setting can force trigger to process each item individually.
+            /// Default: 10.
+            /// </summary>
+            public const string MaxFileCount = "maxFileCount";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnUpdatedFile trigger operation (operationId: OnUpdatedFile).
         /// </summary>
         public static class OnUpdatedFile
@@ -263,25 +282,6 @@ namespace Azure.Connectors.Sdk.Dropbox
             /// Default: true.
             /// </summary>
             public const string QueryParametersSingleEncoded = "queryParametersSingleEncoded";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnNewFiles trigger operation (operationId: OnNewFiles).
-        /// </summary>
-        public static class OnNewFiles
-        {
-            /// <summary>
-            /// The unique identifier of the folder.
-            /// Required.
-            /// </summary>
-            public const string FolderId = "folderId";
-
-            /// <summary>
-            /// Maximum number of files to return by single trigger run (1-100). Note that &apos;Split On&apos; setting can force trigger to process each item individually.
-            /// Default: 10.
-            /// </summary>
-            public const string MaxFileCount = "maxFileCount";
 
         }
 

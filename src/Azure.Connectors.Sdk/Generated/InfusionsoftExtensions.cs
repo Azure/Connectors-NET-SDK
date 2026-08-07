@@ -242,18 +242,18 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnNewTask trigger (Infusionsoft "When a new task is created", operationId: OnNewTask).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewTaskTriggerPayload&gt;(body)</c>.
-    /// </summary>
-    public class InfusionsoftOnNewTaskTriggerPayload : TriggerCallbackPayload<TaskResponse>
-    {
-    }
-
-    /// <summary>
     /// Typed trigger payload for the OnNewOrder trigger (Infusionsoft "When there is a new order", operationId: OnNewOrder).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewOrderTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class InfusionsoftOnNewOrderTriggerPayload : TriggerCallbackPayload<JsonElement?>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewTask trigger (Infusionsoft "When a new task is created", operationId: OnNewTask).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;InfusionsoftOnNewTaskTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class InfusionsoftOnNewTaskTriggerPayload : TriggerCallbackPayload<TaskResponse>
     {
     }
 
@@ -273,8 +273,8 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["OnNewTask"] = typeof(InfusionsoftOnNewTaskTriggerPayload),
                 ["OnNewOrder"] = typeof(InfusionsoftOnNewOrderTriggerPayload),
+                ["OnNewTask"] = typeof(InfusionsoftOnNewTaskTriggerPayload),
             });
     }
 
@@ -295,16 +295,16 @@ namespace Azure.Connectors.Sdk.Infusionsoft
     public static class InfusionsoftTriggerOperations
     {
         /// <summary>
-        /// When a new task is created.
-        /// Payload type: <see cref="InfusionsoftOnNewTaskTriggerPayload"/>.
-        /// </summary>
-        public const string OnNewTask = "OnNewTask";
-
-        /// <summary>
         /// When there is a new order.
         /// Payload type: <see cref="InfusionsoftOnNewOrderTriggerPayload"/>.
         /// </summary>
         public const string OnNewOrder = "OnNewOrder";
+
+        /// <summary>
+        /// When a new task is created.
+        /// Payload type: <see cref="InfusionsoftOnNewTaskTriggerPayload"/>.
+        /// </summary>
+        public const string OnNewTask = "OnNewTask";
 
     }
 

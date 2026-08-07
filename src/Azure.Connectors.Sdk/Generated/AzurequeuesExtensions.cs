@@ -207,14 +207,14 @@ namespace Azure.Connectors.Sdk.Azurequeues
     public static class AzureQueuesTriggerOperations
     {
         /// <summary>
-        /// When there are messages in a queue (V2).
-        /// </summary>
-        public const string OnMessagesV2 = "OnMessages_V2";
-
-        /// <summary>
         /// When a specified number of messages are in a given queue (V2).
         /// </summary>
         public const string OnMessageThresholdReachedV2 = "OnMessageThresholdReached_V2";
+
+        /// <summary>
+        /// When there are messages in a queue (V2).
+        /// </summary>
+        public const string OnMessagesV2 = "OnMessages_V2";
 
     }
 
@@ -228,32 +228,6 @@ namespace Azure.Connectors.Sdk.Azurequeues
     /// </summary>
     public static class AzureQueuesTriggerParameters
     {
-        /// <summary>
-        /// Input parameters for the OnMessagesV2 trigger operation (operationId: OnMessages_V2).
-        /// </summary>
-        public static class OnMessagesV2
-        {
-            /// <summary>
-            /// Azure Storage account name or queue endpoint.
-            /// Required.
-            /// Dynamic values from: GetStorageAccounts.
-            /// </summary>
-            public const string StorageAccountName = "storageAccountName";
-
-            /// <summary>
-            /// The queue to check for messages
-            /// Required.
-            /// Dynamic values from: ListQueues_V2.
-            /// </summary>
-            public const string QueueName = "queueName";
-
-            /// <summary>
-            /// The time in seconds that messages will be invisible to other consumers (default 30)
-            /// </summary>
-            public const string Visibilitytimeout = "visibilitytimeout";
-
-        }
-
         /// <summary>
         /// Input parameters for the OnMessageThresholdReachedV2 trigger operation (operationId: OnMessageThresholdReached_V2).
         /// </summary>
@@ -278,6 +252,32 @@ namespace Azure.Connectors.Sdk.Azurequeues
             /// Required.
             /// </summary>
             public const string Threshold = "threshold";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnMessagesV2 trigger operation (operationId: OnMessages_V2).
+        /// </summary>
+        public static class OnMessagesV2
+        {
+            /// <summary>
+            /// Azure Storage account name or queue endpoint.
+            /// Required.
+            /// Dynamic values from: GetStorageAccounts.
+            /// </summary>
+            public const string StorageAccountName = "storageAccountName";
+
+            /// <summary>
+            /// The queue to check for messages
+            /// Required.
+            /// Dynamic values from: ListQueues_V2.
+            /// </summary>
+            public const string QueueName = "queueName";
+
+            /// <summary>
+            /// The time in seconds that messages will be invisible to other consumers (default 30)
+            /// </summary>
+            public const string Visibilitytimeout = "visibilitytimeout";
 
         }
 

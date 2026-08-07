@@ -737,7 +737,7 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
-    /// Response for Generate Embedded Signing URL (V2)
+    /// Response for Generate Embedded Signing URL
     /// </summary>
     public class EmbeddedSigningResponse
     {
@@ -2113,14 +2113,14 @@ namespace Azure.Connectors.Sdk.DocuSign
     public static class DocuSignTriggerOperations
     {
         /// <summary>
-        /// When a Docusign Connect event occurs (Organization-level).
-        /// </summary>
-        public const string OnCreateOrgHookEnvelope = "CreateOrgHookEnvelope";
-
-        /// <summary>
         /// When a Docusign Connect event occurs (Account-level).
         /// </summary>
         public const string OnCreateHookEnvelope = "CreateHookEnvelopeV4";
+
+        /// <summary>
+        /// When a Docusign Connect event occurs (Organization-level).
+        /// </summary>
+        public const string OnCreateOrgHookEnvelope = "CreateOrgHookEnvelope";
 
     }
 
@@ -2135,20 +2135,6 @@ namespace Azure.Connectors.Sdk.DocuSign
     public static class DocuSignTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnCreateOrgHookEnvelope trigger operation (operationId: CreateOrgHookEnvelope).
-        /// </summary>
-        public static class OnCreateOrgHookEnvelope
-        {
-            /// <summary>
-            /// Enter or select an organization ID.
-            /// Required.
-            /// Dynamic values from: GetOrganizations.
-            /// </summary>
-            public const string OrganizationId = "organizationId";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnCreateHookEnvelope trigger operation (operationId: CreateHookEnvelopeV4).
         /// </summary>
         public static class OnCreateHookEnvelope
@@ -2159,6 +2145,20 @@ namespace Azure.Connectors.Sdk.DocuSign
             /// Dynamic values from: GetLoginAccounts.
             /// </summary>
             public const string AccountId = "accountId";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnCreateOrgHookEnvelope trigger operation (operationId: CreateOrgHookEnvelope).
+        /// </summary>
+        public static class OnCreateOrgHookEnvelope
+        {
+            /// <summary>
+            /// Enter or select an organization ID.
+            /// Required.
+            /// Dynamic values from: GetOrganizations.
+            /// </summary>
+            public const string OrganizationId = "organizationId";
 
         }
 
@@ -3695,7 +3695,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Add recipient to an envelope (V2)
+        /// Add recipient to an envelope
         /// </summary>
         /// <remarks>Add recipient to an envelope.</remarks>
         /// <param name="accountId">Account ID</param>
@@ -3717,7 +3717,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <param name="signatureType">Signature type</param>
         /// <param name="verificationWorkflow">Verification workflow</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Add recipient to an envelope (V2) response.</returns>
+        /// <returns>The Add recipient to an envelope response.</returns>
         public virtual async Task<Signer> AddRecipientToEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, AdditionalRecipientParamsSchema input, [DynamicValues("StaticResponseForRecipientTypes")] string recipientType, string clientUserId = default, string recipientId = default, string embeddedRecipientStartURL = default, string signingOrder = default, string emailNotificationLanguage = default, string emailNotificationSubject = default, string emailNotificationBody = default, string note = default, string roleName = default, string sMSCountryCode = default, string sMSPhoneNumber = default, [DynamicValues("GetSigningGroups")] string signingGroup = default, [DynamicValues("StaticResponseForSignatureTypes")] string signatureType = default, [DynamicValues("GetAllWorkflowIDs")] string verificationWorkflow = default, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.AddRecipientToEnvelopeAsync");
@@ -3773,14 +3773,14 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Create envelope (V2)
+        /// Create envelope
         /// </summary>
         /// <remarks>Create a new blank envelope.</remarks>
         /// <param name="accountId">Account ID</param>
         /// <param name="input">The request body.</param>
         /// <param name="emailSubject">Email subject</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create envelope (V2) response.</returns>
+        /// <returns>The Create envelope response.</returns>
         public virtual async Task<CreateEnvelopeResponse> CreateBlankEnvelopeAsync([DynamicValues("GetLoginAccounts")] string accountId, CombinedEmailBodyAndCustomFields input, string emailSubject, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.CreateBlankEnvelopeAsync");
@@ -3806,7 +3806,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         }
 
         /// <summary>
-        /// Generate Embedded Signing URL (V2)
+        /// Generate Embedded Signing URL
         /// </summary>
         /// <remarks>Generate Embedded Signing URL (V2)</remarks>
         /// <param name="accountId">Account ID</param>
@@ -3816,7 +3816,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <param name="authenticationMethod">Authentication Method</param>
         /// <param name="returnURL">Return URL</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Generate Embedded Signing URL (V2) response.</returns>
+        /// <returns>The Generate Embedded Signing URL response.</returns>
         public virtual async Task<EmbeddedSigningResponse> GenerateEmbeddedSigningURLAsync([DynamicValues("GetLoginAccounts")] string accountId, string envelopeId, DynamicSigningUrlFields input, string isThisAnInPersonSigner, string authenticationMethod, string returnURL, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.GenerateEmbeddedSigningURLAsync");
@@ -4333,41 +4333,12 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="returnURL">Return URL</param>
+        /// <param name="isThisAnPersonSigner">Is this an in-person signer?</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The StaticResponseForEmbeddedSigningSchema response.</returns>
-        public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaAsync(string returnURL, CancellationToken cancellationToken = default)
+        public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaAsync(string returnURL, string isThisAnPersonSigner, CancellationToken cancellationToken = default)
         {
             using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSigningSchemaAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (returnURL is null)
-                    throw new ArgumentNullException(nameof(returnURL));
-                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                var path = $"/embeddedSigning_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<StaticResponseForEmbeddedSigningSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// StaticResponseForEmbeddedSigningSchemaV2
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="returnURL">Return URL</param>
-        /// <param name="isThisAnPersonSigner">Is This an Person Signer?</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The StaticResponseForEmbeddedSigningSchemaV2 response.</returns>
-        public virtual async Task<StaticResponseForEmbeddedSigningSchemaResponse> StaticResponseForEmbeddedSigningSchemaV2Async(string returnURL, string isThisAnPersonSigner, CancellationToken cancellationToken = default)
-        {
-            using var activity = DocuSignClient.ConnectorActivitySource.StartActivity("DocuSignClient.StaticResponseForEmbeddedSigningSchemaV2Async");
             try
             {
                 var queryParams = new List<string>();

@@ -6891,6 +6891,46 @@ namespace Azure.Connectors.Sdk.Impexium
     public static class ImpexiumTriggerOperations
     {
         /// <summary>
+        /// When a committee member is updated.
+        /// </summary>
+        public const string OnWhenCommitteeMemberUpdated = "When-Committee-Member-Updated";
+
+        /// <summary>
+        /// When a customer address is updated.
+        /// </summary>
+        public const string OnWhenCustomerAddressUpdated = "When-Customer-Address-Updated";
+
+        /// <summary>
+        /// When a customer custom field value is updated.
+        /// </summary>
+        public const string OnWhenCustomerCustomFieldValueUpdated = "When-Customer-Custom-Field-Value-Updated";
+
+        /// <summary>
+        /// When a customer is merged.
+        /// </summary>
+        public const string OnWhenCustomerIsMerged = "When-Customer-Is-Merged";
+
+        /// <summary>
+        /// When a customer phone is updated.
+        /// </summary>
+        public const string OnWhenCustomerPhoneUpdated = "When-Customer-Phone-Updated";
+
+        /// <summary>
+        /// When a customer relationship is updated.
+        /// </summary>
+        public const string OnWhenCustomerRelationshipUpdated = "When-Customer-Relationship-Updated";
+
+        /// <summary>
+        /// When a customer email is updated.
+        /// </summary>
+        public const string OnWhenEmailUpdated = "When-Email-Updated";
+
+        /// <summary>
+        /// When an event registration is substituted.
+        /// </summary>
+        public const string OnWhenEventRegistrationSubstituted = "When-Event-Registration-Substituted";
+
+        /// <summary>
         /// When an individual is created.
         /// </summary>
         public const string OnWhenIndividualCreated = "When-Individual-Created";
@@ -6906,14 +6946,14 @@ namespace Azure.Connectors.Sdk.Impexium
         public const string OnWhenIndividualRequestForgotten = "When-Individual-Request-Forgotten";
 
         /// <summary>
+        /// When a membership is terminated.
+        /// </summary>
+        public const string OnWhenMembershipTerminated = "When-Membership-Terminated";
+
+        /// <summary>
         /// When a product is purchased.
         /// </summary>
         public const string OnWhenProductPurchased = "When-product-purchased";
-
-        /// <summary>
-        /// When a committee member is updated.
-        /// </summary>
-        public const string OnWhenCommitteeMemberUpdated = "When-Committee-Member-Updated";
 
         /// <summary>
         /// When a purchase is canceled.
@@ -6921,54 +6961,14 @@ namespace Azure.Connectors.Sdk.Impexium
         public const string OnWhenPurchaseCancelled = "When-purchase-cancelled";
 
         /// <summary>
-        /// When a customer request is updated.
-        /// </summary>
-        public const string OnWhenRequestUpdated = "When-Request-Updated";
-
-        /// <summary>
-        /// When a customer email is updated.
-        /// </summary>
-        public const string OnWhenEmailUpdated = "When-Email-Updated";
-
-        /// <summary>
-        /// When a customer custom field value is updated.
-        /// </summary>
-        public const string OnWhenCustomerCustomFieldValueUpdated = "When-Customer-Custom-Field-Value-Updated";
-
-        /// <summary>
-        /// When a customer is merged.
-        /// </summary>
-        public const string OnWhenCustomerIsMerged = "When-Customer-Is-Merged";
-
-        /// <summary>
-        /// When a customer relationship is updated.
-        /// </summary>
-        public const string OnWhenCustomerRelationshipUpdated = "When-Customer-Relationship-Updated";
-
-        /// <summary>
-        /// When a customer phone is updated.
-        /// </summary>
-        public const string OnWhenCustomerPhoneUpdated = "When-Customer-Phone-Updated";
-
-        /// <summary>
-        /// When a customer address is updated.
-        /// </summary>
-        public const string OnWhenCustomerAddressUpdated = "When-Customer-Address-Updated";
-
-        /// <summary>
-        /// When an event registration is substituted.
-        /// </summary>
-        public const string OnWhenEventRegistrationSubstituted = "When-Event-Registration-Substituted";
-
-        /// <summary>
         /// When a purchase is paid.
         /// </summary>
         public const string OnWhenPurchasePaid = "When-Purchase-Paid";
 
         /// <summary>
-        /// When a membership is terminated.
+        /// When a customer request is updated.
         /// </summary>
-        public const string OnWhenMembershipTerminated = "When-Membership-Terminated";
+        public const string OnWhenRequestUpdated = "When-Request-Updated";
 
     }
 
@@ -6982,6 +6982,118 @@ namespace Azure.Connectors.Sdk.Impexium
     /// </summary>
     public static class ImpexiumTriggerParameters
     {
+        /// <summary>
+        /// Input parameters for the OnWhenCommitteeMemberUpdated trigger operation (operationId: When-Committee-Member-Updated).
+        /// </summary>
+        public static class OnWhenCommitteeMemberUpdated
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenCustomerAddressUpdated trigger operation (operationId: When-Customer-Address-Updated).
+        /// </summary>
+        public static class OnWhenCustomerAddressUpdated
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenCustomerCustomFieldValueUpdated trigger operation (operationId: When-Customer-Custom-Field-Value-Updated).
+        /// </summary>
+        public static class OnWhenCustomerCustomFieldValueUpdated
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenCustomerIsMerged trigger operation (operationId: When-Customer-Is-Merged).
+        /// </summary>
+        public static class OnWhenCustomerIsMerged
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenCustomerPhoneUpdated trigger operation (operationId: When-Customer-Phone-Updated).
+        /// </summary>
+        public static class OnWhenCustomerPhoneUpdated
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenCustomerRelationshipUpdated trigger operation (operationId: When-Customer-Relationship-Updated).
+        /// </summary>
+        public static class OnWhenCustomerRelationshipUpdated
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenEmailUpdated trigger operation (operationId: When-Email-Updated).
+        /// </summary>
+        public static class OnWhenEmailUpdated
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnWhenEventRegistrationSubstituted trigger operation (operationId: When-Event-Registration-Substituted).
+        /// </summary>
+        public static class OnWhenEventRegistrationSubstituted
+        {
+            /// <summary>
+            /// The 'Content-Type' parameter.
+            /// Required.
+            /// Default: application/json.
+            /// </summary>
+            public const string ContentType = "Content-Type";
+
+        }
+
         /// <summary>
         /// Input parameters for the OnWhenIndividualCreated trigger operation (operationId: When-Individual-Created).
         /// </summary>
@@ -7025,9 +7137,9 @@ namespace Azure.Connectors.Sdk.Impexium
         }
 
         /// <summary>
-        /// Input parameters for the OnWhenProductPurchased trigger operation (operationId: When-product-purchased).
+        /// Input parameters for the OnWhenMembershipTerminated trigger operation (operationId: When-Membership-Terminated).
         /// </summary>
-        public static class OnWhenProductPurchased
+        public static class OnWhenMembershipTerminated
         {
             /// <summary>
             /// The 'Content-Type' parameter.
@@ -7039,9 +7151,9 @@ namespace Azure.Connectors.Sdk.Impexium
         }
 
         /// <summary>
-        /// Input parameters for the OnWhenCommitteeMemberUpdated trigger operation (operationId: When-Committee-Member-Updated).
+        /// Input parameters for the OnWhenProductPurchased trigger operation (operationId: When-product-purchased).
         /// </summary>
-        public static class OnWhenCommitteeMemberUpdated
+        public static class OnWhenProductPurchased
         {
             /// <summary>
             /// The 'Content-Type' parameter.
@@ -7067,118 +7179,6 @@ namespace Azure.Connectors.Sdk.Impexium
         }
 
         /// <summary>
-        /// Input parameters for the OnWhenRequestUpdated trigger operation (operationId: When-Request-Updated).
-        /// </summary>
-        public static class OnWhenRequestUpdated
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenEmailUpdated trigger operation (operationId: When-Email-Updated).
-        /// </summary>
-        public static class OnWhenEmailUpdated
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenCustomerCustomFieldValueUpdated trigger operation (operationId: When-Customer-Custom-Field-Value-Updated).
-        /// </summary>
-        public static class OnWhenCustomerCustomFieldValueUpdated
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenCustomerIsMerged trigger operation (operationId: When-Customer-Is-Merged).
-        /// </summary>
-        public static class OnWhenCustomerIsMerged
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenCustomerRelationshipUpdated trigger operation (operationId: When-Customer-Relationship-Updated).
-        /// </summary>
-        public static class OnWhenCustomerRelationshipUpdated
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenCustomerPhoneUpdated trigger operation (operationId: When-Customer-Phone-Updated).
-        /// </summary>
-        public static class OnWhenCustomerPhoneUpdated
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenCustomerAddressUpdated trigger operation (operationId: When-Customer-Address-Updated).
-        /// </summary>
-        public static class OnWhenCustomerAddressUpdated
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
-        /// Input parameters for the OnWhenEventRegistrationSubstituted trigger operation (operationId: When-Event-Registration-Substituted).
-        /// </summary>
-        public static class OnWhenEventRegistrationSubstituted
-        {
-            /// <summary>
-            /// The 'Content-Type' parameter.
-            /// Required.
-            /// Default: application/json.
-            /// </summary>
-            public const string ContentType = "Content-Type";
-
-        }
-
-        /// <summary>
         /// Input parameters for the OnWhenPurchasePaid trigger operation (operationId: When-Purchase-Paid).
         /// </summary>
         public static class OnWhenPurchasePaid
@@ -7193,9 +7193,9 @@ namespace Azure.Connectors.Sdk.Impexium
         }
 
         /// <summary>
-        /// Input parameters for the OnWhenMembershipTerminated trigger operation (operationId: When-Membership-Terminated).
+        /// Input parameters for the OnWhenRequestUpdated trigger operation (operationId: When-Request-Updated).
         /// </summary>
-        public static class OnWhenMembershipTerminated
+        public static class OnWhenRequestUpdated
         {
             /// <summary>
             /// The 'Content-Type' parameter.
