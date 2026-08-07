@@ -1318,7 +1318,7 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// <summary>
         /// Search for users
         /// </summary>
-        /// <remarks>Retrieves the user profiles that match the search term (V2).</remarks>
+        /// <remarks>Retrieves the user profiles that match the search term.</remarks>
         /// <param name="searchTerm">Search term</param>
         /// <param name="top">Top</param>
         /// <param name="isSearchTermRequired">Is search term required</param>

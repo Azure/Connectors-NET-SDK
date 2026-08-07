@@ -3808,7 +3808,7 @@ namespace Azure.Connectors.Sdk.DocuSign
         /// <summary>
         /// Generate Embedded Signing URL
         /// </summary>
-        /// <remarks>Generate Embedded Signing URL (V2)</remarks>
+        /// <remarks>Generate Embedded Signing URL</remarks>
         /// <param name="accountId">Account ID</param>
         /// <param name="envelopeId">Envelope ID</param>
         /// <param name="input">The request body.</param>
