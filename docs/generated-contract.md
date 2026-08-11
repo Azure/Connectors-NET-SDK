@@ -41,6 +41,38 @@ the Swagger JSON name and follow [Deterministic Identity](#deterministic-identit
 when correcting a generated API name; generated models must not be edited by
 hand.
 
+### Wire Property Identity and Collisions
+
+Every distinct reachable Swagger wire property must remain representable in the
+generated model. Language normalization, summaries, capitalization, punctuation,
+case differences, or connector-specific overrides must not cause one wire
+property to silently replace or discard another.
+
+When multiple wire properties project to the same language identifier, the
+generator assigns deterministic unique identifiers and retains serializer
+metadata for the original wire names. A natural projected identifier should keep
+the unsuffixed name when possible; aliases use stable fallback names or suffixes
+that do not collide with identifiers already present in the model.
+
+Uniqueness must survive every generated naming layer. Synthetic members, such as
+extension-data properties, and derived APIs, such as model-factory parameters,
+can introduce collisions even after model property names are unique. Existing
+capitalization rules remain unchanged for non-colliding names; disambiguation
+applies only when a projected identifier is already claimed or reserved.
+
+## Schema Reachability
+
+The generated model contract is rooted in retained operations and the metadata
+those operations reference. Request and response schemas, nested `$ref`
+definitions, and discovery schemas are generated only when they are reachable
+from that graph or retained by an explicit generator policy.
+
+An unreferenced Swagger definition is not automatically part of a callable SDK
+contract. Do not add its properties to an operation model unless the operation
+or a documented metadata relationship reaches that definition. Conversely,
+indirect reachability through nested schemas or supported discovery metadata
+must not be discarded.
+
 ## Action Contract
 
 Non-deprecated, non-internal, non-trigger operations are callable SDK methods.
@@ -74,12 +106,11 @@ supports callable discovery methods retains a helper when an operation that
 survives public route selection references its operation ID. Reachability is
 transitive: a retained discovery helper can itself reference another helper.
 
-DirectClient currently recognizes `x-ms-dynamic-values` on operation parameters
-and `x-ms-dynamic-schema` on parameters and schemas. Dynamic-schema pins can occur
-on request or response schemas, trigger notification-content schemas, and
-referenced definitions at any schema depth. The interchangeable
-`x-ms-dynamic-properties` alias is a measured follow-up and is not yet recognized
-by DirectClient.
+DirectClient recognizes `x-ms-dynamic-values` on operation parameters and both
+`x-ms-dynamic-schema` and its interchangeable `x-ms-dynamic-properties` alias on
+parameters and schemas. Dynamic-schema pins can occur on request or response
+schemas, trigger notification-content schemas, and referenced definitions at any
+schema depth.
 
 Deep traversal is schema-aware. It follows `schema`, `properties`, `items`,
 `allOf`, schema-valued `additionalProperties`, and `#/definitions/` references,
@@ -164,8 +195,17 @@ confirm:
    An emitted dynamic-metadata operation ID that exists in the pinned Swagger must
    resolve to exactly one retained route; missing or ambiguous upstream references
    are input defects and must be reported.
-4. Outbound JSON keys and values match the Swagger request schema exactly.
-5. Inbound JSON binds to the corresponding Swagger response or trigger schema.
+4. Every distinct reachable wire property has one generated representation,
+   including properties whose language-normalized identifiers collide.
+5. Outbound JSON keys and values match the Swagger request schema exactly.
+6. Inbound JSON binds to the corresponding Swagger response or trigger schema.
+
+Validation must use techniques that can falsify those contract assertions:
+
+- Compile generated code semantically after all naming layers are emitted.
+  Syntax-only parsing is insufficient to detect duplicate members or parameters.
+- For collision regressions, serialize and deserialize all affected wire names
+  together rather than checking only for generated declarations.
 
 When prior generated output exists, regression validation must additionally
 confirm:
@@ -179,4 +219,7 @@ confirm:
 
 Cross-language validation should emit a deterministic report for each connector
 that records the pinned Swagger input, generator revision, public operation
-surface, and request/response wire-contract comparison.
+surface, reachable model surface, and request/response wire-contract comparison.
+Changes to shared naming or reachability rules should also run a same-revision
+catalog sweep to identify the complete additive, breaking, or output-neutral
+blast radius before selecting SDK demonstration clients.
