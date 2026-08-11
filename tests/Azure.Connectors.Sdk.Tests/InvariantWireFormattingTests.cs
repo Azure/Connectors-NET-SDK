@@ -42,8 +42,10 @@ namespace Azure.Connectors.Sdk.Tests
 
                 var request = getLastRequest();
                 Assert.IsNotNull(request);
-                StringAssert.Contains(request.RequestUri!.Query, "min_price=3.14");
-                Assert.IsFalse(request.RequestUri.Query.Contains("3%2C14", StringComparison.Ordinal));
+                var requestUri = request.RequestUri;
+                Assert.IsNotNull(requestUri);
+                StringAssert.Contains(requestUri.Query, "min_price=3.14");
+                Assert.IsFalse(requestUri.Query.Contains("3%2C14", StringComparison.Ordinal));
             }
             finally
             {
