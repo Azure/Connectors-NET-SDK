@@ -197,6 +197,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | Dataverse (commondataservice) | ✅ E2E Validated | GetDataSets, GetTables, GetItems, GetItem, PostItem, PatchItem, DeleteItem, CreateAttachment (binary note content; record cleanup verified), GetNextPage |
 | Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
+| CloudConvert | 🔄 SDK Generated | ConvertFile, OptimizeFile, CaptureWebsite, MergeFiles; five dynamic-options discovery helpers |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
 | Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryID |
 | Excel Online (Business) | 🔄 SDK Generated | CreateTableAsync |
