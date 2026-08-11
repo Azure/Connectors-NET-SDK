@@ -414,7 +414,11 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
 
         /// <summary>How unit of time for measuring the winner (&apos;hours&apos; or &apos;days&apos;). This cannot be changed after a campaign is sent</summary>
         [JsonPropertyName("wait_units")]
-        public string WaitTime { get; set; }
+        public string WaitUnits { get; set; }
+
+        /// <summary>The amount of time to wait before picking a winner. This cannot be changed after a campaign is sent</summary>
+        [JsonPropertyName("wait_time")]
+        public int? WaitTime { get; set; }
 
         /// <summary>The size of the split groups. Campaigns split based on &apos;schedule&apos; are forced to have a 50/50 split. Valid split integers are between 1-50</summary>
         [JsonPropertyName("split_size")]
@@ -2051,7 +2055,8 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
         public static ABSplitOpts ABSplitOpts(
             string splitTest = default,
             string pickWinner = default,
-            string waitTime = default,
+            string waitUnits = default,
+            int? waitTime = default,
             int? splitSize = default,
             string fromNameGroupA = default,
             string fromNameGroupB = default,
@@ -2067,6 +2072,7 @@ namespace Azure.Connectors.Sdk.MailChimp.Models
             {
                 SplitTest = splitTest,
                 PickWinner = pickWinner,
+                WaitUnits = waitUnits,
                 WaitTime = waitTime,
                 SplitSize = splitSize,
                 FromNameGroupA = fromNameGroupA,
