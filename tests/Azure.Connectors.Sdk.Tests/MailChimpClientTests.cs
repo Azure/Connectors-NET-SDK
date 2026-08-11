@@ -5,9 +5,11 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.MailChimp;
+using Azure.Connectors.Sdk.MailChimp.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -113,6 +115,25 @@ namespace Azure.Connectors.Sdk.Tests
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
                 client.GetCampaignsAsync(cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public void ABSplitOpts_JsonRoundTrip_PreservesWaitUnitsAndWaitTime()
+        {
+            var model = new ABSplitOpts
+            {
+                WaitUnits = "hours",
+                WaitTime = 60,
+            };
+
+            var json = JsonSerializer.Serialize(model);
+            var roundTripped = JsonSerializer.Deserialize<ABSplitOpts>(json);
+
+            Assert.IsNotNull(roundTripped);
+            Assert.AreEqual(expected: "hours", actual: roundTripped.WaitUnits);
+            Assert.AreEqual(expected: 60, actual: roundTripped.WaitTime);
+            StringAssert.Contains(json, "\"wait_units\":\"hours\"");
+            StringAssert.Contains(json, "\"wait_time\":60");
         }
 
     }
