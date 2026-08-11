@@ -677,11 +677,11 @@ namespace Azure.Connectors.Sdk.Yammer
             {
                 var queryParams = new List<string>();
                 if (networkId != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                    queryParams.Add($"network_id={Uri.EscapeDataString(System.Convert.ToString(networkId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (mine.HasValue)
-                    queryParams.Add($"mine={Uri.EscapeDataString(mine.Value.ToString())}");
+                    queryParams.Add($"mine={Uri.EscapeDataString(System.Convert.ToString(mine.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (showAllCompanyGroup.HasValue)
-                    queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(showAllCompanyGroup.Value.ToString())}");
+                    queryParams.Add($"showAllCompanyGroup={Uri.EscapeDataString(System.Convert.ToString(showAllCompanyGroup.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/groups.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<YammerEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -707,7 +707,7 @@ namespace Azure.Connectors.Sdk.Yammer
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetUserDetailsByIdAsync");
             try
             {
-                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json";
+                var path = $"/users/{Uri.EscapeDataString(System.Convert.ToString(userId, System.Globalization.CultureInfo.InvariantCulture))}.json";
                 return await this
                     .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -734,7 +734,7 @@ namespace Azure.Connectors.Sdk.Yammer
                 var queryParams = new List<string>();
                 if (messageId is null)
                     throw new ArgumentNullException(nameof(messageId));
-                queryParams.Add($"message_id={Uri.EscapeDataString(messageId.ToString())}");
+                queryParams.Add($"message_id={Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/messages/liked_by/current.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -766,15 +766,15 @@ namespace Azure.Connectors.Sdk.Yammer
             {
                 var queryParams = new List<string>();
                 if (uniqueIdentifierOfTheNetwork != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork.ToString())}");
+                    queryParams.Add($"network_id={Uri.EscapeDataString(System.Convert.ToString(uniqueIdentifierOfTheNetwork, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (olderThan.HasValue)
-                    queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+                    queryParams.Add($"older_than={Uri.EscapeDataString(System.Convert.ToString(olderThan.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (newerThan.HasValue)
-                    queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
+                    queryParams.Add($"newer_than={Uri.EscapeDataString(System.Convert.ToString(newerThan.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (threadTypeOfMessages != default)
-                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+                    queryParams.Add($"threaded={Uri.EscapeDataString(System.Convert.ToString(threadTypeOfMessages, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -806,15 +806,15 @@ namespace Azure.Connectors.Sdk.Yammer
             {
                 var queryParams = new List<string>();
                 if (networkId != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                    queryParams.Add($"network_id={Uri.EscapeDataString(System.Convert.ToString(networkId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (olderThan.HasValue)
-                    queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+                    queryParams.Add($"older_than={Uri.EscapeDataString(System.Convert.ToString(olderThan.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (newerThan.HasValue)
-                    queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
+                    queryParams.Add($"newer_than={Uri.EscapeDataString(System.Convert.ToString(newerThan.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (threadTypeOfMessages != default)
-                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+                    queryParams.Add($"threaded={Uri.EscapeDataString(System.Convert.ToString(threadTypeOfMessages, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -847,16 +847,16 @@ namespace Azure.Connectors.Sdk.Yammer
             {
                 var queryParams = new List<string>();
                 if (networkId != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                    queryParams.Add($"network_id={Uri.EscapeDataString(System.Convert.ToString(networkId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (olderThan.HasValue)
-                    queryParams.Add($"older_than={Uri.EscapeDataString(olderThan.Value.ToString())}");
+                    queryParams.Add($"older_than={Uri.EscapeDataString(System.Convert.ToString(olderThan.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (newerThan.HasValue)
-                    queryParams.Add($"newer_than={Uri.EscapeDataString(newerThan.Value.ToString())}");
+                    queryParams.Add($"newer_than={Uri.EscapeDataString(System.Convert.ToString(newerThan.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (threadTypeOfMessages != default)
-                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages.ToString())}");
+                    queryParams.Add($"threaded={Uri.EscapeDataString(System.Convert.ToString(threadTypeOfMessages, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-                var path = $"/v3/messages/in_group/{Uri.EscapeDataString(groupId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v3/messages/in_group/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -881,7 +881,7 @@ namespace Azure.Connectors.Sdk.Yammer
             using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInThreadAsync");
             try
             {
-                var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(threadId.ToString())}.json";
+                var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}.json";
                 return await this
                     .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -909,7 +909,7 @@ namespace Azure.Connectors.Sdk.Yammer
             {
                 var queryParams = new List<string>();
                 if (networkId != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId.ToString())}");
+                    queryParams.Add($"network_id={Uri.EscapeDataString(System.Convert.ToString(networkId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v2/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MessageList>(HttpMethod.Post, path, input, cancellationToken)

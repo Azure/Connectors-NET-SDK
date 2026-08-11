@@ -573,7 +573,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
                 var queryParams = new List<string>();
                 queryParams.Add("$count=true");
                 if (searchByDisplayName != default)
-                    queryParams.Add($"$search={Uri.EscapeDataString(searchByDisplayName.ToString())}");
+                    queryParams.Add($"$search={Uri.EscapeDataString(System.Convert.ToString(searchByDisplayName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListGroupsByDisplayNameSearchResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -630,10 +630,10 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
                 var queryParams = new List<string>();
                 queryParams.Add("$count=true");
                 if (filterBy != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterBy.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterBy, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (dataPointColumnSelection != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(dataPointColumnSelection.ToString())}");
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(dataPointColumnSelection, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(objectIdOfTheMicrosoftEntraIdGroup, System.Globalization.CultureInfo.InvariantCulture))}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListDirectGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -663,8 +663,8 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
                     throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdMemberUser));
                 var queryParams = new List<string>();
                 if (selectionOfDataPointsColumns != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectionOfDataPointsColumns.ToString())}");
-                var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectionOfDataPointsColumns, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/users/{Uri.EscapeDataString(System.Convert.ToString(objectIdOfTheMicrosoftEntraIdMemberUser, System.Globalization.CultureInfo.InvariantCulture))}/licenseDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMemberLicenseDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -691,7 +691,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
             {
                 if (objectIdOfTheMicrosoftEntraIdGroup is null)
                     throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdGroup));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdGroup.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(objectIdOfTheMicrosoftEntraIdGroup, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetGroupPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -719,7 +719,7 @@ namespace Azure.Connectors.Sdk.MsGraphGroupsAndUsers
             {
                 if (objectIdOfTheMicrosoftEntraIdMemberUser is null)
                     throw new ArgumentNullException(nameof(objectIdOfTheMicrosoftEntraIdMemberUser));
-                var path = $"/v1.0/users/{Uri.EscapeDataString(objectIdOfTheMicrosoftEntraIdMemberUser.ToString())}/getMemberGroups";
+                var path = $"/v1.0/users/{Uri.EscapeDataString(System.Convert.ToString(objectIdOfTheMicrosoftEntraIdMemberUser, System.Globalization.CultureInfo.InvariantCulture))}/getMemberGroups";
                 return await this
                     .CallConnectorAsync<GetMemberGroupsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

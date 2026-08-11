@@ -5184,13 +5184,13 @@ namespace Azure.Connectors.Sdk.Etsy
             try
             {
                 var queryParams = new List<string>();
-                queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.ToString())}");
-                queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.ToString())}");
+                queryParams.Add($"min_created={Uri.EscapeDataString(System.Convert.ToString(minimumCreated, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"max_created={Uri.EscapeDataString(System.Convert.ToString(maximumCreated, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/payment-account/ledger-entries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PaymentAccountLedgerEntries>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5219,8 +5219,8 @@ namespace Azure.Connectors.Sdk.Etsy
                 var queryParams = new List<string>();
                 if (ledgerEntryIDs is null)
                     throw new ArgumentNullException(nameof(ledgerEntryIDs));
-                queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(System.Convert.ToString(ledgerEntryIDs, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5248,7 +5248,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (receiptId is null)
                     throw new ArgumentNullException(nameof(receiptId));
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/payments";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/receipts/{Uri.EscapeDataString(System.Convert.ToString(receiptId, System.Globalization.CultureInfo.InvariantCulture))}/payments";
                 return await this
                     .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5277,8 +5277,8 @@ namespace Azure.Connectors.Sdk.Etsy
                 var queryParams = new List<string>();
                 if (paymentId is null)
                     throw new ArgumentNullException(nameof(paymentId));
-                queryParams.Add($"payment-ids={Uri.EscapeDataString(paymentId.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"payment-ids={Uri.EscapeDataString(System.Convert.ToString(paymentId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5304,7 +5304,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ReceiptGetAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/receipts/{Uri.EscapeDataString(System.Convert.ToString(receiptId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopReceipt>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5339,22 +5339,22 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (minimumCreated.HasValue)
-                    queryParams.Add($"min_created={Uri.EscapeDataString(minimumCreated.Value.ToString())}");
+                    queryParams.Add($"min_created={Uri.EscapeDataString(System.Convert.ToString(minimumCreated.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumCreated.HasValue)
-                    queryParams.Add($"max_created={Uri.EscapeDataString(maximumCreated.Value.ToString())}");
+                    queryParams.Add($"max_created={Uri.EscapeDataString(System.Convert.ToString(maximumCreated.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (earliestLastModified.HasValue)
-                    queryParams.Add($"min_last_modified={Uri.EscapeDataString(earliestLastModified.Value.ToString())}");
+                    queryParams.Add($"min_last_modified={Uri.EscapeDataString(System.Convert.ToString(earliestLastModified.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (latestLastModified.HasValue)
-                    queryParams.Add($"max_last_modified={Uri.EscapeDataString(latestLastModified.Value.ToString())}");
+                    queryParams.Add($"max_last_modified={Uri.EscapeDataString(System.Convert.ToString(latestLastModified.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (wasPaid.HasValue)
-                    queryParams.Add($"was_paid={Uri.EscapeDataString(wasPaid.Value.ToString())}");
+                    queryParams.Add($"was_paid={Uri.EscapeDataString(System.Convert.ToString(wasPaid.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (wasShipped.HasValue)
-                    queryParams.Add($"was_shipped={Uri.EscapeDataString(wasShipped.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"was_shipped={Uri.EscapeDataString(System.Convert.ToString(wasShipped.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/receipts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopReceipts>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5381,7 +5381,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ReceiptCreateShipmentAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/tracking";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/receipts/{Uri.EscapeDataString(System.Convert.ToString(receiptId, System.Globalization.CultureInfo.InvariantCulture))}/tracking";
                 return await this
                     .CallConnectorAsync<ShopReceipt>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5411,10 +5411,10 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5440,7 +5440,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.TransactionReceiptAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/transactions";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/receipts/{Uri.EscapeDataString(System.Convert.ToString(receiptId, System.Globalization.CultureInfo.InvariantCulture))}/transactions";
                 return await this
                     .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5466,7 +5466,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.TransactionGetAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/transactions/{Uri.EscapeDataString(System.Convert.ToString(transactionId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopReceiptTransaction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5495,10 +5495,10 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/transactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopReceiptTransactions>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5527,10 +5527,10 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/reviews" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TransactionReviews>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5558,7 +5558,7 @@ namespace Azure.Connectors.Sdk.Etsy
                 var queryParams = new List<string>();
                 if (originCountryISO is null)
                     throw new ArgumentNullException(nameof(originCountryISO));
-                queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO.ToString())}");
+                queryParams.Add($"origin_country_iso={Uri.EscapeDataString(System.Convert.ToString(originCountryISO, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/shipping-carriers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShippingCarriers>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5584,7 +5584,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingProfilesAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles";
                 return await this
                     .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5610,7 +5610,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCreateProfileAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles";
                 return await this
                     .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5635,7 +5635,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingGetProfileAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5661,7 +5661,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingDeleteProfileAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5688,7 +5688,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingUpdateProfileAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopShippingProfile>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5718,10 +5718,10 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/destinations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopShippingProfileDestinations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5748,7 +5748,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCreateDestinationAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/destinations";
                 return await this
                     .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5774,7 +5774,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingDeleteProfileDestinationAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/destinations/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileDestinationId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5806,7 +5806,7 @@ namespace Azure.Connectors.Sdk.Etsy
                     throw new ArgumentNullException(nameof(shippingProfileId));
                 if (shippingProfileDestinationId is null)
                     throw new ArgumentNullException(nameof(shippingProfileDestinationId));
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/destinations/{Uri.EscapeDataString(shippingProfileDestinationId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/destinations/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileDestinationId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopShippingProfileDestination>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5832,7 +5832,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingGetProfileUpgradesAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/upgrades";
                 return await this
                     .CallConnectorAsync<ShopShippingProfileUpgrades>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5859,7 +5859,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCreateUpgradeAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/upgrades";
                 return await this
                     .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5885,7 +5885,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingDeleteProfileUpgradeAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/upgrades/{Uri.EscapeDataString(System.Convert.ToString(upgradeId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5913,7 +5913,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingUpdateProfileUpgradeAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shipping-profiles/{Uri.EscapeDataString(shippingProfileId.ToString())}/upgrades/{Uri.EscapeDataString(upgradeId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shipping-profiles/{Uri.EscapeDataString(System.Convert.ToString(shippingProfileId, System.Globalization.CultureInfo.InvariantCulture))}/upgrades/{Uri.EscapeDataString(System.Convert.ToString(upgradeId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopShippingProfileUpgrade>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5939,7 +5939,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopUpdateAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Shop>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5966,7 +5966,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (userId is null)
                     throw new ArgumentNullException(nameof(userId));
-                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}/shops";
+                var path = $"/users/{Uri.EscapeDataString(System.Convert.ToString(userId, System.Globalization.CultureInfo.InvariantCulture))}/shops";
                 return await this
                     .CallConnectorAsync<Shop>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5996,11 +5996,11 @@ namespace Azure.Connectors.Sdk.Etsy
                 var queryParams = new List<string>();
                 if (shopName is null)
                     throw new ArgumentNullException(nameof(shopName));
-                queryParams.Add($"shop_name={Uri.EscapeDataString(shopName.ToString())}");
+                queryParams.Add($"shop_name={Uri.EscapeDataString(System.Convert.ToString(shopName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/shops" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Shops>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6026,7 +6026,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopGetSectionsAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/sections";
                 return await this
                     .CallConnectorAsync<ShopSections>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6052,7 +6052,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopCreateSectionAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/sections";
                 return await this
                     .CallConnectorAsync<ShopSection>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6077,7 +6077,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.UserGetAsync");
             try
             {
-                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}";
+                var path = $"/users/{Uri.EscapeDataString(System.Convert.ToString(userId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<User>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6103,7 +6103,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShopGetSectionAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/sections/{Uri.EscapeDataString(shopSectionId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/sections/{Uri.EscapeDataString(System.Convert.ToString(shopSectionId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopSection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6128,7 +6128,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.UserGetAddressAsync");
             try
             {
-                var path = $"/user/addresses/{Uri.EscapeDataString(userAddressId.ToString())}";
+                var path = $"/user/addresses/{Uri.EscapeDataString(System.Convert.ToString(userAddressId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UserAddress>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6156,9 +6156,9 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/user/addresses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserAddresses>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6210,7 +6210,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (taxonomyId is null)
                     throw new ArgumentNullException(nameof(taxonomyId));
-                var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(taxonomyId.ToString())}/properties";
+                var path = $"/seller-taxonomy/nodes/{Uri.EscapeDataString(System.Convert.ToString(taxonomyId, System.Globalization.CultureInfo.InvariantCulture))}/properties";
                 return await this
                     .CallConnectorAsync<TaxonomyNodeProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6242,16 +6242,16 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (state != default)
-                    queryParams.Add($"State={Uri.EscapeDataString(state.ToString())}");
+                    queryParams.Add($"State={Uri.EscapeDataString(System.Convert.ToString(state, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortOn != default)
-                    queryParams.Add($"Sort On={Uri.EscapeDataString(sortOn.ToString())}");
+                    queryParams.Add($"Sort On={Uri.EscapeDataString(System.Convert.ToString(sortOn, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortOrder != default)
-                    queryParams.Add($"Sort Order={Uri.EscapeDataString(sortOrder.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"Sort Order={Uri.EscapeDataString(System.Convert.ToString(sortOrder, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6277,7 +6277,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingCreateAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings";
                 return await this
                     .CallConnectorAsync<ShopListing>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6304,8 +6304,8 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (includes != default)
-                    queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includes={Uri.EscapeDataString(System.Convert.ToString(includes, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6329,7 +6329,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeleteAsync");
             try
             {
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}";
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6364,23 +6364,23 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includes != default)
-                    queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
+                    queryParams.Add($"keywords={Uri.EscapeDataString(System.Convert.ToString(includes, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortOn != default)
-                    queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
+                    queryParams.Add($"sort_on={Uri.EscapeDataString(System.Convert.ToString(sortOn, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortOrder != default)
-                    queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
+                    queryParams.Add($"sort_order={Uri.EscapeDataString(System.Convert.ToString(sortOrder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (minimumPrice.HasValue)
-                    queryParams.Add($"min_price={Uri.EscapeDataString(minimumPrice.Value.ToString())}");
+                    queryParams.Add($"min_price={Uri.EscapeDataString(System.Convert.ToString(minimumPrice.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumPrice.HasValue)
-                    queryParams.Add($"max_price={Uri.EscapeDataString(maximumPrice.Value.ToString())}");
+                    queryParams.Add($"max_price={Uri.EscapeDataString(System.Convert.ToString(maximumPrice.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (taxonomyId.HasValue)
-                    queryParams.Add($"taxonomy_id={Uri.EscapeDataString(taxonomyId.Value.ToString())}");
+                    queryParams.Add($"taxonomy_id={Uri.EscapeDataString(System.Convert.ToString(taxonomyId.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (shopLocation != default)
-                    queryParams.Add($"shop_location={Uri.EscapeDataString(shopLocation.ToString())}");
+                    queryParams.Add($"shop_location={Uri.EscapeDataString(System.Convert.ToString(shopLocation, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6411,12 +6411,12 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includes != default)
-                    queryParams.Add($"keywords={Uri.EscapeDataString(includes.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"keywords={Uri.EscapeDataString(System.Convert.ToString(includes, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/active" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6445,9 +6445,9 @@ namespace Azure.Connectors.Sdk.Etsy
                 var queryParams = new List<string>();
                 if (listingIDs is null)
                     throw new ArgumentNullException(nameof(listingIDs));
-                queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs.ToString())}");
+                queryParams.Add($"listing_ids={Uri.EscapeDataString(System.Convert.ToString(listingIDs, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includes != default)
-                    queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
+                    queryParams.Add($"includes={Uri.EscapeDataString(System.Convert.ToString(includes, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/listings/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListingsWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6477,10 +6477,10 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/featured" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6506,7 +6506,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeletePropertyAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/properties/{Uri.EscapeDataString(System.Convert.ToString(propertyId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6534,7 +6534,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdatePropertyAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/properties/{Uri.EscapeDataString(System.Convert.ToString(propertyId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6560,7 +6560,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetPropertyAsync");
             try
             {
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/properties/{Uri.EscapeDataString(propertyId.ToString())}";
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/properties/{Uri.EscapeDataString(System.Convert.ToString(propertyId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingPropertyValue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6586,7 +6586,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetPropertiesAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/properties";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/properties";
                 return await this
                     .CallConnectorAsync<ListingPropertyValues>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6613,7 +6613,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopListing>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6643,10 +6643,10 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/receipts/{Uri.EscapeDataString(receiptId.ToString())}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/receipts/{Uri.EscapeDataString(System.Convert.ToString(receiptId, System.Globalization.CultureInfo.InvariantCulture))}/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6679,16 +6679,16 @@ namespace Azure.Connectors.Sdk.Etsy
                 var queryParams = new List<string>();
                 if (shopSectionIDs is null)
                     throw new ArgumentNullException(nameof(shopSectionIDs));
-                queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs.ToString())}");
+                queryParams.Add($"shop_section_ids={Uri.EscapeDataString(System.Convert.ToString(shopSectionIDs, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortOn != default)
-                    queryParams.Add($"sort_on={Uri.EscapeDataString(sortOn.ToString())}");
+                    queryParams.Add($"sort_on={Uri.EscapeDataString(System.Convert.ToString(sortOn, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortOrder != default)
-                    queryParams.Add($"sort_order={Uri.EscapeDataString(sortOrder.ToString())}");
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/shop-sections/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sort_order={Uri.EscapeDataString(System.Convert.ToString(sortOrder, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/shop-sections/listings" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShopListings>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6715,7 +6715,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetFileAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(System.Convert.ToString(listingFileId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShopListingFile>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6741,7 +6741,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeleteFileAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files/{Uri.EscapeDataString(listingFileId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(System.Convert.ToString(listingFileId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6767,7 +6767,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetFilesAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/files";
                 return await this
                     .CallConnectorAsync<ShopListingFiles>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6794,7 +6794,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUploadAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/files";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/files";
                 return await this
                     .CallConnectorAsync<ShopListingFile>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6821,7 +6821,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetImageAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/images/{Uri.EscapeDataString(System.Convert.ToString(listingImageId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingImage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6847,7 +6847,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingDeleteImageAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images/{Uri.EscapeDataString(listingImageId.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/images/{Uri.EscapeDataString(System.Convert.ToString(listingImageId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6873,7 +6873,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetImagesAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/images";
                 return await this
                     .CallConnectorAsync<ListingImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6900,7 +6900,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUploadImageAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/images";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/images";
                 return await this
                     .CallConnectorAsync<ListingImage>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6928,8 +6928,8 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 var queryParams = new List<string>();
                 if (includes != default)
-                    queryParams.Add($"includes={Uri.EscapeDataString(includes.ToString())}");
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includes={Uri.EscapeDataString(System.Convert.ToString(includes, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/inventory" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListingInventoryWithAssociations>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6957,7 +6957,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (listingId is null)
                     throw new ArgumentNullException(nameof(listingId));
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory";
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/inventory";
                 return await this
                     .CallConnectorAsync<ListingInventory>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6984,7 +6984,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetOfferingAsync");
             try
             {
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/products/{Uri.EscapeDataString(productId.ToString())}/offerings/{Uri.EscapeDataString(productOfferingId.ToString())}";
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/products/{Uri.EscapeDataString(System.Convert.ToString(productId, System.Globalization.CultureInfo.InvariantCulture))}/offerings/{Uri.EscapeDataString(System.Convert.ToString(productOfferingId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingInventoryProductOffering>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7010,7 +7010,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetProductAsync");
             try
             {
-                var path = $"/listings/{Uri.EscapeDataString(listingId.ToString())}/inventory/products/{Uri.EscapeDataString(productId.ToString())}";
+                var path = $"/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/inventory/products/{Uri.EscapeDataString(System.Convert.ToString(productId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingInventoryProduct>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7039,7 +7039,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (language is null)
                     throw new ArgumentNullException(nameof(language));
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/translations/{Uri.EscapeDataString(System.Convert.ToString(language, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingTranslation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7069,7 +7069,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (language is null)
                     throw new ArgumentNullException(nameof(language));
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/translations/{Uri.EscapeDataString(System.Convert.ToString(language, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingTranslation>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7099,7 +7099,7 @@ namespace Azure.Connectors.Sdk.Etsy
             {
                 if (language is null)
                     throw new ArgumentNullException(nameof(language));
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/translations/{Uri.EscapeDataString(language.ToString())}";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/translations/{Uri.EscapeDataString(System.Convert.ToString(language, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListingTranslation>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7125,7 +7125,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetVariationAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/variation-images";
                 return await this
                     .CallConnectorAsync<ListingVariationImages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7152,7 +7152,7 @@ namespace Azure.Connectors.Sdk.Etsy
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingUpdateVariationAsync");
             try
             {
-                var path = $"/shops/{Uri.EscapeDataString(shopId.ToString())}/listings/{Uri.EscapeDataString(listingId.ToString())}/variation-images";
+                var path = $"/shops/{Uri.EscapeDataString(System.Convert.ToString(shopId, System.Globalization.CultureInfo.InvariantCulture))}/listings/{Uri.EscapeDataString(System.Convert.ToString(listingId, System.Globalization.CultureInfo.InvariantCulture))}/variation-images";
                 return await this
                     .CallConnectorAsync<ListingVariationImages>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

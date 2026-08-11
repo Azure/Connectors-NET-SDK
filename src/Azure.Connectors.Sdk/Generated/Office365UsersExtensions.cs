@@ -1086,11 +1086,11 @@ namespace Azure.Connectors.Sdk.Office365Users
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/codeless/beta/me/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MyTrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1118,7 +1118,7 @@ namespace Azure.Connectors.Sdk.Office365Users
             {
                 if (userUPN is null)
                     throw new ArgumentNullException(nameof(userUPN));
-                var path = $"/users/{Uri.EscapeDataString(userUPN.ToString())}/relevantpeople";
+                var path = $"/users/{Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}/relevantpeople";
                 return await this
                     .CallConnectorAsync<LinklessEntityListResponseListPerson>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1146,7 +1146,7 @@ namespace Azure.Connectors.Sdk.Office365Users
                 var queryParams = new List<string>();
                 if (userUPN is null)
                     throw new ArgumentNullException(nameof(userUPN));
-                queryParams.Add($"userId={Uri.EscapeDataString(userUPN.ToString())}");
+                queryParams.Add($"userId={Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/users/photo" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ClientPhotoMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1179,12 +1179,12 @@ namespace Azure.Connectors.Sdk.Office365Users
                     throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
-                var path = $"/codeless/beta/users/{Uri.EscapeDataString(userUPN.ToString())}/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/beta/users/{Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1240,10 +1240,10 @@ namespace Azure.Connectors.Sdk.Office365Users
                     throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (selectFields != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectFields, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (top.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/directReports" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(top.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}/directReports" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DirectReportsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1273,8 +1273,8 @@ namespace Azure.Connectors.Sdk.Office365Users
                     throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (selectFields != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/manager" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}/manager" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1301,7 +1301,7 @@ namespace Azure.Connectors.Sdk.Office365Users
             {
                 var queryParams = new List<string>();
                 if (selectFields != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectFields, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/codeless/v1.0/me" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1328,11 +1328,11 @@ namespace Azure.Connectors.Sdk.Office365Users
         {
             var queryParams = new List<string>();
             if (searchTerm != default)
-                queryParams.Add($"searchTerm={Uri.EscapeDataString(searchTerm.ToString())}");
+                queryParams.Add($"searchTerm={Uri.EscapeDataString(System.Convert.ToString(searchTerm, System.Globalization.CultureInfo.InvariantCulture))}");
             if (top.HasValue)
-                queryParams.Add($"top={Uri.EscapeDataString(top.Value.ToString())}");
+                queryParams.Add($"top={Uri.EscapeDataString(System.Convert.ToString(top.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (isSearchTermRequired.HasValue)
-                queryParams.Add($"isSearchTermRequired={Uri.EscapeDataString(isSearchTermRequired.Value.ToString())}");
+                queryParams.Add($"isSearchTermRequired={Uri.EscapeDataString(System.Convert.ToString(isSearchTermRequired.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             var path = $"/v2/users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<EntityListResponseIReadOnlyListUser, User>(
                 ct => this.CallConnectorAsync<EntityListResponseIReadOnlyListUser>(HttpMethod.Get, path, cancellationToken: ct),
@@ -1354,7 +1354,7 @@ namespace Azure.Connectors.Sdk.Office365Users
             {
                 if (userUPN is null)
                     throw new ArgumentNullException(nameof(userUPN));
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}/photo/$value";
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}/photo/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1384,8 +1384,8 @@ namespace Azure.Connectors.Sdk.Office365Users
                     throw new ArgumentNullException(nameof(userUPN));
                 var queryParams = new List<string>();
                 if (selectFields != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectFields.ToString())}");
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(System.Convert.ToString(userUPN, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

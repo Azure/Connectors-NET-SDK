@@ -300,13 +300,13 @@ namespace Azure.Connectors.Sdk.Typeform
             {
                 var queryParams = new List<string>();
                 if (search != default)
-                    queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+                    queryParams.Add($"search={Uri.EscapeDataString(System.Convert.ToString(search, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(page.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"page_size={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (workspaceId != default)
-                    queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId.ToString())}");
+                    queryParams.Add($"workspace_id={Uri.EscapeDataString(System.Convert.ToString(workspaceId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -334,7 +334,7 @@ namespace Azure.Connectors.Sdk.Typeform
             {
                 if (form is null)
                     throw new ArgumentNullException(nameof(form));
-                var path = $"/v3/forms/{Uri.EscapeDataString(form.ToString())}";
+                var path = $"/v3/forms/{Uri.EscapeDataString(System.Convert.ToString(form, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

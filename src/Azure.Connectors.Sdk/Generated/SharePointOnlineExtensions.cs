@@ -2517,8 +2517,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
                 var queryParams = new List<string>();
                 if (fileName != default)
-                    queryParams.Add($"documentName={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionWorkspace.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"documentName={Uri.EscapeDataString(System.Convert.ToString(fileName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(agreementsSolutionWorkspace, System.Globalization.CultureInfo.InvariantCulture)))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(agreementsSolutionTemplate, System.Globalization.CultureInfo.InvariantCulture)))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2545,7 +2545,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/alltables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/alltables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2576,8 +2576,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (requestingSiteId is null)
                     throw new ArgumentNullException(nameof(requestingSiteId));
-                queryParams.Add($"joiningSiteId={Uri.EscapeDataString(requestingSiteId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(hubSiteAddress.ToString()))}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"joiningSiteId={Uri.EscapeDataString(System.Convert.ToString(requestingSiteId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(hubSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/approvehubsitejoin" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ApproveHubSiteJoinResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2606,8 +2606,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(requestingSiteAddress));
                 var queryParams = new List<string>();
                 if (approvalCorrelationId != default)
-                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(requestingSiteAddress.ToString()))}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(System.Convert.ToString(approvalCorrelationId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(requestingSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/cancelhubsitejoinapproval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2639,7 +2639,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemId.ToString()))}/driveItem/createLink";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/codeless/_api/v2.0/sites/root/lists/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemId, System.Globalization.CultureInfo.InvariantCulture)))}/driveItem/createLink";
                 return await this
                     .CallConnectorAsync<SharingLinkPermission>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2673,13 +2673,13 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceFilePath is null)
                     throw new ArgumentNullException(nameof(sourceFilePath));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwriteFlag.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwriteFlag.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2707,7 +2707,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/copyFileAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(currentSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/copyFileAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2735,7 +2735,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/copyFolderAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(currentSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/copyFolderAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2769,11 +2769,11 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(fileName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2803,7 +2803,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2834,7 +2834,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(fileIdentifier.ToString()))}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<BlobMetadataResponse>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2863,7 +2863,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2896,8 +2896,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(fileIdentifier));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/files/{Uri.EscapeDataString(fileIdentifier.ToString())}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2924,7 +2924,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/folders";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/folders";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2954,7 +2954,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/folders/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/folders/{Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2986,8 +2986,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3020,10 +3020,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3054,8 +3054,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                queryParams.Add($"id={Uri.EscapeDataString(fileIdentifier.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/GetFolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3087,8 +3087,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/GetFolderByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3115,7 +3115,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/httprequest";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/httprequest";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3147,12 +3147,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (hubSiteId is null)
                     throw new ArgumentNullException(nameof(hubSiteId));
-                queryParams.Add($"hubSiteId={Uri.EscapeDataString(hubSiteId.ToString())}");
+                queryParams.Add($"hubSiteId={Uri.EscapeDataString(System.Convert.ToString(hubSiteId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (approvalToken != default)
-                    queryParams.Add($"approvalToken={Uri.EscapeDataString(approvalToken.ToString())}");
+                    queryParams.Add($"approvalToken={Uri.EscapeDataString(System.Convert.ToString(approvalToken, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (approvalCorrelationId != default)
-                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(requestingSiteAddress.ToString()))}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(System.Convert.ToString(approvalCorrelationId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(requestingSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/joinhubsite" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3180,7 +3180,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/moveFileAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(currentSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/moveFileAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3208,7 +3208,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (currentSiteAddress is null)
                     throw new ArgumentNullException(nameof(currentSiteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(currentSiteAddress.ToString()))}/moveFolderAsync";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(currentSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/moveFolderAsync";
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3237,8 +3237,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(requestingSiteAddress));
                 var queryParams = new List<string>();
                 if (approvalCorrelationId != default)
-                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(approvalCorrelationId.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(requestingSiteAddress.ToString()))}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"approvalCorrelationId={Uri.EscapeDataString(System.Convert.ToString(approvalCorrelationId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(requestingSiteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/notifyhubsitejoinapprovalstarted" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3265,7 +3265,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3296,7 +3296,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (library is null)
                     throw new ArgumentNullException(nameof(library));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(library.ToString()))}/createnewdocumentset";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(library, System.Globalization.CultureInfo.InvariantCulture)))}/createnewdocumentset";
                 return await this
                     .CallConnectorAsync<CreateNewDocumentSetResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3330,8 +3330,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listOrLibrary));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibrary, System.Globalization.CultureInfo.InvariantCulture)))}/createnewfolder" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateNewFolderResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3369,10 +3369,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (emailOrName is null)
                     throw new ArgumentNullException(nameof(emailOrName));
-                queryParams.Add($"searchValue={Uri.EscapeDataString(emailOrName.ToString())}");
+                queryParams.Add($"searchValue={Uri.EscapeDataString(System.Convert.ToString(emailOrName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/entities/{Uri.EscapeDataString(Uri.EscapeDataString(column.ToString()))}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibrary, System.Globalization.CultureInfo.InvariantCulture)))}/entities/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(column, System.Globalization.CultureInfo.InvariantCulture)))}/searchforuser" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPListExpandedUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3405,7 +3405,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listOrLibraryName));
                 if (formName is null)
                     throw new ArgumentNullException(nameof(formName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/forms/{Uri.EscapeDataString(Uri.EscapeDataString(formName.ToString()))}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/forms/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(formName, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<TableForm>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3442,8 +3442,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(formName));
                 var queryParams = new List<string>();
                 if (viewNoEffect != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/forms/{Uri.EscapeDataString(Uri.EscapeDataString(formName.ToString()))}/submitdocgenform" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(viewNoEffect, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(documentLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/forms/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(formName, System.Globalization.CultureInfo.InvariantCulture)))}/submitdocgenform" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3481,18 +3481,18 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitEntriesToFolder != default)
-                    queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(limitEntriesToFolder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeNestedItems != default)
-                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
+                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(System.Convert.ToString(includeNestedItems, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3530,18 +3530,18 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitEntriesToFolder != default)
-                    queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder.ToString())}");
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(limitEntriesToFolder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeNestedItems != default)
-                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems.ToString())}");
+                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(System.Convert.ToString(includeNestedItems, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3575,8 +3575,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3610,8 +3610,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3641,7 +3641,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3676,8 +3676,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3711,8 +3711,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 if (listOrLibrary is null)
                     throw new ArgumentNullException(nameof(listOrLibrary));
                 var queryParams = new List<string>();
-                queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibrary.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"approvalType={Uri.EscapeDataString(System.Convert.ToString(approvalType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibrary, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/approval" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ApprovalData>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3750,14 +3750,14 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (since is null)
                     throw new ArgumentNullException(nameof(since));
-                queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                queryParams.Add($"since={Uri.EscapeDataString(System.Convert.ToString(since, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (until != default)
-                    queryParams.Add($"until={Uri.EscapeDataString(until.ToString())}");
+                    queryParams.Add($"until={Uri.EscapeDataString(System.Convert.ToString(until, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeMinorVersions.HasValue)
-                    queryParams.Add($"includeDrafts={Uri.EscapeDataString(includeMinorVersions.Value.ToString())}");
+                    queryParams.Add($"includeDrafts={Uri.EscapeDataString(System.Convert.ToString(includeMinorVersions.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/changes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemChangesResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3788,7 +3788,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/checkinfile";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/checkinfile";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3818,7 +3818,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/checkoutfile";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/checkoutfile";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3848,7 +3848,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/discardfilecheckout";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/discardfilecheckout";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3882,8 +3882,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}/getfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3914,7 +3914,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listOrLibraryName is null)
                     throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/grantaccess";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/grantaccess";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3949,8 +3949,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(libraryName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}/patchfileitem" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchFileItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3982,7 +3982,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (libraryName is null)
                     throw new ArgumentNullException(nameof(libraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(id.ToString())}/patchfileitemwithpredictedvalues";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}/patchfileitemwithpredictedvalues";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4019,12 +4019,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (action is null)
                     throw new ArgumentNullException(nameof(action));
-                queryParams.Add($"approvalAction={Uri.EscapeDataString(action.ToString())}");
+                queryParams.Add($"approvalAction={Uri.EscapeDataString(System.Convert.ToString(action, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (comments != default)
-                    queryParams.Add($"comments={Uri.EscapeDataString(comments.ToString())}");
+                    queryParams.Add($"comments={Uri.EscapeDataString(System.Convert.ToString(comments, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (eTag != default)
-                    queryParams.Add($"entityTag={Uri.EscapeDataString(eTag.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"entityTag={Uri.EscapeDataString(System.Convert.ToString(eTag, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(libraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/setapprovalstatus" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SetApprovalStatusOutput>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4054,7 +4054,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listOrLibraryName is null)
                     throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/unshare";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/unshare";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4087,7 +4087,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/attachments";
                 return await this
                     .CallConnectorAsync<List<SPListItemAttachment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4123,8 +4123,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 var queryParams = new List<string>();
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"displayName={Uri.EscapeDataString(fileName.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"displayName={Uri.EscapeDataString(System.Convert.ToString(fileName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/attachments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPListItemAttachment>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4157,7 +4157,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/attachments/{Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4191,7 +4191,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 if (fileIdentifier is null)
                     throw new ArgumentNullException(nameof(fileIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}/attachments/{Uri.EscapeDataString(fileIdentifier.ToString())}/$value";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}/attachments/{Uri.EscapeDataString(System.Convert.ToString(fileIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4230,12 +4230,12 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(documentTemplate));
                 var queryParams = new List<string>();
                 if (folderPath != default)
-                    queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fileName != default)
-                    queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
+                    queryParams.Add($"fileName={Uri.EscapeDataString(System.Convert.ToString(fileName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (viewNoEffect != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(viewNoEffect.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(documentTemplate.ToString()))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(viewNoEffect, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(documentLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(documentTemplate, System.Globalization.CultureInfo.InvariantCulture)))}/createnewdocument" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SPBlobMetadataResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4265,7 +4265,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/views";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/views";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4299,13 +4299,13 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceFilePath is null)
                     throw new ArgumentNullException(nameof(sourceFilePath));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceFilePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFolderPath is null)
                     throw new ArgumentNullException(nameof(destinationFolderPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFolderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwriteFlag.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwriteFlag.Value.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwriteFlag.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4356,7 +4356,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (dataset is null)
                     throw new ArgumentNullException(nameof(dataset));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture)))}/agreements/templates";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4386,7 +4386,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(dataset));
                 if (agreementsSolutionTemplate is null)
                     throw new ArgumentNullException(nameof(agreementsSolutionTemplate));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(agreementsSolutionTemplate.ToString()))}/fields";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture)))}/agreements/templates/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(agreementsSolutionTemplate, System.Globalization.CultureInfo.InvariantCulture)))}/fields";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4413,7 +4413,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/libraries";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/libraries";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4440,7 +4440,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/listsandlibraries";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/listsandlibraries";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4473,8 +4473,8 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/entitiesfor/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<SPListEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4504,7 +4504,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}/forms";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}/forms";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4534,7 +4534,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (documentLibraryName is null)
                     throw new ArgumentNullException(nameof(documentLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(documentLibraryName.ToString()))}/docgenforms";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(documentLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/docgenforms";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4567,7 +4567,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(sharePointListName));
                 if (formIdentifier is null)
                     throw new ArgumentNullException(nameof(formIdentifier));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointListName.ToString()))}/docgenforms/{Uri.EscapeDataString(Uri.EscapeDataString(formIdentifier.ToString()))}/fields";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(sharePointListName, System.Globalization.CultureInfo.InvariantCulture)))}/docgenforms/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(formIdentifier, System.Globalization.CultureInfo.InvariantCulture)))}/fields";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4625,10 +4625,10 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(listName));
                 var queryParams = new List<string>();
                 if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView.ToString())}");
+                    queryParams.Add($"view={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByView, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limitColumnsByContentType != default)
-                    queryParams.Add($"contentTypeId={Uri.EscapeDataString(limitColumnsByContentType.ToString())}");
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"contentTypeId={Uri.EscapeDataString(System.Convert.ToString(limitColumnsByContentType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4655,7 +4655,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/lightweightapproval";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/lightweightapproval";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4705,7 +4705,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             try
             {
                 var queryParams = new List<string>();
-                queryParams.Add($"approvalType={Uri.EscapeDataString(approvalType.ToString())}");
+                queryParams.Add($"approvalType={Uri.EscapeDataString(System.Convert.ToString(approvalType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getApprovalSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4733,7 +4733,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
             {
                 if (siteAddress is null)
                     throw new ArgumentNullException(nameof(siteAddress));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tablesfor/approval";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/approval";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4787,7 +4787,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(dataset));
                 if (sharePointDocumentLibraryName is null)
                     throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(sharePointDocumentLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/templates";
                 return await this
                     .CallConnectorAsync<List<Table>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4820,7 +4820,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(sharePointDocumentLibraryName));
                 if (documentTemplate is null)
                     throw new ArgumentNullException(nameof(documentTemplate));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(dataset.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(sharePointDocumentLibraryName.ToString()))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(documentTemplate.ToString()))}/placeholders";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(sharePointDocumentLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/templates/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(documentTemplate, System.Globalization.CultureInfo.InvariantCulture)))}/placeholders";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4850,7 +4850,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline
                     throw new ArgumentNullException(nameof(siteAddress));
                 if (listOrLibraryName is null)
                     throw new ArgumentNullException(nameof(listOrLibraryName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listOrLibraryName.ToString()))}/items/changes";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(siteAddress, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(listOrLibraryName, System.Globalization.CultureInfo.InvariantCulture)))}/items/changes";
                 return await this
                     .CallConnectorAsync<GetItemChangesMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

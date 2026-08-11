@@ -360,11 +360,11 @@ namespace Azure.Connectors.Sdk.Campfire
                 var queryParams = new List<string>();
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+                queryParams.Add($"account={Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (messageTextToBeCreated is null)
                     throw new ArgumentNullException(nameof(messageTextToBeCreated));
-                queryParams.Add($"message={Uri.EscapeDataString(messageTextToBeCreated.ToString())}");
-                var path = $"/room/{Uri.EscapeDataString(roomId.ToString())}/speak.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"message={Uri.EscapeDataString(System.Convert.ToString(messageTextToBeCreated, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/room/{Uri.EscapeDataString(System.Convert.ToString(roomId, System.Globalization.CultureInfo.InvariantCulture))}/speak.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateMessageResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -393,8 +393,8 @@ namespace Azure.Connectors.Sdk.Campfire
                 var queryParams = new List<string>();
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
-                var path = $"/users/{Uri.EscapeDataString(userId.ToString())}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"account={Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/users/{Uri.EscapeDataString(System.Convert.ToString(userId, System.Globalization.CultureInfo.InvariantCulture))}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -421,7 +421,7 @@ namespace Azure.Connectors.Sdk.Campfire
             {
                 var queryParams = new List<string>();
                 if (parentOperation != default)
-                    queryParams.Add($"parentOperation={Uri.EscapeDataString(parentOperation.ToString())}");
+                    queryParams.Add($"parentOperation={Uri.EscapeDataString(System.Convert.ToString(parentOperation, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/authorization.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AccountsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -450,7 +450,7 @@ namespace Azure.Connectors.Sdk.Campfire
                 var queryParams = new List<string>();
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                queryParams.Add($"account={Uri.EscapeDataString(account.ToString())}");
+                queryParams.Add($"account={Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/rooms.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<RoomsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

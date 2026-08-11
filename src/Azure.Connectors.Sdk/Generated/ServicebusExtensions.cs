@@ -684,8 +684,8 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(queueTopicName));
                 var queryParams = new List<string>();
                 if (systemProperties != default)
-                    queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueTopicName.ToString()))}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"systemProperties={Uri.EscapeDataString(System.Convert.ToString(systemProperties, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueTopicName, System.Globalization.CultureInfo.InvariantCulture)))}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -715,8 +715,8 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(queueTopicName));
                 var queryParams = new List<string>();
                 if (systemProperties != default)
-                    queryParams.Add($"systemProperties={Uri.EscapeDataString(systemProperties.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueTopicName.ToString()))}/messages/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"systemProperties={Uri.EscapeDataString(System.Convert.ToString(systemProperties, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueTopicName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -748,12 +748,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (queueType != default)
-                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                    queryParams.Add($"queueType={Uri.EscapeDataString(System.Convert.ToString(queueType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -785,12 +785,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (queueType != default)
-                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                    queryParams.Add($"queueType={Uri.EscapeDataString(System.Convert.ToString(queueType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -821,12 +821,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 if (queueName is null)
                     throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
-                queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
+                queryParams.Add($"sequenceNumber={Uri.EscapeDataString(System.Convert.ToString(sequenceNumberOfMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (queueType != default)
-                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                    queryParams.Add($"queueType={Uri.EscapeDataString(System.Convert.ToString(queueType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ServiceBusMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -858,12 +858,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (queueType != default)
-                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                    queryParams.Add($"queueType={Uri.EscapeDataString(System.Convert.ToString(queueType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -896,14 +896,14 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (deadLetterReason != default)
-                    queryParams.Add($"deadLetterReason={Uri.EscapeDataString(deadLetterReason.ToString())}");
+                    queryParams.Add($"deadLetterReason={Uri.EscapeDataString(System.Convert.ToString(deadLetterReason, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (deadLetterErrorDescription != default)
-                    queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(deadLetterErrorDescription.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(System.Convert.ToString(deadLetterErrorDescription, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -934,10 +934,10 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (queueType != default)
-                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"queueType={Uri.EscapeDataString(System.Convert.ToString(queueType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -969,12 +969,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (maximumMessageCount.HasValue)
-                    queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
+                    queryParams.Add($"maxMessageCount={Uri.EscapeDataString(System.Convert.ToString(maximumMessageCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (queueType != default)
-                    queryParams.Add($"queueType={Uri.EscapeDataString(queueType.ToString())}");
+                    queryParams.Add($"queueType={Uri.EscapeDataString(System.Convert.ToString(queueType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<ServiceBusMessage>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1003,7 +1003,7 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(queueName));
                 if (sessionId is null)
                     throw new ArgumentNullException(nameof(sessionId));
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/sessions/{Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}/close";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1032,7 +1032,7 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(queueName));
                 if (sessionId is null)
                     throw new ArgumentNullException(nameof(sessionId));
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(queueName.ToString()))}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(queueName, System.Globalization.CultureInfo.InvariantCulture)))}/sessions/{Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}/renewlock";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1067,12 +1067,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (subscriptionType != default)
-                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(System.Convert.ToString(subscriptionType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/complete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1107,12 +1107,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (subscriptionType != default)
-                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(System.Convert.ToString(subscriptionType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/abandon" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1146,12 +1146,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 if (topicSubscriptionName is null)
                     throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
-                queryParams.Add($"sequenceNumber={Uri.EscapeDataString(sequenceNumberOfMessage.ToString())}");
+                queryParams.Add($"sequenceNumber={Uri.EscapeDataString(System.Convert.ToString(sequenceNumberOfMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (subscriptionType != default)
-                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(System.Convert.ToString(subscriptionType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ServiceBusMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1186,12 +1186,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (subscriptionType != default)
-                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(System.Convert.ToString(subscriptionType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/defer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1227,14 +1227,14 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (deadLetterReason != default)
-                    queryParams.Add($"deadLetterReason={Uri.EscapeDataString(deadLetterReason.ToString())}");
+                    queryParams.Add($"deadLetterReason={Uri.EscapeDataString(System.Convert.ToString(deadLetterReason, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (deadLetterErrorDescription != default)
-                    queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(deadLetterErrorDescription.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"deadLetterErrorDescription={Uri.EscapeDataString(System.Convert.ToString(deadLetterErrorDescription, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/deadletter" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1268,10 +1268,10 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (lockTokenOfTheMessage is null)
                     throw new ArgumentNullException(nameof(lockTokenOfTheMessage));
-                queryParams.Add($"lockToken={Uri.EscapeDataString(lockTokenOfTheMessage.ToString())}");
+                queryParams.Add($"lockToken={Uri.EscapeDataString(System.Convert.ToString(lockTokenOfTheMessage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (subscriptionType != default)
-                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(System.Convert.ToString(subscriptionType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/renewlock" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1305,8 +1305,8 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (filterType != default)
-                    queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(filterType.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(System.Convert.ToString(filterType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Subscription>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1335,7 +1335,7 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(topicName));
                 if (topicSubscriptionName is null)
                     throw new ArgumentNullException(nameof(topicSubscriptionName));
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}";
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1370,12 +1370,12 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(topicSubscriptionName));
                 var queryParams = new List<string>();
                 if (maximumMessageCount.HasValue)
-                    queryParams.Add($"maxMessageCount={Uri.EscapeDataString(maximumMessageCount.Value.ToString())}");
+                    queryParams.Add($"maxMessageCount={Uri.EscapeDataString(System.Convert.ToString(maximumMessageCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (subscriptionType != default)
-                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(subscriptionType.ToString())}");
+                    queryParams.Add($"subscriptionType={Uri.EscapeDataString(System.Convert.ToString(subscriptionType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId.ToString())}");
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/messages/batch/peek" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<ServiceBusMessage>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1407,7 +1407,7 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(topicSubscriptionName));
                 if (sessionId is null)
                     throw new ArgumentNullException(nameof(sessionId));
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/close";
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/sessions/{Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}/close";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1439,7 +1439,7 @@ namespace Azure.Connectors.Sdk.Servicebus
                     throw new ArgumentNullException(nameof(topicSubscriptionName));
                 if (sessionId is null)
                     throw new ArgumentNullException(nameof(sessionId));
-                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions/{Uri.EscapeDataString(topicSubscriptionName.ToString())}/sessions/{Uri.EscapeDataString(sessionId.ToString())}/renewlock";
+                var path = $"/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(topicSubscriptionName, System.Globalization.CultureInfo.InvariantCulture))}/sessions/{Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}/renewlock";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1586,7 +1586,7 @@ namespace Azure.Connectors.Sdk.Servicebus
             {
                 if (topicName is null)
                     throw new ArgumentNullException(nameof(topicName));
-                var path = $"/topics/{Uri.EscapeDataString(Uri.EscapeDataString(topicName.ToString()))}/subscriptions";
+                var path = $"/topics/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(topicName, System.Globalization.CultureInfo.InvariantCulture)))}/subscriptions";
                 return await this
                     .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1614,7 +1614,7 @@ namespace Azure.Connectors.Sdk.Servicebus
                 var queryParams = new List<string>();
                 if (subscriptionFilterType is null)
                     throw new ArgumentNullException(nameof(subscriptionFilterType));
-                queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(subscriptionFilterType.ToString())}");
+                queryParams.Add($"subscriptionFilterType={Uri.EscapeDataString(System.Convert.ToString(subscriptionFilterType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/subscriptionfilterV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)

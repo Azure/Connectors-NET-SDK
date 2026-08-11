@@ -284,7 +284,7 @@ namespace Azure.Connectors.Sdk.FormstackForms
             {
                 var queryParams = new List<string>();
                 queryParams.Add("file_transfer_type=base64encode");
-                var path = $"/api/v2/form/{Uri.EscapeDataString(formId.ToString())}/webhookopenapi/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/api/v2/form/{Uri.EscapeDataString(System.Convert.ToString(formId, System.Globalization.CultureInfo.InvariantCulture))}/webhookopenapi/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

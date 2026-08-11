@@ -1118,7 +1118,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         {
             if (groupId is null)
                 throw new ArgumentNullException(nameof(groupId));
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/conversations";
             return this.CreatePageable<ListConversationsResponse, Conversation>(
                 ct => this.CallConnectorAsync<ListConversationsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListConversationsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1140,7 +1140,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/conversations";
                 return await this
                     .CallConnectorAsync<CreateConversationResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1170,7 +1170,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(groupId));
                 if (conversationId is null)
                     throw new ArgumentNullException(nameof(conversationId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/conversations/{Uri.EscapeDataString(System.Convert.ToString(conversationId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Conversation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1197,7 +1197,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                 throw new ArgumentNullException(nameof(groupId));
             if (conversationId is null)
                 throw new ArgumentNullException(nameof(conversationId));
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/conversations/{Uri.EscapeDataString(System.Convert.ToString(conversationId, System.Globalization.CultureInfo.InvariantCulture))}/threads";
             return this.CreatePageable<ListConversationThreadsResponse, ConversationThread>(
                 ct => this.CallConnectorAsync<ListConversationThreadsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListConversationThreadsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1222,7 +1222,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(groupId));
                 if (conversationId is null)
                     throw new ArgumentNullException(nameof(conversationId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/conversations/{Uri.EscapeDataString(System.Convert.ToString(conversationId, System.Globalization.CultureInfo.InvariantCulture))}/threads";
                 return await this
                     .CallConnectorAsync<NewConversationThreadResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1246,7 +1246,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
         {
             if (groupId is null)
                 throw new ArgumentNullException(nameof(groupId));
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads";
             return this.CreatePageable<ListGroupThreadsResponse, ConversationThread>(
                 ct => this.CallConnectorAsync<ListGroupThreadsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupThreadsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1268,7 +1268,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads";
                 return await this
                     .CallConnectorAsync<NewConversationThreadResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1298,7 +1298,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(groupId));
                 if (threadId is null)
                     throw new ArgumentNullException(nameof(threadId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ConversationThread>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1327,7 +1327,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(groupId));
                 if (threadId is null)
                     throw new ArgumentNullException(nameof(threadId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1354,7 +1354,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                 throw new ArgumentNullException(nameof(groupId));
             if (threadId is null)
                 throw new ArgumentNullException(nameof(threadId));
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}/posts";
             return this.CreatePageable<ListThreadPostsResponse, Post>(
                 ct => this.CallConnectorAsync<ListThreadPostsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListThreadPostsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1383,7 +1383,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(postId));
                 var queryParams = new List<string>();
                 queryParams.Add("$expand=attachments");
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}/posts/{Uri.EscapeDataString(System.Convert.ToString(postId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Post>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1413,7 +1413,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                 throw new ArgumentNullException(nameof(threadId));
             if (postId is null)
                 throw new ArgumentNullException(nameof(postId));
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/attachments";
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}/posts/{Uri.EscapeDataString(System.Convert.ToString(postId, System.Globalization.CultureInfo.InvariantCulture))}/attachments";
             return this.CreatePageable<GetAttachmentsResponse, Attachment>(
                 ct => this.CallConnectorAsync<GetAttachmentsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetAttachmentsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1437,7 +1437,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(groupId));
                 if (threadId is null)
                     throw new ArgumentNullException(nameof(threadId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/reply";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}/reply";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1470,7 +1470,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(threadId));
                 if (postId is null)
                     throw new ArgumentNullException(nameof(postId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/reply";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}/posts/{Uri.EscapeDataString(System.Convert.ToString(postId, System.Globalization.CultureInfo.InvariantCulture))}/reply";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1531,7 +1531,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
                     throw new ArgumentNullException(nameof(threadId));
                 if (postId is null)
                     throw new ArgumentNullException(nameof(postId));
-                var path = $"/beta/groups/{Uri.EscapeDataString(groupMail.ToString())}/conversations/{Uri.EscapeDataString(conversationId.ToString())}/threads/{Uri.EscapeDataString(threadId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}/forward";
+                var path = $"/beta/groups/{Uri.EscapeDataString(System.Convert.ToString(groupMail, System.Globalization.CultureInfo.InvariantCulture))}/conversations/{Uri.EscapeDataString(System.Convert.ToString(conversationId, System.Globalization.CultureInfo.InvariantCulture))}/threads/{Uri.EscapeDataString(System.Convert.ToString(threadId, System.Globalization.CultureInfo.InvariantCulture))}/posts/{Uri.EscapeDataString(System.Convert.ToString(postId, System.Globalization.CultureInfo.InvariantCulture))}/forward";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

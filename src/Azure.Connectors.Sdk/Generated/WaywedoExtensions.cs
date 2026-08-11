@@ -952,7 +952,7 @@ namespace Azure.Connectors.Sdk.Waywedo
             {
                 if (instanceId is null)
                     throw new ArgumentNullException(nameof(instanceId));
-                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}";
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(System.Convert.ToString(instanceId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ChecklistInstance>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -979,7 +979,7 @@ namespace Azure.Connectors.Sdk.Waywedo
             {
                 if (instanceId is null)
                     throw new ArgumentNullException(nameof(instanceId));
-                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Activity";
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(System.Convert.ToString(instanceId, System.Globalization.CultureInfo.InvariantCulture))}/Activity";
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1009,8 +1009,8 @@ namespace Azure.Connectors.Sdk.Waywedo
                     throw new ArgumentNullException(nameof(instanceId));
                 var queryParams = new List<string>();
                 if (stepTitle != default)
-                    queryParams.Add($"query={Uri.EscapeDataString(stepTitle.ToString())}");
-                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(stepTitle, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(System.Convert.ToString(instanceId, System.Globalization.CultureInfo.InvariantCulture))}/Steps" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<ChecklistStep>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1040,7 +1040,7 @@ namespace Azure.Connectors.Sdk.Waywedo
                     throw new ArgumentNullException(nameof(instanceId));
                 if (stepId is null)
                     throw new ArgumentNullException(nameof(stepId));
-                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps/{Uri.EscapeDataString(stepId.ToString())}";
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(System.Convert.ToString(instanceId, System.Globalization.CultureInfo.InvariantCulture))}/Steps/{Uri.EscapeDataString(System.Convert.ToString(stepId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ChecklistStep>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1071,7 +1071,7 @@ namespace Azure.Connectors.Sdk.Waywedo
                     throw new ArgumentNullException(nameof(instanceId));
                 if (stepId is null)
                     throw new ArgumentNullException(nameof(stepId));
-                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(instanceId.ToString())}/Steps/{Uri.EscapeDataString(stepId.ToString())}/Complete";
+                var path = $"/v1/ChecklistInstances/{Uri.EscapeDataString(System.Convert.ToString(instanceId, System.Globalization.CultureInfo.InvariantCulture))}/Steps/{Uri.EscapeDataString(System.Convert.ToString(stepId, System.Globalization.CultureInfo.InvariantCulture))}/Complete";
                 return await this
                     .CallConnectorAsync<ChecklistStepsCompleteResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1124,7 +1124,7 @@ namespace Azure.Connectors.Sdk.Waywedo
                 var queryParams = new List<string>();
                 queryParams.Add("type=2");
                 if (checklistTitle != default)
-                    queryParams.Add($"query={Uri.EscapeDataString(checklistTitle.ToString())}");
+                    queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(checklistTitle, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v1/Procedures" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Procedure>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1150,7 +1150,7 @@ namespace Azure.Connectors.Sdk.Waywedo
             using var activity = WaywedoClient.ConnectorActivitySource.StartActivity("WaywedoClient.ProceduresGetAsync");
             try
             {
-                var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}";
+                var path = $"/v1/Procedures/{Uri.EscapeDataString(System.Convert.ToString(procedureId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Procedure>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1178,8 +1178,8 @@ namespace Azure.Connectors.Sdk.Waywedo
             {
                 var queryParams = new List<string>();
                 if (instanceTitle != default)
-                    queryParams.Add($"query={Uri.EscapeDataString(instanceTitle.ToString())}");
-                var path = $"/v1/Procedures/{Uri.EscapeDataString(procedureId.ToString())}/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(instanceTitle, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1/Procedures/{Uri.EscapeDataString(System.Convert.ToString(procedureId, System.Globalization.CultureInfo.InvariantCulture))}/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<ChecklistInstance>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1206,7 +1206,7 @@ namespace Azure.Connectors.Sdk.Waywedo
             {
                 var queryParams = new List<string>();
                 if (emailAddressOrName != default)
-                    queryParams.Add($"query={Uri.EscapeDataString(emailAddressOrName.ToString())}");
+                    queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(emailAddressOrName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v1/Users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<User>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1261,11 +1261,11 @@ namespace Azure.Connectors.Sdk.Waywedo
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(System.Convert.ToString(offset.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (status.HasValue)
-                    queryParams.Add($"status={Uri.EscapeDataString(status.Value.ToString())}");
+                    queryParams.Add($"status={Uri.EscapeDataString(System.Convert.ToString(status.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/v1/ChecklistInstances" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllChecklistInstancesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

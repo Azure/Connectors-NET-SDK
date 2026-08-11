@@ -211,7 +211,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -239,7 +239,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -265,7 +265,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -294,7 +294,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -325,9 +325,9 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -358,8 +358,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                     throw new ArgumentNullException(nameof(fileId));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(fileId.ToString()))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(fileId, System.Globalization.CultureInfo.InvariantCulture)))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -390,10 +390,10 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(fileName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
@@ -425,12 +425,12 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceUrl is null)
                     throw new ArgumentNullException(nameof(sourceUrl));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceUrl, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -458,7 +458,7 @@ namespace Azure.Connectors.Sdk.GoogleDrive
             {
                 if (folderId is null)
                     throw new ArgumentNullException(nameof(folderId));
-                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId.ToString()))}";
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -513,12 +513,12 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceArchiveFilePath is null)
                     throw new ArgumentNullException(nameof(sourceArchiveFilePath));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceArchiveFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFolderPath is null)
                     throw new ArgumentNullException(nameof(destinationFolderPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFolderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)

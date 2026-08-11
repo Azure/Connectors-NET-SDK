@@ -514,7 +514,7 @@ namespace Azure.Connectors.Sdk.Slack
             {
                 var queryParams = new List<string>();
                 if (numberOfMinutes != default)
-                    queryParams.Add($"num_minutes={Uri.EscapeDataString(numberOfMinutes.ToString())}");
+                    queryParams.Add($"num_minutes={Uri.EscapeDataString(System.Convert.ToString(numberOfMinutes, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/dnd.setSnooze" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SetDNDResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -543,9 +543,9 @@ namespace Azure.Connectors.Sdk.Slack
             {
                 var queryParams = new List<string>();
                 if (name != default)
-                    queryParams.Add($"name={Uri.EscapeDataString(name.ToString())}");
+                    queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (isPrivateChannel.HasValue)
-                    queryParams.Add($"is_private={Uri.EscapeDataString(isPrivateChannel.Value.ToString())}");
+                    queryParams.Add($"is_private={Uri.EscapeDataString(System.Convert.ToString(isPrivateChannel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/conversations.create" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateChannelResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -573,7 +573,7 @@ namespace Azure.Connectors.Sdk.Slack
             {
                 var queryParams = new List<string>();
                 if (channelName != default)
-                    queryParams.Add($"channel={Uri.EscapeDataString(channelName.ToString())}");
+                    queryParams.Add($"channel={Uri.EscapeDataString(System.Convert.ToString(channelName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/conversations.join" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<JoinChannelResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)

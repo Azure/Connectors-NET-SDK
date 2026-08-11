@@ -1150,9 +1150,9 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             {
                 var queryParams = new List<string>();
                 if (pageNumber.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(pageNumber.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (numberOfRecordsPerPage.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(numberOfRecordsPerPage.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(numberOfRecordsPerPage.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetContactListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1203,7 +1203,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.DeleteListAsync");
             try
             {
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(listId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DeleteListResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1229,7 +1229,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.CreateListContactAsync");
             try
             {
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(listId, System.Globalization.CultureInfo.InvariantCulture))}/contacts";
                 return await this
                     .CallConnectorAsync<CreateListContactResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1254,7 +1254,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.ViewListContactsAsync");
             try
             {
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(listId, System.Globalization.CultureInfo.InvariantCulture))}/contacts";
                 return await this
                     .CallConnectorAsync<ViewListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1280,7 +1280,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
             using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.DeleteListContactAsync");
             try
             {
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/contacts/{Uri.EscapeDataString(contactId.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(listId, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(contactId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DeleteListContactResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1359,7 +1359,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
                 var queryParams = new List<string>();
                 if (selectActionTheFileIsNeededFor is null)
                     throw new ArgumentNullException(nameof(selectActionTheFileIsNeededFor));
-                queryParams.Add($"convert={Uri.EscapeDataString(selectActionTheFileIsNeededFor.ToString())}");
+                queryParams.Add($"convert={Uri.EscapeDataString(System.Convert.ToString(selectActionTheFileIsNeededFor, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/uploads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UploadMediaResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1388,7 +1388,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
                 var queryParams = new List<string>();
                 if (listName is null)
                     throw new ArgumentNullException(nameof(listName));
-                queryParams.Add($"q={Uri.EscapeDataString(listName.ToString())}");
+                queryParams.Add($"q={Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/search/contacts-lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SearchContactListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

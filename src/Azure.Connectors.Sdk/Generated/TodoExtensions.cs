@@ -651,7 +651,7 @@ namespace Azure.Connectors.Sdk.Todo
             {
                 if (toDoList is null)
                     throw new ArgumentNullException(nameof(toDoList));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TodoList>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -677,7 +677,7 @@ namespace Azure.Connectors.Sdk.Todo
             {
                 if (toDoList is null)
                     throw new ArgumentNullException(nameof(toDoList));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -705,7 +705,7 @@ namespace Azure.Connectors.Sdk.Todo
             {
                 if (toDoList is null)
                     throw new ArgumentNullException(nameof(toDoList));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}/tasks";
                 return await this
                     .CallConnectorAsync<ToDo>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -759,7 +759,7 @@ namespace Azure.Connectors.Sdk.Todo
                     throw new ArgumentNullException(nameof(toDoList));
                 if (toDoTask is null)
                     throw new ArgumentNullException(nameof(toDoTask));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(toDoTask, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -813,7 +813,7 @@ namespace Azure.Connectors.Sdk.Todo
                     throw new ArgumentNullException(nameof(toDoList));
                 if (toDoTask is null)
                     throw new ArgumentNullException(nameof(toDoTask));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(toDoTask, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ToDo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -840,7 +840,7 @@ namespace Azure.Connectors.Sdk.Todo
             {
                 if (toDoList is null)
                     throw new ArgumentNullException(nameof(toDoList));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TodoList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -870,8 +870,8 @@ namespace Azure.Connectors.Sdk.Todo
                     throw new ArgumentNullException(nameof(toDoList));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<ToDo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -902,7 +902,7 @@ namespace Azure.Connectors.Sdk.Todo
                     throw new ArgumentNullException(nameof(toDoList));
                 if (toDoTask is null)
                     throw new ArgumentNullException(nameof(toDoTask));
-                var path = $"/lists/{Uri.EscapeDataString(toDoList.ToString())}/tasks/{Uri.EscapeDataString(toDoTask.ToString())}";
+                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(toDoList, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(toDoTask, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ToDo>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

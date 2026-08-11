@@ -2630,19 +2630,19 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
             var queryParams = new List<string>();
             if (expandsEntities != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expandsEntities.ToString())}");
+                queryParams.Add($"$expand={Uri.EscapeDataString(System.Convert.ToString(expandsEntities, System.Globalization.CultureInfo.InvariantCulture))}");
             if (filtersResults != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filtersResults.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filtersResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (selectsProperties != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
+                queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectsProperties, System.Globalization.CultureInfo.InvariantCulture))}");
             if (sortsResults != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
+                queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(sortsResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (returnsFirstResults.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(returnsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (skipsFirstResults.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+                queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (includesCount.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
+                queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(includesCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             var path = $"/api/alerts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetAlertsResponse, Alert>(
                 ct => this.CallConnectorAsync<GetAlertsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2664,7 +2664,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheAlert is null)
                     throw new ArgumentNullException(nameof(idOfTheAlert));
-                var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
+                var path = $"/api/alerts/{Uri.EscapeDataString(System.Convert.ToString(idOfTheAlert, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Alert>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2692,7 +2692,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheAlert is null)
                     throw new ArgumentNullException(nameof(idOfTheAlert));
-                var path = $"/api/alerts/{Uri.EscapeDataString(idOfTheAlert.ToString())}";
+                var path = $"/api/alerts/{Uri.EscapeDataString(System.Convert.ToString(idOfTheAlert, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Alert>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2720,7 +2720,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/initiateInvestigation";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/initiateInvestigation";
                 return await this
                     .CallConnectorAsync<InitiateInvestigationResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2748,7 +2748,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/startInvestigation";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/startInvestigation";
                 return await this
                     .CallConnectorAsync<Investigation>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2775,7 +2775,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheMachineAction is null)
                     throw new ArgumentNullException(nameof(idOfTheMachineAction));
-                var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}";
+                var path = $"/api/machineactions/{Uri.EscapeDataString(System.Convert.ToString(idOfTheMachineAction, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2803,7 +2803,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheMachineAction is null)
                     throw new ArgumentNullException(nameof(idOfTheMachineAction));
-                var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/cancel";
+                var path = $"/api/machineactions/{Uri.EscapeDataString(System.Convert.ToString(idOfTheMachineAction, System.Globalization.CultureInfo.InvariantCulture))}/cancel";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2831,7 +2831,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheMachineAction is null)
                     throw new ArgumentNullException(nameof(idOfTheMachineAction));
-                var path = $"/api/machineactions/{Uri.EscapeDataString(idOfTheMachineAction.ToString())}/GetLiveResponseResultDownloadLink(index={Uri.EscapeDataString(indexOfTheLiveResponseCommand.ToString())})";
+                var path = $"/api/machineactions/{Uri.EscapeDataString(System.Convert.ToString(idOfTheMachineAction, System.Globalization.CultureInfo.InvariantCulture))}/GetLiveResponseResultDownloadLink(index={Uri.EscapeDataString(System.Convert.ToString(indexOfTheLiveResponseCommand, System.Globalization.CultureInfo.InvariantCulture))})";
                 return await this
                     .CallConnectorAsync<GetLiveResponseDownloadLinkResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2860,17 +2860,17 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filtersResults.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filtersResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (selectsProperties != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
+                queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectsProperties, System.Globalization.CultureInfo.InvariantCulture))}");
             if (sortsResults != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
+                queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(sortsResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (returnsFirstResults.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(returnsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (skipsFirstResults.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+                queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (includesCount.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
+                queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(includesCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             var path = $"/api/machineactions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetMachineActionsResponse, MachineAction>(
                 ct => this.CallConnectorAsync<GetMachineActionsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2895,8 +2895,8 @@ namespace Azure.Connectors.Sdk.Wdatp
                     throw new ArgumentNullException(nameof(theFileIdentifierSha1OrSha256));
                 var queryParams = new List<string>();
                 if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
-                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
-                var path = $"/api/files/{Uri.EscapeDataString(theFileIdentifierSha1OrSha256.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(System.Convert.ToString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/files/{Uri.EscapeDataString(System.Convert.ToString(theFileIdentifierSha1OrSha256, System.Globalization.CultureInfo.InvariantCulture))}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FileStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2926,8 +2926,8 @@ namespace Azure.Connectors.Sdk.Wdatp
                     throw new ArgumentNullException(nameof(theDomainName));
                 var queryParams = new List<string>();
                 if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
-                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
-                var path = $"/api/domains/{Uri.EscapeDataString(theDomainName.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(System.Convert.ToString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/domains/{Uri.EscapeDataString(System.Convert.ToString(theDomainName, System.Globalization.CultureInfo.InvariantCulture))}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DomainStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2957,8 +2957,8 @@ namespace Azure.Connectors.Sdk.Wdatp
                     throw new ArgumentNullException(nameof(theIpAddress));
                 var queryParams = new List<string>();
                 if (theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.HasValue)
-                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value.ToString())}");
-                var path = $"/api/ips/{Uri.EscapeDataString(theIpAddress.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"lookBackHours={Uri.EscapeDataString(System.Convert.ToString(theLookBackPeriodInHoursToLookByTheDefaultIs24Hours.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/ips/{Uri.EscapeDataString(System.Convert.ToString(theIpAddress, System.Globalization.CultureInfo.InvariantCulture))}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IpStats>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2985,7 +2985,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheInvestigation is null)
                     throw new ArgumentNullException(nameof(idOfTheInvestigation));
-                var path = $"/api/investigations/{Uri.EscapeDataString(idOfTheInvestigation.ToString())}";
+                var path = $"/api/investigations/{Uri.EscapeDataString(System.Convert.ToString(idOfTheInvestigation, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Investigation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3014,17 +3014,17 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filtersResults.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filtersResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (selectsProperties != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
+                queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectsProperties, System.Globalization.CultureInfo.InvariantCulture))}");
             if (sortsResults != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
+                queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(sortsResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (returnsFirstResults.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(returnsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (skipsFirstResults.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+                queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (includesCount.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
+                queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(includesCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             var path = $"/api/investigations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetInvestigationsResponse, Investigation>(
                 ct => this.CallConnectorAsync<GetInvestigationsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3047,7 +3047,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/collectInvestigationPackage";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/collectInvestigationPackage";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3074,7 +3074,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (actionId is null)
                     throw new ArgumentNullException(nameof(actionId));
-                var path = $"/api/machineactions/{Uri.EscapeDataString(actionId.ToString())}/getPackageUri";
+                var path = $"/api/machineactions/{Uri.EscapeDataString(System.Convert.ToString(actionId, System.Globalization.CultureInfo.InvariantCulture))}/getPackageUri";
                 return await this
                     .CallConnectorAsync<GetInvestigationPackageUriResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3102,7 +3102,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/isolate";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/isolate";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3130,7 +3130,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unisolate";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/unisolate";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3158,7 +3158,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/restrictCodeExecution";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/restrictCodeExecution";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3186,7 +3186,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/unrestrictCodeExecution";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/unrestrictCodeExecution";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3214,7 +3214,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runAntiVirusScan";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/runAntiVirusScan";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3242,7 +3242,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (machineId is null)
                     throw new ArgumentNullException(nameof(machineId));
-                var path = $"/api/machines/{Uri.EscapeDataString(machineId.ToString())}/runliveresponse";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(machineId, System.Globalization.CultureInfo.InvariantCulture))}/runliveresponse";
                 return await this
                     .CallConnectorAsync<MachineAction>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3271,17 +3271,17 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filtersResults.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filtersResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (selectsProperties != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
+                queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectsProperties, System.Globalization.CultureInfo.InvariantCulture))}");
             if (sortsResults != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
+                queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(sortsResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (returnsFirstResults.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(returnsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (skipsFirstResults.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+                queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (includesCount.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
+                queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(includesCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             var path = $"/api/remediationtasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetRemediationActivitiesResponse, RemediationActivity>(
                 ct => this.CallConnectorAsync<GetRemediationActivitiesResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3303,7 +3303,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheRemediationActivity is null)
                     throw new ArgumentNullException(nameof(idOfTheRemediationActivity));
-                var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}";
+                var path = $"/api/remediationtasks/{Uri.EscapeDataString(System.Convert.ToString(idOfTheRemediationActivity, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<RemediationActivity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3327,7 +3327,7 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
             if (idOfTheRemediationActivity is null)
                 throw new ArgumentNullException(nameof(idOfTheRemediationActivity));
-            var path = $"/api/remediationtasks/{Uri.EscapeDataString(idOfTheRemediationActivity.ToString())}/machinereferences";
+            var path = $"/api/remediationtasks/{Uri.EscapeDataString(System.Convert.ToString(idOfTheRemediationActivity, System.Globalization.CultureInfo.InvariantCulture))}/machinereferences";
             return this.CreatePageable<GetRemediationActivityMachineListResponse, Machine>(
                 ct => this.CallConnectorAsync<GetRemediationActivityMachineListResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetRemediationActivityMachineListResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -3350,17 +3350,17 @@ namespace Azure.Connectors.Sdk.Wdatp
         {
             var queryParams = new List<string>();
             if (filtersResults != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filtersResults.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filtersResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (selectsProperties != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(selectsProperties.ToString())}");
+                queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectsProperties, System.Globalization.CultureInfo.InvariantCulture))}");
             if (sortsResults != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(sortsResults.ToString())}");
+                queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(sortsResults, System.Globalization.CultureInfo.InvariantCulture))}");
             if (returnsFirstResults.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(returnsFirstResults.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(returnsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (skipsFirstResults.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(skipsFirstResults.Value.ToString())}");
+                queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipsFirstResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             if (includesCount.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(includesCount.Value.ToString())}");
+                queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(includesCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
             var path = $"/api/machines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetMachinesResponse, Machine>(
                 ct => this.CallConnectorAsync<GetMachinesResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3382,7 +3382,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheMachine is null)
                     throw new ArgumentNullException(nameof(idOfTheMachine));
-                var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(idOfTheMachine, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Machine>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3410,7 +3410,7 @@ namespace Azure.Connectors.Sdk.Wdatp
             {
                 if (idOfTheMachine is null)
                     throw new ArgumentNullException(nameof(idOfTheMachine));
-                var path = $"/api/machines/{Uri.EscapeDataString(idOfTheMachine.ToString())}/tags";
+                var path = $"/api/machines/{Uri.EscapeDataString(System.Convert.ToString(idOfTheMachine, System.Globalization.CultureInfo.InvariantCulture))}/tags";
                 return await this
                     .CallConnectorAsync<Machine>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

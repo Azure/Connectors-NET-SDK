@@ -795,59 +795,59 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             {
                 var queryParams = new List<string>();
                 if (size.HasValue)
-                    queryParams.Add($"size={Uri.EscapeDataString(size.Value.ToString())}");
+                    queryParams.Add($"size={Uri.EscapeDataString(System.Convert.ToString(size.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (id != default)
-                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                    queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (keyword != default)
-                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                    queryParams.Add($"keyword={Uri.EscapeDataString(System.Convert.ToString(keyword, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (attractionId != default)
-                    queryParams.Add($"attractionId={Uri.EscapeDataString(attractionId.ToString())}");
+                    queryParams.Add($"attractionId={Uri.EscapeDataString(System.Convert.ToString(attractionId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (venueId != default)
-                    queryParams.Add($"venueId={Uri.EscapeDataString(venueId.ToString())}");
+                    queryParams.Add($"venueId={Uri.EscapeDataString(System.Convert.ToString(venueId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (postalCode != default)
-                    queryParams.Add($"postalCode={Uri.EscapeDataString(postalCode.ToString())}");
+                    queryParams.Add($"postalCode={Uri.EscapeDataString(System.Convert.ToString(postalCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (latitudeLongitude != default)
-                    queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
+                    queryParams.Add($"latlong={Uri.EscapeDataString(System.Convert.ToString(latitudeLongitude, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (radius != default)
-                    queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
+                    queryParams.Add($"radius={Uri.EscapeDataString(System.Convert.ToString(radius, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (unit != default)
-                    queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
+                    queryParams.Add($"unit={Uri.EscapeDataString(System.Convert.ToString(unit, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (source != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(source, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (marketId != default)
-                    queryParams.Add($"marketId={Uri.EscapeDataString(marketId.ToString())}");
+                    queryParams.Add($"marketId={Uri.EscapeDataString(System.Convert.ToString(marketId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (startDateTime != default)
-                    queryParams.Add($"startDateTime={Uri.EscapeDataString(startDateTime.ToString())}");
+                    queryParams.Add($"startDateTime={Uri.EscapeDataString(System.Convert.ToString(startDateTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (endDateTime != default)
-                    queryParams.Add($"endDateTime={Uri.EscapeDataString(endDateTime.ToString())}");
+                    queryParams.Add($"endDateTime={Uri.EscapeDataString(System.Convert.ToString(endDateTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTBA != default)
-                    queryParams.Add($"includeTBA={Uri.EscapeDataString(includeTBA.ToString())}");
+                    queryParams.Add($"includeTBA={Uri.EscapeDataString(System.Convert.ToString(includeTBA, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTBD != default)
-                    queryParams.Add($"includeTBD={Uri.EscapeDataString(includeTBD.ToString())}");
+                    queryParams.Add($"includeTBD={Uri.EscapeDataString(System.Convert.ToString(includeTBD, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTest != default)
-                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(System.Convert.ToString(includeTest, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (page != default)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(page, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Convert.ToString(sort, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (onsaleStartDateTime != default)
-                    queryParams.Add($"onsaleStartDateTime={Uri.EscapeDataString(onsaleStartDateTime.ToString())}");
+                    queryParams.Add($"onsaleStartDateTime={Uri.EscapeDataString(System.Convert.ToString(onsaleStartDateTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (onsaleEndDateTime != default)
-                    queryParams.Add($"onsaleEndDateTime={Uri.EscapeDataString(onsaleEndDateTime.ToString())}");
+                    queryParams.Add($"onsaleEndDateTime={Uri.EscapeDataString(System.Convert.ToString(onsaleEndDateTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (city != default)
                     queryParams.Add($"city={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(city))}");
                 if (countryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(countryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (stateCode != default)
-                    queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
+                    queryParams.Add($"stateCode={Uri.EscapeDataString(System.Convert.ToString(stateCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (classificationName != default)
                     queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
                 if (classificationId != default)
                     queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
                 if (dMAId != default)
-                    queryParams.Add($"dmaId={Uri.EscapeDataString(dMAId.ToString())}");
+                    queryParams.Add($"dmaId={Uri.EscapeDataString(System.Convert.ToString(dMAId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (localStartDateTime != default)
                     queryParams.Add($"localStartDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartDateTime))}");
                 if (localStartEndDateTime != default)
@@ -859,9 +859,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 if (preSaleDateTime != default)
                     queryParams.Add($"preSaleDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(preSaleDateTime))}");
                 if (onsaleOnStartDate != default)
-                    queryParams.Add($"onsaleOnStartDate={Uri.EscapeDataString(onsaleOnStartDate.ToString())}");
+                    queryParams.Add($"onsaleOnStartDate={Uri.EscapeDataString(System.Convert.ToString(onsaleOnStartDate, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (onsaleOnAfterStartDate != default)
-                    queryParams.Add($"onsaleOnAfterStartDate={Uri.EscapeDataString(onsaleOnAfterStartDate.ToString())}");
+                    queryParams.Add($"onsaleOnAfterStartDate={Uri.EscapeDataString(System.Convert.ToString(onsaleOnAfterStartDate, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (collectionId != default)
                     queryParams.Add($"collectionId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(collectionId))}");
                 if (segmentId != default)
@@ -869,9 +869,9 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 if (segmentName != default)
                     queryParams.Add($"segmentName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentName))}");
                 if (includeFamily != default)
-                    queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
+                    queryParams.Add($"includeFamily={Uri.EscapeDataString(System.Convert.ToString(includeFamily, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (promoterId != default)
-                    queryParams.Add($"promoterId={Uri.EscapeDataString(promoterId.ToString())}");
+                    queryParams.Add($"promoterId={Uri.EscapeDataString(System.Convert.ToString(promoterId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (genreId != default)
                     queryParams.Add($"genreId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(genreId))}");
                 if (subGenreId != default)
@@ -881,11 +881,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 if (subTypeId != default)
                     queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
                 if (geoPoint != default)
-                    queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
+                    queryParams.Add($"geoPoint={Uri.EscapeDataString(System.Convert.ToString(geoPoint, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (preferredCountry != default)
-                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(System.Convert.ToString(preferredCountry, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeSpellcheck != default)
-                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(System.Convert.ToString(includeSpellcheck, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
                 var path = $"/discovery/v2/events.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -919,10 +919,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/events/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EventGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -953,10 +953,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/events/{Uri.EscapeDataString(id.ToString())}/images" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/events/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}/images" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EventImagesGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1002,27 +1002,27 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             {
                 var queryParams = new List<string>();
                 if (id != default)
-                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                    queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (keyword != default)
-                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                    queryParams.Add($"keyword={Uri.EscapeDataString(System.Convert.ToString(keyword, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (source != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(source, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTest != default)
-                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(System.Convert.ToString(includeTest, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (size != default)
-                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                    queryParams.Add($"size={Uri.EscapeDataString(System.Convert.ToString(size, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (page != default)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(page, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Convert.ToString(sort, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (classificationName != default)
                     queryParams.Add($"classificationName={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationName))}");
                 if (classificationId != default)
                     queryParams.Add($"classificationId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(classificationId))}");
                 if (includeFamily != default)
-                    queryParams.Add($"includeFamily={Uri.EscapeDataString(includeFamily.ToString())}");
+                    queryParams.Add($"includeFamily={Uri.EscapeDataString(System.Convert.ToString(includeFamily, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (segmentId != default)
                     queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
                 if (genreId != default)
@@ -1034,11 +1034,11 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                 if (subTypeId != default)
                     queryParams.Add($"subTypeId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(subTypeId))}");
                 if (countryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(countryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (preferredCountry != default)
-                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(System.Convert.ToString(preferredCountry, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeSpellcheck != default)
-                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(System.Convert.ToString(includeSpellcheck, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
                 var path = $"/discovery/v2/attractions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1072,10 +1072,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/attractions/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/attractions/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AttractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1113,27 +1113,27 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             {
                 var queryParams = new List<string>();
                 if (id != default)
-                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                    queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (keyword != default)
-                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                    queryParams.Add($"keyword={Uri.EscapeDataString(System.Convert.ToString(keyword, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (source != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(source, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTest != default)
-                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(System.Convert.ToString(includeTest, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (size != default)
-                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                    queryParams.Add($"size={Uri.EscapeDataString(System.Convert.ToString(size, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (page != default)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(page, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Convert.ToString(sort, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (countryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(countryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (preferredCountry != default)
-                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(System.Convert.ToString(preferredCountry, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeSpellcheck != default)
-                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(System.Convert.ToString(includeSpellcheck, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
                 var path = $"/discovery/v2/classifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1167,10 +1167,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/classifications/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/classifications/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ClassificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1201,10 +1201,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/classifications/genres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/classifications/genres/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1235,10 +1235,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/classifications/segments/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/classifications/segments/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SegmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1269,10 +1269,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/classifications/subgenres/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/classifications/subgenres/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SubGenreGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1315,37 +1315,37 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             {
                 var queryParams = new List<string>();
                 if (id != default)
-                    queryParams.Add($"id={Uri.EscapeDataString(id.ToString())}");
+                    queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (keyword != default)
-                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                    queryParams.Add($"keyword={Uri.EscapeDataString(System.Convert.ToString(keyword, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (latitudeLongitude != default)
-                    queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
+                    queryParams.Add($"latlong={Uri.EscapeDataString(System.Convert.ToString(latitudeLongitude, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (radius != default)
-                    queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
+                    queryParams.Add($"radius={Uri.EscapeDataString(System.Convert.ToString(radius, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (unit != default)
-                    queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
+                    queryParams.Add($"unit={Uri.EscapeDataString(System.Convert.ToString(unit, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (source != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(source, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTest != default)
-                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(System.Convert.ToString(includeTest, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (size != default)
-                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                    queryParams.Add($"size={Uri.EscapeDataString(System.Convert.ToString(size, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (page != default)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(page, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Convert.ToString(sort, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (countryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(countryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (stateCode != default)
-                    queryParams.Add($"stateCode={Uri.EscapeDataString(stateCode.ToString())}");
+                    queryParams.Add($"stateCode={Uri.EscapeDataString(System.Convert.ToString(stateCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (geoPoint != default)
-                    queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
+                    queryParams.Add($"geoPoint={Uri.EscapeDataString(System.Convert.ToString(geoPoint, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (preferredCountry != default)
-                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(System.Convert.ToString(preferredCountry, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeSpellcheck != default)
-                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(System.Convert.ToString(includeSpellcheck, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
                 var path = $"/discovery/v2/venues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1379,10 +1379,10 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
-                var path = $"/discovery/v2/venues/{Uri.EscapeDataString(id.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/discovery/v2/venues/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<VenueGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1427,41 +1427,41 @@ namespace Azure.Connectors.Sdk.Ticketmaster
             {
                 var queryParams = new List<string>();
                 if (keyword != default)
-                    queryParams.Add($"keyword={Uri.EscapeDataString(keyword.ToString())}");
+                    queryParams.Add($"keyword={Uri.EscapeDataString(System.Convert.ToString(keyword, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (latitudeLongitude != default)
-                    queryParams.Add($"latlong={Uri.EscapeDataString(latitudeLongitude.ToString())}");
+                    queryParams.Add($"latlong={Uri.EscapeDataString(System.Convert.ToString(latitudeLongitude, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (radius != default)
-                    queryParams.Add($"radius={Uri.EscapeDataString(radius.ToString())}");
+                    queryParams.Add($"radius={Uri.EscapeDataString(System.Convert.ToString(radius, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (unit != default)
-                    queryParams.Add($"unit={Uri.EscapeDataString(unit.ToString())}");
+                    queryParams.Add($"unit={Uri.EscapeDataString(System.Convert.ToString(unit, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (source != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(source.ToString())}");
+                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(source, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTBA != default)
-                    queryParams.Add($"includeTBA={Uri.EscapeDataString(includeTBA.ToString())}");
+                    queryParams.Add($"includeTBA={Uri.EscapeDataString(System.Convert.ToString(includeTBA, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTBD != default)
-                    queryParams.Add($"includeTBD={Uri.EscapeDataString(includeTBD.ToString())}");
+                    queryParams.Add($"includeTBD={Uri.EscapeDataString(System.Convert.ToString(includeTBD, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeTest != default)
-                    queryParams.Add($"includeTest={Uri.EscapeDataString(includeTest.ToString())}");
+                    queryParams.Add($"includeTest={Uri.EscapeDataString(System.Convert.ToString(includeTest, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (size != default)
-                    queryParams.Add($"size={Uri.EscapeDataString(size.ToString())}");
+                    queryParams.Add($"size={Uri.EscapeDataString(System.Convert.ToString(size, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (countryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(countryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(countryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (segmentId != default)
                     queryParams.Add($"segmentId={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(segmentId))}");
                 if (geoPoint != default)
-                    queryParams.Add($"geoPoint={Uri.EscapeDataString(geoPoint.ToString())}");
+                    queryParams.Add($"geoPoint={Uri.EscapeDataString(System.Convert.ToString(geoPoint, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (resource != default)
                     queryParams.Add($"resource={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(resource))}");
                 if (preferredCountry != default)
-                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(preferredCountry.ToString())}");
+                    queryParams.Add($"preferredCountry={Uri.EscapeDataString(System.Convert.ToString(preferredCountry, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (startEndDateTime != default)
                     queryParams.Add($"startEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(startEndDateTime))}");
                 if (localStartEndDateTime != default)
                     queryParams.Add($"localStartEndDateTime={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(localStartEndDateTime))}");
                 if (includeSpellcheck != default)
-                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(includeSpellcheck.ToString())}");
+                    queryParams.Add($"includeSpellcheck={Uri.EscapeDataString(System.Convert.ToString(includeSpellcheck, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
                     queryParams.Add($"domain={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(domain))}");
                 var path = $"/discovery/v2/suggest" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");

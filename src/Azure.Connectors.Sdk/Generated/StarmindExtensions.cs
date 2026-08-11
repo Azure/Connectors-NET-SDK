@@ -663,13 +663,13 @@ namespace Azure.Connectors.Sdk.Starmind
             {
                 var queryParams = new List<string>();
                 if (searchQueryForQuestions != default)
-                    queryParams.Add($"query={Uri.EscapeDataString(searchQueryForQuestions.ToString())}");
+                    queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(searchQueryForQuestions, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumNumberOfQuestionsToReturn.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(maximumNumberOfQuestionsToReturn.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(maximumNumberOfQuestionsToReturn.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (predefinedFilterForQuestions != default)
-                    queryParams.Add($"filter={Uri.EscapeDataString(predefinedFilterForQuestions.ToString())}");
+                    queryParams.Add($"filter={Uri.EscapeDataString(System.Convert.ToString(predefinedFilterForQuestions, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sortCriteriaForQuestions != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sortCriteriaForQuestions.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(System.Convert.ToString(sortCriteriaForQuestions, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/api/v3/questions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FindQuestionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -697,7 +697,7 @@ namespace Azure.Connectors.Sdk.Starmind
             {
                 if (theIdOfTheUser is null)
                     throw new ArgumentNullException(nameof(theIdOfTheUser));
-                var path = $"/api/v3/users/{Uri.EscapeDataString(theIdOfTheUser.ToString())}";
+                var path = $"/api/v3/users/{Uri.EscapeDataString(System.Convert.ToString(theIdOfTheUser, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GraphQLUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -747,7 +747,7 @@ namespace Azure.Connectors.Sdk.Starmind
             using var activity = StarmindClient.ConnectorActivitySource.StartActivity("StarmindClient.PublishQuestionDraftAsync");
             try
             {
-                var path = $"/api/v3/questions/{Uri.EscapeDataString(idOfTheQuestionToPublish.ToString())}/publish";
+                var path = $"/api/v3/questions/{Uri.EscapeDataString(System.Convert.ToString(idOfTheQuestionToPublish, System.Globalization.CultureInfo.InvariantCulture))}/publish";
                 return await this
                     .CallConnectorAsync<PublishQuestionDraftResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

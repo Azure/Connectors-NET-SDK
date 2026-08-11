@@ -2116,13 +2116,13 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (workspace is null)
                     throw new ArgumentNullException(nameof(workspace));
-                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
+                queryParams.Add($"workspaceId={Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (board is null)
                     throw new ArgumentNullException(nameof(board));
-                queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
+                queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(board, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
+                queryParams.Add($"itemId={Uri.EscapeDataString(System.Convert.ToString(itemId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getSubitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSubitemColumnNamesForGetSubitems>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2178,13 +2178,13 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                queryParams.Add($"itemId={Uri.EscapeDataString(itemId.ToString())}");
+                queryParams.Add($"itemId={Uri.EscapeDataString(System.Convert.ToString(itemId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (workspace is null)
                     throw new ArgumentNullException(nameof(workspace));
-                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
+                queryParams.Add($"workspaceId={Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (board is null)
                     throw new ArgumentNullException(nameof(board));
-                queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
+                queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(board, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getItemById" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DynamicResponseGetListSchemaGet>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2252,37 +2252,37 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (workspace is null)
                     throw new ArgumentNullException(nameof(workspace));
-                queryParams.Add($"workspaceId={Uri.EscapeDataString(workspace.ToString())}");
+                queryParams.Add($"workspaceId={Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (board is null)
                     throw new ArgumentNullException(nameof(board));
-                queryParams.Add($"boardId={Uri.EscapeDataString(board.ToString())}");
+                queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(board, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (group is null)
                     throw new ArgumentNullException(nameof(group));
-                queryParams.Add($"groupId={Uri.EscapeDataString(group.ToString())}");
+                queryParams.Add($"groupId={Uri.EscapeDataString(System.Convert.ToString(group, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter1Column != default)
-                    queryParams.Add($"filter1Column={Uri.EscapeDataString(filter1Column.ToString())}");
+                    queryParams.Add($"filter1Column={Uri.EscapeDataString(System.Convert.ToString(filter1Column, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter1Operator != default)
-                    queryParams.Add($"filter1Operator={Uri.EscapeDataString(filter1Operator.ToString())}");
+                    queryParams.Add($"filter1Operator={Uri.EscapeDataString(System.Convert.ToString(filter1Operator, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter1Value != default)
-                    queryParams.Add($"filter1Value={Uri.EscapeDataString(filter1Value.ToString())}");
+                    queryParams.Add($"filter1Value={Uri.EscapeDataString(System.Convert.ToString(filter1Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter2Column != default)
-                    queryParams.Add($"filter2Column={Uri.EscapeDataString(filter2Column.ToString())}");
+                    queryParams.Add($"filter2Column={Uri.EscapeDataString(System.Convert.ToString(filter2Column, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter2Operator != default)
-                    queryParams.Add($"filter2Operator={Uri.EscapeDataString(filter2Operator.ToString())}");
+                    queryParams.Add($"filter2Operator={Uri.EscapeDataString(System.Convert.ToString(filter2Operator, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter2Value != default)
-                    queryParams.Add($"filter2Value={Uri.EscapeDataString(filter2Value.ToString())}");
+                    queryParams.Add($"filter2Value={Uri.EscapeDataString(System.Convert.ToString(filter2Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter3Column != default)
-                    queryParams.Add($"filter3Column={Uri.EscapeDataString(filter3Column.ToString())}");
+                    queryParams.Add($"filter3Column={Uri.EscapeDataString(System.Convert.ToString(filter3Column, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter3Operator != default)
-                    queryParams.Add($"filter3Operator={Uri.EscapeDataString(filter3Operator.ToString())}");
+                    queryParams.Add($"filter3Operator={Uri.EscapeDataString(System.Convert.ToString(filter3Operator, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter3Value != default)
-                    queryParams.Add($"filter3Value={Uri.EscapeDataString(filter3Value.ToString())}");
+                    queryParams.Add($"filter3Value={Uri.EscapeDataString(System.Convert.ToString(filter3Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter4Column != default)
-                    queryParams.Add($"filter4Column={Uri.EscapeDataString(filter4Column.ToString())}");
+                    queryParams.Add($"filter4Column={Uri.EscapeDataString(System.Convert.ToString(filter4Column, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter4Operator != default)
-                    queryParams.Add($"filter4Operator={Uri.EscapeDataString(filter4Operator.ToString())}");
+                    queryParams.Add($"filter4Operator={Uri.EscapeDataString(System.Convert.ToString(filter4Operator, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filter4Value != default)
-                    queryParams.Add($"filter4Value={Uri.EscapeDataString(filter4Value.ToString())}");
+                    queryParams.Add($"filter4Value={Uri.EscapeDataString(System.Convert.ToString(filter4Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getItemsV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DynamicGetGetItemsSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2382,7 +2382,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (workspaceId != default)
-                    queryParams.Add($"workspaceId={Uri.EscapeDataString(workspaceId.ToString())}");
+                    queryParams.Add($"workspaceId={Uri.EscapeDataString(System.Convert.ToString(workspaceId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getBoards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2411,7 +2411,7 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getGroupsForGetItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2440,7 +2440,7 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getColumnsForItemFiltering" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2470,9 +2470,9 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (columnId != default)
-                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
+                    queryParams.Add($"columnId={Uri.EscapeDataString(System.Convert.ToString(columnId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getData/getColumnFilterOperator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2500,7 +2500,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnNamesSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2529,9 +2529,9 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (columnId != default)
-                    queryParams.Add($"columnId={Uri.EscapeDataString(columnId.ToString())}");
+                    queryParams.Add($"columnId={Uri.EscapeDataString(System.Convert.ToString(columnId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getSingleColumnSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSingleColumnSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2559,7 +2559,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getColumnNamesForWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnNamesSchemaForWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2587,7 +2587,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getSchemaForGetItemsAction" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSchemaForGetItemsActionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2615,7 +2615,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getColumnNamesForUpdateWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnNamesSchemaForUpdateWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2644,7 +2644,7 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (parentBoardId is null)
                     throw new ArgumentNullException(nameof(parentBoardId));
-                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(System.Convert.ToString(parentBoardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getSubitemColumnNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSubitemColumnNamesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2673,7 +2673,7 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (parentBoardId is null)
                     throw new ArgumentNullException(nameof(parentBoardId));
-                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(System.Convert.ToString(parentBoardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getSubitemSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSubitemSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2701,7 +2701,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getColumnNamesForItemNameChangeWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnNamesSchemaForItemNameChangeWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2730,7 +2730,7 @@ namespace Azure.Connectors.Sdk.Monday
                 var queryParams = new List<string>();
                 if (parentBoardId is null)
                     throw new ArgumentNullException(nameof(parentBoardId));
-                queryParams.Add($"parentBoardId={Uri.EscapeDataString(parentBoardId.ToString())}");
+                queryParams.Add($"parentBoardId={Uri.EscapeDataString(System.Convert.ToString(parentBoardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getColumnNamesForSubitemNameChangeWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnNamesSchemaForSubitemNameChangeWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2758,7 +2758,7 @@ namespace Azure.Connectors.Sdk.Monday
             {
                 var queryParams = new List<string>();
                 if (boardId != default)
-                    queryParams.Add($"boardId={Uri.EscapeDataString(boardId.ToString())}");
+                    queryParams.Add($"boardId={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/getSchema/getColumnNamesForColumnChangesWebhook" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnNamesSchemaForColumnChangesWebhookResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

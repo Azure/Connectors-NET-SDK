@@ -629,16 +629,16 @@ namespace Azure.Connectors.Sdk.Zendesk
                     throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumGetCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(maximumGetCount.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(maximumGetCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -666,7 +666,7 @@ namespace Azure.Connectors.Sdk.Zendesk
             {
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -696,7 +696,7 @@ namespace Azure.Connectors.Sdk.Zendesk
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemKey is null)
                     throw new ArgumentNullException(nameof(itemKey));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemKey.ToString()))}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemKey, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -725,7 +725,7 @@ namespace Azure.Connectors.Sdk.Zendesk
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemKey is null)
                     throw new ArgumentNullException(nameof(itemKey));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemKey.ToString()))}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemKey, System.Globalization.CultureInfo.InvariantCulture)))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -756,7 +756,7 @@ namespace Azure.Connectors.Sdk.Zendesk
                     throw new ArgumentNullException(nameof(tableName));
                 if (itemKey is null)
                     throw new ArgumentNullException(nameof(itemKey));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemKey.ToString()))}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemKey, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -790,19 +790,19 @@ namespace Azure.Connectors.Sdk.Zendesk
                 var queryParams = new List<string>();
                 if (query is null)
                     throw new ArgumentNullException(nameof(query));
-                queryParams.Add($"query={Uri.EscapeDataString(query.ToString())}");
+                queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(query, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (locale != default)
-                    queryParams.Add($"locale={Uri.EscapeDataString(locale.ToString())}");
+                    queryParams.Add($"locale={Uri.EscapeDataString(System.Convert.ToString(locale, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (brandId.HasValue)
-                    queryParams.Add($"brand_id={Uri.EscapeDataString(brandId.Value.ToString())}");
+                    queryParams.Add($"brand_id={Uri.EscapeDataString(System.Convert.ToString(brandId.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (category.HasValue)
-                    queryParams.Add($"category={Uri.EscapeDataString(category.Value.ToString())}");
+                    queryParams.Add($"category={Uri.EscapeDataString(System.Convert.ToString(category.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (section.HasValue)
-                    queryParams.Add($"section={Uri.EscapeDataString(section.Value.ToString())}");
+                    queryParams.Add($"section={Uri.EscapeDataString(System.Convert.ToString(section.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (labelNames != default)
-                    queryParams.Add($"label_names={Uri.EscapeDataString(labelNames.ToString())}");
+                    queryParams.Add($"label_names={Uri.EscapeDataString(System.Convert.ToString(labelNames, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (multibrand.HasValue)
-                    queryParams.Add($"multibrand={Uri.EscapeDataString(multibrand.Value.ToString())}");
+                    queryParams.Add($"multibrand={Uri.EscapeDataString(System.Convert.ToString(multibrand.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/api/v2/help_center/articles/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SearchResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -830,7 +830,7 @@ namespace Azure.Connectors.Sdk.Zendesk
             {
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

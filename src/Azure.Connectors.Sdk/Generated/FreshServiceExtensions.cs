@@ -801,7 +801,7 @@ namespace Azure.Connectors.Sdk.FreshService
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.AddNoteAsync");
             try
             {
-                var path = $"/api/v2/tickets/{Uri.EscapeDataString(ticketId.ToString())}/notes";
+                var path = $"/api/v2/tickets/{Uri.EscapeDataString(System.Convert.ToString(ticketId, System.Globalization.CultureInfo.InvariantCulture))}/notes";
                 return await this
                     .CallConnectorAsync<AddNoteResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -852,7 +852,7 @@ namespace Azure.Connectors.Sdk.FreshService
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.UpdateTicketAsync");
             try
             {
-                var path = $"/api/v2/tickets/{Uri.EscapeDataString(ticketId.ToString())}";
+                var path = $"/api/v2/tickets/{Uri.EscapeDataString(System.Convert.ToString(ticketId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<CreateUpdateTicketResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

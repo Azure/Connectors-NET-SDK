@@ -7294,12 +7294,12 @@ namespace Azure.Connectors.Sdk.Impexium
                 var queryParams = new List<string>();
                 if (abandonedFrom is null)
                     throw new ArgumentNullException(nameof(abandonedFrom));
-                queryParams.Add($"abandonedFrom={Uri.EscapeDataString(abandonedFrom.ToString())}");
+                queryParams.Add($"abandonedFrom={Uri.EscapeDataString(System.Convert.ToString(abandonedFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (productCode != default)
-                    queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
+                    queryParams.Add($"productCode={Uri.EscapeDataString(System.Convert.ToString(productCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (customerRecordNumber != default)
-                    queryParams.Add($"customerRecordNumber={Uri.EscapeDataString(customerRecordNumber.ToString())}");
-                var path = $"/api/v1/Shopping/AbandonedCheckOuts/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"customerRecordNumber={Uri.EscapeDataString(System.Convert.ToString(customerRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Shopping/AbandonedCheckOuts/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAbandonedCheckoutsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7327,7 +7327,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (exhibitCode is null)
                     throw new ArgumentNullException(nameof(exhibitCode));
-                var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(exhibitCode.ToString())}/Exhibitors/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(System.Convert.ToString(exhibitCode, System.Globalization.CultureInfo.InvariantCulture))}/Exhibitors/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListAllExhibitorsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7360,18 +7360,18 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (code != default)
-                    queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
+                    queryParams.Add($"Code={Uri.EscapeDataString(System.Convert.ToString(code, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (categoryName != default)
-                    queryParams.Add($"categoryName={Uri.EscapeDataString(categoryName.ToString())}");
+                    queryParams.Add($"categoryName={Uri.EscapeDataString(System.Convert.ToString(categoryName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (isPublic.HasValue)
-                    queryParams.Add($"isPublic={Uri.EscapeDataString(isPublic.Value.ToString())}");
+                    queryParams.Add($"isPublic={Uri.EscapeDataString(System.Convert.ToString(isPublic.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (changedSince != default)
-                    queryParams.Add($"changedSince={Uri.EscapeDataString(changedSince.ToString())}");
+                    queryParams.Add($"changedSince={Uri.EscapeDataString(System.Convert.ToString(changedSince, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (tag != default)
-                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                    queryParams.Add($"Tag={Uri.EscapeDataString(System.Convert.ToString(tag, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includePrices.HasValue)
-                    queryParams.Add($"includePrices={Uri.EscapeDataString(includePrices.Value.ToString())}");
-                var path = $"/api/v1/Products/Exams/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includePrices={Uri.EscapeDataString(System.Convert.ToString(includePrices.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Products/Exams/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOfExamsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7404,12 +7404,12 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(eventCode));
                 var queryParams = new List<string>();
                 if (sessionCode != default)
-                    queryParams.Add($"sessionCode={Uri.EscapeDataString(sessionCode.ToString())}");
+                    queryParams.Add($"sessionCode={Uri.EscapeDataString(System.Convert.ToString(sessionCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeDetails.HasValue)
-                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(System.Convert.ToString(includeDetails.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (registeredSince != default)
-                    queryParams.Add($"registeredSince={Uri.EscapeDataString(registeredSince.ToString())}");
-                var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"registeredSince={Uri.EscapeDataString(System.Convert.ToString(registeredSince, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Events/{Uri.EscapeDataString(System.Convert.ToString(eventCode, System.Globalization.CultureInfo.InvariantCulture))}/Registrations/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListRegistrantsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7437,7 +7437,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (courseCode is null)
                     throw new ArgumentNullException(nameof(courseCode));
-                var path = $"/api/v1/Courses/{Uri.EscapeDataString(courseCode.ToString())}/Attendees/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Courses/{Uri.EscapeDataString(System.Convert.ToString(courseCode, System.Globalization.CultureInfo.InvariantCulture))}/Attendees/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetCourseAttendeesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7465,7 +7465,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (examCode is null)
                     throw new ArgumentNullException(nameof(examCode));
-                var path = $"/api/v1/Exams/{Uri.EscapeDataString(examCode.ToString())}/Scores";
+                var path = $"/api/v1/Exams/{Uri.EscapeDataString(System.Convert.ToString(examCode, System.Globalization.CultureInfo.InvariantCulture))}/Scores";
                 return await this
                     .CallConnectorAsync<List<ExamScoreResultData>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7493,7 +7493,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (name is null)
                     throw new ArgumentNullException(nameof(name));
-                var path = $"/api/v1/Customers/Members/FindByName/{Uri.EscapeDataString(name.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Customers/Members/FindByName/{Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<FindMembersByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7526,12 +7526,12 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
                 var queryParams = new List<string>();
                 if (productCode != default)
-                    queryParams.Add($"productCode={Uri.EscapeDataString(productCode.ToString())}");
+                    queryParams.Add($"productCode={Uri.EscapeDataString(System.Convert.ToString(productCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (purchasedSince != default)
-                    queryParams.Add($"purchasedSince={Uri.EscapeDataString(purchasedSince.ToString())}");
+                    queryParams.Add($"purchasedSince={Uri.EscapeDataString(System.Convert.ToString(purchasedSince, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (productCategoryCode != default)
-                    queryParams.Add($"productCategoryCode={Uri.EscapeDataString(productCategoryCode.ToString())}");
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Purchases/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"productCategoryCode={Uri.EscapeDataString(System.Convert.ToString(productCategoryCode, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Purchases/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetPurchasesForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7559,7 +7559,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/CustomFieldsList";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/CustomFieldsList";
                 return await this
                     .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7586,7 +7586,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (committeeCode is null)
                     throw new ArgumentNullException(nameof(committeeCode));
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Nominations";
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(committeeCode, System.Globalization.CultureInfo.InvariantCulture))}/Nominations";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7613,7 +7613,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/CustomFields";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/CustomFields";
                 return await this
                     .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7640,7 +7640,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (customerId is null)
                     throw new ArgumentNullException(nameof(customerId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(customerId.ToString())}/CustomFields";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(customerId, System.Globalization.CultureInfo.InvariantCulture))}/CustomFields";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7672,10 +7672,10 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(eventCode));
                 var queryParams = new List<string>();
                 if (includeDetails.HasValue)
-                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(System.Convert.ToString(includeDetails.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (cancelledSince != default)
-                    queryParams.Add($"cancelledSince={Uri.EscapeDataString(cancelledSince.ToString())}");
-                var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Cancellations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"cancelledSince={Uri.EscapeDataString(System.Convert.ToString(cancelledSince, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Events/{Uri.EscapeDataString(System.Convert.ToString(eventCode, System.Globalization.CultureInfo.InvariantCulture))}/Cancellations/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListAllEventCancellationsByEventResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7708,12 +7708,12 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
                 var queryParams = new List<string>();
                 if (includeLineItems.HasValue)
-                    queryParams.Add($"includeLineItems={Uri.EscapeDataString(includeLineItems.Value.ToString())}");
+                    queryParams.Add($"includeLineItems={Uri.EscapeDataString(System.Convert.ToString(includeLineItems.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fromDate != default)
-                    queryParams.Add($"fromDate={Uri.EscapeDataString(fromDate.ToString())}");
+                    queryParams.Add($"fromDate={Uri.EscapeDataString(System.Convert.ToString(fromDate, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toDate != default)
-                    queryParams.Add($"toDate={Uri.EscapeDataString(toDate.ToString())}");
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Orders/Open/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"toDate={Uri.EscapeDataString(System.Convert.ToString(toDate, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Orders/Open/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllOpenOrdersForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7741,7 +7741,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (userIdOrEmail is null)
                     throw new ArgumentNullException(nameof(userIdOrEmail));
-                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Completed/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(System.Convert.ToString(userIdOrEmail, System.Globalization.CultureInfo.InvariantCulture))}/Completed/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListCompletedUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7769,7 +7769,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (userIdOrEmail is null)
                     throw new ArgumentNullException(nameof(userIdOrEmail));
-                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Pending/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(System.Convert.ToString(userIdOrEmail, System.Globalization.CultureInfo.InvariantCulture))}/Pending/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListPendingUserTasksByUserIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7796,7 +7796,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Notes";
+                var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}/Notes";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7823,7 +7823,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(id.ToString())}/Activities";
+                var path = $"/api/v1/Sales/Opportunities/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}/Activities";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7851,7 +7851,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (taskNumber is null)
                     throw new ArgumentNullException(nameof(taskNumber));
-                var path = $"/api/v1/tasks/{Uri.EscapeDataString(taskNumber.ToString())}";
+                var path = $"/api/v1/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TaskData>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7876,7 +7876,7 @@ namespace Azure.Connectors.Sdk.Impexium
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllCountriesAsync");
             try
             {
-                var path = $"/api/v1/Countries/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Countries/All/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListAllCountriesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7904,7 +7904,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (countryId is null)
                     throw new ArgumentNullException(nameof(countryId));
-                var path = $"/api/v1/Countries/{Uri.EscapeDataString(countryId.ToString())}/States/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Countries/{Uri.EscapeDataString(System.Convert.ToString(countryId, System.Globalization.CultureInfo.InvariantCulture))}/States/All/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetAllStatesByCountryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7929,7 +7929,7 @@ namespace Azure.Connectors.Sdk.Impexium
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllExhibitsAsync");
             try
             {
-                var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Exhibits/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListAllExhibitsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7958,7 +7958,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(recordNumber));
                 if (categoryCode is null)
                     throw new ArgumentNullException(nameof(categoryCode));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(recordNumber.ToString())}/Categories/{Uri.EscapeDataString(categoryCode.ToString())}";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(recordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Categories/{Uri.EscapeDataString(System.Convert.ToString(categoryCode, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8034,7 +8034,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (recordNumber is null)
                     throw new ArgumentNullException(nameof(recordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(recordNumber.ToString())}/Categories";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(recordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Categories";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8059,7 +8059,7 @@ namespace Azure.Connectors.Sdk.Impexium
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfCustomerRelationshipsAsync");
             try
             {
-                var path = $"/api/v1/Customers/RelationshipTypes/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Customers/RelationshipTypes/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListOfCustomerRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8084,7 +8084,7 @@ namespace Azure.Connectors.Sdk.Impexium
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListAllOpenCustomerRequestAsync");
             try
             {
-                var path = $"/api/v1/Requests/Open/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Requests/Open/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListAllOpenCustomerRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8111,7 +8111,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Inactive";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Memberships/Inactive";
                 return await this
                     .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8140,7 +8140,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(tableName));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/api/v1/CustomData/{Uri.EscapeDataString(tableName.ToString())}/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/api/v1/CustomData/{Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8168,7 +8168,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (userIdOrEmail is null)
                     throw new ArgumentNullException(nameof(userIdOrEmail));
-                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}";
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(System.Convert.ToString(userIdOrEmail, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UserTaskData>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8199,8 +8199,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(firstName));
                 var queryParams = new List<string>();
                 if (includeEmail.HasValue)
-                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
-                var path = $"/api/v1/Individuals/Members/FindByFirstName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(System.Convert.ToString(includeEmail.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/Members/FindByFirstName/{Uri.EscapeDataString(System.Convert.ToString(firstName, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8231,8 +8231,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(lastName));
                 var queryParams = new List<string>();
                 if (includeEmail.HasValue)
-                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
-                var path = $"/api/v1/Individuals/Members/FindByLastName/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(System.Convert.ToString(includeEmail.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/Members/FindByLastName/{Uri.EscapeDataString(System.Convert.ToString(lastName, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IndividualData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8259,7 +8259,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (userIdOrEmail is null)
                     throw new ArgumentNullException(nameof(userIdOrEmail));
-                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(userIdOrEmail.ToString())}/Task";
+                var path = $"/api/v1/tasks/Users/{Uri.EscapeDataString(System.Convert.ToString(userIdOrEmail, System.Globalization.CultureInfo.InvariantCulture))}/Task";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8288,7 +8288,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(recordNumber));
                 if (categoryCode is null)
                     throw new ArgumentNullException(nameof(categoryCode));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(recordNumber.ToString())}/Categories/{Uri.EscapeDataString(categoryCode.ToString())}";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(recordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Categories/{Uri.EscapeDataString(System.Convert.ToString(categoryCode, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8315,7 +8315,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notifications";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Notifications";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8342,7 +8342,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualRecordNumber.ToString())}/Categories";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Categories";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8413,44 +8413,44 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (zipCode != default)
-                    queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
+                    queryParams.Add($"zipCode={Uri.EscapeDataString(System.Convert.ToString(zipCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (radius.HasValue)
-                    queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
+                    queryParams.Add($"Radius={Uri.EscapeDataString(System.Convert.ToString(radius.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (stateAbbreviation != default)
-                    queryParams.Add($"stateAbbreviation={Uri.EscapeDataString(stateAbbreviation.ToString())}");
+                    queryParams.Add($"stateAbbreviation={Uri.EscapeDataString(System.Convert.ToString(stateAbbreviation, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (congressionalDistrict.HasValue)
-                    queryParams.Add($"congressionalDistrict={Uri.EscapeDataString(congressionalDistrict.Value.ToString())}");
+                    queryParams.Add($"congressionalDistrict={Uri.EscapeDataString(System.Convert.ToString(congressionalDistrict.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (membershipTypeCode != default)
-                    queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
+                    queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(System.Convert.ToString(membershipTypeCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (membershipTypeCategory != default)
-                    queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
+                    queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(System.Convert.ToString(membershipTypeCategory, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (city != default)
-                    queryParams.Add($"City={Uri.EscapeDataString(city.ToString())}");
+                    queryParams.Add($"City={Uri.EscapeDataString(System.Convert.ToString(city, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (name != default)
-                    queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
+                    queryParams.Add($"Name={Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (tag != default)
-                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                    queryParams.Add($"Tag={Uri.EscapeDataString(System.Convert.ToString(tag, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (latitude.HasValue)
-                    queryParams.Add($"Latitude={Uri.EscapeDataString(latitude.Value.ToString())}");
+                    queryParams.Add($"Latitude={Uri.EscapeDataString(System.Convert.ToString(latitude.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (longitude.HasValue)
-                    queryParams.Add($"Longitude={Uri.EscapeDataString(longitude.Value.ToString())}");
+                    queryParams.Add($"Longitude={Uri.EscapeDataString(System.Convert.ToString(longitude.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (domain != default)
-                    queryParams.Add($"Domain={Uri.EscapeDataString(domain.ToString())}");
+                    queryParams.Add($"Domain={Uri.EscapeDataString(System.Convert.ToString(domain, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeMembership.HasValue)
-                    queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
+                    queryParams.Add($"includeMembership={Uri.EscapeDataString(System.Convert.ToString(includeMembership.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeAddress.HasValue)
-                    queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
+                    queryParams.Add($"includeAddress={Uri.EscapeDataString(System.Convert.ToString(includeAddress.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includePhone.HasValue)
-                    queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
+                    queryParams.Add($"includePhone={Uri.EscapeDataString(System.Convert.ToString(includePhone.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeEmail.HasValue)
-                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(System.Convert.ToString(includeEmail.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeCustomFields.HasValue)
-                    queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
+                    queryParams.Add($"includeCustomFields={Uri.EscapeDataString(System.Convert.ToString(includeCustomFields.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (expireDateFrom != default)
-                    queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
+                    queryParams.Add($"expiringFrom={Uri.EscapeDataString(System.Convert.ToString(expireDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (expireDateTo != default)
-                    queryParams.Add($"expiringTo={Uri.EscapeDataString(expireDateTo.ToString())}");
-                var path = $"/api/v1/Organizations/Members/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"expiringTo={Uri.EscapeDataString(System.Convert.ToString(expireDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Organizations/Members/All/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOfAllOrganizationMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8492,36 +8492,36 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (zipCode != default)
-                    queryParams.Add($"zipCode={Uri.EscapeDataString(zipCode.ToString())}");
+                    queryParams.Add($"zipCode={Uri.EscapeDataString(System.Convert.ToString(zipCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (radius.HasValue)
-                    queryParams.Add($"Radius={Uri.EscapeDataString(radius.Value.ToString())}");
+                    queryParams.Add($"Radius={Uri.EscapeDataString(System.Convert.ToString(radius.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (membershipTypeCode != default)
-                    queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(membershipTypeCode.ToString())}");
+                    queryParams.Add($"membershipTypeCode={Uri.EscapeDataString(System.Convert.ToString(membershipTypeCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (membershipTypeCategory != default)
-                    queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(membershipTypeCategory.ToString())}");
+                    queryParams.Add($"membershipTypeCategory={Uri.EscapeDataString(System.Convert.ToString(membershipTypeCategory, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (tag != default)
-                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
+                    queryParams.Add($"Tag={Uri.EscapeDataString(System.Convert.ToString(tag, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeMembership.HasValue)
-                    queryParams.Add($"includeMembership={Uri.EscapeDataString(includeMembership.Value.ToString())}");
+                    queryParams.Add($"includeMembership={Uri.EscapeDataString(System.Convert.ToString(includeMembership.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeAddress.HasValue)
-                    queryParams.Add($"includeAddress={Uri.EscapeDataString(includeAddress.Value.ToString())}");
+                    queryParams.Add($"includeAddress={Uri.EscapeDataString(System.Convert.ToString(includeAddress.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includePhone.HasValue)
-                    queryParams.Add($"includePhone={Uri.EscapeDataString(includePhone.Value.ToString())}");
+                    queryParams.Add($"includePhone={Uri.EscapeDataString(System.Convert.ToString(includePhone.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeEmail.HasValue)
-                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmail.Value.ToString())}");
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(System.Convert.ToString(includeEmail.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeLink.HasValue)
-                    queryParams.Add($"includeLink={Uri.EscapeDataString(includeLink.Value.ToString())}");
+                    queryParams.Add($"includeLink={Uri.EscapeDataString(System.Convert.ToString(includeLink.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeCustomFields.HasValue)
-                    queryParams.Add($"includeCustomFields={Uri.EscapeDataString(includeCustomFields.Value.ToString())}");
+                    queryParams.Add($"includeCustomFields={Uri.EscapeDataString(System.Convert.ToString(includeCustomFields.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeCategories.HasValue)
-                    queryParams.Add($"includeCategories={Uri.EscapeDataString(includeCategories.Value.ToString())}");
+                    queryParams.Add($"includeCategories={Uri.EscapeDataString(System.Convert.ToString(includeCategories.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeMembershipRenewalURLs.HasValue)
-                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(includeMembershipRenewalURLs.Value.ToString())}");
+                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(System.Convert.ToString(includeMembershipRenewalURLs.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (expireDateFrom != default)
-                    queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom.ToString())}");
+                    queryParams.Add($"expiringFrom={Uri.EscapeDataString(System.Convert.ToString(expireDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (expireDateTo != default)
-                    queryParams.Add($"expiringTo={Uri.EscapeDataString(expireDateTo.ToString())}");
-                var path = $"/api/v1/Individuals/Members/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"expiringTo={Uri.EscapeDataString(System.Convert.ToString(expireDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/Members/All/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOfAllIndividualMembersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8549,7 +8549,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Certifications/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetListOfActiveCertificationsForAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8577,7 +8577,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Certifications/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Certifications/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetListOfActiveCertificationsForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8604,7 +8604,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Inactive";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Memberships/Inactive";
                 return await this
                     .CallConnectorAsync<MembershipData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8631,7 +8631,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Activities";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Activities";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8664,8 +8664,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(customerIdOrRecordNumber));
                 var queryParams = new List<string>();
                 if (registrationNumber != default)
-                    queryParams.Add($"registrationNumber={Uri.EscapeDataString(registrationNumber.ToString())}");
-                var path = $"/api/v1/Events/{Uri.EscapeDataString(eventCode.ToString())}/Sessions/Register/{Uri.EscapeDataString(customerIdOrRecordNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"registrationNumber={Uri.EscapeDataString(System.Convert.ToString(registrationNumber, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Events/{Uri.EscapeDataString(System.Convert.ToString(eventCode, System.Globalization.CultureInfo.InvariantCulture))}/Sessions/Register/{Uri.EscapeDataString(System.Convert.ToString(customerIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8693,7 +8693,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Licenses/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Licenses/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetAListOfLicensesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8721,8 +8721,8 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (year.HasValue)
-                    queryParams.Add($"Year={Uri.EscapeDataString(year.Value.ToString())}");
-                var path = $"/api/v1/Awards/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"Year={Uri.EscapeDataString(System.Convert.ToString(year.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListAllAwardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8753,8 +8753,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualName));
                 var queryParams = new List<string>();
                 if (includeEmailData.HasValue)
-                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
-                var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(individualName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(System.Convert.ToString(includeEmailData.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(System.Convert.ToString(individualName, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FindMembersOrIndividualsByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8781,7 +8781,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Services";
                 return await this
                     .CallConnectorAsync<GetAListOfAllServicesOfAnOrganizationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8809,7 +8809,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Services";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Services";
                 return await this
                     .CallConnectorAsync<ServiceData>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8840,7 +8840,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
                 if (phoneId is null)
                     throw new ArgumentNullException(nameof(phoneId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Phones/{Uri.EscapeDataString(System.Convert.ToString(phoneId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8871,7 +8871,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
                 if (phoneId is null)
                     throw new ArgumentNullException(nameof(phoneId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones/{Uri.EscapeDataString(phoneId.ToString())}";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Phones/{Uri.EscapeDataString(System.Convert.ToString(phoneId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PhoneDataSet>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8898,7 +8898,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Links";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Links";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8925,7 +8925,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (idOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(idOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(idOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Links";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8953,7 +8953,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Phones";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Phones";
                 return await this
                     .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8984,8 +8984,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(committeeCode));
                 var queryParams = new List<string>();
                 if (term != default)
-                    queryParams.Add($"Term={Uri.EscapeDataString(term.ToString())}");
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Nominations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"Term={Uri.EscapeDataString(System.Convert.ToString(term, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(committeeCode, System.Globalization.CultureInfo.InvariantCulture))}/Nominations/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetNomineesByCommitteeResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9013,7 +9013,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Subscriptions/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Subscriptions/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetOrganizationsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9040,7 +9040,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (idOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(idOrRecordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(idOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Links";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9067,7 +9067,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (idOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(idOrRecordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/Links";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(idOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Links";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9094,7 +9094,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Emails";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Emails";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9126,10 +9126,10 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(organizationId));
                 var queryParams = new List<string>();
                 if (relationshipName != default)
-                    queryParams.Add($"relationshipName.={Uri.EscapeDataString(relationshipName.ToString())}");
+                    queryParams.Add($"relationshipName.={Uri.EscapeDataString(System.Convert.ToString(relationshipName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includesDetails.HasValue)
-                    queryParams.Add($"includesDetails={Uri.EscapeDataString(includesDetails.Value.ToString())}");
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includesDetails={Uri.EscapeDataString(System.Convert.ToString(includesDetails.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Relationships/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetOrganizationsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9157,7 +9157,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(organizationIdOrRecordNumber));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationIdOrRecordNumber.ToString())}/Addresses";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Addresses";
                 return await this
                     .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9185,7 +9185,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/CustomFieldsList";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/CustomFieldsList";
                 return await this
                     .CallConnectorAsync<List<CustomFieldResultData>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9210,7 +9210,7 @@ namespace Azure.Connectors.Sdk.Impexium
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.GetUpcomingEventsAsync");
             try
             {
-                var path = $"/api/v1/Events/Upcoming/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Events/Upcoming/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetUpcomingEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9238,7 +9238,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Phones";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Phones";
                 return await this
                     .CallConnectorAsync<PhoneDataSet>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9269,8 +9269,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualId));
                 var queryParams = new List<string>();
                 if (includeInactive.HasValue)
-                    queryParams.Add($"includeInactive={Uri.EscapeDataString(includeInactive.Value.ToString())}");
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeInactive={Uri.EscapeDataString(System.Convert.ToString(includeInactive.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Committees/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetCommitteeInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9297,7 +9297,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/CustomFields";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/CustomFields";
                 return await this
                     .CallConnectorAsync<List<CustomFieldData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9324,7 +9324,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Memberships/Active";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Memberships/Active";
                 return await this
                     .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9354,12 +9354,12 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (code != default)
-                    queryParams.Add($"Code={Uri.EscapeDataString(code.ToString())}");
+                    queryParams.Add($"Code={Uri.EscapeDataString(System.Convert.ToString(code, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (name != default)
-                    queryParams.Add($"Name={Uri.EscapeDataString(name.ToString())}");
+                    queryParams.Add($"Name={Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (tag != default)
-                    queryParams.Add($"Tag={Uri.EscapeDataString(tag.ToString())}");
-                var path = $"/api/v1/Events/All/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"Tag={Uri.EscapeDataString(System.Convert.ToString(tag, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Events/All/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9386,7 +9386,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Memberships/Active";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Memberships/Active";
                 return await this
                     .CallConnectorAsync<List<MembershipData>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9417,8 +9417,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
                 var queryParams = new List<string>();
                 if (eventCode != default)
-                    queryParams.Add($"eventCode={Uri.EscapeDataString(eventCode.ToString())}");
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Registrations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"eventCode={Uri.EscapeDataString(System.Convert.ToString(eventCode, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Registrations/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllEventRegistrationsInformationForAnIndividualResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9450,10 +9450,10 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualId));
                 var queryParams = new List<string>();
                 if (relationshipName != default)
-                    queryParams.Add($"relationshipName={Uri.EscapeDataString(relationshipName.ToString())}");
+                    queryParams.Add($"relationshipName={Uri.EscapeDataString(System.Convert.ToString(relationshipName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeDetails.HasValue)
-                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(System.Convert.ToString(includeDetails.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Relationships/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetIndividualsRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9483,7 +9483,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
                 if (currentEmailAddress is null)
                     throw new ArgumentNullException(nameof(currentEmailAddress));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails/{Uri.EscapeDataString(currentEmailAddress.ToString())}";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Emails/{Uri.EscapeDataString(System.Convert.ToString(currentEmailAddress, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9510,7 +9510,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Relationships";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Relationships";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9538,7 +9538,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (createUser.HasValue)
-                    queryParams.Add($"createUser={Uri.EscapeDataString(createUser.Value.ToString())}");
+                    queryParams.Add($"createUser={Uri.EscapeDataString(System.Convert.ToString(createUser.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/api/v1/Individuals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IndividualData>(HttpMethod.Post, path, input, cancellationToken)
@@ -9567,7 +9567,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Emails";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Emails";
                 return await this
                     .CallConnectorAsync<EmailData>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9595,7 +9595,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualIdOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(individualIdOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualIdOrRecordNumber.ToString())}/Addresses";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualIdOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Addresses";
                 return await this
                     .CallConnectorAsync<AddressSaveData>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9629,8 +9629,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(lastName));
                 var queryParams = new List<string>();
                 if (includeEmailData.HasValue)
-                    queryParams.Add($"includeEmail={Uri.EscapeDataString(includeEmailData.Value.ToString())}");
-                var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(firstName.ToString())}/{Uri.EscapeDataString(lastName.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeEmail={Uri.EscapeDataString(System.Convert.ToString(includeEmailData.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/Members/FindByName/{Uri.EscapeDataString(System.Convert.ToString(firstName, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(lastName, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FindMembersOrIndividualsByFirstAndLastNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9661,10 +9661,10 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(committeeIdOrCode));
                 var queryParams = new List<string>();
                 if (term.HasValue)
-                    queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
+                    queryParams.Add($"Term={Uri.EscapeDataString(System.Convert.ToString(term.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (positionCodes != default)
-                    queryParams.Add($"positionCodes={Uri.EscapeDataString(positionCodes.ToString())}");
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeIdOrCode.ToString())}/Members/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"positionCodes={Uri.EscapeDataString(System.Convert.ToString(positionCodes, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(committeeIdOrCode, System.Globalization.CultureInfo.InvariantCulture))}/Members/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9691,7 +9691,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Activities";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Activities";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9721,7 +9721,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(idOrRecordNumberOrEmail));
                 var queryParams = new List<string>();
                 queryParams.Add("IncludeDetails=true");
-                var path = $"/api/v1/Individuals/Profile/{Uri.EscapeDataString(idOrRecordNumberOrEmail.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/api/v1/Individuals/Profile/{Uri.EscapeDataString(System.Convert.ToString(idOrRecordNumberOrEmail, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FindIndividualIdOrEmailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9748,7 +9748,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Relationships";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Relationships";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9775,7 +9775,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (idOrRecordNumber is null)
                     throw new ArgumentNullException(nameof(idOrRecordNumber));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/EducationCredits";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(idOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/EducationCredits";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9802,7 +9802,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Notes";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Notes";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9832,8 +9832,8 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add("includeOrgAddresses=true");
                 if (lookupValue is null)
                     throw new ArgumentNullException(nameof(lookupValue));
-                queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
-                var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(lookupValue, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/Lookup/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IndividualsLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9861,7 +9861,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (committeeCode is null)
                     throw new ArgumentNullException(nameof(committeeCode));
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Members";
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(committeeCode, System.Globalization.CultureInfo.InvariantCulture))}/Members";
                 return await this
                     .CallConnectorAsync<AddToCommitteeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9894,7 +9894,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(memberRecordNumber));
                 if (currentPositionCode is null)
                     throw new ArgumentNullException(nameof(currentPositionCode));
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Members/{Uri.EscapeDataString(memberRecordNumber.ToString())}/{Uri.EscapeDataString(currentPositionCode.ToString())}";
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(committeeCode, System.Globalization.CultureInfo.InvariantCulture))}/Members/{Uri.EscapeDataString(System.Convert.ToString(memberRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(currentPositionCode, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9947,7 +9947,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<OrganizationData>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9977,7 +9977,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(idOrRecordNumber));
                 var queryParams = new List<string>();
                 queryParams.Add("includeDescription=true");
-                var path = $"/api/v1/Organizations/Profile/{Uri.EscapeDataString(idOrRecordNumber.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/api/v1/Organizations/Profile/{Uri.EscapeDataString(System.Convert.ToString(idOrRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<OrganizationData>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10004,7 +10004,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (organizationId is null)
                     throw new ArgumentNullException(nameof(organizationId));
-                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(organizationId.ToString())}/Notes";
+                var path = $"/api/v1/Organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}/Notes";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10034,8 +10034,8 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add("includeAddresses=true");
                 if (lookupValue is null)
                     throw new ArgumentNullException(nameof(lookupValue));
-                queryParams.Add($"name={Uri.EscapeDataString(lookupValue.ToString())}");
-                var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(lookupValue, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Organizations/Lookup/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<OrganizationLookupByNameResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10066,14 +10066,14 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (committeeCode != default)
-                    queryParams.Add($"Code={Uri.EscapeDataString(committeeCode.ToString())}");
+                    queryParams.Add($"Code={Uri.EscapeDataString(System.Convert.ToString(committeeCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (committeeName != default)
-                    queryParams.Add($"Name={Uri.EscapeDataString(committeeName.ToString())}");
+                    queryParams.Add($"Name={Uri.EscapeDataString(System.Convert.ToString(committeeName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (term.HasValue)
-                    queryParams.Add($"Term={Uri.EscapeDataString(term.Value.ToString())}");
+                    queryParams.Add($"Term={Uri.EscapeDataString(System.Convert.ToString(term.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (activeOnly.HasValue)
-                    queryParams.Add($"activeOnly={Uri.EscapeDataString(activeOnly.Value.ToString())}");
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"activeOnly={Uri.EscapeDataString(System.Convert.ToString(activeOnly.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10100,7 +10100,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (committeeCode is null)
                     throw new ArgumentNullException(nameof(committeeCode));
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(committeeCode.ToString())}/Positions";
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(committeeCode, System.Globalization.CultureInfo.InvariantCulture))}/Positions";
                 return await this
                     .CallConnectorAsync<GetPositionsByCommitteeResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10128,7 +10128,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (code is null)
                     throw new ArgumentNullException(nameof(code));
-                var path = $"/api/v1/Committees/{Uri.EscapeDataString(code.ToString())}/subcommittees/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Committees/{Uri.EscapeDataString(System.Convert.ToString(code, System.Globalization.CultureInfo.InvariantCulture))}/subcommittees/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetSubCommitteesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10156,7 +10156,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (individualId is null)
                     throw new ArgumentNullException(nameof(individualId));
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(individualId.ToString())}/Subscriptions/All/{Uri.EscapeDataString(pageNumber.ToString())}";
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(individualId, System.Globalization.CultureInfo.InvariantCulture))}/Subscriptions/All/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetIndividualsActiveSubscriptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10186,12 +10186,12 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 var queryParams = new List<string>();
                 if (individualName != default)
-                    queryParams.Add($"Name={Uri.EscapeDataString(individualName.ToString())}");
+                    queryParams.Add($"Name={Uri.EscapeDataString(System.Convert.ToString(individualName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeDetails.HasValue)
-                    queryParams.Add($"includeDetails={Uri.EscapeDataString(includeDetails.Value.ToString())}");
+                    queryParams.Add($"includeDetails={Uri.EscapeDataString(System.Convert.ToString(includeDetails.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (individualOldId != default)
-                    queryParams.Add($"oldID={Uri.EscapeDataString(individualOldId.ToString())}");
-                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"oldID={Uri.EscapeDataString(System.Convert.ToString(individualOldId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Individuals/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListAllIndividualsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10225,8 +10225,8 @@ namespace Azure.Connectors.Sdk.Impexium
                 queryParams.Add("includeEmail=true");
                 if (phoneNumber is null)
                     throw new ArgumentNullException(nameof(phoneNumber));
-                queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
-                var path = $"/api/v1/Customers/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"phoneNumber={Uri.EscapeDataString(System.Convert.ToString(phoneNumber, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/api/v1/Customers/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FindCustomerPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10253,7 +10253,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (recordNumber is null)
                     throw new ArgumentNullException(nameof(recordNumber));
-                var path = $"/api/v1/Events/Registrants/{Uri.EscapeDataString(recordNumber.ToString())}/Attended";
+                var path = $"/api/v1/Events/Registrants/{Uri.EscapeDataString(System.Convert.ToString(recordNumber, System.Globalization.CultureInfo.InvariantCulture))}/Attended";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10280,7 +10280,7 @@ namespace Azure.Connectors.Sdk.Impexium
             {
                 if (awardId is null)
                     throw new ArgumentNullException(nameof(awardId));
-                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Nominations";
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(System.Convert.ToString(awardId, System.Globalization.CultureInfo.InvariantCulture))}/Nominations";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10310,7 +10310,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(awardId));
                 if (nomineeRecordNumber is null)
                     throw new ArgumentNullException(nameof(nomineeRecordNumber));
-                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Nominations/{Uri.EscapeDataString(nomineeRecordNumber.ToString())}";
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(System.Convert.ToString(awardId, System.Globalization.CultureInfo.InvariantCulture))}/Nominations/{Uri.EscapeDataString(System.Convert.ToString(nomineeRecordNumber, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10340,7 +10340,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(awardId));
                 var queryParams = new List<string>();
                 queryParams.Add("includeDetails=true");
-                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Individuals/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(System.Convert.ToString(awardId, System.Globalization.CultureInfo.InvariantCulture))}/Recipients/Individuals/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AwardsGetIndividualAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -10370,7 +10370,7 @@ namespace Azure.Connectors.Sdk.Impexium
                     throw new ArgumentNullException(nameof(awardId));
                 var queryParams = new List<string>();
                 queryParams.Add("includeDetails=true");
-                var path = $"/api/v1/Awards/{Uri.EscapeDataString(awardId.ToString())}/Recipients/Organizations/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/api/v1/Awards/{Uri.EscapeDataString(System.Convert.ToString(awardId, System.Globalization.CultureInfo.InvariantCulture))}/Recipients/Organizations/{Uri.EscapeDataString(System.Convert.ToString(pageNumber, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AwardsGetOrganizationAwardRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

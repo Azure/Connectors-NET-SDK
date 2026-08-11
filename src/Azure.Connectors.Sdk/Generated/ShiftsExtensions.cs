@@ -2137,7 +2137,7 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 if (team is null)
                     throw new ArgumentNullException(nameof(team));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule";
                 return await this
                     .CallConnectorAsync<ScheduleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2169,12 +2169,12 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                    queryParams.Add($"startTime={Uri.EscapeDataString(System.Convert.ToString(fromStartTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                    queryParams.Add($"endTime={Uri.EscapeDataString(System.Convert.ToString(toEndTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timesoff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListTimesOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2202,7 +2202,7 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 if (team is null)
                     throw new ArgumentNullException(nameof(team));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timesoff";
                 return await this
                     .CallConnectorAsync<TimeOffResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2232,7 +2232,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (timeOffId is null)
                     throw new ArgumentNullException(nameof(timeOffId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timesoff/{Uri.EscapeDataString(System.Convert.ToString(timeOffId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TimeOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2261,7 +2261,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (timeOffId is null)
                     throw new ArgumentNullException(nameof(timeOffId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timesoff/{Uri.EscapeDataString(timeOffId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timesoff/{Uri.EscapeDataString(System.Convert.ToString(timeOffId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2293,12 +2293,12 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                    queryParams.Add($"startTime={Uri.EscapeDataString(System.Convert.ToString(fromStartTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                    queryParams.Add($"endTime={Uri.EscapeDataString(System.Convert.ToString(toEndTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/shifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2326,7 +2326,7 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 if (team is null)
                     throw new ArgumentNullException(nameof(team));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/shifts";
                 return await this
                     .CallConnectorAsync<ShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2356,7 +2356,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (shiftId is null)
                     throw new ArgumentNullException(nameof(shiftId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/shifts/{Uri.EscapeDataString(System.Convert.ToString(shiftId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2385,7 +2385,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (shiftId is null)
                     throw new ArgumentNullException(nameof(shiftId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/shifts/{Uri.EscapeDataString(shiftId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/shifts/{Uri.EscapeDataString(System.Convert.ToString(shiftId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2417,12 +2417,12 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                    queryParams.Add($"startTime={Uri.EscapeDataString(System.Convert.ToString(fromStartTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                    queryParams.Add($"endTime={Uri.EscapeDataString(System.Convert.ToString(toEndTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOpenShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2450,7 +2450,7 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 if (team is null)
                     throw new ArgumentNullException(nameof(team));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShifts";
                 return await this
                     .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2480,7 +2480,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (openShiftId is null)
                     throw new ArgumentNullException(nameof(openShiftId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShifts/{Uri.EscapeDataString(System.Convert.ToString(openShiftId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2511,7 +2511,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (openShiftId is null)
                     throw new ArgumentNullException(nameof(openShiftId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShifts/{Uri.EscapeDataString(System.Convert.ToString(openShiftId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<OpenShiftResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2540,7 +2540,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (openShiftId is null)
                     throw new ArgumentNullException(nameof(openShiftId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShifts/{Uri.EscapeDataString(openShiftId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShifts/{Uri.EscapeDataString(System.Convert.ToString(openShiftId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2570,8 +2570,8 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffReasons" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timeOffReasons" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTimeOffReasonsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2601,8 +2601,8 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/schedulinggroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListSchedulingGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2632,7 +2632,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (schedulingGroupId is null)
                     throw new ArgumentNullException(nameof(schedulingGroupId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/schedulinggroups/{Uri.EscapeDataString(schedulingGroupId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/schedulinggroups/{Uri.EscapeDataString(System.Convert.ToString(schedulingGroupId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<SchedulingGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2663,10 +2663,10 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"state={Uri.EscapeDataString(System.Convert.ToString(requestState, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timeOffRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListTimeOffRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2696,7 +2696,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (timeOffRequestId is null)
                     throw new ArgumentNullException(nameof(timeOffRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timeOffRequests/{Uri.EscapeDataString(System.Convert.ToString(timeOffRequestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TimeOffRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2727,7 +2727,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (timeOffRequestId is null)
                     throw new ArgumentNullException(nameof(timeOffRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/approve";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timeOffRequests/{Uri.EscapeDataString(System.Convert.ToString(timeOffRequestId, System.Globalization.CultureInfo.InvariantCulture))}/approve";
                 return await this
                     .CallConnectorAsync<TimeOffRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2758,7 +2758,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (timeOffRequestId is null)
                     throw new ArgumentNullException(nameof(timeOffRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/timeOffRequests/{Uri.EscapeDataString(timeOffRequestId.ToString())}/decline";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/timeOffRequests/{Uri.EscapeDataString(System.Convert.ToString(timeOffRequestId, System.Globalization.CultureInfo.InvariantCulture))}/decline";
                 return await this
                     .CallConnectorAsync<TimeOffRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2789,10 +2789,10 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"state={Uri.EscapeDataString(System.Convert.ToString(requestState, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/offerShiftRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOfferShiftRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2822,7 +2822,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (offerShiftRequestId is null)
                     throw new ArgumentNullException(nameof(offerShiftRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/offerShiftRequests/{Uri.EscapeDataString(System.Convert.ToString(offerShiftRequestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<OfferShiftRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2853,7 +2853,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (offerShiftRequestId is null)
                     throw new ArgumentNullException(nameof(offerShiftRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/approve";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/offerShiftRequests/{Uri.EscapeDataString(System.Convert.ToString(offerShiftRequestId, System.Globalization.CultureInfo.InvariantCulture))}/approve";
                 return await this
                     .CallConnectorAsync<OfferShiftRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2884,7 +2884,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (offerShiftRequestId is null)
                     throw new ArgumentNullException(nameof(offerShiftRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/offerShiftRequests/{Uri.EscapeDataString(offerShiftRequestId.ToString())}/decline";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/offerShiftRequests/{Uri.EscapeDataString(System.Convert.ToString(offerShiftRequestId, System.Globalization.CultureInfo.InvariantCulture))}/decline";
                 return await this
                     .CallConnectorAsync<OfferShiftRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2915,10 +2915,10 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"state={Uri.EscapeDataString(System.Convert.ToString(requestState, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/swapShiftsChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListSwapShiftsChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2948,7 +2948,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (swapShiftsChangeRequestId is null)
                     throw new ArgumentNullException(nameof(swapShiftsChangeRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(System.Convert.ToString(swapShiftsChangeRequestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<SwapShiftsChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2979,7 +2979,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (swapShiftsChangeRequestId is null)
                     throw new ArgumentNullException(nameof(swapShiftsChangeRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/approve";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(System.Convert.ToString(swapShiftsChangeRequestId, System.Globalization.CultureInfo.InvariantCulture))}/approve";
                 return await this
                     .CallConnectorAsync<SwapShiftsChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3010,7 +3010,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (swapShiftsChangeRequestId is null)
                     throw new ArgumentNullException(nameof(swapShiftsChangeRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(swapShiftsChangeRequestId.ToString())}/decline";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/swapShiftsChangeRequests/{Uri.EscapeDataString(System.Convert.ToString(swapShiftsChangeRequestId, System.Globalization.CultureInfo.InvariantCulture))}/decline";
                 return await this
                     .CallConnectorAsync<SwapShiftsChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3041,10 +3041,10 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 var queryParams = new List<string>();
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState.ToString())}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"state={Uri.EscapeDataString(System.Convert.ToString(requestState, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShiftChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOpenShiftChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3074,7 +3074,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (openShiftChangeRequestId is null)
                     throw new ArgumentNullException(nameof(openShiftChangeRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(System.Convert.ToString(openShiftChangeRequestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<OpenShiftChangeRequestResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3105,7 +3105,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (openShiftChangeRequestId is null)
                     throw new ArgumentNullException(nameof(openShiftChangeRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/approve";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(System.Convert.ToString(openShiftChangeRequestId, System.Globalization.CultureInfo.InvariantCulture))}/approve";
                 return await this
                     .CallConnectorAsync<OpenShiftChangeRequestApproveResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3136,7 +3136,7 @@ namespace Azure.Connectors.Sdk.Shifts
                     throw new ArgumentNullException(nameof(team));
                 if (openShiftChangeRequestId is null)
                     throw new ArgumentNullException(nameof(openShiftChangeRequestId));
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team.ToString())}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(openShiftChangeRequestId.ToString())}/decline";
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(System.Convert.ToString(team, System.Globalization.CultureInfo.InvariantCulture))}/schedule/openShiftChangeRequests/{Uri.EscapeDataString(System.Convert.ToString(openShiftChangeRequestId, System.Globalization.CultureInfo.InvariantCulture))}/decline";
                 return await this
                     .CallConnectorAsync<OpenShiftChangeRequestDeclineResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3165,11 +3165,11 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                    queryParams.Add($"startTime={Uri.EscapeDataString(System.Convert.ToString(fromStartTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                    queryParams.Add($"endTime={Uri.EscapeDataString(System.Convert.ToString(toEndTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/beta/me/joinedTeams/getOpenShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOpenShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3200,13 +3200,13 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                    queryParams.Add($"startTime={Uri.EscapeDataString(System.Convert.ToString(fromStartTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                    queryParams.Add($"endTime={Uri.EscapeDataString(System.Convert.ToString(toEndTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (userDisplayName != default)
-                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName.ToString())}");
+                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(System.Convert.ToString(userDisplayName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/beta/me/joinedTeams/getShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3237,13 +3237,13 @@ namespace Azure.Connectors.Sdk.Shifts
             {
                 var queryParams = new List<string>();
                 if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime.ToString())}");
+                    queryParams.Add($"startTime={Uri.EscapeDataString(System.Convert.ToString(fromStartTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime.ToString())}");
+                    queryParams.Add($"endTime={Uri.EscapeDataString(System.Convert.ToString(toEndTime, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (userDisplayName != default)
-                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName.ToString())}");
+                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(System.Convert.ToString(userDisplayName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(pageSize.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/beta/me/joinedTeams/getTimesOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

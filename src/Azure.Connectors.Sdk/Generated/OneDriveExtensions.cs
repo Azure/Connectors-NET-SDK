@@ -609,7 +609,7 @@ namespace Azure.Connectors.Sdk.OneDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -637,7 +637,7 @@ namespace Azure.Connectors.Sdk.OneDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -663,7 +663,7 @@ namespace Azure.Connectors.Sdk.OneDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -691,7 +691,7 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -721,9 +721,9 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -754,8 +754,8 @@ namespace Azure.Connectors.Sdk.OneDrive
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -785,10 +785,10 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(fileName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
@@ -819,12 +819,12 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (sourceURL is null)
                     throw new ArgumentNullException(nameof(sourceURL));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceURL.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceURL, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -857,10 +857,10 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/copy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -890,12 +890,12 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/CopyFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -928,10 +928,10 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/move" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -961,12 +961,12 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"source={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/MoveFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -997,8 +997,8 @@ namespace Azure.Connectors.Sdk.OneDrive
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (targetType != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(targetType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1027,9 +1027,9 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (targetType != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(targetType.ToString())}");
+                    queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(targetType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/ConvertFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1057,7 +1057,7 @@ namespace Azure.Connectors.Sdk.OneDrive
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/tags";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tags";
                 return await this
                     .CallConnectorAsync<Tags>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1088,8 +1088,8 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (tag is null)
                     throw new ArgumentNullException(nameof(tag));
-                queryParams.Add($"tag={Uri.EscapeDataString(tag.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"tag={Uri.EscapeDataString(System.Convert.ToString(tag, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Tags>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1119,8 +1119,8 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (tag is null)
                     throw new ArgumentNullException(nameof(tag));
-                queryParams.Add($"tag={Uri.EscapeDataString(tag.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"tag={Uri.EscapeDataString(System.Convert.ToString(tag, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1151,8 +1151,8 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (thumbnailSize is null)
                     throw new ArgumentNullException(nameof(thumbnailSize));
-                queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"size={Uri.EscapeDataString(System.Convert.ToString(thumbnailSize, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Thumbnail>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1209,13 +1209,13 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (searchQuery is null)
                     throw new ArgumentNullException(nameof(searchQuery));
-                queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
+                queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(searchQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fileSearchMode is null)
                     throw new ArgumentNullException(nameof(fileSearchMode));
-                queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
+                queryParams.Add($"findMode={Uri.EscapeDataString(System.Convert.ToString(fileSearchMode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (numberOfFilesToReturn.HasValue)
-                    queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.Value.ToString())}");
-                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folder.ToString()))}/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"maxFileCount={Uri.EscapeDataString(System.Convert.ToString(numberOfFilesToReturn.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture)))}/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1246,15 +1246,15 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (searchQuery is null)
                     throw new ArgumentNullException(nameof(searchQuery));
-                queryParams.Add($"query={Uri.EscapeDataString(searchQuery.ToString())}");
+                queryParams.Add($"query={Uri.EscapeDataString(System.Convert.ToString(searchQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"path={Uri.EscapeDataString(folderPath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fileSearchMode is null)
                     throw new ArgumentNullException(nameof(fileSearchMode));
-                queryParams.Add($"findMode={Uri.EscapeDataString(fileSearchMode.ToString())}");
+                queryParams.Add($"findMode={Uri.EscapeDataString(System.Convert.ToString(fileSearchMode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (numberOfFilesToReturn.HasValue)
-                    queryParams.Add($"maxFileCount={Uri.EscapeDataString(numberOfFilesToReturn.Value.ToString())}");
+                    queryParams.Add($"maxFileCount={Uri.EscapeDataString(System.Convert.ToString(numberOfFilesToReturn.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/findFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1286,8 +1286,8 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (linkType is null)
                     throw new ArgumentNullException(nameof(linkType));
-                queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(linkType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/shareV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1316,10 +1316,10 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(filePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (linkType is null)
                     throw new ArgumentNullException(nameof(linkType));
-                queryParams.Add($"type={Uri.EscapeDataString(linkType.ToString())}");
+                queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(linkType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/CreateShareLinkByPathV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SharingLink>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1350,12 +1350,12 @@ namespace Azure.Connectors.Sdk.OneDrive
                 var queryParams = new List<string>();
                 if (sourceArchiveFilePath is null)
                     throw new ArgumentNullException(nameof(sourceArchiveFilePath));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceArchiveFilePath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (destinationFolderPath is null)
                     throw new ArgumentNullException(nameof(destinationFolderPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFolderPath, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -1382,7 +1382,7 @@ namespace Azure.Connectors.Sdk.OneDrive
                 throw new ArgumentNullException(nameof(folder));
             var queryParams = new List<string>();
             queryParams.Add("top=20");
-            var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(Uri.EscapeDataString(folder.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/datasets/default/foldersV2/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
                 ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),

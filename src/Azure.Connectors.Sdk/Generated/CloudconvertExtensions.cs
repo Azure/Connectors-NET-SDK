@@ -438,9 +438,9 @@ namespace Azure.Connectors.Sdk.Cloudconvert
             {
                 var queryParams = new List<string>();
                 if (inputFormat != default)
-                    queryParams.Add($"input_format={Uri.EscapeDataString(inputFormat.ToString())}");
+                    queryParams.Add($"input_format={Uri.EscapeDataString(System.Convert.ToString(inputFormat, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (outputFormat != default)
-                    queryParams.Add($"output_format={Uri.EscapeDataString(outputFormat.ToString())}");
+                    queryParams.Add($"output_format={Uri.EscapeDataString(System.Convert.ToString(outputFormat, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/flow/options/convert" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetConvertOptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -468,7 +468,7 @@ namespace Azure.Connectors.Sdk.Cloudconvert
             {
                 var queryParams = new List<string>();
                 if (inputFormat != default)
-                    queryParams.Add($"input_format={Uri.EscapeDataString(inputFormat.ToString())}");
+                    queryParams.Add($"input_format={Uri.EscapeDataString(System.Convert.ToString(inputFormat, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/flow/options/optimize" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetOptimizeOptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -496,7 +496,7 @@ namespace Azure.Connectors.Sdk.Cloudconvert
             {
                 var queryParams = new List<string>();
                 if (outputFormat != default)
-                    queryParams.Add($"output_format={Uri.EscapeDataString(outputFormat.ToString())}");
+                    queryParams.Add($"output_format={Uri.EscapeDataString(System.Convert.ToString(outputFormat, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/flow/options/capture-website" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetCaptureWebsiteOptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -524,7 +524,7 @@ namespace Azure.Connectors.Sdk.Cloudconvert
             {
                 var queryParams = new List<string>();
                 if (numberOfInputs.HasValue)
-                    queryParams.Add($"number_of_inputs={Uri.EscapeDataString(numberOfInputs.Value.ToString())}");
+                    queryParams.Add($"number_of_inputs={Uri.EscapeDataString(System.Convert.ToString(numberOfInputs.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/flow/inputs/merge" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMergeInputsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -552,7 +552,7 @@ namespace Azure.Connectors.Sdk.Cloudconvert
             {
                 var queryParams = new List<string>();
                 if (outputFormat != default)
-                    queryParams.Add($"output_format={Uri.EscapeDataString(outputFormat.ToString())}");
+                    queryParams.Add($"output_format={Uri.EscapeDataString(System.Convert.ToString(outputFormat, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/flow/options/merge" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMergeOptionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

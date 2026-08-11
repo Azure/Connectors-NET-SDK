@@ -2127,7 +2127,7 @@ namespace Azure.Connectors.Sdk.Insightly
                 var queryParams = new List<string>();
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                queryParams.Add($"id={Uri.EscapeDataString(taskId.ToString())}");
+                queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/Tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TaskObject>(HttpMethod.Put, path, input, cancellationToken)
@@ -2206,7 +2206,7 @@ namespace Azure.Connectors.Sdk.Insightly
                 var queryParams = new List<string>();
                 if (projectId is null)
                     throw new ArgumentNullException(nameof(projectId));
-                queryParams.Add($"id={Uri.EscapeDataString(projectId.ToString())}");
+                queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Project>(HttpMethod.Put, path, input, cancellationToken)
@@ -2285,7 +2285,7 @@ namespace Azure.Connectors.Sdk.Insightly
                 var queryParams = new List<string>();
                 if (leadId is null)
                     throw new ArgumentNullException(nameof(leadId));
-                queryParams.Add($"id={Uri.EscapeDataString(leadId.ToString())}");
+                queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(leadId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/Leads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Lead>(HttpMethod.Put, path, input, cancellationToken)
@@ -2364,7 +2364,7 @@ namespace Azure.Connectors.Sdk.Insightly
                 var queryParams = new List<string>();
                 if (contactId is null)
                     throw new ArgumentNullException(nameof(contactId));
-                queryParams.Add($"id={Uri.EscapeDataString(contactId.ToString())}");
+                queryParams.Add($"id={Uri.EscapeDataString(System.Convert.ToString(contactId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/Contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Contact>(HttpMethod.Put, path, input, cancellationToken)
@@ -2439,7 +2439,7 @@ namespace Azure.Connectors.Sdk.Insightly
             using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteTaskAsync");
             try
             {
-                var path = $"/Tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                var path = $"/Tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2464,7 +2464,7 @@ namespace Azure.Connectors.Sdk.Insightly
             using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.FollowTaskAsync");
             try
             {
-                var path = $"/Tasks/{Uri.EscapeDataString(taskId.ToString())}/Follow";
+                var path = $"/Tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}/Follow";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2489,7 +2489,7 @@ namespace Azure.Connectors.Sdk.Insightly
             using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteProjectAsync");
             try
             {
-                var path = $"/Projects/{Uri.EscapeDataString(projectId.ToString())}";
+                var path = $"/Projects/{Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2514,7 +2514,7 @@ namespace Azure.Connectors.Sdk.Insightly
             using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteLeadAsync");
             try
             {
-                var path = $"/Leads/{Uri.EscapeDataString(leadId.ToString())}";
+                var path = $"/Leads/{Uri.EscapeDataString(System.Convert.ToString(leadId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2539,7 +2539,7 @@ namespace Azure.Connectors.Sdk.Insightly
             using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.DeleteContactAsync");
             try
             {
-                var path = $"/Contacts/{Uri.EscapeDataString(contactId.ToString())}";
+                var path = $"/Contacts/{Uri.EscapeDataString(System.Convert.ToString(contactId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

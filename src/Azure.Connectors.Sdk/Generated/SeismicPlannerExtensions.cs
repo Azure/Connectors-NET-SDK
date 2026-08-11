@@ -2846,12 +2846,12 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                 if (creatorIDs != default)
                     queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
                 if (cursor != default)
-                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                    queryParams.Add($"cursor={Uri.EscapeDataString(System.Convert.ToString(cursor, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
                     queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/nodes/{Uri.EscapeDataString(System.Convert.ToString(nodeId, System.Globalization.CultureInfo.InvariantCulture))}/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CommentQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2882,7 +2882,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (nodeId is null)
                     throw new ArgumentNullException(nameof(nodeId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/nodes/{Uri.EscapeDataString(System.Convert.ToString(nodeId, System.Globalization.CultureInfo.InvariantCulture))}/comments";
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2915,7 +2915,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(nodeId));
                 if (commentId is null)
                     throw new ArgumentNullException(nameof(commentId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/nodes/{Uri.EscapeDataString(System.Convert.ToString(nodeId, System.Globalization.CultureInfo.InvariantCulture))}/comments/{Uri.EscapeDataString(System.Convert.ToString(commentId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2947,7 +2947,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(nodeId));
                 if (commentId is null)
                     throw new ArgumentNullException(nameof(commentId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/nodes/{Uri.EscapeDataString(System.Convert.ToString(nodeId, System.Globalization.CultureInfo.InvariantCulture))}/comments/{Uri.EscapeDataString(System.Convert.ToString(commentId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2981,7 +2981,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(nodeId));
                 if (commentId is null)
                     throw new ArgumentNullException(nameof(commentId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/nodes/{Uri.EscapeDataString(nodeId.ToString())}/comments/{Uri.EscapeDataString(commentId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/nodes/{Uri.EscapeDataString(System.Convert.ToString(nodeId, System.Globalization.CultureInfo.InvariantCulture))}/comments/{Uri.EscapeDataString(System.Convert.ToString(commentId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3025,17 +3025,17 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (plannedEndDateFrom != default)
-                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
+                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(System.Convert.ToString(plannedEndDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedEndDateTo != default)
-                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
+                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(System.Convert.ToString(plannedEndDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedStartDateFrom != default)
-                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
+                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(System.Convert.ToString(plannedStartDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedStartDateTo != default)
-                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
+                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(System.Convert.ToString(plannedStartDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (projectIDs != default)
                     queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
                 if (projectTitle != default)
-                    queryParams.Add($"title={Uri.EscapeDataString(projectTitle.ToString())}");
+                    queryParams.Add($"title={Uri.EscapeDataString(System.Convert.ToString(projectTitle, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (managerIDs != default)
                     queryParams.Add($"managerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(managerIDs))}");
                 if (creatorIDs != default)
@@ -3043,18 +3043,18 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                 if (associatedNodeIDs != default)
                     queryParams.Add($"associatedNodeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(associatedNodeIDs))}");
                 if (cursor != default)
-                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                    queryParams.Add($"cursor={Uri.EscapeDataString(System.Convert.ToString(cursor, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
                     queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
                 if (customProperties != default)
-                    queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
+                    queryParams.Add($"customProperties={Uri.EscapeDataString(System.Convert.ToString(customProperties, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (followerIDs != default)
                     queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
                 if (includeAssociations.HasValue)
-                    queryParams.Add($"includeAssociations={Uri.EscapeDataString(includeAssociations.Value.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeAssociations={Uri.EscapeDataString(System.Convert.ToString(includeAssociations.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PlannerProjectQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3088,8 +3088,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(projectIDs));
                 queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(projectIDs))}");
                 if (deleteTasks.HasValue)
-                    queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"deleteTasks={Uri.EscapeDataString(System.Convert.ToString(deleteTasks.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3117,7 +3117,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             {
                 if (spaceId is null)
                     throw new ArgumentNullException(nameof(spaceId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/projects";
                 return await this
                     .CallConnectorAsync<PlannerProject>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3151,10 +3151,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(projectId));
                 var queryParams = new List<string>();
                 if (associatedNodesDepth.HasValue)
-                    queryParams.Add($"associatedNodesDepth={Uri.EscapeDataString(associatedNodesDepth.Value.ToString())}");
+                    queryParams.Add($"associatedNodesDepth={Uri.EscapeDataString(System.Convert.ToString(associatedNodesDepth.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (includeWorks.HasValue)
-                    queryParams.Add($"includeWorks={Uri.EscapeDataString(includeWorks.Value.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeWorks={Uri.EscapeDataString(System.Convert.ToString(includeWorks.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/projects/{Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PlannerProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3187,8 +3187,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(projectId));
                 var queryParams = new List<string>();
                 if (deleteTasks.HasValue)
-                    queryParams.Add($"deleteTasks={Uri.EscapeDataString(deleteTasks.Value.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"deleteTasks={Uri.EscapeDataString(System.Convert.ToString(deleteTasks.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/projects/{Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3219,7 +3219,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (projectId is null)
                     throw new ArgumentNullException(nameof(projectId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/projects/{Uri.EscapeDataString(projectId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/projects/{Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PlannerProject>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3275,31 +3275,31 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (plannedEndDateFrom != default)
-                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
+                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(System.Convert.ToString(plannedEndDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedEndDateTo != default)
-                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
+                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(System.Convert.ToString(plannedEndDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedStartDateFrom != default)
-                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
+                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(System.Convert.ToString(plannedStartDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedStartDateTo != default)
-                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
+                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(System.Convert.ToString(plannedStartDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (createdAtFrom != default)
-                    queryParams.Add($"createdAtFrom={Uri.EscapeDataString(createdAtFrom.ToString())}");
+                    queryParams.Add($"createdAtFrom={Uri.EscapeDataString(System.Convert.ToString(createdAtFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (createdAtTo != default)
-                    queryParams.Add($"createdAtTo={Uri.EscapeDataString(createdAtTo.ToString())}");
+                    queryParams.Add($"createdAtTo={Uri.EscapeDataString(System.Convert.ToString(createdAtTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (updatedAtFrom != default)
-                    queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(updatedAtFrom.ToString())}");
+                    queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(System.Convert.ToString(updatedAtFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (updatedAtTo != default)
-                    queryParams.Add($"updatedAtTo={Uri.EscapeDataString(updatedAtTo.ToString())}");
+                    queryParams.Add($"updatedAtTo={Uri.EscapeDataString(System.Convert.ToString(updatedAtTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (requestIDs != default)
                     queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(requestIDs))}");
                 if (title != default)
-                    queryParams.Add($"title={Uri.EscapeDataString(title.ToString())}");
+                    queryParams.Add($"title={Uri.EscapeDataString(System.Convert.ToString(title, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (assigneeIDs != default)
                     queryParams.Add($"assigneeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assigneeIDs))}");
                 if (priorities != default)
                     queryParams.Add($"priorities={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(priorities))}");
                 if (keywords != default)
-                    queryParams.Add($"keywords={Uri.EscapeDataString(keywords.ToString())}");
+                    queryParams.Add($"keywords={Uri.EscapeDataString(System.Convert.ToString(keywords, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (assignerIDs != default)
                     queryParams.Add($"assignerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assignerIDs))}");
                 if (creatorIDs != default)
@@ -3307,19 +3307,19 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                 if (stepIDs != default)
                     queryParams.Add($"stepIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(stepIDs))}");
                 if (statusSchemaId != default)
-                    queryParams.Add($"statusSchemaId={Uri.EscapeDataString(statusSchemaId.ToString())}");
+                    queryParams.Add($"statusSchemaId={Uri.EscapeDataString(System.Convert.ToString(statusSchemaId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (cursor != default)
-                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                    queryParams.Add($"cursor={Uri.EscapeDataString(System.Convert.ToString(cursor, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
                     queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
                 if (projectId != default)
-                    queryParams.Add($"projectId={Uri.EscapeDataString(projectId.ToString())}");
+                    queryParams.Add($"projectId={Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (hasProject.HasValue)
-                    queryParams.Add($"hasProject={Uri.EscapeDataString(hasProject.Value.ToString())}");
+                    queryParams.Add($"hasProject={Uri.EscapeDataString(System.Convert.ToString(hasProject.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (customProperties != default)
-                    queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
+                    queryParams.Add($"customProperties={Uri.EscapeDataString(System.Convert.ToString(customProperties, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (followerIDs != default)
                     queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
                 if (associatedNodeIDs != default)
@@ -3327,8 +3327,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                 if (contentReferenceObjects != default)
                     queryParams.Add($"contentRefs={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(contentReferenceObjects))}");
                 if (includeRequestFormCustomProperties.HasValue)
-                    queryParams.Add($"includeRequestFormCustomProperties={Uri.EscapeDataString(includeRequestFormCustomProperties.Value.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeRequestFormCustomProperties={Uri.EscapeDataString(System.Convert.ToString(includeRequestFormCustomProperties.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/requests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PlannerRequestQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3356,7 +3356,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             {
                 if (spaceId is null)
                     throw new ArgumentNullException(nameof(spaceId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/requests";
                 return await this
                     .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3384,7 +3384,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             {
                 if (spaceId is null)
                     throw new ArgumentNullException(nameof(spaceId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/requests";
                 return await this
                     .CallConnectorAsync<PlannerRequest>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3414,7 +3414,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (requestId is null)
                     throw new ArgumentNullException(nameof(requestId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PlannerRequest>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3443,7 +3443,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (requestId is null)
                     throw new ArgumentNullException(nameof(requestId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3474,7 +3474,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (requestId is null)
                     throw new ArgumentNullException(nameof(requestId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PlannerRequest>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3509,18 +3509,18 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (isDefault.HasValue)
-                    queryParams.Add($"isDefault={Uri.EscapeDataString(isDefault.Value.ToString())}");
+                    queryParams.Add($"isDefault={Uri.EscapeDataString(System.Convert.ToString(isDefault.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (type != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                    queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(type, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (statusSchemaIdS != default)
                     queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(statusSchemaIdS))}");
                 if (creatorIDs != default)
                     queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
                 if (cursor != default)
-                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                    queryParams.Add($"cursor={Uri.EscapeDataString(System.Convert.ToString(cursor, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/statusschema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StatusSchemaQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3550,7 +3550,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (statusSchemaId is null)
                     throw new ArgumentNullException(nameof(statusSchemaId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/statusschema/{Uri.EscapeDataString(statusSchemaId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/statusschema/{Uri.EscapeDataString(System.Convert.ToString(statusSchemaId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<StatusSchema>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3608,53 +3608,53 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 var queryParams = new List<string>();
                 if (plannedEndDateFrom != default)
-                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(plannedEndDateFrom.ToString())}");
+                    queryParams.Add($"plannedEndDateFrom={Uri.EscapeDataString(System.Convert.ToString(plannedEndDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedEndDateTo != default)
-                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(plannedEndDateTo.ToString())}");
+                    queryParams.Add($"plannedEndDateTo={Uri.EscapeDataString(System.Convert.ToString(plannedEndDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedStartDateFrom != default)
-                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(plannedStartDateFrom.ToString())}");
+                    queryParams.Add($"plannedStartDateFrom={Uri.EscapeDataString(System.Convert.ToString(plannedStartDateFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (plannedStartDateTo != default)
-                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(plannedStartDateTo.ToString())}");
+                    queryParams.Add($"plannedStartDateTo={Uri.EscapeDataString(System.Convert.ToString(plannedStartDateTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (createdAtFrom != default)
-                    queryParams.Add($"createdAtFrom={Uri.EscapeDataString(createdAtFrom.ToString())}");
+                    queryParams.Add($"createdAtFrom={Uri.EscapeDataString(System.Convert.ToString(createdAtFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (createdAtTo != default)
-                    queryParams.Add($"createdAtTo={Uri.EscapeDataString(createdAtTo.ToString())}");
+                    queryParams.Add($"createdAtTo={Uri.EscapeDataString(System.Convert.ToString(createdAtTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (updatedAtFrom != default)
-                    queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(updatedAtFrom.ToString())}");
+                    queryParams.Add($"updatedAtFrom={Uri.EscapeDataString(System.Convert.ToString(updatedAtFrom, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (updatedAtTo != default)
-                    queryParams.Add($"updatedAtTo={Uri.EscapeDataString(updatedAtTo.ToString())}");
+                    queryParams.Add($"updatedAtTo={Uri.EscapeDataString(System.Convert.ToString(updatedAtTo, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (taskIDs != default)
                     queryParams.Add($"ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(taskIDs))}");
                 if (title != default)
-                    queryParams.Add($"title={Uri.EscapeDataString(title.ToString())}");
+                    queryParams.Add($"title={Uri.EscapeDataString(System.Convert.ToString(title, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (description != default)
-                    queryParams.Add($"description={Uri.EscapeDataString(description.ToString())}");
+                    queryParams.Add($"description={Uri.EscapeDataString(System.Convert.ToString(description, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (assigneeIDs != default)
                     queryParams.Add($"assigneeIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assigneeIDs))}");
                 if (priorities != default)
                     queryParams.Add($"priorities={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(priorities))}");
                 if (keywords != default)
-                    queryParams.Add($"keywords={Uri.EscapeDataString(keywords.ToString())}");
+                    queryParams.Add($"keywords={Uri.EscapeDataString(System.Convert.ToString(keywords, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (assignerIDs != default)
                     queryParams.Add($"assignerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(assignerIDs))}");
                 if (stepIDs != default)
                     queryParams.Add($"stepIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(stepIDs))}");
                 if (statusSchemaId != default)
-                    queryParams.Add($"statusSchemaId={Uri.EscapeDataString(statusSchemaId.ToString())}");
+                    queryParams.Add($"statusSchemaId={Uri.EscapeDataString(System.Convert.ToString(statusSchemaId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (cursor != default)
-                    queryParams.Add($"cursor={Uri.EscapeDataString(cursor.ToString())}");
+                    queryParams.Add($"cursor={Uri.EscapeDataString(System.Convert.ToString(cursor, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sort != default)
                     queryParams.Add($"sort={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(sort))}");
                 if (recursive.HasValue)
-                    queryParams.Add($"recursive={Uri.EscapeDataString(recursive.Value.ToString())}");
+                    queryParams.Add($"recursive={Uri.EscapeDataString(System.Convert.ToString(recursive.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (projectId != default)
-                    queryParams.Add($"projectId={Uri.EscapeDataString(projectId.ToString())}");
+                    queryParams.Add($"projectId={Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (hasProject.HasValue)
-                    queryParams.Add($"hasProject={Uri.EscapeDataString(hasProject.Value.ToString())}");
+                    queryParams.Add($"hasProject={Uri.EscapeDataString(System.Convert.ToString(hasProject.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (customProperties != default)
-                    queryParams.Add($"customProperties={Uri.EscapeDataString(customProperties.ToString())}");
+                    queryParams.Add($"customProperties={Uri.EscapeDataString(System.Convert.ToString(customProperties, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (followerIDs != default)
                     queryParams.Add($"followerIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(followerIDs))}");
                 if (associatedNodeIDs != default)
@@ -3662,10 +3662,10 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                 if (creatorIDs != default)
                     queryParams.Add($"creatorIds={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(creatorIDs))}");
                 if (includeAssociations.HasValue)
-                    queryParams.Add($"includeAssociations={Uri.EscapeDataString(includeAssociations.Value.ToString())}");
+                    queryParams.Add($"includeAssociations={Uri.EscapeDataString(System.Convert.ToString(includeAssociations.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (parentId != default)
-                    queryParams.Add($"parentId={Uri.EscapeDataString(parentId.ToString())}");
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"parentId={Uri.EscapeDataString(System.Convert.ToString(parentId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PlannerTaskQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3693,7 +3693,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
             {
                 if (spaceId is null)
                     throw new ArgumentNullException(nameof(spaceId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/tasks";
                 return await this
                     .CallConnectorAsync<PlannerTask>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3723,7 +3723,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PlannerTask>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3753,7 +3753,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3784,7 +3784,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     throw new ArgumentNullException(nameof(spaceId));
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(spaceId.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                var path = $"/planner/v2/spaces/{Uri.EscapeDataString(System.Convert.ToString(spaceId, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PlannerTask>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -24,7 +25,7 @@ internal class Iso8601DateTimeConverter : JsonConverter<DateTime>
             return DateTime.MinValue;
         }
 
-        return DateTime.Parse(value, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        return DateTime.Parse(value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind);
     }
 
     /// <inheritdoc />
@@ -32,7 +33,7 @@ internal class Iso8601DateTimeConverter : JsonConverter<DateTime>
     {
         ArgumentNullException.ThrowIfNull(writer);
 
-        writer.WriteStringValue(value.ToUniversalTime().ToString(DateTimeFormat));
+        writer.WriteStringValue(value.ToUniversalTime().ToString(DateTimeFormat, CultureInfo.InvariantCulture));
     }
 }
 

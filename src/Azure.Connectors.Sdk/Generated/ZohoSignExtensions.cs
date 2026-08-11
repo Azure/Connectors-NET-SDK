@@ -467,8 +467,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
                 var queryParams = new List<string>();
                 if (method is null)
                     throw new ArgumentNullException(nameof(method));
-                queryParams.Add($"method={Uri.EscapeDataString(method.ToString())}");
-                var path = $"/{Uri.EscapeDataString(uRLPath.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"method={Uri.EscapeDataString(System.Convert.ToString(method, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/{Uri.EscapeDataString(System.Convert.ToString(uRLPath, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<InvokeAPIResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -493,7 +493,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DownloadCompletionCertificateAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/completioncertificate";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/completioncertificate";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -518,7 +518,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DownloadDocumentAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/pdf";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/pdf";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -544,7 +544,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DownloadFileAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/pdf";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/pdf";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -569,7 +569,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetFormDataAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/fielddata";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/fielddata";
                 return await this
                     .CallConnectorAsync<GetFormDataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -593,7 +593,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.RecallDocumentAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/recall";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/recall";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -617,7 +617,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.RemindDocumentRecipientsAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/remind";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/remind";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -641,7 +641,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.DeleteDocumentAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/delete";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/delete";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -666,7 +666,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.GetDocumentAsync");
             try
             {
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -694,7 +694,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             {
                 if (requestId is null)
                     throw new ArgumentNullException(nameof(requestId));
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -721,7 +721,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             {
                 if (requestId is null)
                     throw new ArgumentNullException(nameof(requestId));
-                var path = $"/requests/{Uri.EscapeDataString(requestId.ToString())}/submit";
+                var path = $"/requests/{Uri.EscapeDataString(System.Convert.ToString(requestId, System.Globalization.CultureInfo.InvariantCulture))}/submit";
                 return await this
                     .CallConnectorAsync<SendSignRequestResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -747,7 +747,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
             {
                 if (listOfTemplates is null)
                     throw new ArgumentNullException(nameof(listOfTemplates));
-                var path = $"/templates/{Uri.EscapeDataString(listOfTemplates.ToString())}";
+                var path = $"/templates/{Uri.EscapeDataString(System.Convert.ToString(listOfTemplates, System.Globalization.CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

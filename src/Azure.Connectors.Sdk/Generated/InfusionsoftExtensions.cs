@@ -440,7 +440,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft
             using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.UpdateTaskAsync");
             try
             {
-                var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TaskResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

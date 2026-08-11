@@ -569,7 +569,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheKey is null)
                     throw new ArgumentNullException(nameof(nameOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/versions";
                 return await this
                     .CallConnectorAsync<KeyMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -596,7 +596,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheKey is null)
                     throw new ArgumentNullException(nameof(nameOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/metadata";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/metadata";
                 return await this
                     .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -626,7 +626,7 @@ namespace Azure.Connectors.Sdk.KeyVault
                     throw new ArgumentNullException(nameof(nameOfTheKey));
                 if (versionOfTheKey is null)
                     throw new ArgumentNullException(nameof(versionOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/metadata";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/versions/{Uri.EscapeDataString(System.Convert.ToString(versionOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/metadata";
                 return await this
                     .CallConnectorAsync<KeyMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -654,7 +654,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheKey is null)
                     throw new ArgumentNullException(nameof(nameOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/encrypt";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/encrypt";
                 return await this
                     .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -685,7 +685,7 @@ namespace Azure.Connectors.Sdk.KeyVault
                     throw new ArgumentNullException(nameof(nameOfTheKey));
                 if (versionOfTheKey is null)
                     throw new ArgumentNullException(nameof(versionOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/encrypt";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/versions/{Uri.EscapeDataString(System.Convert.ToString(versionOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/encrypt";
                 return await this
                     .CallConnectorAsync<KeyEncryptOutput>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -713,7 +713,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheKey is null)
                     throw new ArgumentNullException(nameof(nameOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/decrypt";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/decrypt";
                 return await this
                     .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -744,7 +744,7 @@ namespace Azure.Connectors.Sdk.KeyVault
                     throw new ArgumentNullException(nameof(nameOfTheKey));
                 if (versionOfTheKey is null)
                     throw new ArgumentNullException(nameof(versionOfTheKey));
-                var path = $"/keys/{Uri.EscapeDataString(nameOfTheKey.ToString())}/versions/{Uri.EscapeDataString(versionOfTheKey.ToString())}/decrypt";
+                var path = $"/keys/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/versions/{Uri.EscapeDataString(System.Convert.ToString(versionOfTheKey, System.Globalization.CultureInfo.InvariantCulture))}/decrypt";
                 return await this
                     .CallConnectorAsync<KeyDecryptOutput>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -795,7 +795,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheSecret is null)
                     throw new ArgumentNullException(nameof(nameOfTheSecret));
-                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions";
+                var path = $"/secrets/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/versions";
                 return await this
                     .CallConnectorAsync<SecretMetadataCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -822,7 +822,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheSecret is null)
                     throw new ArgumentNullException(nameof(nameOfTheSecret));
-                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/metadata";
+                var path = $"/secrets/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/metadata";
                 return await this
                     .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -852,7 +852,7 @@ namespace Azure.Connectors.Sdk.KeyVault
                     throw new ArgumentNullException(nameof(nameOfTheSecret));
                 if (versionOfTheSecret is null)
                     throw new ArgumentNullException(nameof(versionOfTheSecret));
-                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/metadata";
+                var path = $"/secrets/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/versions/{Uri.EscapeDataString(System.Convert.ToString(versionOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/metadata";
                 return await this
                     .CallConnectorAsync<SecretMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -879,7 +879,7 @@ namespace Azure.Connectors.Sdk.KeyVault
             {
                 if (nameOfTheSecret is null)
                     throw new ArgumentNullException(nameof(nameOfTheSecret));
-                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/value";
+                var path = $"/secrets/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/value";
                 return await this
                     .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -909,7 +909,7 @@ namespace Azure.Connectors.Sdk.KeyVault
                     throw new ArgumentNullException(nameof(nameOfTheSecret));
                 if (versionOfTheSecret is null)
                     throw new ArgumentNullException(nameof(versionOfTheSecret));
-                var path = $"/secrets/{Uri.EscapeDataString(nameOfTheSecret.ToString())}/versions/{Uri.EscapeDataString(versionOfTheSecret.ToString())}/value";
+                var path = $"/secrets/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/versions/{Uri.EscapeDataString(System.Convert.ToString(versionOfTheSecret, System.Globalization.CultureInfo.InvariantCulture))}/value";
                 return await this
                     .CallConnectorAsync<Secret>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

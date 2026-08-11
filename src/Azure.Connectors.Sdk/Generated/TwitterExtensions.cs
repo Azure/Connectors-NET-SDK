@@ -652,9 +652,9 @@ namespace Azure.Connectors.Sdk.Twitter
                 var queryParams = new List<string>();
                 if (userName is null)
                     throw new ArgumentNullException(nameof(userName));
-                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                queryParams.Add($"userName={Uri.EscapeDataString(System.Convert.ToString(userName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/usertimeline" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -682,7 +682,7 @@ namespace Azure.Connectors.Sdk.Twitter
             {
                 var queryParams = new List<string>();
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/hometimeline" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -713,11 +713,11 @@ namespace Azure.Connectors.Sdk.Twitter
                 var queryParams = new List<string>();
                 if (searchText is null)
                     throw new ArgumentNullException(nameof(searchText));
-                queryParams.Add($"searchQuery={Uri.EscapeDataString(searchText.ToString())}");
+                queryParams.Add($"searchQuery={Uri.EscapeDataString(System.Convert.ToString(searchText, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sinceId != default)
-                    queryParams.Add($"sinceId={Uri.EscapeDataString(sinceId.ToString())}");
+                    queryParams.Add($"sinceId={Uri.EscapeDataString(System.Convert.ToString(sinceId, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/searchtweets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<TweetModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -747,9 +747,9 @@ namespace Azure.Connectors.Sdk.Twitter
                 var queryParams = new List<string>();
                 if (userName is null)
                     throw new ArgumentNullException(nameof(userName));
-                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                queryParams.Add($"userName={Uri.EscapeDataString(System.Convert.ToString(userName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/followers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -777,7 +777,7 @@ namespace Azure.Connectors.Sdk.Twitter
             {
                 var queryParams = new List<string>();
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/myfollowers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -807,9 +807,9 @@ namespace Azure.Connectors.Sdk.Twitter
                 var queryParams = new List<string>();
                 if (userName is null)
                     throw new ArgumentNullException(nameof(userName));
-                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                queryParams.Add($"userName={Uri.EscapeDataString(System.Convert.ToString(userName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/friends" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -837,7 +837,7 @@ namespace Azure.Connectors.Sdk.Twitter
             {
                 var queryParams = new List<string>();
                 if (maximumResults.HasValue)
-                    queryParams.Add($"maxResults={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"maxResults={Uri.EscapeDataString(System.Convert.ToString(maximumResults.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/myfriends" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<UserDetailsModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -866,7 +866,7 @@ namespace Azure.Connectors.Sdk.Twitter
                 var queryParams = new List<string>();
                 if (userName is null)
                     throw new ArgumentNullException(nameof(userName));
-                queryParams.Add($"userName={Uri.EscapeDataString(userName.ToString())}");
+                queryParams.Add($"userName={Uri.EscapeDataString(System.Convert.ToString(userName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserDetailsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -895,7 +895,7 @@ namespace Azure.Connectors.Sdk.Twitter
             {
                 var queryParams = new List<string>();
                 if (tweetText != default)
-                    queryParams.Add($"tweetText={Uri.EscapeDataString(tweetText.ToString())}");
+                    queryParams.Add($"tweetText={Uri.EscapeDataString(System.Convert.ToString(tweetText, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/posttweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
@@ -925,9 +925,9 @@ namespace Azure.Connectors.Sdk.Twitter
                 var queryParams = new List<string>();
                 if (tweetId is null)
                     throw new ArgumentNullException(nameof(tweetId));
-                queryParams.Add($"tweetId={Uri.EscapeDataString(tweetId.ToString())}");
+                queryParams.Add($"tweetId={Uri.EscapeDataString(System.Convert.ToString(tweetId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (trimUser.HasValue)
-                    queryParams.Add($"trimUser={Uri.EscapeDataString(trimUser.Value.ToString())}");
+                    queryParams.Add($"trimUser={Uri.EscapeDataString(System.Convert.ToString(trimUser.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/retweet" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TweetResponseModel>(HttpMethod.Post, path, cancellationToken: cancellationToken)

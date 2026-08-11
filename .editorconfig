@@ -22,6 +22,7 @@ indent_size = 2
 # C# files
 [*.cs]
 indent_size = 4
+dotnet_diagnostic.CA1305.severity = warning
 
 # Usings outside namespace
 csharp_using_directive_placement = outside_namespace:warning

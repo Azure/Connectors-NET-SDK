@@ -1216,7 +1216,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowId is null)
                     throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(rowId, System.Globalization.CultureInfo.InvariantCulture)))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1247,7 +1247,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/query/sql";
                 return await this
                     .CallConnectorAsync<ExecutePassThroughNativeQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1281,7 +1281,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (procedureName is null)
                     throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(procedureName, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<ExecuteProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1317,7 +1317,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowId is null)
                     throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(rowId, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1361,24 +1361,24 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
                 if (aggregationTransformation != default)
-                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation.ToString())}");
+                    queryParams.Add($"$apply={Uri.EscapeDataString(System.Convert.ToString(aggregationTransformation, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (count.HasValue)
-                    queryParams.Add($"$count={Uri.EscapeDataString(count.Value.ToString())}");
+                    queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(count.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1412,10 +1412,10 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1452,7 +1452,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 if (rowId is null)
                     throw new ArgumentNullException(nameof(rowId));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(rowId.ToString()))}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(rowId, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1486,7 +1486,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/items";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1538,7 +1538,7 @@ namespace Azure.Connectors.Sdk.Sql
                 var queryParams = new List<string>();
                 if (serverName is null)
                     throw new ArgumentNullException(nameof(serverName));
-                queryParams.Add($"server={Uri.EscapeDataString(serverName.ToString())}");
+                queryParams.Add($"server={Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DatabasesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1569,7 +1569,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/deleteitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/deleteitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1599,7 +1599,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/procedures";
                 return await this
                     .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1632,7 +1632,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (procedureName is null)
                     throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(procedureName, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1662,7 +1662,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/getitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/getitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1692,7 +1692,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/getonnewitems";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/getonnewitems";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1722,7 +1722,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/getonupdateditems";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/getonupdateditems";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1752,7 +1752,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/patchitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/patchitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1785,7 +1785,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(databaseName));
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}/forPatchItem";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}/forPatchItem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1815,7 +1815,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tablesfor/postitem";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tablesfor/postitem";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1852,10 +1852,10 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractMIPLabels.Value.ToString())}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName.ToString())}");
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(tableName, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1886,7 +1886,7 @@ namespace Azure.Connectors.Sdk.Sql
                     throw new ArgumentNullException(nameof(serverName));
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName.ToString()))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName.ToString()))}/query/sql";
+                var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(serverName, System.Globalization.CultureInfo.InvariantCulture)))},{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(databaseName, System.Globalization.CultureInfo.InvariantCulture)))}/query/sql";
                 return await this
                     .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1913,7 +1913,7 @@ namespace Azure.Connectors.Sdk.Sql
             {
                 if (procedureName is null)
                     throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/$metadata.json/datasets/default/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName.ToString()))}";
+                var path = $"/$metadata.json/datasets/default/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(procedureName, System.Globalization.CultureInfo.InvariantCulture)))}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

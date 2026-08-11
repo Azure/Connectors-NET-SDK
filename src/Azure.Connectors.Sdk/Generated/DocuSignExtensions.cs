@@ -2249,7 +2249,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/docGenFormFields";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/docGenFormFields";
                 return await this
                     .CallConnectorAsync<DocGenFormFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2283,8 +2283,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (documentGUID is null)
                     throw new ArgumentNullException(nameof(documentGUID));
-                queryParams.Add($"documentGuid={Uri.EscapeDataString(documentGUID.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/docGenFormFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"documentGuid={Uri.EscapeDataString(System.Convert.ToString(documentGUID, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/docGenFormFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2314,7 +2314,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/templates/{Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetDocGenTemplateTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2348,8 +2348,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (voidReason is null)
                     throw new ArgumentNullException(nameof(voidReason));
-                queryParams.Add($"voidedReason={Uri.EscapeDataString(voidReason.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/voidEnvelope" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"voidedReason={Uri.EscapeDataString(System.Convert.ToString(voidReason, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/voidEnvelope" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeVoidResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2376,7 +2376,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/copilotAccount/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/resendEnvelope";
+                var path = $"/accounts/copilotAccount/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/resendEnvelope";
                 return await this
                     .CallConnectorAsync<EnvelopeResendResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2411,16 +2411,16 @@ namespace Azure.Connectors.Sdk.DocuSign
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
-                queryParams.Add($"reminderEnabled={Uri.EscapeDataString(reminderEnabled.ToString())}");
+                queryParams.Add($"reminderEnabled={Uri.EscapeDataString(System.Convert.ToString(reminderEnabled, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (reminderDelay is null)
                     throw new ArgumentNullException(nameof(reminderDelay));
-                queryParams.Add($"reminderDelay={Uri.EscapeDataString(reminderDelay.ToString())}");
+                queryParams.Add($"reminderDelay={Uri.EscapeDataString(System.Convert.ToString(reminderDelay, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (reminderFrequency is null)
                     throw new ArgumentNullException(nameof(reminderFrequency));
-                queryParams.Add($"reminderFrequency={Uri.EscapeDataString(reminderFrequency.ToString())}");
+                queryParams.Add($"reminderFrequency={Uri.EscapeDataString(System.Convert.ToString(reminderFrequency, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (expireAfter != default)
-                    queryParams.Add($"expireAfter={Uri.EscapeDataString(expireAfter.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/notification" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"expireAfter={Uri.EscapeDataString(System.Convert.ToString(expireAfter, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/notification" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AddRemindersResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2453,7 +2453,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(envelopeId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/tabs";
                 return await this
                     .CallConnectorAsync<ListTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2486,7 +2486,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(envelopeId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/tabs";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2519,7 +2519,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(templateId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/templates/{Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/tabs";
                 return await this
                     .CallConnectorAsync<ListTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2552,7 +2552,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(envelopeId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/fields";
                 return await this
                     .CallConnectorAsync<ListEnvelopeDocumentFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2587,15 +2587,15 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (emailSubject is null)
                     throw new ArgumentNullException(nameof(emailSubject));
-                queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
+                queryParams.Add($"emailSubject={Uri.EscapeDataString(System.Convert.ToString(emailSubject, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailBody != default)
-                    queryParams.Add($"emailBody={Uri.EscapeDataString(emailBody.ToString())}");
+                    queryParams.Add($"emailBody={Uri.EscapeDataString(System.Convert.ToString(emailBody, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
-                queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
+                queryParams.Add($"status={Uri.EscapeDataString(System.Convert.ToString(envelopeStatus, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (mergeRolesAndDeleteEmptyRecipients != default)
-                    queryParams.Add($"merge_roles_on_draft={Uri.EscapeDataString(mergeRolesAndDeleteEmptyRecipients.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/compositeTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"merge_roles_on_draft={Uri.EscapeDataString(System.Convert.ToString(mergeRolesAndDeleteEmptyRecipients, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/compositeTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CompositeTemplatesResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2637,32 +2637,32 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 var queryParams = new List<string>();
                 if (recipientName != default)
-                    queryParams.Add($"recipientName={Uri.EscapeDataString(recipientName.ToString())}");
+                    queryParams.Add($"recipientName={Uri.EscapeDataString(System.Convert.ToString(recipientName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (recipientEmail != default)
-                    queryParams.Add($"recipientEmailId={Uri.EscapeDataString(recipientEmail.ToString())}");
+                    queryParams.Add($"recipientEmailId={Uri.EscapeDataString(System.Convert.ToString(recipientEmail, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (envelopeSubject != default)
-                    queryParams.Add($"envelopeTitle={Uri.EscapeDataString(envelopeSubject.ToString())}");
+                    queryParams.Add($"envelopeTitle={Uri.EscapeDataString(System.Convert.ToString(envelopeSubject, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (customFieldName != default)
-                    queryParams.Add($"customFieldName={Uri.EscapeDataString(customFieldName.ToString())}");
+                    queryParams.Add($"customFieldName={Uri.EscapeDataString(System.Convert.ToString(customFieldName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (customFieldValue != default)
-                    queryParams.Add($"customFieldValue={Uri.EscapeDataString(customFieldValue.ToString())}");
+                    queryParams.Add($"customFieldValue={Uri.EscapeDataString(System.Convert.ToString(customFieldValue, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (searchWord != default)
-                    queryParams.Add($"search_text={Uri.EscapeDataString(searchWord.ToString())}");
+                    queryParams.Add($"search_text={Uri.EscapeDataString(System.Convert.ToString(searchWord, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (envelopeStatus != default)
-                    queryParams.Add($"envelopeStatus={Uri.EscapeDataString(envelopeStatus.ToString())}");
+                    queryParams.Add($"envelopeStatus={Uri.EscapeDataString(System.Convert.ToString(envelopeStatus, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (folder != default)
-                    queryParams.Add($"folder_ids={Uri.EscapeDataString(folder.ToString())}");
+                    queryParams.Add($"folder_ids={Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (orderBy != default)
-                    queryParams.Add($"order_by={Uri.EscapeDataString(orderBy.ToString())}");
+                    queryParams.Add($"order_by={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (returnEnvelopes.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(returnEnvelopes.Value.ToString())}");
+                    queryParams.Add($"top={Uri.EscapeDataString(System.Convert.ToString(returnEnvelopes.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (skipEnvelopes.HasValue)
-                    queryParams.Add($"skip={Uri.EscapeDataString(skipEnvelopes.Value.ToString())}");
+                    queryParams.Add($"skip={Uri.EscapeDataString(System.Convert.ToString(skipEnvelopes.Value, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (startDate != default)
-                    queryParams.Add($"from_date={Uri.EscapeDataString(startDate.ToString())}");
+                    queryParams.Add($"from_date={Uri.EscapeDataString(System.Convert.ToString(startDate, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (endDate != default)
-                    queryParams.Add($"to_date={Uri.EscapeDataString(endDate.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/SearchListEnvelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"to_date={Uri.EscapeDataString(System.Convert.ToString(endDate, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/SearchListEnvelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FilteredEnvelopeListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2694,11 +2694,11 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
+                queryParams.Add($"templateId={Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
-                queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/createFromTemplateNoRecipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"status={Uri.EscapeDataString(System.Convert.ToString(envelopeStatus, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/createFromTemplateNoRecipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2733,15 +2733,15 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (envelopeStatus is null)
                     throw new ArgumentNullException(nameof(envelopeStatus));
-                queryParams.Add($"status={Uri.EscapeDataString(envelopeStatus.ToString())}");
+                queryParams.Add($"status={Uri.EscapeDataString(System.Convert.ToString(envelopeStatus, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
+                queryParams.Add($"templateId={Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailSubject != default)
-                    queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
+                    queryParams.Add($"emailSubject={Uri.EscapeDataString(System.Convert.ToString(emailSubject, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailBody != default)
-                    queryParams.Add($"emailBody={Uri.EscapeDataString(emailBody.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"emailBody={Uri.EscapeDataString(System.Convert.ToString(emailBody, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2775,12 +2775,12 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
+                queryParams.Add($"templateId={Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (mergeRolesAndDeleteEmptyRecipients != default)
-                    queryParams.Add($"merge_roles_on_draft={Uri.EscapeDataString(mergeRolesAndDeleteEmptyRecipients.ToString())}");
+                    queryParams.Add($"merge_roles_on_draft={Uri.EscapeDataString(System.Convert.ToString(mergeRolesAndDeleteEmptyRecipients, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailSubject != default)
-                    queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/createWithRecipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"emailSubject={Uri.EscapeDataString(System.Convert.ToString(emailSubject, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/createWithRecipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2810,7 +2810,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<SendDraftEnvelopeResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2844,8 +2844,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (customFieldName is null)
                     throw new ArgumentNullException(nameof(customFieldName));
-                queryParams.Add($"fieldName={Uri.EscapeDataString(customFieldName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"fieldName={Uri.EscapeDataString(System.Convert.ToString(customFieldName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeCustomFieldResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2882,17 +2882,17 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (fieldId is null)
                     throw new ArgumentNullException(nameof(fieldId));
-                queryParams.Add($"fieldId={Uri.EscapeDataString(fieldId.ToString())}");
+                queryParams.Add($"fieldId={Uri.EscapeDataString(System.Convert.ToString(fieldId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (fieldType is null)
                     throw new ArgumentNullException(nameof(fieldType));
-                queryParams.Add($"fieldType={Uri.EscapeDataString(fieldType.ToString())}");
+                queryParams.Add($"fieldType={Uri.EscapeDataString(System.Convert.ToString(fieldType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (name is null)
                     throw new ArgumentNullException(nameof(name));
-                queryParams.Add($"name={Uri.EscapeDataString(name.ToString())}");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (value is null)
                     throw new ArgumentNullException(nameof(value));
-                queryParams.Add($"value={Uri.EscapeDataString(value.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"value={Uri.EscapeDataString(System.Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/custom_fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UpdateEnvelopeCustomFieldResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2928,11 +2928,11 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (openIn is null)
                     throw new ArgumentNullException(nameof(openIn));
-                queryParams.Add($"openIn={Uri.EscapeDataString(openIn.ToString())}");
+                queryParams.Add($"openIn={Uri.EscapeDataString(System.Convert.ToString(openIn, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (returnURL is null)
                     throw new ArgumentNullException(nameof(returnURL));
-                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/views/sender" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"returnUrl={Uri.EscapeDataString(System.Convert.ToString(returnURL, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/views/sender" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EmbeddedSenderResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2962,7 +2962,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients";
                 return await this
                     .CallConnectorAsync<ListRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2997,11 +2997,11 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
-                queryParams.Add($"folderId={Uri.EscapeDataString(folder.ToString())}");
+                queryParams.Add($"folderId={Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                queryParams.Add($"RemoveRecipientFromEnvelopeRecipientId={Uri.EscapeDataString(recipientId.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"RemoveRecipientFromEnvelopeRecipientId={Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListRecipientsResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3037,14 +3037,14 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(envelopeId));
                 var queryParams = new List<string>();
                 if (recipientEmail != default)
-                    queryParams.Add($"recipientEmail={Uri.EscapeDataString(recipientEmail.ToString())}");
+                    queryParams.Add($"recipientEmail={Uri.EscapeDataString(System.Convert.ToString(recipientEmail, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (areaCode != default)
-                    queryParams.Add($"areaCode={Uri.EscapeDataString(areaCode.ToString())}");
+                    queryParams.Add($"areaCode={Uri.EscapeDataString(System.Convert.ToString(areaCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (phoneNumber != default)
-                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(phoneNumber.ToString())}");
+                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(System.Convert.ToString(phoneNumber, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (recipientId != default)
-                    queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"recipientId={Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipientFields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Signer>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3074,7 +3074,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/audit_events";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/audit_events";
                 return await this
                     .CallConnectorAsync<AuditResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3111,14 +3111,14 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
+                queryParams.Add($"recipientId={Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (recipientType is null)
                     throw new ArgumentNullException(nameof(recipientType));
-                queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
+                queryParams.Add($"recipientType={Uri.EscapeDataString(System.Convert.ToString(recipientType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (verificationType is null)
                     throw new ArgumentNullException(nameof(verificationType));
-                queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"verificationType={Uri.EscapeDataString(System.Convert.ToString(verificationType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AddVerificationToRecipientResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3166,35 +3166,35 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
+                queryParams.Add($"recipientId={Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signatureType != default)
-                    queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
+                    queryParams.Add($"signatureType={Uri.EscapeDataString(System.Convert.ToString(signatureType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (recipientType is null)
                     throw new ArgumentNullException(nameof(recipientType));
-                queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
+                queryParams.Add($"recipientType={Uri.EscapeDataString(System.Convert.ToString(recipientType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (clientUserId != default)
-                    queryParams.Add($"clientUserId={Uri.EscapeDataString(clientUserId.ToString())}");
+                    queryParams.Add($"clientUserId={Uri.EscapeDataString(System.Convert.ToString(clientUserId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (embeddedRecipientStartURL != default)
-                    queryParams.Add($"embeddedRecipientStartURL={Uri.EscapeDataString(embeddedRecipientStartURL.ToString())}");
+                    queryParams.Add($"embeddedRecipientStartURL={Uri.EscapeDataString(System.Convert.ToString(embeddedRecipientStartURL, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signingOrder != default)
-                    queryParams.Add($"routingOrder={Uri.EscapeDataString(signingOrder.ToString())}");
+                    queryParams.Add($"routingOrder={Uri.EscapeDataString(System.Convert.ToString(signingOrder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailNotificationLanguage != default)
-                    queryParams.Add($"emailNotificationLanguage={Uri.EscapeDataString(emailNotificationLanguage.ToString())}");
+                    queryParams.Add($"emailNotificationLanguage={Uri.EscapeDataString(System.Convert.ToString(emailNotificationLanguage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailNotificationSubject != default)
-                    queryParams.Add($"emailNotificationSubject={Uri.EscapeDataString(emailNotificationSubject.ToString())}");
+                    queryParams.Add($"emailNotificationSubject={Uri.EscapeDataString(System.Convert.ToString(emailNotificationSubject, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailNotificationBody != default)
-                    queryParams.Add($"emailNotificationBody={Uri.EscapeDataString(emailNotificationBody.ToString())}");
+                    queryParams.Add($"emailNotificationBody={Uri.EscapeDataString(System.Convert.ToString(emailNotificationBody, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (note != default)
-                    queryParams.Add($"note={Uri.EscapeDataString(note.ToString())}");
+                    queryParams.Add($"note={Uri.EscapeDataString(System.Convert.ToString(note, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (roleName != default)
-                    queryParams.Add($"roleName={Uri.EscapeDataString(roleName.ToString())}");
+                    queryParams.Add($"roleName={Uri.EscapeDataString(System.Convert.ToString(roleName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sMSCountryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(sMSCountryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(sMSCountryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sMSPhoneNumber != default)
-                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(sMSPhoneNumber.ToString())}");
+                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(System.Convert.ToString(sMSPhoneNumber, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signingGroup != default)
-                    queryParams.Add($"signingGroupId={Uri.EscapeDataString(signingGroup.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/updateRecipient" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"signingGroupId={Uri.EscapeDataString(System.Convert.ToString(signingGroup, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/updateRecipient" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Signer>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3229,10 +3229,10 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                queryParams.Add($"templateId={Uri.EscapeDataString(templateId.ToString())}");
+                queryParams.Add($"templateId={Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (preserveTemplateRecipient != default)
-                    queryParams.Add($"preserve_template_recipient={Uri.EscapeDataString(preserveTemplateRecipient.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/templates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"preserve_template_recipient={Uri.EscapeDataString(System.Convert.ToString(preserveTemplateRecipient, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/templates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3264,8 +3264,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (bulkSendListName is null)
                     throw new ArgumentNullException(nameof(bulkSendListName));
-                queryParams.Add($"name={Uri.EscapeDataString(bulkSendListName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/bulk_send_lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(bulkSendListName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/bulk_send_lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BulkSendListGuid>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3299,8 +3299,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                queryParams.Add($"envelopeOrTemplateId={Uri.EscapeDataString(templateId.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/bulk_send_lists/{Uri.EscapeDataString(bulkSendListGUID.ToString())}/send" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"envelopeOrTemplateId={Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/bulk_send_lists/{Uri.EscapeDataString(System.Convert.ToString(bulkSendListGUID, System.Globalization.CultureInfo.InvariantCulture))}/send" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BulkSendListGuid>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3351,7 +3351,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (accountId is null)
                     throw new ArgumentNullException(nameof(accountId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/templates";
                 return await this
                     .CallConnectorAsync<ListTemplatesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3382,7 +3382,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/documents";
                 return await this
                     .CallConnectorAsync<AddDocumentsResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3412,7 +3412,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/documents";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/templates/{Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}/documents";
                 return await this
                     .CallConnectorAsync<ListTemplateDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3442,7 +3442,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (envelopeId is null)
                     throw new ArgumentNullException(nameof(envelopeId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/envelopeDocuments";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/envelopeDocuments";
                 return await this
                     .CallConnectorAsync<ListDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3476,8 +3476,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (documentName is null)
                     throw new ArgumentNullException(nameof(documentName));
-                queryParams.Add($"documentName={Uri.EscapeDataString(documentName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/get_document_info" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"documentName={Uri.EscapeDataString(System.Convert.ToString(documentName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/get_document_info" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EnvelopeDocument>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3514,8 +3514,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (tabLabel is null)
                     throw new ArgumentNullException(nameof(tabLabel));
-                queryParams.Add($"tabLabel={Uri.EscapeDataString(tabLabel.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"tabLabel={Uri.EscapeDataString(System.Convert.ToString(tabLabel, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/{Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Tab>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3553,8 +3553,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (tabType is null)
                     throw new ArgumentNullException(nameof(tabType));
-                queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"tabType={Uri.EscapeDataString(System.Convert.ToString(tabType, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/{Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}/tabs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AddRecipientTabsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3587,7 +3587,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(envelopeId));
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/tabs";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/{Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}/tabs";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3620,7 +3620,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(envelopeId));
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}/recipientTabs";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/{Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}/recipientTabs";
                 return await this
                     .CallConnectorAsync<RecipientTabsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3655,8 +3655,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (instanceName is null)
                     throw new ArgumentNullException(nameof(instanceName));
-                queryParams.Add($"instanceName={Uri.EscapeDataString(instanceName.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows/trigger/{Uri.EscapeDataString(workflow.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"instanceName={Uri.EscapeDataString(System.Convert.ToString(instanceName, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/maestro-workflows/trigger/{Uri.EscapeDataString(System.Convert.ToString(workflow, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TriggerMaestroFlowResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3730,36 +3730,36 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (recipientType is null)
                     throw new ArgumentNullException(nameof(recipientType));
-                queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
+                queryParams.Add($"recipientType={Uri.EscapeDataString(System.Convert.ToString(recipientType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (clientUserId != default)
-                    queryParams.Add($"clientUserId={Uri.EscapeDataString(clientUserId.ToString())}");
+                    queryParams.Add($"clientUserId={Uri.EscapeDataString(System.Convert.ToString(clientUserId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (recipientId != default)
-                    queryParams.Add($"recipientId={Uri.EscapeDataString(recipientId.ToString())}");
+                    queryParams.Add($"recipientId={Uri.EscapeDataString(System.Convert.ToString(recipientId, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (embeddedRecipientStartURL != default)
-                    queryParams.Add($"embeddedRecipientStartURL={Uri.EscapeDataString(embeddedRecipientStartURL.ToString())}");
+                    queryParams.Add($"embeddedRecipientStartURL={Uri.EscapeDataString(System.Convert.ToString(embeddedRecipientStartURL, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signingOrder != default)
-                    queryParams.Add($"routingOrder={Uri.EscapeDataString(signingOrder.ToString())}");
+                    queryParams.Add($"routingOrder={Uri.EscapeDataString(System.Convert.ToString(signingOrder, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailNotificationLanguage != default)
-                    queryParams.Add($"emailNotificationLanguage={Uri.EscapeDataString(emailNotificationLanguage.ToString())}");
+                    queryParams.Add($"emailNotificationLanguage={Uri.EscapeDataString(System.Convert.ToString(emailNotificationLanguage, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailNotificationSubject != default)
-                    queryParams.Add($"emailNotificationSubject={Uri.EscapeDataString(emailNotificationSubject.ToString())}");
+                    queryParams.Add($"emailNotificationSubject={Uri.EscapeDataString(System.Convert.ToString(emailNotificationSubject, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (emailNotificationBody != default)
-                    queryParams.Add($"emailNotificationBody={Uri.EscapeDataString(emailNotificationBody.ToString())}");
+                    queryParams.Add($"emailNotificationBody={Uri.EscapeDataString(System.Convert.ToString(emailNotificationBody, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (note != default)
-                    queryParams.Add($"note={Uri.EscapeDataString(note.ToString())}");
+                    queryParams.Add($"note={Uri.EscapeDataString(System.Convert.ToString(note, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (roleName != default)
-                    queryParams.Add($"roleName={Uri.EscapeDataString(roleName.ToString())}");
+                    queryParams.Add($"roleName={Uri.EscapeDataString(System.Convert.ToString(roleName, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sMSCountryCode != default)
-                    queryParams.Add($"countryCode={Uri.EscapeDataString(sMSCountryCode.ToString())}");
+                    queryParams.Add($"countryCode={Uri.EscapeDataString(System.Convert.ToString(sMSCountryCode, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (sMSPhoneNumber != default)
-                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(sMSPhoneNumber.ToString())}");
+                    queryParams.Add($"phoneNumber={Uri.EscapeDataString(System.Convert.ToString(sMSPhoneNumber, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signingGroup != default)
-                    queryParams.Add($"signingGroupId={Uri.EscapeDataString(signingGroup.ToString())}");
+                    queryParams.Add($"signingGroupId={Uri.EscapeDataString(System.Convert.ToString(signingGroup, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signatureType != default)
-                    queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
+                    queryParams.Add($"signatureType={Uri.EscapeDataString(System.Convert.ToString(signatureType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (verificationWorkflow != default)
-                    queryParams.Add($"workflowId={Uri.EscapeDataString(verificationWorkflow.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"workflowId={Uri.EscapeDataString(System.Convert.ToString(verificationWorkflow, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/recipients/addRecipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Signer>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3791,8 +3791,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (emailSubject is null)
                     throw new ArgumentNullException(nameof(emailSubject));
-                queryParams.Add($"emailSubject={Uri.EscapeDataString(emailSubject.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/createBlankEnvelopeV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"emailSubject={Uri.EscapeDataString(System.Convert.ToString(emailSubject, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/createBlankEnvelopeV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEnvelopeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3829,14 +3829,14 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (isThisAnInPersonSigner is null)
                     throw new ArgumentNullException(nameof(isThisAnInPersonSigner));
-                queryParams.Add($"isInPersonSigner={Uri.EscapeDataString(isThisAnInPersonSigner.ToString())}");
+                queryParams.Add($"isInPersonSigner={Uri.EscapeDataString(System.Convert.ToString(isThisAnInPersonSigner, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (authenticationMethod is null)
                     throw new ArgumentNullException(nameof(authenticationMethod));
-                queryParams.Add($"authenticationMethod={Uri.EscapeDataString(authenticationMethod.ToString())}");
+                queryParams.Add($"authenticationMethod={Uri.EscapeDataString(System.Convert.ToString(authenticationMethod, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (returnURL is null)
                     throw new ArgumentNullException(nameof(returnURL));
-                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/views/recipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"returnUrl={Uri.EscapeDataString(System.Convert.ToString(returnURL, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/views/recipientV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EmbeddedSigningResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3872,8 +3872,8 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(outputFormat));
                 var queryParams = new List<string>();
                 if (certificateOfCompletionLanguageOptional != default)
-                    queryParams.Add($"language={Uri.EscapeDataString(certificateOfCompletionLanguageOptional.ToString())}");
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/envelopes/{Uri.EscapeDataString(envelopeId.ToString())}/documents/{Uri.EscapeDataString(outputFormat.ToString())}/documentsDownload" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"language={Uri.EscapeDataString(System.Convert.ToString(certificateOfCompletionLanguageOptional, System.Globalization.CultureInfo.InvariantCulture))}");
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/envelopes/{Uri.EscapeDataString(System.Convert.ToString(envelopeId, System.Globalization.CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(System.Convert.ToString(outputFormat, System.Globalization.CultureInfo.InvariantCulture))}/documentsDownload" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3925,7 +3925,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/account_custom_fields";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}/account_custom_fields";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3952,7 +3952,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/folders";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}/folders";
                 return await this
                     .CallConnectorAsync<ListFoldersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3982,7 +3982,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/folders/{Uri.EscapeDataString(folder.ToString())}";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/folders/{Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<ListEnvelopesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4057,7 +4057,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/signing_groups";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}/signing_groups";
                 return await this
                     .CallConnectorAsync<ListSigningGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4108,7 +4108,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (accountId is null)
                     throw new ArgumentNullException(nameof(accountId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/maestro-workflows";
                 return await this
                     .CallConnectorAsync<WorkflowDefinitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4135,7 +4135,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/all_identity_verification";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}/all_identity_verification";
                 return await this
                     .CallConnectorAsync<GetWorkFlowIdsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4165,7 +4165,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (workflowId is null)
                     throw new ArgumentNullException(nameof(workflowId));
-                var path = $"/accounts/{Uri.EscapeDataString(accountId.ToString())}/maestro-workflows/{Uri.EscapeDataString(workflowId.ToString())}";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/maestro-workflows/{Uri.EscapeDataString(System.Convert.ToString(workflowId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<WorkflowDefinitionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4195,7 +4195,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}/recipients";
+                var path = $"/signers/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/templates/{Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}/recipients";
                 return await this
                     .CallConnectorAsync<GetDynamicSignersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4225,7 +4225,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                     throw new ArgumentNullException(nameof(accountId));
                 if (templateId is null)
                     throw new ArgumentNullException(nameof(templateId));
-                var path = $"/signers/accounts/{Uri.EscapeDataString(accountId.ToString())}/templates/{Uri.EscapeDataString(templateId.ToString())}";
+                var path = $"/signers/accounts/{Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}/templates/{Uri.EscapeDataString(System.Convert.ToString(templateId, System.Globalization.CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetDynamicRecipientsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4254,9 +4254,9 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (recipientType is null)
                     throw new ArgumentNullException(nameof(recipientType));
-                queryParams.Add($"recipientType={Uri.EscapeDataString(recipientType.ToString())}");
+                queryParams.Add($"recipientType={Uri.EscapeDataString(System.Convert.ToString(recipientType, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (signatureType != default)
-                    queryParams.Add($"signatureType={Uri.EscapeDataString(signatureType.ToString())}");
+                    queryParams.Add($"signatureType={Uri.EscapeDataString(System.Convert.ToString(signatureType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/recipienttype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StaticResponseForRecipientTypeSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4285,7 +4285,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (verificationType is null)
                     throw new ArgumentNullException(nameof(verificationType));
-                queryParams.Add($"verificationType={Uri.EscapeDataString(verificationType.ToString())}");
+                queryParams.Add($"verificationType={Uri.EscapeDataString(System.Convert.ToString(verificationType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/verificationtype_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StaticResponseForVerificationTypeSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4314,7 +4314,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (returnURL is null)
                     throw new ArgumentNullException(nameof(returnURL));
-                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
+                queryParams.Add($"returnUrl={Uri.EscapeDataString(System.Convert.ToString(returnURL, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/embeddedSender_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StaticResponseForEmbeddedSenderSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4344,10 +4344,10 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (returnURL is null)
                     throw new ArgumentNullException(nameof(returnURL));
-                queryParams.Add($"returnUrl={Uri.EscapeDataString(returnURL.ToString())}");
+                queryParams.Add($"returnUrl={Uri.EscapeDataString(System.Convert.ToString(returnURL, System.Globalization.CultureInfo.InvariantCulture))}");
                 if (isThisAnPersonSigner is null)
                     throw new ArgumentNullException(nameof(isThisAnPersonSigner));
-                queryParams.Add($"isInPersonSigner={Uri.EscapeDataString(isThisAnPersonSigner.ToString())}");
+                queryParams.Add($"isInPersonSigner={Uri.EscapeDataString(System.Convert.ToString(isThisAnPersonSigner, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/embeddedSigning_schema_v2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StaticResponseForEmbeddedSigningSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4398,7 +4398,7 @@ namespace Azure.Connectors.Sdk.DocuSign
             {
                 if (account is null)
                     throw new ArgumentNullException(nameof(account));
-                var path = $"/accounts/{Uri.EscapeDataString(account.ToString())}/custom_fields";
+                var path = $"/accounts/{Uri.EscapeDataString(System.Convert.ToString(account, System.Globalization.CultureInfo.InvariantCulture))}/custom_fields";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4426,7 +4426,7 @@ namespace Azure.Connectors.Sdk.DocuSign
                 var queryParams = new List<string>();
                 if (tabType is null)
                     throw new ArgumentNullException(nameof(tabType));
-                queryParams.Add($"tabType={Uri.EscapeDataString(tabType.ToString())}");
+                queryParams.Add($"tabType={Uri.EscapeDataString(System.Convert.ToString(tabType, System.Globalization.CultureInfo.InvariantCulture))}");
                 var path = $"/anchortab_schema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<StaticResponseForAnchorTabSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
