@@ -46,6 +46,10 @@ namespace Azure.Connectors.Sdk.Twitter.Models
         [JsonPropertyName("CreatedAt")]
         public string CreatedAt { get; set; }
 
+        /// <summary>Time at which the tweet was posted</summary>
+        [JsonPropertyName("CreatedAtIso")]
+        public string CreatedAtIso { get; set; }
+
         /// <summary>Total number of re-tweets for the tweet</summary>
         [JsonPropertyName("RetweetCount")]
         public int? RetweetCount { get; set; }
@@ -117,6 +121,10 @@ namespace Azure.Connectors.Sdk.Twitter.Models
         /// <summary>Time at which original tweet was posted</summary>
         [JsonPropertyName("CreatedAt")]
         public string OriginalTweetCreatedAt { get; set; }
+
+        /// <summary>Time at which original tweet was posted</summary>
+        [JsonPropertyName("CreatedAtIso")]
+        public string CreatedAtIso { get; set; }
 
         /// <summary>Total number of re-tweets for this original tweet</summary>
         [JsonPropertyName("RetweetCount")]
@@ -299,6 +307,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
             string tweetText = default,
             string tweetId = default,
             string createdAt = default,
+            string createdAtIso = default,
             int? retweetCount = default,
             string tweetedBy = default,
             List<string> mediaUrls = default,
@@ -314,6 +323,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
                 TweetText = tweetText,
                 TweetId = tweetId,
                 CreatedAt = createdAt,
+                CreatedAtIso = createdAtIso,
                 RetweetCount = retweetCount,
                 TweetedBy = tweetedBy,
                 MediaUrls = mediaUrls,
@@ -349,6 +359,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
             string originalTweetText = default,
             string originalTweetId = default,
             string originalTweetCreatedAt = default,
+            string createdAtIso = default,
             int? originalTweetRetweetCount = default,
             string originalTweetTweetedBy = default,
             List<string> originalTweetMediaUrls = default,
@@ -363,6 +374,7 @@ namespace Azure.Connectors.Sdk.Twitter.Models
                 OriginalTweetText = originalTweetText,
                 OriginalTweetId = originalTweetId,
                 OriginalTweetCreatedAt = originalTweetCreatedAt,
+                CreatedAtIso = createdAtIso,
                 OriginalTweetRetweetCount = originalTweetRetweetCount,
                 OriginalTweetTweetedBy = originalTweetTweetedBy,
                 OriginalTweetMediaUrls = originalTweetMediaUrls,

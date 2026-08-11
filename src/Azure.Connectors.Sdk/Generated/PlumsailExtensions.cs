@@ -241,6 +241,10 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Name of the process that, when finished, will trigger the flow</summary>
         [JsonPropertyName("processId")]
+        public string ProcessId { get; set; }
+
+        /// <summary>HookUrl</summary>
+        [JsonPropertyName("hookUrl")]
         public string ProcessName { get; set; }
     }
 
@@ -5237,10 +5241,12 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="AddPowerAutomateWebhookData"/>.
         /// </summary>
         public static AddPowerAutomateWebhookData AddPowerAutomateWebhookData(
+            string processId = default,
             string processName = default)
         {
             return new AddPowerAutomateWebhookData
             {
+                ProcessId = processId,
                 ProcessName = processName,
             };
         }

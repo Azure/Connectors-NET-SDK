@@ -683,7 +683,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>The Diff URL for the pull request.</summary>
         [JsonPropertyName("diff_url")]
-        public string PullRequestDiffUrl { get; set; }
+        public string DiffUrl { get; set; }
 
         /// <summary>The patch URL for the pull request.</summary>
         [JsonPropertyName("patch_url")]
@@ -704,6 +704,10 @@ namespace Azure.Connectors.Sdk.GitHub.Models
         /// <summary>The review comment URL for the pull request.</summary>
         [JsonPropertyName("review_comment_url")]
         public string PullRequestReviewCommentUrl { get; set; }
+
+        /// <summary>The Diff URL for the pull request.</summary>
+        [JsonPropertyName("comments_url")]
+        public string PullRequestDiffUrl { get; set; }
 
         /// <summary>The statuses URL for the pull request.</summary>
         [JsonPropertyName("statuses_url")]
@@ -2174,12 +2178,13 @@ namespace Azure.Connectors.Sdk.GitHub.Models
             int? pullRequestId = default,
             string pullRequestNodeId = default,
             string pullRequestHtmlUrl = default,
-            string pullRequestDiffUrl = default,
+            string diffUrl = default,
             string pullRequestPatchUrl = default,
             string pullRequestIssueUrl = default,
             string pullRequestCommitUrl = default,
             string pullRequestReviewCommentsUrl = default,
             string pullRequestReviewCommentUrl = default,
+            string pullRequestDiffUrl = default,
             string pullRequestStatusesUrl = default,
             int? pullRequestNumber = default,
             State? pullRequestState = default,
@@ -2222,12 +2227,13 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 PullRequestId = pullRequestId,
                 PullRequestNodeId = pullRequestNodeId,
                 PullRequestHtmlUrl = pullRequestHtmlUrl,
-                PullRequestDiffUrl = pullRequestDiffUrl,
+                DiffUrl = diffUrl,
                 PullRequestPatchUrl = pullRequestPatchUrl,
                 PullRequestIssueUrl = pullRequestIssueUrl,
                 PullRequestCommitUrl = pullRequestCommitUrl,
                 PullRequestReviewCommentsUrl = pullRequestReviewCommentsUrl,
                 PullRequestReviewCommentUrl = pullRequestReviewCommentUrl,
+                PullRequestDiffUrl = pullRequestDiffUrl,
                 PullRequestStatusesUrl = pullRequestStatusesUrl,
                 PullRequestNumber = pullRequestNumber,
                 PullRequestState = pullRequestState,
