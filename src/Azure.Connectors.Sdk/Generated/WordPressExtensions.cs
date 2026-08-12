@@ -75,6 +75,10 @@ namespace Azure.Connectors.Sdk.WordPress.Models
         [JsonPropertyName("slug")]
         public string Slug { get; set; }
 
+        /// <summary>guid</summary>
+        [JsonPropertyName("guid")]
+        public string Id2 { get; set; }
+
         /// <summary>type</summary>
         [JsonPropertyName("type")]
         public string Type { get; set; }
@@ -222,6 +226,10 @@ namespace Azure.Connectors.Sdk.WordPress.Models
         /// <summary>slug</summary>
         [JsonPropertyName("slug")]
         public string Slug { get; set; }
+
+        /// <summary>guid</summary>
+        [JsonPropertyName("guid")]
+        public string Id2 { get; set; }
 
         /// <summary>status</summary>
         [JsonPropertyName("status")]
@@ -477,6 +485,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             string title = default,
             string url = default,
             string slug = default,
+            string id2 = default,
             string type = default,
             int? likeCount = default)
         {
@@ -490,6 +499,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
                 Title = title,
                 URL = url,
                 Slug = slug,
+                Id2 = id2,
                 Type = type,
                 LikeCount = likeCount,
             };
@@ -563,6 +573,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             string content = default,
             string excerpt = default,
             string slug = default,
+            string id2 = default,
             string status = default,
             bool? sticky = default,
             string password = default,
@@ -592,6 +603,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
                 Content = content,
                 Excerpt = excerpt,
                 Slug = slug,
+                Id2 = id2,
                 Status = status,
                 Sticky = sticky,
                 Password = password,

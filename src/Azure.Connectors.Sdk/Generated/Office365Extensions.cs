@@ -1199,7 +1199,11 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Number of external members</summary>
         [JsonPropertyName("externalMemberCount")]
-        public int? IsModerated { get; set; }
+        public int? ExternalMemberCount { get; set; }
+
+        /// <summary>Is moderated</summary>
+        [JsonPropertyName("isModerated")]
+        public bool? IsModerated { get; set; }
 
         /// <summary>Is mailbox full</summary>
         [JsonPropertyName("mailboxFull")]
@@ -3749,7 +3753,8 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public static MailTipsClientReceive MailTipsClientReceive(
             MailTipsAutomaticReplies automaticReplies = default,
             bool? isDeliveryRestricted = default,
-            int? isModerated = default,
+            int? externalMemberCount = default,
+            bool? isModerated = default,
             bool? isMailboxFull = default,
             long? maximumMessageSize = default,
             long? totalMemberCount = default)
@@ -3758,6 +3763,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             {
                 AutomaticReplies = automaticReplies,
                 IsDeliveryRestricted = isDeliveryRestricted,
+                ExternalMemberCount = externalMemberCount,
                 IsModerated = isModerated,
                 IsMailboxFull = isMailboxFull,
                 MaximumMessageSize = maximumMessageSize,
