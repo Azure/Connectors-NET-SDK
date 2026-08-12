@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and (4) rename the mirrored release_notes.md heading to the same version/date.
   Do NOT put HTML comments in release_notes.md — it is packed verbatim. -->
 
+## [0.14.0-preview.1] - 2026-08-12
+
 ### Breaking Changes
 
 - **Seven clients preserve wire properties that previously collided after C# name generation** — regenerated Etsy, GitHub, Office 365 Outlook, Plumsail Documents, SigningHub, Twitter, and WordPress from the merged collision resolver in AzureUX-BPM PR 16763267. GitHub `PullRequest.DiffUrl` now represents `diff_url`, while `PullRequest.PullRequestDiffUrl` represents the previously dropped `comments_url`. Office 365 `MailTipsClientReceive.ExternalMemberCount` now represents `externalMemberCount`, and `IsModerated` is corrected from `int?` to `bool?` for `isModerated`. Plumsail `AddPowerAutomateWebhookData.ProcessId` now represents `processId`, while `ProcessName` represents the previously dropped `hookUrl`. Etsy adds `BuyerTotalAdjustmentAmount`; SigningHub adds `DocumentId2` for `document_id`; Twitter adds `CreatedAtIso` to both tweet models; and WordPress adds `Id2` for `guid` to both post models. Callers using the three previously misbound GitHub, Office 365, or Plumsail properties must move values to the corrected properties.
@@ -333,7 +335,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.13.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.14.0-preview.1...HEAD
+[0.14.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.13.0-preview.1...v0.14.0-preview.1
 [0.13.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.12.0-preview.1...v0.13.0-preview.1
 [0.12.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.11.0-preview.1...v0.12.0-preview.1
 [0.11.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.10.0-preview.1...v0.11.0-preview.1
