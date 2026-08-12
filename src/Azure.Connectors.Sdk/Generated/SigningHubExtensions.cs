@@ -309,6 +309,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("documentid")]
         public long? Documentid { get; set; }
 
+        /// <summary>The document ID to be used later to share, download and get status of the document.</summary>
+        [JsonPropertyName("document_id")]
+        public long? DocumentId2 { get; set; }
+
         /// <summary>The name of the document.</summary>
         [JsonPropertyName("document_name")]
         public string DocumentName { get; set; }
@@ -4528,6 +4532,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static UploadDocument UploadDocument(
             long? documentId = default,
             long? documentid = default,
+            long? documentId2 = default,
             string documentName = default,
             int? documentOrder = default,
             string documentType = default,
@@ -4547,6 +4552,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             {
                 DocumentId = documentId,
                 Documentid = documentid,
+                DocumentId2 = documentId2,
                 DocumentName = documentName,
                 DocumentOrder = documentOrder,
                 DocumentType = documentType,

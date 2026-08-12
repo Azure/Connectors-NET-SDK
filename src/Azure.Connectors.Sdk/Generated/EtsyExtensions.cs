@@ -264,6 +264,10 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         [JsonPropertyName("shop_total_adjustment_amount")]
         public int? ShopTotalAdjustmentAmount { get; set; }
 
+        /// <summary>The numeric amount of the refund in the buyer currency.</summary>
+        [JsonPropertyName("buyer_total_adjustment_amount")]
+        public int? BuyerTotalAdjustmentAmount { get; set; }
+
         /// <summary>The numeric amount of card processing fees associated with a payment adjustment.</summary>
         [JsonPropertyName("total_fee_adjustment_amount")]
         public int? TotalFeeAdjustmentAmount { get; set; }
@@ -3455,6 +3459,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string reasonCode = default,
             int? totalAdjustmentAmount = default,
             int? shopTotalAdjustmentAmount = default,
+            int? buyerTotalAdjustmentAmount = default,
             int? totalFeeAdjustmentAmount = default,
             int? createdTimestamp = default,
             int? updateTimestamp = default)
@@ -3469,6 +3474,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 ReasonCode = reasonCode,
                 TotalAdjustmentAmount = totalAdjustmentAmount,
                 ShopTotalAdjustmentAmount = shopTotalAdjustmentAmount,
+                BuyerTotalAdjustmentAmount = buyerTotalAdjustmentAmount,
                 TotalFeeAdjustmentAmount = totalFeeAdjustmentAmount,
                 CreatedTimestamp = createdTimestamp,
                 UpdateTimestamp = updateTimestamp,
