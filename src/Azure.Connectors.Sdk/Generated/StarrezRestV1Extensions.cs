@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -13756,7 +13757,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryAsync");
             try
             {
-                var path = $"/update/entry.json/{Uri.EscapeDataString(entryId.ToString())}";
+                var path = $"/update/entry.json/{Uri.EscapeDataString(Convert.ToString(entryId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateEntryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -13784,7 +13785,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             {
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
-                var path = $"/delete/{Uri.EscapeDataString(tableName.ToString())}.json/{Uri.EscapeDataString(rowId.ToString())}";
+                var path = $"/delete/{Uri.EscapeDataString(tableName)}.json/{Uri.EscapeDataString(Convert.ToString(rowId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DeleteResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -13835,7 +13836,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryCustomFieldAsync");
             try
             {
-                var path = $"/update/entryCustomField.json/{Uri.EscapeDataString(entryCustomFieldId.ToString())}";
+                var path = $"/update/entryCustomField.json/{Uri.EscapeDataString(Convert.ToString(entryCustomFieldId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateEntryCustomFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -13911,7 +13912,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryAddressAsync");
             try
             {
-                var path = $"/update/entryAddress.json/{Uri.EscapeDataString(entryAddressId.ToString())}";
+                var path = $"/update/entryAddress.json/{Uri.EscapeDataString(Convert.ToString(entryAddressId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateEntryAddressResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -13987,7 +13988,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryApplicationAsync");
             try
             {
-                var path = $"/update/entryapplication.json/{Uri.EscapeDataString(entryApplicationId.ToString())}";
+                var path = $"/update/entryapplication.json/{Uri.EscapeDataString(Convert.ToString(entryApplicationId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateEntryApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -14063,7 +14064,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryDetailAsync");
             try
             {
-                var path = $"/update/entrydetail.json/{Uri.EscapeDataString(entryDetailId.ToString())}";
+                var path = $"/update/entrydetail.json/{Uri.EscapeDataString(Convert.ToString(entryDetailId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateEntryDetailResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -14139,7 +14140,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateEntryEnrollmentAsync");
             try
             {
-                var path = $"/update/entryenrollment.json/{Uri.EscapeDataString(entryEnrollmentId.ToString())}";
+                var path = $"/update/entryenrollment.json/{Uri.EscapeDataString(Convert.ToString(entryEnrollmentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateEntryEnrollmentResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -14215,7 +14216,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateBookingAsync");
             try
             {
-                var path = $"/update/booking.json/{Uri.EscapeDataString(bookingId.ToString())}";
+                var path = $"/update/booking.json/{Uri.EscapeDataString(Convert.ToString(bookingId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateBookingResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -14416,7 +14417,7 @@ namespace Azure.Connectors.Sdk.StarrezRestV1
             using var activity = StarrezRestV1Client.ConnectorActivitySource.StartActivity("StarrezRestV1Client.UpdateRoomSpaceMaintenanceAsync");
             try
             {
-                var path = $"/update/roomspacemaintenance.json/{Uri.EscapeDataString(roomSpaceMaintenanceId.ToString())}";
+                var path = $"/update/roomspacemaintenance.json/{Uri.EscapeDataString(Convert.ToString(roomSpaceMaintenanceId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateRoomSpaceMaintenanceResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

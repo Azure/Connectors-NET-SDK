@@ -510,7 +510,7 @@ namespace Azure.Connectors.Sdk.SendGrid
             {
                 if (email is null)
                     throw new ArgumentNullException(nameof(email));
-                var path = $"/suppressions/global/{Uri.EscapeDataString(email.ToString())}";
+                var path = $"/suppressions/global/{Uri.EscapeDataString(email)}";
                 return await this
                     .CallConnectorAsync<GetGlobalSuppressResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -536,7 +536,7 @@ namespace Azure.Connectors.Sdk.SendGrid
             {
                 if (email is null)
                     throw new ArgumentNullException(nameof(email));
-                var path = $"/suppressions/global/{Uri.EscapeDataString(email.ToString())}";
+                var path = $"/suppressions/global/{Uri.EscapeDataString(email)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -566,7 +566,7 @@ namespace Azure.Connectors.Sdk.SendGrid
                     throw new ArgumentNullException(nameof(listId));
                 if (recipientId is null)
                     throw new ArgumentNullException(nameof(recipientId));
-                var path = $"/v3/contactdb/lists/{Uri.EscapeDataString(listId.ToString())}/recipients/{Uri.EscapeDataString(recipientId.ToString())}";
+                var path = $"/v3/contactdb/lists/{Uri.EscapeDataString(listId)}/recipients/{Uri.EscapeDataString(recipientId)}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -593,7 +593,7 @@ namespace Azure.Connectors.Sdk.SendGrid
             {
                 if (email is null)
                     throw new ArgumentNullException(nameof(email));
-                var path = $"/suppression/bounces/{Uri.EscapeDataString(email.ToString())}";
+                var path = $"/suppression/bounces/{Uri.EscapeDataString(email)}";
                 return await this
                     .CallConnectorAsync<List<Bounce>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -619,7 +619,7 @@ namespace Azure.Connectors.Sdk.SendGrid
             {
                 if (email is null)
                     throw new ArgumentNullException(nameof(email));
-                var path = $"/suppression/bounces/{Uri.EscapeDataString(email.ToString())}";
+                var path = $"/suppression/bounces/{Uri.EscapeDataString(email)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -646,7 +646,7 @@ namespace Azure.Connectors.Sdk.SendGrid
             {
                 if (email is null)
                     throw new ArgumentNullException(nameof(email));
-                var path = $"/unsubscribes/{Uri.EscapeDataString(email.ToString())}";
+                var path = $"/unsubscribes/{Uri.EscapeDataString(email)}";
                 return await this
                     .CallConnectorAsync<EmailIsUnsubscribedResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

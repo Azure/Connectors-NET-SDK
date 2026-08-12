@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -2000,7 +2001,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(subscription));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/locations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<LocationListResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2029,7 +2030,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(subscription));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Subscription>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2083,8 +2084,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 if (waitForDeployment.HasValue)
-                    queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"wait={Uri.EscapeDataString(Convert.ToString(waitForDeployment.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeploymentExtended>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2122,8 +2123,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 if (waitForDeployment.HasValue)
-                    queryParams.Add($"wait={Uri.EscapeDataString(waitForDeployment.Value.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"wait={Uri.EscapeDataString(Convert.ToString(waitForDeployment.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeploymentExtended>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2157,7 +2158,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2191,7 +2192,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName)}/cancel" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2227,7 +2228,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName)}/validate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeploymentValidateResult>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2262,7 +2263,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(deploymentName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments/{Uri.EscapeDataString(deploymentName)}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeploymentExportResult>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2294,10 +2295,10 @@ namespace Azure.Connectors.Sdk.Arm
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Resources/deployments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeploymentListResult, DeploymentExtended>(
                 ct => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DeploymentListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2329,7 +2330,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(operationId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations/{Uri.EscapeDataString(operationId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/deployments/{Uri.EscapeDataString(deploymentName)}/operations/{Uri.EscapeDataString(operationId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeploymentOperation>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2363,8 +2364,8 @@ namespace Azure.Connectors.Sdk.Arm
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/deployments/{Uri.EscapeDataString(deploymentName.ToString())}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/deployments/{Uri.EscapeDataString(deploymentName)}/operations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeploymentOperationsListResult, DeploymentOperation>(
                 ct => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DeploymentOperationsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2390,7 +2391,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceProvider));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/providers/{Uri.EscapeDataString(resourceProvider)}/unregister" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2422,7 +2423,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceProvider));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/providers/{Uri.EscapeDataString(resourceProvider)}/register" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Provider>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2451,10 +2452,10 @@ namespace Azure.Connectors.Sdk.Arm
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
             if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$expand={Uri.EscapeDataString(expand)}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/providers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ProviderListResult, Provider>(
                 ct => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ProviderListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2482,8 +2483,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
                 if (expand != default)
-                    queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$expand={Uri.EscapeDataString(expand)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/providers/{Uri.EscapeDataString(resourceProvider)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Provider>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2516,12 +2517,12 @@ namespace Azure.Connectors.Sdk.Arm
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
             if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+                queryParams.Add($"$expand={Uri.EscapeDataString(expand)}");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourceGroups/{Uri.EscapeDataString(resourceGroup.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceListResult, GenericResource>(
                 ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2547,7 +2548,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ResourceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2580,7 +2581,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceGroupName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroupName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroupName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ResourceGroup>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2611,7 +2612,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2644,7 +2645,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ResourceGroup>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2677,7 +2678,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/exportTemplate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ResourceGroupExportResult>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2706,10 +2707,10 @@ namespace Azure.Connectors.Sdk.Arm
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2733,12 +2734,12 @@ namespace Azure.Connectors.Sdk.Arm
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
             if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
             if (expand != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(expand.ToString())}");
+                queryParams.Add($"$expand={Uri.EscapeDataString(expand)}");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceListResult, GenericResource>(
                 ct => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2772,8 +2773,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/{Uri.EscapeDataString(resourceProvider)}/{Uri.EscapeDataString(shortResourceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2814,8 +2815,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/{Uri.EscapeDataString(resourceProvider)}/{Uri.EscapeDataString(shortResourceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GenericResource>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2854,8 +2855,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/{Uri.EscapeDataString(resourceProvider)}/{Uri.EscapeDataString(shortResourceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2899,8 +2900,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}/{Uri.EscapeDataString(actionName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/{Uri.EscapeDataString(resourceProvider)}/{Uri.EscapeDataString(shortResourceId)}/{Uri.EscapeDataString(actionName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2937,8 +2938,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/providers/{Uri.EscapeDataString(resourceProvider)}/{Uri.EscapeDataString(shortResourceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GenericResource>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2976,8 +2977,8 @@ namespace Azure.Connectors.Sdk.Arm
                 var queryParams = new List<string>();
                 if (clientApiVersion is null)
                     throw new ArgumentNullException(nameof(clientApiVersion));
-                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/providers/{Uri.EscapeDataString(resourceProvider.ToString())}/{Uri.EscapeDataString(shortResourceId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"x-ms-api-version={Uri.EscapeDataString(clientApiVersion)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/providers/{Uri.EscapeDataString(resourceProvider)}/{Uri.EscapeDataString(shortResourceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ProviderResourcesInvokeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3012,7 +3013,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(tagValue));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/tagNames/{Uri.EscapeDataString(tagName)}/tagValues/{Uri.EscapeDataString(tagValue)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TagValue>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3046,7 +3047,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(tagValue));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}/tagValues/{Uri.EscapeDataString(tagValue.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/tagNames/{Uri.EscapeDataString(tagName)}/tagValues/{Uri.EscapeDataString(tagValue)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3078,7 +3079,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(tagName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/tagNames/{Uri.EscapeDataString(tagName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TagDetails>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3109,7 +3110,7 @@ namespace Azure.Connectors.Sdk.Arm
                     throw new ArgumentNullException(nameof(tagName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2016-06-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames/{Uri.EscapeDataString(tagName.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/tagNames/{Uri.EscapeDataString(tagName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3135,7 +3136,7 @@ namespace Azure.Connectors.Sdk.Arm
                 throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2016-06-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/tagNames" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<TagsListResult, TagDetails>(
                 ct => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<TagsListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),

@@ -399,7 +399,7 @@ namespace Azure.Connectors.Sdk.Plivo
             {
                 if (authId is null)
                     throw new ArgumentNullException(nameof(authId));
-                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Call/";
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Call/";
                 return await this
                     .CallConnectorAsync<MakeCallResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -426,7 +426,7 @@ namespace Azure.Connectors.Sdk.Plivo
             {
                 if (authId is null)
                     throw new ArgumentNullException(nameof(authId));
-                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Message/";
                 return await this
                     .CallConnectorAsync<ListMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -454,7 +454,7 @@ namespace Azure.Connectors.Sdk.Plivo
             {
                 if (authId is null)
                     throw new ArgumentNullException(nameof(authId));
-                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/";
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Message/";
                 return await this
                     .CallConnectorAsync<SendSMSResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -484,7 +484,7 @@ namespace Azure.Connectors.Sdk.Plivo
                     throw new ArgumentNullException(nameof(authId));
                 if (messageUUID is null)
                     throw new ArgumentNullException(nameof(messageUUID));
-                var path = $"/v1/Account/{Uri.EscapeDataString(authId.ToString())}/Message/{Uri.EscapeDataString(messageUUID.ToString())}/";
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Message/{Uri.EscapeDataString(messageUUID)}/";
                 return await this
                     .CallConnectorAsync<GetMessageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

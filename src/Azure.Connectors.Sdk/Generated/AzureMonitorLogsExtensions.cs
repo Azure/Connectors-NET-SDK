@@ -465,16 +465,16 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                 var queryParams = new List<string>();
                 if (subscription is null)
                     throw new ArgumentNullException(nameof(subscription));
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription)}");
                 if (resourceGroup is null)
                     throw new ArgumentNullException(nameof(resourceGroup));
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup)}");
                 if (resourceType is null)
                     throw new ArgumentNullException(nameof(resourceType));
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType)}");
                 if (resourceName is null)
                     throw new ArgumentNullException(nameof(resourceName));
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName)}");
                 var path = $"/queryDataV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Table>(HttpMethod.Post, path, input, cancellationToken)
@@ -508,19 +508,19 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                 var queryParams = new List<string>();
                 if (subscription is null)
                     throw new ArgumentNullException(nameof(subscription));
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription)}");
                 if (resourceGroup is null)
                     throw new ArgumentNullException(nameof(resourceGroup));
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup)}");
                 if (resourceType is null)
                     throw new ArgumentNullException(nameof(resourceType));
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType)}");
                 if (resourceName is null)
                     throw new ArgumentNullException(nameof(resourceName));
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName)}");
                 if (chartType is null)
                     throw new ArgumentNullException(nameof(chartType));
-                queryParams.Add($"visType={Uri.EscapeDataString(chartType.ToString())}");
+                queryParams.Add($"visType={Uri.EscapeDataString(chartType)}");
                 var path = $"/visualizeQueryV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<VisualizeResults>(HttpMethod.Post, path, input, cancellationToken)
@@ -561,7 +561,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
             var queryParams = new List<string>();
             if (subscription is null)
                 throw new ArgumentNullException(nameof(subscription));
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription)}");
             var path = $"/listResourceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -583,13 +583,13 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
             var queryParams = new List<string>();
             if (subscription is null)
                 throw new ArgumentNullException(nameof(subscription));
-            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+            queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription)}");
             if (resourceGroup is null)
                 throw new ArgumentNullException(nameof(resourceGroup));
-            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+            queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup)}");
             if (resourceType is null)
                 throw new ArgumentNullException(nameof(resourceType));
-            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+            queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType)}");
             var path = $"/listResources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceItemListResult, ResourceItem>(
                 ct => this.CallConnectorAsync<ResourceItemListResult>(HttpMethod.Get, path, cancellationToken: ct),
@@ -616,16 +616,16 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                 var queryParams = new List<string>();
                 if (subscription is null)
                     throw new ArgumentNullException(nameof(subscription));
-                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription.ToString())}");
+                queryParams.Add($"subscriptions={Uri.EscapeDataString(subscription)}");
                 if (resourceGroup is null)
                     throw new ArgumentNullException(nameof(resourceGroup));
-                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup.ToString())}");
+                queryParams.Add($"resourcegroups={Uri.EscapeDataString(resourceGroup)}");
                 if (resourceType is null)
                     throw new ArgumentNullException(nameof(resourceType));
-                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType.ToString())}");
+                queryParams.Add($"resourcetype={Uri.EscapeDataString(resourceType)}");
                 if (resourceName is null)
                     throw new ArgumentNullException(nameof(resourceName));
-                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName.ToString())}");
+                queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName)}");
                 var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
@@ -654,7 +654,7 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                 var queryParams = new List<string>();
                 if (timeRangeType is null)
                     throw new ArgumentNullException(nameof(timeRangeType));
-                queryParams.Add($"timerangetype={Uri.EscapeDataString(timeRangeType.ToString())}");
+                queryParams.Add($"timerangetype={Uri.EscapeDataString(timeRangeType)}");
                 var path = $"/getTimeRangeSelectionControl" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)

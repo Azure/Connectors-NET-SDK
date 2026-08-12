@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1709,15 +1710,15 @@ namespace Azure.Connectors.Sdk.Webex
                 var queryParams = new List<string>();
                 if (space is null)
                     throw new ArgumentNullException(nameof(space));
-                queryParams.Add($"roomId={Uri.EscapeDataString(space.ToString())}");
+                queryParams.Add($"roomId={Uri.EscapeDataString(space)}");
                 if (mentionedPeople != default)
-                    queryParams.Add($"mentionedPeople={Uri.EscapeDataString(mentionedPeople.ToString())}");
+                    queryParams.Add($"mentionedPeople={Uri.EscapeDataString(mentionedPeople)}");
                 if (beforeMessage != default)
-                    queryParams.Add($"beforeMessage={Uri.EscapeDataString(beforeMessage.ToString())}");
+                    queryParams.Add($"beforeMessage={Uri.EscapeDataString(beforeMessage)}");
                 if (before != default)
-                    queryParams.Add($"before={Uri.EscapeDataString(before.ToString())}");
+                    queryParams.Add($"before={Uri.EscapeDataString(before)}");
                 if (max.HasValue)
-                    queryParams.Add($"max={Uri.EscapeDataString(max.Value.ToString())}");
+                    queryParams.Add($"max={Uri.EscapeDataString(Convert.ToString(max.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/v1/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMessagesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1770,7 +1771,7 @@ namespace Azure.Connectors.Sdk.Webex
             {
                 if (messageId is null)
                     throw new ArgumentNullException(nameof(messageId));
-                var path = $"/v1/messages/{Uri.EscapeDataString(messageId.ToString())}";
+                var path = $"/v1/messages/{Uri.EscapeDataString(messageId)}";
                 return await this
                     .CallConnectorAsync<GetMessageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1798,9 +1799,9 @@ namespace Azure.Connectors.Sdk.Webex
             {
                 var queryParams = new List<string>();
                 if (personId != default)
-                    queryParams.Add($"id={Uri.EscapeDataString(personId.ToString())}");
+                    queryParams.Add($"id={Uri.EscapeDataString(personId)}");
                 if (email != default)
-                    queryParams.Add($"email={Uri.EscapeDataString(email.ToString())}");
+                    queryParams.Add($"email={Uri.EscapeDataString(email)}");
                 var path = $"/v1/people" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetPeopleResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1854,11 +1855,11 @@ namespace Azure.Connectors.Sdk.Webex
             {
                 var queryParams = new List<string>();
                 if (maxResults.HasValue)
-                    queryParams.Add($"max={Uri.EscapeDataString(maxResults.Value.ToString())}");
+                    queryParams.Add($"max={Uri.EscapeDataString(Convert.ToString(maxResults.Value, CultureInfo.InvariantCulture))}");
                 if (typeOfSpace != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(typeOfSpace.ToString())}");
+                    queryParams.Add($"type={Uri.EscapeDataString(typeOfSpace)}");
                 if (sortBy != default)
-                    queryParams.Add($"sortBy={Uri.EscapeDataString(sortBy.ToString())}");
+                    queryParams.Add($"sortBy={Uri.EscapeDataString(sortBy)}");
                 var path = $"/v1/rooms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSpacesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1911,7 +1912,7 @@ namespace Azure.Connectors.Sdk.Webex
             {
                 if (space is null)
                     throw new ArgumentNullException(nameof(space));
-                var path = $"/v1/rooms/{Uri.EscapeDataString(space.ToString())}";
+                var path = $"/v1/rooms/{Uri.EscapeDataString(space)}";
                 return await this
                     .CallConnectorAsync<GetSpaceDetailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

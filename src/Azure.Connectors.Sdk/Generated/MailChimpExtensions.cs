@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -2777,7 +2778,7 @@ namespace Azure.Connectors.Sdk.MailChimp
             {
                 if (campaign is null)
                     throw new ArgumentNullException(nameof(campaign));
-                var path = $"/campaigns/{Uri.EscapeDataString(campaign.ToString())}/actions/send";
+                var path = $"/campaigns/{Uri.EscapeDataString(campaign)}/actions/send";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2805,9 +2806,9 @@ namespace Azure.Connectors.Sdk.MailChimp
             {
                 var queryParams = new List<string>();
                 if (maximumResults.HasValue)
-                    queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"count={Uri.EscapeDataString(Convert.ToString(maximumResults.Value, CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
+                    queryParams.Add($"offset={Uri.EscapeDataString(Convert.ToString(offset.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetListsResponseModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2865,10 +2866,10 @@ namespace Azure.Connectors.Sdk.MailChimp
                     throw new ArgumentNullException(nameof(listId));
                 var queryParams = new List<string>();
                 if (skipMergeValidation.HasValue)
-                    queryParams.Add($"skip_merge_validation={Uri.EscapeDataString(skipMergeValidation.Value.ToString())}");
+                    queryParams.Add($"skip_merge_validation={Uri.EscapeDataString(Convert.ToString(skipMergeValidation.Value, CultureInfo.InvariantCulture))}");
                 if (skipDuplicateCheck.HasValue)
-                    queryParams.Add($"skip_duplicate_check={Uri.EscapeDataString(skipDuplicateCheck.Value.ToString())}");
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"skip_duplicate_check={Uri.EscapeDataString(Convert.ToString(skipDuplicateCheck.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/lists/{Uri.EscapeDataString(listId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAddMembersBatchResponseModel>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2899,10 +2900,10 @@ namespace Azure.Connectors.Sdk.MailChimp
                     throw new ArgumentNullException(nameof(listId));
                 var queryParams = new List<string>();
                 if (maximumResults.HasValue)
-                    queryParams.Add($"count={Uri.EscapeDataString(maximumResults.Value.ToString())}");
+                    queryParams.Add($"count={Uri.EscapeDataString(Convert.ToString(maximumResults.Value, CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)
-                    queryParams.Add($"offset={Uri.EscapeDataString(offset.Value.ToString())}");
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"offset={Uri.EscapeDataString(Convert.ToString(offset.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/lists/{Uri.EscapeDataString(listId)}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllMembersResponseModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2930,7 +2931,7 @@ namespace Azure.Connectors.Sdk.MailChimp
             {
                 if (listId is null)
                     throw new ArgumentNullException(nameof(listId));
-                var path = $"/lists/{Uri.EscapeDataString(listId.ToString())}/members";
+                var path = $"/lists/{Uri.EscapeDataString(listId)}/members";
                 return await this
                     .CallConnectorAsync<MemberResponseModel>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2981,7 +2982,7 @@ namespace Azure.Connectors.Sdk.MailChimp
             {
                 if (listId is null)
                     throw new ArgumentNullException(nameof(listId));
-                var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
+                var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId)}/members";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3009,7 +3010,7 @@ namespace Azure.Connectors.Sdk.MailChimp
             {
                 if (listId is null)
                     throw new ArgumentNullException(nameof(listId));
-                var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId.ToString())}/members";
+                var path = $"/lists/replacemailwithhash/{Uri.EscapeDataString(listId)}/members";
                 return await this
                     .CallConnectorAsync<MemberResponseModel>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

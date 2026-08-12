@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -161,30 +162,30 @@ namespace Azure.Connectors.Sdk.UniversalPrint
                 var queryParams = new List<string>();
                 if (printerName is null)
                     throw new ArgumentNullException(nameof(printerName));
-                queryParams.Add($"printer={Uri.EscapeDataString(printerName.ToString())}");
+                queryParams.Add($"printer={Uri.EscapeDataString(printerName)}");
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"fileName={Uri.EscapeDataString(fileName.ToString())}");
+                queryParams.Add($"fileName={Uri.EscapeDataString(fileName)}");
                 if (copies.HasValue)
-                    queryParams.Add($"configuration_copies={Uri.EscapeDataString(copies.Value.ToString())}");
+                    queryParams.Add($"configuration_copies={Uri.EscapeDataString(Convert.ToString(copies.Value, CultureInfo.InvariantCulture))}");
                 if (orientation != default)
-                    queryParams.Add($"configuration_orientation={Uri.EscapeDataString(orientation.ToString())}");
+                    queryParams.Add($"configuration_orientation={Uri.EscapeDataString(orientation)}");
                 if (color != default)
-                    queryParams.Add($"configuration_colorMode={Uri.EscapeDataString(color.ToString())}");
+                    queryParams.Add($"configuration_colorMode={Uri.EscapeDataString(color)}");
                 if (paperSize != default)
-                    queryParams.Add($"configuration_mediaSize={Uri.EscapeDataString(paperSize.ToString())}");
+                    queryParams.Add($"configuration_mediaSize={Uri.EscapeDataString(paperSize)}");
                 if (printOnBothSides != default)
-                    queryParams.Add($"configuration_duplexMode={Uri.EscapeDataString(printOnBothSides.ToString())}");
+                    queryParams.Add($"configuration_duplexMode={Uri.EscapeDataString(printOnBothSides)}");
                 if (pagesPerSheet.HasValue)
-                    queryParams.Add($"configuration_pagesPerSheet={Uri.EscapeDataString(pagesPerSheet.Value.ToString())}");
+                    queryParams.Add($"configuration_pagesPerSheet={Uri.EscapeDataString(Convert.ToString(pagesPerSheet.Value, CultureInfo.InvariantCulture))}");
                 if (resolution.HasValue)
-                    queryParams.Add($"configuration_dpi={Uri.EscapeDataString(resolution.Value.ToString())}");
+                    queryParams.Add($"configuration_dpi={Uri.EscapeDataString(Convert.ToString(resolution.Value, CultureInfo.InvariantCulture))}");
                 if (quality != default)
-                    queryParams.Add($"configuration_quality={Uri.EscapeDataString(quality.ToString())}");
+                    queryParams.Add($"configuration_quality={Uri.EscapeDataString(quality)}");
                 if (mediaType != default)
-                    queryParams.Add($"configuration_mediaType={Uri.EscapeDataString(mediaType.ToString())}");
+                    queryParams.Add($"configuration_mediaType={Uri.EscapeDataString(mediaType)}");
                 if (finishing != default)
-                    queryParams.Add($"configuration_finishings={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(finishing))}");
+                    queryParams.Add($"configuration_finishings={Uri.EscapeDataString(JsonSerializer.Serialize(finishing))}");
                 var path = $"/v1.0/print/shares" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)

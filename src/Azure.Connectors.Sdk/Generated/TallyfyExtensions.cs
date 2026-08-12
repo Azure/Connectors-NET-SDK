@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -859,18 +860,18 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(organization));
                 var queryParams = new List<string>();
                 if (searchByProcessName != default)
-                    queryParams.Add($"q={Uri.EscapeDataString(searchByProcessName.ToString())}");
+                    queryParams.Add($"q={Uri.EscapeDataString(searchByProcessName)}");
                 if (taskStatus != default)
-                    queryParams.Add($"status={Uri.EscapeDataString(taskStatus.ToString())}");
+                    queryParams.Add($"status={Uri.EscapeDataString(taskStatus)}");
                 if (sortBy != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sortBy.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sortBy)}");
                 if (taskTag != default)
-                    queryParams.Add($"tag={Uri.EscapeDataString(taskTag.ToString())}");
+                    queryParams.Add($"tag={Uri.EscapeDataString(taskTag)}");
                 if (pageNumber.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(pageNumber.Value.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(pageNumber.Value, CultureInfo.InvariantCulture))}");
                 if (tasksPerPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(tasksPerPage.Value.ToString())}");
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users/{Uri.EscapeDataString(member.ToString())}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(tasksPerPage.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/users/{Uri.EscapeDataString(Convert.ToString(member, CultureInfo.InvariantCulture))}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetUserTasksResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -898,7 +899,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users/invite";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/users/invite";
                 return await this
                     .CallConnectorAsync<InviteUserToOrganizationResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -926,7 +927,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/runs";
                 return await this
                     .CallConnectorAsync<CreateRunResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -954,7 +955,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/completed-tasks";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/completed-tasks";
                 return await this
                     .CallConnectorAsync<CompletedOneOffTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -984,7 +985,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(organization));
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/completed-tasks/{Uri.EscapeDataString(taskId.ToString())}";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/completed-tasks/{Uri.EscapeDataString(taskId)}";
                 return await this
                     .CallConnectorAsync<ReopenOneOffTaskResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1015,7 +1016,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(organization));
                 if (runId is null)
                     throw new ArgumentNullException(nameof(runId));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs/{Uri.EscapeDataString(runId.ToString())}/completed-tasks";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/runs/{Uri.EscapeDataString(runId)}/completed-tasks";
                 return await this
                     .CallConnectorAsync<CompletedProcessTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1048,7 +1049,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(runId));
                 if (task is null)
                     throw new ArgumentNullException(nameof(task));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/runs/{Uri.EscapeDataString(runId.ToString())}/completed-tasks/{Uri.EscapeDataString(task.ToString())}";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/runs/{Uri.EscapeDataString(runId)}/completed-tasks/{Uri.EscapeDataString(task)}";
                 return await this
                     .CallConnectorAsync<ReopenProcessTaskResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1079,7 +1080,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(organization));
                 if (task is null)
                     throw new ArgumentNullException(nameof(task));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(task.ToString())}/comment";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/tasks/{Uri.EscapeDataString(task)}/comment";
                 return await this
                     .CallConnectorAsync<CommentTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1107,7 +1108,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks";
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization)}/tasks";
                 return await this
                     .CallConnectorAsync<CreateTaskResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1138,7 +1139,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(organization));
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/edit-deadline";
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization)}/tasks/{Uri.EscapeDataString(taskId)}/edit-deadline";
                 return await this
                     .CallConnectorAsync<EditTaskDeadlineResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1171,7 +1172,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(taskId));
                 if (guestEmail is null)
                     throw new ArgumentNullException(nameof(guestEmail));
-                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/remove-guest/{Uri.EscapeDataString(guestEmail.ToString())}";
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization)}/tasks/{Uri.EscapeDataString(taskId)}/remove-guest/{Uri.EscapeDataString(guestEmail)}";
                 return await this
                     .CallConnectorAsync<RemoveGuestResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1204,7 +1205,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(taskId));
                 if (memberId is null)
                     throw new ArgumentNullException(nameof(memberId));
-                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/tasks/{Uri.EscapeDataString(taskId.ToString())}/remove-assignee/{Uri.EscapeDataString(memberId.ToString())}";
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization)}/tasks/{Uri.EscapeDataString(taskId)}/remove-assignee/{Uri.EscapeDataString(memberId)}";
                 return await this
                     .CallConnectorAsync<RemoveAssigneeResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1238,7 +1239,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
                     throw new ArgumentNullException(nameof(blueprintId));
                 if (stepId is null)
                     throw new ArgumentNullException(nameof(stepId));
-                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization.ToString())}/blueprints/{Uri.EscapeDataString(blueprintId.ToString())}/steps/{Uri.EscapeDataString(stepId.ToString())}/edit-step-type";
+                var path = $"/processes/micro-functions/organizations/{Uri.EscapeDataString(organization)}/blueprints/{Uri.EscapeDataString(blueprintId)}/steps/{Uri.EscapeDataString(stepId)}/edit-step-type";
                 return await this
                     .CallConnectorAsync<EditStepTypeResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1289,7 +1290,7 @@ namespace Azure.Connectors.Sdk.Tallyfy
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/organizations/{Uri.EscapeDataString(organization.ToString())}/users";
+                var path = $"/organizations/{Uri.EscapeDataString(organization)}/users";
                 return await this
                     .CallConnectorAsync<GetOrganizationUsersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

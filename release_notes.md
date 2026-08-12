@@ -58,6 +58,10 @@
 - **Corrected generated Swagger documentation text** — fixed `seperated`/`Comma-seperated` and `lists’s` in generated XML documentation. (#210)
 - **Connector-specific corrections now preserve owner contracts** — Azure Queues receives named types for its nested message response without flattening the wire shape. Current AAPT connector Swagger remains authoritative for Event Hubs required parameters, Microsoft Forms and Word Online Business internal discovery methods, and DocumentDB per-document dynamic fields. (#210)
 
+#### Fixed
+
+- **Connector path and query values now use invariant-culture wire formatting** — regenerated all 98 shipped clients from AzureUX-BPM PR 16770557 so numeric and other formattable parameters no longer depend on `CurrentCulture` before URI escaping. For example, a `double` value of `3.14` now remains `3.14` under `de-DE` instead of becoming `3%2C14`. The hand-written ISO DateTime converter now parses and formats with `InvariantCulture`, and CA1305 is build-enforced to prevent regressions. ([#200](https://github.com/Azure/Connectors-NET-SDK/issues/200))
+
 ### 0.13.0-preview.1 (2026-07-09)
 
 #### Added

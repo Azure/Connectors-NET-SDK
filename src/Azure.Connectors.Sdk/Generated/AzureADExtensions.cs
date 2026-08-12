@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -961,7 +962,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}";
                 return await this
                     .CallConnectorAsync<GetGroupResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -988,7 +989,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (userIdOrPrincipalName is null)
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
-                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName)}";
                 return await this
                     .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1015,7 +1016,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (userIdOrPrincipalName is null)
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
-                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}";
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1041,7 +1042,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (userIdOrPrincipalName is null)
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
-                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/revokeSignInSessions";
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName)}/revokeSignInSessions";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1093,8 +1094,8 @@ namespace Azure.Connectors.Sdk.AzureAD
                 throw new ArgumentNullException(nameof(groupId));
             var queryParams = new List<string>();
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetGroupMembersResponse, GetUserResponse>(
                 ct => this.CallConnectorAsync<GetGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetGroupMembersResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1117,7 +1118,7 @@ namespace Azure.Connectors.Sdk.AzureAD
                     throw new ArgumentNullException(nameof(groupId));
                 if (memberId is null)
                     throw new ArgumentNullException(nameof(memberId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/{Uri.EscapeDataString(memberId.ToString())}/$ref";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/members/{Uri.EscapeDataString(memberId)}/$ref";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1144,7 +1145,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/members/$ref";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1171,7 +1172,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (userIdOrPrincipalName is null)
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
-                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/manager/$ref";
+                var path = $"/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName)}/manager/$ref";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1224,7 +1225,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (userIdOrPrincipalName is null)
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
-                var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/checkMemberGroups";
+                var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName)}/checkMemberGroups";
                 return await this
                     .CallConnectorAsync<GetMemberGroupsResponseV2>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1252,7 +1253,7 @@ namespace Azure.Connectors.Sdk.AzureAD
             {
                 if (userIdOrPrincipalName is null)
                     throw new ArgumentNullException(nameof(userIdOrPrincipalName));
-                var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName.ToString())}/getMemberGroups";
+                var path = $"/v2/v1.0/users/{Uri.EscapeDataString(userIdOrPrincipalName)}/getMemberGroups";
                 return await this
                     .CallConnectorAsync<GetMemberGroupsResponseV2>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

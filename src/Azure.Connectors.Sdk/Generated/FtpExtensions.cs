@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -298,10 +299,10 @@ namespace Azure.Connectors.Sdk.Ftp
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath.ToString())}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath)}");
                 if (fileName is null)
                     throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"name={Uri.EscapeDataString(fileName.ToString())}");
+                queryParams.Add($"name={Uri.EscapeDataString(fileName)}");
                 var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
@@ -329,7 +330,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -357,7 +358,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -383,7 +384,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (@file is null)
                     throw new ArgumentNullException(nameof(@file));
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}";
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -414,12 +415,12 @@ namespace Azure.Connectors.Sdk.Ftp
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceUrl is null)
                     throw new ArgumentNullException(nameof(sourceUrl));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl)}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath)}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(Convert.ToString(overwrite.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -449,7 +450,7 @@ namespace Azure.Connectors.Sdk.Ftp
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(filePath)}");
                 var path = $"/datasets/default/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -480,9 +481,9 @@ namespace Azure.Connectors.Sdk.Ftp
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (filePath is null)
                     throw new ArgumentNullException(nameof(filePath));
-                queryParams.Add($"path={Uri.EscapeDataString(filePath.ToString())}");
+                queryParams.Add($"path={Uri.EscapeDataString(filePath)}");
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(Convert.ToString(inferContentType.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -513,8 +514,8 @@ namespace Azure.Connectors.Sdk.Ftp
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(inferContentType.Value.ToString())}");
-                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file.ToString()))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(Convert.ToString(inferContentType.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/default/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -541,7 +542,7 @@ namespace Azure.Connectors.Sdk.Ftp
             {
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
-                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folder.ToString()))}";
+                var path = $"/datasets/default/folders/{Uri.EscapeDataString(Uri.EscapeDataString(folder))}";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -597,14 +598,14 @@ namespace Azure.Connectors.Sdk.Ftp
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceArchiveFilePath is null)
                     throw new ArgumentNullException(nameof(sourceArchiveFilePath));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath.ToString())}");
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveFilePath)}");
                 if (destinationFolderPath is null)
                     throw new ArgumentNullException(nameof(destinationFolderPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath.ToString())}");
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath)}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(overwrite.Value.ToString())}");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(Convert.ToString(overwrite.Value, CultureInfo.InvariantCulture))}");
                 if (createFolders.HasValue)
-                    queryParams.Add($"createFolders={Uri.EscapeDataString(createFolders.Value.ToString())}");
+                    queryParams.Add($"createFolders={Uri.EscapeDataString(Convert.ToString(createFolders.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/datasets/default/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)

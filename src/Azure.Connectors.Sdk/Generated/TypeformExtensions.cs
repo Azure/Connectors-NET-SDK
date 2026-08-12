@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -300,13 +301,13 @@ namespace Azure.Connectors.Sdk.Typeform
             {
                 var queryParams = new List<string>();
                 if (search != default)
-                    queryParams.Add($"search={Uri.EscapeDataString(search.ToString())}");
+                    queryParams.Add($"search={Uri.EscapeDataString(search)}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 if (pageSize.HasValue)
-                    queryParams.Add($"page_size={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                    queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
                 if (workspaceId != default)
-                    queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId.ToString())}");
+                    queryParams.Add($"workspace_id={Uri.EscapeDataString(workspaceId)}");
                 var path = $"/forms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListFormsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -334,7 +335,7 @@ namespace Azure.Connectors.Sdk.Typeform
             {
                 if (form is null)
                     throw new ArgumentNullException(nameof(form));
-                var path = $"/v3/forms/{Uri.EscapeDataString(form.ToString())}";
+                var path = $"/v3/forms/{Uri.EscapeDataString(form)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

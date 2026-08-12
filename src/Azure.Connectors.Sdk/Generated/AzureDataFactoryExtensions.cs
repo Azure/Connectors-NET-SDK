@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -799,8 +800,8 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2017-09-01-preview");
                 if (referencePipelineRunId != default)
-                    queryParams.Add($"referencePipelineRunId={Uri.EscapeDataString(referencePipelineRunId.ToString())}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines/{Uri.EscapeDataString(dataFactoryPipelineName.ToString())}/CreateRun" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"referencePipelineRunId={Uri.EscapeDataString(referencePipelineRunId)}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName)}/pipelines/{Uri.EscapeDataString(dataFactoryPipelineName)}/CreateRun" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreatePipelineRunResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -837,7 +838,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
                     throw new ArgumentNullException(nameof(dataFactoryPipelineRunId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2017-09-01-preview");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/cancelpipelineRun/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName)}/cancelpipelineRun/{Uri.EscapeDataString(dataFactoryPipelineRunId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -875,7 +876,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
                     throw new ArgumentNullException(nameof(dataFactoryPipelineRunId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2017-09-01-preview");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelineRuns/{Uri.EscapeDataString(dataFactoryPipelineRunId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName)}/pipelineRuns/{Uri.EscapeDataString(dataFactoryPipelineRunId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PipelineRun>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -921,10 +922,10 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
             if (filter != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filter.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -947,7 +948,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
                 throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.DataFactory/factories" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DataFactoryListResult, DataFactory>(
                 ct => this.CallConnectorAsync<DataFactoryListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DataFactoryListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -973,7 +974,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
                 throw new ArgumentNullException(nameof(dataFactoryName));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2017-09-01-preview");
-            var path = $"/subscriptions/{Uri.EscapeDataString(subscription.ToString())}/resourcegroups/{Uri.EscapeDataString(resourceGroup.ToString())}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName.ToString())}/pipelines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.DataFactory/factories/{Uri.EscapeDataString(dataFactoryName)}/pipelines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<PipelineListResult, Pipeline>(
                 ct => this.CallConnectorAsync<PipelineListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<PipelineListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),

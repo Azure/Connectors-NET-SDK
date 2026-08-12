@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1179,7 +1180,7 @@ namespace Azure.Connectors.Sdk.Pipedrive
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.GetDealAsync");
             try
             {
-                var path = $"/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
+                var path = $"/v1/deals/{Uri.EscapeDataString(Convert.ToString(dealId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DealResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1205,7 +1206,7 @@ namespace Azure.Connectors.Sdk.Pipedrive
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.UpdateDealStatusAsync");
             try
             {
-                var path = $"/update_status_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
+                var path = $"/update_status_deal/v1/deals/{Uri.EscapeDataString(Convert.ToString(dealId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DealResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1255,7 +1256,7 @@ namespace Azure.Connectors.Sdk.Pipedrive
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.GetStageAsync");
             try
             {
-                var path = $"/v1/stages/{Uri.EscapeDataString(stageId.ToString())}";
+                var path = $"/v1/stages/{Uri.EscapeDataString(Convert.ToString(stageId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<StageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1306,7 +1307,7 @@ namespace Azure.Connectors.Sdk.Pipedrive
             using var activity = PipedriveClient.ConnectorActivitySource.StartActivity("PipedriveClient.UpdateDealStageAsync");
             try
             {
-                var path = $"/connector-v2/update_stage_deal/v1/deals/{Uri.EscapeDataString(dealId.ToString())}";
+                var path = $"/connector-v2/update_stage_deal/v1/deals/{Uri.EscapeDataString(Convert.ToString(dealId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DealResponseV2>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

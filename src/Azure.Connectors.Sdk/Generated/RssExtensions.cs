@@ -306,11 +306,11 @@ namespace Azure.Connectors.Sdk.Rss
                 var queryParams = new List<string>();
                 if (theRSSFeedURL is null)
                     throw new ArgumentNullException(nameof(theRSSFeedURL));
-                queryParams.Add($"feedUrl={Uri.EscapeDataString(theRSSFeedURL.ToString())}");
+                queryParams.Add($"feedUrl={Uri.EscapeDataString(theRSSFeedURL)}");
                 if (since != default)
-                    queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                    queryParams.Add($"since={Uri.EscapeDataString(since)}");
                 if (chosenPropertyWillBeUsedToDetermineWhichItemsAreNew != default)
-                    queryParams.Add($"sinceProperty={Uri.EscapeDataString(chosenPropertyWillBeUsedToDetermineWhichItemsAreNew.ToString())}");
+                    queryParams.Add($"sinceProperty={Uri.EscapeDataString(chosenPropertyWillBeUsedToDetermineWhichItemsAreNew)}");
                 var path = $"/ListFeedItems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<FeedItem>>(HttpMethod.Get, path, cancellationToken: cancellationToken)

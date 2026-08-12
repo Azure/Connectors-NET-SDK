@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1244,7 +1245,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<TranscriptionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1271,7 +1272,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1299,9 +1300,9 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (startingAfter != default)
-                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
+                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter)}");
                 var path = $"/speechtotext/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1354,7 +1355,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}/transcript";
+                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id)}/transcript";
                 return await this
                     .CallConnectorAsync<TranscriptGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1381,7 +1382,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id.ToString())}/captions";
+                var path = $"/speechtotext/v1/jobs/{Uri.EscapeDataString(id)}/captions";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1432,7 +1433,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/speechtotext/v1/vocabularies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1485,7 +1486,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<VocabularyGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1512,7 +1513,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/speechtotext/v1/vocabularies/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1540,9 +1541,9 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (startingAfter != default)
-                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
+                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter)}");
                 var path = $"/topic_extraction/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1595,7 +1596,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<ExtractionGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1622,7 +1623,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1652,8 +1653,8 @@ namespace Azure.Connectors.Sdk.Revai
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (threshold.HasValue)
-                    queryParams.Add($"threshold={Uri.EscapeDataString(threshold.Value.ToString())}");
-                var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"threshold={Uri.EscapeDataString(Convert.ToString(threshold.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/topic_extraction/v1/jobs/{Uri.EscapeDataString(id)}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ExtractionResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1680,9 +1681,9 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (startingAfter != default)
-                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
+                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter)}");
                 var path = $"/sentiment_analysis/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1735,7 +1736,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<AnalysisGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1762,7 +1763,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1792,8 +1793,8 @@ namespace Azure.Connectors.Sdk.Revai
                     throw new ArgumentNullException(nameof(id));
                 var queryParams = new List<string>();
                 if (filterFor != default)
-                    queryParams.Add($"filter_for={Uri.EscapeDataString(filterFor.ToString())}");
-                var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"filter_for={Uri.EscapeDataString(filterFor)}");
+                var path = $"/sentiment_analysis/v1/jobs/{Uri.EscapeDataString(id)}/result" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AnalysisResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1821,9 +1822,9 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (startingAfter != default)
-                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
+                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter)}");
                 var path = $"/languageid/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1876,7 +1877,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<IdentificationGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1903,7 +1904,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1930,7 +1931,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id.ToString())}/result";
+                var path = $"/languageid/v1/jobs/{Uri.EscapeDataString(id)}/result";
                 return await this
                     .CallConnectorAsync<IdentificationResultGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1958,9 +1959,9 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 var queryParams = new List<string>();
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(limit.Value.ToString())}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (startingAfter != default)
-                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter.ToString())}");
+                    queryParams.Add($"starting_after={Uri.EscapeDataString(startingAfter)}");
                 var path = $"/alignment/v1/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2013,7 +2014,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<AlignmentGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2040,7 +2041,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}";
+                var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2067,7 +2068,7 @@ namespace Azure.Connectors.Sdk.Revai
             {
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id.ToString())}/transcript";
+                var path = $"/alignment/v1/jobs/{Uri.EscapeDataString(id)}/transcript";
                 return await this
                     .CallConnectorAsync<AlignmentTranscriptGetResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

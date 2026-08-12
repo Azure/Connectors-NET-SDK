@@ -374,8 +374,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
                 var queryParams = new List<string>();
                 if (popReceipt is null)
                     throw new ArgumentNullException(nameof(popReceipt));
-                queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt.ToString())}");
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString()))}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages/{Uri.EscapeDataString(messageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"popreceipt={Uri.EscapeDataString(popReceipt)}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint))}/queues/{Uri.EscapeDataString(queueName)}/messages/{Uri.EscapeDataString(messageId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -409,10 +409,10 @@ namespace Azure.Connectors.Sdk.Azurequeues
                     throw new ArgumentNullException(nameof(queueName));
                 var queryParams = new List<string>();
                 if (numberOfMessages != default)
-                    queryParams.Add($"numofmessages={Uri.EscapeDataString(numberOfMessages.ToString())}");
+                    queryParams.Add($"numofmessages={Uri.EscapeDataString(numberOfMessages)}");
                 if (visibilityTimeout != default)
-                    queryParams.Add($"visibilitytimeout={Uri.EscapeDataString(visibilityTimeout.ToString())}");
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString()))}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"visibilitytimeout={Uri.EscapeDataString(visibilityTimeout)}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint))}/queues/{Uri.EscapeDataString(queueName)}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Messages>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -439,7 +439,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
             {
                 if (storageAccountNameOrQueueEndpoint is null)
                     throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString()))}/queues/list";
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint))}/queues/list";
                 return await this
                     .CallConnectorAsync<List<QueueInfo>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -469,7 +469,7 @@ namespace Azure.Connectors.Sdk.Azurequeues
                     throw new ArgumentNullException(nameof(storageAccountNameOrQueueEndpoint));
                 if (queueName is null)
                     throw new ArgumentNullException(nameof(queueName));
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString()))}/queues/{Uri.EscapeDataString(queueName.ToString())}/messages";
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint))}/queues/{Uri.EscapeDataString(queueName)}/messages";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -500,8 +500,8 @@ namespace Azure.Connectors.Sdk.Azurequeues
                 var queryParams = new List<string>();
                 if (queueName is null)
                     throw new ArgumentNullException(nameof(queueName));
-                queryParams.Add($"queueName={Uri.EscapeDataString(queueName.ToString())}");
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint.ToString()))}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"queueName={Uri.EscapeDataString(queueName)}");
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint))}/queues/putQueue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

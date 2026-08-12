@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -7132,7 +7133,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentDeleteAttachmentAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/attachments/{Uri.EscapeDataString(Convert.ToString(attachmentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7159,7 +7160,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentDownloadAttachmentAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments/{Uri.EscapeDataString(attachmentId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/attachments/{Uri.EscapeDataString(Convert.ToString(attachmentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<AttachmentDownloadAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7185,7 +7186,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentGetAttachmentsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/attachments";
                 return await this
                     .CallConnectorAsync<List<GetAttachmentResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7212,7 +7213,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.AttachmentUploadAttachmentAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/attachments";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/attachments";
                 return await this
                     .CallConnectorAsync<AddAttachmentResponse>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7239,7 +7240,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.CheckboxAddCheckBoxAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/checkbox";
                 return await this
                     .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7266,7 +7267,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.CheckboxUpdateCheckBoxAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/checkbox";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/checkbox";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7296,10 +7297,10 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 var queryParams = new List<string>();
                 if (sortBy != default)
-                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy.ToString())}");
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy)}");
                 if (ascending.HasValue)
-                    queryParams.Add($"asc={Uri.EscapeDataString(ascending.Value.ToString())}");
-                var path = $"/v4/settings/contacts/{Uri.EscapeDataString(recordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"asc={Uri.EscapeDataString(Convert.ToString(ascending.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v4/settings/contacts/{Uri.EscapeDataString(Convert.ToString(recordsPerPage, CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Convert.ToString(pageNumber, CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<ContactResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7325,7 +7326,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsDeleteDocumentAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DocumentResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7351,7 +7352,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsDownloadDocumentBytesAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DocumentsDownloadDocumentBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7377,7 +7378,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsGetCertifyPolicyAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/certify";
                 return await this
                     .CallConnectorAsync<CertifyPolicyResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7403,7 +7404,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsGetDocumentDetailsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/details";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/details";
                 return await this
                     .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7430,7 +7431,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsRenameDocumentAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<DocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7457,7 +7458,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUpdateCertifyPolicyAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/certify";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/certify";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7483,7 +7484,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUploadFromLibraryAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/library/{Uri.EscapeDataString(documentId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/library/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UploadDocumentLibraryResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7509,7 +7510,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.DocumentsUploadStreamAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents";
                 return await this
                     .CallConnectorAsync<UploadDocument>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7535,7 +7536,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.EnterpriseDocumentsGetEnterpriseWorkflowAccessAsync");
             try
             {
-                var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
+                var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(recipientOrder, CultureInfo.InvariantCulture))}/authentication";
                 return await this
                     .CallConnectorAsync<EnterpriseAccessResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7562,7 +7563,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.EnterpriseDocumentsUpdateEnterpriseWorkflowAccessAsync");
             try
             {
-                var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(recipientOrder.ToString())}/authentication";
+                var path = $"/v4/enterprise/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(recipientOrder, CultureInfo.InvariantCulture))}/authentication";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7589,7 +7590,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsAutoAssignFieldAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/assign";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/assign";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7616,7 +7617,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsAutoPlaceAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/autoplace";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/autoplace";
                 return await this
                     .CallConnectorAsync<List<AutoPlaceFieldsResponse>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7643,7 +7644,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsDeleteDocumentFieldAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7670,7 +7671,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsFillFormFieldsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7697,7 +7698,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FieldsGetAllDocumentFieldsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/{Uri.EscapeDataString(pageNo.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/{Uri.EscapeDataString(Convert.ToString(pageNo, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<FieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7723,7 +7724,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.FolderMovePackageAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/move_to";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/move_to";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7750,7 +7751,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InitialsAddInitialAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/initials";
                 return await this
                     .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7777,7 +7778,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InitialsFillAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/initial";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/initial";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7804,7 +7805,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InitialsUpdateInitialAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/initials";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/initials";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7831,7 +7832,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InPersonAddInPersonAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/in_person_signature";
                 return await this
                     .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7858,7 +7859,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.InPersonUpdateInPersonAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/in_person_signature";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/in_person_signature";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7909,7 +7910,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageApproveAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/approve";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/approve";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7935,7 +7936,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageDeclineAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/decline";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/decline";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7960,7 +7961,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageDeletePackageAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7988,8 +7989,8 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 var queryParams = new List<string>();
                 if (documentIDs != default)
-                    queryParams.Add($"document-ids={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentIDs))}");
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"document-ids={Uri.EscapeDataString(JsonSerializer.Serialize(documentIDs))}");
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PackageDownloadPackageBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8014,7 +8015,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageFinishAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/finish";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/finish";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8040,7 +8041,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGatekeeperApproveAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/approve";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/gatekeeper/approve";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8066,7 +8067,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGatekeeperDeclineAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/gatekeeper/decline";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/gatekeeper/decline";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8116,44 +8117,44 @@ namespace Azure.Connectors.Sdk.SigningHub
                     throw new ArgumentNullException(nameof(documentStatus));
                 var queryParams = new List<string>();
                 if (packageName != default)
-                    queryParams.Add($"package-name={Uri.EscapeDataString(packageName.ToString())}");
+                    queryParams.Add($"package-name={Uri.EscapeDataString(packageName)}");
                 if (packageId.HasValue)
-                    queryParams.Add($"package-id={Uri.EscapeDataString(packageId.Value.ToString())}");
+                    queryParams.Add($"package-id={Uri.EscapeDataString(Convert.ToString(packageId.Value, CultureInfo.InvariantCulture))}");
                 if (from != default)
-                    queryParams.Add($"recipient-from={Uri.EscapeDataString(from.ToString())}");
+                    queryParams.Add($"recipient-from={Uri.EscapeDataString(from)}");
                 if (to != default)
-                    queryParams.Add($"recipient-to={Uri.EscapeDataString(to.ToString())}");
+                    queryParams.Add($"recipient-to={Uri.EscapeDataString(to)}");
                 if (documentId.HasValue)
-                    queryParams.Add($"document-id={Uri.EscapeDataString(documentId.Value.ToString())}");
+                    queryParams.Add($"document-id={Uri.EscapeDataString(Convert.ToString(documentId.Value, CultureInfo.InvariantCulture))}");
                 if (expiryDays.HasValue)
-                    queryParams.Add($"expiry={Uri.EscapeDataString(expiryDays.Value.ToString())}");
+                    queryParams.Add($"expiry={Uri.EscapeDataString(Convert.ToString(expiryDays.Value, CultureInfo.InvariantCulture))}");
                 if (fromModifiedDate != default)
-                    queryParams.Add($"modified-from={Uri.EscapeDataString(fromModifiedDate.ToString())}");
+                    queryParams.Add($"modified-from={Uri.EscapeDataString(fromModifiedDate)}");
                 if (toModifiedDate != default)
-                    queryParams.Add($"modified-to={Uri.EscapeDataString(toModifiedDate.ToString())}");
+                    queryParams.Add($"modified-to={Uri.EscapeDataString(toModifiedDate)}");
                 if (fromSizeKB.HasValue)
-                    queryParams.Add($"size-from={Uri.EscapeDataString(fromSizeKB.Value.ToString())}");
+                    queryParams.Add($"size-from={Uri.EscapeDataString(Convert.ToString(fromSizeKB.Value, CultureInfo.InvariantCulture))}");
                 if (toSizeKB.HasValue)
-                    queryParams.Add($"size-to={Uri.EscapeDataString(toSizeKB.Value.ToString())}");
+                    queryParams.Add($"size-to={Uri.EscapeDataString(Convert.ToString(toSizeKB.Value, CultureInfo.InvariantCulture))}");
                 if (certifiedDocuments.HasValue)
-                    queryParams.Add($"certified-documents={Uri.EscapeDataString(certifiedDocuments.Value.ToString())}");
+                    queryParams.Add($"certified-documents={Uri.EscapeDataString(Convert.ToString(certifiedDocuments.Value, CultureInfo.InvariantCulture))}");
                 if (formFields.HasValue)
-                    queryParams.Add($"form-fields={Uri.EscapeDataString(formFields.Value.ToString())}");
+                    queryParams.Add($"form-fields={Uri.EscapeDataString(Convert.ToString(formFields.Value, CultureInfo.InvariantCulture))}");
                 if (attachments.HasValue)
-                    queryParams.Add($"attachments={Uri.EscapeDataString(attachments.Value.ToString())}");
+                    queryParams.Add($"attachments={Uri.EscapeDataString(Convert.ToString(attachments.Value, CultureInfo.InvariantCulture))}");
                 if (documentType != default)
-                    queryParams.Add($"document-type={Uri.EscapeDataString(documentType.ToString())}");
+                    queryParams.Add($"document-type={Uri.EscapeDataString(documentType)}");
                 if (sortBy != default)
-                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy.ToString())}");
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortBy)}");
                 if (ascendingOrder.HasValue)
-                    queryParams.Add($"asc={Uri.EscapeDataString(ascendingOrder.Value.ToString())}");
+                    queryParams.Add($"asc={Uri.EscapeDataString(Convert.ToString(ascendingOrder.Value, CultureInfo.InvariantCulture))}");
                 if (documentStatuses != default)
-                    queryParams.Add($"document-statuses={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(documentStatuses))}");
+                    queryParams.Add($"document-statuses={Uri.EscapeDataString(JsonSerializer.Serialize(documentStatuses))}");
                 if (ownedBy != default)
-                    queryParams.Add($"owned-by={Uri.EscapeDataString(ownedBy.ToString())}");
+                    queryParams.Add($"owned-by={Uri.EscapeDataString(ownedBy)}");
                 if (smartFormName != default)
-                    queryParams.Add($"smart-form={Uri.EscapeDataString(smartFormName.ToString())}");
-                var path = $"/v4/packages/{Uri.EscapeDataString(documentStatus.ToString())}/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"smart-form={Uri.EscapeDataString(smartFormName)}");
+                var path = $"/v4/packages/{Uri.EscapeDataString(documentStatus)}/{Uri.EscapeDataString(Convert.ToString(pageNumber, CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Convert.ToString(recordsPerPage, CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GetPackagesResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8178,7 +8179,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageGetPackageDetailsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/details";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/details";
                 return await this
                     .CallConnectorAsync<GetPackageDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8204,7 +8205,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageRenamePackageAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8229,7 +8230,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageSubmitAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/submit";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/submit";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8256,7 +8257,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.QRAddQRCodeAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/qrcode";
                 return await this
                     .CallConnectorAsync<AddQrCodeResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8283,7 +8284,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.QRUpdateQRCodeAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/qrcode";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/qrcode";
                 return await this
                     .CallConnectorAsync<UpdateQrCodeResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8310,7 +8311,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.RadioAddRadioBoxAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/radio";
                 return await this
                     .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8337,7 +8338,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.RadioUpdateRadioBoxAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/radio";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/radio";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8367,10 +8368,10 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 var queryParams = new List<string>();
                 if (sortByColumn != default)
-                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn.ToString())}");
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn)}");
                 if (asc.HasValue)
-                    queryParams.Add($"asc={Uri.EscapeDataString(asc.Value.ToString())}");
-                var path = $"/v4/settings/templates/{Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumberToBeRetrieved.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"asc={Uri.EscapeDataString(Convert.ToString(asc.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v4/settings/templates/{Uri.EscapeDataString(Convert.ToString(numberOfRecordsPerPage, CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Convert.ToString(pageNumberToBeRetrieved, CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<TemplateResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8397,7 +8398,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SignatureAddSignatureAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/signature";
                 return await this
                     .CallConnectorAsync<SignatureFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8424,7 +8425,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SignatureUpdateSignatureAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/signature";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/signature";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8452,7 +8453,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 if (packageId is null)
                     throw new ArgumentNullException(nameof(packageId));
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(packageId)}";
                 return await this
                     .CallConnectorAsync<BulkSignResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8480,7 +8481,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 if (bulkAction is null)
                     throw new ArgumentNullException(nameof(bulkAction));
-                var path = $"/v4/packages/{Uri.EscapeDataString(bulkAction.ToString())}/status";
+                var path = $"/v4/packages/{Uri.EscapeDataString(bulkAction)}/status";
                 return await this
                     .CallConnectorAsync<BulkSignStatusResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8507,7 +8508,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.SigningSignDocumentAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/sign";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/sign";
                 return await this
                     .CallConnectorAsync<SignDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8538,12 +8539,12 @@ namespace Azure.Connectors.Sdk.SigningHub
             {
                 var queryParams = new List<string>();
                 if (sortByColumn != default)
-                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn.ToString())}");
+                    queryParams.Add($"sort-by={Uri.EscapeDataString(sortByColumn)}");
                 if (orderTheResultSet.HasValue)
-                    queryParams.Add($"asc={Uri.EscapeDataString(orderTheResultSet.Value.ToString())}");
+                    queryParams.Add($"asc={Uri.EscapeDataString(Convert.ToString(orderTheResultSet.Value, CultureInfo.InvariantCulture))}");
                 if (filterByTemplateIds != default)
-                    queryParams.Add($"id={Uri.EscapeDataString(System.Text.Json.JsonSerializer.Serialize(filterByTemplateIds))}");
-                var path = $"/v4/enterprise/templates/{Uri.EscapeDataString(numberOfRecordsPerPage.ToString())}/{Uri.EscapeDataString(pageNumberToBeRetrieved.ToString())}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"id={Uri.EscapeDataString(JsonSerializer.Serialize(filterByTemplateIds))}");
+                var path = $"/v4/enterprise/templates/{Uri.EscapeDataString(Convert.ToString(numberOfRecordsPerPage, CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Convert.ToString(pageNumberToBeRetrieved, CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<EnterpriseTemplateResponse>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8570,7 +8571,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.TextBoxAddTextBoxAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/text";
                 return await this
                     .CallConnectorAsync<AddFieldResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8597,7 +8598,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.TextBoxUpdateTextBoxAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/fields/text";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/fields/text";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8624,7 +8625,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowApplyTemplateAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/documents/{Uri.EscapeDataString(documentId.ToString())}/template";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/template";
                 return await this
                     .CallConnectorAsync<DocumentDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8649,7 +8650,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowEvidenceReportDownloadBytesAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/report";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/report";
                 return await this
                     .CallConnectorAsync<WorkflowEvidenceReportDownloadBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8674,7 +8675,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowDetailAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow";
                 return await this
                     .CallConnectorAsync<WorkflowDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8701,7 +8702,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowHistoryAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/log/{Uri.EscapeDataString(pageNumber.ToString())}/{Uri.EscapeDataString(recordsPerPage.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/log/{Uri.EscapeDataString(Convert.ToString(pageNumber, CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Convert.ToString(recordsPerPage, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<WorkflowHistoryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8727,7 +8728,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowReminderAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/reminders";
                 return await this
                     .CallConnectorAsync<ReminderResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8752,7 +8753,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowGetWorkflowUsersAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/users";
                 return await this
                     .CallConnectorAsync<List<WorkflowRecipient>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8777,7 +8778,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowMarkWorkflowCompletedAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/complete";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/complete";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8803,7 +8804,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowPermissionGetWorkflowPermissionsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/permissions";
                 return await this
                     .CallConnectorAsync<WorkflowPermissionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8830,7 +8831,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowPermissionUpdateWorkflowPermissionsAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/permissions";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/permissions";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8855,7 +8856,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowRecallWorkflowAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8880,7 +8881,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowStartWorkflowAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow";
                 return await this
                     .CallConnectorAsync<List<StartWorkflowResponse>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8906,7 +8907,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowUpdateWorkflowAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8932,7 +8933,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowUpdateWorkflowPostProcessAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/post_process";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/post_process";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8959,7 +8960,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowUpdateWorkflowReminderAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reminders";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/reminders";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -8985,7 +8986,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowAddGroupAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/groups";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/groups";
                 return await this
                     .CallConnectorAsync<List<CollaboratorGroupResponse>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9011,7 +9012,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowAddPlaceholderAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/placeholder";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/placeholder";
                 return await this
                     .CallConnectorAsync<List<CollaboratorPlaceholderResponse>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9037,7 +9038,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowAddUserAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/users";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/users";
                 return await this
                     .CallConnectorAsync<List<CollaboratorResponse>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9063,7 +9064,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowDeleteUserAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9090,7 +9091,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowUpdatePlaceholderAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/placeholder";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/placeholder";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9117,7 +9118,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowUserUpdateAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/user";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/user";
                 return await this
                     .CallConnectorAsync<UpdateCollaboratorResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9144,7 +9145,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkflowWorkflowUserUpdateOrderAsync");
             try
             {
-                var path = $"/v4/packages/{Uri.EscapeDataString(packageId.ToString())}/workflow/{Uri.EscapeDataString(order.ToString())}/reorder";
+                var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}/workflow/{Uri.EscapeDataString(Convert.ToString(order, CultureInfo.InvariantCulture))}/reorder";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9169,7 +9170,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkSpaceDeleteSharedSpaceAsync");
             try
             {
-                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
+                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(Convert.ToString(sharedSpaceId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9194,7 +9195,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkSpaceGetSharedSpaceAsync");
             try
             {
-                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
+                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(Convert.ToString(sharedSpaceId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<WorkSpaceResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -9220,7 +9221,7 @@ namespace Azure.Connectors.Sdk.SigningHub
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.WorkSpaceUpdateSharedSpaceAsync");
             try
             {
-                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(sharedSpaceId.ToString())}";
+                var path = $"/v4/shared_spaces/{Uri.EscapeDataString(Convert.ToString(sharedSpaceId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<EmptyResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -559,7 +560,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(@file)}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -596,8 +597,8 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 queryParams.Add("source=me");
                 queryParams.Add("populateColumn=false");
                 if (keyColumn != default)
-                    queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(@file)}/tables/{Uri.EscapeDataString(table)}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -639,18 +640,18 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery.ToString())}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy.ToString())}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(topCount.Value.ToString())}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(skipCount.Value.ToString())}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery.ToString())}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(@file)}/tables/{Uri.EscapeDataString(table)}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -692,10 +693,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 queryParams.Add("source=me");
                 if (keyColumn is null)
                     throw new ArgumentNullException(nameof(keyColumn));
-                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(@file)}/tables/{Uri.EscapeDataString(table)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -735,8 +736,8 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 queryParams.Add("source=me");
                 if (keyColumn is null)
                     throw new ArgumentNullException(nameof(keyColumn));
-                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(@file)}/tables/{Uri.EscapeDataString(table)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -779,10 +780,10 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 queryParams.Add("source=me");
                 if (keyColumn is null)
                     throw new ArgumentNullException(nameof(keyColumn));
-                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn.ToString())}");
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/files/{Uri.EscapeDataString(@file.ToString())}/tables/{Uri.EscapeDataString(table.ToString())}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue.ToString()))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(@file)}/tables/{Uri.EscapeDataString(table)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -814,7 +815,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(@file)}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllWorksheetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -847,7 +848,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(@file)}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<WorksheetMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -879,7 +880,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(@file)}/workbook/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -917,8 +918,8 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat.ToString())}");
-                var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+                var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(@file)}/workbook/tables/{Uri.EscapeDataString(table)}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -953,7 +954,7 @@ namespace Azure.Connectors.Sdk.ExcelOnline
                     throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("source=me");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary.ToString())}/items/{Uri.EscapeDataString(@file.ToString())}/workbook/tables/{Uri.EscapeDataString(table.ToString())}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(@file)}/workbook/tables/{Uri.EscapeDataString(table)}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

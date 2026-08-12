@@ -797,7 +797,7 @@ namespace Azure.Connectors.Sdk.WordPress
                     throw new ArgumentNullException(nameof(siteId));
                 var queryParams = new List<string>();
                 queryParams.Add("fields=stats");
-                var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/sites/{Uri.EscapeDataString(siteId)}/stats" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SiteStatsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -827,7 +827,7 @@ namespace Azure.Connectors.Sdk.WordPress
                     throw new ArgumentNullException(nameof(siteId));
                 if (postId is null)
                     throw new ArgumentNullException(nameof(postId));
-                var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/{Uri.EscapeDataString(postId.ToString())}";
+                var path = $"/sites/{Uri.EscapeDataString(siteId)}/posts/{Uri.EscapeDataString(postId)}";
                 return await this
                     .CallConnectorAsync<PostModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -855,7 +855,7 @@ namespace Azure.Connectors.Sdk.WordPress
             {
                 if (siteId is null)
                     throw new ArgumentNullException(nameof(siteId));
-                var path = $"/sites/{Uri.EscapeDataString(siteId.ToString())}/posts/new";
+                var path = $"/sites/{Uri.EscapeDataString(siteId)}/posts/new";
                 return await this
                     .CallConnectorAsync<PostModel>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

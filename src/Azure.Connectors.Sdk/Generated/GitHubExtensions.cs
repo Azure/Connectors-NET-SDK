@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -3092,7 +3093,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues";
                 return await this
                     .CallConnectorAsync<IssueDetailsModel>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3135,28 +3136,28 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (milestone != default)
-                    queryParams.Add($"milestone={Uri.EscapeDataString(milestone.ToString())}");
+                    queryParams.Add($"milestone={Uri.EscapeDataString(milestone)}");
                 if (state != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(state.ToString())}");
+                    queryParams.Add($"state={Uri.EscapeDataString(state)}");
                 if (assignee != default)
-                    queryParams.Add($"assignee={Uri.EscapeDataString(assignee.ToString())}");
+                    queryParams.Add($"assignee={Uri.EscapeDataString(assignee)}");
                 if (creator != default)
-                    queryParams.Add($"creator={Uri.EscapeDataString(creator.ToString())}");
+                    queryParams.Add($"creator={Uri.EscapeDataString(creator)}");
                 if (mentioned != default)
-                    queryParams.Add($"mentioned={Uri.EscapeDataString(mentioned.ToString())}");
+                    queryParams.Add($"mentioned={Uri.EscapeDataString(mentioned)}");
                 if (labels != default)
-                    queryParams.Add($"labels={Uri.EscapeDataString(labels.ToString())}");
+                    queryParams.Add($"labels={Uri.EscapeDataString(labels)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (direction != default)
-                    queryParams.Add($"direction={Uri.EscapeDataString(direction.ToString())}");
+                    queryParams.Add($"direction={Uri.EscapeDataString(direction)}");
                 if (since != default)
-                    queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                    queryParams.Add($"since={Uri.EscapeDataString(since)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3186,7 +3187,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/actions/secrets/public-key";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/actions/secrets/public-key";
                 return await this
                     .CallConnectorAsync<ActionsPublicKey>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3219,7 +3220,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 if (secretName is null)
                     throw new ArgumentNullException(nameof(secretName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/actions/secrets/{Uri.EscapeDataString(secretName.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/actions/secrets/{Uri.EscapeDataString(secretName)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3250,7 +3251,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(templateOwner));
                 if (templateRepository is null)
                     throw new ArgumentNullException(nameof(templateRepository));
-                var path = $"/repos/{Uri.EscapeDataString(templateOwner.ToString())}/{Uri.EscapeDataString(templateRepository.ToString())}/generate";
+                var path = $"/repos/{Uri.EscapeDataString(templateOwner)}/{Uri.EscapeDataString(templateRepository)}/generate";
                 return await this
                     .CallConnectorAsync<RepositoryDetails>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3275,7 +3276,7 @@ namespace Azure.Connectors.Sdk.GitHub
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetRepositoryByIdAsync");
             try
             {
-                var path = $"/repositories/{Uri.EscapeDataString(repositoryId.ToString())}";
+                var path = $"/repositories/{Uri.EscapeDataString(Convert.ToString(repositoryId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<RepositoryDetails>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3306,7 +3307,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/git/refs";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/git/refs";
                 return await this
                     .CallConnectorAsync<GitReference>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3339,7 +3340,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 if (reference is null)
                     throw new ArgumentNullException(nameof(reference));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/git/ref/{Uri.EscapeDataString(reference.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/git/ref/{Uri.EscapeDataString(reference)}";
                 return await this
                     .CallConnectorAsync<GitReference>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3371,7 +3372,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/merge";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls/{Uri.EscapeDataString(Convert.ToString(pullNumber, CultureInfo.InvariantCulture))}/merge";
                 return await this
                     .CallConnectorAsync<PullRequestMergeResult>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3402,7 +3403,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls/{Uri.EscapeDataString(Convert.ToString(pullNumber, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PullRequest>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3434,7 +3435,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls/{Uri.EscapeDataString(Convert.ToString(pullNumber, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<PullRequest>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3465,7 +3466,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/files";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls/{Uri.EscapeDataString(Convert.ToString(pullNumber, CultureInfo.InvariantCulture))}/files";
                 return await this
                     .CallConnectorAsync<List<PullRequestFile>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3496,7 +3497,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/requested_reviewers";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls/{Uri.EscapeDataString(Convert.ToString(pullNumber, CultureInfo.InvariantCulture))}/requested_reviewers";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3527,7 +3528,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls/{Uri.EscapeDataString(pullNumber.ToString())}/requested_reviewers";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls/{Uri.EscapeDataString(Convert.ToString(pullNumber, CultureInfo.InvariantCulture))}/requested_reviewers";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3558,7 +3559,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls";
                 return await this
                     .CallConnectorAsync<PullRequest>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3597,20 +3598,20 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (state != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(state.ToString())}");
+                    queryParams.Add($"state={Uri.EscapeDataString(state)}");
                 if (head != default)
-                    queryParams.Add($"head={Uri.EscapeDataString(head.ToString())}");
+                    queryParams.Add($"head={Uri.EscapeDataString(head)}");
                 if (@base != default)
-                    queryParams.Add($"base={Uri.EscapeDataString(@base.ToString())}");
+                    queryParams.Add($"base={Uri.EscapeDataString(@base)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (direction != default)
-                    queryParams.Add($"direction={Uri.EscapeDataString(direction.ToString())}");
+                    queryParams.Add($"direction={Uri.EscapeDataString(direction)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/pulls" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3640,7 +3641,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/dispatches";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/dispatches";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3676,7 +3677,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(@base));
                 if (head is null)
                     throw new ArgumentNullException(nameof(head));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/compare/{Uri.EscapeDataString(@base.ToString())}...{Uri.EscapeDataString(head.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/compare/{Uri.EscapeDataString(@base)}...{Uri.EscapeDataString(head)}";
                 return await this
                     .CallConnectorAsync<CommitComparison>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3706,7 +3707,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (secretName is null)
                     throw new ArgumentNullException(nameof(secretName));
-                var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner.ToString())}/actions/secrets/{Uri.EscapeDataString(secretName.ToString())}/repositories/{Uri.EscapeDataString(repositoryId.ToString())}";
+                var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner)}/actions/secrets/{Uri.EscapeDataString(secretName)}/repositories/{Uri.EscapeDataString(Convert.ToString(repositoryId, CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3736,7 +3737,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (secretName is null)
                     throw new ArgumentNullException(nameof(secretName));
-                var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner.ToString())}/actions/secrets/{Uri.EscapeDataString(secretName.ToString())}/repositories/{Uri.EscapeDataString(repositoryId.ToString())}";
+                var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner)}/actions/secrets/{Uri.EscapeDataString(secretName)}/repositories/{Uri.EscapeDataString(Convert.ToString(repositoryId, CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3768,7 +3769,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 if (gitHubWebhookId is null)
                     throw new ArgumentNullException(nameof(gitHubWebhookId));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/hooks/{Uri.EscapeDataString(gitHubWebhookId.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/hooks/{Uri.EscapeDataString(gitHubWebhookId)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3799,7 +3800,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues/{Uri.EscapeDataString(issueNumber.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues/{Uri.EscapeDataString(Convert.ToString(issueNumber, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<IssueDetailsModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3831,7 +3832,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues/{Uri.EscapeDataString(issueNumber.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues/{Uri.EscapeDataString(Convert.ToString(issueNumber, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<IssueDetailsModel>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3863,7 +3864,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 if (repositoryName is null)
                     throw new ArgumentNullException(nameof(repositoryName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/milestones/{Uri.EscapeDataString(milestoneNumber.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/milestones/{Uri.EscapeDataString(Convert.ToString(milestoneNumber, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<Milestone>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3945,10 +3946,10 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/assignees" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/assignees" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3982,10 +3983,10 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/collaborators" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/collaborators" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4018,7 +4019,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 if (userName is null)
                     throw new ArgumentNullException(nameof(userName));
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/collaborators/{Uri.EscapeDataString(userName.ToString())}";
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/collaborators/{Uri.EscapeDataString(userName)}";
                 return await this
                     .CallConnectorAsync<GeneralAPIModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4055,16 +4056,16 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (state != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(state.ToString())}");
+                    queryParams.Add($"state={Uri.EscapeDataString(state)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (direction != default)
-                    queryParams.Add($"direction={Uri.EscapeDataString(direction.ToString())}");
+                    queryParams.Add($"direction={Uri.EscapeDataString(direction)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/milestones" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/milestones" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4098,10 +4099,10 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4136,10 +4137,10 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryName));
                 var queryParams = new List<string>();
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner.ToString())}/{Uri.EscapeDataString(repositoryName.ToString())}/issues/{Uri.EscapeDataString(issueNumber.ToString())}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues/{Uri.EscapeDataString(Convert.ToString(issueNumber, CultureInfo.InvariantCulture))}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4173,16 +4174,16 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 var queryParams = new List<string>();
                 if (type != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                    queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (direction != default)
-                    queryParams.Add($"direction={Uri.EscapeDataString(direction.ToString())}");
+                    queryParams.Add($"direction={Uri.EscapeDataString(direction)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/users/{Uri.EscapeDataString(repositoryOwner.ToString())}/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/users/{Uri.EscapeDataString(repositoryOwner)}/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4216,16 +4217,16 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(repositoryOwner));
                 var queryParams = new List<string>();
                 if (type != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                    queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (direction != default)
-                    queryParams.Add($"direction={Uri.EscapeDataString(direction.ToString())}");
+                    queryParams.Add($"direction={Uri.EscapeDataString(direction)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
-                var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner.ToString())}/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner)}/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4260,23 +4261,23 @@ namespace Azure.Connectors.Sdk.GitHub
             {
                 var queryParams = new List<string>();
                 if (visibility != default)
-                    queryParams.Add($"visibility={Uri.EscapeDataString(visibility.ToString())}");
+                    queryParams.Add($"visibility={Uri.EscapeDataString(visibility)}");
                 if (affiliation != default)
-                    queryParams.Add($"affiliation={Uri.EscapeDataString(affiliation.ToString())}");
+                    queryParams.Add($"affiliation={Uri.EscapeDataString(affiliation)}");
                 if (since != default)
-                    queryParams.Add($"since={Uri.EscapeDataString(since.ToString())}");
+                    queryParams.Add($"since={Uri.EscapeDataString(since)}");
                 if (before != default)
-                    queryParams.Add($"before={Uri.EscapeDataString(before.ToString())}");
+                    queryParams.Add($"before={Uri.EscapeDataString(before)}");
                 if (type != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(type.ToString())}");
+                    queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (direction != default)
-                    queryParams.Add($"direction={Uri.EscapeDataString(direction.ToString())}");
+                    queryParams.Add($"direction={Uri.EscapeDataString(direction)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/user/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4309,15 +4310,15 @@ namespace Azure.Connectors.Sdk.GitHub
                 var queryParams = new List<string>();
                 if (q is null)
                     throw new ArgumentNullException(nameof(q));
-                queryParams.Add($"q={Uri.EscapeDataString(q.ToString())}");
+                queryParams.Add($"q={Uri.EscapeDataString(q)}");
                 if (sort != default)
-                    queryParams.Add($"sort={Uri.EscapeDataString(sort.ToString())}");
+                    queryParams.Add($"sort={Uri.EscapeDataString(sort)}");
                 if (order != default)
-                    queryParams.Add($"order={Uri.EscapeDataString(order.ToString())}");
+                    queryParams.Add($"order={Uri.EscapeDataString(order)}");
                 if (perPage.HasValue)
-                    queryParams.Add($"per_page={Uri.EscapeDataString(perPage.Value.ToString())}");
+                    queryParams.Add($"per_page={Uri.EscapeDataString(Convert.ToString(perPage.Value, CultureInfo.InvariantCulture))}");
                 if (page.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(page.Value.ToString())}");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/search/issues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MultipleSearchFetchModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)

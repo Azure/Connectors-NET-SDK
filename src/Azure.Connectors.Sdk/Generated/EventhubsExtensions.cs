@@ -367,8 +367,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
                     throw new ArgumentNullException(nameof(eventHubName));
                 var queryParams = new List<string>();
                 if (partitionKey != default)
-                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
-                var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey)}");
+                var path = $"/{Uri.EscapeDataString(eventHubName)}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -399,8 +399,8 @@ namespace Azure.Connectors.Sdk.Eventhubs
                 var queryParams = new List<string>();
                 if (partitionKey is null)
                     throw new ArgumentNullException(nameof(partitionKey));
-                queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey.ToString())}");
-                var path = $"/{Uri.EscapeDataString(eventHubName.ToString())}/events/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKey)}");
+                var path = $"/{Uri.EscapeDataString(eventHubName)}/events/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -476,7 +476,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
                 var queryParams = new List<string>();
                 if (theEventHubName is null)
                     throw new ArgumentNullException(nameof(theEventHubName));
-                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
+                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName)}");
                 var path = $"/consumergroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -505,7 +505,7 @@ namespace Azure.Connectors.Sdk.Eventhubs
                 var queryParams = new List<string>();
                 if (theEventHubName is null)
                     throw new ArgumentNullException(nameof(theEventHubName));
-                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName.ToString())}");
+                queryParams.Add($"eventHubName={Uri.EscapeDataString(theEventHubName)}");
                 var path = $"/partitions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<string>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -535,9 +535,9 @@ namespace Azure.Connectors.Sdk.Eventhubs
                 var queryParams = new List<string>();
                 if (contentType is null)
                     throw new ArgumentNullException(nameof(contentType));
-                queryParams.Add($"contentType={Uri.EscapeDataString(contentType.ToString())}");
+                queryParams.Add($"contentType={Uri.EscapeDataString(contentType)}");
                 if (contentSchemaOfTheEvent != default)
-                    queryParams.Add($"contentSchema={Uri.EscapeDataString(contentSchemaOfTheEvent.ToString())}");
+                    queryParams.Add($"contentSchema={Uri.EscapeDataString(contentSchemaOfTheEvent)}");
                 var path = $"/eventschemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)

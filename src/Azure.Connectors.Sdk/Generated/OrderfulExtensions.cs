@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -263,7 +264,7 @@ namespace Azure.Connectors.Sdk.Orderful
             using var activity = OrderfulClient.ConnectorActivitySource.StartActivity("OrderfulClient.GetTransactionByIdAsync");
             try
             {
-                var path = $"/v2/transactions/{Uri.EscapeDataString(transactionId.ToString())}";
+                var path = $"/v2/transactions/{Uri.EscapeDataString(Convert.ToString(transactionId, CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

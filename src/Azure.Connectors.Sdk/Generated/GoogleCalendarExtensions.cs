@@ -828,7 +828,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             {
                 var queryParams = new List<string>();
                 if (minimumAccessRole != default)
-                    queryParams.Add($"minAccessRole={Uri.EscapeDataString(minimumAccessRole.ToString())}");
+                    queryParams.Add($"minAccessRole={Uri.EscapeDataString(minimumAccessRole)}");
                 var path = $"/users/me/calendarList" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CalendarList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -861,12 +861,12 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
                     throw new ArgumentNullException(nameof(calendarId));
                 var queryParams = new List<string>();
                 if (minTime != default)
-                    queryParams.Add($"timeMin={Uri.EscapeDataString(minTime.ToString())}");
+                    queryParams.Add($"timeMin={Uri.EscapeDataString(minTime)}");
                 if (maxTime != default)
-                    queryParams.Add($"timeMax={Uri.EscapeDataString(maxTime.ToString())}");
+                    queryParams.Add($"timeMax={Uri.EscapeDataString(maxTime)}");
                 if (searchQuery != default)
-                    queryParams.Add($"q={Uri.EscapeDataString(searchQuery.ToString())}");
-                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"q={Uri.EscapeDataString(searchQuery)}");
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId)}/events" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CalendarEventList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -894,7 +894,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
             {
                 if (calendarId is null)
                     throw new ArgumentNullException(nameof(calendarId));
-                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events";
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId)}/events";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -924,7 +924,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
                     throw new ArgumentNullException(nameof(calendarId));
                 if (eventId is null)
                     throw new ArgumentNullException(nameof(eventId));
-                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId)}/events/{Uri.EscapeDataString(eventId)}";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -954,7 +954,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
                     throw new ArgumentNullException(nameof(calendarId));
                 if (eventId is null)
                     throw new ArgumentNullException(nameof(eventId));
-                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId)}/events/{Uri.EscapeDataString(eventId)}";
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -985,7 +985,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
                     throw new ArgumentNullException(nameof(calendarId));
                 if (eventId is null)
                     throw new ArgumentNullException(nameof(eventId));
-                var path = $"/calendars/{Uri.EscapeDataString(calendarId.ToString())}/events/{Uri.EscapeDataString(eventId.ToString())}";
+                var path = $"/calendars/{Uri.EscapeDataString(calendarId)}/events/{Uri.EscapeDataString(eventId)}";
                 return await this
                     .CallConnectorAsync<ResponseEvent>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -714,8 +715,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
                 throw new ArgumentNullException(nameof(groupId));
             var queryParams = new List<string>();
             if (top.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(top.Value.ToString())}");
-            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListGroupMembersResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListGroupMembersResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListGroupMembersResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -739,8 +740,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
                 var queryParams = new List<string>();
                 if (userPrincipalName is null)
                     throw new ArgumentNullException(nameof(userPrincipalName));
-                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName)}");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/members/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -768,15 +769,15 @@ namespace Azure.Connectors.Sdk.Office365Groups
         {
             var queryParams = new List<string>();
             if (extractSensitivityLabel.HasValue)
-                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
             if (sensitivityLabelMetadata.HasValue)
-                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
             if (filterRows != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(filterRows.ToString())}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterRows)}");
             if (pageSize.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(pageSize.Value.ToString())}");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
             if (skipToken != default)
-                queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken.ToString())}");
+                queryParams.Add($"$skiptoken={Uri.EscapeDataString(skipToken)}");
             var path = $"/v1.0/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListGroupsResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListGroupsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -802,7 +803,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
                     throw new ArgumentNullException(nameof(groupId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id))}";
                 return await this
                     .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -832,8 +833,8 @@ namespace Azure.Connectors.Sdk.Office365Groups
                 var queryParams = new List<string>();
                 if (userPrincipalName is null)
                     throw new ArgumentNullException(nameof(userPrincipalName));
-                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName.ToString())}");
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/members/memberId/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"userUpn={Uri.EscapeDataString(userPrincipalName)}");
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/members/memberId/$ref" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -874,7 +875,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v1.0/directory/deletedItems/{Uri.EscapeDataString(groupId.ToString())}/restore";
+                var path = $"/v1.0/directory/deletedItems/{Uri.EscapeDataString(groupId)}/restore";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -918,7 +919,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
                     throw new ArgumentNullException(nameof(groupId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id.ToString()))}";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -946,7 +947,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v2/v1.0/groups/{Uri.EscapeDataString(groupId.ToString())}/events";
+                var path = $"/v2/v1.0/groups/{Uri.EscapeDataString(groupId)}/events";
                 return await this
                     .CallConnectorAsync<CreateCalendarEventResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -999,9 +1000,9 @@ namespace Azure.Connectors.Sdk.Office365Groups
             {
                 var queryParams = new List<string>();
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(extractSensitivityLabel.Value.ToString())}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(sensitivityLabelMetadata.Value.ToString())}");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/v2/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOwnedGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
