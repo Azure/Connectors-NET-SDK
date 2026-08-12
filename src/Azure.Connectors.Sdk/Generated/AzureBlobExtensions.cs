@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -775,13 +776,13 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceUrl is null)
                     throw new ArgumentNullException(nameof(sourceUrl));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceUrl, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl)}");
                 if (destinationBlobPath is null)
                     throw new ArgumentNullException(nameof(destinationBlobPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationBlobPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationBlobPath)}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(Convert.ToString(overwrite.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/copyFile" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -813,11 +814,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 var queryParams = new List<string>();
                 if (specifyFolderPathToUpload is null)
                     throw new ArgumentNullException(nameof(specifyFolderPathToUpload));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(specifyFolderPathToUpload, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(specifyFolderPathToUpload)}");
                 if (specifyNameOfTheBlobToCreate is null)
                     throw new ArgumentNullException(nameof(specifyNameOfTheBlobToCreate));
-                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(specifyNameOfTheBlobToCreate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture))}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"name={Uri.EscapeDataString(specifyNameOfTheBlobToCreate)}");
+                var path = $"/v2/codeless/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint)}/CreateBlockBlob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -851,11 +852,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (folderPath is null)
                     throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folderPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath)}");
                 if (blobName is null)
                     throw new ArgumentNullException(nameof(blobName));
-                queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(blobName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"name={Uri.EscapeDataString(blobName)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -887,8 +888,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 var queryParams = new List<string>();
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
-                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(blobPath, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture))}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint)}/CreateSharedLinkByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SharedAccessSignature>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -917,7 +918,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 if (blob is null)
                     throw new ArgumentNullException(nameof(blob));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(blob, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -951,13 +952,13 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (sourceArchiveBlobPath is null)
                     throw new ArgumentNullException(nameof(sourceArchiveBlobPath));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(sourceArchiveBlobPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(sourceArchiveBlobPath)}");
                 if (destinationFolderPath is null)
                     throw new ArgumentNullException(nameof(destinationFolderPath));
-                queryParams.Add($"destination={Uri.EscapeDataString(System.Convert.ToString(destinationFolderPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"destination={Uri.EscapeDataString(destinationFolderPath)}");
                 if (overwrite.HasValue)
-                    queryParams.Add($"overwrite={Uri.EscapeDataString(System.Convert.ToString(overwrite.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overwrite={Uri.EscapeDataString(Convert.ToString(overwrite.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/extractFolderV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -988,8 +989,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 var queryParams = new List<string>();
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
-                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(blobPath, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture))}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint)}/policies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<SharedAccessSignatureBlobPolicy>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1024,12 +1025,12 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     throw new ArgumentNullException(nameof(blob));
                 var queryParams = new List<string>();
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(Convert.ToString(inferContentType.Value, CultureInfo.InvariantCulture))}");
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(blob, System.Globalization.CultureInfo.InvariantCulture)))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob))}/content" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1064,14 +1065,14 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
-                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(blobPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath)}");
                 if (inferContentType.HasValue)
-                    queryParams.Add($"inferContentType={Uri.EscapeDataString(System.Convert.ToString(inferContentType.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"inferContentType={Uri.EscapeDataString(Convert.ToString(inferContentType.Value, CultureInfo.InvariantCulture))}");
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/GetFileContentByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1105,10 +1106,10 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     throw new ArgumentNullException(nameof(blob));
                 var queryParams = new List<string>();
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(blob, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1142,12 +1143,12 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 queryParams.Add("queryParametersSingleEncoded=true");
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
-                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(blobPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath)}");
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/GetFileByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DataWithSensitivityLabelInfo>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1183,14 +1184,14 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     throw new ArgumentNullException(nameof(folder));
                 var queryParams = new List<string>();
                 if (pagingMarker != default)
-                    queryParams.Add($"nextPageMarker={Uri.EscapeDataString(System.Convert.ToString(pagingMarker, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker)}");
                 if (flatListing.HasValue)
-                    queryParams.Add($"useFlatListing={Uri.EscapeDataString(System.Convert.ToString(flatListing.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"useFlatListing={Uri.EscapeDataString(Convert.ToString(flatListing.Value, CultureInfo.InvariantCulture))}");
                 if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractMIPLabels.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/foldersV2/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/foldersV2/{Uri.EscapeDataString(Uri.EscapeDataString(folder))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListOfBlobsWithSensitivityLabels>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1218,8 +1219,8 @@ namespace Azure.Connectors.Sdk.AzureBlob
             var queryParams = new List<string>();
             queryParams.Add("useFlatListing=false");
             if (pagingMarker != default)
-                queryParams.Add($"nextPageMarker={Uri.EscapeDataString(System.Convert.ToString(pagingMarker, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/foldersV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"nextPageMarker={Uri.EscapeDataString(pagingMarker)}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/foldersV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<BlobMetadataPage, BlobMetadata>(
                 ct => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<BlobMetadataPage>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1244,11 +1245,11 @@ namespace Azure.Connectors.Sdk.AzureBlob
                 var queryParams = new List<string>();
                 if (blobPath is null)
                     throw new ArgumentNullException(nameof(blobPath));
-                queryParams.Add($"path={Uri.EscapeDataString(System.Convert.ToString(blobPath, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"path={Uri.EscapeDataString(blobPath)}");
                 if (blobTier is null)
                     throw new ArgumentNullException(nameof(blobTier));
-                queryParams.Add($"newTier={Uri.EscapeDataString(System.Convert.ToString(blobTier, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture))}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"newTier={Uri.EscapeDataString(blobTier)}");
+                var path = $"/v2/datasets/{Uri.EscapeDataString(storageAccountNameOrBlobEndpoint)}/SetBlobTierByPath" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1279,7 +1280,7 @@ namespace Azure.Connectors.Sdk.AzureBlob
                     throw new ArgumentNullException(nameof(storageAccountNameOrBlobEndpoint));
                 if (blob is null)
                     throw new ArgumentNullException(nameof(blob));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(storageAccountNameOrBlobEndpoint, System.Globalization.CultureInfo.InvariantCulture)))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(blob, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrBlobEndpoint))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(blob))}";
                 return await this
                     .CallConnectorAsync<BlobMetadata>(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

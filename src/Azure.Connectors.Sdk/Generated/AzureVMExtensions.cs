@@ -622,7 +622,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<VirtualMachineInScaleSet>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -659,7 +659,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/deallocate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/deallocate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -696,7 +696,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/poweroff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/poweroff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -733,7 +733,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/redeploy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/redeploy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -770,7 +770,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/reimage" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/reimage" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -807,7 +807,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/restart" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/restart" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -844,7 +844,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineInAVMScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/start" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/start" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -879,7 +879,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<VirtualMachine>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -913,7 +913,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}/start" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}/start" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -947,7 +947,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}/deallocate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}/deallocate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -981,7 +981,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}/powerOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}/powerOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1015,7 +1015,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}/reapply" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}/reapply" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1049,7 +1049,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}/redeploy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}/redeploy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1083,7 +1083,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(virtualMachine));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(System.Convert.ToString(virtualMachine, System.Globalization.CultureInfo.InvariantCulture))}/restart" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines/{Uri.EscapeDataString(virtualMachine)}/restart" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1126,7 +1126,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                 throw new ArgumentNullException(nameof(subscriptionId));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2020-01-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1149,7 +1149,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                 throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2019-12-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<VirtualMachineScaleSetListResult, VirtualMachineScaleSet>(
                 ct => this.CallConnectorAsync<VirtualMachineScaleSetListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<VirtualMachineScaleSetListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1175,7 +1175,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                 throw new ArgumentNullException(nameof(virtualMachineScaleSet));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2019-12-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(System.Convert.ToString(virtualMachineScaleSet, System.Globalization.CultureInfo.InvariantCulture))}/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<VirtualMachineInScaleSetListResult, VirtualMachineInScaleSet>(
                 ct => this.CallConnectorAsync<VirtualMachineInScaleSetListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<VirtualMachineInScaleSetListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1198,7 +1198,7 @@ namespace Azure.Connectors.Sdk.AzureVM
                 throw new ArgumentNullException(nameof(resourceGroup));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2019-12-01");
-            var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscriptionId, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Compute/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachines" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<VirtualMachineListResult, VirtualMachine>(
                 ct => this.CallConnectorAsync<VirtualMachineListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<VirtualMachineListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -445,7 +446,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                     throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourceGroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(System.Convert.ToString(automationAccount, System.Globalization.CultureInfo.InvariantCulture))}/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/output" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount)}/jobs/{Uri.EscapeDataString(jobId)}/output" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -483,7 +484,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                     throw new ArgumentNullException(nameof(jobId));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourceGroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(System.Convert.ToString(automationAccount, System.Globalization.CultureInfo.InvariantCulture))}/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount)}/jobs/{Uri.EscapeDataString(jobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -522,10 +523,10 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
                 if (runbookName != default)
-                    queryParams.Add($"runbookName={Uri.EscapeDataString(System.Convert.ToString(runbookName, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"runbookName={Uri.EscapeDataString(runbookName)}");
                 if (waitForJob.HasValue)
-                    queryParams.Add($"wait={Uri.EscapeDataString(System.Convert.ToString(waitForJob.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourceGroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(System.Convert.ToString(automationAccount, System.Globalization.CultureInfo.InvariantCulture))}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"wait={Uri.EscapeDataString(Convert.ToString(waitForJob.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount)}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateJobResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -568,7 +569,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                 throw new ArgumentNullException(nameof(subscription));
             var queryParams = new List<string>();
             queryParams.Add("x-ms-api-version=2015-10-31");
-            var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourcegroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ResourceGroupListResult, ResourceGroup>(
                 ct => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ResourceGroupListResult>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -594,7 +595,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                     throw new ArgumentNullException(nameof(resourceGroup));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourceGroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Automation/automationAccounts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Automation/automationAccounts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<AutomationAccountResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -629,7 +630,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                     throw new ArgumentNullException(nameof(automationAccount));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourceGroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(System.Convert.ToString(automationAccount, System.Globalization.CultureInfo.InvariantCulture))}/runbooks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount)}/runbooks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<RunbookListResults>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -667,7 +668,7 @@ namespace Azure.Connectors.Sdk.AzureAutomation
                     throw new ArgumentNullException(nameof(runbookName));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2015-10-31");
-                var path = $"/subscriptions/{Uri.EscapeDataString(System.Convert.ToString(subscription, System.Globalization.CultureInfo.InvariantCulture))}/resourceGroups/{Uri.EscapeDataString(System.Convert.ToString(resourceGroup, System.Globalization.CultureInfo.InvariantCulture))}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(System.Convert.ToString(automationAccount, System.Globalization.CultureInfo.InvariantCulture))}/runbooks/{Uri.EscapeDataString(System.Convert.ToString(runbookName, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscription)}/resourceGroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Automation/automationAccounts/{Uri.EscapeDataString(automationAccount)}/runbooks/{Uri.EscapeDataString(runbookName)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<RunbookListResults>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -440,7 +441,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft
             using var activity = InfusionsoftClient.ConnectorActivitySource.StartActivity("InfusionsoftClient.UpdateTaskAsync");
             try
             {
-                var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/crm/rest/v1/tasks/{Uri.EscapeDataString(Convert.ToString(id, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<TaskResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

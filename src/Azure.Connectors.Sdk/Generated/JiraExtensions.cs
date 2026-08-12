@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1367,7 +1368,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (issueIdOrKey is null)
                     throw new ArgumentNullException(nameof(issueIdOrKey));
-                var path = $"/3/issue/{Uri.EscapeDataString(System.Convert.ToString(issueIdOrKey, System.Globalization.CultureInfo.InvariantCulture))}/transitions";
+                var path = $"/3/issue/{Uri.EscapeDataString(issueIdOrKey)}/transitions";
                 return await this
                     .CallConnectorAsync<ListTransitionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1395,7 +1396,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (issueIdOrKey is null)
                     throw new ArgumentNullException(nameof(issueIdOrKey));
-                var path = $"/3/issue/{Uri.EscapeDataString(System.Convert.ToString(issueIdOrKey, System.Globalization.CultureInfo.InvariantCulture))}/transitions";
+                var path = $"/3/issue/{Uri.EscapeDataString(issueIdOrKey)}/transitions";
                 return await this
                     .CallConnectorAsync<UpdateTransitionResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1422,7 +1423,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 var queryParams = new List<string>();
                 if (expand != default)
-                    queryParams.Add($"expand={Uri.EscapeDataString(System.Convert.ToString(expand, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"expand={Uri.EscapeDataString(expand)}");
                 var path = $"/3/myself" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetCurrentUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1451,7 +1452,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 var queryParams = new List<string>();
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/JiraIssueManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1480,7 +1481,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (issueKey is null)
                     throw new ArgumentNullException(nameof(issueKey));
-                var path = $"/v2/issue/{Uri.EscapeDataString(System.Convert.ToString(issueKey, System.Globalization.CultureInfo.InvariantCulture))}/comment";
+                var path = $"/v2/issue/{Uri.EscapeDataString(issueKey)}/comment";
                 return await this
                     .CallConnectorAsync<CommentResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1507,7 +1508,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v2/task/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}/cancel";
+                var path = $"/v2/task/{Uri.EscapeDataString(taskId)}/cancel";
                 return await this
                     .CallConnectorAsync<CancelTaskResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1537,10 +1538,10 @@ namespace Azure.Connectors.Sdk.Jira
                 var queryParams = new List<string>();
                 if (project is null)
                     throw new ArgumentNullException(nameof(project));
-                queryParams.Add($"projectKey={Uri.EscapeDataString(System.Convert.ToString(project, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project)}");
                 if (issueTypeId is null)
                     throw new ArgumentNullException(nameof(issueTypeId));
-                queryParams.Add($"issueTypeIds={Uri.EscapeDataString(System.Convert.ToString(issueTypeId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"issueTypeIds={Uri.EscapeDataString(issueTypeId)}");
                 var path = $"/v3/issue" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateIssueResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1620,8 +1621,8 @@ namespace Azure.Connectors.Sdk.Jira
                     throw new ArgumentNullException(nameof(projectIdOrKey));
                 var queryParams = new List<string>();
                 if (enableUndo.HasValue)
-                    queryParams.Add($"enableUndo={Uri.EscapeDataString(System.Convert.ToString(enableUndo.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/project/{Uri.EscapeDataString(System.Convert.ToString(projectIdOrKey, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"enableUndo={Uri.EscapeDataString(Convert.ToString(enableUndo.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1654,12 +1655,12 @@ namespace Azure.Connectors.Sdk.Jira
                     throw new ArgumentNullException(nameof(issueIdOrKey));
                 var queryParams = new List<string>();
                 if (notifyUsers.HasValue)
-                    queryParams.Add($"notifyUsers={Uri.EscapeDataString(System.Convert.ToString(notifyUsers.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"notifyUsers={Uri.EscapeDataString(Convert.ToString(notifyUsers.Value, CultureInfo.InvariantCulture))}");
                 if (overrideScreenSecurity.HasValue)
-                    queryParams.Add($"overrideScreenSecurity={Uri.EscapeDataString(System.Convert.ToString(overrideScreenSecurity.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"overrideScreenSecurity={Uri.EscapeDataString(Convert.ToString(overrideScreenSecurity.Value, CultureInfo.InvariantCulture))}");
                 if (overrideEditableFlag.HasValue)
-                    queryParams.Add($"overrideEditableFlag={Uri.EscapeDataString(System.Convert.ToString(overrideEditableFlag.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/3/issue/{Uri.EscapeDataString(System.Convert.ToString(issueIdOrKey, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"overrideEditableFlag={Uri.EscapeDataString(Convert.ToString(overrideEditableFlag.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v2/3/issue/{Uri.EscapeDataString(issueIdOrKey)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EditIssueResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1710,7 +1711,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (issueKey is null)
                     throw new ArgumentNullException(nameof(issueKey));
-                var path = $"/v2/issue/{Uri.EscapeDataString(System.Convert.ToString(issueKey, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/issue/{Uri.EscapeDataString(issueKey)}";
                 return await this
                     .CallConnectorAsync<FullIssue>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1737,7 +1738,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v2/task/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/task/{Uri.EscapeDataString(taskId)}";
                 return await this
                     .CallConnectorAsync<GetTaskResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1766,9 +1767,9 @@ namespace Azure.Connectors.Sdk.Jira
                 var queryParams = new List<string>();
                 if (accountId is null)
                     throw new ArgumentNullException(nameof(accountId));
-                queryParams.Add($"accountId={Uri.EscapeDataString(System.Convert.ToString(accountId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"accountId={Uri.EscapeDataString(accountId)}");
                 if (expand != default)
-                    queryParams.Add($"expand={Uri.EscapeDataString(System.Convert.ToString(expand, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"expand={Uri.EscapeDataString(expand)}");
                 var path = $"/v2/user" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1845,7 +1846,7 @@ namespace Azure.Connectors.Sdk.Jira
                 var queryParams = new List<string>();
                 if (projectKey is null)
                     throw new ArgumentNullException(nameof(projectKey));
-                queryParams.Add($"projectKey={Uri.EscapeDataString(System.Convert.ToString(projectKey, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"projectKey={Uri.EscapeDataString(projectKey)}");
                 var path = $"/v2/user/permission/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1870,7 +1871,7 @@ namespace Azure.Connectors.Sdk.Jira
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.RemoveProjectCategoryAsync");
             try
             {
-                var path = $"/v2/projectCategory/{Uri.EscapeDataString(System.Convert.ToString(projectId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/projectCategory/{Uri.EscapeDataString(Convert.ToString(projectId, CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1898,7 +1899,7 @@ namespace Azure.Connectors.Sdk.Jira
             {
                 if (projectIdOrKey is null)
                     throw new ArgumentNullException(nameof(projectIdOrKey));
-                var path = $"/v2/project/{Uri.EscapeDataString(System.Convert.ToString(projectIdOrKey, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/project/{Uri.EscapeDataString(projectIdOrKey)}";
                 return await this
                     .CallConnectorAsync<UpdateProjectResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1926,7 +1927,7 @@ namespace Azure.Connectors.Sdk.Jira
                 var queryParams = new List<string>();
                 if (project is null)
                     throw new ArgumentNullException(nameof(project));
-                queryParams.Add($"projectKey={Uri.EscapeDataString(System.Convert.ToString(project, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project)}");
                 var path = $"/v2/types/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1956,10 +1957,10 @@ namespace Azure.Connectors.Sdk.Jira
                 var queryParams = new List<string>();
                 if (project is null)
                     throw new ArgumentNullException(nameof(project));
-                queryParams.Add($"projectKey={Uri.EscapeDataString(System.Convert.ToString(project, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"projectKey={Uri.EscapeDataString(project)}");
                 if (issueTypes is null)
                     throw new ArgumentNullException(nameof(issueTypes));
-                queryParams.Add($"issuetypeIds={Uri.EscapeDataString(System.Convert.ToString(issueTypes, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"issuetypeIds={Uri.EscapeDataString(issueTypes)}");
                 var path = $"/v3/issue/createmeta" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)

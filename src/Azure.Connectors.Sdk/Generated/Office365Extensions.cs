@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -4973,11 +4974,11 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 var queryParams = new List<string>();
                 if (messageId != default)
-                    queryParams.Add($"messageId={Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"messageId={Uri.EscapeDataString(messageId)}");
                 if (draftType != default)
-                    queryParams.Add($"draftType={Uri.EscapeDataString(System.Convert.ToString(draftType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"draftType={Uri.EscapeDataString(draftType)}");
                 if (comment != default)
-                    queryParams.Add($"comment={Uri.EscapeDataString(System.Convert.ToString(comment, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"comment={Uri.EscapeDataString(comment)}");
                 var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<OutlookReceiveMessage>(HttpMethod.Post, path, input, cancellationToken)
@@ -5006,7 +5007,7 @@ namespace Azure.Connectors.Sdk.Office365
                 var queryParams = new List<string>();
                 if (messageId is null)
                     throw new ArgumentNullException(nameof(messageId));
-                queryParams.Add($"messageId={Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"messageId={Uri.EscapeDataString(messageId)}");
                 var path = $"/Draft" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
@@ -5033,7 +5034,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (messageId is null)
                     throw new ArgumentNullException(nameof(messageId));
-                var path = $"/Draft/Send/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/Draft/Send/{Uri.EscapeDataString(messageId)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5061,10 +5062,10 @@ namespace Azure.Connectors.Sdk.Office365
                 var queryParams = new List<string>();
                 if (messageId is null)
                     throw new ArgumentNullException(nameof(messageId));
-                queryParams.Add($"messageId={Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"messageId={Uri.EscapeDataString(messageId)}");
                 if (category is null)
                     throw new ArgumentNullException(nameof(category));
-                queryParams.Add($"category={Uri.EscapeDataString(System.Convert.ToString(category, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"category={Uri.EscapeDataString(category)}");
                 var path = $"/Mail/Category" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -5093,7 +5094,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (categoryName is null)
                     throw new ArgumentNullException(nameof(categoryName));
-                var path = $"/Mail/Category/Bulk/{Uri.EscapeDataString(System.Convert.ToString(categoryName, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/Mail/Category/Bulk/{Uri.EscapeDataString(categoryName)}";
                 return await this
                     .CallConnectorAsync<BatchOperationResult>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5173,7 +5174,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemId, System.Globalization.CultureInfo.InvariantCulture)))}/photo/$value";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(itemId))}/photo/$value";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5226,7 +5227,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 var queryParams = new List<string>();
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/EmailsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -5255,7 +5256,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 var queryParams = new List<string>();
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/MeetingManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -5284,7 +5285,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 var queryParams = new List<string>();
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/ContactsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -5314,7 +5315,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(calendarId, System.Globalization.CultureInfo.InvariantCulture)))}/events/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/codeless/v1.0/me/calendars/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId))}/events/{Uri.EscapeDataString(Uri.EscapeDataString(id))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5344,7 +5345,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(calendarId, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/calendars/v3/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(itemId))}";
                 return await this
                     .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5377,14 +5378,14 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(calendarId, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphCalendarEventListClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5443,7 +5444,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(calendarId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(calendarId, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(id))}";
                 return await this
                     .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5471,7 +5472,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (calendarId is null)
                     throw new ArgumentNullException(nameof(calendarId));
-                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(calendarId, System.Globalization.CultureInfo.InvariantCulture)))}/items";
+                var path = $"/datasets/calendars/v4/tables/{Uri.EscapeDataString(Uri.EscapeDataString(calendarId))}/items";
                 return await this
                     .CallConnectorAsync<GraphCalendarEventClientReceive>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5500,7 +5501,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(id))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5530,7 +5531,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (itemId is null)
                     throw new ArgumentNullException(nameof(itemId));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(itemId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(itemId))}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5563,14 +5564,14 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5625,7 +5626,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(folderId));
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(id, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts/{Uri.EscapeDataString(Uri.EscapeDataString(id))}";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5653,7 +5654,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (folderId is null)
                     throw new ArgumentNullException(nameof(folderId));
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(folderId, System.Globalization.CultureInfo.InvariantCulture)))}/contacts";
+                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts";
                 return await this
                     .CallConnectorAsync<ContactResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5682,8 +5683,8 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
+                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5713,8 +5714,8 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
+                var path = $"/codeless/beta/me/messages/{Uri.EscapeDataString(messageId)}/$value" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5769,8 +5770,8 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
+                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId)}/flag" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5802,12 +5803,12 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId)}/forward" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5842,12 +5843,12 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(attachementId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}/attachments/{Uri.EscapeDataString(System.Convert.ToString(attachementId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/me/messages/{Uri.EscapeDataString(messageId)}/attachments/{Uri.EscapeDataString(attachementId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAttachmentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5881,16 +5882,16 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
                 if (includeAttachments.HasValue)
-                    queryParams.Add($"includeAttachments={Uri.EscapeDataString(System.Convert.ToString(includeAttachments.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"includeAttachments={Uri.EscapeDataString(Convert.ToString(includeAttachments.Value, CultureInfo.InvariantCulture))}");
                 if (internetMessageId != default)
-                    queryParams.Add($"internetMessageId={Uri.EscapeDataString(System.Convert.ToString(internetMessageId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"internetMessageId={Uri.EscapeDataString(internetMessageId)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/Mail/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v2/Mail/{Uri.EscapeDataString(messageId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -5930,31 +5931,31 @@ namespace Azure.Connectors.Sdk.Office365
                 var queryParams = new List<string>();
                 queryParams.Add("fetchOnlyFlagged=false");
                 if (folder != default)
-                    queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"folderPath={Uri.EscapeDataString(folder)}");
                 if (to != default)
-                    queryParams.Add($"to={Uri.EscapeDataString(System.Convert.ToString(to, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"to={Uri.EscapeDataString(to)}");
                 if (cC != default)
-                    queryParams.Add($"cc={Uri.EscapeDataString(System.Convert.ToString(cC, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"cc={Uri.EscapeDataString(cC)}");
                 if (toOrCC != default)
-                    queryParams.Add($"toOrCc={Uri.EscapeDataString(System.Convert.ToString(toOrCC, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC)}");
                 if (from != default)
-                    queryParams.Add($"from={Uri.EscapeDataString(System.Convert.ToString(from, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"from={Uri.EscapeDataString(from)}");
                 if (importance != default)
-                    queryParams.Add($"importance={Uri.EscapeDataString(System.Convert.ToString(importance, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"importance={Uri.EscapeDataString(importance)}");
                 if (onlyWithAttachments.HasValue)
-                    queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(System.Convert.ToString(onlyWithAttachments.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"fetchOnlyWithAttachment={Uri.EscapeDataString(Convert.ToString(onlyWithAttachments.Value, CultureInfo.InvariantCulture))}");
                 if (subjectFilter != default)
-                    queryParams.Add($"subjectFilter={Uri.EscapeDataString(System.Convert.ToString(subjectFilter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"subjectFilter={Uri.EscapeDataString(subjectFilter)}");
                 if (fetchOnlyUnreadMessages.HasValue)
-                    queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(System.Convert.ToString(fetchOnlyUnreadMessages.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"fetchOnlyUnread={Uri.EscapeDataString(Convert.ToString(fetchOnlyUnreadMessages.Value, CultureInfo.InvariantCulture))}");
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
                 if (includeAttachments.HasValue)
-                    queryParams.Add($"includeAttachments={Uri.EscapeDataString(System.Convert.ToString(includeAttachments.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"includeAttachments={Uri.EscapeDataString(Convert.ToString(includeAttachments.Value, CultureInfo.InvariantCulture))}");
                 if (searchQuery != default)
-                    queryParams.Add($"searchQuery={Uri.EscapeDataString(System.Convert.ToString(searchQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"searchQuery={Uri.EscapeDataString(searchQuery)}");
                 if (top.HasValue)
-                    queryParams.Add($"top={Uri.EscapeDataString(System.Convert.ToString(top.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/v3/Mail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BatchResponseGraphClientReceiveMessage>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -5990,23 +5991,23 @@ namespace Azure.Connectors.Sdk.Office365
                 var queryParams = new List<string>();
                 if (calendarId is null)
                     throw new ArgumentNullException(nameof(calendarId));
-                queryParams.Add($"calendarId={Uri.EscapeDataString(System.Convert.ToString(calendarId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"calendarId={Uri.EscapeDataString(calendarId)}");
                 if (startTime is null)
                     throw new ArgumentNullException(nameof(startTime));
-                queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(System.Convert.ToString(startTime, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"startDateTimeUtc={Uri.EscapeDataString(startTime)}");
                 if (endTime is null)
                     throw new ArgumentNullException(nameof(endTime));
-                queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(System.Convert.ToString(endTime, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"endDateTimeUtc={Uri.EscapeDataString(endTime)}");
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (search != default)
-                    queryParams.Add($"search={Uri.EscapeDataString(System.Convert.ToString(search, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"search={Uri.EscapeDataString(search)}");
                 var path = $"/datasets/calendars/v3/tables/items/calendarview" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<EntityListResponseGraphCalendarEventClientReceive>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6107,7 +6108,7 @@ namespace Azure.Connectors.Sdk.Office365
             {
                 if (roomList is null)
                     throw new ArgumentNullException(nameof(roomList));
-                var path = $"/codeless/beta/me/findRooms(RoomList='{Uri.EscapeDataString(System.Convert.ToString(roomList, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/codeless/beta/me/findRooms(RoomList='{Uri.EscapeDataString(roomList)}')";
                 return await this
                     .CallConnectorAsync<GetRoomsInRoomListResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6137,8 +6138,8 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
+                var path = $"/codeless/v3/v1.0/me/messages/{Uri.EscapeDataString(messageId)}/markAsRead" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6170,10 +6171,10 @@ namespace Azure.Connectors.Sdk.Office365
                 var queryParams = new List<string>();
                 if (folder is null)
                     throw new ArgumentNullException(nameof(folder));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(System.Convert.ToString(folder, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"folderPath={Uri.EscapeDataString(folder)}");
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/Mail/Move/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
+                var path = $"/v2/Mail/Move/{Uri.EscapeDataString(messageId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphClientReceiveMessage>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6203,8 +6204,8 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(messageId));
                 var queryParams = new List<string>();
                 if (originalMailboxAddress != default)
-                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(System.Convert.ToString(originalMailboxAddress, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(System.Convert.ToString(messageId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"mailboxAddress={Uri.EscapeDataString(originalMailboxAddress)}");
+                var path = $"/v3/Mail/ReplyTo/{Uri.EscapeDataString(messageId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -6234,7 +6235,7 @@ namespace Azure.Connectors.Sdk.Office365
                     throw new ArgumentNullException(nameof(eventId));
                 if (response is null)
                     throw new ArgumentNullException(nameof(response));
-                var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(System.Convert.ToString(eventId, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(response, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/codeless/v1.0/me/events/{Uri.EscapeDataString(eventId)}/{Uri.EscapeDataString(response)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

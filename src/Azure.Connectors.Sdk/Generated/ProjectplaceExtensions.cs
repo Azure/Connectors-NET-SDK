@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -632,7 +633,7 @@ namespace Azure.Connectors.Sdk.Projectplace
             using var activity = ProjectplaceClient.ConnectorActivitySource.StartActivity("ProjectplaceClient.CreateCardAsync");
             try
             {
-                var path = $"/v1/external_notifications/{Uri.EscapeDataString(System.Convert.ToString(board, System.Globalization.CultureInfo.InvariantCulture))}/create_card";
+                var path = $"/v1/external_notifications/{Uri.EscapeDataString(Convert.ToString(board, CultureInfo.InvariantCulture))}/create_card";
                 return await this
                     .CallConnectorAsync<CreateCardResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -658,7 +659,7 @@ namespace Azure.Connectors.Sdk.Projectplace
             using var activity = ProjectplaceClient.ConnectorActivitySource.StartActivity("ProjectplaceClient.MoveCardAsync");
             try
             {
-                var path = $"/v1/external_notifications/{Uri.EscapeDataString(System.Convert.ToString(board, System.Globalization.CultureInfo.InvariantCulture))}/move_card";
+                var path = $"/v1/external_notifications/{Uri.EscapeDataString(Convert.ToString(board, CultureInfo.InvariantCulture))}/move_card";
                 return await this
                     .CallConnectorAsync<MoveCardResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

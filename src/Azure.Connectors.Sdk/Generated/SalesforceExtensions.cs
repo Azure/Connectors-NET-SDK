@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1714,7 +1715,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(externalIdField));
                 if (externalId is null)
                     throw new ArgumentNullException(nameof(externalId));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/externalIdFields/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(externalIdField, System.Globalization.CultureInfo.InvariantCulture)))}/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(externalId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/externalIdFields/{Uri.EscapeDataString(Uri.EscapeDataString(externalIdField))}/{Uri.EscapeDataString(Uri.EscapeDataString(externalId))}";
                 return await this
                     .CallConnectorAsync<GetItemByExternalIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1748,16 +1749,16 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(salesforceObjectType));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1788,15 +1789,15 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 var path = $"/datasets/default/tables/account/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1828,15 +1829,15 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 var path = $"/datasets/default/tables/user/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1868,15 +1869,15 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 var path = $"/datasets/default/tables/case/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1908,15 +1909,15 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 var path = $"/datasets/default/tables/opportunity/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1948,15 +1949,15 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 var path = $"/datasets/default/tables/product2/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1988,15 +1989,15 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 var path = $"/datasets/default/tables/contact/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2026,7 +2027,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(salesforceObjectType));
                 if (recordId is null)
                     throw new ArgumentNullException(nameof(recordId));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(recordId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(recordId))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2081,13 +2082,13 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (concurrencyMode != default)
-                    queryParams.Add($"concurrenyMode={Uri.EscapeDataString(System.Convert.ToString(concurrencyMode, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"concurrenyMode={Uri.EscapeDataString(concurrencyMode)}");
                 if (isPKChunkingEnabled.HasValue)
-                    queryParams.Add($"isPkChunkingEnabled={Uri.EscapeDataString(System.Convert.ToString(isPKChunkingEnabled.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"isPkChunkingEnabled={Uri.EscapeDataString(Convert.ToString(isPKChunkingEnabled.Value, CultureInfo.InvariantCulture))}");
                 if (jobType != default)
-                    queryParams.Add($"jobType={Uri.EscapeDataString(System.Convert.ToString(jobType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"jobType={Uri.EscapeDataString(jobType)}");
                 if (queryLocator != default)
-                    queryParams.Add($"queryLocator={Uri.EscapeDataString(System.Convert.ToString(queryLocator, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"queryLocator={Uri.EscapeDataString(queryLocator)}");
                 var path = $"/codeless/jobs/ingest" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllJobsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2115,7 +2116,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (jobId is null)
                     throw new ArgumentNullException(nameof(jobId));
-                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/batches";
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId)}/batches";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2142,7 +2143,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (jobId is null)
                     throw new ArgumentNullException(nameof(jobId));
-                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId)}";
                 return await this
                     .CallConnectorAsync<CheckJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2170,7 +2171,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (jobId is null)
                     throw new ArgumentNullException(nameof(jobId));
-                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId)}";
                 return await this
                     .CallConnectorAsync<JobInfo>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2196,7 +2197,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (jobId is null)
                     throw new ArgumentNullException(nameof(jobId));
-                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2227,8 +2228,8 @@ namespace Azure.Connectors.Sdk.Salesforce
                 var queryParams = new List<string>();
                 if (resultType is null)
                     throw new ArgumentNullException(nameof(resultType));
-                queryParams.Add($"resultType={Uri.EscapeDataString(System.Convert.ToString(resultType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/results" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"resultType={Uri.EscapeDataString(resultType)}");
+                var path = $"/codeless/jobs/ingest/{Uri.EscapeDataString(jobId)}/results" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2256,7 +2257,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                 var queryParams = new List<string>();
                 if (sOSLSearchString is null)
                     throw new ArgumentNullException(nameof(sOSLSearchString));
-                queryParams.Add($"q={Uri.EscapeDataString(System.Convert.ToString(sOSLSearchString, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"q={Uri.EscapeDataString(sOSLSearchString)}");
                 var path = $"/codeless/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SOSLSearchQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2310,7 +2311,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 var queryParams = new List<string>();
                 if (sessionId != default)
-                    queryParams.Add($"sessionId={Uri.EscapeDataString(System.Convert.ToString(sessionId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/SalesforceManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -2369,8 +2370,8 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(recordId));
                 var queryParams = new List<string>();
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(recordId, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(recordId))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2404,8 +2405,8 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(recordId));
                 var queryParams = new List<string>();
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v3/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(recordId, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+                var path = $"/v3/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(recordId))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2439,7 +2440,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     throw new ArgumentNullException(nameof(externalIdField));
                 if (externalId is null)
                     throw new ArgumentNullException(nameof(externalId));
-                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/externalIdFields/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(externalIdField, System.Globalization.CultureInfo.InvariantCulture)))}/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(externalId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/externalIdFields/{Uri.EscapeDataString(Uri.EscapeDataString(externalIdField))}/{Uri.EscapeDataString(Uri.EscapeDataString(externalId))}";
                 return await this
                     .CallConnectorAsync<PatchItemByExternalIdResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2467,7 +2468,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (salesforceObjectType is null)
                     throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/items";
+                var path = $"/v2/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2494,7 +2495,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (salesforceObjectType is null)
                     throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}/externalIdFields";
+                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/externalIdFields";
                 return await this
                     .CallConnectorAsync<ExternalIdFieldsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2521,7 +2522,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture)))}/patchitem";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table))}/patchitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2548,7 +2549,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture)))}/postitem";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table))}/postitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2575,7 +2576,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (table is null)
                     throw new ArgumentNullException(nameof(table));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture)))}/getitem";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(table))}/getitem";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2602,7 +2603,7 @@ namespace Azure.Connectors.Sdk.Salesforce
             {
                 if (salesforceObjectType is null)
                     throw new ArgumentNullException(nameof(salesforceObjectType));
-                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(salesforceObjectType, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/$metadata.json/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

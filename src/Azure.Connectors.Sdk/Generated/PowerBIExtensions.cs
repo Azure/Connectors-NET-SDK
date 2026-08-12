@@ -2155,7 +2155,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(workspace));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListedScorecards>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2185,7 +2185,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(workspace));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreatedScorecard>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2218,7 +2218,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                 var queryParams = new List<string>();
                 queryParams.Add("$expand=aggregations");
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FetchedGoals>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2251,7 +2251,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(scorecardId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateGoalResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2287,7 +2287,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 queryParams.Add("$expand=aggregations");
-                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<FetchedGoal>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2322,7 +2322,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(goalId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myOrg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2355,7 +2355,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets/{Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture))}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets/{Uri.EscapeDataString(dataset)}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<QueryExecutionResults>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2388,7 +2388,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets/{Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture))}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/internalFlowActionOverloadAsJson/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets/{Uri.EscapeDataString(dataset)}/executeQueries" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ExecuteDatasetQueriesJsonResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2423,7 +2423,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets/{Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets/{Uri.EscapeDataString(dataset)}/tables/{Uri.EscapeDataString(table)}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2461,7 +2461,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(checkInDate));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})/goalValues({Uri.EscapeDataString(System.Convert.ToString(checkInDate, System.Globalization.CultureInfo.InvariantCulture))})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})/goalValues({Uri.EscapeDataString(checkInDate)})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2496,7 +2496,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(goalId));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2532,7 +2532,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 queryParams.Add("$expand=notes");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})/goalValues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetGoalCheckinsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2570,7 +2570,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(checkInDate));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})/goalValues({Uri.EscapeDataString(System.Convert.ToString(checkInDate, System.Globalization.CultureInfo.InvariantCulture))})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})/goalValues({Uri.EscapeDataString(checkInDate)})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2609,7 +2609,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 queryParams.Add("$expand=notes");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/internalScorecards({Uri.EscapeDataString(System.Convert.ToString(scorecardId, System.Globalization.CultureInfo.InvariantCulture))})/goals({Uri.EscapeDataString(System.Convert.ToString(goalId, System.Globalization.CultureInfo.InvariantCulture))})/goalValues({Uri.EscapeDataString(System.Convert.ToString(checkInDate, System.Globalization.CultureInfo.InvariantCulture))})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})/goalValues({Uri.EscapeDataString(checkInDate)})" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetGoalCheckinResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2640,7 +2640,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets/{Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture))}/refreshes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets/{Uri.EscapeDataString(dataset)}/refreshes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2671,7 +2671,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(workspace));
                 if (report is null)
                     throw new ArgumentNullException(nameof(report));
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/reports/{Uri.EscapeDataString(System.Convert.ToString(report, System.Globalization.CultureInfo.InvariantCulture))}/ExportTo";
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/reports/{Uri.EscapeDataString(report)}/ExportTo";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2702,7 +2702,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(workspace));
                 if (report is null)
                     throw new ArgumentNullException(nameof(report));
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/reports/{Uri.EscapeDataString(System.Convert.ToString(report, System.Globalization.CultureInfo.InvariantCulture))}/ExportToPaginatedReports";
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/reports/{Uri.EscapeDataString(report)}/ExportToPaginatedReports";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2783,7 +2783,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(workspace));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Datasets>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2815,7 +2815,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(dataset));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets/{Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets/{Uri.EscapeDataString(dataset)}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Tables>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2842,7 +2842,7 @@ namespace Azure.Connectors.Sdk.PowerBI
             {
                 if (workspace is null)
                     throw new ArgumentNullException(nameof(workspace));
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/reports";
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/reports";
                 return await this
                     .CallConnectorAsync<Reports>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2877,7 +2877,7 @@ namespace Azure.Connectors.Sdk.PowerBI
                     throw new ArgumentNullException(nameof(table));
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
-                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(System.Convert.ToString(workspace, System.Globalization.CultureInfo.InvariantCulture))}/datasets/{Uri.EscapeDataString(System.Convert.ToString(dataset, System.Globalization.CultureInfo.InvariantCulture))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/datasets/{Uri.EscapeDataString(dataset)}/tables/{Uri.EscapeDataString(table)}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Columns>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

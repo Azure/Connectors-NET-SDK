@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -2239,7 +2240,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
             var path = $"/api/ga_2022_07_31/deviceGroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceGroupCollection, DeviceGroup>(
                 ct => this.CallConnectorAsync<DeviceGroupCollection>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2265,8 +2266,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(System.Convert.ToString(deviceGroupId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2298,8 +2299,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(System.Convert.ToString(deviceGroupId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceGroup>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2329,8 +2330,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(System.Convert.ToString(deviceGroupId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2358,8 +2359,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(System.Convert.ToString(deviceGroupId, System.Globalization.CultureInfo.InvariantCulture))}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
+            var path = $"/api/ga_2022_07_31/deviceGroups/{Uri.EscapeDataString(deviceGroupId)}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceGroupDeviceCollection, DeviceV1>(
                 ct => this.CallConnectorAsync<DeviceGroupDeviceCollection>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DeviceGroupDeviceCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2385,10 +2386,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplateId != default)
-                    queryParams.Add($"instanceOf={Uri.EscapeDataString(System.Convert.ToString(deviceTemplateId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/preview/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/cloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
+                var path = $"/api/preview/devices/{Uri.EscapeDataString(deviceId)}/cloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceCloudProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2421,10 +2422,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplateId != default)
-                    queryParams.Add($"instanceOf={Uri.EscapeDataString(System.Convert.ToString(deviceTemplateId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/preview/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/cloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
+                var path = $"/api/preview/devices/{Uri.EscapeDataString(deviceId)}/cloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceCloudProperties>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2463,10 +2464,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplateId != default)
-                    queryParams.Add($"instanceOf={Uri.EscapeDataString(System.Convert.ToString(deviceTemplateId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/preview/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
+                var path = $"/api/preview/devices/{Uri.EscapeDataString(deviceId)}/components/{Uri.EscapeDataString(deviceComponent)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceCommand>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2494,8 +2495,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/relationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
+            var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId)}/relationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceRelationshipCollection, DeviceRelationshipStatic>(
                 ct => this.CallConnectorAsync<DeviceRelationshipCollection>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<DeviceRelationshipCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2523,8 +2524,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceRelationshipStatic>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2559,8 +2560,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceRelationshipStatic>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2595,8 +2596,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceRelationshipStatic>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2629,8 +2630,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2655,7 +2656,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
             var path = $"/api/ga_2022_07_31/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<JobCollection, JobStatic>(
                 ct => this.CallConnectorAsync<JobCollection>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2681,8 +2682,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<JobStatic>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2715,10 +2716,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (jobType != default)
-                    queryParams.Add($"job_type={Uri.EscapeDataString(System.Convert.ToString(jobType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType)}");
+                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Job>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2746,8 +2747,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
+            var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId)}/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<JobDeviceStatusCollection, JobDeviceStatus>(
                 ct => this.CallConnectorAsync<JobDeviceStatusCollection>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<JobDeviceStatusCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -2771,8 +2772,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/stop" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId)}/stop" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2802,8 +2803,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/resume" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId)}/resume" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2837,8 +2838,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(System.Convert.ToString(jobId, System.Globalization.CultureInfo.InvariantCulture))}/rerun/{Uri.EscapeDataString(System.Convert.ToString(rerunId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/jobs/{Uri.EscapeDataString(jobId)}/rerun/{Uri.EscapeDataString(rerunId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<JobStatic>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2863,7 +2864,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
             var path = $"/api/ga_2022_07_31/organizations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<OrganizationCollection, Organization>(
                 ct => this.CallConnectorAsync<OrganizationCollection>(HttpMethod.Get, path, cancellationToken: ct),
@@ -2889,8 +2890,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(organizationId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Organization>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2922,8 +2923,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(organizationId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Organization>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2953,8 +2954,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(System.Convert.ToString(organizationId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/organizations/{Uri.EscapeDataString(organizationId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2979,7 +2980,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
             var path = $"/api/ga_2022_07_31/scheduledJobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ScheduledJobCollection, ScheduledJob>(
                 ct => this.CallConnectorAsync<ScheduledJobCollection>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3005,8 +3006,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(System.Convert.ToString(scheduledJobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ScheduledJob>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3040,12 +3041,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (jobType != default)
-                    queryParams.Add($"job_type={Uri.EscapeDataString(System.Convert.ToString(jobType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType)}");
                 if (scheduleEndType != default)
-                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(System.Convert.ToString(scheduleEndType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(System.Convert.ToString(scheduledJobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduleEndType)}");
+                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ScheduledJob>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3078,10 +3079,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (scheduleEndType != default)
-                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(System.Convert.ToString(scheduleEndType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(System.Convert.ToString(scheduledJobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduleEndType)}");
+                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ScheduledJobStatic>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3111,8 +3112,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(System.Convert.ToString(scheduledJobId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3140,8 +3141,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(System.Convert.ToString(scheduledJobId, System.Globalization.CultureInfo.InvariantCulture))}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
+            var path = $"/api/ga_2022_07_31/scheduledJobs/{Uri.EscapeDataString(scheduledJobId)}/jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ScheduledJobJobCollection, JobStatic>(
                 ct => this.CallConnectorAsync<ScheduledJobJobCollection>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ScheduledJobJobCollection>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -3166,8 +3167,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3202,10 +3203,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceCommandV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3243,10 +3244,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/components/{Uri.EscapeDataString(deviceComponent)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceComponentCommand>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3284,10 +3285,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/telemetry/{Uri.EscapeDataString(System.Convert.ToString(deviceTelemetry, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/components/{Uri.EscapeDataString(deviceComponent)}/telemetry/{Uri.EscapeDataString(deviceTelemetry)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceComponentTelemetry>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3325,10 +3326,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceModuleCommand>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3369,10 +3370,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/components/{Uri.EscapeDataString(deviceComponent)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceModuleComponentCommand>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3413,10 +3414,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/telemetry/{Uri.EscapeDataString(System.Convert.ToString(deviceTelemetry, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/components/{Uri.EscapeDataString(deviceComponent)}/telemetry/{Uri.EscapeDataString(deviceTelemetry)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceModuleComponentTelemetry>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3451,10 +3452,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ModuleProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3492,10 +3493,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/telemetry/{Uri.EscapeDataString(System.Convert.ToString(deviceTelemetry, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/telemetry/{Uri.EscapeDataString(deviceTelemetry)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceModuleTelemetry>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3527,10 +3528,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3565,10 +3566,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/telemetry/{Uri.EscapeDataString(System.Convert.ToString(deviceTelemetry, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/telemetry/{Uri.EscapeDataString(deviceTelemetry)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceTelemetry>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3593,7 +3594,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
             var path = $"/api/v1/devices" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceCollection, DeviceV1>(
                 ct => this.CallConnectorAsync<DeviceCollection>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3618,8 +3619,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3655,10 +3656,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceCommandV1>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3697,10 +3698,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/components/{Uri.EscapeDataString(deviceComponent)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceComponentCommand>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3739,10 +3740,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceModuleCommand>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3784,10 +3785,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(deviceComponent, System.Globalization.CultureInfo.InvariantCulture))}/commands/{Uri.EscapeDataString(System.Convert.ToString(deviceCommand, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/components/{Uri.EscapeDataString(deviceComponent)}/commands/{Uri.EscapeDataString(deviceCommand)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceModuleComponentCommand>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3819,8 +3820,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/ga_2022_07_31/devices/{Uri.EscapeDataString(deviceId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceV2>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3856,10 +3857,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/modules/{Uri.EscapeDataString(System.Convert.ToString(deviceModule, System.Globalization.CultureInfo.InvariantCulture))}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/modules/{Uri.EscapeDataString(deviceModule)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ModuleProperties>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3892,10 +3893,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/devices/{Uri.EscapeDataString(System.Convert.ToString(deviceId, System.Globalization.CultureInfo.InvariantCulture))}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
+                var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceProperties>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3926,8 +3927,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(template)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DeviceTemplateV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3952,7 +3953,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
             var queryParams = new List<string>();
             if (application is null)
                 throw new ArgumentNullException(nameof(application));
-            queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+            queryParams.Add($"application={Uri.EscapeDataString(application)}");
             var path = $"/api/v1/deviceTemplates" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<DeviceTemplateCollectionV1, DeviceTemplateV1>(
                 ct => this.CallConnectorAsync<DeviceTemplateCollectionV1>(HttpMethod.Get, path, cancellationToken: ct),
@@ -3977,8 +3978,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/deviceTemplates/{Uri.EscapeDataString(template)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4009,8 +4010,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/roles/{Uri.EscapeDataString(System.Convert.ToString(role, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/roles/{Uri.EscapeDataString(role)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Role>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4038,7 +4039,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 var path = $"/api/v1/roles" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<RoleCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4072,10 +4073,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (userType != default)
-                    queryParams.Add($"user_type={Uri.EscapeDataString(System.Convert.ToString(userType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/users/{Uri.EscapeDataString(System.Convert.ToString(user, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"user_type={Uri.EscapeDataString(userType)}");
+                var path = $"/api/v1/users/{Uri.EscapeDataString(user)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<User>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4106,8 +4107,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/users/{Uri.EscapeDataString(System.Convert.ToString(user, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/users/{Uri.EscapeDataString(user)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserStatic>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4135,7 +4136,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 var path = $"/api/v1/users" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4166,8 +4167,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/users/{Uri.EscapeDataString(System.Convert.ToString(user, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
+                var path = $"/api/v1/users/{Uri.EscapeDataString(user)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4200,10 +4201,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (userType != default)
-                    queryParams.Add($"user_type={Uri.EscapeDataString(System.Convert.ToString(userType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/api/v1/users/{Uri.EscapeDataString(System.Convert.ToString(user, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"user_type={Uri.EscapeDataString(userType)}");
+                var path = $"/api/v1/users/{Uri.EscapeDataString(user)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserPatch>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -4248,12 +4249,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"template={Uri.EscapeDataString(template)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 var path = $"/api/preview/_internal/workflow/components" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4286,16 +4287,16 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"template={Uri.EscapeDataString(template)}");
                 if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(System.Convert.ToString(component, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"component={Uri.EscapeDataString(component)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 if (type != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(type, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 var path = $"/api/preview/_internal/workflow/capabilities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4328,16 +4329,16 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"template={Uri.EscapeDataString(template)}");
                 if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(System.Convert.ToString(component, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"component={Uri.EscapeDataString(component)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 if (type != default)
-                    queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(type, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 var path = $"/api/v1/_internal/workflow/capabilities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4368,12 +4369,12 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"template={Uri.EscapeDataString(template)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 var path = $"/api/v1/_internal/workflow/components" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4403,10 +4404,10 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (template is null)
                     throw new ArgumentNullException(nameof(template));
-                queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(template, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"template={Uri.EscapeDataString(template)}");
                 var path = $"/api/v1/_internal/workflow/modules" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4436,9 +4437,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplateId != default)
-                    queryParams.Add($"instanceOf={Uri.EscapeDataString(System.Convert.ToString(deviceTemplateId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
                 var path = $"/api/preview/_internal/workflow/schema/DeviceCloudProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaDeviceCloudPropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4470,13 +4471,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplateId != default)
-                    queryParams.Add($"instanceOf={Uri.EscapeDataString(System.Convert.ToString(deviceTemplateId, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
                 if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(System.Convert.ToString(component, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"component={Uri.EscapeDataString(component)}");
                 if (capability != default)
-                    queryParams.Add($"capability={Uri.EscapeDataString(System.Convert.ToString(capability, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability)}");
                 var path = $"/api/preview/_internal/workflow/schema/DeviceCommand" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaDeviceCommandResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4509,15 +4510,15 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(System.Convert.ToString(component, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"component={Uri.EscapeDataString(component)}");
                 if (capability != default)
-                    queryParams.Add($"capability={Uri.EscapeDataString(System.Convert.ToString(capability, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability)}");
                 var path = $"/api/v1/_internal/workflow/schema/DeviceCommand" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaDeviceCommandResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4548,11 +4549,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 var path = $"/api/v1/_internal/workflow/schema/DeviceProperties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaDevicePropertiesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4585,15 +4586,15 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (deviceTemplate != default)
-                    queryParams.Add($"template={Uri.EscapeDataString(System.Convert.ToString(deviceTemplate, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
                 if (module != default)
-                    queryParams.Add($"module={Uri.EscapeDataString(System.Convert.ToString(module, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"module={Uri.EscapeDataString(module)}");
                 if (component != default)
-                    queryParams.Add($"component={Uri.EscapeDataString(System.Convert.ToString(component, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"component={Uri.EscapeDataString(component)}");
                 if (capability != default)
-                    queryParams.Add($"capability={Uri.EscapeDataString(System.Convert.ToString(capability, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"capability={Uri.EscapeDataString(capability)}");
                 var path = $"/api/v1/_internal/workflow/schema/DeviceTelemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaDeviceTelemetryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4623,9 +4624,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (jobType != default)
-                    queryParams.Add($"job_type={Uri.EscapeDataString(System.Convert.ToString(jobType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType)}");
                 var path = $"/api/ga_2022_07_31/_internal/workflow/schema/Job" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4657,13 +4658,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (scheduledJobEndType != default)
-                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(System.Convert.ToString(scheduledJobEndType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"scheduled_job_end_type={Uri.EscapeDataString(scheduledJobEndType)}");
                 if (jobType != default)
-                    queryParams.Add($"job_type={Uri.EscapeDataString(System.Convert.ToString(jobType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"job_type={Uri.EscapeDataString(jobType)}");
                 if (patch.HasValue)
-                    queryParams.Add($"patch={Uri.EscapeDataString(System.Convert.ToString(patch.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"patch={Uri.EscapeDataString(Convert.ToString(patch.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/api/ga_2022_07_31/_internal/workflow/schema/ScheduledJob" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaScheduledJobResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4694,11 +4695,11 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (userType != default)
-                    queryParams.Add($"user_type={Uri.EscapeDataString(System.Convert.ToString(userType, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"user_type={Uri.EscapeDataString(userType)}");
                 if (patch.HasValue)
-                    queryParams.Add($"patch={Uri.EscapeDataString(System.Convert.ToString(patch.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"patch={Uri.EscapeDataString(Convert.ToString(patch.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/api/v1/_internal/workflow/schema/User" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SchemaUserResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -4727,9 +4728,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                 var queryParams = new List<string>();
                 if (application is null)
                     throw new ArgumentNullException(nameof(application));
-                queryParams.Add($"application={Uri.EscapeDataString(System.Convert.ToString(application, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"application={Uri.EscapeDataString(application)}");
                 if (rule != default)
-                    queryParams.Add($"rule={Uri.EscapeDataString(System.Convert.ToString(rule, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"rule={Uri.EscapeDataString(rule)}");
                 var path = $"/api/preview/_internal/workflow/schema/WebhookActionBody" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)

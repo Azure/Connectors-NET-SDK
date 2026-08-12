@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -801,7 +802,7 @@ namespace Azure.Connectors.Sdk.FreshService
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.AddNoteAsync");
             try
             {
-                var path = $"/api/v2/tickets/{Uri.EscapeDataString(System.Convert.ToString(ticketId, System.Globalization.CultureInfo.InvariantCulture))}/notes";
+                var path = $"/api/v2/tickets/{Uri.EscapeDataString(Convert.ToString(ticketId, CultureInfo.InvariantCulture))}/notes";
                 return await this
                     .CallConnectorAsync<AddNoteResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -852,7 +853,7 @@ namespace Azure.Connectors.Sdk.FreshService
             using var activity = FreshServiceClient.ConnectorActivitySource.StartActivity("FreshServiceClient.UpdateTicketAsync");
             try
             {
-                var path = $"/api/v2/tickets/{Uri.EscapeDataString(System.Convert.ToString(ticketId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/api/v2/tickets/{Uri.EscapeDataString(Convert.ToString(ticketId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<CreateUpdateTicketResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

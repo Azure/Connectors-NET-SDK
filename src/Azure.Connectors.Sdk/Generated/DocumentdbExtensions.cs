@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -728,7 +729,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(databaseId));
                 if (collectionId is null)
                     throw new ArgumentNullException(nameof(collectionId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/docs";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/docs";
                 return await this
                     .CallConnectorAsync<PostDocumentsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -762,7 +763,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(databaseId));
                 if (collectionId is null)
                     throw new ArgumentNullException(nameof(collectionId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/sprocs";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/sprocs";
                 return await this
                     .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -797,7 +798,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(collectionId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/docs/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/docs/{Uri.EscapeDataString(documentId)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -833,7 +834,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(collectionId));
                 if (sprocId is null)
                     throw new ArgumentNullException(nameof(sprocId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/sprocs/{Uri.EscapeDataString(System.Convert.ToString(sprocId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/sprocs/{Uri.EscapeDataString(sprocId)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -870,7 +871,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(collectionId));
                 if (sprocId is null)
                     throw new ArgumentNullException(nameof(sprocId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/sprocs/{Uri.EscapeDataString(System.Convert.ToString(sprocId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/sprocs/{Uri.EscapeDataString(sprocId)}";
                 return await this
                     .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -910,10 +911,10 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(documentId));
                 var queryParams = new List<string>();
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/docs/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/docs/{Uri.EscapeDataString(documentId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDocumentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -950,10 +951,10 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(collectionId));
                 var queryParams = new List<string>();
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/docs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/docs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -986,7 +987,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(databaseId));
                 if (collectionId is null)
                     throw new ArgumentNullException(nameof(collectionId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/sprocs";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/sprocs";
                 return await this
                     .CallConnectorAsync<GetStoredProceduresResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1029,22 +1030,22 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(containerId));
                 var queryParams = new List<string>();
                 if (sQLSyntaxQuery != default)
-                    queryParams.Add($"queryText={Uri.EscapeDataString(System.Convert.ToString(sQLSyntaxQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"queryText={Uri.EscapeDataString(sQLSyntaxQuery)}");
                 if (partitionKeyValue != default)
-                    queryParams.Add($"partitionKey={Uri.EscapeDataString(System.Convert.ToString(partitionKeyValue, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"partitionKey={Uri.EscapeDataString(partitionKeyValue)}");
                 if (maxItemCount.HasValue)
-                    queryParams.Add($"maxItemCount={Uri.EscapeDataString(System.Convert.ToString(maxItemCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"maxItemCount={Uri.EscapeDataString(Convert.ToString(maxItemCount.Value, CultureInfo.InvariantCulture))}");
                 if (continuationToken != default)
-                    queryParams.Add($"continuationToken={Uri.EscapeDataString(System.Convert.ToString(continuationToken, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken)}");
                 if (consistencyLevel != default)
-                    queryParams.Add($"consistencyLevel={Uri.EscapeDataString(System.Convert.ToString(consistencyLevel, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"consistencyLevel={Uri.EscapeDataString(consistencyLevel)}");
                 if (sessionToken != default)
-                    queryParams.Add($"sessionToken={Uri.EscapeDataString(System.Convert.ToString(sessionToken, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sessionToken={Uri.EscapeDataString(sessionToken)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(System.Convert.ToString(purviewAccountName, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v5/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(containerId, System.Globalization.CultureInfo.InvariantCulture))}/query" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+                var path = $"/v5/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(containerId)}/query" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<QueryDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1081,7 +1082,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(collectionId));
                 if (documentId is null)
                     throw new ArgumentNullException(nameof(documentId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/docs/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/docs/{Uri.EscapeDataString(documentId)}";
                 return await this
                     .CallConnectorAsync<PutDocumentResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1118,7 +1119,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(collectionId));
                 if (sprocId is null)
                     throw new ArgumentNullException(nameof(sprocId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls/{Uri.EscapeDataString(System.Convert.ToString(collectionId, System.Globalization.CultureInfo.InvariantCulture))}/sprocs/{Uri.EscapeDataString(System.Convert.ToString(sprocId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/sprocs/{Uri.EscapeDataString(sprocId)}";
                 return await this
                     .CallConnectorAsync<CreateStoredProcedureResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1169,7 +1170,7 @@ namespace Azure.Connectors.Sdk.Documentdb
             {
                 if (azureCosmosDBAccountName is null)
                     throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs";
                 return await this
                     .CallConnectorAsync<GetDatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1199,7 +1200,7 @@ namespace Azure.Connectors.Sdk.Documentdb
                     throw new ArgumentNullException(nameof(azureCosmosDBAccountName));
                 if (databaseId is null)
                     throw new ArgumentNullException(nameof(databaseId));
-                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(System.Convert.ToString(azureCosmosDBAccountName, System.Globalization.CultureInfo.InvariantCulture))}/dbs/{Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))}/colls";
+                var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls";
                 return await this
                     .CallConnectorAsync<GetCollectionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

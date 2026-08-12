@@ -665,11 +665,11 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             var queryParams = new List<string>();
             queryParams.Add("api-version=2020-10-31");
             if (dependenciesForModel != default)
-                queryParams.Add($"dependenciesFor={Uri.EscapeDataString(System.Convert.ToString(dependenciesForModel, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"dependenciesFor={Uri.EscapeDataString(dependenciesForModel)}");
             if (includeModelDefinition != default)
-                queryParams.Add($"includeModelDefinition={Uri.EscapeDataString(System.Convert.ToString(includeModelDefinition, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"includeModelDefinition={Uri.EscapeDataString(includeModelDefinition)}");
             if (continuationToken != default)
-                queryParams.Add($"continuationToken={Uri.EscapeDataString(System.Convert.ToString(continuationToken, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken)}");
             var path = $"/models" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListModelsResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<ListModelsResponse>(HttpMethod.Get, path, cancellationToken: ct),
@@ -692,7 +692,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(modelId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/models/{Uri.EscapeDataString(System.Convert.ToString(modelId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/models/{Uri.EscapeDataString(modelId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -723,8 +723,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
                 if (includeModelDefinition != default)
-                    queryParams.Add($"includeModelDefinition={Uri.EscapeDataString(System.Convert.ToString(includeModelDefinition, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/models/{Uri.EscapeDataString(System.Convert.ToString(modelId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"includeModelDefinition={Uri.EscapeDataString(includeModelDefinition)}");
+                var path = $"/models/{Uri.EscapeDataString(modelId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetModelByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -753,7 +753,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(modelId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/models/{Uri.EscapeDataString(System.Convert.ToString(modelId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/models/{Uri.EscapeDataString(modelId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -782,7 +782,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TwinResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -810,7 +810,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -840,7 +840,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TwinResult>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -869,7 +869,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -901,7 +901,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(dTDLComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(dTDLComponent, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dTDLComponent)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetComponentResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -933,7 +933,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(dTDLComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(dTDLComponent, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dTDLComponent)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -965,7 +965,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TwinRelationship>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -996,7 +996,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1029,7 +1029,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TwinRelationship>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1061,7 +1061,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(relationshipId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/relationships/{Uri.EscapeDataString(System.Convert.ToString(relationshipId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/relationships/{Uri.EscapeDataString(relationshipId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1089,8 +1089,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             var queryParams = new List<string>();
             queryParams.Add("api-version=2020-10-31");
             if (continuationToken != default)
-                queryParams.Add($"continuationToken={Uri.EscapeDataString(System.Convert.ToString(continuationToken, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/incomingrelationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken)}");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/incomingrelationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListIncomingRelationshipsResponse, IncomingRelationship>(
                 ct => this.CallConnectorAsync<ListIncomingRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListIncomingRelationshipsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1113,7 +1113,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(digitalTwinId));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1145,7 +1145,7 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
                     throw new ArgumentNullException(nameof(dTDLComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/components/{Uri.EscapeDataString(System.Convert.ToString(dTDLComponent, System.Globalization.CultureInfo.InvariantCulture))}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dTDLComponent)}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1173,8 +1173,8 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
             var queryParams = new List<string>();
             queryParams.Add("api-version=2020-10-31");
             if (continuationToken != default)
-                queryParams.Add($"continuationToken={Uri.EscapeDataString(System.Convert.ToString(continuationToken, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/digitaltwins/{Uri.EscapeDataString(System.Convert.ToString(digitalTwinId, System.Globalization.CultureInfo.InvariantCulture))}/relationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"continuationToken={Uri.EscapeDataString(continuationToken)}");
+            var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/relationships" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListRelationshipsResponse, TwinRelationship>(
                 ct => this.CallConnectorAsync<ListRelationshipsResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListRelationshipsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),

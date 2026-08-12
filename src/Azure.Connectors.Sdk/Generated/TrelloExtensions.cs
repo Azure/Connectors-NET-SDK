@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -2577,32 +2578,32 @@ namespace Azure.Connectors.Sdk.Trello
                     throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 if (actions != default)
-                    queryParams.Add($"actions={Uri.EscapeDataString(System.Convert.ToString(actions, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions)}");
                 if (attachments.HasValue)
-                    queryParams.Add($"attachments={Uri.EscapeDataString(System.Convert.ToString(attachments.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"attachments={Uri.EscapeDataString(Convert.ToString(attachments.Value, CultureInfo.InvariantCulture))}");
                 if (attachmentFields != default)
-                    queryParams.Add($"attachment_fields={Uri.EscapeDataString(System.Convert.ToString(attachmentFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"attachment_fields={Uri.EscapeDataString(attachmentFields)}");
                 if (stickers.HasValue)
-                    queryParams.Add($"stickers={Uri.EscapeDataString(System.Convert.ToString(stickers.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"stickers={Uri.EscapeDataString(Convert.ToString(stickers.Value, CultureInfo.InvariantCulture))}");
                 if (members.HasValue)
-                    queryParams.Add($"members={Uri.EscapeDataString(System.Convert.ToString(members.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"members={Uri.EscapeDataString(Convert.ToString(members.Value, CultureInfo.InvariantCulture))}");
                 if (memberFields != default)
-                    queryParams.Add($"memeber_fields={Uri.EscapeDataString(System.Convert.ToString(memberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"memeber_fields={Uri.EscapeDataString(memberFields)}");
                 if (checkCardStates.HasValue)
-                    queryParams.Add($"checkItemStates={Uri.EscapeDataString(System.Convert.ToString(checkCardStates.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checkItemStates={Uri.EscapeDataString(Convert.ToString(checkCardStates.Value, CultureInfo.InvariantCulture))}");
                 if (checklists != default)
-                    queryParams.Add($"checklists={Uri.EscapeDataString(System.Convert.ToString(checklists, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checklists={Uri.EscapeDataString(checklists)}");
                 if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(System.Convert.ToString(limit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (since != default)
-                    queryParams.Add($"since={Uri.EscapeDataString(System.Convert.ToString(since, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"since={Uri.EscapeDataString(since)}");
                 if (before != default)
-                    queryParams.Add($"before={Uri.EscapeDataString(System.Convert.ToString(before, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"before={Uri.EscapeDataString(before)}");
                 if (filter != default)
-                    queryParams.Add($"filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"filter={Uri.EscapeDataString(filter)}");
                 if (fields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(fields, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2629,7 +2630,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                var path = $"/simple/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/cards";
+                var path = $"/simple/boards/{Uri.EscapeDataString(boardId)}/cards";
                 return await this
                     .CallConnectorAsync<List<Card>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2683,54 +2684,54 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
                 if (actions != default)
-                    queryParams.Add($"actions={Uri.EscapeDataString(System.Convert.ToString(actions, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions)}");
                 if (actionsEntities.HasValue)
-                    queryParams.Add($"actions_entities={Uri.EscapeDataString(System.Convert.ToString(actionsEntities.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_entities={Uri.EscapeDataString(Convert.ToString(actionsEntities.Value, CultureInfo.InvariantCulture))}");
                 if (actionsDisplay.HasValue)
-                    queryParams.Add($"actions_display={Uri.EscapeDataString(System.Convert.ToString(actionsDisplay.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_display={Uri.EscapeDataString(Convert.ToString(actionsDisplay.Value, CultureInfo.InvariantCulture))}");
                 if (actionsLimit.HasValue)
-                    queryParams.Add($"actions_limit={Uri.EscapeDataString(System.Convert.ToString(actionsLimit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_limit={Uri.EscapeDataString(Convert.ToString(actionsLimit.Value, CultureInfo.InvariantCulture))}");
                 if (actionFields != default)
-                    queryParams.Add($"action_fields={Uri.EscapeDataString(System.Convert.ToString(actionFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_fields={Uri.EscapeDataString(actionFields)}");
                 if (memberCreatorActionFields != default)
-                    queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(System.Convert.ToString(memberCreatorActionFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(memberCreatorActionFields)}");
                 if (attachments.HasValue)
-                    queryParams.Add($"attachments={Uri.EscapeDataString(System.Convert.ToString(attachments.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"attachments={Uri.EscapeDataString(Convert.ToString(attachments.Value, CultureInfo.InvariantCulture))}");
                 if (attachmentsFields != default)
-                    queryParams.Add($"attachment_fields={Uri.EscapeDataString(System.Convert.ToString(attachmentsFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"attachment_fields={Uri.EscapeDataString(attachmentsFields)}");
                 if (members.HasValue)
-                    queryParams.Add($"members={Uri.EscapeDataString(System.Convert.ToString(members.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"members={Uri.EscapeDataString(Convert.ToString(members.Value, CultureInfo.InvariantCulture))}");
                 if (memberFields != default)
-                    queryParams.Add($"member_fields={Uri.EscapeDataString(System.Convert.ToString(memberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"member_fields={Uri.EscapeDataString(memberFields)}");
                 if (votedMembers.HasValue)
-                    queryParams.Add($"membersVoted={Uri.EscapeDataString(System.Convert.ToString(votedMembers.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"membersVoted={Uri.EscapeDataString(Convert.ToString(votedMembers.Value, CultureInfo.InvariantCulture))}");
                 if (votedMemberFields != default)
-                    queryParams.Add($"memberVoted_fields={Uri.EscapeDataString(System.Convert.ToString(votedMemberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"memberVoted_fields={Uri.EscapeDataString(votedMemberFields)}");
                 if (checkItemStates.HasValue)
-                    queryParams.Add($"checkItemStates={Uri.EscapeDataString(System.Convert.ToString(checkItemStates.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checkItemStates={Uri.EscapeDataString(Convert.ToString(checkItemStates.Value, CultureInfo.InvariantCulture))}");
                 if (itemStateFields != default)
-                    queryParams.Add($"checkItemState_fields={Uri.EscapeDataString(System.Convert.ToString(itemStateFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checkItemState_fields={Uri.EscapeDataString(itemStateFields)}");
                 if (checklists != default)
-                    queryParams.Add($"checklists={Uri.EscapeDataString(System.Convert.ToString(checklists, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checklists={Uri.EscapeDataString(checklists)}");
                 if (checklistFields != default)
-                    queryParams.Add($"checklist_fields={Uri.EscapeDataString(System.Convert.ToString(checklistFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checklist_fields={Uri.EscapeDataString(checklistFields)}");
                 if (board.HasValue)
-                    queryParams.Add($"board={Uri.EscapeDataString(System.Convert.ToString(board.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"board={Uri.EscapeDataString(Convert.ToString(board.Value, CultureInfo.InvariantCulture))}");
                 if (boardFields != default)
-                    queryParams.Add($"board_fields={Uri.EscapeDataString(System.Convert.ToString(boardFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"board_fields={Uri.EscapeDataString(boardFields)}");
                 if (list.HasValue)
-                    queryParams.Add($"list={Uri.EscapeDataString(System.Convert.ToString(list.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"list={Uri.EscapeDataString(Convert.ToString(list.Value, CultureInfo.InvariantCulture))}");
                 if (listFields != default)
-                    queryParams.Add($"list_fields={Uri.EscapeDataString(System.Convert.ToString(listFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"list_fields={Uri.EscapeDataString(listFields)}");
                 if (stickers.HasValue)
-                    queryParams.Add($"stickers={Uri.EscapeDataString(System.Convert.ToString(stickers.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"stickers={Uri.EscapeDataString(Convert.ToString(stickers.Value, CultureInfo.InvariantCulture))}");
                 if (stickerFields != default)
-                    queryParams.Add($"sticker_fields={Uri.EscapeDataString(System.Convert.ToString(stickerFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sticker_fields={Uri.EscapeDataString(stickerFields)}");
                 if (fields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(fields, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CardWithChecklists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2761,8 +2762,8 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2800,29 +2801,29 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 var queryParams = new List<string>();
                 if (filter != default)
-                    queryParams.Add($"filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"filter={Uri.EscapeDataString(filter)}");
                 if (fields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(fields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
                 if (actions != default)
-                    queryParams.Add($"actions={Uri.EscapeDataString(System.Convert.ToString(actions, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions)}");
                 if (actionEntities.HasValue)
-                    queryParams.Add($"actions_entities={Uri.EscapeDataString(System.Convert.ToString(actionEntities.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_entities={Uri.EscapeDataString(Convert.ToString(actionEntities.Value, CultureInfo.InvariantCulture))}");
                 if (actionLimit.HasValue)
-                    queryParams.Add($"actions_limit={Uri.EscapeDataString(System.Convert.ToString(actionLimit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_limit={Uri.EscapeDataString(Convert.ToString(actionLimit.Value, CultureInfo.InvariantCulture))}");
                 if (actionsFormat != default)
-                    queryParams.Add($"actions_format={Uri.EscapeDataString(System.Convert.ToString(actionsFormat, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_format={Uri.EscapeDataString(actionsFormat)}");
                 if (actionsSince != default)
-                    queryParams.Add($"actions_since={Uri.EscapeDataString(System.Convert.ToString(actionsSince, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_since={Uri.EscapeDataString(actionsSince)}");
                 if (actionFields != default)
-                    queryParams.Add($"action_fields={Uri.EscapeDataString(System.Convert.ToString(actionFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_fields={Uri.EscapeDataString(actionFields)}");
                 if (memberships != default)
-                    queryParams.Add($"memberships={Uri.EscapeDataString(System.Convert.ToString(memberships, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"memberships={Uri.EscapeDataString(memberships)}");
                 if (organization.HasValue)
-                    queryParams.Add($"organization={Uri.EscapeDataString(System.Convert.ToString(organization.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"organization={Uri.EscapeDataString(Convert.ToString(organization.Value, CultureInfo.InvariantCulture))}");
                 if (organizationFields != default)
-                    queryParams.Add($"organization_fields={Uri.EscapeDataString(System.Convert.ToString(organizationFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"organization_fields={Uri.EscapeDataString(organizationFields)}");
                 if (lists != default)
-                    queryParams.Add($"lists={Uri.EscapeDataString(System.Convert.ToString(lists, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"lists={Uri.EscapeDataString(lists)}");
                 var path = $"/member/me/boards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Board>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -2913,80 +2914,80 @@ namespace Azure.Connectors.Sdk.Trello
                     throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 if (actions != default)
-                    queryParams.Add($"actions={Uri.EscapeDataString(System.Convert.ToString(actions, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions={Uri.EscapeDataString(actions)}");
                 if (actionEntities.HasValue)
-                    queryParams.Add($"action_entities={Uri.EscapeDataString(System.Convert.ToString(actionEntities.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_entities={Uri.EscapeDataString(Convert.ToString(actionEntities.Value, CultureInfo.InvariantCulture))}");
                 if (actionsDisplay.HasValue)
-                    queryParams.Add($"actions_display={Uri.EscapeDataString(System.Convert.ToString(actionsDisplay.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_display={Uri.EscapeDataString(Convert.ToString(actionsDisplay.Value, CultureInfo.InvariantCulture))}");
                 if (actionsFormat != default)
-                    queryParams.Add($"actions_format={Uri.EscapeDataString(System.Convert.ToString(actionsFormat, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_format={Uri.EscapeDataString(actionsFormat)}");
                 if (actionsSince != default)
-                    queryParams.Add($"actions_since={Uri.EscapeDataString(System.Convert.ToString(actionsSince, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_since={Uri.EscapeDataString(actionsSince)}");
                 if (actionsLimit.HasValue)
-                    queryParams.Add($"actions_limit={Uri.EscapeDataString(System.Convert.ToString(actionsLimit.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"actions_limit={Uri.EscapeDataString(Convert.ToString(actionsLimit.Value, CultureInfo.InvariantCulture))}");
                 if (actionField != default)
-                    queryParams.Add($"action_fields={Uri.EscapeDataString(System.Convert.ToString(actionField, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_fields={Uri.EscapeDataString(actionField)}");
                 if (actionMember.HasValue)
-                    queryParams.Add($"action_member={Uri.EscapeDataString(System.Convert.ToString(actionMember.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_member={Uri.EscapeDataString(Convert.ToString(actionMember.Value, CultureInfo.InvariantCulture))}");
                 if (actionMemberFields != default)
-                    queryParams.Add($"action_member_fields={Uri.EscapeDataString(System.Convert.ToString(actionMemberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_member_fields={Uri.EscapeDataString(actionMemberFields)}");
                 if (actionMemberCreator.HasValue)
-                    queryParams.Add($"action_memberCreator={Uri.EscapeDataString(System.Convert.ToString(actionMemberCreator.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_memberCreator={Uri.EscapeDataString(Convert.ToString(actionMemberCreator.Value, CultureInfo.InvariantCulture))}");
                 if (actionMemberCreatorFields != default)
-                    queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(System.Convert.ToString(actionMemberCreatorFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"action_memberCreator_fields={Uri.EscapeDataString(actionMemberCreatorFields)}");
                 if (cards != default)
-                    queryParams.Add($"cards={Uri.EscapeDataString(System.Convert.ToString(cards, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"cards={Uri.EscapeDataString(cards)}");
                 if (cardFields != default)
-                    queryParams.Add($"card_fields={Uri.EscapeDataString(System.Convert.ToString(cardFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields)}");
                 if (cardAttachments.HasValue)
-                    queryParams.Add($"card_attachments={Uri.EscapeDataString(System.Convert.ToString(cardAttachments.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_attachments={Uri.EscapeDataString(Convert.ToString(cardAttachments.Value, CultureInfo.InvariantCulture))}");
                 if (cardAttachmentFields != default)
-                    queryParams.Add($"card_attachment_fields={Uri.EscapeDataString(System.Convert.ToString(cardAttachmentFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_attachment_fields={Uri.EscapeDataString(cardAttachmentFields)}");
                 if (cardChecklists != default)
-                    queryParams.Add($"card_checklists={Uri.EscapeDataString(System.Convert.ToString(cardChecklists, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_checklists={Uri.EscapeDataString(cardChecklists)}");
                 if (cardStickers.HasValue)
-                    queryParams.Add($"card_stickers={Uri.EscapeDataString(System.Convert.ToString(cardStickers.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_stickers={Uri.EscapeDataString(Convert.ToString(cardStickers.Value, CultureInfo.InvariantCulture))}");
                 if (boardStars != default)
-                    queryParams.Add($"boardStars={Uri.EscapeDataString(System.Convert.ToString(boardStars, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"boardStars={Uri.EscapeDataString(boardStars)}");
                 if (labels != default)
-                    queryParams.Add($"labels={Uri.EscapeDataString(System.Convert.ToString(labels, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"labels={Uri.EscapeDataString(labels)}");
                 if (labelFields != default)
-                    queryParams.Add($"label_fields={Uri.EscapeDataString(System.Convert.ToString(labelFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"label_fields={Uri.EscapeDataString(labelFields)}");
                 if (labelLimits.HasValue)
-                    queryParams.Add($"labels_limit={Uri.EscapeDataString(System.Convert.ToString(labelLimits.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"labels_limit={Uri.EscapeDataString(Convert.ToString(labelLimits.Value, CultureInfo.InvariantCulture))}");
                 if (lists != default)
-                    queryParams.Add($"lists={Uri.EscapeDataString(System.Convert.ToString(lists, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"lists={Uri.EscapeDataString(lists)}");
                 if (listFields != default)
-                    queryParams.Add($"list_fields={Uri.EscapeDataString(System.Convert.ToString(listFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"list_fields={Uri.EscapeDataString(listFields)}");
                 if (memberships != default)
-                    queryParams.Add($"memberships={Uri.EscapeDataString(System.Convert.ToString(memberships, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"memberships={Uri.EscapeDataString(memberships)}");
                 if (membershipsMember.HasValue)
-                    queryParams.Add($"memberships_member={Uri.EscapeDataString(System.Convert.ToString(membershipsMember.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"memberships_member={Uri.EscapeDataString(Convert.ToString(membershipsMember.Value, CultureInfo.InvariantCulture))}");
                 if (membershipsMemberFields != default)
-                    queryParams.Add($"memberships_member_fields={Uri.EscapeDataString(System.Convert.ToString(membershipsMemberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"memberships_member_fields={Uri.EscapeDataString(membershipsMemberFields)}");
                 if (members != default)
-                    queryParams.Add($"members={Uri.EscapeDataString(System.Convert.ToString(members, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"members={Uri.EscapeDataString(members)}");
                 if (memberFields != default)
-                    queryParams.Add($"member_fields={Uri.EscapeDataString(System.Convert.ToString(memberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"member_fields={Uri.EscapeDataString(memberFields)}");
                 if (invitedMembers != default)
-                    queryParams.Add($"membersInvited={Uri.EscapeDataString(System.Convert.ToString(invitedMembers, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"membersInvited={Uri.EscapeDataString(invitedMembers)}");
                 if (invitedMemberFields != default)
-                    queryParams.Add($"membersInvited_fields={Uri.EscapeDataString(System.Convert.ToString(invitedMemberFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"membersInvited_fields={Uri.EscapeDataString(invitedMemberFields)}");
                 if (checklists != default)
-                    queryParams.Add($"checklists={Uri.EscapeDataString(System.Convert.ToString(checklists, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checklists={Uri.EscapeDataString(checklists)}");
                 if (checklistFields != default)
-                    queryParams.Add($"checklist_fields={Uri.EscapeDataString(System.Convert.ToString(checklistFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"checklist_fields={Uri.EscapeDataString(checklistFields)}");
                 if (organization.HasValue)
-                    queryParams.Add($"organization={Uri.EscapeDataString(System.Convert.ToString(organization.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"organization={Uri.EscapeDataString(Convert.ToString(organization.Value, CultureInfo.InvariantCulture))}");
                 if (organizationFields != default)
-                    queryParams.Add($"organization_fields={Uri.EscapeDataString(System.Convert.ToString(organizationFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"organization_fields={Uri.EscapeDataString(organizationFields)}");
                 if (organizationMemberships != default)
-                    queryParams.Add($"organization_memberships={Uri.EscapeDataString(System.Convert.ToString(organizationMemberships, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"organization_memberships={Uri.EscapeDataString(organizationMemberships)}");
                 if (myPerfs.HasValue)
-                    queryParams.Add($"myPerfs={Uri.EscapeDataString(System.Convert.ToString(myPerfs.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"myPerfs={Uri.EscapeDataString(Convert.ToString(myPerfs.Value, CultureInfo.InvariantCulture))}");
                 if (fields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(fields, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BoardWithChecklists>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3014,7 +3015,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}";
                 return await this
                     .CallConnectorAsync<Board>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3047,14 +3048,14 @@ namespace Azure.Connectors.Sdk.Trello
                     throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 if (cards != default)
-                    queryParams.Add($"cards={Uri.EscapeDataString(System.Convert.ToString(cards, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"cards={Uri.EscapeDataString(cards)}");
                 if (cardFields != default)
-                    queryParams.Add($"card_fields={Uri.EscapeDataString(System.Convert.ToString(cardFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields)}");
                 if (filter != default)
-                    queryParams.Add($"filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"filter={Uri.EscapeDataString(filter)}");
                 if (fields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(fields, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3081,7 +3082,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                var path = $"/simple/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/lists";
+                var path = $"/simple/boards/{Uri.EscapeDataString(boardId)}/lists";
                 return await this
                     .CallConnectorAsync<List<List>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3117,18 +3118,18 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
                 if (cards != default)
-                    queryParams.Add($"cards={Uri.EscapeDataString(System.Convert.ToString(cards, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"cards={Uri.EscapeDataString(cards)}");
                 if (cardFields != default)
-                    queryParams.Add($"card_fields={Uri.EscapeDataString(System.Convert.ToString(cardFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"card_fields={Uri.EscapeDataString(cardFields)}");
                 if (board.HasValue)
-                    queryParams.Add($"board={Uri.EscapeDataString(System.Convert.ToString(board.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"board={Uri.EscapeDataString(Convert.ToString(board.Value, CultureInfo.InvariantCulture))}");
                 if (boardFields != default)
-                    queryParams.Add($"board_fields={Uri.EscapeDataString(System.Convert.ToString(boardFields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"board_fields={Uri.EscapeDataString(boardFields)}");
                 if (listFields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(listFields, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(listId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fields={Uri.EscapeDataString(listFields)}");
+                var path = $"/lists/{Uri.EscapeDataString(listId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3164,18 +3165,18 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
                 if (listName != default)
-                    queryParams.Add($"name={Uri.EscapeDataString(System.Convert.ToString(listName, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"name={Uri.EscapeDataString(listName)}");
                 if (closed != default)
-                    queryParams.Add($"closed={Uri.EscapeDataString(System.Convert.ToString(closed, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"closed={Uri.EscapeDataString(closed)}");
                 if (boardToMoveTo != default)
-                    queryParams.Add($"idBoard={Uri.EscapeDataString(System.Convert.ToString(boardToMoveTo, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"idBoard={Uri.EscapeDataString(boardToMoveTo)}");
                 if (listPosition != default)
-                    queryParams.Add($"pos={Uri.EscapeDataString(System.Convert.ToString(listPosition, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"pos={Uri.EscapeDataString(listPosition)}");
                 if (subscribed != default)
-                    queryParams.Add($"subscribed={Uri.EscapeDataString(System.Convert.ToString(subscribed, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(listId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"subscribed={Uri.EscapeDataString(subscribed)}");
+                var path = $"/lists/{Uri.EscapeDataString(listId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateListResponse>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3202,7 +3203,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 var queryParams = new List<string>();
                 if (fields != default)
-                    queryParams.Add($"fields={Uri.EscapeDataString(System.Convert.ToString(fields, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
                 var path = $"/members/me" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -3254,7 +3255,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (teamId is null)
                     throw new ArgumentNullException(nameof(teamId));
-                var path = $"/organizations/{Uri.EscapeDataString(System.Convert.ToString(teamId, System.Globalization.CultureInfo.InvariantCulture))}/members";
+                var path = $"/organizations/{Uri.EscapeDataString(teamId)}/members";
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3281,7 +3282,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/members";
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}/members";
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3310,7 +3311,7 @@ namespace Azure.Connectors.Sdk.Trello
                     throw new ArgumentNullException(nameof(boardId));
                 var queryParams = new List<string>();
                 queryParams.Add("limit=1000");
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<BoardLabel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3337,7 +3338,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/organization";
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}/organization";
                 return await this
                     .CallConnectorAsync<Team>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3368,8 +3369,8 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId)}/members" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3400,8 +3401,8 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}/actions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId)}/actions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Comment>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3433,8 +3434,8 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}/actions/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId)}/actions/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3466,11 +3467,11 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
                 if (memberIdOrUsername is null)
                     throw new ArgumentNullException(nameof(memberIdOrUsername));
-                queryParams.Add($"memberId={Uri.EscapeDataString(System.Convert.ToString(memberIdOrUsername, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}/idMembers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"memberId={Uri.EscapeDataString(memberIdOrUsername)}");
+                var path = $"/cards/{Uri.EscapeDataString(cardId)}/idMembers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3547,7 +3548,7 @@ namespace Azure.Connectors.Sdk.Trello
             {
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                var path = $"/boards/{Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}/closed";
+                var path = $"/boards/{Uri.EscapeDataString(boardId)}/closed";
                 return await this
                     .CallConnectorAsync<Board>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -3576,7 +3577,7 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
                 var path = $"/v2/cards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Card>(HttpMethod.Post, path, input, cancellationToken)
@@ -3609,8 +3610,8 @@ namespace Azure.Connectors.Sdk.Trello
                 var queryParams = new List<string>();
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
-                queryParams.Add($"board_id={Uri.EscapeDataString(System.Convert.ToString(boardId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/cards/{Uri.EscapeDataString(System.Convert.ToString(cardId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
+                var path = $"/v2/cards/{Uri.EscapeDataString(cardId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Card>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -995,11 +996,11 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
                 var path = $"/Databases" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DatabasesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1025,7 +1026,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.DatabaseByIdAsync");
             try
             {
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})";
                 return await this
                     .CallConnectorAsync<Database>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1055,12 +1056,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Cubes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Cubes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CubesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1086,7 +1087,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.CubeByIdAsync");
             try
             {
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Cubes({Uri.EscapeDataString(System.Convert.ToString(cubeId, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Cubes({Uri.EscapeDataString(Convert.ToString(cubeId, CultureInfo.InvariantCulture))})";
                 return await this
                     .CallConnectorAsync<Cube>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1121,20 +1122,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
                 if (baseElementsOnly.HasValue)
-                    queryParams.Add($"baseonly={Uri.EscapeDataString(System.Convert.ToString(baseElementsOnly.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"baseonly={Uri.EscapeDataString(Convert.ToString(baseElementsOnly.Value, CultureInfo.InvariantCulture))}");
                 if (useRules.HasValue)
-                    queryParams.Add($"userules={Uri.EscapeDataString(System.Convert.ToString(useRules.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"userules={Uri.EscapeDataString(Convert.ToString(useRules.Value, CultureInfo.InvariantCulture))}");
                 if (supressZeros.HasValue)
-                    queryParams.Add($"zerosupression={Uri.EscapeDataString(System.Convert.ToString(supressZeros.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"zerosupression={Uri.EscapeDataString(Convert.ToString(supressZeros.Value, CultureInfo.InvariantCulture))}");
                 if (disablePaging.HasValue)
-                    queryParams.Add($"disablepaging={Uri.EscapeDataString(System.Convert.ToString(disablePaging.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Cubes({Uri.EscapeDataString(System.Convert.ToString(cubeId, System.Globalization.CultureInfo.InvariantCulture))})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"disablepaging={Uri.EscapeDataString(Convert.ToString(disablePaging.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Cubes({Uri.EscapeDataString(Convert.ToString(cubeId, CultureInfo.InvariantCulture))})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CubeCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1164,12 +1165,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Dimensions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Dimensions" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DimensionsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1195,7 +1196,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.DimensionByIdAsync");
             try
             {
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Dimensions({Uri.EscapeDataString(System.Convert.ToString(dimensionId, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Dimensions({Uri.EscapeDataString(Convert.ToString(dimensionId, CultureInfo.InvariantCulture))})";
                 return await this
                     .CallConnectorAsync<Dimension>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1226,12 +1227,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Dimensions({Uri.EscapeDataString(System.Convert.ToString(dimensionId, System.Globalization.CultureInfo.InvariantCulture))})/Elements" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Dimensions({Uri.EscapeDataString(Convert.ToString(dimensionId, CultureInfo.InvariantCulture))})/Elements" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ElementsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1258,7 +1259,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.ElementByIdAsync");
             try
             {
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Dimensions({Uri.EscapeDataString(System.Convert.ToString(dimensionId, System.Globalization.CultureInfo.InvariantCulture))})/Elements({Uri.EscapeDataString(System.Convert.ToString(elementId, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Dimensions({Uri.EscapeDataString(Convert.ToString(dimensionId, CultureInfo.InvariantCulture))})/Elements({Uri.EscapeDataString(Convert.ToString(elementId, CultureInfo.InvariantCulture))})";
                 return await this
                     .CallConnectorAsync<Element>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1288,12 +1289,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Views" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Views" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ViewsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1321,7 +1322,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 if (viewId is null)
                     throw new ArgumentNullException(nameof(viewId));
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Views({Uri.EscapeDataString(System.Convert.ToString(viewId, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Views({Uri.EscapeDataString(viewId)})";
                 return await this
                     .CallConnectorAsync<View>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1358,20 +1359,20 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(viewId));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
                 if (baseElementsOnly.HasValue)
-                    queryParams.Add($"baseonly={Uri.EscapeDataString(System.Convert.ToString(baseElementsOnly.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"baseonly={Uri.EscapeDataString(Convert.ToString(baseElementsOnly.Value, CultureInfo.InvariantCulture))}");
                 if (useRules.HasValue)
-                    queryParams.Add($"userules={Uri.EscapeDataString(System.Convert.ToString(useRules.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"userules={Uri.EscapeDataString(Convert.ToString(useRules.Value, CultureInfo.InvariantCulture))}");
                 if (supressZeros.HasValue)
-                    queryParams.Add($"zerosupression={Uri.EscapeDataString(System.Convert.ToString(supressZeros.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"zerosupression={Uri.EscapeDataString(Convert.ToString(supressZeros.Value, CultureInfo.InvariantCulture))}");
                 if (disablePaging.HasValue)
-                    queryParams.Add($"disablepaging={Uri.EscapeDataString(System.Convert.ToString(disablePaging.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Databases({Uri.EscapeDataString(System.Convert.ToString(databaseId, System.Globalization.CultureInfo.InvariantCulture))})/Views({Uri.EscapeDataString(System.Convert.ToString(viewId, System.Globalization.CultureInfo.InvariantCulture))})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"disablepaging={Uri.EscapeDataString(Convert.ToString(disablePaging.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/Databases({Uri.EscapeDataString(Convert.ToString(databaseId, CultureInfo.InvariantCulture))})/Views({Uri.EscapeDataString(viewId)})/Cells" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ViewCellsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1400,11 +1401,11 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
                 var path = $"/Integrator" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IntegratorProjectGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1432,7 +1433,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 if (groupIdentifier is null)
                     throw new ArgumentNullException(nameof(groupIdentifier));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')";
                 return await this
                     .CallConnectorAsync<IntegratorProjectGroup>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1464,12 +1465,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(groupIdentifier));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<IntegratorProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1499,7 +1500,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(groupIdentifier));
                 if (projectName is null)
                     throw new ArgumentNullException(nameof(projectName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')";
                 return await this
                     .CallConnectorAsync<IntegratorProject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1534,12 +1535,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Extracts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Extracts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ExtractsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1572,7 +1573,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (extractName is null)
                     throw new ArgumentNullException(nameof(extractName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Extracts('{Uri.EscapeDataString(System.Convert.ToString(extractName, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Extracts('{Uri.EscapeDataString(extractName)}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1610,12 +1611,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(extractName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Extracts('{Uri.EscapeDataString(System.Convert.ToString(extractName, System.Globalization.CultureInfo.InvariantCulture))}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Extracts('{Uri.EscapeDataString(extractName)}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ExtractRowsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1650,12 +1651,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Jobs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<JobsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1688,7 +1689,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (jobName is null)
                     throw new ArgumentNullException(nameof(jobName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Jobs('{Uri.EscapeDataString(System.Convert.ToString(jobName, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Jobs('{Uri.EscapeDataString(jobName)}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1721,7 +1722,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (jobName is null)
                     throw new ArgumentNullException(nameof(jobName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Jobs('{Uri.EscapeDataString(System.Convert.ToString(jobName, System.Globalization.CultureInfo.InvariantCulture))}')/Run";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Jobs('{Uri.EscapeDataString(jobName)}')/Run";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1757,7 +1758,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(jobName));
                 if (variables is null)
                     throw new ArgumentNullException(nameof(variables));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Jobs('{Uri.EscapeDataString(System.Convert.ToString(jobName, System.Globalization.CultureInfo.InvariantCulture))}')/Run(Variables='{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(variables, System.Globalization.CultureInfo.InvariantCulture)))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Jobs('{Uri.EscapeDataString(jobName)}')/Run(Variables='{Uri.EscapeDataString(Uri.EscapeDataString(variables))}')";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1792,12 +1793,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Loads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Loads" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<LoadsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1830,7 +1831,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (loadName is null)
                     throw new ArgumentNullException(nameof(loadName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Loads('{Uri.EscapeDataString(System.Convert.ToString(loadName, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Loads('{Uri.EscapeDataString(loadName)}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1863,7 +1864,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (loadName is null)
                     throw new ArgumentNullException(nameof(loadName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Loads('{Uri.EscapeDataString(System.Convert.ToString(loadName, System.Globalization.CultureInfo.InvariantCulture))}')/Run()";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Loads('{Uri.EscapeDataString(loadName)}')/Run()";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1899,7 +1900,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(loadName));
                 if (variables is null)
                     throw new ArgumentNullException(nameof(variables));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Loads('{Uri.EscapeDataString(System.Convert.ToString(loadName, System.Globalization.CultureInfo.InvariantCulture))}')/Run(Variables='{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(variables, System.Globalization.CultureInfo.InvariantCulture)))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Loads('{Uri.EscapeDataString(loadName)}')/Run(Variables='{Uri.EscapeDataString(Uri.EscapeDataString(variables))}')";
                 return await this
                     .CallConnectorAsync<IntegratorRunResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1934,12 +1935,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Transforms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Transforms" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TransformsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1972,7 +1973,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (transformName is null)
                     throw new ArgumentNullException(nameof(transformName));
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Transforms('{Uri.EscapeDataString(System.Convert.ToString(transformName, System.Globalization.CultureInfo.InvariantCulture))}')";
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Transforms('{Uri.EscapeDataString(transformName)}')";
                 return await this
                     .CallConnectorAsync<IntegratorComponent>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2010,12 +2011,12 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(transformName));
                 var queryParams = new List<string>();
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (filter != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filter, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/Integrator('{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}')/Projects('{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}')/Transforms('{Uri.EscapeDataString(System.Convert.ToString(transformName, System.Globalization.CultureInfo.InvariantCulture))}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filter)}");
+                var path = $"/Integrator('{Uri.EscapeDataString(groupIdentifier)}')/Projects('{Uri.EscapeDataString(projectName)}')/Transforms('{Uri.EscapeDataString(transformName)}')/Rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TransformRowsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2041,7 +2042,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             using var activity = JedoxOdataHubClient.ConnectorActivitySource.StartActivity("JedoxOdataHubClient.GetCubeCellResultSchemaAsync");
             try
             {
-                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(System.Convert.ToString(databaseIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/cubes/{Uri.EscapeDataString(System.Convert.ToString(cubeIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/cells";
+                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(Convert.ToString(databaseIdentifier, CultureInfo.InvariantCulture))}/cubes/{Uri.EscapeDataString(Convert.ToString(cubeIdentifier, CultureInfo.InvariantCulture))}/cells";
                 return await this
                     .CallConnectorAsync<GetCubeCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2074,7 +2075,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (extractName is null)
                     throw new ArgumentNullException(nameof(extractName));
-                var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}/extracts/{Uri.EscapeDataString(System.Convert.ToString(extractName, System.Globalization.CultureInfo.InvariantCulture))}/rows";
+                var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier)}/{Uri.EscapeDataString(projectName)}/extracts/{Uri.EscapeDataString(extractName)}/rows";
                 return await this
                     .CallConnectorAsync<GetExtractRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2107,7 +2108,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
                     throw new ArgumentNullException(nameof(projectName));
                 if (transformName is null)
                     throw new ArgumentNullException(nameof(transformName));
-                var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(System.Convert.ToString(groupIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(System.Convert.ToString(projectName, System.Globalization.CultureInfo.InvariantCulture))}/transforms/{Uri.EscapeDataString(System.Convert.ToString(transformName, System.Globalization.CultureInfo.InvariantCulture))}/rows";
+                var path = $"/service/powerapps/schema/integrator/{Uri.EscapeDataString(groupIdentifier)}/{Uri.EscapeDataString(projectName)}/transforms/{Uri.EscapeDataString(transformName)}/rows";
                 return await this
                     .CallConnectorAsync<GetTransformRowsResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2135,7 +2136,7 @@ namespace Azure.Connectors.Sdk.JedoxOdataHub
             {
                 if (viewIdentifier is null)
                     throw new ArgumentNullException(nameof(viewIdentifier));
-                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(System.Convert.ToString(databaseIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/views/{Uri.EscapeDataString(System.Convert.ToString(viewIdentifier, System.Globalization.CultureInfo.InvariantCulture))}/cells";
+                var path = $"/service/powerapps/schema/databases/{Uri.EscapeDataString(Convert.ToString(databaseIdentifier, CultureInfo.InvariantCulture))}/views/{Uri.EscapeDataString(viewIdentifier)}/cells";
                 return await this
                     .CallConnectorAsync<GetViewCellResultSchemaResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

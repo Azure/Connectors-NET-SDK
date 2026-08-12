@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -312,20 +313,20 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                 throw new ArgumentNullException(nameof(nameOfTheEntity));
             var queryParams = new List<string>();
             if (showOnlyTheFirstNItems.HasValue)
-                queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(showOnlyTheFirstNItems.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(showOnlyTheFirstNItems.Value, CultureInfo.InvariantCulture))}");
             if (skipTheFirstNItems.HasValue)
-                queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipTheFirstNItems.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipTheFirstNItems.Value, CultureInfo.InvariantCulture))}");
             if (orderResults != default)
-                queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderResults, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderResults)}");
             if (filterItemsByPropertyValues != default)
-                queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterItemsByPropertyValues, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterItemsByPropertyValues)}");
             if (commaSeperatedPropertyNamesYouWantToSelect != default)
-                queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(commaSeperatedPropertyNamesYouWantToSelect, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"$select={Uri.EscapeDataString(commaSeperatedPropertyNamesYouWantToSelect)}");
             if (expandRelatedEntities != default)
-                queryParams.Add($"$expand={Uri.EscapeDataString(System.Convert.ToString(expandRelatedEntities, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"$expand={Uri.EscapeDataString(expandRelatedEntities)}");
             if (includeCountOfItems.HasValue)
-                queryParams.Add($"$count={Uri.EscapeDataString(System.Convert.ToString(includeCountOfItems.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/data/1/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"$count={Uri.EscapeDataString(Convert.ToString(includeCountOfItems.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<GetEntitiesResponse, JsonElement?>(
                 ct => this.CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<GetEntitiesResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -347,7 +348,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             {
                 if (nameOfTheEntity is null)
                     throw new ArgumentNullException(nameof(nameOfTheEntity));
-                var path = $"/data/1/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity)}";
                 return await this
                     .CallConnectorAsync<PostEntityByIdResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -377,7 +378,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                     throw new ArgumentNullException(nameof(nameOfTheEntity));
                 if (identifierOfTheEntity is null)
                     throw new ArgumentNullException(nameof(identifierOfTheEntity));
-                var path = $"/data/1/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))}({Uri.EscapeDataString(System.Convert.ToString(identifierOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity)}({Uri.EscapeDataString(identifierOfTheEntity)})";
                 return await this
                     .CallConnectorAsync<GetEntityByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -406,7 +407,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                     throw new ArgumentNullException(nameof(nameOfTheEntity));
                 if (identifierOfTheEntity is null)
                     throw new ArgumentNullException(nameof(identifierOfTheEntity));
-                var path = $"/data/1/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))}({Uri.EscapeDataString(System.Convert.ToString(identifierOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity)}({Uri.EscapeDataString(identifierOfTheEntity)})";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -436,7 +437,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
                     throw new ArgumentNullException(nameof(nameOfTheEntity));
                 if (identifierOfTheEntity is null)
                     throw new ArgumentNullException(nameof(identifierOfTheEntity));
-                var path = $"/data/1/{Uri.EscapeDataString(System.Convert.ToString(nameOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))}({Uri.EscapeDataString(System.Convert.ToString(identifierOfTheEntity, System.Globalization.CultureInfo.InvariantCulture))})";
+                var path = $"/data/1/{Uri.EscapeDataString(nameOfTheEntity)}({Uri.EscapeDataString(identifierOfTheEntity)})";
                 await this
                     .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -464,7 +465,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             {
                 if (pathOfTheFunction is null)
                     throw new ArgumentNullException(nameof(pathOfTheFunction));
-                var path = $"/{Uri.EscapeDataString(System.Convert.ToString(pathOfTheFunction, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/{Uri.EscapeDataString(pathOfTheFunction)}";
                 return await this
                     .CallConnectorAsync<InvokeFunctionResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -536,7 +537,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             {
                 if (entityName is null)
                     throw new ArgumentNullException(nameof(entityName));
-                var path = $"/data/1/{Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture))}/$schema";
+                var path = $"/data/1/{Uri.EscapeDataString(entityName)}/$schema";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -585,7 +586,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             {
                 if (functionPath is null)
                     throw new ArgumentNullException(nameof(functionPath));
-                var path = $"/data/1/$functions/$schema/{Uri.EscapeDataString(System.Convert.ToString(functionPath, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/data/1/$functions/$schema/{Uri.EscapeDataString(functionPath)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -611,7 +612,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
             {
                 if (triggerName is null)
                     throw new ArgumentNullException(nameof(triggerName));
-                var path = $"/data/1/$triggers/{Uri.EscapeDataString(System.Convert.ToString(triggerName, System.Globalization.CultureInfo.InvariantCulture))}/$schema";
+                var path = $"/data/1/$triggers/{Uri.EscapeDataString(triggerName)}/$schema";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -1817,9 +1818,9 @@ namespace Azure.Connectors.Sdk.TextRequest
                 if (contactSPhoneNumberToSearchBy is null)
                     throw new ArgumentNullException(nameof(contactSPhoneNumberToSearchBy));
                 var queryParams = new List<string>();
-                queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(contactSPhoneNumberToSearchBy, System.Globalization.CultureInfo.InvariantCulture))}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet, CultureInfo.InvariantCulture))}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage, CultureInfo.InvariantCulture))}");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(contactSPhoneNumberToSearchBy)}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMessagesByContactPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1848,7 +1849,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 if (phoneNumberToMessage is null)
                     throw new ArgumentNullException(nameof(phoneNumberToMessage));
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(phoneNumberToMessage, System.Globalization.CultureInfo.InvariantCulture))}/messages";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(phoneNumberToMessage)}/messages";
                 return await this
                     .CallConnectorAsync<SendMessageByPhoneNumberResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1876,7 +1877,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 if (phoneNumberOfConversation is null)
                     throw new ArgumentNullException(nameof(phoneNumberOfConversation));
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(phoneNumberOfConversation, System.Globalization.CultureInfo.InvariantCulture))}/conversations/archive";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation)}/conversations/archive";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1904,7 +1905,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 if (phoneNumberOfConversation is null)
                     throw new ArgumentNullException(nameof(phoneNumberOfConversation));
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(phoneNumberOfConversation, System.Globalization.CultureInfo.InvariantCulture))}/conversations/unarchive";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(phoneNumberOfConversation)}/conversations/unarchive";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Put, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1932,7 +1933,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 if (phoneNumberOfTheContact is null)
                     throw new ArgumentNullException(nameof(phoneNumberOfTheContact));
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(phoneNumberOfTheContact, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(phoneNumberOfTheContact)}";
                 return await this
                     .CallConnectorAsync<GetContactByPhoneNumberResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1960,7 +1961,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 if (phoneNumberOfContact is null)
                     throw new ArgumentNullException(nameof(phoneNumberOfContact));
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(phoneNumberOfContact, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(phoneNumberOfContact)}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1989,7 +1990,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 if (phoneNumberOfContact is null)
                     throw new ArgumentNullException(nameof(phoneNumberOfContact));
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(System.Convert.ToString(phoneNumberOfContact, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(phoneNumberOfContact)}";
                 return await this
                     .CallConnectorAsync<CreateContactResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2040,52 +2041,52 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 var queryParams = new List<string>();
                 if (contactSPhoneNumberToSearchBy != default)
-                    queryParams.Add($"contact_phone_number={Uri.EscapeDataString(System.Convert.ToString(contactSPhoneNumberToSearchBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"contact_phone_number={Uri.EscapeDataString(contactSPhoneNumberToSearchBy)}");
                 if (lastMessageTimeSentBeforeSearchTimestampInUTCTime != default)
-                    queryParams.Add($"last_message_timestamp_before_utc={Uri.EscapeDataString(System.Convert.ToString(lastMessageTimeSentBeforeSearchTimestampInUTCTime, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"last_message_timestamp_before_utc={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestampInUTCTime)}");
                 if (lastMessageTimeSentAfterSearchTimestampInUTCTime != default)
-                    queryParams.Add($"last_message_timestamp_after_utc={Uri.EscapeDataString(System.Convert.ToString(lastMessageTimeSentAfterSearchTimestampInUTCTime, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"last_message_timestamp_after_utc={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestampInUTCTime)}");
                 if (createdBeforeSearchTimestamp != default)
-                    queryParams.Add($"contact_created_before={Uri.EscapeDataString(System.Convert.ToString(createdBeforeSearchTimestamp, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"contact_created_before={Uri.EscapeDataString(createdBeforeSearchTimestamp)}");
                 if (createdAfterSearchTimestamp != default)
-                    queryParams.Add($"contact_created_after={Uri.EscapeDataString(System.Convert.ToString(createdAfterSearchTimestamp, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"contact_created_after={Uri.EscapeDataString(createdAfterSearchTimestamp)}");
                 if (whetherContactSConversationIsResolved.HasValue)
-                    queryParams.Add($"is_resolved={Uri.EscapeDataString(System.Convert.ToString(whetherContactSConversationIsResolved.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"is_resolved={Uri.EscapeDataString(Convert.ToString(whetherContactSConversationIsResolved.Value, CultureInfo.InvariantCulture))}");
                 if (whetherContactIsBlocked.HasValue)
-                    queryParams.Add($"is_blocked={Uri.EscapeDataString(System.Convert.ToString(whetherContactIsBlocked.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"is_blocked={Uri.EscapeDataString(Convert.ToString(whetherContactIsBlocked.Value, CultureInfo.InvariantCulture))}");
                 if (whetherContactIsArchived.HasValue)
-                    queryParams.Add($"is_archived={Uri.EscapeDataString(System.Convert.ToString(whetherContactIsArchived.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"is_archived={Uri.EscapeDataString(Convert.ToString(whetherContactIsArchived.Value, CultureInfo.InvariantCulture))}");
                 if (whetherContactIsSuppressed.HasValue)
-                    queryParams.Add($"is_suppressed={Uri.EscapeDataString(System.Convert.ToString(whetherContactIsSuppressed.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"is_suppressed={Uri.EscapeDataString(Convert.ToString(whetherContactIsSuppressed.Value, CultureInfo.InvariantCulture))}");
                 if (whetherContactHasOptedOut.HasValue)
-                    queryParams.Add($"has_opted_out={Uri.EscapeDataString(System.Convert.ToString(whetherContactHasOptedOut.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"has_opted_out={Uri.EscapeDataString(Convert.ToString(whetherContactHasOptedOut.Value, CultureInfo.InvariantCulture))}");
                 if (lastMessageTimeSentBeforeSearchTimestamp != default)
-                    queryParams.Add($"last_message_sent_before={Uri.EscapeDataString(System.Convert.ToString(lastMessageTimeSentBeforeSearchTimestamp, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"last_message_sent_before={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestamp)}");
                 if (lastMessageTimeSentAfterSearchTimestamp != default)
-                    queryParams.Add($"last_message_sent_after={Uri.EscapeDataString(System.Convert.ToString(lastMessageTimeSentAfterSearchTimestamp, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"last_message_sent_after={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestamp)}");
                 if (lastMessageTimeReceivedBeforeSearchTimestamp != default)
-                    queryParams.Add($"last_message_received_before={Uri.EscapeDataString(System.Convert.ToString(lastMessageTimeReceivedBeforeSearchTimestamp, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"last_message_received_before={Uri.EscapeDataString(lastMessageTimeReceivedBeforeSearchTimestamp)}");
                 if (lastMessageTimeReceivedAfterSearchTimestamp != default)
-                    queryParams.Add($"last_message_received_after={Uri.EscapeDataString(System.Convert.ToString(lastMessageTimeReceivedAfterSearchTimestamp, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"last_message_received_after={Uri.EscapeDataString(lastMessageTimeReceivedAfterSearchTimestamp)}");
                 if (contactTags != default)
-                    queryParams.Add($"tags={Uri.EscapeDataString(System.Convert.ToString(contactTags, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"tags={Uri.EscapeDataString(contactTags)}");
                 if (contactGroups != default)
-                    queryParams.Add($"groups={Uri.EscapeDataString(System.Convert.ToString(contactGroups, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"groups={Uri.EscapeDataString(contactGroups)}");
                 if (idOfCustomFieldToFilterBy != default)
-                    queryParams.Add($"custom_field_id_1={Uri.EscapeDataString(System.Convert.ToString(idOfCustomFieldToFilterBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"custom_field_id_1={Uri.EscapeDataString(idOfCustomFieldToFilterBy)}");
                 if (valueOfCustomFieldToFilterBy != default)
-                    queryParams.Add($"custom_field_value_1={Uri.EscapeDataString(System.Convert.ToString(valueOfCustomFieldToFilterBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"custom_field_value_1={Uri.EscapeDataString(valueOfCustomFieldToFilterBy)}");
                 if (idOfSecondCustomFieldToFilterBy != default)
-                    queryParams.Add($"custom_field_id_2={Uri.EscapeDataString(System.Convert.ToString(idOfSecondCustomFieldToFilterBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"custom_field_id_2={Uri.EscapeDataString(idOfSecondCustomFieldToFilterBy)}");
                 if (valueOfSecondCustomFieldToFilterBy != default)
-                    queryParams.Add($"custom_field_value_2={Uri.EscapeDataString(System.Convert.ToString(valueOfSecondCustomFieldToFilterBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"custom_field_value_2={Uri.EscapeDataString(valueOfSecondCustomFieldToFilterBy)}");
                 if (idOfThirdCustomFieldToFilterBy != default)
-                    queryParams.Add($"custom_field_id_3={Uri.EscapeDataString(System.Convert.ToString(idOfThirdCustomFieldToFilterBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"custom_field_id_3={Uri.EscapeDataString(idOfThirdCustomFieldToFilterBy)}");
                 if (valueOfThirdCustomFieldToFilterBy != default)
-                    queryParams.Add($"custom_field_value_3={Uri.EscapeDataString(System.Convert.ToString(valueOfThirdCustomFieldToFilterBy, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"custom_field_value_3={Uri.EscapeDataString(valueOfThirdCustomFieldToFilterBy)}");
+                queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet, CultureInfo.InvariantCulture))}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage, CultureInfo.InvariantCulture))}");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2111,7 +2112,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.BulkUpdateContactsAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/contacts";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts";
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2137,7 +2138,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetGroupByIdAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/groups/{Uri.EscapeDataString(System.Convert.ToString(idOfTheGroup, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/groups/{Uri.EscapeDataString(Convert.ToString(idOfTheGroup, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetGroupByIdResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2163,7 +2164,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.DeleteGroupAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/groups/{Uri.EscapeDataString(System.Convert.ToString(idOfTheGroup, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/groups/{Uri.EscapeDataString(Convert.ToString(idOfTheGroup, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2190,7 +2191,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.UpdateGroupAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/groups/{Uri.EscapeDataString(System.Convert.ToString(idOfTheGroup, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/groups/{Uri.EscapeDataString(Convert.ToString(idOfTheGroup, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateGroupResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2218,9 +2219,9 @@ namespace Azure.Connectors.Sdk.TextRequest
             try
             {
                 var queryParams = new List<string>();
-                queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet, CultureInfo.InvariantCulture))}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage, CultureInfo.InvariantCulture))}");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/groups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2246,7 +2247,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreateGroupAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/groups";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/groups";
                 return await this
                     .CallConnectorAsync<CreateGroupResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2274,9 +2275,9 @@ namespace Azure.Connectors.Sdk.TextRequest
             try
             {
                 var queryParams = new List<string>();
-                queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet, CultureInfo.InvariantCulture))}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage, CultureInfo.InvariantCulture))}");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/tags" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTagsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2301,7 +2302,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetCustomFieldsAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/fields";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/fields";
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2327,7 +2328,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetPaymentAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(System.Convert.ToString(idOfThePayment, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(Convert.ToString(idOfThePayment, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetPaymentResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2353,7 +2354,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.MarkPaymentPaidAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(System.Convert.ToString(idOfThePayment, System.Globalization.CultureInfo.InvariantCulture))}/mark_as_paid";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(Convert.ToString(idOfThePayment, CultureInfo.InvariantCulture))}/mark_as_paid";
                 return await this
                     .CallConnectorAsync<MarkPaymentPaidResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2379,7 +2380,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.SendPaymentReminderAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(System.Convert.ToString(idOfThePayment, System.Globalization.CultureInfo.InvariantCulture))}/resend";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(Convert.ToString(idOfThePayment, CultureInfo.InvariantCulture))}/resend";
                 return await this
                     .CallConnectorAsync<SendPaymentReminderResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2405,7 +2406,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CancelPaymentAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(System.Convert.ToString(idOfThePayment, System.Globalization.CultureInfo.InvariantCulture))}/cancel";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/payments/{Uri.EscapeDataString(Convert.ToString(idOfThePayment, CultureInfo.InvariantCulture))}/cancel";
                 return await this
                     .CallConnectorAsync<CancelPaymentResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2438,16 +2439,16 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 var queryParams = new List<string>();
                 if (referenceStringOfThePayment != default)
-                    queryParams.Add($"reference_number={Uri.EscapeDataString(System.Convert.ToString(referenceStringOfThePayment, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"reference_number={Uri.EscapeDataString(referenceStringOfThePayment)}");
                 if (paymentPhoneNumber != default)
-                    queryParams.Add($"phone_number={Uri.EscapeDataString(System.Convert.ToString(paymentPhoneNumber, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"phone_number={Uri.EscapeDataString(paymentPhoneNumber)}");
                 if (sortBy != default)
-                    queryParams.Add($"sort_type={Uri.EscapeDataString(System.Convert.ToString(sortBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"sort_type={Uri.EscapeDataString(sortBy)}");
                 if (sortDirection != default)
-                    queryParams.Add($"sort_direction={Uri.EscapeDataString(System.Convert.ToString(sortDirection, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet, System.Globalization.CultureInfo.InvariantCulture))}");
-                queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"sort_direction={Uri.EscapeDataString(sortDirection)}");
+                queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet, CultureInfo.InvariantCulture))}");
+                queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage, CultureInfo.InvariantCulture))}");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetPaymentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2473,7 +2474,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.CreatePaymentAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/payments";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/payments";
                 return await this
                     .CallConnectorAsync<CreatePaymentResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2498,7 +2499,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetDashboardAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetDashboardResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2523,7 +2524,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.DeleteDashboardAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<string>(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2549,7 +2550,7 @@ namespace Azure.Connectors.Sdk.TextRequest
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.UpdateDashboardsNameAsync");
             try
             {
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<UpdateDashboardsNameResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2582,18 +2583,18 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 var queryParams = new List<string>();
                 if (contactTags != default)
-                    queryParams.Add($"tags={Uri.EscapeDataString(System.Convert.ToString(contactTags, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"tags={Uri.EscapeDataString(contactTags)}");
                 if (whetherToShowOnlyResolvedConversations != default)
-                    queryParams.Add($"show_unresolved_only={Uri.EscapeDataString(System.Convert.ToString(whetherToShowOnlyResolvedConversations, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"show_unresolved_only={Uri.EscapeDataString(whetherToShowOnlyResolvedConversations)}");
                 if (whetherToIncludeArchivedConversations != default)
-                    queryParams.Add($"include_archived={Uri.EscapeDataString(System.Convert.ToString(whetherToIncludeArchivedConversations, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"include_archived={Uri.EscapeDataString(whetherToIncludeArchivedConversations)}");
                 if (termToFilterByForPhoneNumbersAndContactName != default)
-                    queryParams.Add($"search={Uri.EscapeDataString(System.Convert.ToString(termToFilterByForPhoneNumbersAndContactName, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"search={Uri.EscapeDataString(termToFilterByForPhoneNumbersAndContactName)}");
                 if (numberPageToGet.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet.Value, CultureInfo.InvariantCulture))}");
                 if (amountOfEachEntityToGetPerPage.HasValue)
-                    queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(System.Convert.ToString(idOfTheDashboardToMakeThisCallOn, System.Globalization.CultureInfo.InvariantCulture))}/conversations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/conversations" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetConversationsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2621,9 +2622,9 @@ namespace Azure.Connectors.Sdk.TextRequest
             {
                 var queryParams = new List<string>();
                 if (numberPageToGet.HasValue)
-                    queryParams.Add($"page={Uri.EscapeDataString(System.Convert.ToString(numberPageToGet.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet.Value, CultureInfo.InvariantCulture))}");
                 if (amountOfEachEntityToGetPerPage.HasValue)
-                    queryParams.Add($"page_size={Uri.EscapeDataString(System.Convert.ToString(amountOfEachEntityToGetPerPage.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/dashboards" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDashboardsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)

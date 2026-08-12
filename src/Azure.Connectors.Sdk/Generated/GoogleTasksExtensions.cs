@@ -479,7 +479,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks
             {
                 if (taskListId is null)
                     throw new ArgumentNullException(nameof(taskListId));
-                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(taskListId, System.Globalization.CultureInfo.InvariantCulture))}/tasks";
+                var path = $"/lists/{Uri.EscapeDataString(taskListId)}/tasks";
                 return await this
                     .CallConnectorAsync<TaskList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -507,7 +507,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks
             {
                 if (taskListId is null)
                     throw new ArgumentNullException(nameof(taskListId));
-                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(taskListId, System.Globalization.CultureInfo.InvariantCulture))}/tasks";
+                var path = $"/lists/{Uri.EscapeDataString(taskListId)}/tasks";
                 return await this
                     .CallConnectorAsync<TaskObject>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -537,7 +537,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks
                     throw new ArgumentNullException(nameof(taskListId));
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/lists/{Uri.EscapeDataString(System.Convert.ToString(taskListId, System.Globalization.CultureInfo.InvariantCulture))}/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/lists/{Uri.EscapeDataString(taskListId)}/tasks/{Uri.EscapeDataString(taskId)}";
                 return await this
                     .CallConnectorAsync<TaskObject>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

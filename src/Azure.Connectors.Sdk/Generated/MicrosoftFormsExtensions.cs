@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -267,8 +268,8 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
                 if (formId is null)
                     throw new ArgumentNullException(nameof(formId));
                 var queryParams = new List<string>();
-                queryParams.Add($"response_id={Uri.EscapeDataString(System.Convert.ToString(responseId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/formapi/api/forms('{Uri.EscapeDataString(System.Convert.ToString(formId, System.Globalization.CultureInfo.InvariantCulture))}')/responses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"response_id={Uri.EscapeDataString(Convert.ToString(responseId, CultureInfo.InvariantCulture))}");
+                var path = $"/formapi/api/forms('{Uri.EscapeDataString(formId)}')/responses" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetFormResponseByIdResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -297,7 +298,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
                     throw new ArgumentNullException(nameof(formId));
                 var queryParams = new List<string>();
                 queryParams.Add("$select=title%2CmodifiedDate%2CcreatedDate%2Cstatus%2CcreatedBy");
-                var path = $"/formapi/api/forms('{Uri.EscapeDataString(System.Convert.ToString(formId, System.Globalization.CultureInfo.InvariantCulture))}')" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/formapi/api/forms('{Uri.EscapeDataString(formId)}')" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetFormDetailsByIdResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -347,7 +348,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
             {
                 if (formId is null)
                     throw new ArgumentNullException(nameof(formId));
-                var path = $"/formapi/api/forms('{Uri.EscapeDataString(System.Convert.ToString(formId, System.Globalization.CultureInfo.InvariantCulture))}')/questions";
+                var path = $"/formapi/api/forms('{Uri.EscapeDataString(formId)}')/questions";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

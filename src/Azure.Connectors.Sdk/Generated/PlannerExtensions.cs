@@ -1083,7 +1083,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1111,7 +1111,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}/unassignusers";
+                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}/unassignusers";
                 return await this
                     .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1139,7 +1139,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}/assignusers";
+                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}/assignusers";
                 return await this
                     .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1166,7 +1166,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                var path = $"/v1.0/groups/{Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}/planner/plans";
+                var path = $"/v1.0/groups/{Uri.EscapeDataString(groupId)}/planner/plans";
                 return await this
                     .CallConnectorAsync<ListMyPlansResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1193,7 +1193,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (planId is null)
                     throw new ArgumentNullException(nameof(planId));
-                var path = $"/v1.0/planner/plans/{Uri.EscapeDataString(System.Convert.ToString(planId, System.Globalization.CultureInfo.InvariantCulture))}/details";
+                var path = $"/v1.0/planner/plans/{Uri.EscapeDataString(planId)}/details";
                 return await this
                     .CallConnectorAsync<GetPlanDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1270,7 +1270,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}";
                 return await this
                     .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1297,7 +1297,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}/details";
+                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}/details";
                 return await this
                     .CallConnectorAsync<GetTaskDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1328,8 +1328,8 @@ namespace Azure.Connectors.Sdk.Planner
                 var queryParams = new List<string>();
                 if (groupId is null)
                     throw new ArgumentNullException(nameof(groupId));
-                queryParams.Add($"groupId={Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(System.Convert.ToString(planId, System.Globalization.CultureInfo.InvariantCulture))}/buckets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"groupId={Uri.EscapeDataString(groupId)}");
+                var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId)}/buckets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListBucketsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1372,8 +1372,8 @@ namespace Azure.Connectors.Sdk.Planner
             var queryParams = new List<string>();
             if (groupId is null)
                 throw new ArgumentNullException(nameof(groupId));
-            queryParams.Add($"groupId={Uri.EscapeDataString(System.Convert.ToString(groupId, System.Globalization.CultureInfo.InvariantCulture))}");
-            var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(System.Convert.ToString(planId, System.Globalization.CultureInfo.InvariantCulture))}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            queryParams.Add($"groupId={Uri.EscapeDataString(groupId)}");
+            var path = $"/v2/v1.0/planner/plans/{Uri.EscapeDataString(planId)}/tasks" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
             return this.CreatePageable<ListTasksResponse, GetTaskResponseV2>(
                 ct => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, path, cancellationToken: ct),
                 (nextLink, ct) => this.CallConnectorAsync<ListTasksResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
@@ -1395,7 +1395,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v2/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/v2/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}";
                 return await this
                     .CallConnectorAsync<GetTaskResponseV2>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1423,7 +1423,7 @@ namespace Azure.Connectors.Sdk.Planner
             {
                 if (taskId is null)
                     throw new ArgumentNullException(nameof(taskId));
-                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(System.Convert.ToString(taskId, System.Globalization.CultureInfo.InvariantCulture))}/details";
+                var path = $"/v1.0/planner/tasks/{Uri.EscapeDataString(taskId)}/details";
                 return await this
                     .CallConnectorAsync<GetTaskDetailsResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

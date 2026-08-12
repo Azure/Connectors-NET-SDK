@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -960,7 +961,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (action is null)
                     throw new ArgumentNullException(nameof(action));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(action, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action))}";
                 return await this
                     .CallConnectorAsync<AxOnlineProcedureResult>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -999,20 +1000,20 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 var queryParams = new List<string>();
                 if (aggregationTransformation != default)
-                    queryParams.Add($"$apply={Uri.EscapeDataString(System.Convert.ToString(aggregationTransformation, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 if (crossCompany.HasValue)
-                    queryParams.Add($"cross-company={Uri.EscapeDataString(System.Convert.ToString(crossCompany.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture)))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"cross-company={Uri.EscapeDataString(Convert.ToString(crossCompany.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1043,7 +1044,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (entityName is null)
                     throw new ArgumentNullException(nameof(entityName));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture)))}/items";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items";
                 return await this
                     .CallConnectorAsync<PostItemResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1076,7 +1077,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 if (objectId is null)
                     throw new ArgumentNullException(nameof(objectId));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(objectId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(objectId))}";
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1108,7 +1109,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 if (objectId is null)
                     throw new ArgumentNullException(nameof(objectId));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(objectId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(objectId))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1142,7 +1143,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(entityName));
                 if (objectId is null)
                     throw new ArgumentNullException(nameof(objectId));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture)))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(objectId, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(objectId))}";
                 return await this
                     .CallConnectorAsync<PatchItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1169,7 +1170,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (instance is null)
                     throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables";
                 return await this
                     .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1220,7 +1221,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (instance is null)
                     throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/businesseventcategories";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/businesseventcategories";
                 return await this
                     .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1250,7 +1251,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (businessEventCategory is null)
                     throw new ArgumentNullException(nameof(businessEventCategory));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/businesseventcategories/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(businessEventCategory, System.Globalization.CultureInfo.InvariantCulture)))}/businessevents";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/businesseventcategories/{Uri.EscapeDataString(Uri.EscapeDataString(businessEventCategory))}/businessevents";
                 return await this
                     .CallConnectorAsync<BusinessEventsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1282,11 +1283,11 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                 var queryParams = new List<string>();
                 if (category is null)
                     throw new ArgumentNullException(nameof(category));
-                queryParams.Add($"businesseventcategory={Uri.EscapeDataString(System.Convert.ToString(category, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"businesseventcategory={Uri.EscapeDataString(category)}");
                 if (businessEvent is null)
                     throw new ArgumentNullException(nameof(businessEvent));
-                queryParams.Add($"businessevent={Uri.EscapeDataString(System.Convert.ToString(businessEvent, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"businessevent={Uri.EscapeDataString(businessEvent)}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/legalentities" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TriggerFieldDataList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1313,7 +1314,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
             {
                 if (instance is null)
                     throw new ArgumentNullException(nameof(instance));
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/procedures";
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/procedures";
                 return await this
                     .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1343,7 +1344,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (action is null)
                     throw new ArgumentNullException(nameof(action));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(action, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(action))}";
                 return await this
                     .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1373,7 +1374,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
                     throw new ArgumentNullException(nameof(instance));
                 if (entityName is null)
                     throw new ArgumentNullException(nameof(entityName));
-                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(instance, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(entityName, System.Globalization.CultureInfo.InvariantCulture)))}";
+                var path = $"/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}";
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

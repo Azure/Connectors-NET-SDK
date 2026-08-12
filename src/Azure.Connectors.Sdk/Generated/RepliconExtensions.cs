@@ -878,7 +878,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/ProjectService1.svc/BulkGetProjectDetails3" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ProjectDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -908,7 +908,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/ProjectService1.svc/CreateProjectOrApplyModifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateProjectOrApplyModificationsResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -938,7 +938,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/UserListService1.svc/GetData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<UserListServiceGetDataResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -968,7 +968,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TaskService1.svc/GetDescendantTaskDetails" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDescendantTaskDetailsResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -998,7 +998,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TaskService1.svc/CreateTaskHierarchyOrApplyModifications" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateTaskHierarchyOrApplyModificationsResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1027,7 +1027,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TaskService1.svc/MoveTask" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -1057,7 +1057,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TaskListService1.svc/GetData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TaskListServiceGetDataResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1087,7 +1087,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TimesheetService1.svc/GetTimesheetSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTimesheetSummaryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1117,7 +1117,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TaskService1.svc/BulkGetTimeEnteredSummary" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<BulkGetTimeEnteredSummaryResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -1146,7 +1146,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/ProjectService1.svc/PutProjectTeamMemberAssignments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
@@ -1175,7 +1175,7 @@ namespace Azure.Connectors.Sdk.Replicon
                 var queryParams = new List<string>();
                 if (hostUrlForReplicon is null)
                     throw new ArgumentNullException(nameof(hostUrlForReplicon));
-                queryParams.Add($"hostUrl={Uri.EscapeDataString(System.Convert.ToString(hostUrlForReplicon, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"hostUrl={Uri.EscapeDataString(hostUrlForReplicon)}");
                 var path = $"/services/TaskService1.svc/PutResourceAssignments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)

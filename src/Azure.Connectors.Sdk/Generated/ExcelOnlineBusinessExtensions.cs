@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -869,8 +870,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -908,10 +909,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 queryParams.Add("populateColumn=false");
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (keyColumn != default)
-                    queryParams.Add($"idColumn={Uri.EscapeDataString(System.Convert.ToString(keyColumn, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/createIdColumn" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -956,24 +957,24 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(System.Convert.ToString(filterQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
                 if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
                 if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(topCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
                 if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(System.Convert.ToString(skipCount.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
                 if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(System.Convert.ToString(selectQuery, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(System.Convert.ToString(dateTimeFormat, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1006,8 +1007,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                     throw new ArgumentNullException(nameof(@file));
                 var queryParams = new List<string>();
                 if (location != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/comments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CommentsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1043,8 +1044,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                     throw new ArgumentNullException(nameof(commentId));
                 var queryParams = new List<string>();
                 if (location != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/comments/{Uri.EscapeDataString(System.Convert.ToString(commentId, System.Globalization.CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/comments/{Uri.EscapeDataString(commentId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1081,8 +1082,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                     throw new ArgumentNullException(nameof(commentId));
                 var queryParams = new List<string>();
                 if (location != default)
-                    queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/comments/{Uri.EscapeDataString(System.Convert.ToString(commentId, System.Globalization.CultureInfo.InvariantCulture))}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/comments/{Uri.EscapeDataString(commentId)}/replies" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Comment>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1126,17 +1127,17 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (keyColumn is null)
                     throw new ArgumentNullException(nameof(keyColumn));
-                queryParams.Add($"idColumn={Uri.EscapeDataString(System.Convert.ToString(keyColumn, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(System.Convert.ToString(dateTimeFormat, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(keyValue, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetItemResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1176,11 +1177,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (keyColumn is null)
                     throw new ArgumentNullException(nameof(keyColumn));
-                queryParams.Add($"idColumn={Uri.EscapeDataString(System.Convert.ToString(keyColumn, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(keyValue, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1223,13 +1224,13 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (keyColumn is null)
                     throw new ArgumentNullException(nameof(keyColumn));
-                queryParams.Add($"idColumn={Uri.EscapeDataString(System.Convert.ToString(keyColumn, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"idColumn={Uri.EscapeDataString(keyColumn)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(System.Convert.ToString(dateTimeFormat, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/files/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(keyValue, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(keyValue))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1265,12 +1266,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetAllWorksheetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1305,8 +1306,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/worksheets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<WorksheetMetadata>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1342,12 +1343,12 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(System.Convert.ToString(extractSensitivityLabel.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(System.Convert.ToString(sensitivityLabelMetadata.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetTablesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1386,10 +1387,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(System.Convert.ToString(dateTimeFormat, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+                var path = $"/codeless/v1.2/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/tables/{Uri.EscapeDataString(table)}/rows" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Item>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1431,11 +1432,11 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (workbookLocation is null)
                     throw new ArgumentNullException(nameof(workbookLocation));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(workbookLocation, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(workbookLocation)}");
                 if (scriptLocation is null)
                     throw new ArgumentNullException(nameof(scriptLocation));
-                queryParams.Add($"scriptSource={Uri.EscapeDataString(System.Convert.ToString(scriptLocation, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/officescripting/api/unattended/run/{Uri.EscapeDataString(System.Convert.ToString(workbookLibrary, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(workbook, System.Globalization.CultureInfo.InvariantCulture)))}/{Uri.EscapeDataString(System.Convert.ToString(scriptLibrary, System.Globalization.CultureInfo.InvariantCulture))}/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(script, System.Globalization.CultureInfo.InvariantCulture)))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"scriptSource={Uri.EscapeDataString(scriptLocation)}");
+                var path = $"/v2/officescripting/api/unattended/run/{Uri.EscapeDataString(workbookLibrary)}/{Uri.EscapeDataString(Uri.EscapeDataString(workbook))}/{Uri.EscapeDataString(scriptLibrary)}/{Uri.EscapeDataString(Uri.EscapeDataString(script))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<RunScriptProdResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1462,7 +1463,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
             {
                 var queryParams = new List<string>();
                 if (top != default)
-                    queryParams.Add($"$top={Uri.EscapeDataString(System.Convert.ToString(top, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"$top={Uri.EscapeDataString(top)}");
                 var path = $"/codeless/v1.0/sources" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSourcesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1491,7 +1492,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
                 var path = $"/codeless/v1.0/drives" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDrivesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1529,8 +1530,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/tables/{Uri.EscapeDataString(table)}/columns" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetColumnsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1560,13 +1561,13 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (chosenScriptSource is null)
                     throw new ArgumentNullException(nameof(chosenScriptSource));
-                queryParams.Add($"scriptSource={Uri.EscapeDataString(System.Convert.ToString(chosenScriptSource, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"scriptSource={Uri.EscapeDataString(chosenScriptSource)}");
                 if (chosenScriptDrive is null)
                     throw new ArgumentNullException(nameof(chosenScriptDrive));
-                queryParams.Add($"scriptDrive={Uri.EscapeDataString(System.Convert.ToString(chosenScriptDrive, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"scriptDrive={Uri.EscapeDataString(chosenScriptDrive)}");
                 if (chosenScript is null)
                     throw new ArgumentNullException(nameof(chosenScript));
-                queryParams.Add($"scriptId={Uri.EscapeDataString(System.Convert.ToString(chosenScript, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"scriptId={Uri.EscapeDataString(chosenScript)}");
                 var path = $"/v2/officescripting/api/storage/script" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetSingleScriptResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1604,8 +1605,8 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
                 var queryParams = new List<string>();
                 if (location is null)
                     throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(System.Convert.ToString(location, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(System.Convert.ToString(documentLibrary, System.Globalization.CultureInfo.InvariantCulture))}/items/{Uri.EscapeDataString(Uri.EscapeDataString(System.Convert.ToString(@file, System.Globalization.CultureInfo.InvariantCulture)))}/workbook/tables/{Uri.EscapeDataString(System.Convert.ToString(table, System.Globalization.CultureInfo.InvariantCulture))}/metadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"source={Uri.EscapeDataString(location)}");
+                var path = $"/codeless/v1.0/drives/{Uri.EscapeDataString(documentLibrary)}/items/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/workbook/tables/{Uri.EscapeDataString(table)}/metadata" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TableMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

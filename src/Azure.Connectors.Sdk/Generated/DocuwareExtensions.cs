@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -696,8 +697,8 @@ namespace Azure.Connectors.Sdk.Docuware
                 var queryParams = new List<string>();
                 if (searchDialog is null)
                     throw new ArgumentNullException(nameof(searchDialog));
-                queryParams.Add($"SearchDialogId={Uri.EscapeDataString(System.Convert.ToString(searchDialog, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinet, System.Globalization.CultureInfo.InvariantCulture))}/Search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"SearchDialogId={Uri.EscapeDataString(searchDialog)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet)}/Search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<SearchForDocumentsInFileCabinetResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -749,7 +750,7 @@ namespace Azure.Connectors.Sdk.Docuware
                 var queryParams = new List<string>();
                 if (fileCabinetType is null)
                     throw new ArgumentNullException(nameof(fileCabinetType));
-                queryParams.Add($"FileCabinetType={Uri.EscapeDataString(System.Convert.ToString(fileCabinetType, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"FileCabinetType={Uri.EscapeDataString(fileCabinetType)}");
                 var path = $"/FileCabinets" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetFileCabinetsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -778,7 +779,7 @@ namespace Azure.Connectors.Sdk.Docuware
             {
                 if (fileCabinetDocumentTray is null)
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}";
                 return await this
                     .CallConnectorAsync<GetDocumentInformationResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -805,7 +806,7 @@ namespace Azure.Connectors.Sdk.Docuware
             {
                 if (fileCabinetDocumentTray is null)
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -840,8 +841,8 @@ namespace Azure.Connectors.Sdk.Docuware
                 var queryParams = new List<string>();
                 if (documentFormat is null)
                     throw new ArgumentNullException(nameof(documentFormat));
-                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(System.Convert.ToString(documentFormat, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/Sections/{Uri.EscapeDataString(System.Convert.ToString(fileNumber, System.Globalization.CultureInfo.InvariantCulture))}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Sections/{Uri.EscapeDataString(fileNumber)}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -873,8 +874,8 @@ namespace Azure.Connectors.Sdk.Docuware
                 var queryParams = new List<string>();
                 if (documentFormat is null)
                     throw new ArgumentNullException(nameof(documentFormat));
-                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(System.Convert.ToString(documentFormat, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"DocumentFormat={Uri.EscapeDataString(documentFormat)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Download" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -903,7 +904,7 @@ namespace Azure.Connectors.Sdk.Docuware
             {
                 if (fileCabinet is null)
                     throw new ArgumentNullException(nameof(fileCabinet));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinet, System.Globalization.CultureInfo.InvariantCulture))}/Documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/Fields";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Fields";
                 return await this
                     .CallConnectorAsync<UpdateIndexFieldsResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -934,8 +935,8 @@ namespace Azure.Connectors.Sdk.Docuware
                     throw new ArgumentNullException(nameof(destinationFileCabinetDocumentTray));
                 var queryParams = new List<string>();
                 if (storeDialog != default)
-                    queryParams.Add($"StoreDialogID={Uri.EscapeDataString(System.Convert.ToString(storeDialog, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(destinationFileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Task/Transfer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"StoreDialogID={Uri.EscapeDataString(storeDialog)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(destinationFileCabinetDocumentTray)}/Task/Transfer" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TransferDocumentResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -964,7 +965,7 @@ namespace Azure.Connectors.Sdk.Docuware
             {
                 if (fileCabinetDocumentTray is null)
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Documents/{Uri.EscapeDataString(System.Convert.ToString(documentId, System.Globalization.CultureInfo.InvariantCulture))}/Annotation";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Annotation";
                 return await this
                     .CallConnectorAsync<PlaceAStampResponse>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -994,8 +995,8 @@ namespace Azure.Connectors.Sdk.Docuware
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var queryParams = new List<string>();
                 if (dialogType != default)
-                    queryParams.Add($"DialogType={Uri.EscapeDataString(System.Convert.ToString(dialogType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Dialogs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"DialogType={Uri.EscapeDataString(dialogType)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Dialogs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDialogsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1022,7 +1023,7 @@ namespace Azure.Connectors.Sdk.Docuware
             {
                 if (fileCabinetDocumentTray is null)
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Stamps";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Stamps";
                 return await this
                     .CallConnectorAsync<GetStampsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1052,7 +1053,7 @@ namespace Azure.Connectors.Sdk.Docuware
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 if (stamp is null)
                     throw new ArgumentNullException(nameof(stamp));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinetDocumentTray, System.Globalization.CultureInfo.InvariantCulture))}/Stamps/{Uri.EscapeDataString(System.Convert.ToString(stamp, System.Globalization.CultureInfo.InvariantCulture))}/Fields";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Stamps/{Uri.EscapeDataString(stamp)}/Fields";
                 return await this
                     .CallConnectorAsync<GetStampFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1082,8 +1083,8 @@ namespace Azure.Connectors.Sdk.Docuware
                     throw new ArgumentNullException(nameof(fileCabinet));
                 var queryParams = new List<string>();
                 if (fieldType != default)
-                    queryParams.Add($"FieldType={Uri.EscapeDataString(System.Convert.ToString(fieldType, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinet, System.Globalization.CultureInfo.InvariantCulture))}/Fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"FieldType={Uri.EscapeDataString(fieldType)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet)}/Fields" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetFileCabinetFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1113,7 +1114,7 @@ namespace Azure.Connectors.Sdk.Docuware
                     throw new ArgumentNullException(nameof(fileCabinet));
                 if (dialog is null)
                     throw new ArgumentNullException(nameof(dialog));
-                var path = $"/FileCabinets/{Uri.EscapeDataString(System.Convert.ToString(fileCabinet, System.Globalization.CultureInfo.InvariantCulture))}/Dialogs/{Uri.EscapeDataString(System.Convert.ToString(dialog, System.Globalization.CultureInfo.InvariantCulture))}/Fields";
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet)}/Dialogs/{Uri.EscapeDataString(dialog)}/Fields";
                 return await this
                     .CallConnectorAsync<GetDialogFieldsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1140,7 +1141,7 @@ namespace Azure.Connectors.Sdk.Docuware
             {
                 if (documentTray is null)
                     throw new ArgumentNullException(nameof(documentTray));
-                var path = $"/DocumentTrays/{Uri.EscapeDataString(System.Convert.ToString(documentTray, System.Globalization.CultureInfo.InvariantCulture))}/Search";
+                var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray)}/Search";
                 return await this
                     .CallConnectorAsync<ListDocumentsInDocumentTrayResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

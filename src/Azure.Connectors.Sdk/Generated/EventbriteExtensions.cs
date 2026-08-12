@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -461,50 +462,50 @@ namespace Azure.Connectors.Sdk.Eventbrite
                 var queryParams = new List<string>();
                 if (name is null)
                     throw new ArgumentNullException(nameof(name));
-                queryParams.Add($"event.name.html={Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.name.html={Uri.EscapeDataString(name)}");
                 if (description is null)
                     throw new ArgumentNullException(nameof(description));
-                queryParams.Add($"event.description.html={Uri.EscapeDataString(System.Convert.ToString(description, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.description.html={Uri.EscapeDataString(description)}");
                 if (start is null)
                     throw new ArgumentNullException(nameof(start));
-                queryParams.Add($"event.start.utc={Uri.EscapeDataString(System.Convert.ToString(start, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.start.utc={Uri.EscapeDataString(start)}");
                 if (end is null)
                     throw new ArgumentNullException(nameof(end));
-                queryParams.Add($"event.end.utc={Uri.EscapeDataString(System.Convert.ToString(end, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.end.utc={Uri.EscapeDataString(end)}");
                 if (startTimezone is null)
                     throw new ArgumentNullException(nameof(startTimezone));
-                queryParams.Add($"event.start.timezone={Uri.EscapeDataString(System.Convert.ToString(startTimezone, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone)}");
                 if (endTimezone is null)
                     throw new ArgumentNullException(nameof(endTimezone));
-                queryParams.Add($"event.end.timezone={Uri.EscapeDataString(System.Convert.ToString(endTimezone, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone)}");
                 if (eventCurrency is null)
                     throw new ArgumentNullException(nameof(eventCurrency));
-                queryParams.Add($"event.currency={Uri.EscapeDataString(System.Convert.ToString(eventCurrency, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency)}");
                 if (organizer != default)
-                    queryParams.Add($"event.organizer_id={Uri.EscapeDataString(System.Convert.ToString(organizer, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer)}");
                 if (venue != default)
-                    queryParams.Add($"event.venue_id={Uri.EscapeDataString(System.Convert.ToString(venue, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.venue_id={Uri.EscapeDataString(venue)}");
                 if (category != default)
-                    queryParams.Add($"event.category_id={Uri.EscapeDataString(System.Convert.ToString(category, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.category_id={Uri.EscapeDataString(category)}");
                 if (password != default)
-                    queryParams.Add($"event.password={Uri.EscapeDataString(System.Convert.ToString(password, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.password={Uri.EscapeDataString(password)}");
                 if (capacity != default)
-                    queryParams.Add($"event.capacity={Uri.EscapeDataString(System.Convert.ToString(capacity, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.capacity={Uri.EscapeDataString(capacity)}");
                 if (shareable.HasValue)
-                    queryParams.Add($"event.shareable={Uri.EscapeDataString(System.Convert.ToString(shareable.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.shareable={Uri.EscapeDataString(Convert.ToString(shareable.Value, CultureInfo.InvariantCulture))}");
                 if (inviteOnly.HasValue)
-                    queryParams.Add($"event.invite_only={Uri.EscapeDataString(System.Convert.ToString(inviteOnly.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.invite_only={Uri.EscapeDataString(Convert.ToString(inviteOnly.Value, CultureInfo.InvariantCulture))}");
                 if (onlineEvent.HasValue)
-                    queryParams.Add($"event.online_event={Uri.EscapeDataString(System.Convert.ToString(onlineEvent.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.online_event={Uri.EscapeDataString(Convert.ToString(onlineEvent.Value, CultureInfo.InvariantCulture))}");
                 if (listed.HasValue)
-                    queryParams.Add($"event.listed={Uri.EscapeDataString(System.Convert.ToString(listed.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.listed={Uri.EscapeDataString(Convert.ToString(listed.Value, CultureInfo.InvariantCulture))}");
                 if (hideStartDate.HasValue)
-                    queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(System.Convert.ToString(hideStartDate.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(Convert.ToString(hideStartDate.Value, CultureInfo.InvariantCulture))}");
                 if (hideEndDate.HasValue)
-                    queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(System.Convert.ToString(hideEndDate.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(Convert.ToString(hideEndDate.Value, CultureInfo.InvariantCulture))}");
                 if (showRemaining.HasValue)
-                    queryParams.Add($"event.show_remaining={Uri.EscapeDataString(System.Convert.ToString(showRemaining.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v3/organizations/{Uri.EscapeDataString(System.Convert.ToString(organization, System.Globalization.CultureInfo.InvariantCulture))}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"event.show_remaining={Uri.EscapeDataString(Convert.ToString(showRemaining.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization)}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -554,49 +555,49 @@ namespace Azure.Connectors.Sdk.Eventbrite
                 var queryParams = new List<string>();
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                queryParams.Add($"organization_id={Uri.EscapeDataString(System.Convert.ToString(organization, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"organization_id={Uri.EscapeDataString(organization)}");
                 if (name != default)
-                    queryParams.Add($"event.name.html={Uri.EscapeDataString(System.Convert.ToString(name, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.name.html={Uri.EscapeDataString(name)}");
                 if (description != default)
-                    queryParams.Add($"event.description.html={Uri.EscapeDataString(System.Convert.ToString(description, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.description.html={Uri.EscapeDataString(description)}");
                 if (start != default)
-                    queryParams.Add($"event.start.utc={Uri.EscapeDataString(System.Convert.ToString(start, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.start.utc={Uri.EscapeDataString(start)}");
                 if (end != default)
-                    queryParams.Add($"event.end.utc={Uri.EscapeDataString(System.Convert.ToString(end, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.end.utc={Uri.EscapeDataString(end)}");
                 if (startTimezone is null)
                     throw new ArgumentNullException(nameof(startTimezone));
-                queryParams.Add($"event.start.timezone={Uri.EscapeDataString(System.Convert.ToString(startTimezone, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.start.timezone={Uri.EscapeDataString(startTimezone)}");
                 if (endTimezone is null)
                     throw new ArgumentNullException(nameof(endTimezone));
-                queryParams.Add($"event.end.timezone={Uri.EscapeDataString(System.Convert.ToString(endTimezone, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.end.timezone={Uri.EscapeDataString(endTimezone)}");
                 if (eventCurrency is null)
                     throw new ArgumentNullException(nameof(eventCurrency));
-                queryParams.Add($"event.currency={Uri.EscapeDataString(System.Convert.ToString(eventCurrency, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"event.currency={Uri.EscapeDataString(eventCurrency)}");
                 if (organizer != default)
-                    queryParams.Add($"event.organizer_id={Uri.EscapeDataString(System.Convert.ToString(organizer, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.organizer_id={Uri.EscapeDataString(organizer)}");
                 if (venue != default)
-                    queryParams.Add($"event.venue_id={Uri.EscapeDataString(System.Convert.ToString(venue, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.venue_id={Uri.EscapeDataString(venue)}");
                 if (category != default)
-                    queryParams.Add($"event.category_id={Uri.EscapeDataString(System.Convert.ToString(category, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.category_id={Uri.EscapeDataString(category)}");
                 if (password != default)
-                    queryParams.Add($"event.password={Uri.EscapeDataString(System.Convert.ToString(password, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.password={Uri.EscapeDataString(password)}");
                 if (capacity != default)
-                    queryParams.Add($"event.capacity={Uri.EscapeDataString(System.Convert.ToString(capacity, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.capacity={Uri.EscapeDataString(capacity)}");
                 if (shareable.HasValue)
-                    queryParams.Add($"event.shareable={Uri.EscapeDataString(System.Convert.ToString(shareable.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.shareable={Uri.EscapeDataString(Convert.ToString(shareable.Value, CultureInfo.InvariantCulture))}");
                 if (inviteOnly.HasValue)
-                    queryParams.Add($"event.invite_only={Uri.EscapeDataString(System.Convert.ToString(inviteOnly.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.invite_only={Uri.EscapeDataString(Convert.ToString(inviteOnly.Value, CultureInfo.InvariantCulture))}");
                 if (onlineEvent.HasValue)
-                    queryParams.Add($"event.online_event={Uri.EscapeDataString(System.Convert.ToString(onlineEvent.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.online_event={Uri.EscapeDataString(Convert.ToString(onlineEvent.Value, CultureInfo.InvariantCulture))}");
                 if (listed.HasValue)
-                    queryParams.Add($"event.listed={Uri.EscapeDataString(System.Convert.ToString(listed.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.listed={Uri.EscapeDataString(Convert.ToString(listed.Value, CultureInfo.InvariantCulture))}");
                 if (hideStartDate.HasValue)
-                    queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(System.Convert.ToString(hideStartDate.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.hide_start_date={Uri.EscapeDataString(Convert.ToString(hideStartDate.Value, CultureInfo.InvariantCulture))}");
                 if (hideEndDate.HasValue)
-                    queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(System.Convert.ToString(hideEndDate.Value, System.Globalization.CultureInfo.InvariantCulture))}");
+                    queryParams.Add($"event.hide_end_date={Uri.EscapeDataString(Convert.ToString(hideEndDate.Value, CultureInfo.InvariantCulture))}");
                 if (showRemaining.HasValue)
-                    queryParams.Add($"event.show_remaining={Uri.EscapeDataString(System.Convert.ToString(showRemaining.Value, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v2/v3/events/{Uri.EscapeDataString(System.Convert.ToString(@event, System.Globalization.CultureInfo.InvariantCulture))}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                    queryParams.Add($"event.show_remaining={Uri.EscapeDataString(Convert.ToString(showRemaining.Value, CultureInfo.InvariantCulture))}");
+                var path = $"/v2/v3/events/{Uri.EscapeDataString(@event)}/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<CreateEventResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -647,7 +648,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/v3/organizations/{Uri.EscapeDataString(System.Convert.ToString(organization, System.Globalization.CultureInfo.InvariantCulture))}/organizers/";
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization)}/organizers/";
                 return await this
                     .CallConnectorAsync<GetOrganizersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -674,7 +675,7 @@ namespace Azure.Connectors.Sdk.Eventbrite
             {
                 if (organization is null)
                     throw new ArgumentNullException(nameof(organization));
-                var path = $"/v3/organizations/{Uri.EscapeDataString(System.Convert.ToString(organization, System.Globalization.CultureInfo.InvariantCulture))}/venues/";
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization)}/venues/";
                 return await this
                     .CallConnectorAsync<GetMyVenuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -730,11 +731,11 @@ namespace Azure.Connectors.Sdk.Eventbrite
                 var queryParams = new List<string>();
                 if (orderBy is null)
                     throw new ArgumentNullException(nameof(orderBy));
-                queryParams.Add($"order_by={Uri.EscapeDataString(System.Convert.ToString(orderBy, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"order_by={Uri.EscapeDataString(orderBy)}");
                 if (status is null)
                     throw new ArgumentNullException(nameof(status));
-                queryParams.Add($"status={Uri.EscapeDataString(System.Convert.ToString(status, System.Globalization.CultureInfo.InvariantCulture))}");
-                var path = $"/v3/organizations/{Uri.EscapeDataString(System.Convert.ToString(organization, System.Globalization.CultureInfo.InvariantCulture))}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                queryParams.Add($"status={Uri.EscapeDataString(status)}");
+                var path = $"/v3/organizations/{Uri.EscapeDataString(organization)}/events/" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMyEventsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

@@ -6406,7 +6406,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (typeOfSplit is null)
                     throw new ArgumentNullException(nameof(typeOfSplit));
-                queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(typeOfSplit, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit)}");
                 var path = $"/flow/v1/Documents/jobs/SplitPdfV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DocumentsWithFilenamesResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -6661,7 +6661,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (type is null)
                     throw new ArgumentNullException(nameof(type));
-                queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(type, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 var path = $"/flow/v1/Documents/jobs/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DocumentProcessingResponse>(HttpMethod.Post, path, input, cancellationToken)
@@ -6966,7 +6966,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (processName is null)
                     throw new ArgumentNullException(nameof(processName));
-                queryParams.Add($"processId={Uri.EscapeDataString(System.Convert.ToString(processName, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"processId={Uri.EscapeDataString(processName)}");
                 var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcess" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
@@ -6996,7 +6996,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (processName is null)
                     throw new ArgumentNullException(nameof(processName));
-                queryParams.Add($"processId={Uri.EscapeDataString(System.Convert.ToString(processName, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"processId={Uri.EscapeDataString(processName)}");
                 var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
@@ -7024,7 +7024,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (typeOfSplit is null)
                     throw new ArgumentNullException(nameof(typeOfSplit));
-                queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(typeOfSplit, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"type={Uri.EscapeDataString(typeOfSplit)}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/SplitPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -7052,7 +7052,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (type is null)
                     throw new ArgumentNullException(nameof(type));
-                queryParams.Add($"type={Uri.EscapeDataString(System.Convert.ToString(type, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"type={Uri.EscapeDataString(type)}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/AddWatermarkToPdf" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -7103,7 +7103,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (headers is null)
                     throw new ArgumentNullException(nameof(headers));
-                queryParams.Add($"headers={Uri.EscapeDataString(System.Convert.ToString(headers, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"headers={Uri.EscapeDataString(headers)}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -7131,7 +7131,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (processName is null)
                     throw new ArgumentNullException(nameof(processName));
-                queryParams.Add($"processId={Uri.EscapeDataString(System.Convert.ToString(processName, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"processId={Uri.EscapeDataString(processName)}");
                 var path = $"/flow/v1/ProcessesFlow/Schema/GetJsonData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -7158,7 +7158,7 @@ namespace Azure.Connectors.Sdk.Plumsail
             {
                 if (processId is null)
                     throw new ArgumentNullException(nameof(processId));
-                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(System.Convert.ToString(processId, System.Globalization.CultureInfo.InvariantCulture))}/schema";
+                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId)}/schema";
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7185,7 +7185,7 @@ namespace Azure.Connectors.Sdk.Plumsail
                 var queryParams = new List<string>();
                 if (pattern is null)
                     throw new ArgumentNullException(nameof(pattern));
-                queryParams.Add($"pattern={Uri.EscapeDataString(System.Convert.ToString(pattern, System.Globalization.CultureInfo.InvariantCulture))}");
+                queryParams.Add($"pattern={Uri.EscapeDataString(pattern)}");
                 var path = $"/flow/v1/DocumentsFlow/Schema/RegExpMatch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
