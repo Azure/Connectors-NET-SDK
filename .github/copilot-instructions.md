@@ -14,6 +14,29 @@ This SDK selectively follows the [Azure SDK Design Guidelines for .NET](https://
 - **`T` not `Response<T>`** — methods return the payload type directly, not wrapped in `Response<T>`; adding `Response<T>` wrappers is a deliberate Skip on guideline #7
 - **`ETag` and URI properties stay `string`** — do not change to `ETag` or `Uri` types (deliberate Skips on guidelines #29/#30)
 
+### Generated Connector Changes
+
+Before reviewing or preparing changes under `src/**/Generated/`, read
+[`docs/generated-contract.md`](../docs/generated-contract.md). Generated clients
+must preserve the operation-rooted Swagger contract, including indirect discovery
+references and every distinct reachable wire property.
+
+- Never hand-edit generated clients. Fix the BPM CodefulSdkGenerator, regenerate,
+    and keep the generator and SDK pull requests cross-linked.
+- Generate from a pinned generator revision and pinned Swagger snapshot. Record
+    both in the SDK pull request and verify the committed artifact matches that
+    generation output.
+- Do not add fields from orphaned Swagger definitions merely because a definition
+    exists. Confirm the operation or supported metadata graph reaches it.
+- Treat language-normalized names as a separate layer from wire identity. Case,
+    punctuation, summaries, overrides, synthetic members, and model-factory
+    parameter conversion must not silently drop distinct wire properties.
+- Add focused wire serialization tests for collisions and semantic compilation
+    tests when generated helper or factory signatures can collide. Syntax parsing
+    alone does not catch duplicate C# parameters.
+- For shared naming or reachability changes, run a same-revision catalog sweep and
+    document the full blast radius before choosing a narrow demonstration client.
+
 ## Quick Reference: Coding Style Rules
 
 ### File Structure
