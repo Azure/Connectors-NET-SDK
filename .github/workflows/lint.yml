@@ -9,45 +9,20 @@ on:
 permissions:
   contents: read
 
-jobs:
-  changes:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-    outputs:
-      powershell: ${{ steps.filter.outputs.powershell }}
-      markdown: ${{ steps.filter.outputs.markdown }}
-      yaml: ${{ steps.filter.outputs.yaml }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: dorny/paths-filter@7b450fff21473bca461d4b92ce414b9d0420d706 # v4
-        id: filter
-        with:
-          filters: |
-            powershell:
-              - '**/*.ps1'
-              - 'PSScriptAnalyzerSettings.psd1'
-            markdown:
-              - '**/*.md'
-              - '.markdownlint.*'
-              - '.markdownlint.jsonc'
-            yaml:
-              - '**/*.yml'
-              - '**/*.yaml'
-              - '.yamllint.yml'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+jobs:
   powershell:
-    needs: changes
-    if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.powershell == 'true')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Run PSScriptAnalyzer
         shell: pwsh
         run: |
-          Set-PSRepository PSGallery -InstallationPolicy Trusted
-          Install-Module -Name PSScriptAnalyzer -RequiredVersion 1.25.0 -Scope CurrentUser -Force
+          Install-PSResource -Name PSScriptAnalyzer -Version 1.25.0 -Repository PSGallery -Scope CurrentUser -TrustRepository
           $results = Invoke-ScriptAnalyzer -Path . -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
           if ($results) {
             $results | Format-Table RuleName, Severity, ScriptName, Line, Message -AutoSize
@@ -56,17 +31,15 @@ jobs:
           Write-Host "PSScriptAnalyzer: all checks passed."
 
   markdown:
-    needs: changes
-    if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.markdown == 'true')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - run: npx markdownlint-cli2@0.17.2 '**/*.md'
+      - run: npx markdownlint-cli2@0.17.2 --config .markdownlint.json '**/*.md'
 
   yaml:
-    needs: changes
-    if: always() && (needs.changes.result == 'skipped' || needs.changes.outputs.yaml == 'true')
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: pip install yamllint==1.38.0
