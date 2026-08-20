@@ -599,7 +599,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Search Text
     /// </summary>
-    public class PDFSerarchTextInput
+    public class PDFSearchTextInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -5182,9 +5182,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSerarchTextInput"/>.
+        /// Creates a new instance of <see cref="PDFSearchTextInput"/>.
         /// </summary>
-        public static PDFSerarchTextInput PDFSerarchTextInput(
+        public static PDFSearchTextInput PDFSearchTextInput(
             string url = default,
             string searchString = default,
             bool? regexSearch = default,
@@ -5196,7 +5196,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFSerarchTextInput
+            return new PDFSearchTextInput
             {
                 Url = url,
                 SearchString = searchString,
@@ -7893,9 +7893,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Search Text response.</returns>
-        public virtual async Task<PDFSearchTextResponse> PDFSerarchTextAsync(PDFSerarchTextInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PDFSearchTextResponse> PDFSearchTextAsync(PDFSearchTextInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSerarchTextAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSearchTextAsync");
             try
             {
                 var path = $"/v1/pdf/find";

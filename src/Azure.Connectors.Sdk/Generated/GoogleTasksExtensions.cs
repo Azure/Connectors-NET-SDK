@@ -500,9 +500,9 @@ namespace Azure.Connectors.Sdk.GoogleTasks
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a task in a task list response.</returns>
-        public virtual async Task<TaskObject> CraeteTaskAsync([DynamicValues("ListTaskLists")] string taskListId, TaskCreate input, CancellationToken cancellationToken = default)
+        public virtual async Task<TaskObject> CreateTaskAsync([DynamicValues("ListTaskLists")] string taskListId, TaskCreate input, CancellationToken cancellationToken = default)
         {
-            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.CraeteTaskAsync");
+            using var activity = GoogleTasksClient.ConnectorActivitySource.StartActivity("GoogleTasksClient.CreateTaskAsync");
             try
             {
                 if (taskListId is null)

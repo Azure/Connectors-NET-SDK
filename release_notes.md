@@ -1,5 +1,11 @@
 ## What's Changed
 
+### Unreleased
+
+#### Breaking Changes
+
+- **Google Tasks and PDF.co operation name typos corrected** — `CraeteTaskAsync` is now `CreateTaskAsync`, and `PDFSerarchTextAsync` is now `PDFSearchTextAsync`. PDF.co callers must also rename `PDFSerarchTextInput` and the corresponding model-factory method to `PDFSearchTextInput`. Connector routes and wire payload names are unchanged.
+
 ### 0.14.0-preview.1 (2026-08-12)
 
 #### Breaking Changes
