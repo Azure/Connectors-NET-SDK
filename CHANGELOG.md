@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- **Google Tasks and PDF.co operation name typos corrected** — `CraeteTaskAsync` is now `CreateTaskAsync`, and `PDFSerarchTextAsync` is now `PDFSearchTextAsync`. PDF.co callers must also rename `PDFSerarchTextInput` and the corresponding model-factory method to `PDFSearchTextInput`. Connector routes and wire payload names are unchanged.
+
 <!-- MAINTAINER NOTE: release_notes.md continuously mirrors this [Unreleased]
   content for NuGet packaging. Before tagging a release, (1) cut this content
   into a new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD),
