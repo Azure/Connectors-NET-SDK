@@ -76,7 +76,7 @@ $connBody = "{`"properties`":{`"connectorName`":`"$connectorName`"}}"
 $tempFile = Join-Path $env:TEMP "conn-body.json"
 [System.IO.File]::WriteAllText($tempFile, $connBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name, @{n='status';e={$_.properties.statuses[0].status}}
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -94,7 +94,7 @@ $consentBody = '{"parameters":[{"redirectUrl":"https://portal.azure.com","parame
 $tempFile = Join-Path $env:TEMP "consent-body.json"
 [System.IO.File]::WriteAllText($tempFile, $consentBody)
 $result = az rest --method POST `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}/listConsentLinks?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}/listConsentLinks?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 
@@ -106,7 +106,7 @@ The user completes OAuth in the browser. After consent, verify:
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json | Select-Object @{n='status';e={$_.properties.statuses[0].status}}
 ```
 
@@ -133,7 +133,7 @@ $connBody = $connObj | ConvertTo-Json -Depth 5 -Compress
 $tempFile = Join-Path $env:TEMP "conn-body.json"
 [System.IO.File]::WriteAllText($tempFile, $connBody, [System.Text.Encoding]::UTF8)
 az rest --method PUT `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json;charset=utf-8" -o json | ConvertFrom-Json | Select-Object name, @{n='status';e={$_.properties.overallStatus}}
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 # Expected: status = Connected
@@ -155,7 +155,7 @@ Remove-Item $tempFile -ErrorAction SilentlyContinue
 
 ```powershell
 $conn = az rest --method GET `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}?api-version=2026-05-01-preview" `
     -o json | ConvertFrom-Json
 $runtimeUrl = $conn.properties.connectionRuntimeUrl
 Write-Output "Runtime URL: $runtimeUrl"
@@ -175,7 +175,7 @@ $policyBody = "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"id
 $tempFile = Join-Path $env:TEMP "policy-body.json"
 [System.IO.File]::WriteAllText($tempFile, $policyBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}/accessPolicies/local-dev?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}/accessPolicies/local-dev?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
@@ -191,7 +191,7 @@ $policyBody = "{`"properties`":{`"principal`":{`"type`":`"ActiveDirectory`",`"id
 $tempFile = Join-Path $env:TEMP "msi-policy-body.json"
 [System.IO.File]::WriteAllText($tempFile, $policyBody)
 az rest --method PUT `
-    --uri "https://management.azure.com${nsId}/connections/${connectionName}/accessPolicies/functionapp-msi?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/connections/${connectionName}/accessPolicies/functionapp-msi?api-version=2026-05-01-preview" `
     --body "@$tempFile" --headers "Content-Type=application/json" -o json | ConvertFrom-Json | Select-Object name
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```

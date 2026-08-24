@@ -224,7 +224,7 @@ $body = @{
     }
 } | ConvertTo-Json -Depth 4
 
-$uri = "https://management.azure.com${nsId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
+$uri = "https://management.azure.com/$($nsId.TrimStart('/'))/triggerConfigs/${triggerName}?api-version=2026-05-01-preview"
 try {
     $response = Invoke-WebRequest -Uri $uri -Method PUT -Body $body `
         -ContentType "application/json" `
@@ -252,7 +252,7 @@ Expected: HTTP 201 Created.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${nsId}/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/triggerConfigs/${triggerName}?api-version=2026-05-01-preview" `
     --query "properties.{operation:operationName, state:state, hasCallback:notificationDetails.callbackUrl!=null}" `
     -o table
 ```
@@ -263,7 +263,7 @@ Expected: `state = Enabled`, `hasCallback = True`.
 
 ```powershell
 az rest --method GET `
-    --uri "https://management.azure.com${nsId}/triggerConfigs?api-version=2026-05-01-preview" `
+    --uri "https://management.azure.com/$($nsId.TrimStart('/'))/triggerConfigs?api-version=2026-05-01-preview" `
     --query "value[].{name:name, operation:properties.operationName, state:properties.state}" `
     -o table
 ```
