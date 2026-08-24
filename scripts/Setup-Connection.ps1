@@ -105,7 +105,7 @@ Write-Host "[2/4] Getting connection runtime URL..." -ForegroundColor Yellow
 if ($useNamespace) {
     $connectionResourceId = "/subscriptions/$SubscriptionId/resourceGroups/$ResourceGroup/providers/Microsoft.Web/connectorGateways/$NamespaceName/connections/$ConnectionName"
     $apiVersion = "2026-05-01-preview"
-    $connectionUri = "https://management.azure.com$connectionResourceId`?api-version=$apiVersion"
+    $connectionUri = "https://management.azure.com/$($connectionResourceId.TrimStart('/'))`?api-version=$apiVersion"
 
     $connectionJson = az rest --method GET --uri $connectionUri -o json
     if (-not $connectionJson) {
@@ -184,7 +184,7 @@ $accessPolicyBody = @{
 $tempFile = Join-Path $env:TEMP "access-policy-$ConnectionName.json"
 $accessPolicyBody | Out-File $tempFile -Encoding UTF8
 
-$policyUri = "https://management.azure.com$connectionResourceId/accessPolicies/$PolicyName`?api-version=$apiVersion"
+$policyUri = "https://management.azure.com/$($connectionResourceId.TrimStart('/'))/accessPolicies/$PolicyName`?api-version=$apiVersion"
 
 try {
     if ($useNamespace) {
