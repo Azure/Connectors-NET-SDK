@@ -21,6 +21,8 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class GeneratedEnumMemberTests
     {
+        // NOTE(daviburg): UnsafeRelaxedJsonEscaping is required: the default encoder escapes '+'
+        // to '\u002B', which would cause wire-value assertions like '"Etc/GMT+4"' to fail.
         private static readonly JsonSerializerOptions RelaxedEscapeOptions = new JsonSerializerOptions
         {
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
