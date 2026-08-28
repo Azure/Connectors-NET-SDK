@@ -3301,7 +3301,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AsiaMuscat { get; } = new("Asia/Muscat");
 
         /// <summary>Etc/GMT-4</summary>
-        public static Timezone EtcGMT4 { get; } = new("Etc/GMT-4");
+        public static Timezone EtcGMT42 { get; } = new("Etc/GMT-4");
 
         /// <summary>Asia/Baghdad</summary>
         public static Timezone AsiaBaghdad { get; } = new("Asia/Baghdad");
@@ -3450,6 +3450,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>Indian/Chagos</summary>
         public static Timezone IndianChagos { get; } = new("Indian/Chagos");
 
+        /// <summary>Etc/GMT-6</summary>
+        public static Timezone EtcGMT62 { get; } = new("Etc/GMT-6");
+
         /// <summary>America/Cuiaba</summary>
         public static Timezone AmericaCuiaba { get; } = new("America/Cuiaba");
 
@@ -3508,7 +3511,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone PacificEfate { get; } = new("Pacific/Efate");
 
         /// <summary>Etc/GMT-11</summary>
-        public static Timezone EtcGMT11 { get; } = new("Etc/GMT-11");
+        public static Timezone EtcGMT112 { get; } = new("Etc/GMT-11");
 
         /// <summary>America/Mexico_City</summary>
         public static Timezone AmericaMexicoCity { get; } = new("America/Mexico_City");
@@ -3613,7 +3616,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone IndianMayotte { get; } = new("Indian/Mayotte");
 
         /// <summary>Etc/GMT-3</summary>
-        public static Timezone EtcGMT3 { get; } = new("Etc/GMT-3");
+        public static Timezone EtcGMT32 { get; } = new("Etc/GMT-3");
 
         /// <summary>Australia/Brisbane</summary>
         public static Timezone AustraliaBrisbane { get; } = new("Australia/Brisbane");
@@ -4011,6 +4014,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>America/Paramaribo</summary>
         public static Timezone AmericaParamaribo { get; } = new("America/Paramaribo");
 
+        /// <summary>Etc/GMT+3</summary>
+        public static Timezone EtcGMT3 { get; } = new("Etc/GMT+3");
+
         /// <summary>America/Bogota</summary>
         public static Timezone AmericaBogota { get; } = new("America/Bogota");
 
@@ -4125,6 +4131,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>America/St_Thomas</summary>
         public static Timezone AmericaStThomas { get; } = new("America/St_Thomas");
 
+        /// <summary>Etc/GMT+4</summary>
+        public static Timezone EtcGMT4 { get; } = new("Etc/GMT+4");
+
         /// <summary>Asia/Bangkok</summary>
         public static Timezone AsiaBangkok { get; } = new("Asia/Bangkok");
 
@@ -4150,7 +4159,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AsiaSaigon { get; } = new("Asia/Saigon");
 
         /// <summary>Etc/GMT-7</summary>
-        public static Timezone EtcGMT7 { get; } = new("Etc/GMT-7");
+        public static Timezone EtcGMT72 { get; } = new("Etc/GMT-7");
 
         /// <summary>America/Miquelon</summary>
         public static Timezone AmericaMiquelon { get; } = new("America/Miquelon");
@@ -4186,7 +4195,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AsiaManila { get; } = new("Asia/Manila");
 
         /// <summary>Etc/GMT-8</summary>
-        public static Timezone EtcGMT8 { get; } = new("Etc/GMT-8");
+        public static Timezone EtcGMT82 { get; } = new("Etc/GMT-8");
 
         /// <summary>Africa/Johannesburg</summary>
         public static Timezone AfricaJohannesburg { get; } = new("Africa/Johannesburg");
@@ -4222,7 +4231,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AfricaHarare { get; } = new("Africa/Harare");
 
         /// <summary>Etc/GMT-2</summary>
-        public static Timezone EtcGMT2 { get; } = new("Etc/GMT-2");
+        public static Timezone EtcGMT22 { get; } = new("Etc/GMT-2");
 
         /// <summary>Africa/Juba</summary>
         public static Timezone AfricaJuba { get; } = new("Africa/Juba");
@@ -4261,7 +4270,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AsiaDili { get; } = new("Asia/Dili");
 
         /// <summary>Etc/GMT-9</summary>
-        public static Timezone EtcGMT9 { get; } = new("Etc/GMT-9");
+        public static Timezone EtcGMT92 { get; } = new("Etc/GMT-9");
 
         /// <summary>Asia/Tomsk</summary>
         public static Timezone AsiaTomsk { get; } = new("Asia/Tomsk");
@@ -4302,6 +4311,12 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>America/Hermosillo</summary>
         public static Timezone AmericaHermosillo { get; } = new("America/Hermosillo");
 
+        /// <summary>Etc/GMT+7</summary>
+        public static Timezone EtcGMT7 { get; } = new("Etc/GMT+7");
+
+        /// <summary>Etc/GMT-12</summary>
+        public static Timezone EtcGMT122 { get; } = new("Etc/GMT-12");
+
         /// <summary>Pacific/Tarawa</summary>
         public static Timezone PacificTarawa { get; } = new("Pacific/Tarawa");
 
@@ -4338,17 +4353,29 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>Etc/GMT</summary>
         public static Timezone EtcGMT { get; } = new("Etc/GMT");
 
+        /// <summary>Etc/GMT+2</summary>
+        public static Timezone EtcGMT2 { get; } = new("Etc/GMT+2");
+
         /// <summary>America/Noronha</summary>
         public static Timezone AmericaNoronha { get; } = new("America/Noronha");
 
         /// <summary>Atlantic/South_Georgia</summary>
         public static Timezone AtlanticSouthGeorgia { get; } = new("Atlantic/South_Georgia");
 
+        /// <summary>Etc/GMT+8</summary>
+        public static Timezone EtcGMT8 { get; } = new("Etc/GMT+8");
+
         /// <summary>Pacific/Pitcairn</summary>
         public static Timezone PacificPitcairn { get; } = new("Pacific/Pitcairn");
 
+        /// <summary>Etc/GMT+9</summary>
+        public static Timezone EtcGMT9 { get; } = new("Etc/GMT+9");
+
         /// <summary>Pacific/Gambier</summary>
         public static Timezone PacificGambier { get; } = new("Pacific/Gambier");
+
+        /// <summary>Etc/GMT+11</summary>
+        public static Timezone EtcGMT11 { get; } = new("Etc/GMT+11");
 
         /// <summary>Pacific/Pago_Pago</summary>
         public static Timezone PacificPagoPago { get; } = new("Pacific/Pago_Pago");
@@ -4415,6 +4442,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Africa/Tunis</summary>
         public static Timezone AfricaTunis { get; } = new("Africa/Tunis");
+
+        /// <summary>Etc/GMT-1</summary>
+        public static Timezone EtcGMT15 { get; } = new("Etc/GMT-1");
 
         /// <summary>Europe/Berlin</summary>
         public static Timezone EuropeBerlin { get; } = new("Europe/Berlin");
@@ -4509,6 +4539,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>Asia/Samarkand</summary>
         public static Timezone AsiaSamarkand { get; } = new("Asia/Samarkand");
 
+        /// <summary>Etc/GMT-5</summary>
+        public static Timezone EtcGMT52 { get; } = new("Etc/GMT-5");
+
         /// <summary>Asia/Hebron</summary>
         public static Timezone AsiaHebron { get; } = new("Asia/Hebron");
 
@@ -4529,6 +4562,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Pacific/Saipan</summary>
         public static Timezone PacificSaipan { get; } = new("Pacific/Saipan");
+
+        /// <summary>Etc/GMT-10</summary>
+        public static Timezone EtcGMT102 { get; } = new("Etc/GMT-10");
 
         /// <summary>Asia/Yakutsk</summary>
         public static Timezone AsiaYakutsk { get; } = new("Asia/Yakutsk");
@@ -4851,6 +4887,12 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>Etc/GMT+0</summary>
         public static Timezone EtcGMT0 { get; } = new("Etc/GMT+0");
 
+        /// <summary>Etc/GMT-0</summary>
+        public static Timezone EtcGMT02 { get; } = new("Etc/GMT-0");
+
+        /// <summary>Etc/GMT0</summary>
+        public static Timezone EtcGMT03 { get; } = new("Etc/GMT0");
+
         /// <summary>Etc/Greenwich</summary>
         public static Timezone EtcGreenwich { get; } = new("Etc/Greenwich");
 
@@ -4859,6 +4901,12 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>GMT+0</summary>
         public static Timezone Gmt0 { get; } = new("GMT+0");
+
+        /// <summary>GMT-0</summary>
+        public static Timezone Gmt02 { get; } = new("GMT-0");
+
+        /// <summary>GMT0</summary>
+        public static Timezone Gmt03 { get; } = new("GMT0");
 
         /// <summary>Greenwich</summary>
         public static Timezone Greenwich { get; } = new("Greenwich");
