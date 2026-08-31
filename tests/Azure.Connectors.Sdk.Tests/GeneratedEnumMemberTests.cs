@@ -5,12 +5,14 @@
 // NOTE(daviburg): These tests lock the exact name-to-wire mapping for Plumsail Timezone enum
 // members that are affected by the normalization collision fix in AzureUX-BPM PR 16971205
 // (issue #181). The Plumsail swagger contains both Etc/GMT+N and Etc/GMT-N values for the same N;
-// the pre-fix generator silently dropped the second claimant and also assigned the clean identifier
-// to the alphabetically-later -N value. The fix preserves both by allocating a numeric discriminator
-// for the second claimant and deterministically assigns the unsuffixed name to the +N value (which
-// sorts first since '+' < '-' in ASCII). This file guards against regression on the specific
+// the generator now assigns semantic Plus/Minus member names so both values in each pair are
+// readable and distinct (e.g., EtcGMTPlus4 for Etc/GMT+4, EtcGMTMinus4 for Etc/GMT-4).
+// Sign characters are expanded to Plus/Minus only when immediately followed by a digit; ordinary
+// delimiter hyphens (my-value) are unaffected. Three-way groups (+N/-N/N) resolve similarly:
+// EtcGMTPlus0/EtcGMTMinus0/EtcGMT0. Singleton values without a sign counterpart keep their
+// natural names (EtcGMT13, EtcGMT14). This file guards against regression on the specific
 // affected collision pairs regenerated from the 2026-08-28 ARM swagger snapshot (cache SHA256
-// ED9C3FB8911D0F28C8D5038CE33ABEE38F7265D186249C8C66CC5C4B7B7CF2C8, BPM commits d5cb672..07b2718).
+// ED9C3FB8911D0F28C8D5038CE33ABEE38F7265D186249C8C66CC5C4B7B7CF2C8, BPM commits d5cb672..87a77e5).
 
 using System.Text.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,11 +31,10 @@ namespace Azure.Connectors.Sdk.Tests
         };
 
         [TestMethod]
-        public void PlumsailTimezone_EtcGmt4_MapsToEtcGmtPlusFour()
+        public void PlumsailTimezone_EtcGmtPlus4_MapsToEtcGmtPlusFour()
         {
-            // NOTE(daviburg): EtcGMT4 previously mapped to "Etc/GMT-4" (the first caller in Swagger
-            // order). The fix assigns the unsuffixed name to the alphabetically earlier "+4" wire value.
-            var tz = PlumsailTimezone.EtcGMT4;
+            // NOTE(daviburg): EtcGMTPlus4 carries the Etc/GMT+4 wire string.
+            var tz = PlumsailTimezone.EtcGMTPlus4;
 
             Assert.AreEqual(expected: "Etc/GMT+4", actual: (string)tz);
             var json = JsonSerializer.Serialize(tz, RelaxedEscapeOptions);
@@ -41,11 +42,10 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void PlumsailTimezone_EtcGmt42_MapsToEtcGmtMinusFour()
+        public void PlumsailTimezone_EtcGmtMinus4_MapsToEtcGmtMinusFour()
         {
-            // NOTE(daviburg): EtcGMT42 is the new discriminated member for "Etc/GMT-4", which was
-            // previously silently dropped. Both +4 and -4 are now retained and distinct.
-            var tz = PlumsailTimezone.EtcGMT42;
+            // NOTE(daviburg): EtcGMTMinus4 carries the Etc/GMT-4 wire string.
+            var tz = PlumsailTimezone.EtcGMTMinus4;
 
             Assert.AreEqual(expected: "Etc/GMT-4", actual: (string)tz);
             var json = JsonSerializer.Serialize(tz, RelaxedEscapeOptions);
@@ -53,11 +53,10 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void PlumsailTimezone_EtcGmt62_MapsToEtcGmtMinusSix()
+        public void PlumsailTimezone_EtcGmtMinus6_MapsToEtcGmtMinusSix()
         {
-            // NOTE(daviburg): "Etc/GMT-6" was silently dropped at baseline because it normalized
-            // to the same identifier as "Etc/GMT+6". The fix recovers it as EtcGMT62.
-            var tz = PlumsailTimezone.EtcGMT62;
+            // NOTE(daviburg): EtcGMTMinus6 carries the Etc/GMT-6 wire string.
+            var tz = PlumsailTimezone.EtcGMTMinus6;
 
             Assert.AreEqual(expected: "Etc/GMT-6", actual: (string)tz);
             var json = JsonSerializer.Serialize(tz, RelaxedEscapeOptions);
@@ -67,8 +66,8 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void PlumsailTimezone_CollisionPairEtcGmt4_BothMembersDistinctWireValues()
         {
-            var plus = PlumsailTimezone.EtcGMT4;
-            var minus = PlumsailTimezone.EtcGMT42;
+            var plus = PlumsailTimezone.EtcGMTPlus4;
+            var minus = PlumsailTimezone.EtcGMTMinus4;
 
             Assert.AreNotEqual(notExpected: (string)plus, actual: (string)minus);
             Assert.AreEqual(expected: "Etc/GMT+4", actual: (string)plus);
@@ -78,8 +77,8 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void PlumsailTimezone_CollisionPairEtcGmt6_BothMembersDistinctWireValues()
         {
-            var plus = PlumsailTimezone.EtcGMT6;
-            var minus = PlumsailTimezone.EtcGMT62;
+            var plus = PlumsailTimezone.EtcGMTPlus6;
+            var minus = PlumsailTimezone.EtcGMTMinus6;
 
             Assert.AreNotEqual(notExpected: (string)plus, actual: (string)minus);
             Assert.AreEqual(expected: "Etc/GMT+6", actual: (string)plus);
@@ -99,7 +98,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void PlumsailTimezone_EqualsSameWireValue_ReturnsTrue()
         {
-            var namedMember = PlumsailTimezone.EtcGMT4;
+            var namedMember = PlumsailTimezone.EtcGMTPlus4;
             var constructedMember = new PlumsailTimezone("Etc/GMT+4");
 
             Assert.IsTrue(namedMember == constructedMember);
@@ -109,8 +108,8 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void PlumsailTimezone_EqualsDifferentWireValue_ReturnsFalse()
         {
-            var plusFour = PlumsailTimezone.EtcGMT4;
-            var minusFour = PlumsailTimezone.EtcGMT42;
+            var plusFour = PlumsailTimezone.EtcGMTPlus4;
+            var minusFour = PlumsailTimezone.EtcGMTMinus4;
 
             Assert.IsTrue(plusFour != minusFour);
             Assert.IsFalse(plusFour.Equals(minusFour));
