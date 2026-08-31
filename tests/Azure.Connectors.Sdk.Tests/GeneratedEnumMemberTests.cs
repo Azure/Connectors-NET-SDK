@@ -34,55 +34,69 @@ namespace Azure.Connectors.Sdk.Tests
         public void PlumsailTimezone_EtcGmtPlus4_MapsToEtcGmtPlusFour()
         {
             // NOTE(daviburg): EtcGMTPlus4 carries the Etc/GMT+4 wire string.
-            var tz = PlumsailTimezone.EtcGMTPlus4;
+            var timezone = PlumsailTimezone.EtcGMTPlus4;
 
-            Assert.AreEqual(expected: "Etc/GMT+4", actual: (string)tz);
-            var json = JsonSerializer.Serialize(tz, RelaxedEscapeOptions);
-            Assert.AreEqual(expected: "\"Etc/GMT+4\"", actual: json);
+            Assert.AreEqual(expected: "Etc/GMT+4", actual: (string)timezone);
+            var serializedTimezone = JsonSerializer.Serialize(timezone, RelaxedEscapeOptions);
+            Assert.AreEqual(expected: "\"Etc/GMT+4\"", actual: serializedTimezone);
         }
 
         [TestMethod]
         public void PlumsailTimezone_EtcGmtMinus4_MapsToEtcGmtMinusFour()
         {
             // NOTE(daviburg): EtcGMTMinus4 carries the Etc/GMT-4 wire string.
-            var tz = PlumsailTimezone.EtcGMTMinus4;
+            var timezone = PlumsailTimezone.EtcGMTMinus4;
 
-            Assert.AreEqual(expected: "Etc/GMT-4", actual: (string)tz);
-            var json = JsonSerializer.Serialize(tz, RelaxedEscapeOptions);
-            Assert.AreEqual(expected: "\"Etc/GMT-4\"", actual: json);
+            Assert.AreEqual(expected: "Etc/GMT-4", actual: (string)timezone);
+            var serializedTimezone = JsonSerializer.Serialize(timezone, RelaxedEscapeOptions);
+            Assert.AreEqual(expected: "\"Etc/GMT-4\"", actual: serializedTimezone);
         }
 
         [TestMethod]
         public void PlumsailTimezone_EtcGmtMinus6_MapsToEtcGmtMinusSix()
         {
             // NOTE(daviburg): EtcGMTMinus6 carries the Etc/GMT-6 wire string.
-            var tz = PlumsailTimezone.EtcGMTMinus6;
+            var timezone = PlumsailTimezone.EtcGMTMinus6;
 
-            Assert.AreEqual(expected: "Etc/GMT-6", actual: (string)tz);
-            var json = JsonSerializer.Serialize(tz, RelaxedEscapeOptions);
-            Assert.AreEqual(expected: "\"Etc/GMT-6\"", actual: json);
+            Assert.AreEqual(expected: "Etc/GMT-6", actual: (string)timezone);
+            var serializedTimezone = JsonSerializer.Serialize(timezone, RelaxedEscapeOptions);
+            Assert.AreEqual(expected: "\"Etc/GMT-6\"", actual: serializedTimezone);
         }
 
         [TestMethod]
         public void PlumsailTimezone_CollisionPairEtcGmt4_BothMembersDistinctWireValues()
         {
-            var plus = PlumsailTimezone.EtcGMTPlus4;
-            var minus = PlumsailTimezone.EtcGMTMinus4;
+            var positiveTimezone = PlumsailTimezone.EtcGMTPlus4;
+            var negativeTimezone = PlumsailTimezone.EtcGMTMinus4;
 
-            Assert.AreNotEqual(notExpected: (string)plus, actual: (string)minus);
-            Assert.AreEqual(expected: "Etc/GMT+4", actual: (string)plus);
-            Assert.AreEqual(expected: "Etc/GMT-4", actual: (string)minus);
+            Assert.AreNotEqual(notExpected: (string)positiveTimezone, actual: (string)negativeTimezone);
+            Assert.AreEqual(expected: "Etc/GMT+4", actual: (string)positiveTimezone);
+            Assert.AreEqual(expected: "Etc/GMT-4", actual: (string)negativeTimezone);
         }
 
         [TestMethod]
         public void PlumsailTimezone_CollisionPairEtcGmt6_BothMembersDistinctWireValues()
         {
-            var plus = PlumsailTimezone.EtcGMTPlus6;
-            var minus = PlumsailTimezone.EtcGMTMinus6;
+            var positiveTimezone = PlumsailTimezone.EtcGMTPlus6;
+            var negativeTimezone = PlumsailTimezone.EtcGMTMinus6;
 
-            Assert.AreNotEqual(notExpected: (string)plus, actual: (string)minus);
-            Assert.AreEqual(expected: "Etc/GMT+6", actual: (string)plus);
-            Assert.AreEqual(expected: "Etc/GMT-6", actual: (string)minus);
+            Assert.AreNotEqual(notExpected: (string)positiveTimezone, actual: (string)negativeTimezone);
+            Assert.AreEqual(expected: "Etc/GMT+6", actual: (string)positiveTimezone);
+            Assert.AreEqual(expected: "Etc/GMT-6", actual: (string)negativeTimezone);
+        }
+
+        [TestMethod]
+        public void PlumsailTimezone_CollisionGroupEtcGmt0_UsesSemanticNamesForSignedValues()
+        {
+            Assert.AreEqual(expected: "Etc/GMT+0", actual: (string)PlumsailTimezone.EtcGMTPlus0);
+            Assert.AreEqual(expected: "Etc/GMT-0", actual: (string)PlumsailTimezone.EtcGMTMinus0);
+            Assert.AreEqual(expected: "Etc/GMT0", actual: (string)PlumsailTimezone.EtcGMT0);
+        }
+
+        [TestMethod]
+        public void PlumsailTimezone_SingletonEtcGmtMinus14_KeepsNaturalName()
+        {
+            Assert.AreEqual(expected: "Etc/GMT-14", actual: (string)PlumsailTimezone.EtcGMT14);
         }
 
         [TestMethod]

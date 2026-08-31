@@ -131,59 +131,5 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "user", actual: deserialized!.Name);
             Assert.AreEqual(expected: "u@test.com", actual: deserialized!.Email);
         }
-
-        // ===== Timezone extensible enum: semantic member names and wire round-trips =====
-
-        [TestMethod]
-        public void Timezone_SignedPair_WireValuesExact()
-        {
-            // NOTE(daviburg): Etc/GMT+4 and Etc/GMT-4 previously collided as EtcGMT4/EtcGMT42.
-            // After the semantic-disambiguation fix the wire value is preserved unchanged under the
-            // new member name. Accessing EtcGMTPlus4/EtcGMTMinus4 here is a compile-time proof that
-            // the semantic names exist; the assertions verify the wire strings they carry.
-            Assert.AreEqual(expected: "Etc/GMT+4", actual: Timezone.EtcGMTPlus4.ToString());
-            Assert.AreEqual(expected: "Etc/GMT-4", actual: Timezone.EtcGMTMinus4.ToString());
-        }
-
-        [TestMethod]
-        public void Timezone_SignedPair_RoundTrips()
-        {
-            // NOTE(daviburg): JSON round-trip must preserve the exact wire string.
-            // The default encoder escapes '+' to '\u002B', so we use the relaxed encoder
-            // (matching the pattern in GeneratedEnumMemberTests) to assert the literal '+'.
-            var relaxed = new JsonSerializerOptions
-            {
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            };
-            var plus4Json = JsonSerializer.Serialize(Timezone.EtcGMTPlus4, relaxed);
-            var minus4Json = JsonSerializer.Serialize(Timezone.EtcGMTMinus4, relaxed);
-
-            Assert.AreEqual(expected: "\"Etc/GMT+4\"", actual: plus4Json);
-            Assert.AreEqual(expected: "\"Etc/GMT-4\"", actual: minus4Json);
-
-            var desPlus4 = JsonSerializer.Deserialize<Timezone>(plus4Json);
-            var desMinus4 = JsonSerializer.Deserialize<Timezone>(minus4Json);
-
-            Assert.AreEqual(expected: Timezone.EtcGMTPlus4, actual: desPlus4);
-            Assert.AreEqual(expected: Timezone.EtcGMTMinus4, actual: desMinus4);
-        }
-
-        [TestMethod]
-        public void Timezone_TripleGroup_WireValuesExact()
-        {
-            // NOTE(daviburg): Etc/GMT+0, Etc/GMT-0, and Etc/GMT0 form a three-way collision.
-            // Signed members get Plus/Minus names; unsigned member keeps its natural name.
-            Assert.AreEqual(expected: "Etc/GMT+0", actual: Timezone.EtcGMTPlus0.ToString());
-            Assert.AreEqual(expected: "Etc/GMT-0", actual: Timezone.EtcGMTMinus0.ToString());
-            Assert.AreEqual(expected: "Etc/GMT0", actual: Timezone.EtcGMT0.ToString());
-        }
-
-        [TestMethod]
-        public void Timezone_SingletonMinus14_WireValueExact()
-        {
-            // NOTE(daviburg): Etc/GMT-14 has no +14 counterpart so it is NOT in a collision group.
-            // It keeps its natural name EtcGMT14 (not renamed to EtcGMTMinus14).
-            Assert.AreEqual(expected: "Etc/GMT-14", actual: Timezone.EtcGMT14.ToString());
-        }
     }
 }
