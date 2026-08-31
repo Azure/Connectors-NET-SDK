@@ -92,6 +92,14 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void PlumsailTimezone_CollisionGroupGmt0_UsesSemanticNamesForSignedValues()
+        {
+            Assert.AreEqual(expected: "GMT+0", actual: (string)PlumsailTimezone.GmtPlus0);
+            Assert.AreEqual(expected: "GMT-0", actual: (string)PlumsailTimezone.GmtMinus0);
+            Assert.AreEqual(expected: "GMT0", actual: (string)PlumsailTimezone.Gmt0);
+        }
+
+        [TestMethod]
         public void PlumsailTimezone_SingletonEtcGmt14_KeepsNaturalMemberName()
         {
             Assert.AreEqual(expected: "Etc/GMT-14", actual: (string)PlumsailTimezone.EtcGMT14);
