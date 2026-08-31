@@ -109,10 +109,13 @@ namespace Azure.Connectors.Sdk.Tests
         public void PlumsailTimezone_WireValueRoundTrip_PreservesExactStringValue()
         {
             var wireValue = "Etc/GMT+4";
+            var serializedWireValue = $"\"{wireValue}\"";
 
-            var deserialized = JsonSerializer.Deserialize<PlumsailTimezone>($"\"{wireValue}\"");
+            var deserializedTimezone = JsonSerializer.Deserialize<PlumsailTimezone>(serializedWireValue);
+            var reserializedWireValue = JsonSerializer.Serialize(deserializedTimezone, RelaxedEscapeOptions);
 
-            Assert.AreEqual(expected: wireValue, actual: (string)deserialized);
+            Assert.AreEqual(expected: wireValue, actual: (string)deserializedTimezone);
+            Assert.AreEqual(expected: serializedWireValue, actual: reserializedWireValue);
         }
 
         [TestMethod]
