@@ -7,7 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Extensible enum member collisions now preserve every wire value** — distinct values that normalize to one C# identifier are allocated stable unique names instead of dropping later claimants. Sign-and-number collisions use readable names, such as `Etc/GMT+4` → `EtcGmtPlus4` and `Etc/GMT-4` → `EtcGmtMinus4`; ordinary delimiter hyphens still use the general numeric fallback. Values normalized to mandatory struct members (`Equals`, `GetHashCode`, `ToString`) use an available `Value`-suffixed name. The frozen-cache audit tested 100 checked-in SDK names: 97 connectors generated, 96 were unchanged, and Plumsail was the only generated client affected. `MsGraphGroupsAndUsers` was unavailable from the current ARM catalog, while `ConnectorNames` and `ManagedConnectors` are infrastructure files rather than connector inputs. ([#181](https://github.com/Azure/Connectors-NET-SDK/issues/181), AzureUX-BPM PR 16971205)
+
+  Plumsail exercises the general normalization-collision path, not the reserved-member path. Reserved-member handling is retained as a synthetic generator regression for the historical failure reported in #181; no active reserved-member collision was found in the 97 connectors generated from the frozen snapshot. Of the eleven connector names in the issue, only Etsy remains in the current catalog, and its current Swagger has no such collision.
+
 ### Breaking Changes
+
+- **Plumsail Timezone enum: signed Etc/GMT members now have semantic Plus/Minus names** — existing members are renamed according to the wire value they already represented: for example, `EtcGMT4` (`Etc/GMT-4`) becomes `EtcGmtMinus4`, while `EtcGMT1` (`Etc/GMT+1`) becomes `EtcGmtPlus1`. Previously dropped counterparts are added under the opposite semantic name, including `EtcGmtPlus4` for `Etc/GMT+4` and `EtcGmtMinus1` for `Etc/GMT-1`. For the `Etc/GMT` three-way zero group, existing `EtcGMT0` (`Etc/GMT+0`) becomes `EtcGmtPlus0`, with new `EtcGmtMinus0` and `EtcGmt0` members. The plain `GMT` group changes similarly: existing `Gmt0` (`GMT+0`) becomes `GmtPlus0`, while new `GmtMinus0` and `Gmt0` members represent `GMT-0` and `GMT0`. Singleton entries without a colliding counterpart, such as `EtcGMT13` and `EtcGMT14`, are unchanged. All underlying wire strings are preserved. ([#181](https://github.com/Azure/Connectors-NET-SDK/issues/181))
 
 - **Google Tasks and PDF.co operation name typos corrected** — `CraeteTaskAsync` is now `CreateTaskAsync`, and `PDFSerarchTextAsync` is now `PDFSearchTextAsync`. PDF.co callers must also rename `PDFSerarchTextInput` and the corresponding model-factory method to `PDFSearchTextInput`. Connector routes and wire payload names are unchanged.
 
