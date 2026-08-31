@@ -3,16 +3,14 @@
 //------------------------------------------------------------
 
 // NOTE(daviburg): These tests lock the exact name-to-wire mapping for Plumsail Timezone enum
-// members that are affected by the normalization collision fix in AzureUX-BPM PR 16971205
-// (issue #181). The Plumsail swagger contains both Etc/GMT+N and Etc/GMT-N values for the same N;
+// members affected by normalized-name collisions. The Plumsail swagger contains both Etc/GMT+N
+// and Etc/GMT-N values for the same N;
 // the generator now assigns semantic Plus/Minus member names so both values in each pair are
 // readable and distinct (e.g., EtcGmtPlus4 for Etc/GMT+4, EtcGmtMinus4 for Etc/GMT-4).
 // Sign characters are expanded to Plus/Minus only when immediately followed by a digit; ordinary
 // delimiter hyphens (my-value) are unaffected. Three-way groups (+N/-N/N) resolve similarly:
 // EtcGmtPlus0/EtcGmtMinus0/EtcGmt0. Singleton values without a sign counterpart keep their
-// natural names (EtcGMT13, EtcGMT14). This file guards against regression on the specific
-// affected collision pairs regenerated from the 2026-08-28 ARM swagger snapshot (cache SHA256
-// ED9C3FB8911D0F28C8D5038CE33ABEE38F7265D186249C8C66CC5C4B7B7CF2C8, BPM commits d5cb672..87a77e5).
+// natural names (EtcGMT13, EtcGMT14).
 
 using System.Text.Json;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
