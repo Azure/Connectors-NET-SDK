@@ -35,9 +35,13 @@ namespace Azure.Connectors.Sdk.Jira.Models
     /// </summary>
     public class ListIssuesResponse
     {
-        /// <summary>The maximum number of items to return per page</summary>
-        [JsonPropertyName("maxResults")]
-        public int? MaximumNumberOfItems { get; set; }
+        /// <summary>The token used to retrieve the next page of issues. Pass this value into the &apos;Next page token&apos; input of a subsequent call to fetch the next page. Absent on the last page.</summary>
+        [JsonPropertyName("nextPageToken")]
+        public string NextPageToken { get; set; }
+
+        /// <summary>Indicates whether this is the last page of results.</summary>
+        [JsonPropertyName("isLast")]
+        public bool? IsLastPage { get; set; }
 
         /// <summary>issues</summary>
         [JsonPropertyName("issues")]
@@ -618,12 +622,14 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// Creates a new instance of <see cref="ListIssuesResponse"/>.
         /// </summary>
         public static ListIssuesResponse ListIssuesResponse(
-            int? maximumNumberOfItems = default,
+            string nextPageToken = default,
+            bool? isLastPage = default,
             List<FullIssue> issues = default)
         {
             return new ListIssuesResponse
             {
-                MaximumNumberOfItems = maximumNumberOfItems,
+                NextPageToken = nextPageToken,
+                IsLastPage = isLastPage,
                 Issues = issues,
             };
         }
@@ -1306,17 +1312,22 @@ namespace Azure.Connectors.Sdk.Jira
         /// Get list of issues
         /// </summary>
         /// <remarks>This operation returns a list of issues using JQL.</remarks>
+        /// <param name="jQLQuery">JQL Query</param>
+        /// <param name="nextPageToken">Next page token</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get list of issues response.</returns>
-        public virtual async Task<ListIssuesResponse> ListIssuesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<ListIssuesResponse> ListIssuesAsync(string jQLQuery = default, string nextPageToken = default, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssuesAsync");
             try
             {
                 var queryParams = new List<string>();
-                queryParams.Add("jql=created%20%3E%3D%20-3650d");
                 queryParams.Add("expand=%2A");
                 queryParams.Add("fields=%2Aall");
+                if (jQLQuery != default)
+                    queryParams.Add($"jql={Uri.EscapeDataString(jQLQuery)}");
+                if (nextPageToken != default)
+                    queryParams.Add($"nextPageToken={Uri.EscapeDataString(nextPageToken)}");
                 var path = $"/2/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ListIssuesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
