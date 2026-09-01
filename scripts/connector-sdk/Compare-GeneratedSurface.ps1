@@ -73,12 +73,15 @@ function Get-PublicProperty {
     param([string]$FilePath, [string]$TypeName)
     $lines = Get-Content $FilePath
     $inType = $false; $depth = 0; $props = @()
-    foreach ($line in $lines) {
-        $trimmed = $line.Trim()
-        if ($trimmed -match "class\s+$TypeName\b") { $inType = $true }
+    for ($i = 0; $i -lt $lines.Count; $i++) {
+        $trimmed = $lines[$i].Trim()
+        if (-not $inType -and $trimmed -match "class\s+$TypeName\b") {
+            $inType = $true
+            # Brace may be on this line or the next; start depth from this line.
+        }
         if ($inType) {
             $depth += ([regex]::Matches($trimmed, '\{')).Count - ([regex]::Matches($trimmed, '\}')).Count
-            if ($depth -le 0 -and $inType) { $inType = $false }
+            if ($depth -le 0 -and $inType -and $i -gt 0) { $inType = $false }
             if ($trimmed -match '^\[JsonPropertyName\("([^"]+)"\)\]') {
                 $wire = $Matches[1]
                 $props += [pscustomobject]@{ WireName = $wire; CsLine = $trimmed }

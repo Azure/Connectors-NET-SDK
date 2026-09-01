@@ -183,8 +183,9 @@ namespace Azure.Connectors.Sdk.Tests
             var json = JsonSerializer.Serialize(policy);
             var deserialized = JsonSerializer.Deserialize<CertifyPolicyResponse>(json);
 
-            Assert.IsNotNull(deserialized?.Certify);
-            Assert.IsTrue(deserialized!.Certify!.Enabled);
+            Assert.IsNotNull(deserialized);
+            Assert.IsNotNull(deserialized!.Certify);
+            Assert.IsTrue(deserialized.Certify!.Enabled);
             Assert.AreEqual(2, deserialized.Certify.AllowedPermissions!.Count);
             Assert.AreEqual("FORM_FILLING_ALLOWED", deserialized.Certify.DefaultPermission);
         }

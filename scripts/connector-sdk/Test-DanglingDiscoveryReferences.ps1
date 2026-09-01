@@ -55,11 +55,18 @@ foreach ($f in $files) {
             if ($_ -match 'Task[^>]*>\s+(\w+)\s*\(') { $Matches[1].ToLower() }
         }
 
-    # Find all DynamicValues/DynamicSchema OperationId references
-    $refs = $lines | Where-Object { $_ -match 'OperationId\s*=\s*"([^"]+)"' } |
+    # Find all DynamicValues/DynamicSchema references — both named (OperationId = "...") and
+    # positional (first argument string literal, e.g. [DynamicValues("GetAllTeams")]).
+    $refs = $lines |
+        Where-Object { $_ -match '\[DynamicValues\s*\(|OperationId\s*=' } |
         ForEach-Object {
+            # Named: OperationId = "..."
             if ($_ -match 'OperationId\s*=\s*"([^"]+)"') { $Matches[1].ToLower() }
-        }
+            # Positional: [DynamicValues("...")] or [DynamicSchema("...")]
+            elseif ($_ -match '\[DynamicValues\s*\(\s*"([^"]+)"') { $Matches[1].ToLower() }
+            elseif ($_ -match '\[DynamicSchema\s*\(\s*"([^"]+)"') { $Matches[1].ToLower() }
+        } |
+        Where-Object { $_ }
 
     foreach ($ref in $refs) {
         # Normalize: strip trailing 'async' suffix variants and check presence
