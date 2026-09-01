@@ -185,7 +185,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.IsNotNull(deserialized);
             Assert.IsNotNull(deserialized!.Certify);
-            Assert.IsTrue(deserialized.Certify!.Enabled);
+            Assert.AreEqual(expected: true, actual: deserialized.Certify!.Enabled);
             Assert.AreEqual(2, deserialized.Certify.AllowedPermissions!.Count);
             Assert.AreEqual("FORM_FILLING_ALLOWED", deserialized.Certify.DefaultPermission);
         }

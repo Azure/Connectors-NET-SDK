@@ -281,7 +281,7 @@ namespace Azure.Connectors.Sdk.Tests
             var deserialized = JsonSerializer.Deserialize<ArchiveChannelInput>(json);
 
             Assert.IsNotNull(deserialized);
-            Assert.IsTrue(deserialized!.SetSharePointSiteToReadOnlyForMembers);
+            Assert.AreEqual(expected: true, actual: deserialized!.SetSharePointSiteToReadOnlyForMembers);
         }
 
         [TestMethod]
