@@ -43,7 +43,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-function Get-PublicTypes {
+function Get-PublicType {
     param([string]$FilePath)
     $lines = Get-Content $FilePath
     $types = @()
@@ -56,7 +56,7 @@ function Get-PublicTypes {
     return $types
 }
 
-function Get-PublicMethods {
+function Get-PublicMethod {
     param([string]$FilePath)
     $lines = Get-Content $FilePath
     $methods = @()
@@ -69,7 +69,7 @@ function Get-PublicMethods {
     return $methods
 }
 
-function Get-PublicProperties {
+function Get-PublicProperty {
     param([string]$FilePath, [string]$TypeName)
     $lines = Get-Content $FilePath
     $inType = $false; $depth = 0; $props = @()
@@ -118,10 +118,10 @@ foreach ($name in $common) {
     $aNorm = (Get-Content $aFile -Raw) -replace "`r`n", "`n"
     if ($bNorm -eq $aNorm) { continue }
 
-    $bTypes = Get-PublicTypes $bFile
-    $aTypes = Get-PublicTypes $aFile
-    $bMethods = Get-PublicMethods $bFile
-    $aMethods  = Get-PublicMethods $aFile
+    $bTypes = Get-PublicType $bFile
+    $aTypes = Get-PublicType $aFile
+    $bMethods = Get-PublicMethod $bFile
+    $aMethods  = Get-PublicMethod $aFile
 
     $bTypeNames = $bTypes | Select-Object -ExpandProperty Name
     $aTypeNames = $aTypes | Select-Object -ExpandProperty Name
@@ -153,8 +153,8 @@ foreach ($name in $common) {
 
     # Property-level changes for common types
     foreach ($t in ($bTypeNames | Where-Object { $aTypeNames -contains $_ })) {
-        $bProps = Get-PublicProperties $bFile $t
-        $aProps = Get-PublicProperties $aFile $t
+        $bProps = Get-PublicProperty $bFile $t
+        $aProps = Get-PublicProperty $aFile $t
         $bWire = $bProps | Select-Object -ExpandProperty WireName
         $aWire = $aProps | Select-Object -ExpandProperty WireName
         foreach ($w in ($aWire | Where-Object { $bWire -notcontains $_ })) {
