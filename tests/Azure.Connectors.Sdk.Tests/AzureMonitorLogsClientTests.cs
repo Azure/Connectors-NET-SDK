@@ -443,5 +443,34 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("/connection/querySchemaV2", capturedRequest!.RequestUri!.AbsolutePath);
         }
 
+        [TestMethod]
+        public void PartialQueryError_JsonSerialization_RoundTrips()
+        {
+            var error = new PartialQueryError { ErrorCode = "DataExpired" };
+
+            var json = JsonSerializer.Serialize(error);
+            var deserialized = JsonSerializer.Deserialize<PartialQueryError>(json);
+
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual("DataExpired", deserialized!.ErrorCode);
+        }
+
+        [TestMethod]
+        public void Table_WithError_SerializesErrorProperty()
+        {
+            var table = new Table
+            {
+                Value = new List<Row>(),
+                Error = new PartialQueryError { ErrorCode = "PartialData" }
+            };
+
+            var json = JsonSerializer.Serialize(table);
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            Assert.IsTrue(root.TryGetProperty("error", out var errorElem));
+            Assert.AreEqual("PartialData", errorElem.GetProperty("code").GetString());
+        }
+
     }
 }

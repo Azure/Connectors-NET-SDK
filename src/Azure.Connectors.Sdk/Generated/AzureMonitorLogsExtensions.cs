@@ -55,6 +55,10 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>value</summary>
         [JsonPropertyName("value")]
         public List<Row> Value { get; set; }
+
+        /// <summary>error</summary>
+        [JsonPropertyName("error")]
+        public PartialQueryError Error { get; set; }
     }
 
     /// <summary>
@@ -69,6 +73,16 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// error
+    /// </summary>
+    public class PartialQueryError
+    {
+        /// <summary>code</summary>
+        [JsonPropertyName("code")]
+        public string ErrorCode { get; set; }
     }
 
     /// <summary>
@@ -105,6 +119,10 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// <summary>attachmentName</summary>
         [JsonPropertyName("attachmentName")]
         public string AttachmentName { get; set; }
+
+        /// <summary>error</summary>
+        [JsonPropertyName("error")]
+        public PartialQueryError Error { get; set; }
     }
 
     /// <summary>
@@ -246,11 +264,25 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         /// Creates a new instance of <see cref="Table"/>.
         /// </summary>
         public static Table Table(
-            List<Row> value = default)
+            List<Row> value = default,
+            PartialQueryError error = default)
         {
             return new Table
             {
                 Value = value,
+                Error = error,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PartialQueryError"/>.
+        /// </summary>
+        public static PartialQueryError PartialQueryError(
+            string errorCode = default)
+        {
+            return new PartialQueryError
+            {
+                ErrorCode = errorCode,
             };
         }
 
@@ -276,13 +308,15 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs.Models
         public static VisualizeResults VisualizeResults(
             string body = default,
             string attachmentContent = default,
-            string attachmentName = default)
+            string attachmentName = default,
+            PartialQueryError error = default)
         {
             return new VisualizeResults
             {
                 Body = body,
                 AttachmentContent = attachmentContent,
                 AttachmentName = attachmentName,
+                Error = error,
             };
         }
 

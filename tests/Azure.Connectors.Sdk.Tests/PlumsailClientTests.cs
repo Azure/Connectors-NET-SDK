@@ -131,5 +131,12 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "user", actual: deserialized!.Name);
             Assert.AreEqual(expected: "u@test.com", actual: deserialized!.Email);
         }
+
+        [TestMethod]
+        public void Timezone_UppercaseWireValues_UsePascalCaseMembers()
+        {
+            Assert.AreEqual(expected: "W-SU", actual: Timezone.WSu.ToString());
+            Assert.AreEqual(expected: "NZ-CHAT", actual: Timezone.NzChat.ToString());
+        }
     }
 }

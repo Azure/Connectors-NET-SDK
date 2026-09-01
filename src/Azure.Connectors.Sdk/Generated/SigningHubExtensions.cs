@@ -152,13 +152,31 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class CertifyPolicyResponse
     {
-        /// <summary>Certify signature settings for the document.</summary>
+        /// <summary>certify</summary>
         [JsonPropertyName("certify")]
-        public JsonElement? Certify { get; set; }
+        public CertifyPermissionResponse Certify { get; set; }
 
         /// <summary>True if forms fields are to be locked in the PDF after the last digital signature on the current document.</summary>
         [JsonPropertyName("lock_form_fields")]
         public bool? LockFormFields { get; set; }
+    }
+
+    /// <summary>
+    /// certify
+    /// </summary>
+    public class CertifyPermissionResponse
+    {
+        /// <summary>True if certify signature is enabled for the document.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Set of allowed certify permission levels for the document.</summary>
+        [JsonPropertyName("allowed_permissions")]
+        public List<string> AllowedPermissions { get; set; }
+
+        /// <summary>Selected permission level for the certify signature settings.</summary>
+        [JsonPropertyName("default_permission")]
+        public string DefaultPermission { get; set; }
     }
 
     /// <summary>
@@ -214,13 +232,41 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("modified_on")]
         public string ModifiedOn { get; set; }
 
-        /// <summary>Certified signature settings for the document.</summary>
+        /// <summary>certify</summary>
         [JsonPropertyName("certify")]
-        public JsonElement? Certify { get; set; }
+        public DocumentCertifyResponse Certify { get; set; }
 
-        /// <summary>Template details, if the template is applied on the document.</summary>
+        /// <summary>template</summary>
         [JsonPropertyName("template")]
-        public JsonElement? Template { get; set; }
+        public DocumentTemplateResponse Template { get; set; }
+    }
+
+    /// <summary>
+    /// certify
+    /// </summary>
+    public class DocumentCertifyResponse
+    {
+        /// <summary>True if certify signature is enabled for the document.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>It is the certify permissions to be applied on the PDF document when the first signature is created. The possible values are &quot;NO_CHANGES_ALLOWED&quot;, &quot;FORM_FILLING_ALLOWED&quot; and &quot;FORM_FILLING_WITH_ANNOTATIONS_ALLOWED&quot;.</summary>
+        [JsonPropertyName("permission")]
+        public string Permission { get; set; }
+    }
+
+    /// <summary>
+    /// template
+    /// </summary>
+    public class DocumentTemplateResponse
+    {
+        /// <summary>Name of the template applied on the document.</summary>
+        [JsonPropertyName("template_name")]
+        public string TemplateName { get; set; }
+
+        /// <summary>True if the applied template is read only. User will not be able to make any changes if a read only template is applied.</summary>
+        [JsonPropertyName("read_only")]
+        public bool? ReadOnly { get; set; }
     }
 
     /// <summary>
@@ -280,21 +326,95 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("lock_form_fields")]
         public bool? LockFormFields { get; set; }
 
-        /// <summary>Certified signature settings for the document.</summary>
+        /// <summary>certify</summary>
         [JsonPropertyName("certify")]
-        public JsonElement? Certify { get; set; }
+        public UploadDocumentLibraryCertifyResponse Certify { get; set; }
 
-        /// <summary>Template details, if the template is applied on the document.</summary>
+        /// <summary>template</summary>
         [JsonPropertyName("template")]
-        public JsonElement? Template { get; set; }
+        public UploadDocumentLibraryTemplateResponse Template { get; set; }
 
         /// <summary>Package name</summary>
         [JsonPropertyName("package_name")]
         public string PackageName { get; set; }
 
-        /// <summary>Uploaded document pdf meta information</summary>
+        /// <summary>metadata</summary>
         [JsonPropertyName("metadata")]
-        public JsonElement? Metadata { get; set; }
+        public UploadDocumentMetaInfoDetail Metadata { get; set; }
+    }
+
+    /// <summary>
+    /// certify
+    /// </summary>
+    public class UploadDocumentLibraryCertifyResponse
+    {
+        /// <summary>True if certify signature is enabled for the document.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Set of allowed certify permission levels for the document.</summary>
+        [JsonPropertyName("allowed_permissions")]
+        public List<string> AllowedPermissions { get; set; }
+
+        /// <summary>Selected permission level for the certify signature settings.</summary>
+        [JsonPropertyName("default_permission")]
+        public string DefaultPermission { get; set; }
+
+        /// <summary>It is the certify permissions to be applied on the PDF document when the first signature is created. The possible values are &quot;NO_CHANGES_ALLOWED&quot;, &quot;FORM_FILLING_ALLOWED&quot; and &quot;FORM_FILLING_WITH_ANNOTATIONS_ALLOWED&quot;.</summary>
+        [JsonPropertyName("permission")]
+        public string Permission { get; set; }
+    }
+
+    /// <summary>
+    /// template
+    /// </summary>
+    public class UploadDocumentLibraryTemplateResponse
+    {
+        /// <summary>Name of the template applied on the document.</summary>
+        [JsonPropertyName("template_name")]
+        public string TemplateName { get; set; }
+
+        /// <summary>True if the applied template is read only. User will not be able to make any changes if a read only template is applied.</summary>
+        [JsonPropertyName("read_only")]
+        public bool? ReadOnly { get; set; }
+    }
+
+    /// <summary>
+    /// metadata
+    /// </summary>
+    public class UploadDocumentMetaInfoDetail
+    {
+        /// <summary>true if pdf document has any attachment</summary>
+        [JsonPropertyName("attachments")]
+        public bool? Attachments { get; set; }
+
+        /// <summary>true if pdf document has any form field</summary>
+        [JsonPropertyName("form_fields")]
+        public bool? FormFields { get; set; }
+
+        /// <summary>true if pdf document has any blank signature field</summary>
+        [JsonPropertyName("blank_signatures")]
+        public bool? BlankSignatures { get; set; }
+
+        /// <summary>true if pdf document has any signed signature field</summary>
+        [JsonPropertyName("signed_signatures")]
+        public bool? SignedSignatures { get; set; }
+
+        /// <summary>null/empty if document does not contains any conformance level otherwise contains formation like 1A, 1B etc</summary>
+        [JsonPropertyName("conformance")]
+        public string Conformance { get; set; }
+
+        /// <summary>true if pdf document is locked</summary>
+        [JsonPropertyName("locked")]
+        public bool? Locked { get; set; }
+
+        /// <summary>CertifyLevel of pdf document. Possible values NotCertified, NoChangesAllowed, FormFilling, FormFillingAndAnnotations</summary>
+        [JsonPropertyName("certify")]
+        public string Certify { get; set; }
+
+        /// <summary>true if pdf document has any Qr Code, otherwise its false</summary>
+        [JsonPropertyName("qr_code")]
+        public bool? QrCode { get; set; }
     }
 
     /// <summary>
@@ -354,17 +474,17 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("lock_form_fields")]
         public bool? LockFormFields { get; set; }
 
-        /// <summary>Certified signature settings for the document.</summary>
+        /// <summary>certify</summary>
         [JsonPropertyName("certify")]
-        public JsonElement? Certify { get; set; }
+        public CertifyPermissionResponse Certify { get; set; }
 
         /// <summary>Uploaded document size in bytes</summary>
         [JsonPropertyName("document_size")]
         public int? DocumentSize { get; set; }
 
-        /// <summary>Uploaded document pdf meta information</summary>
+        /// <summary>metadata</summary>
         [JsonPropertyName("metadata")]
-        public JsonElement? Metadata { get; set; }
+        public UploadDocumentMetaInfoDetail Metadata { get; set; }
 
         /// <summary>The document package name</summary>
         [JsonPropertyName("package_name")]
@@ -376,17 +496,201 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class EnterpriseAccessResponse
     {
-        /// <summary>Authentication object with the details of authentication methods applied on the document for the recipient.</summary>
+        /// <summary>authentication</summary>
         [JsonPropertyName("authentication")]
-        public JsonElement? Authentication { get; set; }
+        public EnterpriseAuthenticationResponse Authentication { get; set; }
 
-        /// <summary>Authentication Signing for the package</summary>
+        /// <summary>authentication_signing</summary>
         [JsonPropertyName("authentication_signing")]
-        public JsonElement? AuthenticationSigning { get; set; }
+        public EnterpriseAuthenticationSigningResponse AuthenticationSigning { get; set; }
 
-        /// <summary>Access duration object with the details of access securities for the recipient.</summary>
+        /// <summary>access_duration</summary>
         [JsonPropertyName("access_duration")]
-        public JsonElement? AccessDuration { get; set; }
+        public PermissionAccessDurationResponse AccessDuration { get; set; }
+    }
+
+    /// <summary>
+    /// authentication
+    /// </summary>
+    public class EnterpriseAuthenticationResponse
+    {
+        /// <summary>True, if authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>password</summary>
+        [JsonPropertyName("password")]
+        public AccessSecurityPasswordResponse Password { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public EnterpriseAccessSecuritySmsOtpResponse SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public TotpPermissionResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// password
+    /// </summary>
+    public class AccessSecurityPasswordResponse
+    {
+        /// <summary>True, if password authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Authentication password for document access.</summary>
+        [JsonPropertyName("user_password")]
+        public string UserPassword { get; set; }
+    }
+
+    /// <summary>
+    /// sms_otp
+    /// </summary>
+    public class EnterpriseAccessSecuritySmsOtpResponse
+    {
+        /// <summary>True, if SMS OTP authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>otp_length</summary>
+        [JsonPropertyName("otp_length")]
+        public int? OtpLength { get; set; }
+
+        /// <summary>retry_duration</summary>
+        [JsonPropertyName("retry_duration")]
+        public int? RetryDuration { get; set; }
+
+        /// <summary>Mobile number of the recipient. Mobile number is needed to send the SMS to the recipient for the authentication.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+    }
+
+    /// <summary>
+    /// totp
+    /// </summary>
+    public class TotpPermissionResponse
+    {
+        /// <summary>Enabled</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+    }
+
+    /// <summary>
+    /// authentication_signing
+    /// </summary>
+    public class EnterpriseAuthenticationSigningResponse
+    {
+        /// <summary>True, if authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public EnterpriseAuthenticationSigningSmsOtpResponse SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public TotpPermissionResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// sms_otp
+    /// </summary>
+    public class EnterpriseAuthenticationSigningSmsOtpResponse
+    {
+        /// <summary>otp_length</summary>
+        [JsonPropertyName("otp_length")]
+        public int? OtpLength { get; set; }
+
+        /// <summary>retry_duration</summary>
+        [JsonPropertyName("retry_duration")]
+        public int? RetryDuration { get; set; }
+
+        /// <summary>Mobile number of the recipient. Mobile number is needed to send the SMS to the recipient for the authentication.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+    }
+
+    /// <summary>
+    /// access_duration
+    /// </summary>
+    public class PermissionAccessDurationResponse
+    {
+        /// <summary>True, if access duration security is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>duration_by_date</summary>
+        [JsonPropertyName("duration_by_date")]
+        public AccessDurationByDateResponse DurationByDate { get; set; }
+
+        /// <summary>duration_by_days</summary>
+        [JsonPropertyName("duration_by_days")]
+        public AccessDurationByDaysResponse DurationByDays { get; set; }
+    }
+
+    /// <summary>
+    /// duration_by_date
+    /// </summary>
+    public class AccessDurationByDateResponse
+    {
+        /// <summary>True if access security is enabled for a duration by date and time.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>accessible</summary>
+        [JsonPropertyName("accessible")]
+        public bool? Accessible { get; set; }
+
+        /// <summary>duration</summary>
+        [JsonPropertyName("duration")]
+        public DurationByDateResponse Duration { get; set; }
+    }
+
+    /// <summary>
+    /// duration
+    /// </summary>
+    public class DurationByDateResponse
+    {
+        /// <summary>Date and time from where the package will be accessible to the recipient.</summary>
+        [JsonPropertyName("start_date_time")]
+        [JsonInclude]
+        public string StartDateTime { get; init; }
+
+        /// <summary>Date and time after which the package will not be accessible to the recipient.</summary>
+        [JsonPropertyName("end_date_time")]
+        [JsonInclude]
+        public string EndDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// duration_by_days
+    /// </summary>
+    public class AccessDurationByDaysResponse
+    {
+        /// <summary>True, if access security is enabled for a duration by number of days.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>accessible</summary>
+        [JsonPropertyName("accessible")]
+        public bool? Accessible { get; set; }
+
+        /// <summary>duration</summary>
+        [JsonPropertyName("duration")]
+        public DurationByDaysResponse Duration { get; set; }
+    }
+
+    /// <summary>
+    /// duration
+    /// </summary>
+    public class DurationByDaysResponse
+    {
+        /// <summary>Total number of days for which the package will be accessible to the recipient after receiving the package.</summary>
+        [JsonPropertyName("total_days")]
+        public int? TotalDays { get; set; }
     }
 
     /// <summary>
@@ -514,9 +818,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("dimensions")]
         public FieldDimenssionResponse Dimensions { get; set; }
 
-        /// <summary>Returns the verification response of signature field. In case of no verification, null is returned.</summary>
+        /// <summary>verification</summary>
         [JsonPropertyName("verification")]
-        public JsonElement? Verification { get; set; }
+        public VerificationResponse Verification { get; set; }
 
         /// <summary>nid</summary>
         [JsonPropertyName("nid")]
@@ -530,9 +834,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("level_of_assurance")]
         public List<string> LevelOfAssurance { get; set; }
 
-        /// <summary>Authentication</summary>
+        /// <summary>authentication</summary>
         [JsonPropertyName("authentication")]
-        public JsonElement? Authentication { get; set; }
+        public FieldAuthentication Authentication { get; set; }
     }
 
     /// <summary>
@@ -583,6 +887,186 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>Height of the page where field is placed in the PDF.</summary>
         [JsonPropertyName("height")]
         public float? Height { get; set; }
+    }
+
+    /// <summary>
+    /// verification
+    /// </summary>
+    public class VerificationResponse
+    {
+        /// <summary>Name of the field for which the verification was requested.</summary>
+        [JsonPropertyName("field_name")]
+        public string FieldName { get; set; }
+
+        /// <summary>Name of the signer.</summary>
+        [JsonPropertyName("signer_name")]
+        public string SignerName { get; set; }
+
+        /// <summary>If the overall status of the signature is valid or not. Possible values are &quot;VALID&quot; or &quot;INVALID&quot;.</summary>
+        [JsonPropertyName("signature_status")]
+        public SignatureStatus? SignatureStatus { get; set; }
+
+        /// <summary>Reason provided by the user while signing the field. In case of witness signing, custom signing reason would be set</summary>
+        [JsonPropertyName("signing_reason")]
+        public string SigningReason { get; set; }
+
+        /// <summary>Location entered by the user while signing the field.</summary>
+        [JsonPropertyName("signing_location")]
+        public string SigningLocation { get; set; }
+
+        /// <summary>Contact information entered by the user while signing the field.</summary>
+        [JsonPropertyName("contact_information")]
+        public string ContactInformation { get; set; }
+
+        /// <summary>Date and time of signing in 8601 format. Default timezone from SH Admin is followed the the time.</summary>
+        [JsonPropertyName("signing_time")]
+        public string SigningTime { get; set; }
+
+        /// <summary>True, if signature is LTV.</summary>
+        [JsonPropertyName("ltv")]
+        public bool? Ltv { get; set; }
+
+        /// <summary>True, if signatures are qualified.</summary>
+        [JsonPropertyName("qualified")]
+        public bool? Qualified { get; set; }
+
+        /// <summary>True, if signatures are certified.</summary>
+        [JsonPropertyName("certified")]
+        public bool? Certified { get; set; }
+
+        /// <summary>Permission level for certified digital signature.</summary>
+        [JsonPropertyName("certify_permission")]
+        public string CertifyPermission { get; set; }
+
+        /// <summary>Date and time when signature was time-stamped.</summary>
+        [JsonPropertyName("timestamp_at")]
+        public string TimestampAt { get; set; }
+
+        /// <summary>Authority by which the signature was time-stamped.</summary>
+        [JsonPropertyName("timestamp_authority")]
+        public string TimestampAuthority { get; set; }
+
+        /// <summary>Subject DN from the certificate used while signing the field.</summary>
+        [JsonPropertyName("subject_dn")]
+        public string SubjectDn { get; set; }
+
+        /// <summary>Issuers DN from the certificate used while signing the field.</summary>
+        [JsonPropertyName("issuer_dn")]
+        public string IssuerDn { get; set; }
+
+        /// <summary>Date and time from which the certificate is valid.</summary>
+        [JsonPropertyName("cert_valid_from")]
+        public string CertValidFrom { get; set; }
+
+        /// <summary>Date and time to which the certificate is valid.</summary>
+        [JsonPropertyName("cert_valid_to")]
+        public string CertValidTo { get; set; }
+
+        /// <summary>Type of signatures, possible values are &quot;PADES_PART2&quot; or &quot;PADES_PART4&quot;.</summary>
+        [JsonPropertyName("signature_type")]
+        public SignatureType? SignatureType { get; set; }
+
+        /// <summary>Signature algorithm used while signing the field.</summary>
+        [JsonPropertyName("signature_algorithm")]
+        public string SignatureAlgorithm { get; set; }
+
+        /// <summary>Application name from where the field was signed.</summary>
+        [JsonPropertyName("signature_application")]
+        public string SignatureApplication { get; set; }
+
+        /// <summary>Signature policy ID.</summary>
+        [JsonPropertyName("signature_policy_id")]
+        public int? SignaturePolicyId { get; set; }
+
+        /// <summary>Signature policy URI.</summary>
+        [JsonPropertyName("signature_policy_uri")]
+        public string SignaturePolicyUri { get; set; }
+
+        /// <summary>Base64 image of the signer&apos;s avatar.</summary>
+        [JsonPropertyName("signer_photo")]
+        public string SignerPhoto { get; set; }
+
+        /// <summary>signer_photo_url</summary>
+        [JsonPropertyName("signer_photo_url")]
+        public string SignerPhotoUrl { get; set; }
+
+        /// <summary>Hash of the document that was signed in respective signature.</summary>
+        [JsonPropertyName("signed_hash")]
+        public string SignedHash { get; set; }
+
+        /// <summary>display</summary>
+        [JsonPropertyName("display")]
+        public string Display { get; set; }
+
+        /// <summary>Page number of the signature field</summary>
+        [JsonPropertyName("page_number")]
+        public int? PageNumber { get; set; }
+
+        /// <summary>LEI number if availbale in certificate</summary>
+        [JsonPropertyName("lei_number")]
+        public string LeiNumber { get; set; }
+
+        /// <summary>LEI role if available in certificate</summary>
+        [JsonPropertyName("lei_role")]
+        public string LeiRole { get; set; }
+
+        /// <summary>An error  message returns in case the application unable to get verification results.</summary>
+        [JsonPropertyName("error_message")]
+        public string ErrorMessage { get; set; }
+    }
+
+    /// <summary>
+    /// authentication
+    /// </summary>
+    public class FieldAuthentication
+    {
+        /// <summary>True,  if authentications are enabled for the electronic signature fields.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public AccessSecuritySmsOtpResponse SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public AccessSecurityTOTPResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// sms_otp
+    /// </summary>
+    public class AccessSecuritySmsOtpResponse
+    {
+        /// <summary>True, if SMS OTP authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>otp_length</summary>
+        [JsonPropertyName("otp_length")]
+        public int? OtpLength { get; set; }
+
+        /// <summary>retry_duration</summary>
+        [JsonPropertyName("retry_duration")]
+        public int? RetryDuration { get; set; }
+
+        /// <summary>Mobile number of the recipient. Mobile number is needed to send the SMS to the recipient for the authentication.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+
+        /// <summary>Allowed OTP Methods</summary>
+        [JsonPropertyName("methods")]
+        public List<string> Methods { get; set; }
+    }
+
+    /// <summary>
+    /// totp
+    /// </summary>
+    public class AccessSecurityTOTPResponse
+    {
+        /// <summary>True, if TOTP authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
     }
 
     /// <summary>
@@ -692,13 +1176,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("signature_sub_type")]
         public string SignatureSubType { get; set; }
 
-        /// <summary>Authentication</summary>
+        /// <summary>authentication</summary>
         [JsonPropertyName("authentication")]
-        public JsonElement? Authentication { get; set; }
+        public FieldAuthentication Authentication { get; set; }
 
-        /// <summary>Returns the verification response of the field. In case of no verification, null is returned.</summary>
+        /// <summary>verification</summary>
         [JsonPropertyName("verification")]
-        public JsonElement? Verification { get; set; }
+        public VerificationResponse Verification { get; set; }
 
         /// <summary>nid</summary>
         [JsonPropertyName("nid")]
@@ -760,10 +1244,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class TextFieldResponse
     {
-        /// <summary>Field local. Possible values are ar-AE | en-US. Optional and default will be en-US. This value matters for type &quot;DATE&quot;.</summary>
-        [JsonPropertyName("field_locale")]
-        public string FieldLocale { get; set; }
-
         /// <summary>True if field required in pdf</summary>
         [JsonPropertyName("required")]
         public bool? Required { get; set; }
@@ -808,9 +1288,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("validation_rule")]
         public string ValidationRule { get; set; }
 
-        /// <summary>This object is for required Value to be passed</summary>
+        /// <summary>validation</summary>
         [JsonPropertyName("validation")]
-        public JsonElement? Validation { get; set; }
+        public FieldValidationValue Validation { get; set; }
 
         /// <summary>True, if the field is not hidden in the PDF document.</summary>
         [JsonPropertyName("visible")]
@@ -863,6 +1343,34 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
         public FieldDimenssionResponse Dimensions { get; set; }
+    }
+
+    /// <summary>
+    /// validation
+    /// </summary>
+    public class FieldValidationValue
+    {
+        /// <summary>required</summary>
+        [JsonPropertyName("required")]
+        public bool? Required { get; set; }
+
+        /// <summary>rules</summary>
+        [JsonPropertyName("rules")]
+        public List<FieldValidationValueRule> Rules { get; set; }
+    }
+
+    /// <summary>
+    /// Item in rules
+    /// </summary>
+    public class FieldValidationValueRule
+    {
+        /// <summary>Specifies the type of validation rule, which is currently always set to EQUALS for text field.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        /// <summary>Represents the value used for validation.</summary>
+        [JsonPropertyName("value")]
+        public string Value { get; set; }
     }
 
     /// <summary>
@@ -1224,17 +1732,71 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("data")]
         public string Data { get; set; }
 
-        /// <summary>Settings regarding options</summary>
+        /// <summary>options</summary>
         [JsonPropertyName("options")]
-        public JsonElement? Options { get; set; }
+        public QrCodeOptions Options { get; set; }
 
-        /// <summary>Settings regarding color</summary>
+        /// <summary>color</summary>
         [JsonPropertyName("color")]
-        public JsonElement? Color { get; set; }
+        public QrCodeColor Color { get; set; }
 
-        /// <summary>Settings regarding logo</summary>
+        /// <summary>logo</summary>
         [JsonPropertyName("logo")]
-        public JsonElement? Logo { get; set; }
+        public QrCodeLogo Logo { get; set; }
+    }
+
+    /// <summary>
+    /// options
+    /// </summary>
+    public class QrCodeOptions
+    {
+        /// <summary>error_correction_level</summary>
+        [JsonPropertyName("error_correction_level")]
+        public string ErrorCorrectionLevel { get; set; }
+
+        /// <summary>encoding</summary>
+        [JsonPropertyName("encoding")]
+        public string Encoding { get; set; }
+
+        /// <summary>Specifies the number of pixels per module in the QR code. A higher number results in a larger and more detailed QR code. Default is &quot;20&quot; Possible Values are : 20 | 30 | 40 | 50</summary>
+        [JsonPropertyName("pixels_per_module")]
+        public int? PixelsPerModule { get; set; }
+
+        /// <summary>Indicates whether quiet zones (margins) should be drawn around the QR code. Quiet zones help scanners to detect and decode the QR code more accurately. Default is &quot;true&quot;</summary>
+        [JsonPropertyName("add_margins")]
+        public bool? AddMargins { get; set; }
+    }
+
+    /// <summary>
+    /// color
+    /// </summary>
+    public class QrCodeColor
+    {
+        /// <summary>Represents the dark color used for the dots in the QR code. Default is &quot;black&quot;. e.g. &quot;#000000&quot;</summary>
+        [JsonPropertyName("dots")]
+        public string Dots { get; set; }
+
+        /// <summary>Represents the light color used for the background of the QR code. Default is &quot;white&quot;. e.g. &quot;#ffffff&quot;</summary>
+        [JsonPropertyName("background")]
+        public string Background { get; set; }
+    }
+
+    /// <summary>
+    /// logo
+    /// </summary>
+    public class QrCodeLogo
+    {
+        /// <summary>An optional icon (base64) to place in the center of the QR code.</summary>
+        [JsonPropertyName("base64")]
+        public string Base64 { get; set; }
+
+        /// <summary>The background color behind the icon, if an icon is provided. If color is not provided transparent background is implemented.</summary>
+        [JsonPropertyName("hide_background_dots")]
+        public bool? HideBackgroundDots { get; set; }
+
+        /// <summary>The size of the icon as a percentage of the QR code&apos;s size, if an icon is provided. Default is &quot;15&quot;. Possible Values are : 10 | 15 | 20 | 25 | 30 | 35 | 40</summary>
+        [JsonPropertyName("size")]
+        public int? Size { get; set; }
     }
 
     /// <summary>
@@ -1282,13 +1844,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("note")]
         public string Note { get; set; }
 
-        /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
+        /// <summary>validation_rule</summary>
         [JsonPropertyName("validation_rule")]
-        public JsonElement? ValidationRule { get; set; }
+        public string ValidationRule { get; set; }
 
-        /// <summary>Dimentions</summary>
+        /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public JsonElement? Dimensions { get; set; }
+        public FieldDimenssionResponse Dimensions { get; set; }
     }
 
     /// <summary>
@@ -1316,9 +1878,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("recipients")]
         public List<CommentFieldRecipientResponse> Recipients { get; set; }
 
-        /// <summary>Dimensions</summary>
+        /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public JsonElement? Dimensions { get; set; }
+        public FieldDimenssionResponse Dimensions { get; set; }
     }
 
     /// <summary>
@@ -1460,13 +2022,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("modified_on")]
         public string ModifiedOn { get; set; }
 
-        /// <summary>Specify start and end date/time for a recipient to access the document. The recipient will not be able to access the document beyond this duration. If the document is not processed within the specified time,  the document will be considered declined.. This will be provided if &quot;x-recipient-details&quot; is passed as true in the header</summary>
+        /// <summary>access_duration</summary>
         [JsonPropertyName("access_duration")]
-        public JsonElement? AccessDuration { get; set; }
+        public RecipientAccessDurationDetails AccessDuration { get; set; }
 
-        /// <summary>Document decline details if its either manually declined or auto via Core. This will be provided if &quot;x-recipient-details&quot; is passed as true in the header</summary>
+        /// <summary>decline</summary>
         [JsonPropertyName("decline")]
-        public JsonElement? Decline { get; set; }
+        public RecipientDeclineDetails Decline { get; set; }
 
         /// <summary>Size of the document in bytes.</summary>
         [JsonPropertyName("size")]
@@ -1485,6 +2047,52 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>Name of the next signer.</summary>
         [JsonPropertyName("user_name")]
         public string UserName { get; set; }
+    }
+
+    /// <summary>
+    /// access_duration
+    /// </summary>
+    public class RecipientAccessDurationDetails
+    {
+        /// <summary>Start date/time for a recipient to access the document             </summary>
+        [JsonPropertyName("date_from")]
+        public string DateFrom { get; set; }
+
+        /// <summary>End date/time for a recipient to access the document             </summary>
+        [JsonPropertyName("date_to")]
+        public string DateTo { get; set; }
+    }
+
+    /// <summary>
+    /// decline
+    /// </summary>
+    public class RecipientDeclineDetails
+    {
+        /// <summary>Define reason of document decline</summary>
+        [JsonPropertyName("reason")]
+        public string Reason { get; set; }
+
+        /// <summary>Indication of document is manually/auto declined </summary>
+        [JsonPropertyName("auto_decline")]
+        public bool? AutoDecline { get; set; }
+
+        /// <summary>declined_by</summary>
+        [JsonPropertyName("declined_by")]
+        public DeclineByDetails DeclinedBy { get; set; }
+    }
+
+    /// <summary>
+    /// declined_by
+    /// </summary>
+    public class DeclineByDetails
+    {
+        /// <summary>Name of user who have declined the workflow </summary>
+        [JsonPropertyName("user_name")]
+        public string UserName { get; set; }
+
+        /// <summary>Email of user who have declined the workflow              </summary>
+        [JsonPropertyName("user_email")]
+        public string UserEmail { get; set; }
     }
 
     /// <summary>
@@ -1626,9 +2234,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("documents")]
         public List<TemplateDocumentResponse> Documents { get; set; }
 
-        /// <summary>Smart form</summary>
+        /// <summary>smart_form</summary>
         [JsonPropertyName("smart_form")]
-        public JsonElement? SmartForm { get; set; }
+        public TemplateSmartFormResponse SmartForm { get; set; }
     }
 
     /// <summary>
@@ -1643,6 +2251,20 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>Name of the template document.</summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// smart_form
+    /// </summary>
+    public class TemplateSmartFormResponse
+    {
+        /// <summary>Active count             </summary>
+        [JsonPropertyName("active_count")]
+        public int? ActiveCount { get; set; }
+
+        /// <summary>Total</summary>
+        [JsonPropertyName("total_count")]
+        public int? TotalCount { get; set; }
     }
 
     /// <summary>
@@ -1770,9 +2392,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("transaction_id")]
         public string TransactionId { get; set; }
 
-        /// <summary>Signature Verification</summary>
+        /// <summary>verification</summary>
         [JsonPropertyName("verification")]
-        public JsonElement? Verification { get; set; }
+        public VerificationResponse Verification { get; set; }
 
         /// <summary>It will contain the OIDC id_token when user is authenticated via OIDC</summary>
         [JsonPropertyName("authentication_access_token")]
@@ -1900,9 +2522,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("modified_on")]
         public string ModifiedOn { get; set; }
 
-        /// <summary>Workflow object with the workflow details.</summary>
+        /// <summary>workflow</summary>
         [JsonPropertyName("workflow")]
-        public JsonElement? Workflow { get; set; }
+        public WorkflowResponse Workflow { get; set; }
 
         /// <summary>List of documents that are uploaded in the package.</summary>
         [JsonPropertyName("documents")]
@@ -1911,6 +2533,100 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>Recipients list for the workflow.</summary>
         [JsonPropertyName("users")]
         public List<WorkflowUserResponse> Users { get; set; }
+    }
+
+    /// <summary>
+    /// workflow
+    /// </summary>
+    public class WorkflowResponse
+    {
+        /// <summary>Type of the workflow, there are four types of workflows supported in the application. Possible values are &quot;SERIAL&quot;, &quot;PARALLEL&quot;, &quot;INDIVIDUAL&quot; and &quot;CUSTOM&quot;.</summary>
+        [JsonPropertyName("workflow_type")]
+        public string WorkflowType { get; set; }
+
+        /// <summary>True, if workflow needs to be continued even after a recipient declines at his turn.</summary>
+        [JsonPropertyName("continue_on_decline")]
+        public bool? ContinueOnDecline { get; set; }
+
+        /// <summary>Processing status of the workflow, possible values are &quot;DRAFT&quot;, &quot;IN_PRGORESS&quot; and &quot;COMPLETED&quot;.</summary>
+        [JsonPropertyName("workflow_status")]
+        public string WorkflowStatus { get; set; }
+
+        /// <summary>Mode of the workflow, there are three types of workflow modes supported in application. Possible values are &quot;ONLY_ME&quot;, &quot;ME_AND_OTHERS&quot; and &quot;ONLY_OTHERS&quot;</summary>
+        [JsonPropertyName("workflow_mode")]
+        public string WorkflowMode { get; set; }
+
+        /// <summary>Any custom string message that is to be sent to all the recipient of the workflow by the document owner.</summary>
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
+
+        /// <summary>If any template applied on the documents in this workflow is read only or locked template then the workflow is read only. SigningHub will not allow the end users to make any changes to this workflow in draft state and this workflow is to be shared as it is.</summary>
+        [JsonPropertyName("read_only")]
+        public bool? ReadOnly { get; set; }
+
+        /// <summary>post_process</summary>
+        [JsonPropertyName("post_process")]
+        public PostProcessResponse PostProcess { get; set; }
+
+        /// <summary>Comments</summary>
+        [JsonPropertyName("comments")]
+        public bool? Comments { get; set; }
+    }
+
+    /// <summary>
+    /// post_process
+    /// </summary>
+    public class PostProcessResponse
+    {
+        /// <summary>True, if post processing is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>List of email addresses to which the email will be sent when the workflow is completed.</summary>
+        [JsonPropertyName("contacts")]
+        public List<string> Contacts { get; set; }
+
+        /// <summary>List of the name and email addresses to whom the emails are sent when the post processing is executed after the workflow completion.</summary>
+        [JsonPropertyName("recipients")]
+        public List<PostProcessRecipientResponse> Recipients { get; set; }
+
+        /// <summary>Any custom string message that is to be sent to the contacts when the workflow is completed.</summary>
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
+
+        /// <summary>True, if google drive uploading is turned on for the package. Documents will be uploaded to google drive when the workflow is completed.</summary>
+        [JsonPropertyName("google_drive")]
+        public bool? GoogleDrive { get; set; }
+
+        /// <summary>True, if one drive uploading is turned on for the package. Documents will be uploaded to one drive when the workflow is completed.</summary>
+        [JsonPropertyName("one_drive")]
+        public bool? OneDrive { get; set; }
+
+        /// <summary>True, if dropbox uploading is turned on for the package. Documents will be uploaded to google drive when the workflow is completed.</summary>
+        [JsonPropertyName("dropbox")]
+        public bool? Dropbox { get; set; }
+
+        /// <summary>True, if workflow completion report is to be sent to all recipients of the workflow when post processing is executed. Default value is false.</summary>
+        [JsonPropertyName("workflow_recipients")]
+        public bool? WorkflowRecipients { get; set; }
+
+        /// <summary>True, if Send the document processing report (XML) is to be enabled to for the workflow </summary>
+        [JsonPropertyName("document_processing_report")]
+        public bool? DocumentProcessingReport { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of the name and email addresses to whom the emails are sent when the post processing is executed after the workflow completion.
+    /// </summary>
+    public class PostProcessRecipientResponse
+    {
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>email</summary>
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
     }
 
     /// <summary>
@@ -1966,9 +2682,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("form_fields")]
         public bool? FormFields { get; set; }
 
-        /// <summary>Template object which is applied on the document along with the template details.</summary>
+        /// <summary>template</summary>
         [JsonPropertyName("template")]
-        public JsonElement? Template { get; set; }
+        public DocumentsTemplateResponse Template { get; set; }
 
         /// <summary>certify</summary>
         [JsonPropertyName("certify")]
@@ -2001,6 +2717,24 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>This property is for XML document, that either its formatted or not</summary>
         [JsonPropertyName("formatted")]
         public bool? Formatted { get; set; }
+    }
+
+    /// <summary>
+    /// template
+    /// </summary>
+    public class DocumentsTemplateResponse
+    {
+        /// <summary>ID of the template applied to the document.</summary>
+        [JsonPropertyName("template_id")]
+        public long? TemplateId { get; set; }
+
+        /// <summary>Name of the template applied to the document.</summary>
+        [JsonPropertyName("template_name")]
+        public string TemplateName { get; set; }
+
+        /// <summary>True, if template is configured as read only. No changes to the workflow should be made after a read only template is applied.</summary>
+        [JsonPropertyName("read_only")]
+        public bool? ReadOnly { get; set; }
     }
 
     /// <summary>
@@ -2066,9 +2800,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("gatekeeper")]
         public string Gatekeeper { get; set; }
 
-        /// <summary>Gatekeepers</summary>
+        /// <summary>gatekeepers</summary>
         [JsonPropertyName("gatekeepers")]
-        public JsonElement? Gatekeepers { get; set; }
+        public WorkflowGatekeeperResponse Gatekeepers { get; set; }
 
         /// <summary>Role of the recipient i.e., &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; or &quot;INPERSON_HOST&quot;.</summary>
         [JsonPropertyName("role")]
@@ -2098,17 +2832,17 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("placeholder")]
         public string Placeholder { get; set; }
 
-        /// <summary>Permissions for the recipient set by the owner of  the document package.</summary>
+        /// <summary>permission</summary>
         [JsonPropertyName("permission")]
-        public JsonElement? Permission { get; set; }
+        public WorkflowPermissionResponse Permission { get; set; }
 
-        /// <summary>Authentications object with the details of any authentications and access securities configured for the recipient.</summary>
+        /// <summary>authentications</summary>
         [JsonPropertyName("authentications")]
-        public JsonElement? Authentications { get; set; }
+        public AccessResponse Authentications { get; set; }
 
-        /// <summary>Reminder object with the details of reminder settings.</summary>
+        /// <summary>reminder</summary>
         [JsonPropertyName("reminder")]
-        public JsonElement? Reminder { get; set; }
+        public ReminderResponse Reminder { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -2126,9 +2860,247 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_language_code")]
         public string EmailLanguageCode { get; set; }
 
-        /// <summary>electronic seal</summary>
+        /// <summary>electronic_seal</summary>
         [JsonPropertyName("electronic_seal")]
-        public JsonElement? ElectronicSeal { get; set; }
+        public ElectronicSealRecipient ElectronicSeal { get; set; }
+    }
+
+    /// <summary>
+    /// gatekeepers
+    /// </summary>
+    public class WorkflowGatekeeperResponse
+    {
+        /// <summary>Getekeepers</summary>
+        [JsonPropertyName("emails")]
+        public List<WorkflowGatekeeperUserResponse> Emails { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Getekeepers
+    /// </summary>
+    public class WorkflowGatekeeperUserResponse
+    {
+        /// <summary>user_email</summary>
+        [JsonPropertyName("user_email")]
+        public string UserEmail { get; set; }
+    }
+
+    /// <summary>
+    /// permission
+    /// </summary>
+    public class WorkflowPermissionResponse
+    {
+        /// <summary>True, if printing is allowed for this recipient.</summary>
+        [JsonPropertyName("print")]
+        public bool? Print { get; set; }
+
+        /// <summary>True, if download is allowed.</summary>
+        [JsonPropertyName("download")]
+        public bool? Download { get; set; }
+
+        /// <summary>True, if add text annotation on the document is allowed.</summary>
+        [JsonPropertyName("add_text")]
+        public bool? AddText { get; set; }
+
+        /// <summary>True, if the recipient on the current order can change other recipients in the workflow after workflow is shared.</summary>
+        [JsonPropertyName("change_recipients")]
+        public bool? ChangeRecipients { get; set; }
+
+        /// <summary>True, if attachments and merging of PDF documents is allowed.</summary>
+        [JsonPropertyName("add_attachment")]
+        public bool? AddAttachment { get; set; }
+
+        /// <summary>legal_notice</summary>
+        [JsonPropertyName("legal_notice")]
+        public PermissionLegalNoticeResponse LegalNotice { get; set; }
+
+        /// <summary>attachment</summary>
+        [JsonPropertyName("attachment")]
+        public AttachmentPermissionResponse Attachment { get; set; }
+    }
+
+    /// <summary>
+    /// legal_notice
+    /// </summary>
+    public class PermissionLegalNoticeResponse
+    {
+        /// <summary>True, if legal notice is enabled and configured for the recipient.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>List of legal notices allowed to the document owner from which he can select one for the recipient.</summary>
+        [JsonPropertyName("allowed_notices")]
+        public List<LegalNoticeResponse> AllowedNotices { get; set; }
+
+        /// <summary>Default or selected legal notice for the recipient.</summary>
+        [JsonPropertyName("default_notice")]
+        public List<LegalNoticeResponse> DefaultNotice { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of legal notices allowed to the document owner from which he can select one for the recipient.
+    /// </summary>
+    public class LegalNoticeResponse
+    {
+        /// <summary>legal_notice_id</summary>
+        [JsonPropertyName("legal_notice_id")]
+        public int? LegalNoticeId { get; set; }
+
+        /// <summary>LegalNoticeResponse</summary>
+        [JsonPropertyName("legal_notice_name")]
+        public string LegalNoticeName { get; set; }
+
+        /// <summary>HTML content of the legal notice.</summary>
+        [JsonPropertyName("legal_notice_html")]
+        public string LegalNoticeHtml { get; set; }
+    }
+
+    /// <summary>
+    /// attachment
+    /// </summary>
+    public class AttachmentPermissionResponse
+    {
+        /// <summary>Enabled</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+    }
+
+    /// <summary>
+    /// authentications
+    /// </summary>
+    public class AccessResponse
+    {
+        /// <summary>authentication</summary>
+        [JsonPropertyName("authentication")]
+        public AuthenticationResponse Authentication { get; set; }
+
+        /// <summary>authentication_signing</summary>
+        [JsonPropertyName("authentication_signing")]
+        public AuthenticationSigningResponse AuthenticationSigning { get; set; }
+
+        /// <summary>access_duration</summary>
+        [JsonPropertyName("access_duration")]
+        public PermissionAccessDurationResponse AccessDuration { get; set; }
+    }
+
+    /// <summary>
+    /// authentication
+    /// </summary>
+    public class AuthenticationResponse
+    {
+        /// <summary>True, if authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>password</summary>
+        [JsonPropertyName("password")]
+        public AccessSecurityPasswordResponse Password { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public AccessSecuritySmsOtpResponse SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public TotpPermissionResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// authentication_signing
+    /// </summary>
+    public class AuthenticationSigningResponse
+    {
+        /// <summary>True, if authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public AuthenticationSigningSmsOtpResponse SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public TotpPermissionResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// sms_otp
+    /// </summary>
+    public class AuthenticationSigningSmsOtpResponse
+    {
+        /// <summary>otp_length</summary>
+        [JsonPropertyName("otp_length")]
+        public int? OtpLength { get; set; }
+
+        /// <summary>retry_duration</summary>
+        [JsonPropertyName("retry_duration")]
+        public int? RetryDuration { get; set; }
+
+        /// <summary>Mobile number of the recipient. Mobile number is needed to send the SMS to the recipient for the authentication.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+
+        /// <summary>Allowed OTP Methods</summary>
+        [JsonPropertyName("methods")]
+        public List<string> Methods { get; set; }
+    }
+
+    /// <summary>
+    /// reminder
+    /// </summary>
+    public class ReminderResponse
+    {
+        /// <summary>True, if reminders are enabled for the recipient</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Reminder Frequency. Possible Values are DAYS | HOURS. </summary>
+        [JsonPropertyName("frequency")]
+        public Frequency? Frequency { get; set; }
+
+        /// <summary>The number of days after which the first reminder would be sent to workflow user.</summary>
+        [JsonPropertyName("remind_after")]
+        public int? RemindAfter { get; set; }
+
+        /// <summary>repeat</summary>
+        [JsonPropertyName("repeat")]
+        public ReminderRepeat Repeat { get; set; }
+    }
+
+    /// <summary>
+    /// repeat
+    /// </summary>
+    public class ReminderRepeat
+    {
+        /// <summary>True, if subsequent reminders are enabled.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Repeat Reminder Frequency. Possible Values are DAYS | HOURS. </summary>
+        [JsonPropertyName("frequency")]
+        public Frequency? Frequency { get; set; }
+
+        /// <summary>The number of days after which the subsequent reminders would be sent to workflow recipient.</summary>
+        [JsonPropertyName("keep_reminding_after")]
+        public int? KeepRemindingAfter { get; set; }
+
+        /// <summary>The number of subsequent reminders to be sent to workflow user.</summary>
+        [JsonPropertyName("total_reminders")]
+        public int? TotalReminders { get; set; }
+    }
+
+    /// <summary>
+    /// electronic_seal
+    /// </summary>
+    public class ElectronicSealRecipient
+    {
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>level_of_assurance</summary>
+        [JsonPropertyName("level_of_assurance")]
+        public string LevelOfAssurance { get; set; }
     }
 
     /// <summary>
@@ -2219,28 +3191,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>The value of the extra information about the action e.g. &quot;LOCAL&quot; which means user signed the document using locally held credentials.</summary>
         [JsonPropertyName("value")]
         public string Value { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get Workflow Reminder
-    /// </summary>
-    public class ReminderResponse
-    {
-        /// <summary>True, if reminders are enabled for the recipient</summary>
-        [JsonPropertyName("enabled")]
-        public bool? Enabled { get; set; }
-
-        /// <summary>Reminder Frequency. Possible Values are DAYS | HOURS. </summary>
-        [JsonPropertyName("frequency")]
-        public Frequency? Frequency { get; set; }
-
-        /// <summary>The number of days after which the first reminder would be sent to workflow user.</summary>
-        [JsonPropertyName("remind_after")]
-        public int? RemindAfter { get; set; }
-
-        /// <summary>Repeat object with the details of reminder being repeated or not.</summary>
-        [JsonPropertyName("repeat")]
-        public JsonElement? Repeat { get; set; }
     }
 
     /// <summary>
@@ -2336,9 +3286,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("electronic_seal")]
         public ElectronicSealRecipient ElectronicSeal { get; set; }
 
-        /// <summary>Gatekeepers</summary>
+        /// <summary>gatekeepers</summary>
         [JsonPropertyName("gatekeepers")]
-        public JsonElement? Gatekeepers { get; set; }
+        public WorkflowGatekeeperResponse Gatekeepers { get; set; }
     }
 
     /// <summary>
@@ -2353,54 +3303,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// <summary>User name of the group member</summary>
         [JsonPropertyName("user_name")]
         public string UserName { get; set; }
-    }
-
-    /// <summary>
-    /// electronic_seal
-    /// </summary>
-    public class ElectronicSealRecipient
-    {
-        /// <summary>name</summary>
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
-
-        /// <summary>level_of_assurance</summary>
-        [JsonPropertyName("level_of_assurance")]
-        public string LevelOfAssurance { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get Workflow User Permissions
-    /// </summary>
-    public class WorkflowPermissionResponse
-    {
-        /// <summary>True, if printing is allowed for this recipient.</summary>
-        [JsonPropertyName("print")]
-        public bool? Print { get; set; }
-
-        /// <summary>True, if download is allowed.</summary>
-        [JsonPropertyName("download")]
-        public bool? Download { get; set; }
-
-        /// <summary>True, if add text annotation on the document is allowed.</summary>
-        [JsonPropertyName("add_text")]
-        public bool? AddText { get; set; }
-
-        /// <summary>True, if the recipient on the current order can change other recipients in the workflow after workflow is shared.</summary>
-        [JsonPropertyName("change_recipients")]
-        public bool? ChangeRecipients { get; set; }
-
-        /// <summary>True, if attachments and merging of PDF documents is allowed.</summary>
-        [JsonPropertyName("add_attachment")]
-        public bool? AddAttachment { get; set; }
-
-        /// <summary>Legal notice set by the owner for the recipient.</summary>
-        [JsonPropertyName("legal_notice")]
-        public JsonElement? LegalNotice { get; set; }
-
-        /// <summary>Attachments</summary>
-        [JsonPropertyName("attachment")]
-        public JsonElement? Attachment { get; set; }
     }
 
     /// <summary>
@@ -2422,13 +3324,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class CollaboratorGroupResponse
     {
-        /// <summary>Permissions for the recipient in the document package</summary>
+        /// <summary>permission</summary>
         [JsonPropertyName("permission")]
-        public JsonElement? Permission { get; set; }
+        public WorkflowPermissionResponse Permission { get; set; }
 
-        /// <summary>Reminder settings of the recipient.</summary>
+        /// <summary>reminder</summary>
         [JsonPropertyName("reminder")]
-        public JsonElement? Reminder { get; set; }
+        public ReminderResponse Reminder { get; set; }
 
         /// <summary>Signing order</summary>
         [JsonPropertyName("signing_order")]
@@ -2440,13 +3342,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class CollaboratorPlaceholderResponse
     {
-        /// <summary>Permissions for the recipient in the document package</summary>
+        /// <summary>permission</summary>
         [JsonPropertyName("permission")]
-        public JsonElement? Permission { get; set; }
+        public WorkflowPermissionResponse Permission { get; set; }
 
-        /// <summary>Reminder settings of the recipient.</summary>
+        /// <summary>reminder</summary>
         [JsonPropertyName("reminder")]
-        public JsonElement? Reminder { get; set; }
+        public ReminderResponse Reminder { get; set; }
 
         /// <summary>Signing order</summary>
         [JsonPropertyName("signing_order")]
@@ -2474,13 +3376,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_language_code")]
         public string EmailLanguageCode { get; set; }
 
-        /// <summary>Permissions for the recipient in the document package</summary>
+        /// <summary>permission</summary>
         [JsonPropertyName("permission")]
-        public JsonElement? Permission { get; set; }
+        public WorkflowPermissionResponse Permission { get; set; }
 
-        /// <summary>Reminder settings of the recipient.</summary>
+        /// <summary>reminder</summary>
         [JsonPropertyName("reminder")]
-        public JsonElement? Reminder { get; set; }
+        public ReminderResponse Reminder { get; set; }
     }
 
     /// <summary>
@@ -2518,13 +3420,27 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
-        /// <summary>Owner of shared space</summary>
+        /// <summary>owner</summary>
         [JsonPropertyName("owner")]
-        public JsonElement? Owner { get; set; }
+        public WorkSpaceOwner Owner { get; set; }
 
         /// <summary>Members of shared space</summary>
         [JsonPropertyName("members")]
         public List<WorkSpaceMembers> Members { get; set; }
+    }
+
+    /// <summary>
+    /// owner
+    /// </summary>
+    public class WorkSpaceOwner
+    {
+        /// <summary>Name of work space owner</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>Email Address of work space owner</summary>
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
     }
 
     /// <summary>
@@ -2550,17 +3466,167 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("apply_to_all")]
         public bool? ApplyToAll { get; set; }
 
-        /// <summary>It has the access aauthentication data</summary>
+        /// <summary>authentication</summary>
         [JsonPropertyName("authentication")]
-        public JsonElement? Authentication { get; set; }
+        public AccessAuthentication Authentication { get; set; }
 
-        /// <summary>It has the signing authentication data</summary>
+        /// <summary>authentication_signing</summary>
         [JsonPropertyName("authentication_signing")]
-        public JsonElement? AuthenticationSigning { get; set; }
+        public SigningAuthentication AuthenticationSigning { get; set; }
 
-        /// <summary>It has the access duration of the workflow</summary>
+        /// <summary>access_duration</summary>
         [JsonPropertyName("access_duration")]
-        public JsonElement? AccessDuration { get; set; }
+        public PermissionAccessDuration AccessDuration { get; set; }
+    }
+
+    /// <summary>
+    /// authentication
+    /// </summary>
+    public class AccessAuthentication
+    {
+        /// <summary>True, if authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>password</summary>
+        [JsonPropertyName("password")]
+        public AuthenticationPassword Password { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public AuthenticationSmsOtp SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public TotpPermissionResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// password
+    /// </summary>
+    public class AuthenticationPassword
+    {
+        /// <summary>True, if password authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Password string if password field is enabled. If a password is already set and owner do not wish to change it, remove the field from the response, or send null.</summary>
+        [JsonPropertyName("user_password")]
+        public string UserPassword { get; set; }
+    }
+
+    /// <summary>
+    /// sms_otp
+    /// </summary>
+    public class AuthenticationSmsOtp
+    {
+        /// <summary>True, if SMS OTP authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Mobile number of the recipient. Mobile number is needed to send the SMS to the recipient for the authentication.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+    }
+
+    /// <summary>
+    /// authentication_signing
+    /// </summary>
+    public class SigningAuthentication
+    {
+        /// <summary>True, if authentication is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>sms_otp</summary>
+        [JsonPropertyName("sms_otp")]
+        public AuthenticationSigningSmsOtp SmsOtp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public TotpPermissionResponse Totp { get; set; }
+    }
+
+    /// <summary>
+    /// sms_otp
+    /// </summary>
+    public class AuthenticationSigningSmsOtp
+    {
+        /// <summary>Mobile number of the recipient. Mobile number is needed to send the SMS to the recipient for the authentication.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+    }
+
+    /// <summary>
+    /// access_duration
+    /// </summary>
+    public class PermissionAccessDuration
+    {
+        /// <summary>True, if access duration security is enabled for the package.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>duration_by_date</summary>
+        [JsonPropertyName("duration_by_date")]
+        public AccessDurationByDate DurationByDate { get; set; }
+
+        /// <summary>duration_by_days</summary>
+        [JsonPropertyName("duration_by_days")]
+        public AccessDurationByDays DurationByDays { get; set; }
+    }
+
+    /// <summary>
+    /// duration_by_date
+    /// </summary>
+    public class AccessDurationByDate
+    {
+        /// <summary>True if access security is enabled for a duration by date and time.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>duration</summary>
+        [JsonPropertyName("duration")]
+        public DurationByDate Duration { get; set; }
+    }
+
+    /// <summary>
+    /// duration
+    /// </summary>
+    public class DurationByDate
+    {
+        /// <summary>Date and time from where the package will be accessible to the recipient.</summary>
+        [JsonPropertyName("start_date_time")]
+        [JsonInclude]
+        public DateTime? StartDateTime { get; init; }
+
+        /// <summary>Date and time after which the package will not be accessible to the recipient.</summary>
+        [JsonPropertyName("end_date_time")]
+        [JsonInclude]
+        public DateTime? EndDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// duration_by_days
+    /// </summary>
+    public class AccessDurationByDays
+    {
+        /// <summary>True, if access security is enabled for a duration by number of days.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>duration</summary>
+        [JsonPropertyName("duration")]
+        public DurationByDays Duration { get; set; }
+    }
+
+    /// <summary>
+    /// duration
+    /// </summary>
+    public class DurationByDays
+    {
+        /// <summary>Total number of days for which the package will be accessible to the recipient after receiving the package.</summary>
+        [JsonPropertyName("total_days")]
+        public int? TotalDays { get; set; }
     }
 
     /// <summary>
@@ -2576,29 +3642,29 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("field_name")]
         public string FieldName { get; set; }
 
-        /// <summary>Field dimensions</summary>
+        /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public JsonElement? Dimensions { get; set; }
+        public FieldDimension Dimensions { get; set; }
 
         /// <summary>The plain text data to be encoded in the QR code. Default is URL generated to access the related document. e.g. {base_url}/document/{document_unique_id}</summary>
         [JsonPropertyName("data")]
         public string Data { get; set; }
 
-        /// <summary>Settings regarding options</summary>
+        /// <summary>options</summary>
         [JsonPropertyName("options")]
-        public JsonElement? Options { get; set; }
+        public QrCodeOptions Options { get; set; }
 
-        /// <summary>Settings regarding color</summary>
+        /// <summary>color</summary>
         [JsonPropertyName("color")]
-        public JsonElement? Color { get; set; }
+        public QrCodeColor Color { get; set; }
 
-        /// <summary>Settings regarding logo</summary>
+        /// <summary>logo</summary>
         [JsonPropertyName("logo")]
-        public JsonElement? Logo { get; set; }
+        public QrCodeLogo Logo { get; set; }
     }
 
     /// <summary>
-    /// FieldDimension
+    /// dimensions
     /// </summary>
     public class FieldDimension
     {
@@ -2620,6 +3686,48 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     }
 
     /// <summary>
+    /// SignatureFieldAuthentication
+    /// </summary>
+    public class SignatureFieldAuthentication
+    {
+        /// <summary>True, if authentication is enabled for the field.  False otherwise.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>otp</summary>
+        [JsonPropertyName("otp")]
+        public SignatureFieldAuthenticationOtp Otp { get; set; }
+
+        /// <summary>totp</summary>
+        [JsonPropertyName("totp")]
+        public SignatureFieldAuthenticationTotp Totp { get; set; }
+    }
+
+    /// <summary>
+    /// otp
+    /// </summary>
+    public class SignatureFieldAuthenticationOtp
+    {
+        /// <summary>True, if SMS/Email OTP authentication is enabled for the field.  False otherwise.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Mobile number of the recipient to which the field is assigned.</summary>
+        [JsonPropertyName("mobile_number")]
+        public string MobileNumber { get; set; }
+    }
+
+    /// <summary>
+    /// totp
+    /// </summary>
+    public class SignatureFieldAuthenticationTotp
+    {
+        /// <summary>True, if TOTP authentication is enabled for the field.  False otherwise.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+    }
+
+    /// <summary>
     /// UpdateQrCodeRequest
     /// </summary>
     public class UpdateQrCodeRequest
@@ -2636,25 +3744,25 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("page_no")]
         public int? PageNo { get; set; }
 
-        /// <summary>Field dimensions</summary>
+        /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public JsonElement? Dimensions { get; set; }
+        public FieldDimension Dimensions { get; set; }
 
         /// <summary>The plain text data to be encoded in the QR code. Default is URL generated to access the related document. e.g. {base_url}/document/{document_unique_id}</summary>
         [JsonPropertyName("data")]
         public string Data { get; set; }
 
-        /// <summary>Settings regarding options</summary>
+        /// <summary>options</summary>
         [JsonPropertyName("options")]
-        public JsonElement? Options { get; set; }
+        public QrCodeOptions Options { get; set; }
 
-        /// <summary>Settings regarding color</summary>
+        /// <summary>color</summary>
         [JsonPropertyName("color")]
-        public JsonElement? Color { get; set; }
+        public QrCodeColor Color { get; set; }
 
-        /// <summary>Settings regarding logo</summary>
+        /// <summary>logo</summary>
         [JsonPropertyName("logo")]
-        public JsonElement? Logo { get; set; }
+        public QrCodeLogo Logo { get; set; }
     }
 
     /// <summary>
@@ -2676,13 +3784,27 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class UpdateCertifyPolicyRequest
     {
-        /// <summary>Certify settings object for the document.</summary>
+        /// <summary>certify</summary>
         [JsonPropertyName("certify")]
-        public JsonElement? Certify { get; set; }
+        public CertifyPolicyRequest Certify { get; set; }
 
         /// <summary>True if form fields are to be locked after the last signature on the current document.</summary>
         [JsonPropertyName("lock_form_fields")]
         public bool? LockFormFields { get; set; }
+    }
+
+    /// <summary>
+    /// certify
+    /// </summary>
+    public class CertifyPolicyRequest
+    {
+        /// <summary>True if certify settings are to be enabled for the document.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>permission</summary>
+        [JsonPropertyName("permission")]
+        public string Permission { get; set; }
     }
 
     /// <summary>
@@ -2700,13 +3822,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// </summary>
     public class WorkflowDetailUpdateRequest
     {
-        /// <summary>Workflow type for the package e.g (SERIAL,PARALLEL,INDIVIDUAL,CUSTOM). If no value is provided, old value will be retained.</summary>
+        /// <summary>workflow_type</summary>
         [JsonPropertyName("workflow_type")]
-        public JsonElement? WorkflowType { get; set; }
+        public string WorkflowType { get; set; }
 
-        /// <summary>Workflow mode of the package e.g (ONLY_ME, ME_AND_OTHERS, ONLY_OTHERS). If workflow mode is set to ONLY_ME then no collaborator can be added to package other then authenticated user itself</summary>
+        /// <summary>workflow_mode</summary>
         [JsonPropertyName("workflow_mode")]
-        public JsonElement? WorkflowMode { get; set; }
+        public string WorkflowMode { get; set; }
 
         /// <summary>True, if workflow needs to continue even if any recipient declines the document. If no value is provided, old value will be retained.</summary>
         [JsonPropertyName("continue_on_decline")]
@@ -2784,17 +3906,17 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_notification")]
         public bool? EmailNotification { get; set; }
 
-        /// <summary>Role of the recipient in the workflow. Possible values are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; or &quot;INPERSON_HOST&quot;. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
+        /// <summary>role</summary>
         [JsonPropertyName("role")]
-        public JsonElement? Role { get; set; }
+        public string Role { get; set; }
 
         /// <summary>Order of the recipient in the workflow. This signing order is mandatory when workflow type is &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
         public int? SigningOrder { get; set; }
 
-        /// <summary>Delivery method of the recipient in the workflow. Possible values are &quot;EMAIL&quot;, &quot;SMS&quot;, or &quot;EMAIL_AND_SMS&quot;. Default value would be EMAIL</summary>
+        /// <summary>delivery_method</summary>
         [JsonPropertyName("delivery_method")]
-        public JsonElement? DeliveryMethod { get; set; }
+        public string DeliveryMethod { get; set; }
 
         /// <summary>Mobile Number</summary>
         [JsonPropertyName("mobile_number")]
@@ -2824,9 +3946,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("package_name")]
         public string PackageName { get; set; }
 
-        /// <summary>Mode of the workflow, there are three types of workflow modes supported in application. Possible values are &quot;ONLY_ME&quot;, &quot;ME_AND_OTHERS&quot; and &quot;ONLY_OTHERS&quot;</summary>
+        /// <summary>workflow_mode</summary>
         [JsonPropertyName("workflow_mode")]
-        public JsonElement? WorkflowMode { get; set; }
+        public string WorkflowMode { get; set; }
 
         /// <summary>The name of the folder. It will be used to upload package in any folder of the user, either it is a custom folder or a shared folder.</summary>
         [JsonPropertyName("folder_name")]
@@ -2894,9 +4016,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("hand_signature_image")]
         public string HandSignatureImage { get; set; }
 
-        /// <summary>Name of the hand signature method by user for signing. In case no hand signature method is provided then default will be DRAW. possible values DRAW,TEXT,UPLOAD,SIGNATURE_PAD</summary>
+        /// <summary>hand_signature_method</summary>
         [JsonPropertyName("hand_signature_method")]
-        public JsonElement? HandSignatureMethod { get; set; }
+        public int? HandSignatureMethod { get; set; }
 
         /// <summary>Reason of signing provided by the recipient.</summary>
         [JsonPropertyName("signing_reason")]
@@ -2922,13 +4044,47 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("signing_capacity")]
         public string SigningCapacity { get; set; }
 
-        /// <summary>Authentication object is an optional, it contains authentication releated options</summary>
+        /// <summary>authentication</summary>
         [JsonPropertyName("authentication")]
-        public JsonElement? Authentication { get; set; }
+        public BulkSignAuthentication Authentication { get; set; }
 
         /// <summary>re-initiated signing process transaction id</summary>
         [JsonPropertyName("transaction_id")]
         public string TransactionId { get; set; }
+    }
+
+    /// <summary>
+    /// authentication
+    /// </summary>
+    public class BulkSignAuthentication
+    {
+        /// <summary>Mechanism of the authentication. Possible values for mechanism are: AUTHENTICATION_PASSWORD, AUTHENTICATION_ACTIVE_DIRECTORY, AUTHENTICATION_AZURE_ACTIVE_DIRECTORY, AUTHENTICATION_OFFICE_365, AUTHENTICATION_OAUTH2, AUTHENTICATION_OIDC</summary>
+        [JsonPropertyName("mechanism")]
+        public Mechanism? Mechanism { get; set; }
+
+        /// <summary>It is an optional parameter, but it&apos;s only required when using &apos;AUTHENTICATION_PASSWORD&apos; as a parameter value under &apos;mechanism&apos;</summary>
+        [JsonPropertyName("password")]
+        public string Password { get; set; }
+
+        /// <summary>It is an optional parameter that will be received from third party server, but it&apos;s only required when using  either  &apos;AUTHENTICATION_AZURE_ACTIVE_DIRECTORY&apos;,  &apos;AUTHENTICATION_OFFICE_365&apos;,  &apos;AUTHENTICATION_OAUTH2&apos;  &apos;AUTHENTICATION_OIDC&apos;  &apos;AUTHENTICATION_GOOGLE&apos;  &apos;AUTHENTICATION_LINKED_IN&apos;  &apos;AUTHENTICATION_SALES_FORCE&apos;  as a parameter value under &apos;mechanism&apos;</summary>
+        [JsonPropertyName("token")]
+        public string Token { get; set; }
+
+        /// <summary>It is an optional parameter, but it&apos;s only required when using &apos;AUTHENTICATION_ACTIVE_DIRECTORY&apos; or &apos;AUTHENTICATION_SAML&apos; as a parameter value under &apos;mechanism&apos;</summary>
+        [JsonPropertyName("user_identifier")]
+        public string UserIdentifier { get; set; }
+
+        /// <summary>It is an optional parameter, but it&apos;s only required when using &apos;AUTHENTICATION_SALES_FORCE&apos; or &apos;AUTHENTICATION_IDFY&apos; as a parameter value under &apos;mechanism&apos;. For &apos;AUTHENTICATION_IDFY&apos; it&apos;s requestId</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Code Verifier if PKCE is enabled for the client.</summary>
+        [JsonPropertyName("code_verifier")]
+        public string CodeVerifier { get; set; }
+
+        /// <summary>Nonce value if it is enabled for the client.</summary>
+        [JsonPropertyName("nonce")]
+        public string Nonce { get; set; }
     }
 
     /// <summary>
@@ -2954,9 +4110,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("hand_signature_image")]
         public string HandSignatureImage { get; set; }
 
-        /// <summary>Name of the hand signature method by user for signing. In case no hand signature method is provided then default will be DRAW.</summary>
+        /// <summary>hand_signature_method</summary>
         [JsonPropertyName("hand_signature_method")]
-        public JsonElement? HandSignatureMethod { get; set; }
+        public int? HandSignatureMethod { get; set; }
 
         /// <summary>Reason of signing provided by the recipient. Note: Commitment type indication for XML documents</summary>
         [JsonPropertyName("signing_reason")]
@@ -2994,9 +4150,43 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("signing_server")]
         public string SigningServer { get; set; }
 
-        /// <summary>Authentication object is an optional, it contains authentication releated options</summary>
+        /// <summary>authentication</summary>
         [JsonPropertyName("authentication")]
-        public JsonElement? Authentication { get; set; }
+        public Authentication Authentication { get; set; }
+    }
+
+    /// <summary>
+    /// authentication
+    /// </summary>
+    public class Authentication
+    {
+        /// <summary>Mechanism of the authentication. Possible values for mechanism are: AUTHENTICATION_PASSWORD, AUTHENTICATION_ACTIVE_DIRECTORY, AUTHENTICATION_AZURE_ACTIVE_DIRECTORY, AUTHENTICATION_OFFICE_365, AUTHENTICATION_OAUTH2, AUTHENTICATION_OIDC</summary>
+        [JsonPropertyName("mechanism")]
+        public Mechanism? Mechanism { get; set; }
+
+        /// <summary>It is an optional parameter, but it&apos;s only required when using &apos;AUTHENTICATION_PASSWORD&apos; as a parameter value under &apos;mechanism&apos;</summary>
+        [JsonPropertyName("password")]
+        public string Password { get; set; }
+
+        /// <summary>It is an optional parameter that will be received from third party server, but it&apos;s only required when using  either  &apos;AUTHENTICATION_AZURE_ACTIVE_DIRECTORY&apos;,  &apos;AUTHENTICATION_OFFICE_365&apos;,  &apos;AUTHENTICATION_OAUTH2&apos;  &apos;AUTHENTICATION_OIDC&apos;  &apos;AUTHENTICATION_GOOGLE&apos;  &apos;AUTHENTICATION_LINKED_IN&apos;  &apos;AUTHENTICATION_SALES_FORCE&apos;  as a parameter value under &apos;mechanism&apos;</summary>
+        [JsonPropertyName("token")]
+        public string Token { get; set; }
+
+        /// <summary>It is an optional parameter, but it&apos;s only required when using &apos;AUTHENTICATION_ACTIVE_DIRECTORY&apos; or &apos;AUTHENTICATION_SAML&apos; as a parameter value under &apos;mechanism&apos;</summary>
+        [JsonPropertyName("user_identifier")]
+        public string UserIdentifier { get; set; }
+
+        /// <summary>It is an optional parameter, but it&apos;s only required when using &apos;AUTHENTICATION_SALES_FORCE&apos; or &apos;AUTHENTICATION_IDFY&apos; as a parameter value under &apos;mechanism&apos;. For &apos;AUTHENTICATION_IDFY&apos; it&apos;s requestId</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Code Verifier if PKCE is enabled for the client.</summary>
+        [JsonPropertyName("code_verifier")]
+        public string CodeVerifier { get; set; }
+
+        /// <summary>Nonce value if it is enabled for the client.</summary>
+        [JsonPropertyName("nonce")]
+        public string Nonce { get; set; }
     }
 
     /// <summary>
@@ -3024,9 +4214,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("level_of_assurance")]
         public List<string> LevelOfAssurance { get; set; }
 
-        /// <summary>Dimensions of a field to be created in the document. X and Y location is calculated automatically. API can only configure width and height for the field. If dimensions are not provided default dimensions will be followed. that is 200 x 80 in pixels.</summary>
+        /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
-        public JsonElement? Dimensions { get; set; }
+        public FieldDimension Dimensions { get; set; }
 
         /// <summary>Provide note in the case of Mandatory Attachment</summary>
         [JsonPropertyName("placeholder")]
@@ -3052,17 +4242,35 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("validation_rule")]
         public ValidationRule? ValidationRule { get; set; }
 
-        /// <summary>Validations</summary>
+        /// <summary>validation</summary>
         [JsonPropertyName("validation")]
-        public JsonElement? Validation { get; set; }
+        public FieldValidationValue Validation { get; set; }
 
-        /// <summary>Font of the fields text             </summary>
+        /// <summary>font</summary>
         [JsonPropertyName("font")]
-        public JsonElement? Font { get; set; }
+        public Font Font { get; set; }
 
         /// <summary>This belongs to Text Area field type and If set to true, text area field would be created with multi line option.             </summary>
         [JsonPropertyName("multiline")]
         public bool? Multiline { get; set; }
+    }
+
+    /// <summary>
+    /// font
+    /// </summary>
+    public class Font
+    {
+        /// <summary>Name of the font selected for the text field. Possible values are &quot;COURIER&quot;, &quot;HELVETICA&quot;.</summary>
+        [JsonPropertyName("name")]
+        public Name? Name { get; set; }
+
+        /// <summary>Size of the font selected for the text field. Possible values are 8, 10, 12, 14, 16, 18, 20</summary>
+        [JsonPropertyName("size")]
+        public string Size { get; set; }
+
+        /// <summary>Size of the font in the original PDF document.</summary>
+        [JsonPropertyName("embedded_size")]
+        public string EmbeddedSize { get; set; }
     }
 
     /// <summary>
@@ -3204,9 +4412,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("image")]
         public string Image { get; set; }
 
-        /// <summary>Name of the hand signature method by user for signing. In case no hand signature method is provided then default will be DRAW. possible values DRAW,TEXT,UPLOAD,SIGNATURE_PAD</summary>
+        /// <summary>method</summary>
         [JsonPropertyName("method")]
-        public JsonElement? Method { get; set; }
+        public int? Method { get; set; }
 
         /// <summary>True if all initials are to be filled.</summary>
         [JsonPropertyName("apply_to_all")]
@@ -3268,9 +4476,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("level_of_assurance")]
         public List<string> LevelOfAssurance { get; set; }
 
-        /// <summary>Field Authentication</summary>
+        /// <summary>authentication_signing</summary>
         [JsonPropertyName("authentication_signing")]
-        public JsonElement? AuthenticationSigning { get; set; }
+        public SignatureFieldAuthentication AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3306,9 +4514,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("level_of_assurance")]
         public List<string> LevelOfAssurance { get; set; }
 
-        /// <summary>Field Authentication</summary>
+        /// <summary>authentication_signing</summary>
         [JsonPropertyName("authentication_signing")]
-        public JsonElement? AuthenticationSigning { get; set; }
+        public SignatureFieldAuthentication AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3340,9 +4548,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("display")]
         public Display? Display { get; set; }
 
-        /// <summary>Field Authentication</summary>
+        /// <summary>authentication_signing</summary>
         [JsonPropertyName("authentication_signing")]
-        public JsonElement? AuthenticationSigning { get; set; }
+        public SignatureFieldAuthentication AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3374,9 +4582,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("display")]
         public Display? Display { get; set; }
 
-        /// <summary>Field Authentication</summary>
+        /// <summary>authentication_signing</summary>
         [JsonPropertyName("authentication_signing")]
-        public JsonElement? AuthenticationSigning { get; set; }
+        public SignatureFieldAuthentication AuthenticationSigning { get; set; }
     }
 
     /// <summary>
@@ -3452,9 +4660,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("page_no")]
         public int? PageNo { get; set; }
 
-        /// <summary>Type of the field, possible values are &quot;TEXT&quot;, &quot;NAME&quot;, &quot;EMAIL&quot;, &quot;COMPANY&quot;, &quot;JOBTITLE&quot;, &quot;DATE&quot;. All text fields other then TEXT are auto filled in pending mode with the attributes/data of the recipient.</summary>
+        /// <summary>type</summary>
         [JsonPropertyName("type")]
-        public JsonElement? Type { get; set; }
+        public string Type { get; set; }
 
         /// <summary>Value of the field. For type = DATE, the value is expected to follow ISO 8601 format.Following the format YYYY-MM-DD hh:mm:ss +00. As the values are for date fields client applications can send YYYY-MM-DD and ignore hh:mm:ss +00. If value is not in proper format an error will be returned.</summary>
         [JsonPropertyName("value")]
@@ -3476,25 +4684,21 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("field_name")]
         public string FieldName { get; set; }
 
-        /// <summary>Field local. Possible values are ar-AE | en-US. Optional and default will be en-US. This value matters for type &quot;DATE&quot;.</summary>
-        [JsonPropertyName("field_locale")]
-        public string FieldLocale { get; set; }
-
-        /// <summary>Field type with respect to accepting the type of values, possible values are &quot;NUMBER&quot; or &quot;TEXT&quot;.</summary>
+        /// <summary>field_type</summary>
         [JsonPropertyName("field_type")]
-        public JsonElement? FieldType { get; set; }
+        public string FieldType { get; set; }
 
-        /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
+        /// <summary>validation_rule</summary>
         [JsonPropertyName("validation_rule")]
-        public JsonElement? ValidationRule { get; set; }
+        public string ValidationRule { get; set; }
 
-        /// <summary>Validations</summary>
+        /// <summary>validation</summary>
         [JsonPropertyName("validation")]
-        public JsonElement? Validation { get; set; }
+        public FieldValidationValue Validation { get; set; }
 
-        /// <summary>Font of the fields text             </summary>
+        /// <summary>font</summary>
         [JsonPropertyName("font")]
-        public JsonElement? Font { get; set; }
+        public Font Font { get; set; }
 
         /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
@@ -3514,10 +4718,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("field_name")]
         public string FieldName { get; set; }
 
-        /// <summary>Field local. Possible values are ar-AE | en-US. Optional and default will be en-US. This value matters for type &quot;DATE&quot;.</summary>
-        [JsonPropertyName("field_locale")]
-        public string FieldLocale { get; set; }
-
         /// <summary>Updated name of the field if renaming is intended.</summary>
         [JsonPropertyName("renamed_as")]
         public string RenamedAs { get; set; }
@@ -3534,17 +4734,17 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("max_length")]
         public int? MaxLength { get; set; }
 
-        /// <summary>Field type with respect to accepting the type of values, possible values are &quot;NUMBER&quot; or &quot;TEXT&quot;.</summary>
+        /// <summary>field_type</summary>
         [JsonPropertyName("field_type")]
-        public JsonElement? FieldType { get; set; }
+        public string FieldType { get; set; }
 
-        /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
+        /// <summary>validation_rule</summary>
         [JsonPropertyName("validation_rule")]
-        public JsonElement? ValidationRule { get; set; }
+        public string ValidationRule { get; set; }
 
-        /// <summary>Font of the fields text             </summary>
+        /// <summary>font</summary>
         [JsonPropertyName("font")]
-        public JsonElement? Font { get; set; }
+        public Font Font { get; set; }
 
         /// <summary>dimensions</summary>
         [JsonPropertyName("dimensions")]
@@ -3558,9 +4758,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("format")]
         public string Format { get; set; }
 
-        /// <summary>Validations</summary>
+        /// <summary>validation</summary>
         [JsonPropertyName("validation")]
-        public JsonElement? Validation { get; set; }
+        public FieldValidationValue Validation { get; set; }
     }
 
     /// <summary>
@@ -3584,9 +4784,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("value")]
         public Value? Value { get; set; }
 
-        /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
+        /// <summary>validation_rule</summary>
         [JsonPropertyName("validation_rule")]
-        public JsonElement? ValidationRule { get; set; }
+        public string ValidationRule { get; set; }
 
         /// <summary>radio_group_name</summary>
         [JsonPropertyName("radio_group_name")]
@@ -3618,9 +4818,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("value")]
         public Value? Value { get; set; }
 
-        /// <summary>One or more rules for validation of the fields possible values are &quot;MANDATORY&quot; or &quot;OPTIONAL&quot;.</summary>
+        /// <summary>validation_rule</summary>
         [JsonPropertyName("validation_rule")]
-        public JsonElement? ValidationRule { get; set; }
+        public string ValidationRule { get; set; }
 
         /// <summary>The group name to which the field belongs.</summary>
         [JsonPropertyName("radio_group_name")]
@@ -3640,9 +4840,67 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("apply_to_all")]
         public bool? ApplyToAll { get; set; }
 
-        /// <summary>It has all the permissions to be allowed in the workflow</summary>
+        /// <summary>permissions</summary>
         [JsonPropertyName("permissions")]
-        public JsonElement? Permissions { get; set; }
+        public WorkflowPermission Permissions { get; set; }
+    }
+
+    /// <summary>
+    /// permissions
+    /// </summary>
+    public class WorkflowPermission
+    {
+        /// <summary>It defines whether recipient is allowed to print the document.</summary>
+        [JsonPropertyName("print")]
+        public bool? Print { get; set; }
+
+        /// <summary>It defines whether recipient is allowed to download the document.</summary>
+        [JsonPropertyName("download")]
+        public bool? Download { get; set; }
+
+        /// <summary>It defines whether recipient is allowed to add text fields in the document.</summary>
+        [JsonPropertyName("add_text")]
+        public bool? AddText { get; set; }
+
+        /// <summary>It allows the user to change any recipient who has not signed yet.</summary>
+        [JsonPropertyName("change_recipients")]
+        public bool? ChangeRecipients { get; set; }
+
+        /// <summary>It defines whether recipient is allowed to add attachments in the PDF document.</summary>
+        [JsonPropertyName("add_attachment")]
+        public bool? AddAttachment { get; set; }
+
+        /// <summary>legal_notice</summary>
+        [JsonPropertyName("legal_notice")]
+        public PermissionLegalNotice LegalNotice { get; set; }
+
+        /// <summary>attachment</summary>
+        [JsonPropertyName("attachment")]
+        public AttachmentPermissionRequest Attachment { get; set; }
+    }
+
+    /// <summary>
+    /// legal_notice
+    /// </summary>
+    public class PermissionLegalNotice
+    {
+        /// <summary>True, if legal notice is enabled.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Name of the legal notice selected for  the recipient.</summary>
+        [JsonPropertyName("legal_notice_name")]
+        public string LegalNoticeName { get; set; }
+    }
+
+    /// <summary>
+    /// attachment
+    /// </summary>
+    public class AttachmentPermissionRequest
+    {
+        /// <summary>Enabled</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
     }
 
     /// <summary>
@@ -3666,9 +4924,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("mobile_number")]
         public string MobileNumber { get; set; }
 
-        /// <summary>Role of the recipient to be updated. Possible values are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; or &quot;INPERSON_HOST&quot;. If no value is provided, old value will be retained. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
+        /// <summary>role</summary>
         [JsonPropertyName("role")]
-        public JsonElement? Role { get; set; }
+        public string Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3678,9 +4936,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_language_code")]
         public string EmailLanguageCode { get; set; }
 
-        /// <summary>Delivery method of the recipient in the workflow. Possible values are &quot;EMAIL&quot;, &quot;SMS&quot;, or &quot;EMAIL_AND_SMS&quot;. Default value would be EMAIL</summary>
+        /// <summary>delivery_method</summary>
         [JsonPropertyName("delivery_method")]
-        public JsonElement? DeliveryMethod { get; set; }
+        public string DeliveryMethod { get; set; }
     }
 
     /// <summary>
@@ -3714,9 +4972,31 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("remind_after")]
         public int? RemindAfter { get; set; }
 
-        /// <summary>The reminders would be sent to user repeatedly.</summary>
+        /// <summary>repeat</summary>
         [JsonPropertyName("repeat")]
-        public JsonElement? Repeat { get; set; }
+        public RepeatRequest Repeat { get; set; }
+    }
+
+    /// <summary>
+    /// repeat
+    /// </summary>
+    public class RepeatRequest
+    {
+        /// <summary>True, if subsequent reminders are enabled.</summary>
+        [JsonPropertyName("enabled")]
+        public bool? Enabled { get; set; }
+
+        /// <summary>Repeat Reminder Frequency. Possible Values are DAYS | HOURS. </summary>
+        [JsonPropertyName("frequency")]
+        public Frequency? Frequency { get; set; }
+
+        /// <summary>Required, in case of enabled property will true. The number of days after which the subsequent reminders would be sent to workflow user.</summary>
+        [JsonPropertyName("keep_reminding_after")]
+        public int? KeepRemindingAfter { get; set; }
+
+        /// <summary>Required, in case of enabled property will true. The number of subsequent reminders would be sent to workflow user.</summary>
+        [JsonPropertyName("total_reminders")]
+        public int? TotalReminders { get; set; }
     }
 
     /// <summary>
@@ -3732,9 +5012,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_notification")]
         public bool? EmailNotification { get; set; }
 
-        /// <summary>Role of the group as a recipient in the workflow. Possible value are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; and &quot;INPERSON_HOST&quot;. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
+        /// <summary>role</summary>
         [JsonPropertyName("role")]
-        public JsonElement? Role { get; set; }
+        public string Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3754,9 +5034,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_notification")]
         public bool? EmailNotification { get; set; }
 
-        /// <summary>Role of the group as a recipient in the workflow. Possible value are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; and &quot;INPERSON_HOST&quot;. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
+        /// <summary>role</summary>
         [JsonPropertyName("role")]
-        public JsonElement? Role { get; set; }
+        public string Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3776,9 +5056,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         [JsonPropertyName("email_notification")]
         public bool? EmailNotification { get; set; }
 
-        /// <summary>Role of the group as a recipient in the workflow. Possible value are &quot;SIGNER&quot;, &quot;REVIEWER&quot;, &quot;EDITOR&quot;,&quot;CARBON_COPY&quot; and &quot;INPERSON_HOST&quot;. If no value is provided, old value will be retained. However, while XML type document preparation, only supported role types are &quot;SIGNER&quot;, &quot;REVIEWER&quot; and &quot;CARBON_COPY&quot;</summary>
+        /// <summary>role</summary>
         [JsonPropertyName("role")]
-        public JsonElement? Role { get; set; }
+        public string Role { get; set; }
 
         /// <summary>Order in which the workflow will be signed by the recipients. This signing order is important when workflow type is set to &quot;CUSTOM&quot;.</summary>
         [JsonPropertyName("signing_order")]
@@ -3846,13 +5126,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public AppearanceDesign(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>COMPANY_LOGO</summary>
-        public static AppearanceDesign Companylogo { get; } = new("COMPANY_LOGO");
+        public static AppearanceDesign CompanyLogo { get; } = new("COMPANY_LOGO");
 
         /// <summary>DETAILED_SIGNATURE</summary>
-        public static AppearanceDesign Detailedsignature { get; } = new("DETAILED_SIGNATURE");
+        public static AppearanceDesign DetailedSignature { get; } = new("DETAILED_SIGNATURE");
 
         /// <summary>HAND_SIGNATURE</summary>
-        public static AppearanceDesign Handsignature { get; } = new("HAND_SIGNATURE");
+        public static AppearanceDesign HandSignature { get; } = new("HAND_SIGNATURE");
 
         /// <summary>Converts a string to <see cref="AppearanceDesign"/>.</summary>
         public static implicit operator AppearanceDesign(string value) => new(value);
@@ -3907,7 +5187,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static DeliveryMethod Sms { get; } = new("SMS");
 
         /// <summary>EMAIL_AND_SMS</summary>
-        public static DeliveryMethod Emailandsms { get; } = new("EMAIL_AND_SMS");
+        public static DeliveryMethod EmailAndSms { get; } = new("EMAIL_AND_SMS");
 
         /// <summary>Converts a string to <see cref="DeliveryMethod"/>.</summary>
         public static implicit operator DeliveryMethod(string value) => new(value);
@@ -4011,7 +5291,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static FieldType Signature { get; } = new("SIGNATURE");
 
         /// <summary>IN_PERSON_SIGNATURE</summary>
-        public static FieldType Inpersonsignature { get; } = new("IN_PERSON_SIGNATURE");
+        public static FieldType InPersonSignature { get; } = new("IN_PERSON_SIGNATURE");
 
         /// <summary>INITIALS</summary>
         public static FieldType Initials { get; } = new("INITIALS");
@@ -4131,6 +5411,85 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     }
 
     /// <summary>
+    /// Extensible enum for known Mechanism values.
+    /// </summary>
+    [JsonConverter(typeof(Mechanism.MechanismJsonConverter))]
+    public readonly struct Mechanism : IEquatable<Mechanism>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Mechanism"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Mechanism(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>AUTHENTICATION_PASSWORD</summary>
+        public static Mechanism AuthenticationPassword { get; } = new("AUTHENTICATION_PASSWORD");
+
+        /// <summary>AUTHENTICATION_ACTIVE_DIRECTORY</summary>
+        public static Mechanism AuthenticationActiveDirectory { get; } = new("AUTHENTICATION_ACTIVE_DIRECTORY");
+
+        /// <summary>AUTHENTICATION_AZURE_ACTIVE_DIRECTORY</summary>
+        public static Mechanism AuthenticationAzureActiveDirectory { get; } = new("AUTHENTICATION_AZURE_ACTIVE_DIRECTORY");
+
+        /// <summary>AUTHENTICATION_OFFICE_365</summary>
+        public static Mechanism AuthenticationOffice365 { get; } = new("AUTHENTICATION_OFFICE_365");
+
+        /// <summary>AUTHENTICATION_OAUTH2</summary>
+        public static Mechanism AuthenticationOauth2 { get; } = new("AUTHENTICATION_OAUTH2");
+
+        /// <summary>AUTHENTICATION_OIDC</summary>
+        public static Mechanism AuthenticationOidc { get; } = new("AUTHENTICATION_OIDC");
+
+        /// <summary>AUTHENTICATION_GOOGLE</summary>
+        public static Mechanism AuthenticationGoogle { get; } = new("AUTHENTICATION_GOOGLE");
+
+        /// <summary>AUTHENTICATION_LINKED_IN</summary>
+        public static Mechanism AuthenticationLinkedIn { get; } = new("AUTHENTICATION_LINKED_IN");
+
+        /// <summary>AUTHENTICATION_SALES_FORCE</summary>
+        public static Mechanism AuthenticationSalesForce { get; } = new("AUTHENTICATION_SALES_FORCE");
+
+        /// <summary>AUTHENTICATION_SAML</summary>
+        public static Mechanism AuthenticationSaml { get; } = new("AUTHENTICATION_SAML");
+
+        /// <summary>AUTHENTICATION_IDFY</summary>
+        public static Mechanism AuthenticationIdfy { get; } = new("AUTHENTICATION_IDFY");
+
+        /// <summary>Converts a string to <see cref="Mechanism"/>.</summary>
+        public static implicit operator Mechanism(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Mechanism"/> to its string representation.</summary>
+        public static implicit operator string(Mechanism value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Mechanism other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Mechanism other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Mechanism left, Mechanism right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Mechanism left, Mechanism right) => !left.Equals(right);
+
+        internal sealed class MechanismJsonConverter : JsonConverter<Mechanism>
+        {
+            public MechanismJsonConverter() { }
+            public override Mechanism Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Mechanism, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Mechanism value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known Name values.
     /// </summary>
     [JsonConverter(typeof(Name.NameJsonConverter))]
@@ -4237,6 +5596,110 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             public PlacementJsonConverter() { }
             public override Placement Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Placement, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, Placement value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known SignatureStatus values.
+    /// </summary>
+    [JsonConverter(typeof(SignatureStatus.SignatureStatusJsonConverter))]
+    public readonly struct SignatureStatus : IEquatable<SignatureStatus>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignatureStatus"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public SignatureStatus(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>VALID</summary>
+        public static SignatureStatus Valid { get; } = new("VALID");
+
+        /// <summary>INVALID</summary>
+        public static SignatureStatus Invalid { get; } = new("INVALID");
+
+        /// <summary>Converts a string to <see cref="SignatureStatus"/>.</summary>
+        public static implicit operator SignatureStatus(string value) => new(value);
+
+        /// <summary>Converts a <see cref="SignatureStatus"/> to its string representation.</summary>
+        public static implicit operator string(SignatureStatus value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(SignatureStatus other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is SignatureStatus other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(SignatureStatus left, SignatureStatus right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(SignatureStatus left, SignatureStatus right) => !left.Equals(right);
+
+        internal sealed class SignatureStatusJsonConverter : JsonConverter<SignatureStatus>
+        {
+            public SignatureStatusJsonConverter() { }
+            public override SignatureStatus Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SignatureStatus, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, SignatureStatus value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known SignatureType values.
+    /// </summary>
+    [JsonConverter(typeof(SignatureType.SignatureTypeJsonConverter))]
+    public readonly struct SignatureType : IEquatable<SignatureType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignatureType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public SignatureType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>PADES_PART2</summary>
+        public static SignatureType PadesPart2 { get; } = new("PADES_PART2");
+
+        /// <summary>PADES_PART4</summary>
+        public static SignatureType PadesPart4 { get; } = new("PADES_PART4");
+
+        /// <summary>Converts a string to <see cref="SignatureType"/>.</summary>
+        public static implicit operator SignatureType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="SignatureType"/> to its string representation.</summary>
+        public static implicit operator string(SignatureType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(SignatureType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is SignatureType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(SignatureType left, SignatureType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(SignatureType left, SignatureType right) => !left.Equals(right);
+
+        internal sealed class SignatureTypeJsonConverter : JsonConverter<SignatureType>
+        {
+            public SignatureTypeJsonConverter() { }
+            public override SignatureType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for SignatureType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, SignatureType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -4435,13 +5898,29 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="CertifyPolicyResponse"/>.
         /// </summary>
         public static CertifyPolicyResponse CertifyPolicyResponse(
-            JsonElement? certify = default,
+            CertifyPermissionResponse certify = default,
             bool? lockFormFields = default)
         {
             return new CertifyPolicyResponse
             {
                 Certify = certify,
                 LockFormFields = lockFormFields,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CertifyPermissionResponse"/>.
+        /// </summary>
+        public static CertifyPermissionResponse CertifyPermissionResponse(
+            bool? enabled = default,
+            List<string> allowedPermissions = default,
+            string defaultPermission = default)
+        {
+            return new CertifyPermissionResponse
+            {
+                Enabled = enabled,
+                AllowedPermissions = allowedPermissions,
+                DefaultPermission = defaultPermission,
             };
         }
 
@@ -4461,8 +5940,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? lockFormFields = default,
             string uploadedOn = default,
             string modifiedOn = default,
-            JsonElement? certify = default,
-            JsonElement? template = default)
+            DocumentCertifyResponse certify = default,
+            DocumentTemplateResponse template = default)
         {
             return new DocumentDetailsResponse
             {
@@ -4484,6 +5963,34 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="DocumentCertifyResponse"/>.
+        /// </summary>
+        public static DocumentCertifyResponse DocumentCertifyResponse(
+            bool? enabled = default,
+            string permission = default)
+        {
+            return new DocumentCertifyResponse
+            {
+                Enabled = enabled,
+                Permission = permission,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DocumentTemplateResponse"/>.
+        /// </summary>
+        public static DocumentTemplateResponse DocumentTemplateResponse(
+            string templateName = default,
+            bool? readOnly = default)
+        {
+            return new DocumentTemplateResponse
+            {
+                TemplateName = templateName,
+                ReadOnly = readOnly,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="UploadDocumentLibraryResponse"/>.
         /// </summary>
         public static UploadDocumentLibraryResponse UploadDocumentLibraryResponse(
@@ -4500,10 +6007,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             DateTime? modifiedOn = default,
             bool? formFields = default,
             bool? lockFormFields = default,
-            JsonElement? certify = default,
-            JsonElement? template = default,
+            UploadDocumentLibraryCertifyResponse certify = default,
+            UploadDocumentLibraryTemplateResponse template = default,
             string packageName = default,
-            JsonElement? metadata = default)
+            UploadDocumentMetaInfoDetail metadata = default)
         {
             return new UploadDocumentLibraryResponse
             {
@@ -4528,6 +6035,64 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="UploadDocumentLibraryCertifyResponse"/>.
+        /// </summary>
+        public static UploadDocumentLibraryCertifyResponse UploadDocumentLibraryCertifyResponse(
+            bool? enabled = default,
+            List<string> allowedPermissions = default,
+            string defaultPermission = default,
+            string permission = default)
+        {
+            return new UploadDocumentLibraryCertifyResponse
+            {
+                Enabled = enabled,
+                AllowedPermissions = allowedPermissions,
+                DefaultPermission = defaultPermission,
+                Permission = permission,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UploadDocumentLibraryTemplateResponse"/>.
+        /// </summary>
+        public static UploadDocumentLibraryTemplateResponse UploadDocumentLibraryTemplateResponse(
+            string templateName = default,
+            bool? readOnly = default)
+        {
+            return new UploadDocumentLibraryTemplateResponse
+            {
+                TemplateName = templateName,
+                ReadOnly = readOnly,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UploadDocumentMetaInfoDetail"/>.
+        /// </summary>
+        public static UploadDocumentMetaInfoDetail UploadDocumentMetaInfoDetail(
+            bool? attachments = default,
+            bool? formFields = default,
+            bool? blankSignatures = default,
+            bool? signedSignatures = default,
+            string conformance = default,
+            bool? locked = default,
+            string certify = default,
+            bool? qrCode = default)
+        {
+            return new UploadDocumentMetaInfoDetail
+            {
+                Attachments = attachments,
+                FormFields = formFields,
+                BlankSignatures = blankSignatures,
+                SignedSignatures = signedSignatures,
+                Conformance = conformance,
+                Locked = locked,
+                Certify = certify,
+                QrCode = qrCode,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="UploadDocument"/>.
         /// </summary>
         public static UploadDocument UploadDocument(
@@ -4544,9 +6109,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             DateTime? uploadedOn = default,
             DateTime? modifiedOn = default,
             bool? lockFormFields = default,
-            JsonElement? certify = default,
+            CertifyPermissionResponse certify = default,
             int? documentSize = default,
-            JsonElement? metadata = default,
+            UploadDocumentMetaInfoDetail metadata = default,
             string packageName = default)
         {
             return new UploadDocument
@@ -4575,15 +6140,183 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="EnterpriseAccessResponse"/>.
         /// </summary>
         public static EnterpriseAccessResponse EnterpriseAccessResponse(
-            JsonElement? authentication = default,
-            JsonElement? authenticationSigning = default,
-            JsonElement? accessDuration = default)
+            EnterpriseAuthenticationResponse authentication = default,
+            EnterpriseAuthenticationSigningResponse authenticationSigning = default,
+            PermissionAccessDurationResponse accessDuration = default)
         {
             return new EnterpriseAccessResponse
             {
                 Authentication = authentication,
                 AuthenticationSigning = authenticationSigning,
                 AccessDuration = accessDuration,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EnterpriseAuthenticationResponse"/>.
+        /// </summary>
+        public static EnterpriseAuthenticationResponse EnterpriseAuthenticationResponse(
+            bool? enabled = default,
+            AccessSecurityPasswordResponse password = default,
+            EnterpriseAccessSecuritySmsOtpResponse smsOtp = default,
+            TotpPermissionResponse totp = default)
+        {
+            return new EnterpriseAuthenticationResponse
+            {
+                Enabled = enabled,
+                Password = password,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessSecurityPasswordResponse"/>.
+        /// </summary>
+        public static AccessSecurityPasswordResponse AccessSecurityPasswordResponse(
+            bool? enabled = default,
+            string userPassword = default)
+        {
+            return new AccessSecurityPasswordResponse
+            {
+                Enabled = enabled,
+                UserPassword = userPassword,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EnterpriseAccessSecuritySmsOtpResponse"/>.
+        /// </summary>
+        public static EnterpriseAccessSecuritySmsOtpResponse EnterpriseAccessSecuritySmsOtpResponse(
+            bool? enabled = default,
+            int? otpLength = default,
+            int? retryDuration = default,
+            string mobileNumber = default)
+        {
+            return new EnterpriseAccessSecuritySmsOtpResponse
+            {
+                Enabled = enabled,
+                OtpLength = otpLength,
+                RetryDuration = retryDuration,
+                MobileNumber = mobileNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TotpPermissionResponse"/>.
+        /// </summary>
+        public static TotpPermissionResponse TotpPermissionResponse(
+            bool? enabled = default)
+        {
+            return new TotpPermissionResponse
+            {
+                Enabled = enabled,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EnterpriseAuthenticationSigningResponse"/>.
+        /// </summary>
+        public static EnterpriseAuthenticationSigningResponse EnterpriseAuthenticationSigningResponse(
+            bool? enabled = default,
+            EnterpriseAuthenticationSigningSmsOtpResponse smsOtp = default,
+            TotpPermissionResponse totp = default)
+        {
+            return new EnterpriseAuthenticationSigningResponse
+            {
+                Enabled = enabled,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EnterpriseAuthenticationSigningSmsOtpResponse"/>.
+        /// </summary>
+        public static EnterpriseAuthenticationSigningSmsOtpResponse EnterpriseAuthenticationSigningSmsOtpResponse(
+            int? otpLength = default,
+            int? retryDuration = default,
+            string mobileNumber = default)
+        {
+            return new EnterpriseAuthenticationSigningSmsOtpResponse
+            {
+                OtpLength = otpLength,
+                RetryDuration = retryDuration,
+                MobileNumber = mobileNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PermissionAccessDurationResponse"/>.
+        /// </summary>
+        public static PermissionAccessDurationResponse PermissionAccessDurationResponse(
+            bool? enabled = default,
+            AccessDurationByDateResponse durationByDate = default,
+            AccessDurationByDaysResponse durationByDays = default)
+        {
+            return new PermissionAccessDurationResponse
+            {
+                Enabled = enabled,
+                DurationByDate = durationByDate,
+                DurationByDays = durationByDays,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessDurationByDateResponse"/>.
+        /// </summary>
+        public static AccessDurationByDateResponse AccessDurationByDateResponse(
+            bool? enabled = default,
+            bool? accessible = default,
+            DurationByDateResponse duration = default)
+        {
+            return new AccessDurationByDateResponse
+            {
+                Enabled = enabled,
+                Accessible = accessible,
+                Duration = duration,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DurationByDateResponse"/>.
+        /// </summary>
+        public static DurationByDateResponse DurationByDateResponse(
+            string startDateTime = default,
+            string endDateTime = default)
+        {
+            return new DurationByDateResponse
+            {
+                StartDateTime = startDateTime,
+                EndDateTime = endDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessDurationByDaysResponse"/>.
+        /// </summary>
+        public static AccessDurationByDaysResponse AccessDurationByDaysResponse(
+            bool? enabled = default,
+            bool? accessible = default,
+            DurationByDaysResponse duration = default)
+        {
+            return new AccessDurationByDaysResponse
+            {
+                Enabled = enabled,
+                Accessible = accessible,
+                Duration = duration,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DurationByDaysResponse"/>.
+        /// </summary>
+        public static DurationByDaysResponse DurationByDaysResponse(
+            int? totalDays = default)
+        {
+            return new DurationByDaysResponse
+            {
+                TotalDays = totalDays,
             };
         }
 
@@ -4653,11 +6386,11 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string createdOn = default,
             string processedBy = default,
             FieldDimenssionResponse dimensions = default,
-            JsonElement? verification = default,
+            VerificationResponse verification = default,
             string nid = default,
             Display? display = default,
             List<string> levelOfAssurance = default,
-            JsonElement? authentication = default)
+            FieldAuthentication authentication = default)
         {
             return new DigitalSignatureFieldResponse
             {
@@ -4728,6 +6461,124 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="VerificationResponse"/>.
+        /// </summary>
+        public static VerificationResponse VerificationResponse(
+            string fieldName = default,
+            string signerName = default,
+            SignatureStatus? signatureStatus = default,
+            string signingReason = default,
+            string signingLocation = default,
+            string contactInformation = default,
+            string signingTime = default,
+            bool? ltv = default,
+            bool? qualified = default,
+            bool? certified = default,
+            string certifyPermission = default,
+            string timestampAt = default,
+            string timestampAuthority = default,
+            string subjectDn = default,
+            string issuerDn = default,
+            string certValidFrom = default,
+            string certValidTo = default,
+            SignatureType? signatureType = default,
+            string signatureAlgorithm = default,
+            string signatureApplication = default,
+            int? signaturePolicyId = default,
+            string signaturePolicyUri = default,
+            string signerPhoto = default,
+            string signerPhotoUrl = default,
+            string signedHash = default,
+            string display = default,
+            int? pageNumber = default,
+            string leiNumber = default,
+            string leiRole = default,
+            string errorMessage = default)
+        {
+            return new VerificationResponse
+            {
+                FieldName = fieldName,
+                SignerName = signerName,
+                SignatureStatus = signatureStatus,
+                SigningReason = signingReason,
+                SigningLocation = signingLocation,
+                ContactInformation = contactInformation,
+                SigningTime = signingTime,
+                Ltv = ltv,
+                Qualified = qualified,
+                Certified = certified,
+                CertifyPermission = certifyPermission,
+                TimestampAt = timestampAt,
+                TimestampAuthority = timestampAuthority,
+                SubjectDn = subjectDn,
+                IssuerDn = issuerDn,
+                CertValidFrom = certValidFrom,
+                CertValidTo = certValidTo,
+                SignatureType = signatureType,
+                SignatureAlgorithm = signatureAlgorithm,
+                SignatureApplication = signatureApplication,
+                SignaturePolicyId = signaturePolicyId,
+                SignaturePolicyUri = signaturePolicyUri,
+                SignerPhoto = signerPhoto,
+                SignerPhotoUrl = signerPhotoUrl,
+                SignedHash = signedHash,
+                Display = display,
+                PageNumber = pageNumber,
+                LeiNumber = leiNumber,
+                LeiRole = leiRole,
+                ErrorMessage = errorMessage,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FieldAuthentication"/>.
+        /// </summary>
+        public static FieldAuthentication FieldAuthentication(
+            bool? enabled = default,
+            AccessSecuritySmsOtpResponse smsOtp = default,
+            AccessSecurityTOTPResponse totp = default)
+        {
+            return new FieldAuthentication
+            {
+                Enabled = enabled,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessSecuritySmsOtpResponse"/>.
+        /// </summary>
+        public static AccessSecuritySmsOtpResponse AccessSecuritySmsOtpResponse(
+            bool? enabled = default,
+            int? otpLength = default,
+            int? retryDuration = default,
+            string mobileNumber = default,
+            List<string> methods = default)
+        {
+            return new AccessSecuritySmsOtpResponse
+            {
+                Enabled = enabled,
+                OtpLength = otpLength,
+                RetryDuration = retryDuration,
+                MobileNumber = mobileNumber,
+                Methods = methods,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessSecurityTOTPResponse"/>.
+        /// </summary>
+        public static AccessSecurityTOTPResponse AccessSecurityTOTPResponse(
+            bool? enabled = default)
+        {
+            return new AccessSecurityTOTPResponse
+            {
+                Enabled = enabled,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="HandSignatureFieldResponse"/>.
         /// </summary>
         public static HandSignatureFieldResponse HandSignatureFieldResponse(
@@ -4777,8 +6628,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string processedBy = default,
             FieldDimenssionResponse dimensions = default,
             string signatureSubType = default,
-            JsonElement? authentication = default,
-            JsonElement? verification = default,
+            FieldAuthentication authentication = default,
+            VerificationResponse verification = default,
             string nid = default,
             Display? display = default)
         {
@@ -4837,7 +6688,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="TextFieldResponse"/>.
         /// </summary>
         public static TextFieldResponse TextFieldResponse(
-            string fieldLocale = default,
             bool? @required = default,
             int? order = default,
             int? tabOrder = default,
@@ -4849,7 +6699,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string value = default,
             bool? readOnly = default,
             string validationRule = default,
-            JsonElement? validation = default,
+            FieldValidationValue validation = default,
             bool? visible = default,
             bool? multiline = default,
             FontResponse font = default,
@@ -4866,7 +6716,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         {
             return new TextFieldResponse
             {
-                FieldLocale = fieldLocale,
                 Required = @required,
                 Order = order,
                 TabOrder = tabOrder,
@@ -4892,6 +6741,34 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
                 FieldRotation = fieldRotation,
                 Align = align,
                 Dimensions = dimensions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FieldValidationValue"/>.
+        /// </summary>
+        public static FieldValidationValue FieldValidationValue(
+            bool? @required = default,
+            List<FieldValidationValueRule> rules = default)
+        {
+            return new FieldValidationValue
+            {
+                Required = @required,
+                Rules = rules,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FieldValidationValueRule"/>.
+        /// </summary>
+        public static FieldValidationValueRule FieldValidationValueRule(
+            string type = default,
+            string value = default)
+        {
+            return new FieldValidationValueRule
+            {
+                Type = type,
+                Value = value,
             };
         }
 
@@ -5105,9 +6982,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string value = default,
             FieldDimenssionResponse dimensions = default,
             string data = default,
-            JsonElement? options = default,
-            JsonElement? color = default,
-            JsonElement? logo = default)
+            QrCodeOptions options = default,
+            QrCodeColor color = default,
+            QrCodeLogo logo = default)
         {
             return new QrCodeResponse
             {
@@ -5120,6 +6997,54 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
                 Options = options,
                 Color = color,
                 Logo = logo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="QrCodeOptions"/>.
+        /// </summary>
+        public static QrCodeOptions QrCodeOptions(
+            string errorCorrectionLevel = default,
+            string encoding = default,
+            int? pixelsPerModule = default,
+            bool? addMargins = default)
+        {
+            return new QrCodeOptions
+            {
+                ErrorCorrectionLevel = errorCorrectionLevel,
+                Encoding = encoding,
+                PixelsPerModule = pixelsPerModule,
+                AddMargins = addMargins,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="QrCodeColor"/>.
+        /// </summary>
+        public static QrCodeColor QrCodeColor(
+            string dots = default,
+            string background = default)
+        {
+            return new QrCodeColor
+            {
+                Dots = dots,
+                Background = background,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="QrCodeLogo"/>.
+        /// </summary>
+        public static QrCodeLogo QrCodeLogo(
+            string base64 = default,
+            bool? hideBackgroundDots = default,
+            int? size = default)
+        {
+            return new QrCodeLogo
+            {
+                Base64 = base64,
+                HideBackgroundDots = hideBackgroundDots,
+                Size = size,
             };
         }
 
@@ -5137,8 +7062,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string processedBy = default,
             int? attachmentRefId = default,
             string note = default,
-            JsonElement? validationRule = default,
-            JsonElement? dimensions = default)
+            string validationRule = default,
+            FieldDimenssionResponse dimensions = default)
         {
             return new AttachmentFieldResponse
             {
@@ -5166,7 +7091,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? unreadCount = default,
             bool? @private = default,
             List<CommentFieldRecipientResponse> recipients = default,
-            JsonElement? dimensions = default)
+            FieldDimenssionResponse dimensions = default)
         {
             return new CommentFieldResponse
             {
@@ -5249,8 +7174,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<NextSignerEmail> nextSignerEmail = default,
             string uploadedOn = default,
             string modifiedOn = default,
-            JsonElement? accessDuration = default,
-            JsonElement? decline = default,
+            RecipientAccessDurationDetails accessDuration = default,
+            RecipientDeclineDetails decline = default,
             long? size = default)
         {
             return new GetPackagesResponse
@@ -5288,6 +7213,50 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             {
                 UserEmail = userEmail,
                 UserName = userName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RecipientAccessDurationDetails"/>.
+        /// </summary>
+        public static RecipientAccessDurationDetails RecipientAccessDurationDetails(
+            string dateFrom = default,
+            string dateTo = default)
+        {
+            return new RecipientAccessDurationDetails
+            {
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RecipientDeclineDetails"/>.
+        /// </summary>
+        public static RecipientDeclineDetails RecipientDeclineDetails(
+            string reason = default,
+            bool? autoDecline = default,
+            DeclineByDetails declinedBy = default)
+        {
+            return new RecipientDeclineDetails
+            {
+                Reason = reason,
+                AutoDecline = autoDecline,
+                DeclinedBy = declinedBy,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DeclineByDetails"/>.
+        /// </summary>
+        public static DeclineByDetails DeclineByDetails(
+            string userName = default,
+            string userEmail = default)
+        {
+            return new DeclineByDetails
+            {
+                UserName = userName,
+                UserEmail = userEmail,
             };
         }
 
@@ -5389,7 +7358,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string description = default,
             bool? enterprise = default,
             List<TemplateDocumentResponse> documents = default,
-            JsonElement? smartForm = default)
+            TemplateSmartFormResponse smartForm = default)
         {
             return new TemplateResponse
             {
@@ -5416,6 +7385,20 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             {
                 Id = id,
                 Name = name,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TemplateSmartFormResponse"/>.
+        /// </summary>
+        public static TemplateSmartFormResponse TemplateSmartFormResponse(
+            int? activeCount = default,
+            int? totalCount = default)
+        {
+            return new TemplateSmartFormResponse
+            {
+                ActiveCount = activeCount,
+                TotalCount = totalCount,
             };
         }
 
@@ -5522,7 +7505,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string fieldName = default,
             string status = default,
             string transactionId = default,
-            JsonElement? verification = default,
+            VerificationResponse verification = default,
             string authenticationAccessToken = default)
         {
             return new SignDocumentResponse
@@ -5592,7 +7575,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<NextSignerEmail> nextSignerEmail = default,
             string uploadedOn = default,
             string modifiedOn = default,
-            JsonElement? workflow = default,
+            WorkflowResponse workflow = default,
             List<WorkflowDocumentsResponse> documents = default,
             List<WorkflowUserResponse> users = default)
         {
@@ -5618,6 +7601,74 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WorkflowResponse"/>.
+        /// </summary>
+        public static WorkflowResponse WorkflowResponse(
+            string workflowType = default,
+            bool? continueOnDecline = default,
+            string workflowStatus = default,
+            string workflowMode = default,
+            string message = default,
+            bool? readOnly = default,
+            PostProcessResponse postProcess = default,
+            bool? comments = default)
+        {
+            return new WorkflowResponse
+            {
+                WorkflowType = workflowType,
+                ContinueOnDecline = continueOnDecline,
+                WorkflowStatus = workflowStatus,
+                WorkflowMode = workflowMode,
+                Message = message,
+                ReadOnly = readOnly,
+                PostProcess = postProcess,
+                Comments = comments,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostProcessResponse"/>.
+        /// </summary>
+        public static PostProcessResponse PostProcessResponse(
+            bool? enabled = default,
+            List<string> contacts = default,
+            List<PostProcessRecipientResponse> recipients = default,
+            string message = default,
+            bool? googleDrive = default,
+            bool? oneDrive = default,
+            bool? dropbox = default,
+            bool? workflowRecipients = default,
+            bool? documentProcessingReport = default)
+        {
+            return new PostProcessResponse
+            {
+                Enabled = enabled,
+                Contacts = contacts,
+                Recipients = recipients,
+                Message = message,
+                GoogleDrive = googleDrive,
+                OneDrive = oneDrive,
+                Dropbox = dropbox,
+                WorkflowRecipients = workflowRecipients,
+                DocumentProcessingReport = documentProcessingReport,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PostProcessRecipientResponse"/>.
+        /// </summary>
+        public static PostProcessRecipientResponse PostProcessRecipientResponse(
+            string name = default,
+            string email = default)
+        {
+            return new PostProcessRecipientResponse
+            {
+                Name = name,
+                Email = email,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WorkflowDocumentsResponse"/>.
         /// </summary>
         public static WorkflowDocumentsResponse WorkflowDocumentsResponse(
@@ -5633,7 +7684,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string createdOn = default,
             string modifiedOn = default,
             bool? formFields = default,
-            JsonElement? template = default,
+            DocumentsTemplateResponse template = default,
             CertifyResponse certify = default,
             bool? lockFormFields = default,
             bool? locked = default,
@@ -5670,6 +7721,22 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="DocumentsTemplateResponse"/>.
+        /// </summary>
+        public static DocumentsTemplateResponse DocumentsTemplateResponse(
+            long? templateId = default,
+            string templateName = default,
+            bool? readOnly = default)
+        {
+            return new DocumentsTemplateResponse
+            {
+                TemplateId = templateId,
+                TemplateName = templateName,
+                ReadOnly = readOnly,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="CertifyResponse"/>.
         /// </summary>
         public static CertifyResponse CertifyResponse(
@@ -5699,7 +7766,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<string> groupMembers = default,
             string delegator = default,
             string gatekeeper = default,
-            JsonElement? gatekeepers = default,
+            WorkflowGatekeeperResponse gatekeepers = default,
             string role = default,
             string processStatus = default,
             string processedOn = default,
@@ -5707,14 +7774,14 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string processedBy = default,
             string reason = default,
             string placeholder = default,
-            JsonElement? permission = default,
-            JsonElement? authentications = default,
-            JsonElement? reminder = default,
+            WorkflowPermissionResponse permission = default,
+            AccessResponse authentications = default,
+            ReminderResponse reminder = default,
             int? signingOrder = default,
             string userNationalId = default,
             bool? guestUser = default,
             string emailLanguageCode = default,
-            JsonElement? electronicSeal = default)
+            ElectronicSealRecipient electronicSeal = default)
         {
             return new WorkflowUserResponse
             {
@@ -5744,6 +7811,216 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
                 GuestUser = guestUser,
                 EmailLanguageCode = emailLanguageCode,
                 ElectronicSeal = electronicSeal,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowGatekeeperResponse"/>.
+        /// </summary>
+        public static WorkflowGatekeeperResponse WorkflowGatekeeperResponse(
+            List<WorkflowGatekeeperUserResponse> emails = default)
+        {
+            return new WorkflowGatekeeperResponse
+            {
+                Emails = emails,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowGatekeeperUserResponse"/>.
+        /// </summary>
+        public static WorkflowGatekeeperUserResponse WorkflowGatekeeperUserResponse(
+            string userEmail = default)
+        {
+            return new WorkflowGatekeeperUserResponse
+            {
+                UserEmail = userEmail,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowPermissionResponse"/>.
+        /// </summary>
+        public static WorkflowPermissionResponse WorkflowPermissionResponse(
+            bool? print = default,
+            bool? download = default,
+            bool? addText = default,
+            bool? changeRecipients = default,
+            bool? addAttachment = default,
+            PermissionLegalNoticeResponse legalNotice = default,
+            AttachmentPermissionResponse attachment = default)
+        {
+            return new WorkflowPermissionResponse
+            {
+                Print = print,
+                Download = download,
+                AddText = addText,
+                ChangeRecipients = changeRecipients,
+                AddAttachment = addAttachment,
+                LegalNotice = legalNotice,
+                Attachment = attachment,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PermissionLegalNoticeResponse"/>.
+        /// </summary>
+        public static PermissionLegalNoticeResponse PermissionLegalNoticeResponse(
+            bool? enabled = default,
+            List<LegalNoticeResponse> allowedNotices = default,
+            List<LegalNoticeResponse> defaultNotice = default)
+        {
+            return new PermissionLegalNoticeResponse
+            {
+                Enabled = enabled,
+                AllowedNotices = allowedNotices,
+                DefaultNotice = defaultNotice,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="LegalNoticeResponse"/>.
+        /// </summary>
+        public static LegalNoticeResponse LegalNoticeResponse(
+            int? legalNoticeId = default,
+            string legalNoticeName = default,
+            string legalNoticeHtml = default)
+        {
+            return new LegalNoticeResponse
+            {
+                LegalNoticeId = legalNoticeId,
+                LegalNoticeName = legalNoticeName,
+                LegalNoticeHtml = legalNoticeHtml,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AttachmentPermissionResponse"/>.
+        /// </summary>
+        public static AttachmentPermissionResponse AttachmentPermissionResponse(
+            bool? enabled = default)
+        {
+            return new AttachmentPermissionResponse
+            {
+                Enabled = enabled,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessResponse"/>.
+        /// </summary>
+        public static AccessResponse AccessResponse(
+            AuthenticationResponse authentication = default,
+            AuthenticationSigningResponse authenticationSigning = default,
+            PermissionAccessDurationResponse accessDuration = default)
+        {
+            return new AccessResponse
+            {
+                Authentication = authentication,
+                AuthenticationSigning = authenticationSigning,
+                AccessDuration = accessDuration,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthenticationResponse"/>.
+        /// </summary>
+        public static AuthenticationResponse AuthenticationResponse(
+            bool? enabled = default,
+            AccessSecurityPasswordResponse password = default,
+            AccessSecuritySmsOtpResponse smsOtp = default,
+            TotpPermissionResponse totp = default)
+        {
+            return new AuthenticationResponse
+            {
+                Enabled = enabled,
+                Password = password,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthenticationSigningResponse"/>.
+        /// </summary>
+        public static AuthenticationSigningResponse AuthenticationSigningResponse(
+            bool? enabled = default,
+            AuthenticationSigningSmsOtpResponse smsOtp = default,
+            TotpPermissionResponse totp = default)
+        {
+            return new AuthenticationSigningResponse
+            {
+                Enabled = enabled,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthenticationSigningSmsOtpResponse"/>.
+        /// </summary>
+        public static AuthenticationSigningSmsOtpResponse AuthenticationSigningSmsOtpResponse(
+            int? otpLength = default,
+            int? retryDuration = default,
+            string mobileNumber = default,
+            List<string> methods = default)
+        {
+            return new AuthenticationSigningSmsOtpResponse
+            {
+                OtpLength = otpLength,
+                RetryDuration = retryDuration,
+                MobileNumber = mobileNumber,
+                Methods = methods,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ReminderResponse"/>.
+        /// </summary>
+        public static ReminderResponse ReminderResponse(
+            bool? enabled = default,
+            Frequency? frequency = default,
+            int? remindAfter = default,
+            ReminderRepeat repeat = default)
+        {
+            return new ReminderResponse
+            {
+                Enabled = enabled,
+                Frequency = frequency,
+                RemindAfter = remindAfter,
+                Repeat = repeat,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ReminderRepeat"/>.
+        /// </summary>
+        public static ReminderRepeat ReminderRepeat(
+            bool? enabled = default,
+            Frequency? frequency = default,
+            int? keepRemindingAfter = default,
+            int? totalReminders = default)
+        {
+            return new ReminderRepeat
+            {
+                Enabled = enabled,
+                Frequency = frequency,
+                KeepRemindingAfter = keepRemindingAfter,
+                TotalReminders = totalReminders,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ElectronicSealRecipient"/>.
+        /// </summary>
+        public static ElectronicSealRecipient ElectronicSealRecipient(
+            string name = default,
+            string levelOfAssurance = default)
+        {
+            return new ElectronicSealRecipient
+            {
+                Name = name,
+                LevelOfAssurance = levelOfAssurance,
             };
         }
 
@@ -5814,24 +8091,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ReminderResponse"/>.
-        /// </summary>
-        public static ReminderResponse ReminderResponse(
-            bool? enabled = default,
-            Frequency? frequency = default,
-            int? remindAfter = default,
-            JsonElement? repeat = default)
-        {
-            return new ReminderResponse
-            {
-                Enabled = enabled,
-                Frequency = frequency,
-                RemindAfter = remindAfter,
-                Repeat = repeat,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="WorkflowRecipient"/>.
         /// </summary>
         public static WorkflowRecipient WorkflowRecipient(
@@ -5857,7 +8116,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? guestUser = default,
             string emailLanguageCode = default,
             ElectronicSealRecipient electronicSeal = default,
-            JsonElement? gatekeepers = default)
+            WorkflowGatekeeperResponse gatekeepers = default)
         {
             return new WorkflowRecipient
             {
@@ -5902,44 +8161,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ElectronicSealRecipient"/>.
-        /// </summary>
-        public static ElectronicSealRecipient ElectronicSealRecipient(
-            string name = default,
-            string levelOfAssurance = default)
-        {
-            return new ElectronicSealRecipient
-            {
-                Name = name,
-                LevelOfAssurance = levelOfAssurance,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WorkflowPermissionResponse"/>.
-        /// </summary>
-        public static WorkflowPermissionResponse WorkflowPermissionResponse(
-            bool? print = default,
-            bool? download = default,
-            bool? addText = default,
-            bool? changeRecipients = default,
-            bool? addAttachment = default,
-            JsonElement? legalNotice = default,
-            JsonElement? attachment = default)
-        {
-            return new WorkflowPermissionResponse
-            {
-                Print = print,
-                Download = download,
-                AddText = addText,
-                ChangeRecipients = changeRecipients,
-                AddAttachment = addAttachment,
-                LegalNotice = legalNotice,
-                Attachment = attachment,
-            };
-        }
-
-        /// <summary>
         /// Creates a new instance of <see cref="StartWorkflowResponse"/>.
         /// </summary>
         public static StartWorkflowResponse StartWorkflowResponse(
@@ -5957,8 +8178,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="CollaboratorGroupResponse"/>.
         /// </summary>
         public static CollaboratorGroupResponse CollaboratorGroupResponse(
-            JsonElement? permission = default,
-            JsonElement? reminder = default,
+            WorkflowPermissionResponse permission = default,
+            ReminderResponse reminder = default,
             int? signingOrder = default)
         {
             return new CollaboratorGroupResponse
@@ -5973,8 +8194,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="CollaboratorPlaceholderResponse"/>.
         /// </summary>
         public static CollaboratorPlaceholderResponse CollaboratorPlaceholderResponse(
-            JsonElement? permission = default,
-            JsonElement? reminder = default,
+            WorkflowPermissionResponse permission = default,
+            ReminderResponse reminder = default,
             int? signingOrder = default)
         {
             return new CollaboratorPlaceholderResponse
@@ -5993,8 +8214,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? signingOrder = default,
             bool? guestUser = default,
             string emailLanguageCode = default,
-            JsonElement? permission = default,
-            JsonElement? reminder = default)
+            WorkflowPermissionResponse permission = default,
+            ReminderResponse reminder = default)
         {
             return new CollaboratorResponse
             {
@@ -6031,7 +8252,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static WorkSpaceResponse WorkSpaceResponse(
             long? id = default,
             string name = default,
-            JsonElement? owner = default,
+            WorkSpaceOwner owner = default,
             List<WorkSpaceMembers> members = default)
         {
             return new WorkSpaceResponse
@@ -6040,6 +8261,20 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
                 Name = name,
                 Owner = owner,
                 Members = members,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkSpaceOwner"/>.
+        /// </summary>
+        public static WorkSpaceOwner WorkSpaceOwner(
+            string name = default,
+            string email = default)
+        {
+            return new WorkSpaceOwner
+            {
+                Name = name,
+                Email = email,
             };
         }
 
@@ -6062,9 +8297,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static AccessUpdateRequest AccessUpdateRequest(
             bool? applyToAll = default,
-            JsonElement? authentication = default,
-            JsonElement? authenticationSigning = default,
-            JsonElement? accessDuration = default)
+            AccessAuthentication authentication = default,
+            SigningAuthentication authenticationSigning = default,
+            PermissionAccessDuration accessDuration = default)
         {
             return new AccessUpdateRequest
             {
@@ -6076,16 +8311,160 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="AccessAuthentication"/>.
+        /// </summary>
+        public static AccessAuthentication AccessAuthentication(
+            bool? enabled = default,
+            AuthenticationPassword password = default,
+            AuthenticationSmsOtp smsOtp = default,
+            TotpPermissionResponse totp = default)
+        {
+            return new AccessAuthentication
+            {
+                Enabled = enabled,
+                Password = password,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthenticationPassword"/>.
+        /// </summary>
+        public static AuthenticationPassword AuthenticationPassword(
+            bool? enabled = default,
+            string userPassword = default)
+        {
+            return new AuthenticationPassword
+            {
+                Enabled = enabled,
+                UserPassword = userPassword,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthenticationSmsOtp"/>.
+        /// </summary>
+        public static AuthenticationSmsOtp AuthenticationSmsOtp(
+            bool? enabled = default,
+            string mobileNumber = default)
+        {
+            return new AuthenticationSmsOtp
+            {
+                Enabled = enabled,
+                MobileNumber = mobileNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SigningAuthentication"/>.
+        /// </summary>
+        public static SigningAuthentication SigningAuthentication(
+            bool? enabled = default,
+            AuthenticationSigningSmsOtp smsOtp = default,
+            TotpPermissionResponse totp = default)
+        {
+            return new SigningAuthentication
+            {
+                Enabled = enabled,
+                SmsOtp = smsOtp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AuthenticationSigningSmsOtp"/>.
+        /// </summary>
+        public static AuthenticationSigningSmsOtp AuthenticationSigningSmsOtp(
+            string mobileNumber = default)
+        {
+            return new AuthenticationSigningSmsOtp
+            {
+                MobileNumber = mobileNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PermissionAccessDuration"/>.
+        /// </summary>
+        public static PermissionAccessDuration PermissionAccessDuration(
+            bool? enabled = default,
+            AccessDurationByDate durationByDate = default,
+            AccessDurationByDays durationByDays = default)
+        {
+            return new PermissionAccessDuration
+            {
+                Enabled = enabled,
+                DurationByDate = durationByDate,
+                DurationByDays = durationByDays,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessDurationByDate"/>.
+        /// </summary>
+        public static AccessDurationByDate AccessDurationByDate(
+            bool? enabled = default,
+            DurationByDate duration = default)
+        {
+            return new AccessDurationByDate
+            {
+                Enabled = enabled,
+                Duration = duration,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DurationByDate"/>.
+        /// </summary>
+        public static DurationByDate DurationByDate(
+            DateTime? startDateTime = default,
+            DateTime? endDateTime = default)
+        {
+            return new DurationByDate
+            {
+                StartDateTime = startDateTime,
+                EndDateTime = endDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AccessDurationByDays"/>.
+        /// </summary>
+        public static AccessDurationByDays AccessDurationByDays(
+            bool? enabled = default,
+            DurationByDays duration = default)
+        {
+            return new AccessDurationByDays
+            {
+                Enabled = enabled,
+                Duration = duration,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DurationByDays"/>.
+        /// </summary>
+        public static DurationByDays DurationByDays(
+            int? totalDays = default)
+        {
+            return new DurationByDays
+            {
+                TotalDays = totalDays,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="QrCodeRequest"/>.
         /// </summary>
         public static QrCodeRequest QrCodeRequest(
             int? pageNo = default,
             string fieldName = default,
-            JsonElement? dimensions = default,
+            FieldDimension dimensions = default,
             string data = default,
-            JsonElement? options = default,
-            JsonElement? color = default,
-            JsonElement? logo = default)
+            QrCodeOptions options = default,
+            QrCodeColor color = default,
+            QrCodeLogo logo = default)
         {
             return new QrCodeRequest
             {
@@ -6118,17 +8497,59 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="SignatureFieldAuthentication"/>.
+        /// </summary>
+        public static SignatureFieldAuthentication SignatureFieldAuthentication(
+            bool? enabled = default,
+            SignatureFieldAuthenticationOtp otp = default,
+            SignatureFieldAuthenticationTotp totp = default)
+        {
+            return new SignatureFieldAuthentication
+            {
+                Enabled = enabled,
+                Otp = otp,
+                Totp = totp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SignatureFieldAuthenticationOtp"/>.
+        /// </summary>
+        public static SignatureFieldAuthenticationOtp SignatureFieldAuthenticationOtp(
+            bool? enabled = default,
+            string mobileNumber = default)
+        {
+            return new SignatureFieldAuthenticationOtp
+            {
+                Enabled = enabled,
+                MobileNumber = mobileNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SignatureFieldAuthenticationTotp"/>.
+        /// </summary>
+        public static SignatureFieldAuthenticationTotp SignatureFieldAuthenticationTotp(
+            bool? enabled = default)
+        {
+            return new SignatureFieldAuthenticationTotp
+            {
+                Enabled = enabled,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="UpdateQrCodeRequest"/>.
         /// </summary>
         public static UpdateQrCodeRequest UpdateQrCodeRequest(
             string fieldName = default,
             string renamedAs = default,
             int? pageNo = default,
-            JsonElement? dimensions = default,
+            FieldDimension dimensions = default,
             string data = default,
-            JsonElement? options = default,
-            JsonElement? color = default,
-            JsonElement? logo = default)
+            QrCodeOptions options = default,
+            QrCodeColor color = default,
+            QrCodeLogo logo = default)
         {
             return new UpdateQrCodeRequest
             {
@@ -6161,13 +8582,27 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="UpdateCertifyPolicyRequest"/>.
         /// </summary>
         public static UpdateCertifyPolicyRequest UpdateCertifyPolicyRequest(
-            JsonElement? certify = default,
+            CertifyPolicyRequest certify = default,
             bool? lockFormFields = default)
         {
             return new UpdateCertifyPolicyRequest
             {
                 Certify = certify,
                 LockFormFields = lockFormFields,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CertifyPolicyRequest"/>.
+        /// </summary>
+        public static CertifyPolicyRequest CertifyPolicyRequest(
+            bool? enabled = default,
+            string permission = default)
+        {
+            return new CertifyPolicyRequest
+            {
+                Enabled = enabled,
+                Permission = permission,
             };
         }
 
@@ -6187,8 +8622,8 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// Creates a new instance of <see cref="WorkflowDetailUpdateRequest"/>.
         /// </summary>
         public static WorkflowDetailUpdateRequest WorkflowDetailUpdateRequest(
-            JsonElement? workflowType = default,
-            JsonElement? workflowMode = default,
+            string workflowType = default,
+            string workflowMode = default,
             bool? continueOnDecline = default,
             string message = default,
             bool? comments = default)
@@ -6239,9 +8674,9 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string userName = default,
             string userNationalId = default,
             bool? emailNotification = default,
-            JsonElement? role = default,
+            string role = default,
             int? signingOrder = default,
-            JsonElement? deliveryMethod = default,
+            string deliveryMethod = default,
             string mobileNumber = default)
         {
             return new WorflowUserRequest
@@ -6276,7 +8711,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static AddDocumentPackageRequest AddDocumentPackageRequest(
             string packageName = default,
-            JsonElement? workflowMode = default,
+            string workflowMode = default,
             string folderName = default)
         {
             return new AddDocumentPackageRequest
@@ -6343,14 +8778,14 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string handSignatureInitialsImage = default,
             int? handSignatureInitialsMethod = default,
             string handSignatureImage = default,
-            JsonElement? handSignatureMethod = default,
+            int? handSignatureMethod = default,
             string signingReason = default,
             string signingLocation = default,
             string contactInformation = default,
             AppearanceDesign? appearanceDesign = default,
             string signingServer = default,
             string signingCapacity = default,
-            JsonElement? authentication = default,
+            BulkSignAuthentication authentication = default,
             string transactionId = default)
         {
             return new BulkSignRequest
@@ -6372,6 +8807,30 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="BulkSignAuthentication"/>.
+        /// </summary>
+        public static BulkSignAuthentication BulkSignAuthentication(
+            Mechanism? mechanism = default,
+            string password = default,
+            string token = default,
+            string userIdentifier = default,
+            string id = default,
+            string codeVerifier = default,
+            string nonce = default)
+        {
+            return new BulkSignAuthentication
+            {
+                Mechanism = mechanism,
+                Password = password,
+                Token = token,
+                UserIdentifier = userIdentifier,
+                Id = id,
+                CodeVerifier = codeVerifier,
+                Nonce = nonce,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="BulkSignStatusRequest"/>.
         /// </summary>
         public static BulkSignStatusRequest BulkSignStatusRequest(
@@ -6389,7 +8848,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static SignDocumentRequest SignDocumentRequest(
             string fieldName = default,
             string handSignatureImage = default,
-            JsonElement? handSignatureMethod = default,
+            int? handSignatureMethod = default,
             string signingReason = default,
             string signingLocation = default,
             string contactInformation = default,
@@ -6399,7 +8858,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string signingCapacity = default,
             bool? skipVerification = default,
             string signingServer = default,
-            JsonElement? authentication = default)
+            Authentication authentication = default)
         {
             return new SignDocumentRequest
             {
@@ -6420,6 +8879,30 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="Authentication"/>.
+        /// </summary>
+        public static Authentication Authentication(
+            Mechanism? mechanism = default,
+            string password = default,
+            string token = default,
+            string userIdentifier = default,
+            string id = default,
+            string codeVerifier = default,
+            string nonce = default)
+        {
+            return new Authentication
+            {
+                Mechanism = mechanism,
+                Password = password,
+                Token = token,
+                UserIdentifier = userIdentifier,
+                Id = id,
+                CodeVerifier = codeVerifier,
+                Nonce = nonce,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="AutoPlaceFieldRequest"/>.
         /// </summary>
         public static AutoPlaceFieldRequest AutoPlaceFieldRequest(
@@ -6428,15 +8911,15 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             Placement? placement = default,
             FieldType? fieldType = default,
             List<string> levelOfAssurance = default,
-            JsonElement? dimensions = default,
+            FieldDimension dimensions = default,
             string placeholder = default,
             string radioGroupName = default,
             string format = default,
             string value = default,
             int? maxLength = default,
             ValidationRule? validationRule = default,
-            JsonElement? validation = default,
-            JsonElement? font = default,
+            FieldValidationValue validation = default,
+            Font font = default,
             bool? multiline = default)
         {
             return new AutoPlaceFieldRequest
@@ -6456,6 +8939,22 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
                 Validation = validation,
                 Font = font,
                 Multiline = multiline,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Font"/>.
+        /// </summary>
+        public static Font Font(
+            Name? name = default,
+            string size = default,
+            string embeddedSize = default)
+        {
+            return new Font
+            {
+                Name = name,
+                Size = size,
+                EmbeddedSize = embeddedSize,
             };
         }
 
@@ -6577,7 +9076,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static InitialFillingRequest InitialFillingRequest(
             string fieldName = default,
             string image = default,
-            JsonElement? method = default,
+            int? method = default,
             bool? applyToAll = default)
         {
             return new InitialFillingRequest
@@ -6618,7 +9117,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             FieldDimension dimensions = default,
             Display? display = default,
             List<string> levelOfAssurance = default,
-            JsonElement? authenticationSigning = default)
+            SignatureFieldAuthentication authenticationSigning = default)
         {
             return new InPersonFieldRequest
             {
@@ -6644,7 +9143,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             FieldDimension dimensions = default,
             Display? display = default,
             List<string> levelOfAssurance = default,
-            JsonElement? authenticationSigning = default)
+            SignatureFieldAuthentication authenticationSigning = default)
         {
             return new UpdateInPersonFieldRequest
             {
@@ -6669,7 +9168,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             List<string> levelOfAssurance = default,
             FieldDimension dimensions = default,
             Display? display = default,
-            JsonElement? authenticationSigning = default)
+            SignatureFieldAuthentication authenticationSigning = default)
         {
             return new DigitalSignatureFieldRequest
             {
@@ -6693,7 +9192,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? pageNo = default,
             FieldDimension dimensions = default,
             Display? display = default,
-            JsonElement? authenticationSigning = default)
+            SignatureFieldAuthentication authenticationSigning = default)
         {
             return new UpdateDigitalSignatureFieldRequest
             {
@@ -6757,17 +9256,16 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static TextBoxFieldRequest TextBoxFieldRequest(
             int? order = default,
             int? pageNo = default,
-            JsonElement? type = default,
+            string type = default,
             string value = default,
             string placeholder = default,
             int? maxLength = default,
             string format = default,
             string fieldName = default,
-            string fieldLocale = default,
-            JsonElement? fieldType = default,
-            JsonElement? validationRule = default,
-            JsonElement? validation = default,
-            JsonElement? font = default,
+            string fieldType = default,
+            string validationRule = default,
+            FieldValidationValue validation = default,
+            Font font = default,
             FieldDimension dimensions = default,
             bool? multiline = default)
         {
@@ -6781,7 +9279,6 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
                 MaxLength = maxLength,
                 Format = format,
                 FieldName = fieldName,
-                FieldLocale = fieldLocale,
                 FieldType = fieldType,
                 ValidationRule = validationRule,
                 Validation = validation,
@@ -6796,23 +9293,21 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static UpdateTextBoxFieldRequest UpdateTextBoxFieldRequest(
             string fieldName = default,
-            string fieldLocale = default,
             string renamedAs = default,
             int? pageNo = default,
             string value = default,
             int? maxLength = default,
-            JsonElement? fieldType = default,
-            JsonElement? validationRule = default,
-            JsonElement? font = default,
+            string fieldType = default,
+            string validationRule = default,
+            Font font = default,
             FieldDimension dimensions = default,
             string placeholder = default,
             string format = default,
-            JsonElement? validation = default)
+            FieldValidationValue validation = default)
         {
             return new UpdateTextBoxFieldRequest
             {
                 FieldName = fieldName,
-                FieldLocale = fieldLocale,
                 RenamedAs = renamedAs,
                 PageNo = pageNo,
                 Value = value,
@@ -6835,7 +9330,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             int? pageNo = default,
             string fieldName = default,
             Value? value = default,
-            JsonElement? validationRule = default,
+            string validationRule = default,
             string radioGroupName = default,
             FieldDimension dimensions = default)
         {
@@ -6859,7 +9354,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string renamedAs = default,
             int? pageNo = default,
             Value? value = default,
-            JsonElement? validationRule = default,
+            string validationRule = default,
             string radioGroupName = default,
             FieldDimension dimensions = default)
         {
@@ -6880,12 +9375,62 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         /// </summary>
         public static WorkflowPermissionsUpdateRequest WorkflowPermissionsUpdateRequest(
             bool? applyToAll = default,
-            JsonElement? permissions = default)
+            WorkflowPermission permissions = default)
         {
             return new WorkflowPermissionsUpdateRequest
             {
                 ApplyToAll = applyToAll,
                 Permissions = permissions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorkflowPermission"/>.
+        /// </summary>
+        public static WorkflowPermission WorkflowPermission(
+            bool? print = default,
+            bool? download = default,
+            bool? addText = default,
+            bool? changeRecipients = default,
+            bool? addAttachment = default,
+            PermissionLegalNotice legalNotice = default,
+            AttachmentPermissionRequest attachment = default)
+        {
+            return new WorkflowPermission
+            {
+                Print = print,
+                Download = download,
+                AddText = addText,
+                ChangeRecipients = changeRecipients,
+                AddAttachment = addAttachment,
+                LegalNotice = legalNotice,
+                Attachment = attachment,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PermissionLegalNotice"/>.
+        /// </summary>
+        public static PermissionLegalNotice PermissionLegalNotice(
+            bool? enabled = default,
+            string legalNoticeName = default)
+        {
+            return new PermissionLegalNotice
+            {
+                Enabled = enabled,
+                LegalNoticeName = legalNoticeName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AttachmentPermissionRequest"/>.
+        /// </summary>
+        public static AttachmentPermissionRequest AttachmentPermissionRequest(
+            bool? enabled = default)
+        {
+            return new AttachmentPermissionRequest
+            {
+                Enabled = enabled,
             };
         }
 
@@ -6897,10 +9442,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             string userName = default,
             bool? emailNotification = default,
             string mobileNumber = default,
-            JsonElement? role = default,
+            string role = default,
             int? signingOrder = default,
             string emailLanguageCode = default,
-            JsonElement? deliveryMethod = default)
+            string deliveryMethod = default)
         {
             return new WorkflowUserUpdateRequest
             {
@@ -6935,7 +9480,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
             bool? enabled = default,
             Frequency? frequency = default,
             int? remindAfter = default,
-            JsonElement? repeat = default)
+            RepeatRequest repeat = default)
         {
             return new UpdateReminderRequest
             {
@@ -6948,12 +9493,30 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="RepeatRequest"/>.
+        /// </summary>
+        public static RepeatRequest RepeatRequest(
+            bool? enabled = default,
+            Frequency? frequency = default,
+            int? keepRemindingAfter = default,
+            int? totalReminders = default)
+        {
+            return new RepeatRequest
+            {
+                Enabled = enabled,
+                Frequency = frequency,
+                KeepRemindingAfter = keepRemindingAfter,
+                TotalReminders = totalReminders,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WorflowGroupRequest"/>.
         /// </summary>
         public static WorflowGroupRequest WorflowGroupRequest(
             string groupName = default,
             bool? emailNotification = default,
-            JsonElement? role = default,
+            string role = default,
             int? signingOrder = default)
         {
             return new WorflowGroupRequest
@@ -6971,7 +9534,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static PlaceholderRequest PlaceholderRequest(
             string placeholder = default,
             bool? emailNotification = default,
-            JsonElement? role = default,
+            string role = default,
             int? signingOrder = default)
         {
             return new PlaceholderRequest
@@ -6989,7 +9552,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static WorkflowPlaceholderUpdateRequest WorkflowPlaceholderUpdateRequest(
             string placeholder = default,
             bool? emailNotification = default,
-            JsonElement? role = default,
+            string role = default,
             int? signingOrder = default)
         {
             return new WorkflowPlaceholderUpdateRequest

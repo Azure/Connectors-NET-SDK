@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.KeyVault;
+using Azure.Connectors.Sdk.KeyVault.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -81,6 +82,13 @@ namespace Azure.Connectors.Sdk.Tests
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
                 client.ListKeysAsync(cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public void Algorithm_UppercaseWireValues_UsePascalCaseMembers()
+        {
+            Assert.AreEqual(expected: "RSA-OAEP", actual: Algorithm.RsaOaep.ToString());
+            Assert.AreEqual(expected: "RSA-OAEP-256", actual: Algorithm.RsaOaep256.ToString());
         }
     }
 }

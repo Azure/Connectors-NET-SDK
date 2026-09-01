@@ -271,5 +271,29 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.AreEqual((int)HttpStatusCode.Forbidden, exception.Status);
         }
+
+        [TestMethod]
+        public void ArchiveChannelInput_JsonSerialization_RoundTrips()
+        {
+            var input = new ArchiveChannelInput { SetSharePointSiteToReadOnlyForMembers = true };
+
+            var json = JsonSerializer.Serialize(input);
+            var deserialized = JsonSerializer.Deserialize<ArchiveChannelInput>(json);
+
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual(expected: true, actual: deserialized!.SetSharePointSiteToReadOnlyForMembers);
+        }
+
+        [TestMethod]
+        public void Status_ExtensibleEnum_InProgress_RoundTrips()
+        {
+            var status = Status.InProgress;
+
+            var json = JsonSerializer.Serialize(status);
+            var deserialized = JsonSerializer.Deserialize<Status>(json);
+
+            Assert.AreEqual(Status.InProgress, deserialized);
+            Assert.AreEqual("inProgress", deserialized.ToString());
+        }
     }
 }

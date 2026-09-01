@@ -13,11 +13,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
   Plumsail exercises the general normalization-collision path, not the reserved-member path. Reserved-member handling is retained as a synthetic generator regression for the historical failure reported in #181; no active reserved-member collision was found in the 97 connectors generated from the frozen snapshot. Of the eleven connector names in the issue, only Etsy remains in the current catalog, and its current Swagger has no such collision.
 
+- **All 98 connector clients re-synchronized with live Swagger** — regenerated every shipped client from the ARM catalog captured 2026-08-31. DocuSign and Jira are intentionally excluded from unfiltered generation by the generator skip list, but explicit filtered generation succeeded from their current ARM exports. Seven clients have content changes: Azure Monitor Logs, Google Drive, Jira, Key Vault, Plumsail, SigningHub, and Teams. The other 91 clients are byte-identical to their current versions. Validation found no dangling discovery references or type-name collapses. (AzureUX-BPM PRs 16971205 and 16998561; live cache SHA-256 `894FB4C0977736CDF2A3D1103894C75470BF1ADBB2B2E44D742F20AACAFCED25`)
+
+### Changed
+
+- **Azure Monitor Logs: new `PartialQueryError` model exposes partial-query error details** — `Table.Error` and `VisualizeResults.Error` now carry a typed `PartialQueryError` object with a `code` property (wire name `error`), available when the service returns partial results. Previously these properties were absent from the model.
+
+- **Teams: new operations and models from Swagger expansion** — `ArchiveChannelAsync` archives a Teams channel and accepts an `ArchiveChannelInput`; `GetSubscriptionScopeSchemaAsync` returns the subscription-scope schema used by dynamic discovery. New response model `AsyncOperationResponse` carries an extensible `Status` enum for async operation tracking. New trigger-schema models `DynamicTranscriptTriggerRequest` and `DynamicRecordingTriggerRequest` support transcript and recording trigger subscription registration.
+
+- **Google Drive: `BlobMetadata` gains `FolderId` and `FolderPath` properties** — newly added properties (wire names `FolderId`, `FolderPath`) expose the parent folder's identifier and path on file and folder metadata responses.
+
+- **Jira: issue search uses current JQL and token pagination contracts** — `ListIssuesAsync` now accepts optional `jQLQuery` and `nextPageToken` inputs. `ListIssuesResponse` replaces `MaximumNumberOfItems` with `NextPageToken` and `IsLastPage`, matching the current search response.
+
+- **SigningHub: over 60 previously opaque `JsonElement?` properties now have typed models** — properties such as `CertifyPolicyResponse.Certify`, `GetDocumentDetailsResponse.Certify`, `GetDocumentDetailsResponse.Template`, and many authentication, permission, access-duration, and signature-field objects are now strongly typed with dedicated model classes. Consumer code that read these properties as raw `JsonElement` and called `.GetProperty()` must switch to the typed accessors; see the Breaking Changes section.
+
 ### Breaking Changes
+
+- **Google Drive `CreateFileAsync`: parameter renamed, route updated to v2, query key changed** — the `folderPath` parameter is now named `folder`, and the method calls `/datasets/default/v2/files` with the query key `folderId` instead of the previous `/datasets/default/files` with `folderPath`. Callers using the named argument `folderPath:` must rename it to `folder:`. Callers using positional arguments compile cleanly but will route to the v2 endpoint automatically.
+
+  Migration: rename `folderPath:` to `folder:` — the underlying wire semantics changed (folder path → folder ID), so pass the folder's unique identifier rather than its path string.
+
+- **Jira `ListIssuesResponse` pagination changed** — `MaximumNumberOfItems` is removed. Use `NextPageToken` and `IsLastPage` to continue paging. `ListIssuesAsync` callers can now pass `jQLQuery` and `nextPageToken`; the connector no longer injects the previous fixed ten-year JQL filter.
 
 - **Plumsail Timezone enum: signed Etc/GMT members now have semantic Plus/Minus names** — existing members are renamed according to the wire value they already represented: for example, `EtcGMT4` (`Etc/GMT-4`) becomes `EtcGmtMinus4`, while `EtcGMT1` (`Etc/GMT+1`) becomes `EtcGmtPlus1`. Previously dropped counterparts are added under the opposite semantic name, including `EtcGmtPlus4` for `Etc/GMT+4` and `EtcGmtMinus1` for `Etc/GMT-1`. For the `Etc/GMT` three-way zero group, existing `EtcGMT0` (`Etc/GMT+0`) becomes `EtcGmtPlus0`, with new `EtcGmtMinus0` and `EtcGmt0` members. The plain `GMT` group changes similarly: existing `Gmt0` (`GMT+0`) becomes `GmtPlus0`, while new `GmtMinus0` and `Gmt0` members represent `GMT-0` and `GMT0`. Singleton entries without a colliding counterpart, such as `EtcGMT13` and `EtcGMT14`, are unchanged. All underlying wire strings are preserved. ([#181](https://github.com/Azure/Connectors-NET-SDK/issues/181))
 
 - **Google Tasks and PDF.co operation name typos corrected** — `CraeteTaskAsync` is now `CreateTaskAsync`, and `PDFSerarchTextAsync` is now `PDFSearchTextAsync`. PDF.co callers must also rename `PDFSerarchTextInput` and the corresponding model-factory method to `PDFSearchTextInput`. Connector routes and wire payload names are unchanged.
+
+- **SigningHub: over 60 properties changed from `JsonElement?` to typed model classes** — properties including `CertifyPolicyResponse.Certify` (→ `CertifyPermissionResponse`), `GetDocumentDetailsResponse.Certify` (→ `DocumentCertifyResponse`), `GetDocumentDetailsResponse.Template` (→ `DocumentTemplateResponse`), and many authentication, permission, access-duration, and signature-field properties are now strongly typed. Source code that called `.GetProperty(...)` on these `JsonElement?` properties no longer compiles; switch to the typed model accessors.
+
+- **Uppercase extensible-enum values now retain PascalCase word boundaries** — Key Vault members `Rsaoaep` and `Rsaoaep256` become `RsaOaep` and `RsaOaep256`. Plumsail members `Wsu` and `Nzchat` become `WSu` and `NzChat`. SigningHub corrects 20 members, including `Authenticationpassword` → `AuthenticationPassword`, `AUTHENTICATIONOIdC` → `AuthenticationOidc`, `Companylogo` → `CompanyLogo`, and `VALId` → `Valid`. Exact wire values are unchanged. (AzureUX-BPM PR 16998561)
 
 <!-- MAINTAINER NOTE: release_notes.md continuously mirrors this [Unreleased]
   content for NuGet packaging. Before tagging a release, (1) cut this content

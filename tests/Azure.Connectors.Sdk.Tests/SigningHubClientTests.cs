@@ -163,5 +163,39 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "john", actual: deserialized!.UserName);
             Assert.AreEqual(expected: "j@test.com", actual: deserialized!.UserEmail);
         }
+
+        [TestMethod]
+        public void CertifyPermissionResponse_IsTypedModel_RoundTrips()
+        {
+            // Verifies that CertifyPolicyResponse.Certify is now a typed CertifyPermissionResponse,
+            // not the opaque JsonElement? it was before this regeneration.
+            var policy = new CertifyPolicyResponse
+            {
+                Certify = new CertifyPermissionResponse
+                {
+                    Enabled = true,
+                    AllowedPermissions = new System.Collections.Generic.List<string> { "NO_CHANGES_ALLOWED", "FORM_FILLING_ALLOWED" },
+                    DefaultPermission = "FORM_FILLING_ALLOWED"
+                },
+                LockFormFields = false
+            };
+
+            var json = JsonSerializer.Serialize(policy);
+            var deserialized = JsonSerializer.Deserialize<CertifyPolicyResponse>(json);
+
+            Assert.IsNotNull(deserialized);
+            Assert.IsNotNull(deserialized!.Certify);
+            Assert.AreEqual(expected: true, actual: deserialized.Certify!.Enabled);
+            Assert.AreEqual(2, deserialized.Certify.AllowedPermissions!.Count);
+            Assert.AreEqual("FORM_FILLING_ALLOWED", deserialized.Certify.DefaultPermission);
+        }
+
+        [TestMethod]
+        public void Mechanism_UppercaseWireValues_UsePascalCaseMembers()
+        {
+            Assert.AreEqual(expected: "AUTHENTICATION_PASSWORD", actual: Mechanism.AuthenticationPassword.ToString());
+            Assert.AreEqual(expected: "AUTHENTICATION_OIDC", actual: Mechanism.AuthenticationOidc.ToString());
+            Assert.AreEqual(expected: "AUTHENTICATION_IDFY", actual: Mechanism.AuthenticationIdfy.ToString());
+        }
     }
 }

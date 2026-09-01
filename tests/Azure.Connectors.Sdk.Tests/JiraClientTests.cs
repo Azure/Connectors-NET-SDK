@@ -5,9 +5,11 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Jira;
+using Azure.Connectors.Sdk.Jira.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -97,6 +99,42 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task ListIssuesAsync_WithCurrentPaginationInputs_ReturnsExpected()
+        {
+            using var responseMessage = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"nextPageToken\":\"next-token\",\"isLast\":false,\"issues\":[]}")
+            };
+
+            using var client = CreateMockedClient(responseMessage);
+
+            var result = await client
+                .ListIssuesAsync(jQLQuery: "project = SDK", nextPageToken: "current-token", cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: "next-token", actual: result.NextPageToken);
+            Assert.AreEqual(expected: false, actual: result.IsLastPage);
+        }
+
+        [TestMethod]
+        public void ListIssuesResponse_CurrentPaginationFields_RoundTrip()
+        {
+            var response = new ListIssuesResponse
+            {
+                NextPageToken = "next-token",
+                IsLastPage = false,
+            };
+
+            var serializedResponse = JsonSerializer.Serialize(response);
+            var deserializedResponse = JsonSerializer.Deserialize<ListIssuesResponse>(serializedResponse);
+
+            Assert.IsNotNull(deserializedResponse);
+            Assert.AreEqual(expected: "next-token", actual: deserializedResponse.NextPageToken);
+            Assert.AreEqual(expected: false, actual: deserializedResponse.IsLastPage);
         }
 
         [TestMethod]
