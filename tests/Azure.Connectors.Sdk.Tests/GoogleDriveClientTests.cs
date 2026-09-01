@@ -5,9 +5,11 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.GoogleDrive;
+using Azure.Connectors.Sdk.GoogleDrive.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -115,6 +117,70 @@ namespace Azure.Connectors.Sdk.Tests
                 client.GetFileMetadataAsync(file: "file1",
                     cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        public async Task CreateFileAsync_UsesV2RouteWithFolderIdQueryParam()
+        {
+            // Arrange — capture the outgoing request to verify route and query string.
+            Uri? capturedRequestUri = null;
+            var mockHandler = new Mock<HttpMessageHandler>();
+            mockHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Callback<HttpRequestMessage, CancellationToken>((request, _) => capturedRequestUri = request.RequestUri!)
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{}")
+                });
+
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
+            options.Retry.MaxRetries = 0;
+
+            using var client = new GoogleDriveClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
+
+            // Act — pass folder by name to confirm the parameter was renamed 'folder'.
+            await client
+                .CreateFileAsync(
+                    input: Array.Empty<byte>(),
+                    folder: "my-folder-id",
+                    fileName: "test.txt",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert — route is v2, query uses folderId (not folderPath).
+            Assert.IsNotNull(capturedRequestUri);
+            Assert.IsTrue(capturedRequestUri.AbsolutePath.EndsWith("/datasets/default/v2/files", StringComparison.Ordinal),
+                $"Expected v2 route but got: {capturedRequestUri.AbsolutePath}");
+            Assert.IsTrue(capturedRequestUri.Query.Contains("folderId=", StringComparison.Ordinal),
+                $"Expected folderId query param but got: {capturedRequestUri.Query}");
+            Assert.IsFalse(capturedRequestUri.Query.Contains("folderPath=", StringComparison.Ordinal),
+                $"Expected no folderPath query param but got: {capturedRequestUri.Query}");
+        }
+
+        [TestMethod]
+        public void BlobMetadata_FolderIdAndFolderPath_SerializeToExpectedWireNames()
+        {
+            var metadata = new BlobMetadata
+            {
+                Id = "file-001",
+                FolderId = "parent-folder-001",
+                FolderPath = "/Documents/Reports"
+            };
+
+            var json = JsonSerializer.Serialize(metadata);
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            Assert.AreEqual("parent-folder-001", root.GetProperty("FolderId").GetString());
+            Assert.AreEqual("/Documents/Reports", root.GetProperty("FolderPath").GetString());
         }
 
     }

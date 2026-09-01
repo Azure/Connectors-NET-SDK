@@ -317,6 +317,26 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// Archive a channel
+    /// </summary>
+    public class ArchiveChannelInput
+    {
+        /// <summary>If true, sets permissions for channel members to read-only on the SharePoint Online site associated with the team.</summary>
+        [JsonPropertyName("shouldSetSpoSiteReadOnlyForMembers")]
+        public bool? SetSharePointSiteToReadOnlyForMembers { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Archive a channel
+    /// </summary>
+    public class AsyncOperationResponse
+    {
+        /// <summary>The status of the asynchronous operation</summary>
+        [JsonPropertyName("status")]
+        public Status? Status { get; set; }
+    }
+
+    /// <summary>
     /// Response for List all channels
     /// </summary>
     public class GetAllChannelsForTeamResponse
@@ -1655,6 +1675,34 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// DynamicTranscriptTriggerRequest
+    /// </summary>
+    public class DynamicTranscriptTriggerRequest
+    {
+        /// <summary>Webhook callback URL</summary>
+        [JsonPropertyName("notificationUrl")]
+        public string NotificationUrl { get; set; }
+
+        /// <summary>scope</summary>
+        [JsonPropertyName("scope")]
+        public JsonElement? Scope { get; set; }
+    }
+
+    /// <summary>
+    /// DynamicRecordingTriggerRequest
+    /// </summary>
+    public class DynamicRecordingTriggerRequest
+    {
+        /// <summary>Webhook callback URL</summary>
+        [JsonPropertyName("notificationUrl")]
+        public string NotificationUrl { get; set; }
+
+        /// <summary>scope</summary>
+        [JsonPropertyName("scope")]
+        public JsonElement? Scope { get; set; }
+    }
+
+    /// <summary>
     /// Extensible enum for known Importance values.
     /// </summary>
     [JsonConverter(typeof(Importance.ImportanceJsonConverter))]
@@ -1942,6 +1990,67 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// Extensible enum for known Status values.
+    /// </summary>
+    [JsonConverter(typeof(Status.StatusJsonConverter))]
+    public readonly struct Status : IEquatable<Status>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Status"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public Status(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>invalid</summary>
+        public static Status Invalid { get; } = new("invalid");
+
+        /// <summary>notStarted</summary>
+        public static Status NotStarted { get; } = new("notStarted");
+
+        /// <summary>inProgress</summary>
+        public static Status InProgress { get; } = new("inProgress");
+
+        /// <summary>succeeded</summary>
+        public static Status Succeeded { get; } = new("succeeded");
+
+        /// <summary>failed</summary>
+        public static Status Failed { get; } = new("failed");
+
+        /// <summary>Converts a string to <see cref="Status"/>.</summary>
+        public static implicit operator Status(string value) => new(value);
+
+        /// <summary>Converts a <see cref="Status"/> to its string representation.</summary>
+        public static implicit operator string(Status value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(Status other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is Status other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(Status left, Status right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(Status left, Status right) => !left.Equals(right);
+
+        internal sealed class StatusJsonConverter : JsonConverter<Status>
+        {
+            public StatusJsonConverter() { }
+            public override Status Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Status, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known Visibility values.
     /// </summary>
     [JsonConverter(typeof(Visibility.VisibilityJsonConverter))]
@@ -2205,6 +2314,30 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 DisplayName = displayName,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ArchiveChannelInput"/>.
+        /// </summary>
+        public static ArchiveChannelInput ArchiveChannelInput(
+            bool? setSharePointSiteToReadOnlyForMembers = default)
+        {
+            return new ArchiveChannelInput
+            {
+                SetSharePointSiteToReadOnlyForMembers = setSharePointSiteToReadOnlyForMembers,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AsyncOperationResponse"/>.
+        /// </summary>
+        public static AsyncOperationResponse AsyncOperationResponse(
+            Status? status = default)
+        {
+            return new AsyncOperationResponse
+            {
+                Status = status,
             };
         }
 
@@ -3165,6 +3298,34 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 OnlineMeetingProvider = onlineMeetingProvider,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DynamicTranscriptTriggerRequest"/>.
+        /// </summary>
+        public static DynamicTranscriptTriggerRequest DynamicTranscriptTriggerRequest(
+            string notificationUrl = default,
+            JsonElement? scope = default)
+        {
+            return new DynamicTranscriptTriggerRequest
+            {
+                NotificationUrl = notificationUrl,
+                Scope = scope,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DynamicRecordingTriggerRequest"/>.
+        /// </summary>
+        public static DynamicRecordingTriggerRequest DynamicRecordingTriggerRequest(
+            string notificationUrl = default,
+            JsonElement? scope = default)
+        {
+            return new DynamicRecordingTriggerRequest
+            {
+                NotificationUrl = notificationUrl,
+                Scope = scope,
+            };
+        }
     }
 
     #endregion Model Factory
@@ -3255,6 +3416,11 @@ namespace Azure.Connectors.Sdk.Teams
         public const string OnNewChannelMessageMentioningMe = "OnNewChannelMessageMentioningMe";
 
         /// <summary>
+        /// When a recording is available.
+        /// </summary>
+        public const string OnRecordingTrigger = "RecordingTrigger";
+
+        /// <summary>
         /// When a new team member is added.
         /// Payload type: <see cref="TeamsOnTeamMemberAddedTriggerPayload"/>.
         /// </summary>
@@ -3265,6 +3431,11 @@ namespace Azure.Connectors.Sdk.Teams
         /// Payload type: <see cref="TeamsOnTeamMemberRemovedTriggerPayload"/>.
         /// </summary>
         public const string OnTeamMemberRemoved = "OnGroupMembershipRemoval";
+
+        /// <summary>
+        /// When a transcript is available.
+        /// </summary>
+        public const string OnTranscriptTrigger = "TranscriptTrigger";
 
         /// <summary>
         /// When I&apos;m @mentioned.
@@ -3358,6 +3529,20 @@ namespace Azure.Connectors.Sdk.Teams
         }
 
         /// <summary>
+        /// Input parameters for the OnRecordingTrigger trigger operation (operationId: RecordingTrigger).
+        /// </summary>
+        public static class OnRecordingTrigger
+        {
+            /// <summary>
+            /// The scope of recordings to monitor
+            /// Required.
+            /// Allowed values: user, meeting, adhocCallUser.
+            /// </summary>
+            public const string ScopeType = "scopeType";
+
+        }
+
+        /// <summary>
         /// Input parameters for the OnTeamMemberAdded trigger operation (operationId: OnGroupMembershipAdd).
         /// </summary>
         public static class OnTeamMemberAdded
@@ -3394,6 +3579,20 @@ namespace Azure.Connectors.Sdk.Teams
             /// Default: members.
             /// </summary>
             public const string Select = "$select";
+
+        }
+
+        /// <summary>
+        /// Input parameters for the OnTranscriptTrigger trigger operation (operationId: TranscriptTrigger).
+        /// </summary>
+        public static class OnTranscriptTrigger
+        {
+            /// <summary>
+            /// The scope of transcripts to monitor
+            /// Required.
+            /// Allowed values: user, meeting, adhocCallUser.
+            /// </summary>
+            public const string ScopeType = "scopeType";
 
         }
 
@@ -3737,6 +3936,37 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/beta/teams/{Uri.EscapeDataString(team)}/channels/{Uri.EscapeDataString(channel)}";
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Archive a channel
+        /// </summary>
+        /// <remarks>Archive a channel in a team. When a channel is archived, users can&apos;t send new messages or react to existing messages in the channel, edit the channel settings, or make other changes to the channel. Archiving is an asynchronous operation.</remarks>
+        /// <param name="team">Team</param>
+        /// <param name="channel">Channel</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Archive a channel response.</returns>
+        public virtual async Task<AsyncOperationResponse> ArchiveChannelAsync([DynamicValues("GetAllTeams")] string team, [DynamicValues("GetChannelsForGroup")] string channel, ArchiveChannelInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ArchiveChannelAsync");
+            try
+            {
+                if (team is null)
+                    throw new ArgumentNullException(nameof(team));
+                if (channel is null)
+                    throw new ArgumentNullException(nameof(channel));
+                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/channels/{Uri.EscapeDataString(channel)}/archive";
+                return await this
+                    .CallConnectorAsync<AsyncOperationResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5932,6 +6162,33 @@ namespace Azure.Connectors.Sdk.Teams
                 var path = $"/flowbot/actions/flowcontinuation/posters/{Uri.EscapeDataString(postAs)}/recipienttypes/{Uri.EscapeDataString(typeOfTheRecipientOfTheAction)}/$metadata.json/subscriptionoutputs";
                 return await this
                     .CallConnectorAsync<ConnectorMetadata>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get subscription scope input schema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="scopeType">scopeType</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get subscription scope input schema response.</returns>
+        public virtual async Task<ObjectEntity> GetSubscriptionScopeSchemaAsync(string scopeType, CancellationToken cancellationToken = default)
+        {
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetSubscriptionScopeSchemaAsync");
+            try
+            {
+                if (scopeType is null)
+                    throw new ArgumentNullException(nameof(scopeType));
+                var path = $"/internalparameters/triggers/subscriptionscope/{Uri.EscapeDataString(scopeType)}/schema";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

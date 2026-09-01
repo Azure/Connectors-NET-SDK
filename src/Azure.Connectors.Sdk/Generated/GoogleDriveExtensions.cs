@@ -50,6 +50,14 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
         [JsonPropertyName("Path")]
         public string Path { get; set; }
 
+        /// <summary>The unique id of the parent folder of the file or folder.</summary>
+        [JsonPropertyName("FolderId")]
+        public string FolderId { get; set; }
+
+        /// <summary>The current path of the parent folder of the file or folder.</summary>
+        [JsonPropertyName("FolderPath")]
+        public string FolderPath { get; set; }
+
         /// <summary>The date and time the file or folder was last modified.</summary>
         [JsonPropertyName("LastModified")]
         [JsonInclude]
@@ -100,6 +108,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
             string name = default,
             string displayName = default,
             string path = default,
+            string folderId = default,
+            string folderPath = default,
             DateTime? lastModified = default,
             long? size = default,
             string mediaType = default,
@@ -114,6 +124,8 @@ namespace Azure.Connectors.Sdk.GoogleDrive.Models
                 Name = name,
                 DisplayName = displayName,
                 Path = path,
+                FolderId = folderId,
+                FolderPath = folderPath,
                 LastModified = lastModified,
                 Size = size,
                 MediaType = mediaType,
@@ -374,41 +386,6 @@ namespace Azure.Connectors.Sdk.GoogleDrive
         }
 
         /// <summary>
-        /// Create file
-        /// </summary>
-        /// <remarks>Uploads a file to Google Drive</remarks>
-        /// <param name="input">The request body.</param>
-        /// <param name="folderPath">Folder path</param>
-        /// <param name="fileName">File name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create file response.</returns>
-        public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folderPath, string fileName, CancellationToken cancellationToken = default)
-        {
-            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.CreateFileAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                queryParams.Add("queryParametersSingleEncoded=true");
-                if (folderPath is null)
-                    throw new ArgumentNullException(nameof(folderPath));
-                queryParams.Add($"folderPath={Uri.EscapeDataString(folderPath)}");
-                if (fileName is null)
-                    throw new ArgumentNullException(nameof(fileName));
-                queryParams.Add($"name={Uri.EscapeDataString(fileName)}");
-                var path = $"/datasets/default/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
         /// Copy file
         /// </summary>
         /// <remarks>Copies a file on Google Drive</remarks>
@@ -486,6 +463,41 @@ namespace Azure.Connectors.Sdk.GoogleDrive
                 var path = $"/datasets/default/folders";
                 return await this
                     .CallConnectorAsync<List<BlobMetadata>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create file
+        /// </summary>
+        /// <remarks>Uploads a file to a Google Drive folder selected by its identifier</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="folder">Folder</param>
+        /// <param name="fileName">File name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create file response.</returns>
+        public virtual async Task<BlobMetadata> CreateFileAsync(byte[] input, string folder, string fileName, CancellationToken cancellationToken = default)
+        {
+            using var activity = GoogleDriveClient.ConnectorActivitySource.StartActivity("GoogleDriveClient.CreateFileAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                queryParams.Add("queryParametersSingleEncoded=true");
+                if (folder is null)
+                    throw new ArgumentNullException(nameof(folder));
+                queryParams.Add($"folderId={Uri.EscapeDataString(folder)}");
+                if (fileName is null)
+                    throw new ArgumentNullException(nameof(fileName));
+                queryParams.Add($"name={Uri.EscapeDataString(fileName)}");
+                var path = $"/datasets/default/v2/files" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<BlobMetadata>(HttpMethod.Post, path, input, System.Net.Mime.MediaTypeNames.Application.Octet, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
