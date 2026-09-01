@@ -4981,7 +4981,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone GBEire { get; } = new("GB-Eire");
 
         /// <summary>W-SU</summary>
-        public static Timezone Wsu { get; } = new("W-SU");
+        public static Timezone WSu { get; } = new("W-SU");
 
         /// <summary>Poland</summary>
         public static Timezone Poland { get; } = new("Poland");
@@ -4993,7 +4993,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone Nz { get; } = new("NZ");
 
         /// <summary>NZ-CHAT</summary>
-        public static Timezone Nzchat { get; } = new("NZ-CHAT");
+        public static Timezone NzChat { get; } = new("NZ-CHAT");
 
         /// <summary>Chile/EasterIsland</summary>
         public static Timezone ChileEasterIsland { get; } = new("Chile/EasterIsland");

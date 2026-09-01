@@ -5126,13 +5126,13 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public AppearanceDesign(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>COMPANY_LOGO</summary>
-        public static AppearanceDesign Companylogo { get; } = new("COMPANY_LOGO");
+        public static AppearanceDesign CompanyLogo { get; } = new("COMPANY_LOGO");
 
         /// <summary>DETAILED_SIGNATURE</summary>
-        public static AppearanceDesign Detailedsignature { get; } = new("DETAILED_SIGNATURE");
+        public static AppearanceDesign DetailedSignature { get; } = new("DETAILED_SIGNATURE");
 
         /// <summary>HAND_SIGNATURE</summary>
-        public static AppearanceDesign Handsignature { get; } = new("HAND_SIGNATURE");
+        public static AppearanceDesign HandSignature { get; } = new("HAND_SIGNATURE");
 
         /// <summary>Converts a string to <see cref="AppearanceDesign"/>.</summary>
         public static implicit operator AppearanceDesign(string value) => new(value);
@@ -5187,7 +5187,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static DeliveryMethod Sms { get; } = new("SMS");
 
         /// <summary>EMAIL_AND_SMS</summary>
-        public static DeliveryMethod Emailandsms { get; } = new("EMAIL_AND_SMS");
+        public static DeliveryMethod EmailAndSms { get; } = new("EMAIL_AND_SMS");
 
         /// <summary>Converts a string to <see cref="DeliveryMethod"/>.</summary>
         public static implicit operator DeliveryMethod(string value) => new(value);
@@ -5291,7 +5291,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static FieldType Signature { get; } = new("SIGNATURE");
 
         /// <summary>IN_PERSON_SIGNATURE</summary>
-        public static FieldType Inpersonsignature { get; } = new("IN_PERSON_SIGNATURE");
+        public static FieldType InPersonSignature { get; } = new("IN_PERSON_SIGNATURE");
 
         /// <summary>INITIALS</summary>
         public static FieldType Initials { get; } = new("INITIALS");
@@ -5425,37 +5425,37 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public Mechanism(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>AUTHENTICATION_PASSWORD</summary>
-        public static Mechanism Authenticationpassword { get; } = new("AUTHENTICATION_PASSWORD");
+        public static Mechanism AuthenticationPassword { get; } = new("AUTHENTICATION_PASSWORD");
 
         /// <summary>AUTHENTICATION_ACTIVE_DIRECTORY</summary>
-        public static Mechanism Authenticationactivedirectory { get; } = new("AUTHENTICATION_ACTIVE_DIRECTORY");
+        public static Mechanism AuthenticationActiveDirectory { get; } = new("AUTHENTICATION_ACTIVE_DIRECTORY");
 
         /// <summary>AUTHENTICATION_AZURE_ACTIVE_DIRECTORY</summary>
-        public static Mechanism Authenticationazureactivedirectory { get; } = new("AUTHENTICATION_AZURE_ACTIVE_DIRECTORY");
+        public static Mechanism AuthenticationAzureActiveDirectory { get; } = new("AUTHENTICATION_AZURE_ACTIVE_DIRECTORY");
 
         /// <summary>AUTHENTICATION_OFFICE_365</summary>
-        public static Mechanism Authenticationoffice365 { get; } = new("AUTHENTICATION_OFFICE_365");
+        public static Mechanism AuthenticationOffice365 { get; } = new("AUTHENTICATION_OFFICE_365");
 
         /// <summary>AUTHENTICATION_OAUTH2</summary>
-        public static Mechanism Authenticationoauth2 { get; } = new("AUTHENTICATION_OAUTH2");
+        public static Mechanism AuthenticationOauth2 { get; } = new("AUTHENTICATION_OAUTH2");
 
         /// <summary>AUTHENTICATION_OIDC</summary>
-        public static Mechanism AUTHENTICATIONOIdC { get; } = new("AUTHENTICATION_OIDC");
+        public static Mechanism AuthenticationOidc { get; } = new("AUTHENTICATION_OIDC");
 
         /// <summary>AUTHENTICATION_GOOGLE</summary>
-        public static Mechanism Authenticationgoogle { get; } = new("AUTHENTICATION_GOOGLE");
+        public static Mechanism AuthenticationGoogle { get; } = new("AUTHENTICATION_GOOGLE");
 
         /// <summary>AUTHENTICATION_LINKED_IN</summary>
-        public static Mechanism Authenticationlinkedin { get; } = new("AUTHENTICATION_LINKED_IN");
+        public static Mechanism AuthenticationLinkedIn { get; } = new("AUTHENTICATION_LINKED_IN");
 
         /// <summary>AUTHENTICATION_SALES_FORCE</summary>
-        public static Mechanism Authenticationsalesforce { get; } = new("AUTHENTICATION_SALES_FORCE");
+        public static Mechanism AuthenticationSalesForce { get; } = new("AUTHENTICATION_SALES_FORCE");
 
         /// <summary>AUTHENTICATION_SAML</summary>
-        public static Mechanism Authenticationsaml { get; } = new("AUTHENTICATION_SAML");
+        public static Mechanism AuthenticationSaml { get; } = new("AUTHENTICATION_SAML");
 
         /// <summary>AUTHENTICATION_IDFY</summary>
-        public static Mechanism AUTHENTICATIONIdFY { get; } = new("AUTHENTICATION_IDFY");
+        public static Mechanism AuthenticationIdfy { get; } = new("AUTHENTICATION_IDFY");
 
         /// <summary>Converts a string to <see cref="Mechanism"/>.</summary>
         public static implicit operator Mechanism(string value) => new(value);
@@ -5614,10 +5614,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public SignatureStatus(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>VALID</summary>
-        public static SignatureStatus VALId { get; } = new("VALID");
+        public static SignatureStatus Valid { get; } = new("VALID");
 
         /// <summary>INVALID</summary>
-        public static SignatureStatus INVALId { get; } = new("INVALID");
+        public static SignatureStatus Invalid { get; } = new("INVALID");
 
         /// <summary>Converts a string to <see cref="SignatureStatus"/>.</summary>
         public static implicit operator SignatureStatus(string value) => new(value);
@@ -5666,10 +5666,10 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public SignatureType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>PADES_PART2</summary>
-        public static SignatureType Padespart2 { get; } = new("PADES_PART2");
+        public static SignatureType PadesPart2 { get; } = new("PADES_PART2");
 
         /// <summary>PADES_PART4</summary>
-        public static SignatureType Padespart4 { get; } = new("PADES_PART4");
+        public static SignatureType PadesPart4 { get; } = new("PADES_PART4");
 
         /// <summary>Converts a string to <see cref="SignatureType"/>.</summary>
         public static implicit operator SignatureType(string value) => new(value);

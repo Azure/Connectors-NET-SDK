@@ -189,5 +189,13 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(2, deserialized.Certify.AllowedPermissions!.Count);
             Assert.AreEqual("FORM_FILLING_ALLOWED", deserialized.Certify.DefaultPermission);
         }
+
+        [TestMethod]
+        public void Mechanism_UppercaseWireValues_UsePascalCaseMembers()
+        {
+            Assert.AreEqual(expected: "AUTHENTICATION_PASSWORD", actual: Mechanism.AuthenticationPassword.ToString());
+            Assert.AreEqual(expected: "AUTHENTICATION_OIDC", actual: Mechanism.AuthenticationOidc.ToString());
+            Assert.AreEqual(expected: "AUTHENTICATION_IDFY", actual: Mechanism.AuthenticationIdfy.ToString());
+        }
     }
 }

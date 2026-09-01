@@ -244,10 +244,10 @@ namespace Azure.Connectors.Sdk.KeyVault.Models
         public Algorithm(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>RSA-OAEP-256</summary>
-        public static Algorithm Rsaoaep256 { get; } = new("RSA-OAEP-256");
+        public static Algorithm RsaOaep256 { get; } = new("RSA-OAEP-256");
 
         /// <summary>RSA-OAEP</summary>
-        public static Algorithm Rsaoaep { get; } = new("RSA-OAEP");
+        public static Algorithm RsaOaep { get; } = new("RSA-OAEP");
 
         /// <summary>RSA1_5</summary>
         public static Algorithm Rsa15 { get; } = new("RSA1_5");
