@@ -148,20 +148,6 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     }
 
     /// <summary>
-    /// Response for List my owned groups (V2)
-    /// </summary>
-    public class ListOwnedGroupsV2Response
-    {
-        /// <summary>The OData context.</summary>
-        [JsonPropertyName("@odata.context")]
-        public string ODataContext { get; set; }
-
-        /// <summary>value</summary>
-        [JsonPropertyName("value")]
-        public List<JsonElement?> Value { get; set; }
-    }
-
-    /// <summary>
     /// SensitivityLabelMetadata
     /// </summary>
     public class SensitivityLabelMetadata
@@ -461,20 +447,6 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
             List<JsonElement?> value = default)
         {
             return new ListOwnedGroupsResponse
-            {
-                ODataContext = oDataContext,
-                Value = value,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ListOwnedGroupsV2Response"/>.
-        /// </summary>
-        public static ListOwnedGroupsV2Response ListOwnedGroupsV2Response(
-            string oDataContext = default,
-            List<JsonElement?> value = default)
-        {
-            return new ListOwnedGroupsV2Response
             {
                 ODataContext = oDataContext,
                 Value = value,
@@ -1032,61 +1004,6 @@ namespace Azure.Connectors.Sdk.Office365Groups
                 if (sensitivityLabelMetadata.HasValue)
                     queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/v2/v1.0/me/memberOf/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListOwnedGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List my owned groups (V2)
-        /// </summary>
-        /// <remarks>This operation returns a list of all groups that you own.</remarks>
-        /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
-        /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List my owned groups (V2) response.</returns>
-        public virtual async Task<ListOwnedGroupsV2Response> ListOwnedGroupsV2Async(bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.ListOwnedGroupsV2Async");
-            try
-            {
-                var queryParams = new List<string>();
-                if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
-                if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v1.0/me/ownedObjects/$/microsoft.graph.group" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListOwnedGroupsV2Response>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// List my owned groups
-        /// </summary>
-        /// <remarks>This operation returns a list of all groups that you own.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List my owned groups response.</returns>
-        public virtual async Task<ListOwnedGroupsResponse> ListOwnedGroupsV0Async(CancellationToken cancellationToken = default)
-        {
-            using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.ListOwnedGroupsV0Async");
-            try
-            {
-                var path = $"/v1.0/me/memberOf/$/microsoft.graph.group";
                 return await this
                     .CallConnectorAsync<ListOwnedGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
