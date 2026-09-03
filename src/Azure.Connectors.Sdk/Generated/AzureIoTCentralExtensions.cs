@@ -724,7 +724,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// Response for Get device telemetry value (deprecated)
     /// </summary>
     [DynamicSchema("Schema_DeviceTelemetry")]
-    public class DeviceTelemetry
+    public class DeviceTelemetryV0
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -889,7 +889,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// Property values associated with the device.
     /// </summary>
     [DynamicSchema("Schema_DeviceProperties_V1")]
-    public class DevicePropertiesV1
+    public class DeviceProperties
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -903,7 +903,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// Property values associated with the device.
     /// </summary>
     [DynamicSchema("Schema_DeviceProperties")]
-    public class DeviceProperties
+    public class DevicePropertiesV0
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -917,7 +917,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     /// Response for Get device telemetry value
     /// </summary>
     [DynamicSchema("Schema_DeviceTelemetry_V1")]
-    public class DeviceTelemetryV1
+    public class DeviceTelemetry
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -1880,13 +1880,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="DeviceTelemetry"/>.
+        /// Creates a new instance of <see cref="DeviceTelemetryV0"/>.
         /// </summary>
-        public static DeviceTelemetry DeviceTelemetry(
+        public static DeviceTelemetryV0 DeviceTelemetryV0(
             JsonElement? value = default,
             DateTime? timestamp = default)
         {
-            return new DeviceTelemetry
+            return new DeviceTelemetryV0
             {
                 Value = value,
                 Timestamp = timestamp,
@@ -1966,13 +1966,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="DeviceTelemetryV1"/>.
+        /// Creates a new instance of <see cref="DeviceTelemetry"/>.
         /// </summary>
-        public static DeviceTelemetryV1 DeviceTelemetryV1(
+        public static DeviceTelemetry DeviceTelemetry(
             JsonElement? value = default,
             DateTime? timestamp = default)
         {
-            return new DeviceTelemetryV1
+            return new DeviceTelemetry
             {
                 Value = value,
                 Timestamp = timestamp,
@@ -3455,7 +3455,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplateId">Device Template ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get device telemetry value (deprecated) response.</returns>
-        public virtual async Task<DeviceTelemetry> DevicesGetComponentTelemetryValueV0Async(string deviceId, [DynamicValues("Workflow_GetComponents")] string deviceComponent, [DynamicValues("Workflow_GetCapabilities")] string deviceTelemetry, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceTelemetryV0> DevicesGetComponentTelemetryValueV0Async(string deviceId, [DynamicValues("Workflow_GetComponents")] string deviceComponent, [DynamicValues("Workflow_GetCapabilities")] string deviceTelemetry, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetComponentTelemetryValueV0Async");
             try
@@ -3474,7 +3474,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
                 var path = $"/api/preview/devices/{Uri.EscapeDataString(deviceId)}/components/{Uri.EscapeDataString(deviceComponent)}/telemetry/{Uri.EscapeDataString(deviceTelemetry)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceTelemetry>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DeviceTelemetryV0>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3702,7 +3702,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplate">Device Template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get device properties response.</returns>
-        public virtual async Task<DevicePropertiesV1> DevicesGetPropertiesAsync(string deviceId, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceProperties> DevicesGetPropertiesAsync(string deviceId, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetPropertiesAsync");
             try
@@ -3717,7 +3717,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DevicePropertiesV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DeviceProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3737,7 +3737,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplateId">Device Template ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get device properties (deprecated) response.</returns>
-        public virtual async Task<DeviceProperties> DevicesGetPropertiesV0Async(string deviceId, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DevicePropertiesV0> DevicesGetPropertiesV0Async(string deviceId, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetPropertiesV0Async");
             try
@@ -3752,7 +3752,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
                 var path = $"/api/preview/devices/{Uri.EscapeDataString(deviceId)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceProperties>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DevicePropertiesV0>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -3773,7 +3773,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplate">Device Template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get device telemetry value response.</returns>
-        public virtual async Task<DeviceTelemetryV1> DevicesGetTelemetryValueAsync(string deviceId, [DynamicValues("Workflow_GetCapabilities_V1")] string deviceTelemetry, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceTelemetry> DevicesGetTelemetryValueAsync(string deviceId, [DynamicValues("Workflow_GetCapabilities_V1")] string deviceTelemetry, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesGetTelemetryValueAsync");
             try
@@ -3790,7 +3790,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/telemetry/{Uri.EscapeDataString(deviceTelemetry)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceTelemetryV1>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<DeviceTelemetry>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4199,7 +4199,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplate">Device Template</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update device properties response.</returns>
-        public virtual async Task<DevicePropertiesV1> DevicesUpdatePropertiesAsync(string deviceId, DevicePropertiesV1 input, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DeviceProperties> DevicesUpdatePropertiesAsync(string deviceId, DeviceProperties input, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplate = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesUpdatePropertiesAsync");
             try
@@ -4214,7 +4214,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"template={Uri.EscapeDataString(deviceTemplate)}");
                 var path = $"/api/v1/devices/{Uri.EscapeDataString(deviceId)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DevicePropertiesV1>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<DeviceProperties>(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4235,7 +4235,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
         /// <param name="deviceTemplateId">Device Template ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update device properties (deprecated) response.</returns>
-        public virtual async Task<DeviceProperties> DevicesUpdatePropertiesV0Async(string deviceId, DeviceProperties input, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DevicePropertiesV0> DevicesUpdatePropertiesV0Async(string deviceId, DevicePropertiesV0 input, [DynamicValues("Applications_List")] string application, [DynamicValues("DeviceTemplates_List")] string deviceTemplateId = default, CancellationToken cancellationToken = default)
         {
             using var activity = AzureIoTCentralClient.ConnectorActivitySource.StartActivity("AzureIoTCentralClient.DevicesUpdatePropertiesV0Async");
             try
@@ -4250,7 +4250,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
                     queryParams.Add($"instanceOf={Uri.EscapeDataString(deviceTemplateId)}");
                 var path = $"/api/preview/devices/{Uri.EscapeDataString(deviceId)}/properties" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<DeviceProperties>(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync<DevicePropertiesV0>(HttpMethod.Put, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
