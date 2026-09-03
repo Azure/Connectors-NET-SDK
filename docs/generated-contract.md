@@ -82,9 +82,12 @@ and use the operation's declared HTTP method, path, parameters, and schemas.
 ### Operation Revision Families
 
 Operation IDs that differ only by a leading or trailing version affix belong to
-one connector revision family. The generator emits the latest supported revision
-and gives it the stable, version-free SDK name. An operation with no affix is
-revision zero; an explicit `V1`, `V2`, or later affix supersedes it.
+one connector revision family. First determine which revisions are supported for
+the SDK, preferring public/production status over internal, preview, or deprecated
+status. The generator then emits the latest eligible revision and gives it the
+stable, version-free SDK name. Within that eligible sequence, an operation with
+no affix is revision zero and explicit affixes provide revision order. A numeric
+affix does not by itself override support status.
 
 Older routes can remain in connector Swagger for existing Logic Apps workflows.
 Their continued presence does not make them parallel SDK capabilities. Route,
