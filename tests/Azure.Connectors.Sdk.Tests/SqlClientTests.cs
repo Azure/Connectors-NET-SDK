@@ -236,6 +236,40 @@ namespace Azure.Connectors.Sdk.Tests
                 message: "The scoped native query metadata route keeps its own identity.");
         }
 
+        [TestMethod]
+        public async Task ExecuteProcedureV0Async_TargetsDefaultDatasetRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.ExecuteProcedureV0Async(
+                        procedureName: "sp_who",
+                        input: new Sql.Models.ExecuteProcedureV0Input(),
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/datasets/default/procedures/sp_who",
+                actual: request.RequestUri!.AbsolutePath);
+        }
+
+        [TestMethod]
+        public async Task ExecuteProcedureAsync_TargetsServerAndDatabaseScopedRoute()
+        {
+            var request = await CaptureRequestAsync(
+                    responseJson: "{}",
+                    invoke: client => client.ExecuteProcedureAsync(
+                        serverName: "server1",
+                        databaseName: "db1",
+                        procedureName: "sp_who",
+                        input: new Sql.Models.ExecuteProcedureInput(),
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/v2/datasets/server1,db1/procedures/sp_who",
+                actual: request.RequestUri!.AbsolutePath);
+        }
+
         private static async Task<HttpRequestMessage> CaptureRequestAsync(
             string responseJson,
             Func<SqlClient, Task> invoke)

@@ -174,6 +174,58 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task DeviceTemplatesListAsync_TargetsV1Route()
+        {
+            var request = await CapturePageableRequestAsync(
+                    client => client.DeviceTemplatesListAsync(
+                        application: "app-id",
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/api/v1/deviceTemplates",
+                actual: request.RequestUri!.AbsolutePath);
+        }
+
+        [TestMethod]
+        public async Task DeviceTemplatesListV0Async_TargetsPreviewRoute()
+        {
+            var request = await CapturePageableRequestAsync(
+                    client => client.DeviceTemplatesListV0Async(
+                        application: "app-id",
+                        cancellationToken: CancellationToken.None))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(
+                expected: "/connection/api/preview/deviceTemplates",
+                actual: request.RequestUri!.AbsolutePath);
+        }
+
+        private static async Task<HttpRequestMessage> CapturePageableRequestAsync<TItem>(
+            Func<AzureIoTCentralClient, AsyncPageable<TItem>> createPageable)
+            where TItem : notnull
+        {
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("{\"value\":[]}")
+                });
+            using var client = new AzureIoTCentralClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
+
+            await foreach (var _ in createPageable(client).ConfigureAwait(continueOnCapturedContext: false))
+            {
+            }
+
+            var request = clientSetup.GetLastRequest();
+            Assert.IsNotNull(request);
+            return request!;
+        }
+
+        [TestMethod]
         public void DeviceGroupCollection_ImplementsIPageable()
         {
             // Arrange & Act

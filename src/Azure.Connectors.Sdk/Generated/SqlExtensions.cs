@@ -73,6 +73,34 @@ namespace Azure.Connectors.Sdk.Sql.Models
     }
 
     /// <summary>
+    /// Execute stored procedure
+    /// </summary>
+    [DynamicSchema("GetProcedure")]
+    public class ExecuteProcedureV0Input
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Execute stored procedure
+    /// </summary>
+    [DynamicSchema("GetProcedure")]
+    public class ExecuteProcedureV0Response
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// Response for Get row
     /// </summary>
     [DynamicSchema("GetTable_V2")]
@@ -1296,6 +1324,34 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
+        /// Execute stored procedure
+        /// </summary>
+        /// <remarks>This operation runs a stored procedure.</remarks>
+        /// <param name="procedureName">Procedure name</param>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Execute stored procedure response.</returns>
+        public virtual async Task<ExecuteProcedureV0Response> ExecuteProcedureV0Async([DynamicValues("GetProcedures")] string procedureName, ExecuteProcedureV0Input input, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.ExecuteProcedureV0Async");
+            try
+            {
+                if (procedureName is null)
+                    throw new ArgumentNullException(nameof(procedureName));
+                var path = $"/datasets/default/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName))}";
+                return await this
+                    .CallConnectorAsync<ExecuteProcedureV0Response>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get row
         /// </summary>
         /// <remarks>This operation gets a row from a table.</remarks>
@@ -1647,6 +1703,57 @@ namespace Azure.Connectors.Sdk.Sql
         }
 
         /// <summary>
+        /// Get stored procedures
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get stored procedures response.</returns>
+        public virtual async Task<ProceduresList> GetProceduresAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresAsync");
+            try
+            {
+                var path = $"/datasets/default/procedures";
+                return await this
+                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get procedure metadata
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="procedureName">Procedure name</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get procedure metadata response.</returns>
+        public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetProcedures")] string procedureName, CancellationToken cancellationToken = default)
+        {
+            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureAsync");
+            try
+            {
+                if (procedureName is null)
+                    throw new ArgumentNullException(nameof(procedureName));
+                var path = $"/$metadata.json/datasets/default/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName))}";
+                return await this
+                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// GetTablesForGetItem
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -1890,57 +1997,6 @@ namespace Azure.Connectors.Sdk.Sql
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/query/sql";
                 return await this
                     .CallConnectorAsync<PassThroughNativeQueryMetadata>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get procedure metadata
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="procedureName">Procedure name</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get procedure metadata response.</returns>
-        public virtual async Task<ProcedureMetadata> GetProcedureAsync([DynamicValues("GetProcedures")] string procedureName, CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProcedureAsync");
-            try
-            {
-                if (procedureName is null)
-                    throw new ArgumentNullException(nameof(procedureName));
-                var path = $"/$metadata.json/datasets/default/procedures/{Uri.EscapeDataString(Uri.EscapeDataString(procedureName))}";
-                return await this
-                    .CallConnectorAsync<ProcedureMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get stored procedures
-        /// </summary>
-        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get stored procedures response.</returns>
-        public virtual async Task<ProceduresList> GetProceduresAsync(CancellationToken cancellationToken = default)
-        {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetProceduresAsync");
-            try
-            {
-                var path = $"/datasets/default/procedures";
-                return await this
-                    .CallConnectorAsync<ProceduresList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
