@@ -218,6 +218,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             await foreach (var _ in createPageable(client).ConfigureAwait(continueOnCapturedContext: false))
             {
+                // NOTE(daviburg): Enumeration triggers the lazy pageable request for route capture.
             }
 
             var request = clientSetup.GetLastRequest();
