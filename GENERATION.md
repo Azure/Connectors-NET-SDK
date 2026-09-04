@@ -218,12 +218,21 @@ The connector SDK spans 4 repositories with a strict data flow:
    (Connectors SDK, Codeful Workflow SDK, etc.).
 3. **`DynamicValuesAttribute` is hand-written** — defined in `src/.../DynamicValuesAttribute.cs`.
    The generator emits references to it; the LSP reads it via Roslyn reflection.
-4. **Merge order** — SDK (attribute) → BPM (generator) → LSP and POC (consumers). The SDK must
+4. **Generate the latest supported operation revision** — operation IDs that differ only by a
+  version affix form one connector revision family. Generate the latest public/production revision
+  under the stable version-free SDK name; do not expose every historical route that remains in
+  Swagger for existing workflows. Path, parameter, and schema differences do not by themselves make
+  revisions independent actions.
+5. **Adjudicate ambiguity from the connector source** — use revision/deprecation metadata and commit
+  history in `AAPT-connectors`, not sibling generated SDK output, to determine whether operations are
+  revisions or independently supported actions. See
+  [Operation Revision Families](docs/generated-contract.md#operation-revision-families).
+6. **Merge order** — SDK (attribute) → BPM (generator) → LSP and POC (consumers). The SDK must
    define the attribute before the generator can reference it, and the generator must produce
    the annotations before consumers can use them.
-5. **Regeneration** — after generator changes in BPM, re-run the generator and commit the output
+7. **Regeneration** — after generator changes in BPM, re-run the generator and commit the output
    to this repo. See [Generation Commands](#generation-commands) above.
-6. **Swagger text sanitization** — the generator's `SanitizeSwaggerText()` method corrects known
+8. **Swagger text sanitization** — the generator's `SanitizeSwaggerText()` method corrects known
    typos from swagger definitions before they flow into XML documentation. Add new corrections
    there rather than patching generated files.
 

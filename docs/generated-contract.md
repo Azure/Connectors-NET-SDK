@@ -79,6 +79,36 @@ Non-deprecated, non-internal, non-trigger operations are callable SDK methods.
 Their request and response models are generated from the operation definition
 and use the operation's declared HTTP method, path, parameters, and schemas.
 
+### Operation Revision Families
+
+Operation IDs that differ only by a leading or trailing version affix belong to
+one connector revision family. First determine which revisions are supported for
+the SDK, preferring public/production status over internal, preview, or deprecated
+status. The generator then emits the latest eligible revision and gives it the
+stable, version-free SDK name. Within that eligible sequence, an operation with
+no affix is revision zero and explicit affixes provide revision order. A numeric
+affix does not by itself override support status.
+
+Older routes can remain in connector Swagger for existing Logic Apps workflows.
+Their continued presence does not make them parallel SDK capabilities. Route,
+parameter, or schema differences commonly explain why a new revision was needed;
+those differences do not override the latest-revision rule. A new revision can,
+for example, move from a preview route to a GA route, replace an indirect backend
+query, or add explicit server and database selection.
+
+When revision intent is unclear, inspect the owning connector source and history
+in `AAPT-connectors`. Prefer, in order:
+
+1. explicit family/revision or deprecation metadata;
+2. public/production status over internal, preview, or deprecated status;
+3. the most recently introduced revision and its owning change description.
+
+Preserve multiple operations only when connector-owner evidence establishes that
+they are independently supported actions rather than revisions of one action.
+Different paths or payload shapes alone are not sufficient evidence. Do not infer
+parallel support from generated output in another language; all targets must use
+the same owner-backed revision decision.
+
 The generator may exclude a route only through an explicit, documented policy,
 such as unsupported multipart transport or a curated replacement route. Such a
 policy must preserve the intended SDK contract and be validated against the
@@ -141,20 +171,16 @@ participate in selection and naming even for a target that normally omits
 discovery methods. TypeScript's emitter continues to omit internal methods from
 the callable surface after curated selection.
 
-When independently reachable revisions of one discovery family simplify to the
-same identifier, the current revision owns the unversioned name. Older reachable
-versioned revisions keep their affixes and remain callable; an unreachable revision
-is not retained merely because it belongs to the same family. C# marks retained
-superseded revisions with `EditorBrowsable(Never)`; Python currently has no
-equivalent browsing marker. If the simplified name is already claimed by a public
-operation, every reachable discovery revision keeps its affix. The whole reachable
-family also keeps affixes when an older operation has no version affix to retain,
-rather than assigning that operation's unversioned name to the current revision.
+Discovery reachability begins only after public and trigger revision families are
+resolved. A helper referenced solely by an omitted older revision is not retained.
+When multiple revisions of a discovery helper are reachable from the selected
+surface, the latest supported helper owns the version-free name unless explicit
+connector-owner metadata identifies separate supported contracts.
 
-Affix preservation is not a proof of identifier uniqueness. Distinct operation
-IDs can still normalize to the same language identifier. The generator reports
-those residual collisions, and validation must treat any resulting unreachable
-route as unresolved contract loss rather than successful disambiguation.
+Version selection is not a substitute for identifier-collision checking. Distinct
+operation families can still normalize to the same language identifier. The
+generator reports those residual collisions, and validation must adjudicate them
+without reviving superseded revisions.
 
 Callable discovery APIs exist for infrastructure consumers, such as the SDK LSP,
 to enumerate dynamic values or schemas. Targets with a presentation mechanism must
