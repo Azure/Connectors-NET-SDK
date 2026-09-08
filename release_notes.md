@@ -4,6 +4,8 @@
 
 #### Fixed
 
+- **Microsoft Dataverse list rows now traverses every result page** — `GetItemsAsync` preserves the connector's `@odata.nextLink` continuation and returns an `AsyncPageable<Item>`. Live validation against a synthetic 5,001-row table retrieved all rows across ten connector pages without overlap. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208), AzureUX-BPM PR 17086991)
+
 - **Extensible enum member collisions now preserve every wire value** — distinct values that normalize to one C# identifier are allocated stable unique names instead of dropping later claimants. Sign-and-number collisions use readable names, such as `Etc/GMT+4` → `EtcGmtPlus4` and `Etc/GMT-4` → `EtcGmtMinus4`; ordinary delimiter hyphens still use the general numeric fallback. Values normalized to mandatory struct members (`Equals`, `GetHashCode`, `ToString`) use an available `Value`-suffixed name. The frozen-cache audit tested 100 checked-in SDK names: 97 connectors generated, 96 were unchanged, and Plumsail was the only generated client affected. `MsGraphGroupsAndUsers` was unavailable from the current ARM catalog, while `ConnectorNames` and `ManagedConnectors` are infrastructure files rather than connector inputs. ([#181](https://github.com/Azure/Connectors-NET-SDK/issues/181), AzureUX-BPM PR 16971205)
 
   Plumsail exercises the general normalization-collision path, not the reserved-member path. Reserved-member handling is retained as a synthetic generator regression for the historical failure reported in #181; no active reserved-member collision was found in the 97 connectors generated from the frozen snapshot. Of the eleven connector names in the issue, only Etsy remains in the current catalog, and its current Swagger has no such collision.
@@ -23,6 +25,8 @@
 - **SigningHub: over 60 previously opaque `JsonElement?` properties now have typed models** — properties such as `CertifyPolicyResponse.Certify`, `GetDocumentDetailsResponse.Certify`, `GetDocumentDetailsResponse.Template`, and many authentication, permission, access-duration, and signature-field objects are now strongly typed with dedicated model classes. Consumer code that read these properties as raw `JsonElement` and called `.GetProperty()` must switch to the typed accessors; see the Breaking Changes section.
 
 #### Breaking Changes
+
+- **Microsoft Dataverse `GetItemsAsync` now returns `AsyncPageable<Item>`** — callers that previously awaited one `ItemsList` page must enumerate the pageable with `await foreach`, or call `AsPages()` when page boundaries and continuation tokens are required. This prevents the connector's `@odata.nextLink` value from being discarded after the first page. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208), AzureUX-BPM PR 17086991)
 
 - **Google Drive `CreateFileAsync`: parameter renamed, route updated to v2, query key changed** — the `folderPath` parameter is now named `folder`, and the method calls `/datasets/default/v2/files` with the query key `folderId` instead of the previous `/datasets/default/files` with `folderPath`. Callers using the named argument `folderPath:` must rename it to `folder:`. Callers using positional arguments compile cleanly but will route to the v2 endpoint automatically.
 
