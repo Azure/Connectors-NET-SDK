@@ -248,6 +248,50 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task GetItemsAsync_WithODataNextLink_FollowsAbsoluteContinuation()
+        {
+            const string nextLink = "https://test.azure.com/connection/v2/datasets/environment/tables/accounts/items?$skiptoken=page2";
+            var responseNumber = 0;
+            var clientSetup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () =>
+                {
+                    responseNumber++;
+                    return new HttpResponseMessage
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        Content = new StringContent(
+                            responseNumber == 1
+                                ? $"{{\"value\":[{{}}],\"@odata.nextLink\":\"{nextLink}\"}}"
+                                : "{\"value\":[{}]}")
+                    };
+                });
+
+            using var client = new CommondataserviceClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: clientSetup.Credential,
+                options: clientSetup.Options);
+
+            var pageCount = 0;
+            var rowCount = 0;
+            await foreach (var page in client
+                .GetItemsAsync(
+                    environment: "https://contoso.crm.dynamics.com",
+                    tableName: "accounts",
+                    cancellationToken: CancellationToken.None)
+                .AsPages()
+                .ConfigureAwait(continueOnCapturedContext: false))
+            {
+                pageCount++;
+                rowCount += page.Values.Count;
+            }
+
+            Assert.AreEqual(expected: 2, actual: pageCount);
+            Assert.AreEqual(expected: 2, actual: rowCount);
+            Assert.AreEqual(expected: 2, actual: responseNumber);
+            Assert.AreEqual(expected: nextLink, actual: clientSetup.GetLastRequest()?.RequestUri?.AbsoluteUri);
+        }
+
+        [TestMethod]
         public void DataSet_JsonSerialization_RoundTrips()
         {
             // Arrange

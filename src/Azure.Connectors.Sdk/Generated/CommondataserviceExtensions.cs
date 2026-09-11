@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Commondataservice.Models;
 using Azure.Core;
@@ -123,11 +124,15 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
     /// <summary>
     /// List of Items
     /// </summary>
-    public class ItemsList
+    public class ItemsList : IPageable<Item>
     {
         /// <summary>List of Items</summary>
         [JsonPropertyName("value")]
         public List<Item> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -467,11 +472,13 @@ namespace Azure.Connectors.Sdk.Commondataservice.Models
         /// Creates a new instance of <see cref="ItemsList"/>.
         /// </summary>
         public static ItemsList ItemsList(
-            List<Item> value = default)
+            List<Item> value = default,
+            string nextLink = default)
         {
             return new ItemsList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1372,38 +1379,29 @@ namespace Azure.Connectors.Sdk.Commondataservice
         /// <param name="topCount">Top Count</param>
         /// <param name="expandQuery">Expand Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List rows (legacy) response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? topCount = default, string expandQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsAsync([DynamicValues("GetDataSets_V2")] string environment, [DynamicValues("GetTables")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? topCount = default, string expandQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = CommondataserviceClient.ConnectorActivitySource.StartActivity("CommondataserviceClient.GetItemsAsync");
-            try
-            {
-                if (environment is null)
-                    throw new ArgumentNullException(nameof(environment));
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var queryParams = new List<string>();
-                if (aggregationTransformation != default)
-                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (expandQuery != default)
-                    queryParams.Add($"$expand={Uri.EscapeDataString(expandQuery)}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (environment is null)
+                throw new ArgumentNullException(nameof(environment));
+            if (tableName is null)
+                throw new ArgumentNullException(nameof(tableName));
+            var queryParams = new List<string>();
+            if (aggregationTransformation != default)
+                queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (expandQuery != default)
+                queryParams.Add($"$expand={Uri.EscapeDataString(expandQuery)}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(environment))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
