@@ -22,7 +22,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 
 - **Type-safe operations** — Generated async methods with full IntelliSense and XML documentation
 - **Built-in authentication** — Managed identity and connection string token providers for API Hub
-- **Resilient HTTP** — Configurable retry policies for transient failures
+- **Resilient HTTP** — Configurable [method-safe retries](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/retry-safety.md) for transient failures
 - **1,000+ connectors** — Any Azure managed connector available via API Hub can be generated
 
 > **Note:** This is the .NET SDK. Python, Node.js, and Java SDKs are planned in collaboration with the Azure Functions team.
@@ -102,10 +102,24 @@ using var localClient = new Office365Client(
     new AzureCliCredential());
 
 // Or configure retry and diagnostics via ConnectorClientOptions
+var options = new ConnectorClientOptions();
+options.Retry.MaxRetries = 3;
+options.Retry.Delay = TimeSpan.FromSeconds(1);
+
 using var clientWithOptions = new Office365Client(
     new Uri(connectionRuntimeUrl),
     new AzureCliCredential(),
-    new ConnectorClientOptions());
+    options);
+
+// Explicit opt-in: unsafe methods may repeat connector side effects
+var unsafeRetryOptions = new ConnectorClientOptions
+{
+    RetryUnsafeHttpMethods = true,
+};
+using var clientWithUnsafeRetries = new Office365Client(
+    new Uri(connectionRuntimeUrl),
+    new AzureCliCredential(),
+    unsafeRetryOptions);
 
 // Call typed operations
 await client.SendEmailAsync(new SendEmailInput
@@ -125,7 +139,7 @@ var categories = await client.GetOutlookCategoryNamesAsync();
 | Component | Description |
 |-----------|-------------|
 | `ConnectorClientBase` | Abstract base class for all generated clients — provides authentication, retry, OTel tracing, JSON serialization, and SSRF-protected URL resolution |
-| `ConnectorClientOptions` | Configuration for retry count, timeout, exponential backoff, and initial retry delay |
+| `ConnectorClientOptions` | Configuration for method-safe retries, retry count, timeout, exponential backoff, and initial retry delay. See [Retry safety](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/retry-safety.md). |
 | `ConnectorException` | Unified exception for connector API failures with `ConnectorName`, `Operation`, `StatusCode`, and `ResponseBody` |
 
 ### Authentication
@@ -142,7 +156,7 @@ Authentication uses Azure.Core `TokenCredential` directly — any credential fro
 
 | Component | Description |
 |-----------|-------------|
-| `ConnectorHttpClient` | HTTP client with built-in authentication |
+| `ConnectorHttpClient` | HTTP client for caller-supplied Azure.Core pipelines; the caller owns the pre-built pipeline's retry semantics. See [Retry safety](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/retry-safety.md). |
 
 ### Serialization
 

@@ -208,8 +208,8 @@ The **Azure Connectors .NET SDK** (`Azure.Connectors.Sdk`) is a client-side .NET
 
 | Component | Responsibility |
 |-----------|---------------|
-| **ConnectorClientBase** | Abstract base class all generated clients inherit from |
-| **ConnectorHttpClient** | HTTP client with Azure.Core `HttpPipeline` for retry, authentication (when pipeline includes `BearerTokenAuthenticationPolicy`), and diagnostics |
+| **ConnectorClientBase** | Abstract base class all generated clients inherit from; applies the [method-safe retry contract](retry-safety.md) |
+| **ConnectorHttpClient** | HTTP client for a caller-supplied Azure.Core `HttpPipeline`; that caller owns retry semantics, authentication policies, and diagnostics |
 | **TokenCredential** | Azure.Core authentication (DefaultAzureCredential, ManagedIdentityCredential, etc.) |
 | **ConnectorJsonSerializer** | JSON serialization with connector conventions |
 | **ConnectorConnectionResolver** | Resolves connection settings from Azure Functions app configuration |
