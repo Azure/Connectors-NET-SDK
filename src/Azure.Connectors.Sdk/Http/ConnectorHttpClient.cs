@@ -19,6 +19,10 @@ namespace Azure.Connectors.Sdk.Http
     /// This class is retained for standalone usage outside of <see cref="ConnectorClientBase"/>.
     /// Generated connector clients use the pipeline built by <see cref="ConnectorClientBase"/> directly.
     /// </para>
+    /// <para>
+    /// NOTE(daviburg): A caller that supplies a pre-built pipeline owns that pipeline's retry semantics.
+    /// This class does not replace or reclassify policies in an arbitrary external pipeline.
+    /// </para>
     /// </remarks>
     public class ConnectorHttpClient : IDisposable
     {
