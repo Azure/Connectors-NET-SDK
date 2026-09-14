@@ -16,6 +16,11 @@ namespace Azure.Connectors.Sdk
     /// Retry behavior is configured via the inherited <see cref="ClientOptions.Retry"/> property.
     /// Custom HTTP transport can be set via <see cref="ClientOptions.Transport"/>.
     /// </para>
+    /// <para>
+    /// NOTE(daviburg): The standard retry policy retries only GET, HEAD, OPTIONS, and TRACE requests
+    /// by default. A caller-supplied <see cref="ClientOptions.RetryPolicy"/> remains authoritative and
+    /// is responsible for its own HTTP-method safety.
+    /// </para>
     /// </remarks>
     public class ConnectorClientOptions : ClientOptions
     {
@@ -53,6 +58,16 @@ namespace Azure.Connectors.Sdk
         /// Gets the service version.
         /// </summary>
         public ServiceVersion Version { get; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the standard retry policy may retry HTTP methods
+        /// other than GET, HEAD, OPTIONS, and TRACE. The default is <see langword="false"/>.
+        /// </summary>
+        /// <remarks>
+        /// NOTE(daviburg): Enabling this option can repeat connector side effects after ambiguous
+        /// failures. This option does not govern a caller-supplied <see cref="ClientOptions.RetryPolicy"/>.
+        /// </remarks>
+        public bool RetryUnsafeHttpMethods { get; set; }
 
         /// <summary>
         /// Gets or sets the base URI for the connector endpoint.

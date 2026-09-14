@@ -31,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
+- **Automatic retries now default to methods that are safe to replay** — `GET`, `HEAD`, `OPTIONS`, and `TRACE` retain the configured Azure.Core retry behavior. `POST`, `PUT`, `PATCH`, `DELETE`, and all other methods make one attempt by default for both transient responses and ambiguous transport failures. Set `ConnectorClientOptions.RetryUnsafeHttpMethods` to `true` only when replaying side effects is acceptable. A caller-supplied `RetryPolicy` remains authoritative, and callers that construct a standalone `ConnectorHttpClient` pipeline own its retry semantics. See [Retry safety](docs/retry-safety.md). ([#269](https://github.com/Azure/Connectors-NET-SDK/issues/269))
+
 - **Microsoft Dataverse `GetItemsAsync` now returns `AsyncPageable<Item>`** — callers that previously awaited one `ItemsList` page must enumerate the pageable with `await foreach`, or call `AsPages()` when page boundaries and continuation tokens are required. This prevents the connector's `@odata.nextLink` value from being discarded after the first page. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208), AzureUX-BPM PR 17086991)
 
 - **Google Drive `CreateFileAsync`: parameter renamed, route updated to v2, query key changed** — the `folderPath` parameter is now named `folder`, and the method calls `/datasets/default/v2/files` with the query key `folderId` instead of the previous `/datasets/default/files` with `folderPath`. Callers using the named argument `folderPath:` must rename it to `folder:`. Callers using positional arguments compile cleanly but will route to the v2 endpoint automatically.

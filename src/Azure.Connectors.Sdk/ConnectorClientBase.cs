@@ -20,6 +20,10 @@ namespace Azure.Connectors.Sdk
     /// JSON serialization, URL resolution with SSRF protection, and configurable retry/diagnostics
     /// through <see cref="ConnectorClientOptions"/>.
     /// </summary>
+    /// <remarks>
+    /// NOTE(daviburg): The SDK-provided standard retry behavior retries only GET, HEAD, OPTIONS, and
+    /// TRACE requests by default. Other methods require an explicit unsafe-method retry opt-in.
+    /// </remarks>
     public abstract class ConnectorClientBase : IDisposable
     {
         /// <summary>
@@ -97,12 +101,18 @@ namespace Azure.Connectors.Sdk
 
             options = ConnectorClientBase.ApplyBaseUri(options, this._connectionRuntimeUrl);
 
-            this._pipeline = HttpPipelineBuilder.Build(
-                options,
-                perRetryPolicies: new HttpPipelinePolicy[]
-                {
-                    new BearerTokenAuthenticationPolicy(credential, ApiHubScopes)
-                });
+            var perRetryPolicies = new HttpPipelinePolicy[]
+            {
+                new BearerTokenAuthenticationPolicy(credential, ApiHubScopes)
+            };
+
+            this._pipeline = options.RetryPolicy is not null
+                ? HttpPipelineBuilder.Build(options, perRetryPolicies)
+                : HttpPipelineBuilder.Build(
+                    options,
+                    perCallPolicies: Array.Empty<HttpPipelinePolicy>(),
+                    perRetryPolicies: perRetryPolicies,
+                    responseClassifier: new HttpMethodResponseClassifier(options.RetryUnsafeHttpMethods));
         }
 
         /// <summary>
