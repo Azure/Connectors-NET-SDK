@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Zeptomail.Models
 
         /// <summary>The email address to which the recipient&apos;s email responses will be addressed.</summary>
         [JsonPropertyName("reply_to")]
-        public List<ReplyToAddresss> ReplyTo { get; set; }
+        public List<ReplyToAddress> ReplyTo { get; set; }
 
         /// <summary>Attachments</summary>
         [JsonPropertyName("attachments")]
@@ -148,7 +148,7 @@ namespace Azure.Connectors.Sdk.Zeptomail.Models
     /// <summary>
     /// Item in The email address to which the recipient&apos;s email responses will be addressed.
     /// </summary>
-    public class ReplyToAddresss
+    public class ReplyToAddress
     {
         /// <summary>A valid email address containing a domain that is verified in your Mail Agent.</summary>
         [JsonPropertyName("address")]
@@ -216,7 +216,7 @@ namespace Azure.Connectors.Sdk.Zeptomail.Models
 
         /// <summary>Reply To</summary>
         [JsonPropertyName("reply_to")]
-        public List<ReplyToAddresss> ReplyTo { get; set; }
+        public List<ReplyToAddress> ReplyTo { get; set; }
     }
 
     /// <summary>
@@ -341,7 +341,7 @@ namespace Azure.Connectors.Sdk.Zeptomail.Models
             Mailtype? mailType = default,
             string subject = default,
             string body = default,
-            List<ReplyToAddresss> replyTo = default,
+            List<ReplyToAddress> replyTo = default,
             List<JsonElement?> attachments = default)
         {
             return new SendMailInput
@@ -401,13 +401,13 @@ namespace Azure.Connectors.Sdk.Zeptomail.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ReplyToAddresss"/>.
+        /// Creates a new instance of <see cref="ReplyToAddress"/>.
         /// </summary>
-        public static ReplyToAddresss ReplyToAddresss(
+        public static ReplyToAddress ReplyToAddress(
             string address = default,
             string name = default)
         {
-            return new ReplyToAddresss
+            return new ReplyToAddress
             {
                 Address = address,
                 Name = name,
@@ -442,7 +442,7 @@ namespace Azure.Connectors.Sdk.Zeptomail.Models
             List<EmailAddressItems> cc = default,
             List<EmailAddressItems> bcc = default,
             List<JsonElement?> mergeInfo = default,
-            List<ReplyToAddresss> replyTo = default)
+            List<ReplyToAddress> replyTo = default)
         {
             return new SendTemplateMailInput
             {

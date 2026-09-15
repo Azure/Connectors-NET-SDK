@@ -70,6 +70,26 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void ReplyToAddress_BothRequestModels_PreserveCorrectedTypeAndWireName()
+        {
+            Assert.AreEqual(typeof(List<ReplyToAddress>), typeof(SendMailInput).GetProperty(nameof(SendMailInput.ReplyTo))!.PropertyType);
+            Assert.AreEqual(typeof(List<ReplyToAddress>), typeof(SendTemplateMailInput).GetProperty(nameof(SendTemplateMailInput.ReplyTo))!.PropertyType);
+
+            var model = new SendMailInput
+            {
+                ReplyTo = new List<ReplyToAddress>
+                {
+                    new ReplyToAddress { Address = "reply@example.com", Name = "Reply" }
+                }
+            };
+
+            StringAssert.Contains(
+                JsonSerializer.Serialize(model),
+                "\"reply_to\":[{\"address\":\"reply@example.com\",\"name\":\"Reply\"}]",
+                StringComparison.Ordinal);
+        }
+
+        [TestMethod]
         public async Task SendTemplateMailAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
