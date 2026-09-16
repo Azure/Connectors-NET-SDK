@@ -3,11 +3,14 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.SeismicPlanner;
+using Azure.Connectors.Sdk.SeismicPlanner.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -67,6 +70,24 @@ namespace Azure.Connectors.Sdk.Tests
             var client = new SeismicPlannerClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
+        }
+
+        [TestMethod]
+        public void CustomPropertyValues_Localizations_RoundTripsTypedMapValues()
+        {
+            var model = new CustomPropertyValues
+            {
+                Localizations = new Dictionary<string, CustomPropertyDataDisplay>
+                {
+                    ["en-US"] = new CustomPropertyDataDisplay { Name = "English" }
+                }
+            };
+
+            var json = JsonSerializer.Serialize(model);
+            var roundTripped = JsonSerializer.Deserialize<CustomPropertyValues>(json);
+
+            StringAssert.Contains(json, "\"localizations\":{\"en-US\":{\"name\":\"English\"}}", StringComparison.Ordinal);
+            Assert.AreEqual("English", roundTripped!.Localizations["en-US"].Name);
         }
 
         [TestMethod]

@@ -338,7 +338,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
 
         /// <summary>Localization object</summary>
         [JsonPropertyName("localizations")]
-        public JsonElement? Localizations { get; set; }
+        public Dictionary<string, CustomPropertyDataDisplay> Localizations { get; set; }
 
         /// <summary>Indicate if the custom property allows multiple values</summary>
         [JsonPropertyName("multipleValue")]
@@ -1254,6 +1254,16 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
     }
 
     /// <summary>
+    /// CustomPropertyDataDisplay
+    /// </summary>
+    public class CustomPropertyDataDisplay
+    {
+        /// <summary>Name of custom property</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+    }
+
+    /// <summary>
     /// DeleteRequest
     /// </summary>
     public class DeleteRequest
@@ -2003,7 +2013,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// </summary>
         public static CustomPropertyValues CustomPropertyValues(
             string customPropertyId = default,
-            JsonElement? localizations = default,
+            Dictionary<string, CustomPropertyDataDisplay> localizations = default,
             bool? multipleValue = default,
             string name = default,
             List<CustomPropertyValuesValues> values = default)
@@ -2619,6 +2629,18 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
                 Priority = priority,
                 ProjectId = projectId,
                 Title = title,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomPropertyDataDisplay"/>.
+        /// </summary>
+        public static CustomPropertyDataDisplay CustomPropertyDataDisplay(
+            string name = default)
+        {
+            return new CustomPropertyDataDisplay
+            {
+                Name = name,
             };
         }
 
