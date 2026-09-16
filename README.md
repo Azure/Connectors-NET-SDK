@@ -225,7 +225,7 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 | Replicon | 🔄 SDK Generated | BulkGetProjectDetails3, CreateProjectOrApplyModifications |
 | Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
 | Zoho Sign | 🔄 SDK Generated | InvokeAPI, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
-| Zoho ZeptoMail | 🔄 SDK Generated | GetMailAgent, SendMail, SendTemplateMail |
+| Zoho ZeptoMail | 🔄 SDK Generated | GetMailAgent, GetProcessedEmails, SendMail, SendTemplateMail, ProcessedMailStats |
 | Docuware | 🔄 SDK Generated | GetOrganization, StoreToFileCabinet |
 | Elfsquad Data | 🔄 SDK Generated | GetSchemas, GetEntities |
 | Impexium | 🔄 SDK Generated | GetAbandonedCheckouts, ListAllExhibitors |
