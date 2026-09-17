@@ -386,4 +386,3 @@ You provide the runtime URL directly (obtained from the Azure Portal or CLI).
 - [Connection Setup Guide](connection-setup.md) — Step-by-step connection creation and authorization
 - [Code Generation Guide](../GENERATION.md) — Generating typed connector clients from Swagger
 - [Connector SDK Samples](https://github.com/Azure/Connectors-NET-Samples) — Working Azure Functions examples
-- [ROADMAP.md](../ROADMAP.md) — Connector generation progress
