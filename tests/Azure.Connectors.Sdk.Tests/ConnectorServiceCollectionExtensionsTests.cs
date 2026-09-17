@@ -61,6 +61,7 @@ using Azure.Connectors.Sdk.UniversalPrint;
 using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.Yammer;
+using Azure.Connectors.Sdk.Zeptomail;
 using Azure.Connectors.Sdk.ZohoSign;
 using global::Azure.Core;
 using Microsoft.Extensions.Configuration;
@@ -354,6 +355,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddUniversalPrintClient(configuration)
                 .AddWdatpClient(configuration)
                 .AddYammerClient(configuration)
+                .AddZeptomailClient(configuration)
                 .AddZohoSignClient(configuration)
                 .AddDocuwareClient(configuration)
                 .AddElfsquadDataClient(configuration)
@@ -431,6 +433,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("ticketmaster", provider.GetRequiredService<TicketmasterClient>().ConnectorName);
             Assert.AreEqual("universalprint", provider.GetRequiredService<UniversalPrintClient>().ConnectorName);
             Assert.AreEqual("waywedo", provider.GetRequiredService<WaywedoClient>().ConnectorName);
+            Assert.AreEqual("zeptomail", provider.GetRequiredService<ZeptomailClient>().ConnectorName);
             Assert.AreEqual("azureautomation", provider.GetRequiredService<AzureAutomationClient>().ConnectorName);
             Assert.AreEqual("azuredatafactory", provider.GetRequiredService<AzureDataFactoryClient>().ConnectorName);
             Assert.AreEqual("azuredigitaltwins", provider.GetRequiredService<AzureDigitalTwinsClient>().ConnectorName);
