@@ -2,7 +2,9 @@
 
 This page documents the trigger architecture for the Azure Connectors SDK — how connector triggers are delivered to Azure Functions, how to consume typed trigger payloads, and the annotation pattern used to distinguish binary from metadata triggers.
 
-> **Status:** Phase 5 (Active Design → Implementation Planning). See [ROADMAP.md](../ROADMAP.md) for full planning status.
+> **Status:** Typed trigger payloads and operation metadata are available in the SDK. The Functions
+> trigger extension remains separate work owned by the Functions team. Track proposed work in
+> [GitHub issues](https://github.com/Azure/Connectors-NET-SDK/issues).
 
 ## Architecture Overview: Webhook Model (Event Grid Analogy)
 
