@@ -2,8 +2,9 @@
 
 This page documents the trigger architecture for the Azure Connectors SDK — how connector triggers are delivered to Azure Functions, how to consume typed trigger payloads, and the annotation pattern used to distinguish binary from metadata triggers.
 
-> **Status:** Typed trigger payloads and operation metadata are available in the SDK. The Functions
-> trigger extension remains separate work owned by the Functions team. Track proposed work in
+> **Status:** Typed trigger payloads and operation metadata are available in the SDK. The
+> Functions-owned [Connector trigger extension](https://github.com/Azure/azure-functions-connector-extension)
+> is available in alpha preview for .NET, Node.js, and Python. Track remaining work in
 > [GitHub issues](https://github.com/Azure/Connectors-NET-SDK/issues).
 
 ## Architecture Overview: Webhook Model (Event Grid Analogy)
@@ -41,6 +42,9 @@ Connector triggers follow the **Event Grid webhook pattern**. The connector infr
 2. **Connector service monitors** for events on its own compute — Azure Functions never polls.
 3. **Events push to the function** via HTTP callback. Functions scale on HTTP push naturally; no scale controller changes are needed.
 4. **Webhook lifecycle is connector-owned.** The connector infrastructure handles webhook expiry and automatic re-registration. The Functions extension does not manage webhook renewal.
+
+Connector actions use SDK clients directly, not connector output bindings. Whether input bindings
+that inject clients are needed remains subject to customer feedback.
 
 ### Local development (F5 experience)
 
@@ -213,16 +217,16 @@ A separate `{Connector}Triggers.Operations` dictionary maps operation names to t
 | Team | Responsibility |
 |------|----------------|
 | **Connectors team** | SDK typed trigger data types (payload classes, operation constants). Connector-side trigger notification delivery. |
-| **Functions team** | Functions extension(s) for trigger bindings — `[ConnectorTrigger]` attribute, strongly-typed and generic approaches, all supported languages (C#, Python, Node.js, Java). |
+| **Functions team** | Functions extension for trigger bindings in .NET, Python, and Node.js. [Java typed payload support](https://github.com/Azure/Connectors-NET-SDK/issues/279) remains a design question. |
 
 ## Open Questions
 
 | Question | Status |
 |----------|--------|
-| **VNet-locked Function Apps** — pure webhooks break with Private Endpoints / IP restrictions. Need pull delivery or polling fallback? | Open — Event Grid hybrid model (webhook + pull) proposed. |
-| **Local F5 tunnel setup** — How to auto-configure dev tunnels for webhook registration across all languages? | Open — Functions team improving local CLI tooling. |
-| **RBAC roles** — What Azure role(s) does the Function App identity need for `Microsoft.Web/connectorGateways`? | Open — minimum RBAC not yet documented. |
-| **Multi-language trigger data types** — Python, Java, Node.js equivalents for typed trigger payload models. | Open — strategy for non-C# type generation TBD. |
+| **VNet-locked Function Apps** — pure webhooks break with Private Endpoints / IP restrictions. Need pull delivery or polling fallback? | [Open design dependency](https://github.com/Azure/Connectors-NET-SDK/issues/276). |
+| **Local F5 tunnel setup** — How to configure dev tunnels for webhook registration? | [Open Functions tooling dependency](https://github.com/Azure/Connectors-NET-SDK/issues/277). |
+| **RBAC roles** — What Azure role(s) does the Function App identity need for `Microsoft.Web/connectorGateways`? | [Open documentation dependency](https://github.com/Azure/Connectors-NET-SDK/issues/278). |
+| **Java typed trigger payloads** — What payload model should Java support use? | [Open design dependency](https://github.com/Azure/Connectors-NET-SDK/issues/279); Python and Node.js preview support is available. |
 
 ## Known Risks
 
