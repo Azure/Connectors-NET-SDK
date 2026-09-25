@@ -72,6 +72,7 @@ using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.WordOnlineBusiness;
 using Azure.Connectors.Sdk.Yammer;
+using Azure.Connectors.Sdk.Zeptomail;
 using Azure.Connectors.Sdk.ZohoSign;
 using Azure.Core;
 using Azure.Identity;
@@ -1013,6 +1014,22 @@ namespace Azure.Connectors.Sdk
                 configurationSection,
                 connectorName: ConnectorNames.VivaEngage,
                 factory: (connectionRuntimeUrl, credential) => new YammerClient(connectionRuntimeUrl, credential));
+        }
+
+        /// <summary>
+        /// Registers <see cref="ZeptomailClient"/> as a singleton using connection settings from the specified configuration section.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
+        public static IServiceCollection AddZeptomailClient(
+            this IServiceCollection services,
+            IConfiguration configurationSection)
+        {
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ZeptomailClient>(
+                services,
+                configurationSection,
+                connectorName: ConnectorNames.ZohoZeptoMail,
+                factory: (connectionRuntimeUrl, credential) => new ZeptomailClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
