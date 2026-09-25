@@ -56,8 +56,9 @@ references and every distinct reachable wire property.
 - If an entry appears in both release files, keep its content consistent and
     check both files before submitting the PR.
 - Submit PR descriptions as multiline Markdown using `gh pr create --body-file`
-    and read the body back from GitHub. PowerShell can flatten line breaks when
-    CLI output is captured without preserving it as one string.
+    for new PRs or `gh pr edit --body-file` for updates. Read the body back from
+    GitHub; PowerShell can flatten line breaks when CLI output is captured without
+    preserving it as one string.
 
 ## Quick Reference: Coding Style Rules
 
