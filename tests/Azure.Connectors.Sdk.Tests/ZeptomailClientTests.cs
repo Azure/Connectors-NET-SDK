@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -161,7 +162,11 @@ namespace Azure.Connectors.Sdk.Tests
             };
             var fromAddress = new FromAddress
             {
-                Address = JsonSerializer.SerializeToElement(new { address = "sender@example.com" }),
+                Address = JsonSerializer.SerializeToElement(new Dictionary<string, string>
+                {
+                    ["from-prefix"] = "sender",
+                    ["from-domain"] = "example.com"
+                }),
                 Name = "Sender"
             };
             var mergeItem = JsonSerializer.SerializeToElement(new { key = "customer", value = "Ada", rank = 2 });
@@ -175,8 +180,8 @@ namespace Azure.Connectors.Sdk.Tests
                     subject: "Quarterly report",
                     from: "sender@example.com",
                     to: "recipient@example.com",
-                    dateFrom: "2026-09-01/00:00",
-                    dateTo: "2026-09-02/00:00",
+                    dateFrom: "2026-09-01T00:00:00+00:00",
+                    dateTo: "2026-09-02T00:00:00+00:00",
                     requestId: "request/42",
                     showHardbounces: true,
                     showSoftbounces: false,
@@ -209,8 +214,8 @@ namespace Azure.Connectors.Sdk.Tests
             var mailStats = await client
                 .ProcessedMailStatsAsync(
                     mailAgentName: "Agent Name",
-                    fromDate: "2026-09-01/00:00",
-                    toDate: "2026-09-02/00:00",
+                    fromDate: "2026-09-01T00:00:00+00:00",
+                    toDate: "2026-09-02T00:00:00+00:00",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
@@ -226,20 +231,24 @@ namespace Azure.Connectors.Sdk.Tests
                 new[]
                 {
                     "https://test.azure.com/conn/portal/v1.0/mailagents",
-                    "https://test.azure.com/conn/v1.0/email?mailagent_key=agent%2Bkey&subject=Quarterly%20report&from=sender%40example.com&to=recipient%40example.com&date_from=2026-09-01%2F00%3A00&date_to=2026-09-02%2F00%3A00&request_id=request%2F42&is_hb=True&is_sb=False",
+                    "https://test.azure.com/conn/v1.0/email?mailagent_key=agent%2Bkey&subject=Quarterly%20report&from=sender%40example.com&to=recipient%40example.com&date_from=2026-09-01T00%3A00%3A00%2B00%3A00&date_to=2026-09-02T00%3A00%3A00%2B00%3A00&request_id=request%2F42&is_hb=True&is_sb=False",
                     "https://test.azure.com/conn/v1.0/email",
                     "https://test.azure.com/conn/v1.0/email/template",
-                    "https://test.azure.com/conn/v1.0/stats/email?mailagent=Agent%20Name&from_time=2026-09-01%2F00%3A00&to_time=2026-09-02%2F00%3A00"
+                    "https://test.azure.com/conn/v1.0/stats/email?mailagent=Agent%20Name&from_time=2026-09-01T00%3A00%3A00%2B00%3A00&to_time=2026-09-02T00%3A00%3A00%2B00%3A00"
                 },
                 handler.RequestUris.Select(requestUri => requestUri.AbsoluteUri).ToArray());
 
             using var sendMailDocument = JsonDocument.Parse(handler.Bodies[2]!);
             var sendMailBody = sendMailDocument.RootElement;
             Assert.AreEqual("agent", sendMailBody.GetProperty("mailagent_key").GetString());
+            Assert.AreEqual("sender", sendMailBody.GetProperty("from").GetProperty("from-detail").GetProperty("from-prefix").GetString());
+            Assert.AreEqual("example.com", sendMailBody.GetProperty("from").GetProperty("from-detail").GetProperty("from-domain").GetString());
             Assert.AreEqual("reply@example.com", sendMailBody.GetProperty("reply_to")[0].GetProperty("address").GetString());
             using var sendTemplateMailDocument = JsonDocument.Parse(handler.Bodies[3]!);
             var sendTemplateMailBody = sendTemplateMailDocument.RootElement;
             Assert.AreEqual("template", sendTemplateMailBody.GetProperty("mail_template_key").GetString());
+            Assert.AreEqual("sender", sendTemplateMailBody.GetProperty("from").GetProperty("from-detail").GetProperty("from-prefix").GetString());
+            Assert.AreEqual("example.com", sendTemplateMailBody.GetProperty("from").GetProperty("from-detail").GetProperty("from-domain").GetString());
             Assert.AreEqual(2, sendTemplateMailBody.GetProperty("merge_key_detail")[0].GetProperty("rank").GetInt32());
         }
 
