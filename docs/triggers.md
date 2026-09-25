@@ -31,8 +31,8 @@ Connector triggers follow the **Event Grid webhook pattern**. The connector infr
 ┌─────────────────────────────────────────────────────────────────────┐
 │                     AZURE FUNCTIONS                                  │
 │                                                                     │
-│  [ConnectorTrigger("office365", "OnNewEmailV3")]                     │
-│  public async Task Run(TriggerCallbackPayload<GraphClientReceiveMessage> payload) │
+│  public async Task Run(                                             │
+│      [ConnectorTrigger] Office365OnNewEmailTriggerPayload payload)  │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
