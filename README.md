@@ -181,8 +181,9 @@ See [docs/triggers.md](docs/triggers.md) for the trigger architecture, payload s
 - [GENERATION.md](GENERATION.md) - How to generate connector code
 - [docs/connection-setup.md](docs/connection-setup.md) - Setting up connections for local testing
 - [docs/triggers.md](docs/triggers.md) - Trigger architecture, typed payloads, and the `ConnectorTriggerPayload` reader
-- [ROADMAP.md](ROADMAP.md) - Connector generation progress and lessons learned
 - [Azure/Connectors-NET-Samples](https://github.com/Azure/Connectors-NET-Samples) - Full working samples (Azure Functions, triggers, etc.)
+
+The connector inventory below records shipped SDK coverage. Use [GitHub issues](https://github.com/Azure/Connectors-NET-SDK/issues) and focused design documents for proposed work and current planning status.
 
 ### AI Agent Skills
 
