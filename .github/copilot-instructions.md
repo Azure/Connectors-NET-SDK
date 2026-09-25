@@ -34,8 +34,31 @@ references and every distinct reachable wire property.
 - Add focused wire serialization tests for collisions and semantic compilation
     tests when generated helper or factory signatures can collide. Syntax parsing
     alone does not catch duplicate C# parameters.
+- For request serialization tests, resolve the operation's request schema in the
+    pinned Swagger rather than inferring the wire shape from a similarly named
+    response model. Use valid required nested fields and parameter formats, and
+    assert the serialized request; a mocked success response alone proves little.
+- Check that the exact generator commit used for regeneration landed in BPM
+    `master`. A PR can be merged before later commits reach its source branch;
+    those later commits need a separate upstream PR even if downstream clients
+    were already generated from them.
 - For shared naming or reachability changes, run a same-revision catalog sweep and
     document the full blast radius before choosing a narrow demonstration client.
+
+### Public Release Notes and PR Descriptions
+
+- In new or edited entries in public `CHANGELOG.md` and `release_notes.md`,
+    describe the customer-visible change and link public issues or documentation
+    when useful. Do not link internal AzureUX-BPM repositories or PRs there;
+    record generator commits, pinned Swagger hashes, and internal PR links in
+    the GitHub PR description for reviewers instead. Leave unrelated historical
+    entries alone.
+- If an entry appears in both release files, keep its content consistent and
+    check both files before submitting the PR.
+- Submit PR descriptions as multiline Markdown using `gh pr create --body-file`
+    for new PRs or `gh pr edit --body-file` for updates. Read the body back from
+    GitHub; PowerShell can flatten line breaks when CLI output is captured without
+    preserving it as one string.
 
 ## Quick Reference: Coding Style Rules
 
