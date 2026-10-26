@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+
 - Add generator support and generated-client acceptance coverage for explicit scalar-only union map schemas, including mixed scalar serialization, invalid nested values, and independent nullability. Existing live connector contracts remain unchanged; open SQL query and Fin & Ops payloads are not reinterpreted as scalar-only. ([#280](https://github.com/Azure/Connectors-NET-SDK/issues/280))
 
 - **Seismic Planner localization values are strongly typed** — `CustomPropertyValues.Localizations` is now `Dictionary<string, CustomPropertyDataDisplay>` instead of `JsonElement?`, preserving the Swagger `additionalProperties` value schema. ([#262](https://github.com/Azure/Connectors-NET-SDK/issues/262))
