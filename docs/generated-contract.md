@@ -249,3 +249,27 @@ surface, reachable model surface, and request/response wire-contract comparison.
 Changes to shared naming or reachability rules should also run a same-revision
 catalog sweep to identify the complete additive, breaking, or output-neutral
 blast radius before selecting SDK demonstration clients.
+
+## Explicit scalar-only map values
+
+A schema can explicitly restrict a map's values to scalar alternatives, for
+example strings, numbers, and Booleans. The generator emits a readonly scalar
+value type for those alternatives, rather than an object model or unrestricted
+JSON. Its implicit scalar conversions preserve JSON wire types. Its JSON
+converter rejects objects, arrays, undeclared nulls, and uninitialized values.
+`number` includes integer values; integer-only alternatives reject fractions.
+
+Nullability belongs to the value schema, not the optionality of the map property.
+A nullable scalar union accepts JSON null. A non-nullable scalar union rejects
+null at runtime, including null passed through C#'s implicit string conversion.
+For values already held as JSON, the generated `FromJsonElement` factory validates
+the same domain before making a value.
+
+This rule applies only to an explicit supported union. An empty object schema is
+not evidence that a connector accepts scalar values. Structured map values retain
+their declared models. Dynamic-schema payloads remain open JSON so consumers can
+send the fields returned by schema discovery, including nested values.
+
+The [test-only generated scalar fixture](../tests/Azure.Connectors.Sdk.Tests/Fixtures/README.md)
+covers this contract independently of live connector metadata. Live SQL and Fin & Ops dynamic maps remain open JSON; their
+current schemas do not declare scalar-only alternatives.
