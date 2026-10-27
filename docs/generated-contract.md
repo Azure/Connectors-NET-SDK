@@ -225,6 +225,9 @@ confirm:
    including properties whose language-normalized identifiers collide.
 5. Outbound JSON keys and values match the Swagger request schema exactly.
 6. Inbound JSON binds to the corresponding Swagger response or trigger schema.
+7. An omitted successful response schema does not prove that a read returns no
+   body. Verify the connector's payload contract and correct shared generator
+   curation when needed; do not silently discard metadata or file content.
 
 Validation must use techniques that can falsify those contract assertions:
 
@@ -232,6 +235,9 @@ Validation must use techniques that can falsify those contract assertions:
   Syntax-only parsing is insufficient to detect duplicate members or parameters.
 - For collision regressions, serialize and deserialize all affected wire names
   together rather than checking only for generated declarations.
+- For response-body corrections, call the generated public methods with nonempty
+  metadata or non-UTF8 binary responses and assert the returned content. A
+  successful HTTP status alone does not prove that the body reached the caller.
 
 When prior generated output exists, regression validation must additionally
 confirm:

@@ -184,6 +184,115 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: 3, actual: roundTrip.RootElement.GetPropertyCount());
         }
 
+        [TestMethod]
+        [Owner("daviburg")]
+        public async Task GetAttachmentMetdataAsync_WithMetadataList_ReturnsEveryAttachmentAndEnvelopeField()
+        {
+            var requestCount = 0;
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                requestCount++;
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.AreEqual(expected: "/connection/api/now/v1/attachment", actual: request.RequestUri!.AbsolutePath);
+                Assert.AreEqual(
+                    expected: "?sysparm_limit=2&sysparm_offset=4&sysparm_query=table_name%3Dincident",
+                    actual: request.RequestUri.Query);
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(
+                        "{\"result\":[{\"sys_id\":\"attachment-1\",\"file_name\":\"report.txt\"}," +
+                        "{\"sys_id\":\"attachment-2\",\"file_name\":\"image.bin\"}],\"next_offset\":6}")
+                });
+            });
+
+            var response = await client
+                .GetAttachmentMetdataAsync(limit: "2", offset: "4", query: "table_name=incident")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: requestCount);
+            var attachments = response.AdditionalProperties["result"];
+            Assert.AreEqual(expected: 2, actual: attachments.GetArrayLength());
+            Assert.AreEqual(expected: "attachment-1", actual: attachments[0].GetProperty("sys_id").GetString());
+            Assert.AreEqual(expected: "report.txt", actual: attachments[0].GetProperty("file_name").GetString());
+            Assert.AreEqual(expected: "attachment-2", actual: attachments[1].GetProperty("sys_id").GetString());
+            Assert.AreEqual(expected: 6, actual: response.AdditionalProperties["next_offset"].GetInt32());
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        public async Task RetrieveAttachmentMetadataAsync_WithMetadata_ReturnsNestedAndUnknownFields()
+        {
+            var requestCount = 0;
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                requestCount++;
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.AreEqual(expected: "/connection/api/now/v1/attachment/attachment%2Fname", actual: request.RequestUri!.AbsolutePath);
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.Created)
+                {
+                    Content = new StringContent(
+                        "{\"result\":{\"sys_id\":\"attachment-1\",\"file_name\":\"report.txt\"," +
+                        "\"content_type\":\"text/plain\",\"size_bytes\":\"128\"},\"owner_note\":\"example\"}")
+                });
+            });
+
+            var response = await client
+                .RetrieveAttachmentMetadataAsync(id: "attachment/name")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: requestCount);
+            var attachment = response.AdditionalProperties["result"];
+            Assert.AreEqual(expected: "attachment-1", actual: attachment.GetProperty("sys_id").GetString());
+            Assert.AreEqual(expected: "text/plain", actual: attachment.GetProperty("content_type").GetString());
+            Assert.AreEqual(expected: "128", actual: attachment.GetProperty("size_bytes").GetString());
+            Assert.AreEqual(expected: "example", actual: response.AdditionalProperties["owner_note"].GetString());
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        public async Task RetrieveAttachmentContentAsync_WithBinaryResponse_ReturnsExactFileBytes()
+        {
+            var fileBytes = new byte[] { 0, 127, 128, 255, 13, 10 };
+            var requestCount = 0;
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                requestCount++;
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.AreEqual(expected: "/connection/api/now/v1/attachment/attachment%2Fname/file", actual: request.RequestUri!.AbsolutePath);
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(fileBytes)
+                };
+                response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                return Task.FromResult(response);
+            });
+
+            var content = await client
+                .RetrieveAttachmentContentAsync(sysId: "attachment/name")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: requestCount);
+            CollectionAssert.AreEqual(expected: fileBytes, actual: content);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        public async Task RetrieveAttachmentContentAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            using var client = CreateMockedClient((request, cancellationToken) =>
+                Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent("{\"error\":{\"message\":\"Attachment not found\"}}")
+                }));
+
+            var exception = await Assert
+                .ThrowsExactlyAsync<ConnectorException>(() => client.RetrieveAttachmentContentAsync(sysId: "missing-attachment"))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 404, actual: exception.Status);
+            StringAssert.Contains(value: exception.ResponseBody, substring: "Attachment not found");
+        }
+
         private static ServiceNowClient CreateMockedClient(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendAsync)
         {
             var credential = new Mock<TokenCredential>();

@@ -30,6 +30,18 @@ namespace Azure.Connectors.Sdk.ServiceNow.Models
     #region Types
 
     /// <summary>
+    /// Response for Get Attachment Metadata
+    /// </summary>
+    public class GetAttachmentMetdataResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// Response for Upload a binary file as an attachment
     /// </summary>
     public class UploadAttachmentResponse
@@ -37,6 +49,18 @@ namespace Azure.Connectors.Sdk.ServiceNow.Models
         /// <summary>Metadata of the requested attachment.</summary>
         [JsonPropertyName("result")]
         public JsonElement? Result { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Retrieve attachment metadata
+    /// </summary>
+    public class RetrieveAttachmentMetadataResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -440,7 +464,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
         /// <param name="offset">Offset</param>
         /// <param name="query">Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task GetAttachmentMetdataAsync(string limit = default, string offset = default, string query = default, CancellationToken cancellationToken = default)
+        /// <returns>The Get Attachment Metadata response.</returns>
+        public virtual async Task<GetAttachmentMetdataResponse> GetAttachmentMetdataAsync(string limit = default, string offset = default, string query = default, CancellationToken cancellationToken = default)
         {
             using var activity = ServiceNowClient.ConnectorActivitySource.StartActivity("ServiceNowClient.GetAttachmentMetdataAsync");
             try
@@ -453,8 +478,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
                 if (query != default)
                     queryParams.Add($"sysparm_query={Uri.EscapeDataString(query)}");
                 var path = $"/api/now/v1/attachment" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                return await this
+                    .CallConnectorAsync<GetAttachmentMetdataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -509,7 +534,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
         /// <remarks>Retrieve attachment metadata</remarks>
         /// <param name="id">ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RetrieveAttachmentMetadataAsync(string id, CancellationToken cancellationToken = default)
+        /// <returns>The Retrieve attachment metadata response.</returns>
+        public virtual async Task<RetrieveAttachmentMetadataResponse> RetrieveAttachmentMetadataAsync(string id, CancellationToken cancellationToken = default)
         {
             using var activity = ServiceNowClient.ConnectorActivitySource.StartActivity("ServiceNowClient.RetrieveAttachmentMetadataAsync");
             try
@@ -517,8 +543,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
                 if (id is null)
                     throw new ArgumentNullException(nameof(id));
                 var path = $"/api/now/v1/attachment/{Uri.EscapeDataString(id)}";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                return await this
+                    .CallConnectorAsync<RetrieveAttachmentMetadataResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -561,7 +587,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
         /// <remarks>Retrieve attachment content</remarks>
         /// <param name="sysId">Sys ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task RetrieveAttachmentContentAsync(string sysId, CancellationToken cancellationToken = default)
+        /// <returns>The Retrieve attachment content response.</returns>
+        public virtual async Task<byte[]> RetrieveAttachmentContentAsync(string sysId, CancellationToken cancellationToken = default)
         {
             using var activity = ServiceNowClient.ConnectorActivitySource.StartActivity("ServiceNowClient.RetrieveAttachmentContentAsync");
             try
@@ -569,8 +596,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
                 if (sysId is null)
                     throw new ArgumentNullException(nameof(sysId));
                 var path = $"/api/now/v1/attachment/{Uri.EscapeDataString(sysId)}/file";
-                await this
-                    .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

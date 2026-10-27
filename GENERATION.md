@@ -357,11 +357,15 @@ using the C# DirectClient target. DataFlows SMS is a different connector from
 Power Query Dataflows (`dataflows`). Shared connector constants and registrations
 already existed and remain unchanged.
 
-These two additions use the unchanged upstream generator commit
-`21a5e28e029a1e58304b3c4d66302cbb528ed1fd`, not the namespace-import prerequisite
-used by the Azure DevOps and Power Query clients above. The CLI was built from
-that immutable source revision before generation. No generator patch or
-post-generation edit was applied to either addition.
+DataFlows SMS uses the unchanged upstream generator commit
+`21a5e28e029a1e58304b3c4d66302cbb528ed1fd`. ServiceNow uses generator commit
+`9d80956afd705fbed97935edbaf6295928342390`, based on merged `master` commit
+`ea47c2ac9d4923d9f429ef94bc6360a399547fa2`. The shared attachment response
+correction is tracked in [BPM PR 17702958](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17702958)
+and must merge upstream before the SDK merges. This is separate from the
+namespace-import prerequisite used by the Azure DevOps and Power Query clients
+above. The CLI was built from the recorded source before generation; neither
+generated client was hand-edited.
 
 Both Swagger inputs were captured from the `westus` managed API catalog on
 2026-10-27. Generation was replayed from the frozen files with
@@ -370,13 +374,35 @@ Both Swagger inputs were captured from the `westus` managed API catalog on
 | Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
 |---|---|---|
 | `dataflowssms` | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `A25119DF7B6B95E287CC7E17E516670001BB8274241330FE7B38B047106FAA2A` |
-| `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` | `C756BC53A6A70A9F74570EC8A8E6535324F20F7C0ED33A9001ED1EDC27C610BA` |
+| `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` | `C3F4C055907F6D26763DE4132A0A7D9847FBE478D79228958D3C1C4A38990BC6` |
 
 DataFlows SMS exposes seven callable actions plus trigger registration metadata.
 ServiceNow exposes twenty callable actions, including dynamic record discovery
 and raw binary attachment upload. The multipart attachment route and internal
 operations are excluded by the existing generator policy. No real SMS messages,
 ServiceNow records, or attachments were created during validation.
+
+### ServiceNow attachment response validation
+
+The exported Swagger omits successful response schemas for attachment listing,
+attachment metadata, and attachment download. The initial generated methods
+returned only `Task` and discarded their bodies; the original tests covered
+record operations and attachment upload, not these reads. The
+[ServiceNow review](https://github.com/Azure/Connectors-NET-SDK/pull/282#pullrequestreview-5673183338)
+identified this coverage gap.
+
+The shared correction fills only absent or empty successful response schemas for
+those three operations. Metadata response models keep the full JSON body in
+`AdditionalProperties`, and `RetrieveAttachmentContentAsync` returns `byte[]`.
+Explicit upstream schemas, errors, deletes, and other connectors remain unchanged.
+
+Generator regressions cover missing and empty schemas, repeat application,
+explicit-schema preservation, negative controls, and C#, Python, and TypeScript
+output. SDK tests bind nonempty attachment lists and individual metadata, check
+unknown envelope fields, return exact non-UTF8 file bytes, and preserve download
+errors. Future reviews must verify the payload contract of schema-less reads
+rather than treating an omitted Swagger schema as proof of a bodyless operation.
+See the [generated contract validation rules](docs/generated-contract.md#validation-requirements).
 
 ## Automation
 

@@ -324,6 +324,8 @@ namespace. Both clients follow the existing connection runtime URL and
 `TokenCredential` constructors.
 
 ServiceNow record fields are supplied through `RecordBody.AdditionalProperties`.
+Attachment-list and attachment-metadata responses preserve their full JSON body
+in `AdditionalProperties`; `RetrieveAttachmentContentAsync` returns raw `byte[]`.
 `UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
 the multipart attachment-upload operation is not generated. DataFlows SMS trigger
 registration uses `DataflowssmsTriggerOperations.OnRegisterWebhook`.
