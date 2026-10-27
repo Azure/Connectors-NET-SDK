@@ -282,6 +282,74 @@ regenerated successfully from current ARM exports.
 - Quarterly regeneration for stable projects
 - Immediate regeneration when new connector features are needed
 
+## 2026-10-27 Azure DevOps and Dataflows
+
+Added `visualstudioteamservices` and `dataflows` using the C# DirectClient target.
+Existing clients and the complete shared connector catalogs remain unchanged.
+The catalogs already contain both API IDs and their `ConnectorNames` constants.
+Filtered generation skips shared catalog files.
+
+### Generator source
+
+- Base AzureUX-BPM commit: `21a5e28e029a1e58304b3c4d66302cbb528ed1fd` (merged `master`).
+- Exact generator source commit: `a5cd6b1560348b7dd89ddb6d2cad768e51820f3c`.
+- Upstream fix: [AzureUX-BPM PR 17700725](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17700725)
+  (active and unmerged when the SDK PR was prepared).
+- Required generator fix: move the models namespace import inside the client
+  namespace. A file-level import lets C# resolve the `Dataflows` response model as
+  the connector namespace instead of a type (`CS0118`). No model or wire names change.
+- Source file: `src/tools/CodefulSdkGenerator/DirectClient/DirectClientCSharpGenerator.cs`.
+- Corrected source file SHA-256:
+  `03F47506B548235ED184E75F098E2D43D54A8BBE103531468B7B90883F70FBC0`.
+- Generator assembly version: `1.196.0.28`; corrected release assembly SHA-256:
+  `466BAF88541209164EC224EE9EA9839563C206FC7AAD4CBFE4E44A8B544BF724`.
+
+The generator fix and its semantic compilation regression tests are published in
+the upstream PR, not part of the merged base commit. Before merging the SDK PR,
+verify that the exact generator source commit has reached BPM `master`.
+Do not treat the base commit alone as the source of these clients.
+
+### Live generation and independent validation
+
+Both runs used subscription `1a839f1f-10b2-4613-95ad-0800a22abbf2`, region `westus`,
+and ARM API version `2018-07-01-preview`. Each started with its own new, empty
+temporary `ARMCACHE_PATH`; neither used checked-in fixtures or the other run's
+responses.
+
+| Run | ID | UTC interval |
+|-----|----|--------------|
+| Producer | `faeb3771-3499-4012-a3c1-b661e5d7a3d8` | 2026-10-27 18:41:39 to 18:42:01 |
+| Independent validation | `16ccdd6c-7045-455f-b728-164731f679d1` | 2026-10-27 18:41:39 to 18:42:03 |
+
+The captured Swagger files and generated C# files matched byte-for-byte across
+both live runs. The following SHA-256 hashes cover the exact file bytes:
+
+| Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
+|------------------|--------------------------|-------------------------|
+| `dataflows` | `426EC2522AB09AF302021A0410396E6378AACB65C3689160E7005985A924B86F` | `1AEE88AD0E3DD11107AAB9921F5D4DEC0A7C2F1E62B199CD8FEEE5DBA9DD36A1` |
+| `visualstudioteamservices` | `DF18405D61AEAC67561F439CC2F7CC300FEB36F4B0FCB8DE25F0B70B807FCCEC` | `8FC11A9888564C727F5DB5B58406F58691FC64A7C9F9E99AF2A2B4A1682CB41E` |
+
+To reproduce, build the corrected CLI and create new empty cache and output
+directories before running:
+
+```powershell
+$env:ARMCACHE_PATH = Join-Path $env:TEMP ([guid]::NewGuid().ToString())
+$outputDirectory = Join-Path $env:TEMP ([guid]::NewGuid().ToString())
+New-Item -ItemType Directory -Path $env:ARMCACHE_PATH, $outputDirectory | Out-Null
+$env:AZURE_SUBSCRIPTION_ID = "1a839f1f-10b2-4613-95ad-0800a22abbf2"
+$env:AZURE_LOCATION = "westus"
+dotnet <path-to-LogicAppsCompiler.dll> $outputDirectory --directClient --language=csharp --connectors=visualstudioteamservices,dataflows
+```
+
+Verify that both requested `*Extensions.cs` files exist and compile; the CLI can
+return exit code zero after logging a per-connector failure. Remove the temporary
+response stores when the run finishes. Tests cover generated requests, response
+binding, errors, mocking, discovery, and callbacks without live connector
+connections. Azure DevOps `GetQueryResultsAsync` returns an `AsyncPageable` and
+follows `@odata.nextLink`, including when the initial page is empty. Dataflows
+discovery operations return single response envelopes. Neither connector has live
+E2E validation in this change.
+
 ## Automation
 
 ### CI/CD Integration

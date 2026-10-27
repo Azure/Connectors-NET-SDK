@@ -194,6 +194,7 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
+| Azure DevOps (VSTS) | 🔄 SDK Generated | ListProjectsAsync, QueueNewBuildAsync, GetBuildAsync, CreateWorkItemAsync, GetQueryResultsAsync (pageable; trigger: OnBuildCompleted) |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryData, QuerySchema |
 | Azure Resource Manager | ✅ E2E Validated | SubscriptionsList, ResourceGroupsList, ResourceGroupsListResources, ResourceGroupsGet, ResourceGroupsCreateOrUpdate, ResourceGroupsDelete, ResourcesGetById |
@@ -210,6 +211,7 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
 | Dataverse (commondataservice) | ✅ E2E Validated | GetDataSets, GetTables, GetItems, GetItem, PostItem, PatchItem, DeleteItem, CreateAttachment (binary note content; record cleanup verified), GetNextPage |
+| Power Query Dataflows | 🔄 SDK Generated | RefreshDataflowAsync; workspace and dataflow discovery (trigger: OnRefreshComplete) |
 | Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | CloudConvert | 🔄 SDK Generated | ConvertFile, OptimizeFile, CaptureWebsite, MergeFiles; five dynamic-options discovery helpers |
@@ -290,6 +292,23 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 | WordPress | 🔄 SDK Generated | SiteStats, Get, Create, ListSites |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 | Zendesk | 🔄 SDK Generated | PostItem, DeleteItem, PatchItem, SearchArticles |
+
+### Azure DevOps and Dataflows
+
+Use `VisualstudioteamservicesClient` from `Azure.Connectors.Sdk.Visualstudioteamservices`
+for Azure DevOps (connector API ID `visualstudioteamservices`), and `DataflowsClient`
+from `Azure.Connectors.Sdk.Dataflows` for Power Query Dataflows (connector API ID
+`dataflows`). Models and model factories live in each connector's `.Models` namespace.
+Both clients accept a connection runtime URL, an Azure `TokenCredential`, and
+`ConnectorClientOptions`, like the other SDK clients.
+
+These clients have mocked HTTP and serialization tests, not live connection
+validation. Triggers use Connector Namespace registration rather than ordinary
+action calls. Azure DevOps provides typed callback classes and a trigger registry;
+Dataflows callbacks can be read as `TriggerCallbackPayload<RefreshModel>`, with
+`DataflowsTriggerOperations` and `DataflowsTriggerParameters` for registration.
+See [Connector triggers](docs/triggers.md) and
+[generation provenance](GENERATION.md#2026-10-27-azure-devops-and-dataflows).
 
 ## Related Projects
 
