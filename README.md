@@ -311,6 +311,10 @@ validation. Triggers use Connector Namespace registration rather than ordinary
 action calls. Azure DevOps provides typed callback classes and a trigger registry;
 Dataflows callbacks can be read as `TriggerCallbackPayload<RefreshModel>`, with
 `DataflowsTriggerOperations` and `DataflowsTriggerParameters` for registration.
+Azure DevOps search fields preserve scalar and structured JSON values, and
+pull-request callbacks bind boolean truncation flags and string merge strategies.
+`GetWorkItemDetailsAsync` uses the production route; the explicitly Preview
+replacement is not exposed.
 See [Connector triggers](docs/triggers.md) and
 [generation provenance](GENERATION.md#2026-10-27-azure-devops-and-dataflows).
 
@@ -329,6 +333,8 @@ in `AdditionalProperties`; `RetrieveAttachmentContentAsync` returns raw `byte[]`
 `UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
 the multipart attachment-upload operation is not generated. DataFlows SMS trigger
 registration uses `DataflowssmsTriggerOperations.OnRegisterWebhook`.
+Sending SMS uses the POST action only; the GET send alternative is excluded
+because automatic retries could duplicate messages and charges.
 These additions have mocked HTTP and serialization coverage, not live connection
 validation. See [generation provenance](GENERATION.md#2026-10-27-dataflows-sms-and-servicenow).
 

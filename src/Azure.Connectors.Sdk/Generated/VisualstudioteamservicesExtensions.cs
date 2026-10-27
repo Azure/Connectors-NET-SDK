@@ -22,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Visualstudioteamservices.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -63,7 +64,7 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
 
         /// <summary>A standard set of work item fields and their values.</summary>
         [JsonPropertyName("fields")]
-        public Dictionary<string, ObjectWithoutType> Fields { get; set; }
+        public Dictionary<string, JsonElement?> Fields { get; set; }
 
         /// <summary>Highlighted snippets of fields that match the search request.</summary>
         [JsonPropertyName("hits")]
@@ -941,7 +942,7 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
 
         /// <summary>Indicates if the comment is truncated from the full Git commit comment message.</summary>
         [JsonPropertyName("commentTruncated")]
-        public string CommitCommentTruncated { get; set; }
+        public bool? CommitCommentTruncated { get; set; }
 
         /// <summary>Id of the commit.</summary>
         [JsonPropertyName("commitId")]
@@ -1013,7 +1014,7 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
 
         /// <summary>mergeStrategy</summary>
         [JsonPropertyName("mergeStrategy")]
-        public PullRequestMergeStrategy MergeStrategy { get; set; }
+        public string MergeStrategy { get; set; }
 
         /// <summary>If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.</summary>
         [JsonPropertyName("squashMerge")]
@@ -1022,24 +1023,6 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
         /// <summary>If true, we will attempt to transition any work items linked to the pull request into the next logical state (i.e. Active -&gt; Resolved).</summary>
         [JsonPropertyName("transitionWorkItems")]
         public bool? TransitionWorkItems { get; set; }
-    }
-
-    /// <summary>
-    /// Pull Request Merge Strategy
-    /// </summary>
-    public class PullRequestMergeStrategy
-    {
-        /// <summary>If true, conflict resolutions applied during the merge will be put in separate commits to preserve authorship info for git blame.</summary>
-        [JsonPropertyName("conflictAuthorshipCommits")]
-        public bool? ConflictAuthorshipCommits { get; set; }
-
-        /// <summary>If true, detects rename false positives.</summary>
-        [JsonPropertyName("detectRenameFalsePositives")]
-        public bool? DetectRenameFalsePositives { get; set; }
-
-        /// <summary>If true, rename detection will not be performed during the merge.</summary>
-        [JsonPropertyName("disableRenames")]
-        public bool? DisableRenames { get; set; }
     }
 
     /// <summary>
@@ -1582,40 +1565,6 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
         /// <summary>fields</summary>
         [JsonPropertyName("fields")]
         public JsonElement? Fields { get; set; }
-    }
-
-    /// <summary>
-    /// Work Item Response
-    /// </summary>
-    public class WorkItemDetailsResponse
-    {
-        /// <summary>The unique id of the work item.</summary>
-        [JsonPropertyName("id")]
-        public int? Id { get; set; }
-
-        /// <summary>The revision count of the work item.</summary>
-        [JsonPropertyName("rev")]
-        public int? RevisionCount { get; set; }
-
-        /// <summary>The URL of the work item.</summary>
-        [JsonPropertyName("url")]
-        public string URL { get; set; }
-
-        /// <summary>fields</summary>
-        [JsonPropertyName("fields")]
-        public JsonElement? Fields { get; set; }
-
-        /// <summary>The relations associated with the work item.</summary>
-        [JsonPropertyName("relations")]
-        public List<JsonElement?> Relations { get; set; }
-
-        /// <summary>Specifies formatting for multiline fields such as description.</summary>
-        [JsonPropertyName("multilineFieldsFormat")]
-        public Dictionary<string, string> MultilineFieldFormats { get; set; }
-
-        /// <summary>Hypermedia links related to the work item.</summary>
-        [JsonPropertyName("_links")]
-        public JsonElement? Links { get; set; }
     }
 
     /// <summary>
@@ -3523,7 +3472,7 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
         /// </summary>
         public static WorkItemResult WorkItemResult(
             SearchProject project = default,
-            Dictionary<string, ObjectWithoutType> fields = default,
+            Dictionary<string, JsonElement?> fields = default,
             List<WorkItemHit> hits = default,
             string url = default)
         {
@@ -4206,7 +4155,7 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
         public static GitCommitRef GitCommitRef(
             CommitGitUserDate author = default,
             string commitComment = default,
-            string commitCommentTruncated = default,
+            bool? commitCommentTruncated = default,
             string commitId = default,
             CommitGitUserDate committer = default,
             List<string> parents = default,
@@ -4253,7 +4202,7 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
             string bypassReason = default,
             bool? deleteSourceBranch = default,
             string mergeCommitMessage = default,
-            PullRequestMergeStrategy mergeStrategy = default,
+            string mergeStrategy = default,
             bool? squashMerge = default,
             bool? transitionWorkItems = default)
         {
@@ -4267,22 +4216,6 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
                 MergeStrategy = mergeStrategy,
                 SquashMerge = squashMerge,
                 TransitionWorkItems = transitionWorkItems,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="PullRequestMergeStrategy"/>.
-        /// </summary>
-        public static PullRequestMergeStrategy PullRequestMergeStrategy(
-            bool? conflictAuthorshipCommits = default,
-            bool? detectRenameFalsePositives = default,
-            bool? disableRenames = default)
-        {
-            return new PullRequestMergeStrategy
-            {
-                ConflictAuthorshipCommits = conflictAuthorshipCommits,
-                DetectRenameFalsePositives = detectRenameFalsePositives,
-                DisableRenames = disableRenames,
             };
         }
 
@@ -4709,30 +4642,6 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
                 RevisionCount = revisionCount,
                 URL = url,
                 Fields = fields,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="WorkItemDetailsResponse"/>.
-        /// </summary>
-        public static WorkItemDetailsResponse WorkItemDetailsResponse(
-            int? id = default,
-            int? revisionCount = default,
-            string url = default,
-            JsonElement? fields = default,
-            List<JsonElement?> relations = default,
-            Dictionary<string, string> multilineFieldFormats = default,
-            JsonElement? links = default)
-        {
-            return new WorkItemDetailsResponse
-            {
-                Id = id,
-                RevisionCount = revisionCount,
-                URL = url,
-                Fields = fields,
-                Relations = relations,
-                MultilineFieldFormats = multilineFieldFormats,
-                Links = links,
             };
         }
 
@@ -5869,7 +5778,6 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices.Models
 
 namespace Azure.Connectors.Sdk.Visualstudioteamservices
 {
-    using Azure.Connectors.Sdk.Visualstudioteamservices.Models;
 
     #region Trigger Operation Constants
 
@@ -7159,52 +7067,6 @@ namespace Azure.Connectors.Sdk.Visualstudioteamservices
                 var path = $"/_apis/wit/workitems/{Uri.EscapeDataString(workItemId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PatchWorkItemResponse>(HttpMethod.Patch, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get work item details (V2)
-        /// </summary>
-        /// <remarks>Get the details of a single work item with optional field selection and expand options.</remarks>
-        /// <param name="workItemId">Work Item Id</param>
-        /// <param name="organizationName">Organization Name</param>
-        /// <param name="projectName">Project Name</param>
-        /// <param name="workItemType">Work Item Type</param>
-        /// <param name="asOfDate">As-of Date</param>
-        /// <param name="expand">Expand</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get work item details (V2) response.</returns>
-        public virtual async Task<WorkItemDetailsResponse> GetWorkItemDetailsV2Async(string workItemId, [DynamicValues("ListAccounts")] string organizationName, [DynamicValues("ListProjects")] string projectName, [DynamicValues("ListWorkItemTypes")] string workItemType, string asOfDate = default, string expand = default, CancellationToken cancellationToken = default)
-        {
-            using var activity = VisualstudioteamservicesClient.ConnectorActivitySource.StartActivity("VisualstudioteamservicesClient.GetWorkItemDetailsV2Async");
-            try
-            {
-                if (workItemId is null)
-                    throw new ArgumentNullException(nameof(workItemId));
-                var queryParams = new List<string>();
-                if (organizationName is null)
-                    throw new ArgumentNullException(nameof(organizationName));
-                queryParams.Add($"account={Uri.EscapeDataString(organizationName)}");
-                if (projectName is null)
-                    throw new ArgumentNullException(nameof(projectName));
-                queryParams.Add($"project={Uri.EscapeDataString(projectName)}");
-                if (workItemType is null)
-                    throw new ArgumentNullException(nameof(workItemType));
-                queryParams.Add($"typeName={Uri.EscapeDataString(workItemType)}");
-                if (asOfDate != default)
-                    queryParams.Add($"asOf={Uri.EscapeDataString(asOfDate)}");
-                if (expand != default)
-                    queryParams.Add($"expand={Uri.EscapeDataString(expand)}");
-                var path = $"/_apis/wit/v2/workitems/{Uri.EscapeDataString(workItemId)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<WorkItemDetailsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

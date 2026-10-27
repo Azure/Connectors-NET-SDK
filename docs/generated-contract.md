@@ -114,6 +114,13 @@ such as unsupported multipart transport or a curated replacement route. Such a
 policy must preserve the intended SDK contract and be validated against the
 Swagger input.
 
+Current scoped exclusions include the DataFlows SMS GET send alternative when
+its POST action is present (GET retries could repeat a side effect), and the
+Azure DevOps work-item detail replacement while its live annotation explicitly
+marks it Preview and the production action remains available. The latter keeps
+the production route under the stable name rather than promoting a numeric
+revision without considering eligibility.
+
 ## Trigger Contract
 
 Routes marked `x-ms-trigger` are not ordinary data-plane invocations. They are

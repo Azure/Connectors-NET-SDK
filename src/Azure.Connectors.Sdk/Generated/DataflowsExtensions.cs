@@ -19,6 +19,7 @@ using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.Dataflows.Models;
 using Azure.Core;
 using Azure.Identity;
 
@@ -169,7 +170,6 @@ namespace Azure.Connectors.Sdk.Dataflows.Models
 
 namespace Azure.Connectors.Sdk.Dataflows
 {
-    using Azure.Connectors.Sdk.Dataflows.Models;
 
     #region Trigger Operation Constants
 
@@ -367,7 +367,7 @@ namespace Azure.Connectors.Sdk.Dataflows
         /// <param name="groupType">Group Type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The ListDataflowsForRefreshDataflow response.</returns>
-        public virtual async Task<Dataflows> ListDataflowsForRefreshDataflowAsync([DynamicValues("ListGroupsForRefreshDataflow")] string group, string groupType, CancellationToken cancellationToken = default)
+        public virtual async Task<global::Azure.Connectors.Sdk.Dataflows.Models.Dataflows> ListDataflowsForRefreshDataflowAsync([DynamicValues("ListGroupsForRefreshDataflow")] string group, string groupType, CancellationToken cancellationToken = default)
         {
             using var activity = DataflowsClient.ConnectorActivitySource.StartActivity("DataflowsClient.ListDataflowsForRefreshDataflowAsync");
             try
@@ -380,7 +380,7 @@ namespace Azure.Connectors.Sdk.Dataflows
                 queryParams.Add($"workspaceType={Uri.EscapeDataString(groupType)}");
                 var path = $"/api/group/{Uri.EscapeDataString(group)}/listdataflows/forrefreshdataflow" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<Dataflows>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<global::Azure.Connectors.Sdk.Dataflows.Models.Dataflows>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -428,7 +428,7 @@ namespace Azure.Connectors.Sdk.Dataflows
         /// <param name="groupType">Group Type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The ListDataflowsForOnRefreshComplete response.</returns>
-        public virtual async Task<Dataflows> ListDataflowsForOnRefreshCompleteAsync([DynamicValues("ListGroupsForOnRefreshComplete")] string group, string groupType, CancellationToken cancellationToken = default)
+        public virtual async Task<global::Azure.Connectors.Sdk.Dataflows.Models.Dataflows> ListDataflowsForOnRefreshCompleteAsync([DynamicValues("ListGroupsForOnRefreshComplete")] string group, string groupType, CancellationToken cancellationToken = default)
         {
             using var activity = DataflowsClient.ConnectorActivitySource.StartActivity("DataflowsClient.ListDataflowsForOnRefreshCompleteAsync");
             try
@@ -441,7 +441,7 @@ namespace Azure.Connectors.Sdk.Dataflows
                 queryParams.Add($"workspaceType={Uri.EscapeDataString(groupType)}");
                 var path = $"/api/group/{Uri.EscapeDataString(group)}/listdataflows/foronrefreshcomplete" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<Dataflows>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<global::Azure.Connectors.Sdk.Dataflows.Models.Dataflows>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

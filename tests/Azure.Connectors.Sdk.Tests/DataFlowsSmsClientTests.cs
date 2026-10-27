@@ -118,6 +118,47 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        [DataRow(false)]
+        [DataRow(true)]
+        [Owner("swapnilnagar")]
+        public async Task SendSMSAsync_AmbiguousFailure_DoesNotRetryByDefault(bool transportFailure)
+        {
+            var attempts = 0;
+            using var client = CreateMockedClient(
+                sendAsync: (request, cancellationToken) =>
+                {
+                    attempts++;
+                    Assert.AreEqual(expected: HttpMethod.Post, actual: request.Method);
+                    if (transportFailure)
+                    {
+                        throw new HttpRequestException("Connection closed after SMS acceptance.");
+                    }
+
+                    return Task.FromResult(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+                    {
+                        Content = new StringContent("""{"message":"Response lost after SMS acceptance."}"""),
+                    });
+                },
+                maxRetries: 3);
+
+            if (transportFailure)
+            {
+                await Assert.ThrowsExactlyAsync<global::Azure.RequestFailedException>(
+                    () => client.SendSMSAsync(new SendSMSInput { Recipient = "15555550123", Message = "Hello" }))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+            else
+            {
+                await Assert.ThrowsExactlyAsync<ConnectorException>(
+                    () => client.SendSMSAsync(new SendSMSInput { Recipient = "15555550123", Message = "Hello" }))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+
+            Assert.AreEqual(expected: 1, actual: attempts);
+            Assert.IsNull(typeof(DataflowssmsClient).GetMethod("SendSMSGetAsync"));
+        }
+
+        [TestMethod]
         [Owner("daviburg")]
         public async Task GetProfileAsync_WithErrorResponse_ThrowsConnectorException()
         {
@@ -148,7 +189,9 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "message-123", actual: roundTrip.Data!.Value.GetProperty("uid").GetString());
         }
 
-        private static DataflowssmsClient CreateMockedClient(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendAsync)
+        private static DataflowssmsClient CreateMockedClient(
+            Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendAsync,
+            int maxRetries = 0)
         {
             var credential = new Mock<TokenCredential>();
             credential.Setup(tokenCredential => tokenCredential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
@@ -161,7 +204,7 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 Transport = new HttpClientTransport(new HttpClient(handler.Object))
             };
-            options.Retry.MaxRetries = 0;
+            options.Retry.MaxRetries = maxRetries;
             return new DataflowssmsClient(
                 connectionRuntimeUrl: new Uri("https://example.test/connection"),
                 credential: credential.Object,

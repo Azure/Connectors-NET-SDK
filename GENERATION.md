@@ -292,17 +292,16 @@ Filtered generation skips shared catalog files.
 ### Generator source
 
 - Base AzureUX-BPM commit: `21a5e28e029a1e58304b3c4d66302cbb528ed1fd` (merged `master`).
-- Exact generator source commit: `a5cd6b1560348b7dd89ddb6d2cad768e51820f3c`.
+- Exact generator source commit: `741be9cb977874668c524b37356ef5ccb49bf7a3`.
 - Upstream fix: [AzureUX-BPM PR 17700725](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17700725)
   (active and unmerged when the SDK PR was prepared).
-- Required generator fix: move the models namespace import inside the client
-  namespace. A file-level import lets C# resolve the `Dataflows` response model as
-  the connector namespace instead of a type (`CS0118`). No model or wire names change.
+- Required generator fix: qualify colliding client model references while keeping
+  imports outside namespaces. This resolves `CS0118` without violating `IDE0065`.
+  The same revision corrects Azure DevOps search-field values to arbitrary JSON,
+  commit truncation flags to booleans, and merge strategies to strings.
 - Source file: `src/tools/CodefulSdkGenerator/DirectClient/DirectClientCSharpGenerator.cs`.
-- Corrected source file SHA-256:
-  `03F47506B548235ED184E75F098E2D43D54A8BBE103531468B7B90883F70FBC0`.
 - Generator assembly version: `1.196.0.28`; corrected release assembly SHA-256:
-  `466BAF88541209164EC224EE9EA9839563C206FC7AAD4CBFE4E44A8B544BF724`.
+  `BF869CC0FD84D4E5338DCB016CDBAAA247FEB96E2F5102607CB3038F8A585E10`.
 
 The generator fix and its semantic compilation regression tests are published in
 the upstream PR, not part of the merged base commit. Before merging the SDK PR,
@@ -318,16 +317,30 @@ responses.
 
 | Run | ID | UTC interval |
 |-----|----|--------------|
-| Producer | `faeb3771-3499-4012-a3c1-b661e5d7a3d8` | 2026-10-27 18:41:39 to 18:42:01 |
-| Independent validation | `16ccdd6c-7045-455f-b728-164731f679d1` | 2026-10-27 18:41:39 to 18:42:03 |
+| Producer | `e2ec9a0e-9d64-44b1-971c-df9ea5e4c57d` | 2026-10-27 22:51:12 to 22:51:42 |
+| Independent validation | `f59307db-cf6d-4e23-9e73-8a31e2248ea0` | 2026-10-27 22:51:43 to 22:52:12 |
 
 The captured Swagger files and generated C# files matched byte-for-byte across
 both live runs. The following SHA-256 hashes cover the exact file bytes:
 
 | Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
 |------------------|--------------------------|-------------------------|
-| `dataflows` | `426EC2522AB09AF302021A0410396E6378AACB65C3689160E7005985A924B86F` | `1AEE88AD0E3DD11107AAB9921F5D4DEC0A7C2F1E62B199CD8FEEE5DBA9DD36A1` |
-| `visualstudioteamservices` | `DF18405D61AEAC67561F439CC2F7CC300FEB36F4B0FCB8DE25F0B70B807FCCEC` | `8FC11A9888564C727F5DB5B58406F58691FC64A7C9F9E99AF2A2B4A1682CB41E` |
+| `dataflows` | `426EC2522AB09AF302021A0410396E6378AACB65C3689160E7005985A924B86F` | `DBE7D474608865C4F1162985F46AED1B9DA5CDAC36CE9DE3A5AA7A4CD2B05B2C` |
+| `visualstudioteamservices` | `DF18405D61AEAC67561F439CC2F7CC300FEB36F4B0FCB8DE25F0B70B807FCCEC` | `5902BCED5C5BC7B174725146B79E2F3BC4B9C4DCDB211B4E1A66E8A88207DCD1` |
+| `dataflowssms` | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `94BFBDEC4CE5702F2676B20C0DA87251F6F1BDD1D48CF672E50B8F34D6BE3646` |
+
+Review regeneration also includes DataFlows SMS. Its GET send alternative is
+explicitly excluded when the POST alternative exists: GET retry classification
+could repeat an already accepted message. Tests enable retries and assert one
+POST attempt after both transient responses and ambiguous transport failures.
+
+The work-item detail replacement is explicitly marked `Preview` in the live
+`x-ms-api-annotation`. The generator retains the production `GetWorkItemDetails`
+route and response model under `GetWorkItemDetailsAsync`, excluding the preview
+alternative instead of promoting it based on its numeric suffix. This follows
+the [revision eligibility contract](docs/generated-contract.md#operation-revision-families).
+Tests verify the method-to-route and return-model binding. This is a scoped
+eligibility policy, not connector-owner evidence of independent actions.
 
 To reproduce, build the corrected CLI and create new empty cache and output
 directories before running:
@@ -357,8 +370,10 @@ using the C# DirectClient target. DataFlows SMS is a different connector from
 Power Query Dataflows (`dataflows`). Shared connector constants and registrations
 already existed and remain unchanged.
 
-DataFlows SMS uses the unchanged upstream generator commit
-`21a5e28e029a1e58304b3c4d66302cbb528ed1fd`. ServiceNow uses generator commit
+DataFlows SMS was initially generated using upstream commit
+`21a5e28e029a1e58304b3c4d66302cbb528ed1fd`; the current artifact is the fresh
+review regeneration recorded above, with the unsafe GET send alternative removed.
+ServiceNow uses generator commit
 `9d80956afd705fbed97935edbaf6295928342390`, based on merged `master` commit
 `ea47c2ac9d4923d9f429ef94bc6360a399547fa2`. The shared attachment response
 correction is tracked in [BPM PR 17702958](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17702958)
@@ -368,15 +383,15 @@ above. The CLI was built from the recorded source before generation; neither
 generated client was hand-edited.
 
 Both Swagger inputs were captured from the `westus` managed API catalog on
-2026-10-27. Generation was replayed from the frozen files with
+2026-10-27. The original generation was replayed from the frozen files with
 `--swagger-input-directory`; SHA-256 covers exact file bytes:
 
 | Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
 |---|---|---|
-| `dataflowssms` | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `A25119DF7B6B95E287CC7E17E516670001BB8274241330FE7B38B047106FAA2A` |
+| `dataflowssms` (original, superseded above) | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `A25119DF7B6B95E287CC7E17E516670001BB8274241330FE7B38B047106FAA2A` |
 | `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` | `C3F4C055907F6D26763DE4132A0A7D9847FBE478D79228958D3C1C4A38990BC6` |
 
-DataFlows SMS exposes seven callable actions plus trigger registration metadata.
+DataFlows SMS exposes six callable actions plus trigger registration metadata.
 ServiceNow exposes twenty callable actions, including dynamic record discovery
 and raw binary attachment upload. The multipart attachment route and internal
 operations are excluded by the existing generator policy. No real SMS messages,

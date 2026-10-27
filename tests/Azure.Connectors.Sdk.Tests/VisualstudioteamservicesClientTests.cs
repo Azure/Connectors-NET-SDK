@@ -220,6 +220,85 @@ namespace Azure.Connectors.Sdk.Tests
 
         [TestMethod]
         [Owner("swapnilnagar")]
+        public async Task SearchWorkItemsAsync_NonemptyResponse_PreservesScalarAndStructuredFields()
+        {
+            var setup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("""
+                        {"count":1,"results":[{"fields":{"system.id":"2","system.title":"Rest Api User Story","custom.number":3,"custom.flag":true,"custom.owner":{"name":"SDK"},"custom.empty":null}}]}
+                        """),
+                });
+            using var client = new VisualstudioteamservicesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: setup.Credential,
+                options: setup.Options);
+
+            var response = await client.SearchWorkItemsAsync(
+                input: new WorkItemSearchRequest(),
+                organizationName: "example",
+                projectName: "SDK").ConfigureAwait(continueOnCapturedContext: false);
+
+            var fields = response.Results.Single().Fields;
+            Assert.AreEqual(expected: "2", actual: fields["system.id"]!.Value.GetString());
+            Assert.AreEqual(expected: "Rest Api User Story", actual: fields["system.title"]!.Value.GetString());
+            Assert.AreEqual(expected: 3, actual: fields["custom.number"]!.Value.GetInt32());
+            Assert.IsTrue(fields["custom.flag"]!.Value.GetBoolean());
+            Assert.AreEqual(expected: "SDK", actual: fields["custom.owner"]!.Value.GetProperty("name").GetString());
+            Assert.IsNull(fields["custom.empty"]);
+        }
+
+        [TestMethod]
+        [DataRow(false, "squash")]
+        [DataRow(true, "futureStrategy")]
+        [Owner("swapnilnagar")]
+        public void OnGitPullClosed_PopulatedCallback_BindsBooleanAndStringStrategy(bool truncated, string strategy)
+        {
+            var json = JsonSerializer.Serialize(new
+            {
+                body = new
+                {
+                    pullRequestId = 42,
+                    commits = new[] { new { commentTruncated = truncated } },
+                    completionOptions = new { mergeStrategy = strategy },
+                },
+            });
+            var callback = JsonSerializer.Deserialize<VisualstudioteamservicesOnGitPullClosedTriggerPayload>(json);
+            var pullRequest = callback!.Body!.Value!.Single();
+
+            Assert.AreEqual(expected: truncated, actual: pullRequest.Commits.Single().CommitCommentTruncated);
+            Assert.AreEqual(expected: strategy, actual: pullRequest.CompletionOptions.MergeStrategy);
+            var roundTrip = JsonSerializer.Deserialize<VisualstudioteamservicesOnGitPullClosedTriggerPayload>(JsonSerializer.Serialize(callback))!;
+            Assert.AreEqual(expected: strategy, actual: roundTrip.Body!.Value!.Single().CompletionOptions.MergeStrategy);
+        }
+
+        [TestMethod]
+        [Owner("swapnilnagar")]
+        public async Task GetWorkItemDetailsAsync_ProductionRevision_BindsProductionModelAndRoute()
+        {
+            var setup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("""{"id":42,"fields":{"System_Id":42,"System_Title":"Production work item"}}"""),
+                });
+            using var client = new VisualstudioteamservicesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: setup.Credential,
+                options: setup.Options);
+
+            DynamicWorkItemResponse response = await client.GetWorkItemDetailsAsync(
+                workItemId: "42",
+                organizationName: "example",
+                projectName: "SDK",
+                workItemType: "Task").ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 42, actual: response.Fields!.Value.GetProperty("System_Id").GetInt32());
+            Assert.AreEqual(expected: "/connection/_apis/wit/workitems/42", actual: setup.GetLastRequest()!.RequestUri!.AbsolutePath);
+            Assert.IsNull(typeof(VisualstudioteamservicesClient).GetMethod("GetWorkItemDetailsV2Async"));
+        }
+
+        [TestMethod]
+        [Owner("swapnilnagar")]
         public async Task MockConstructor_VirtualOperation_ReturnsFactoryModel()
         {
             var build = VisualstudioteamservicesModelFactory.BuildResult(buildId: 42);
