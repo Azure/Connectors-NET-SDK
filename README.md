@@ -191,10 +191,14 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 
 ## Validated Connectors
 
+The SDK includes 103 generated typed connector clients. Catalog entries alone do not imply that a typed client is included. Rows marked SDK Generated have not been validated end-to-end.
+
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
 | Azure DevOps (VSTS) | 🔄 SDK Generated | ListProjectsAsync, QueueNewBuildAsync, GetBuildAsync, CreateWorkItemAsync, GetQueryResultsAsync (pageable; trigger: OnBuildCompleted) |
+| [DataFlows SMS](https://learn.microsoft.com/connectors/dataflowssms/) | 🔄 SDK Generated | SendSMSAsync, GetSMSAsync, ListSMSAsync, GetProfileAsync, GetBalanceAsync |
+| [ServiceNow](https://learn.microsoft.com/connectors/service-now/) | 🔄 SDK Generated | GetRecordsAsync, CreateRecordAsync, GetRecordAsync, UpdateRecordAsync, UploadAttachmentFileAsync |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryData, QuerySchema |
 | Azure Resource Manager | ✅ E2E Validated | SubscriptionsList, ResourceGroupsList, ResourceGroupsListResources, ResourceGroupsGet, ResourceGroupsCreateOrUpdate, ResourceGroupsDelete, ResourcesGetById |
@@ -309,6 +313,22 @@ Dataflows callbacks can be read as `TriggerCallbackPayload<RefreshModel>`, with
 `DataflowsTriggerOperations` and `DataflowsTriggerParameters` for registration.
 See [Connector triggers](docs/triggers.md) and
 [generation provenance](GENERATION.md#2026-10-27-azure-devops-and-dataflows).
+
+### DataFlows SMS and ServiceNow
+
+Use `DataflowssmsClient` from `Azure.Connectors.Sdk.Dataflowssms` for DataFlows SMS
+(`dataflowssms`), not `DataflowsClient`, which is the separate Power Query connector.
+Use `ServiceNowClient` from `Azure.Connectors.Sdk.ServiceNow` for ServiceNow
+(`service-now`). Models and model factories live in each connector's `.Models`
+namespace. Both clients follow the existing connection runtime URL and
+`TokenCredential` constructors.
+
+ServiceNow record fields are supplied through `RecordBody.AdditionalProperties`.
+`UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
+the multipart attachment-upload operation is not generated. DataFlows SMS trigger
+registration uses `DataflowssmsTriggerOperations.OnRegisterWebhook`.
+These additions have mocked HTTP and serialization coverage, not live connection
+validation. See [generation provenance](GENERATION.md#2026-10-27-dataflows-sms-and-servicenow).
 
 ## Related Projects
 

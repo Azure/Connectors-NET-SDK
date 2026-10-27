@@ -350,6 +350,34 @@ follows `@odata.nextLink`, including when the initial page is empty. Dataflows
 discovery operations return single response envelopes. Neither connector has live
 E2E validation in this change.
 
+## 2026-10-27 DataFlows SMS and ServiceNow
+
+Added `DataflowssmsClient` (`dataflowssms`) and `ServiceNowClient` (`service-now`)
+using the C# DirectClient target. DataFlows SMS is a different connector from
+Power Query Dataflows (`dataflows`). Shared connector constants and registrations
+already existed and remain unchanged.
+
+These two additions use the unchanged upstream generator commit
+`21a5e28e029a1e58304b3c4d66302cbb528ed1fd`, not the namespace-import prerequisite
+used by the Azure DevOps and Power Query clients above. The CLI was built from
+that immutable source revision before generation. No generator patch or
+post-generation edit was applied to either addition.
+
+Both Swagger inputs were captured from the `westus` managed API catalog on
+2026-10-27. Generation was replayed from the frozen files with
+`--swagger-input-directory`; SHA-256 covers exact file bytes:
+
+| Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
+|---|---|---|
+| `dataflowssms` | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `A25119DF7B6B95E287CC7E17E516670001BB8274241330FE7B38B047106FAA2A` |
+| `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` | `C756BC53A6A70A9F74570EC8A8E6535324F20F7C0ED33A9001ED1EDC27C610BA` |
+
+DataFlows SMS exposes seven callable actions plus trigger registration metadata.
+ServiceNow exposes twenty callable actions, including dynamic record discovery
+and raw binary attachment upload. The multipart attachment route and internal
+operations are excluded by the existing generator policy. No real SMS messages,
+ServiceNow records, or attachments were created during validation.
+
 ## Automation
 
 ### CI/CD Integration
