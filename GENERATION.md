@@ -282,6 +282,194 @@ regenerated successfully from current ARM exports.
 - Quarterly regeneration for stable projects
 - Immediate regeneration when new connector features are needed
 
+## 2026-10-27 Azure DevOps and Dataflows
+
+Added `visualstudioteamservices` and `dataflows` using the C# DirectClient target.
+Existing clients and the complete shared connector catalogs remain unchanged.
+The catalogs already contain both API IDs and their `ConnectorNames` constants.
+Filtered generation skips shared catalog files.
+
+### Generator source
+
+- Base AzureUX-BPM commit: `21a5e28e029a1e58304b3c4d66302cbb528ed1fd` (merged `master`).
+- Exact generator source commit: `741be9cb977874668c524b37356ef5ccb49bf7a3`.
+- Upstream fix: [AzureUX-BPM PR 17700725](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17700725)
+  (active and unmerged when the SDK PR was prepared).
+- Required generator fix: qualify colliding client model references while keeping
+  imports outside namespaces. This resolves `CS0118` without violating `IDE0065`.
+  The same revision corrects Azure DevOps search-field values to arbitrary JSON,
+  commit truncation flags to booleans, and merge strategies to strings.
+- Source file: `src/tools/CodefulSdkGenerator/DirectClient/DirectClientCSharpGenerator.cs`.
+- Generator assembly version: `1.196.0.28`; corrected release assembly SHA-256:
+  `BF869CC0FD84D4E5338DCB016CDBAAA247FEB96E2F5102607CB3038F8A585E10`.
+
+The generator fix and its semantic compilation regression tests are published in
+the upstream PR, not part of the merged base commit. Before merging the SDK PR,
+verify that the exact generator source commit has reached BPM `master`.
+Do not treat the base commit alone as the source of these clients.
+
+### Live generation and independent validation
+
+Both runs used subscription `1a839f1f-10b2-4613-95ad-0800a22abbf2`, region `westus`,
+and ARM API version `2018-07-01-preview`. Each started with its own new, empty
+temporary `ARMCACHE_PATH`; neither used checked-in fixtures or the other run's
+responses.
+
+| Run | ID | UTC interval |
+|-----|----|--------------|
+| Producer | `e2ec9a0e-9d64-44b1-971c-df9ea5e4c57d` | 2026-10-27 22:51:12 to 22:51:42 |
+| Independent validation | `f59307db-cf6d-4e23-9e73-8a31e2248ea0` | 2026-10-27 22:51:43 to 22:52:12 |
+
+The captured Swagger files and generated C# files matched byte-for-byte across
+both live runs. The following SHA-256 hashes cover the exact file bytes:
+
+| Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
+|------------------|--------------------------|-------------------------|
+| `dataflows` | `426EC2522AB09AF302021A0410396E6378AACB65C3689160E7005985A924B86F` | `DBE7D474608865C4F1162985F46AED1B9DA5CDAC36CE9DE3A5AA7A4CD2B05B2C` |
+| `visualstudioteamservices` (superseded by casing refresh below) | `DF18405D61AEAC67561F439CC2F7CC300FEB36F4B0FCB8DE25F0B70B807FCCEC` | `5902BCED5C5BC7B174725146B79E2F3BC4B9C4DCDB211B4E1A66E8A88207DCD1` |
+| `dataflowssms` (superseded by casing refresh below) | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `94BFBDEC4CE5702F2676B20C0DA87251F6F1BDD1D48CF672E50B8F34D6BE3646` |
+
+Review regeneration also includes DataFlows SMS. Its GET send alternative is
+explicitly excluded when the POST alternative exists: GET retry classification
+could repeat an already accepted message. Tests enable retries and assert one
+POST attempt after both transient responses and ambiguous transport failures.
+
+The work-item detail replacement is explicitly marked `Preview` in the live
+`x-ms-api-annotation`. The generator retains the production `GetWorkItemDetails`
+route and response model under `GetWorkItemDetailsAsync`, excluding the preview
+alternative instead of promoting it based on its numeric suffix. This follows
+the [revision eligibility contract](docs/generated-contract.md#operation-revision-families).
+Tests verify the method-to-route and return-model binding. This is a scoped
+eligibility policy, not connector-owner evidence of independent actions.
+
+To reproduce, build the corrected CLI and create new empty cache and output
+directories before running:
+
+```powershell
+$env:ARMCACHE_PATH = Join-Path $env:TEMP ([guid]::NewGuid().ToString())
+$outputDirectory = Join-Path $env:TEMP ([guid]::NewGuid().ToString())
+New-Item -ItemType Directory -Path $env:ARMCACHE_PATH, $outputDirectory | Out-Null
+$env:AZURE_SUBSCRIPTION_ID = "1a839f1f-10b2-4613-95ad-0800a22abbf2"
+$env:AZURE_LOCATION = "westus"
+dotnet <path-to-LogicAppsCompiler.dll> $outputDirectory --directClient --language=csharp --connectors=visualstudioteamservices,dataflows
+```
+
+Verify that both requested `*Extensions.cs` files exist and compile; the CLI can
+return exit code zero after logging a per-connector failure. Remove the temporary
+response stores when the run finishes. Tests cover generated requests, response
+binding, errors, mocking, discovery, and callbacks without live connector
+connections. Azure DevOps `GetQueryResultsAsync` returns an `AsyncPageable` and
+follows `@odata.nextLink`, including when the initial page is empty. Dataflows
+discovery operations return single response envelopes. Neither connector has live
+E2E validation in this change.
+
+## 2026-10-27 DataFlows SMS and ServiceNow
+
+Added `DataflowsSmsClient` (`dataflowssms`) and `ServiceNowClient` (`service-now`)
+using the C# DirectClient target. DataFlows SMS is a different connector from
+Power Query Dataflows (`dataflows`). Shared connector constants and registrations
+already existed and remain unchanged.
+
+DataFlows SMS was initially generated using upstream commit
+`21a5e28e029a1e58304b3c4d66302cbb528ed1fd`; the current artifact is the fresh
+PascalCase regeneration recorded below, retaining the unsafe GET send exclusion.
+ServiceNow uses generator commit
+`9d80956afd705fbed97935edbaf6295928342390`, based on merged `master` commit
+`ea47c2ac9d4923d9f429ef94bc6360a399547fa2`. The shared attachment response
+correction is tracked in [BPM PR 17702958](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17702958)
+and must merge upstream before the SDK merges. This is separate from the
+namespace-import prerequisite used by the Azure DevOps and Power Query clients
+above. The CLI was built from the recorded source before generation; neither
+generated client was hand-edited.
+
+Both Swagger inputs were captured from the `westus` managed API catalog on
+2026-10-27. The original generation was replayed from the frozen files with
+`--swagger-input-directory`; SHA-256 covers exact file bytes:
+
+| Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
+|---|---|---|
+| `dataflowssms` (original, superseded above) | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `A25119DF7B6B95E287CC7E17E516670001BB8274241330FE7B38B047106FAA2A` |
+| `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` | `C3F4C055907F6D26763DE4132A0A7D9847FBE478D79228958D3C1C4A38990BC6` |
+
+DataFlows SMS exposes six callable actions plus trigger registration metadata.
+ServiceNow exposes twenty callable actions, including dynamic record discovery
+and raw binary attachment upload. The multipart attachment route and internal
+operations are excluded by the existing generator policy. No real SMS messages,
+ServiceNow records, or attachments were created during validation.
+
+### ServiceNow attachment response validation
+
+The exported Swagger omits successful response schemas for attachment listing,
+attachment metadata, and attachment download. The initial generated methods
+returned only `Task` and discarded their bodies; the original tests covered
+record operations and attachment upload, not these reads. The
+[ServiceNow review](https://github.com/Azure/Connectors-NET-SDK/pull/282#pullrequestreview-5673183338)
+identified this coverage gap.
+
+The shared correction fills only absent or empty successful response schemas for
+those three operations. Metadata response models keep the full JSON body in
+`AdditionalProperties`, and `RetrieveAttachmentContentAsync` returns `byte[]`.
+Explicit upstream schemas, errors, deletes, and other connectors remain unchanged.
+
+Generator regressions cover missing and empty schemas, repeat application,
+explicit-schema preservation, negative controls, and C#, Python, and TypeScript
+output. SDK tests bind nonempty attachment lists and individual metadata, check
+unknown envelope fields, return exact non-UTF8 file bytes, and preserve download
+errors. Future reviews must verify the payload contract of schema-less reads
+rather than treating an omitted Swagger schema as proof of a bodyless operation.
+See the [generated contract validation rules](docs/generated-contract.md#validation-requirements).
+
+## 2026-10-28 DataFlows SMS and Azure DevOps PascalCase refresh
+
+Regenerated `dataflowssms` and `visualstudioteamservices` from generator commit
+`d9cc42aa4de9552c4555a69888169d466d435625` in active, unmerged
+[BPM PR 17700725](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17700725).
+Upstream integration remains a final SDK merge gate. The generator assembly
+version is `1.196.0.28`, with SHA-256
+`DC7FB77A128899E582E9A99F0390539B54EF84C29C6CEFDB0DCE8F7AD332122C`.
+
+The connector-specific overrides now emit `DataflowsSmsExtensions.cs`,
+`DataflowsSmsClient`, `DataflowsSmsModelFactory`, `DataflowsSmsTriggerOperations`,
+`SendSmsInput`, `SmsResponse`, `SmsDetails`, `SmsList`, and the corresponding
+`SendSmsAsync`, `GetSmsAsync`, and `ListSmsAsync` methods. Inline and referenced
+request schemas receive the same type casing. API ID `dataflowssms`, raw
+operation IDs, routes, JSON keys, trigger metadata values, and the POST-only
+send policy remain unchanged. No generated source was hand-edited.
+
+Azure DevOps uses `VisualStudioTeamServices` for its file, namespace, client,
+factory, and trigger type prefixes. Connector-scoped property normalization
+changes `URL`, `URI`, `XML`, and `HTML` acronyms to `Url`, `Uri`, `Xml`, and
+`Html`, including `AccountUri`, `MemberUri`, `ImageUri`, `XmlForm`, and
+`HtmlLink`. Connector-prefixed enums use `VisualStudioTeamServicesType`, and
+trigger parameter constants use `Vsts` rather than `VSTS`.
+Summary-derived property meanings are preserved:
+for example, `MemberUri` still binds the wire key `url`. Factories use the same
+property mapping. Tests verify JSON serialization and deserialization.
+
+Both runs independently downloaded live definitions using subscription
+`1a839f1f-10b2-4613-95ad-0800a22abbf2`, region `westus`, ARM API version
+`2018-07-01-preview`, and separate new empty temporary `ARMCACHE_PATH`
+directories. Neither run consumed the other's responses.
+
+| Run | ID | UTC interval |
+|-----|----|--------------|
+| Producer | `a66d214f` | 2026-10-28 18:14:35 to 18:14:57 |
+| Independent validation | `8d46cd51` | 2026-10-28 18:14:35 to 18:14:57 |
+
+Swagger and generated output matched byte-for-byte across both downloads:
+
+| Connector API ID | Captured Swagger SHA-256 | Generated client SHA-256 |
+|------------------|--------------------------|-------------------------|
+| `dataflowssms` | `E3B777684CA8973A6945B3559DE08E0C369CFC0730243F15983D70C1146AD8E5` | `3FAFE996A1349C300D87D174082C45C0AF828094FFAA2C7FEA83FE908F5E8F13` |
+| `visualstudioteamservices` | `DF18405D61AEAC67561F439CC2F7CC300FEB36F4B0FCB8DE25F0B70B807FCCEC` | `92EA264150F01116888B0FC4C5AE2C1F499688A6EECBF7A5CE9FDD3B9559F279` |
+
+Use the fresh-download command above with
+`--connectors=dataflowssms,visualstudioteamservices` to reproduce.
+Power Query Dataflows, ServiceNow, and shared catalog
+artifacts were not regenerated; their source commits and hashes remain as
+recorded in the preceding sections. Temporary response stores were removed
+after validation.
+
 ## Automation
 
 ### CI/CD Integration

@@ -7,7 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **DataFlows SMS and ServiceNow connector clients** - added `DataflowsSmsClient` (`dataflowssms`) for SMS messaging and account actions, and `ServiceNowClient` (`service-now`) for records, catalog items, knowledge articles, and binary attachment uploads. DataFlows SMS is distinct from Power Query Dataflows. Both clients include mocked request and serialization tests.
+
+- **Azure DevOps (VSTS) and Power Query Dataflows connector clients** - added `VisualStudioTeamServicesClient` (`visualstudioteamservices`) and `DataflowsClient` (`dataflows`), with models, model factories, discovery operations, trigger registration metadata, and mocked HTTP and serialization tests. Azure DevOps also includes typed trigger callbacks. See [connector usage](README.md#azure-devops-and-dataflows).
+
 ### Fixed
+
+- **Azure DevOps public naming** - use `VisualStudioTeamServices` for namespaces and client, factory, trigger, and enum type prefixes. Acronyms use .NET casing, including `Url`, `AccountUri`, `MemberUri`, `XmlForm`, and `HtmlLink`, without changing their JSON keys.
+
+- **DataFlows SMS public naming** - use PascalCase namespaces, clients, models, model factories, and SMS methods, including `DataflowsSmsClient`, `SendSmsInput`, and `SendSmsAsync`. Wire identifiers and JSON property names are unchanged.
+
+- **Azure DevOps callback and search binding** - search results preserve arbitrary JSON field values, pull-request commit truncation flags bind as booleans, and merge strategies bind as strings. Work-item detail lookup exposes only the production revision.
+
+- **DataFlows SMS retry safety** - sending uses the POST action only; the GET send alternative is excluded to avoid automatic retries duplicating accepted messages.
+
+- **ServiceNow attachment reads return their response bodies** - attachment listing and metadata retrieval now return JSON-preserving models, and `RetrieveAttachmentContentAsync` returns the downloaded bytes instead of discarding them.
 
 - Add generator support and generated-client acceptance coverage for explicit scalar-only union map schemas, including mixed scalar serialization, invalid nested values, and independent nullability. Existing live connector contracts remain unchanged; open SQL query and Fin & Ops payloads are not reinterpreted as scalar-only. ([#280](https://github.com/Azure/Connectors-NET-SDK/issues/280))
 

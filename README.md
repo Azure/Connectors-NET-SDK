@@ -191,9 +191,14 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 
 ## Validated Connectors
 
+The SDK includes 103 generated typed connector clients. Catalog entries alone do not imply that a typed client is included. Rows marked SDK Generated have not been validated end-to-end.
+
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
+| Azure DevOps (VSTS) | 🔄 SDK Generated | ListProjectsAsync, QueueNewBuildAsync, GetBuildAsync, CreateWorkItemAsync, GetQueryResultsAsync (pageable; trigger: OnBuildCompleted) |
+| [DataFlows SMS](https://learn.microsoft.com/connectors/dataflowssms/) | 🔄 SDK Generated | SendSmsAsync, GetSmsAsync, ListSmsAsync, GetProfileAsync, GetBalanceAsync |
+| [ServiceNow](https://learn.microsoft.com/connectors/service-now/) | 🔄 SDK Generated | GetRecordsAsync, CreateRecordAsync, GetRecordAsync, UpdateRecordAsync, UploadAttachmentFileAsync |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryData, QuerySchema |
 | Azure Resource Manager | ✅ E2E Validated | SubscriptionsList, ResourceGroupsList, ResourceGroupsListResources, ResourceGroupsGet, ResourceGroupsCreateOrUpdate, ResourceGroupsDelete, ResourcesGetById |
@@ -210,6 +215,7 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 | Universal Print | ✅ E2E Validated | ListRecentShares (returned 0 shares via sdk-test-gateway-prod) |
 | Microsoft Defender ATP | ✅ E2E Validated | GetAlerts (reached Defender API via sdk-test-gateway-prod; 403 = tenant permissions) |
 | Dataverse (commondataservice) | ✅ E2E Validated | GetDataSets, GetTables, GetItems, GetItem, PostItem, PatchItem, DeleteItem, CreateAttachment (binary note content; record cleanup verified), GetNextPage |
+| Power Query Dataflows | 🔄 SDK Generated | RefreshDataflowAsync; workspace and dataflow discovery (trigger: OnRefreshComplete) |
 | Campfire | 🔄 SDK Generated | ListAccounts, ListRooms, CreateMessage (trigger: OnNewRoom) |
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | CloudConvert | 🔄 SDK Generated | ConvertFile, OptimizeFile, CaptureWebsite, MergeFiles; five dynamic-options discovery helpers |
@@ -290,6 +296,47 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 | WordPress | 🔄 SDK Generated | SiteStats, Get, Create, ListSites |
 | Yammer (Viva Engage) | ✅ E2E Validated | GetNetworks (returned 2 networks via sdk-test-gateway-prod) |
 | Zendesk | 🔄 SDK Generated | PostItem, DeleteItem, PatchItem, SearchArticles |
+
+### Azure DevOps and Dataflows
+
+Use `VisualStudioTeamServicesClient` from `Azure.Connectors.Sdk.VisualStudioTeamServices`
+for Azure DevOps (connector API ID `visualstudioteamservices`), and `DataflowsClient`
+from `Azure.Connectors.Sdk.Dataflows` for Power Query Dataflows (connector API ID
+`dataflows`). Models and model factories live in each connector's `.Models` namespace.
+Both clients accept a connection runtime URL, an Azure `TokenCredential`, and
+`ConnectorClientOptions`, like the other SDK clients.
+
+These clients have mocked HTTP and serialization tests, not live connection
+validation. Triggers use Connector Namespace registration rather than ordinary
+action calls. Azure DevOps provides typed callback classes and a trigger registry;
+Dataflows callbacks can be read as `TriggerCallbackPayload<RefreshModel>`, with
+`DataflowsTriggerOperations` and `DataflowsTriggerParameters` for registration.
+Azure DevOps search fields preserve scalar and structured JSON values, and
+pull-request callbacks bind boolean truncation flags and string merge strategies.
+`GetWorkItemDetailsAsync` uses the production route; the explicitly Preview
+replacement is not exposed.
+See [Connector triggers](docs/triggers.md) and
+[generation provenance](GENERATION.md#2026-10-27-azure-devops-and-dataflows).
+
+### DataFlows SMS and ServiceNow
+
+Use `DataflowsSmsClient` from `Azure.Connectors.Sdk.DataflowsSms` for DataFlows SMS
+(`dataflowssms`), not `DataflowsClient`, which is the separate Power Query connector.
+Use `ServiceNowClient` from `Azure.Connectors.Sdk.ServiceNow` for ServiceNow
+(`service-now`). Models and model factories live in each connector's `.Models`
+namespace. Both clients follow the existing connection runtime URL and
+`TokenCredential` constructors.
+
+ServiceNow record fields are supplied through `RecordBody.AdditionalProperties`.
+Attachment-list and attachment-metadata responses preserve their full JSON body
+in `AdditionalProperties`; `RetrieveAttachmentContentAsync` returns raw `byte[]`.
+`UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
+the multipart attachment-upload operation is not generated. DataFlows SMS trigger
+registration uses `DataflowsSmsTriggerOperations.OnRegisterWebhook`.
+Sending SMS uses the POST action only; the GET send alternative is excluded
+because automatic retries could duplicate messages and charges.
+These additions have mocked HTTP and serialization coverage, not live connection
+validation. See [generation provenance](GENERATION.md#2026-10-27-dataflows-sms-and-servicenow).
 
 ## Related Projects
 
