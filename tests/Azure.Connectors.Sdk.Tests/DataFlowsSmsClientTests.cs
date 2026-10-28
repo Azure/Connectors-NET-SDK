@@ -8,8 +8,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Dataflowssms;
-using Azure.Connectors.Sdk.Dataflowssms.Models;
+using Azure.Connectors.Sdk.DataflowsSms;
+using Azure.Connectors.Sdk.DataflowsSms.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +25,7 @@ namespace Azure.Connectors.Sdk.Tests
         [Owner("daviburg")]
         public void Constructor_WithValidUrl_CreatesClient()
         {
-            using var client = new DataflowssmsClient("https://example.test/connection");
+            using var client = new DataflowsSmsClient("https://example.test/connection");
             Assert.IsNotNull(client);
         }
 
@@ -33,21 +33,21 @@ namespace Azure.Connectors.Sdk.Tests
         [Owner("daviburg")]
         public void Constructor_WithNullUrl_ThrowsArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new DataflowssmsClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new DataflowsSmsClient((string)null!));
         }
 
         [TestMethod]
         [Owner("daviburg")]
         public void Dispose_CalledTwice_DoesNotThrow()
         {
-            var client = new DataflowssmsClient("https://example.test/connection");
+            var client = new DataflowsSmsClient("https://example.test/connection");
             client.Dispose();
             client.Dispose();
         }
 
         [TestMethod]
         [Owner("daviburg")]
-        public async Task SendSMSAsync_WithTypedInput_SendsSwaggerBodyAndReadsResponse()
+        public async Task SendSmsAsync_WithTypedInput_SendsSwaggerBodyAndReadsResponse()
         {
             var requestCount = 0;
             using var client = CreateMockedClient(async (request, cancellationToken) =>
@@ -75,15 +75,13 @@ namespace Azure.Connectors.Sdk.Tests
             });
 
             var response = await client
-                .SendSMSAsync(new SendSMSInput
-                {
-                    Recipient = "15555550123",
-                    SenderId = "Example",
-                    Message = "Hello",
-                    Type = "plain",
-                    ScheduleTime = new DateTime(2026, 12, 1, 9, 0, 0, DateTimeKind.Utc),
-                    DltTemplateId = "template-123"
-                })
+                .SendSmsAsync(DataflowsSmsModelFactory.SendSmsInput(
+                    recipient: "15555550123",
+                    senderId: "Example",
+                    message: "Hello",
+                    type: "plain",
+                    scheduleTime: new DateTime(2026, 12, 1, 9, 0, 0, DateTimeKind.Utc),
+                    dltTemplateId: "template-123"))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(expected: 1, actual: requestCount);
@@ -94,7 +92,7 @@ namespace Azure.Connectors.Sdk.Tests
 
         [TestMethod]
         [Owner("daviburg")]
-        public async Task ListSMSAsync_WithPaging_UsesPageAndLimitQueryParameters()
+        public async Task ListSmsAsync_WithPaging_UsesPageAndLimitQueryParameters()
         {
             var requestCount = 0;
             using var client = CreateMockedClient((request, cancellationToken) =>
@@ -110,7 +108,7 @@ namespace Azure.Connectors.Sdk.Tests
             });
 
             var response = await client
-                .ListSMSAsync(pageNumber: 2, pageSize: 25)
+                .ListSmsAsync(pageNumber: 2, pageSize: 25)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(expected: 1, actual: requestCount);
@@ -121,7 +119,7 @@ namespace Azure.Connectors.Sdk.Tests
         [DataRow(false)]
         [DataRow(true)]
         [Owner("swapnilnagar")]
-        public async Task SendSMSAsync_AmbiguousFailure_DoesNotRetryByDefault(bool transportFailure)
+        public async Task SendSmsAsync_AmbiguousFailure_DoesNotRetryByDefault(bool transportFailure)
         {
             var attempts = 0;
             using var client = CreateMockedClient(
@@ -144,18 +142,19 @@ namespace Azure.Connectors.Sdk.Tests
             if (transportFailure)
             {
                 await Assert.ThrowsExactlyAsync<global::Azure.RequestFailedException>(
-                    () => client.SendSMSAsync(new SendSMSInput { Recipient = "15555550123", Message = "Hello" }))
+                    () => client.SendSmsAsync(new SendSmsInput { Recipient = "15555550123", Message = "Hello" }))
                     .ConfigureAwait(continueOnCapturedContext: false);
             }
             else
             {
                 await Assert.ThrowsExactlyAsync<ConnectorException>(
-                    () => client.SendSMSAsync(new SendSMSInput { Recipient = "15555550123", Message = "Hello" }))
+                    () => client.SendSmsAsync(new SendSmsInput { Recipient = "15555550123", Message = "Hello" }))
                     .ConfigureAwait(continueOnCapturedContext: false);
             }
 
             Assert.AreEqual(expected: 1, actual: attempts);
-            Assert.IsNull(typeof(DataflowssmsClient).GetMethod("SendSMSGetAsync"));
+            Assert.IsNull(typeof(DataflowsSmsClient).GetMethod("SendSMSGetAsync"));
+            Assert.IsNull(typeof(DataflowsSmsClient).GetMethod("SendSmsGetAsync"));
         }
 
         [TestMethod]
@@ -178,18 +177,18 @@ namespace Azure.Connectors.Sdk.Tests
 
         [TestMethod]
         [Owner("daviburg")]
-        public void SMSResponse_WithUnknownStatus_PreservesWireValue()
+        public void SmsResponse_WithUnknownStatus_PreservesWireValue()
         {
             const string responseJson = "{\"status\":\"queued\",\"message\":\"Scheduled\",\"data\":{\"uid\":\"message-123\"}}";
-            var response = JsonSerializer.Deserialize<SMSResponse>(responseJson)!;
-            var roundTrip = JsonSerializer.Deserialize<SMSResponse>(JsonSerializer.Serialize(response))!;
+            var response = JsonSerializer.Deserialize<SmsResponse>(responseJson)!;
+            var roundTrip = JsonSerializer.Deserialize<SmsResponse>(JsonSerializer.Serialize(response))!;
 
             Assert.AreEqual(expected: "queued", actual: roundTrip.Status!.Value.ToString());
             Assert.AreEqual(expected: "Scheduled", actual: roundTrip.Message);
             Assert.AreEqual(expected: "message-123", actual: roundTrip.Data!.Value.GetProperty("uid").GetString());
         }
 
-        private static DataflowssmsClient CreateMockedClient(
+        private static DataflowsSmsClient CreateMockedClient(
             Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendAsync,
             int maxRetries = 0)
         {
@@ -205,7 +204,7 @@ namespace Azure.Connectors.Sdk.Tests
                 Transport = new HttpClientTransport(new HttpClient(handler.Object))
             };
             options.Retry.MaxRetries = maxRetries;
-            return new DataflowssmsClient(
+            return new DataflowsSmsClient(
                 connectionRuntimeUrl: new Uri("https://example.test/connection"),
                 credential: credential.Object,
                 options: options);

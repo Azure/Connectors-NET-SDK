@@ -197,7 +197,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
 | Azure DevOps (VSTS) | 🔄 SDK Generated | ListProjectsAsync, QueueNewBuildAsync, GetBuildAsync, CreateWorkItemAsync, GetQueryResultsAsync (pageable; trigger: OnBuildCompleted) |
-| [DataFlows SMS](https://learn.microsoft.com/connectors/dataflowssms/) | 🔄 SDK Generated | SendSMSAsync, GetSMSAsync, ListSMSAsync, GetProfileAsync, GetBalanceAsync |
+| [DataFlows SMS](https://learn.microsoft.com/connectors/dataflowssms/) | 🔄 SDK Generated | SendSmsAsync, GetSmsAsync, ListSmsAsync, GetProfileAsync, GetBalanceAsync |
 | [ServiceNow](https://learn.microsoft.com/connectors/service-now/) | 🔄 SDK Generated | GetRecordsAsync, CreateRecordAsync, GetRecordAsync, UpdateRecordAsync, UploadAttachmentFileAsync |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryData, QuerySchema |
@@ -299,7 +299,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 
 ### Azure DevOps and Dataflows
 
-Use `VisualstudioteamservicesClient` from `Azure.Connectors.Sdk.Visualstudioteamservices`
+Use `VisualStudioTeamServicesClient` from `Azure.Connectors.Sdk.VisualStudioTeamServices`
 for Azure DevOps (connector API ID `visualstudioteamservices`), and `DataflowsClient`
 from `Azure.Connectors.Sdk.Dataflows` for Power Query Dataflows (connector API ID
 `dataflows`). Models and model factories live in each connector's `.Models` namespace.
@@ -320,7 +320,7 @@ See [Connector triggers](docs/triggers.md) and
 
 ### DataFlows SMS and ServiceNow
 
-Use `DataflowssmsClient` from `Azure.Connectors.Sdk.Dataflowssms` for DataFlows SMS
+Use `DataflowsSmsClient` from `Azure.Connectors.Sdk.DataflowsSms` for DataFlows SMS
 (`dataflowssms`), not `DataflowsClient`, which is the separate Power Query connector.
 Use `ServiceNowClient` from `Azure.Connectors.Sdk.ServiceNow` for ServiceNow
 (`service-now`). Models and model factories live in each connector's `.Models`
@@ -332,7 +332,7 @@ Attachment-list and attachment-metadata responses preserve their full JSON body
 in `AdditionalProperties`; `RetrieveAttachmentContentAsync` returns raw `byte[]`.
 `UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
 the multipart attachment-upload operation is not generated. DataFlows SMS trigger
-registration uses `DataflowssmsTriggerOperations.OnRegisterWebhook`.
+registration uses `DataflowsSmsTriggerOperations.OnRegisterWebhook`.
 Sending SMS uses the POST action only; the GET send alternative is excluded
 because automatic retries could duplicate messages and charges.
 These additions have mocked HTTP and serialization coverage, not live connection

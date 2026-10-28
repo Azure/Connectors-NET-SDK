@@ -11,8 +11,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Visualstudioteamservices;
-using Azure.Connectors.Sdk.Visualstudioteamservices.Models;
+using Azure.Connectors.Sdk.VisualStudioTeamServices;
+using Azure.Connectors.Sdk.VisualStudioTeamServices.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -21,8 +21,32 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     [TestCategory("CheckInTests")]
     [ExcludeFromCodeCoverage]
-    public class VisualstudioteamservicesClientTests
+    public class VisualStudioTeamServicesClientTests
     {
+        [TestMethod]
+        [Owner("swapnilnagar")]
+        public void ModelFactory_UrlAndUriProperties_RoundTripOriginalWireKeys()
+        {
+            const string address = "https://dev.azure.com/example/resource";
+            var workItem = VisualStudioTeamServicesModelFactory.WorkItemResult(url: address);
+            var account = VisualStudioTeamServicesModelFactory.Account(accountUri: address);
+            var member = VisualStudioTeamServicesModelFactory.TeamMember(memberUri: address, imageUri: address);
+
+            var workItemJson = JsonSerializer.SerializeToElement(workItem);
+            var accountJson = JsonSerializer.SerializeToElement(account);
+            var memberJson = JsonSerializer.SerializeToElement(member);
+
+            Assert.AreEqual(expected: address, actual: workItemJson.GetProperty("url").GetString());
+            Assert.AreEqual(expected: address, actual: accountJson.GetProperty("accountUri").GetString());
+            Assert.AreEqual(expected: address, actual: memberJson.GetProperty("url").GetString());
+            Assert.AreEqual(expected: address, actual: memberJson.GetProperty("imageUrl").GetString());
+            Assert.AreEqual(expected: address, actual: JsonSerializer.Deserialize<WorkItemResult>(workItemJson)!.Url);
+            Assert.AreEqual(expected: address, actual: JsonSerializer.Deserialize<Account>(accountJson)!.AccountUri);
+            var roundTripMember = JsonSerializer.Deserialize<TeamMember>(memberJson)!;
+            Assert.AreEqual(expected: address, actual: roundTripMember.MemberUri);
+            Assert.AreEqual(expected: address, actual: roundTripMember.ImageUri);
+        }
+
         [TestMethod]
         [DataRow("[]", 0)]
         [DataRow("[{\"id\":\"project-1\",\"name\":\"SDK\",\"url\":\"https://dev.azure.com/example/project-1\"}]", 1)]
@@ -34,7 +58,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     Content = new StringContent($"{{\"value\":{values}}}"),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -71,7 +95,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     Content = new StringContent(responses.Dequeue()),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -116,7 +140,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     Content = new StringContent("""{"id":42,"buildNumber":"20261027.1","status":"notStarted","sourceBranch":"refs/heads/main"}"""),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -158,7 +182,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     Content = new StringContent("""{"id":42}"""),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -188,7 +212,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     Content = new StringContent("""{"error":{"code":"Unauthorized","message":"Authorization is required."}}"""),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -207,15 +231,15 @@ namespace Azure.Connectors.Sdk.Tests
         [Owner("swapnilnagar")]
         public void OnBuildCompleted_Callback_DeserializesSingleAndBatchPayloads(string json)
         {
-            var callback = JsonSerializer.Deserialize<VisualstudioteamservicesOnBuildCompletedTriggerPayload>(json);
+            var callback = JsonSerializer.Deserialize<VisualStudioTeamServicesOnBuildCompletedTriggerPayload>(json);
 
             var build = callback!.Body!.Value!.Single();
             Assert.AreEqual(expected: 42, actual: build.BuildId);
             Assert.AreEqual(expected: "succeeded", actual: build.Result);
             Assert.AreEqual(
-                expected: typeof(VisualstudioteamservicesOnBuildCompletedTriggerPayload),
-                actual: VisualstudioteamservicesTriggers.Operations[VisualstudioteamservicesTriggerOperations.OnBuildCompleted]);
-            Assert.IsNull(typeof(VisualstudioteamservicesClient).GetMethod("OnBuildCompletedAsync"));
+                expected: typeof(VisualStudioTeamServicesOnBuildCompletedTriggerPayload),
+                actual: VisualStudioTeamServicesTriggers.Operations[VisualStudioTeamServicesTriggerOperations.OnBuildCompleted]);
+            Assert.IsNull(typeof(VisualStudioTeamServicesClient).GetMethod("OnBuildCompletedAsync"));
         }
 
         [TestMethod]
@@ -229,7 +253,7 @@ namespace Azure.Connectors.Sdk.Tests
                         {"count":1,"results":[{"fields":{"system.id":"2","system.title":"Rest Api User Story","custom.number":3,"custom.flag":true,"custom.owner":{"name":"SDK"},"custom.empty":null}}]}
                         """),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -263,12 +287,12 @@ namespace Azure.Connectors.Sdk.Tests
                     completionOptions = new { mergeStrategy = strategy },
                 },
             });
-            var callback = JsonSerializer.Deserialize<VisualstudioteamservicesOnGitPullClosedTriggerPayload>(json);
+            var callback = JsonSerializer.Deserialize<VisualStudioTeamServicesOnGitPullClosedTriggerPayload>(json);
             var pullRequest = callback!.Body!.Value!.Single();
 
             Assert.AreEqual(expected: truncated, actual: pullRequest.Commits.Single().CommitCommentTruncated);
             Assert.AreEqual(expected: strategy, actual: pullRequest.CompletionOptions.MergeStrategy);
-            var roundTrip = JsonSerializer.Deserialize<VisualstudioteamservicesOnGitPullClosedTriggerPayload>(JsonSerializer.Serialize(callback))!;
+            var roundTrip = JsonSerializer.Deserialize<VisualStudioTeamServicesOnGitPullClosedTriggerPayload>(JsonSerializer.Serialize(callback))!;
             Assert.AreEqual(expected: strategy, actual: roundTrip.Body!.Value!.Single().CompletionOptions.MergeStrategy);
         }
 
@@ -281,7 +305,7 @@ namespace Azure.Connectors.Sdk.Tests
                 {
                     Content = new StringContent("""{"id":42,"fields":{"System_Id":42,"System_Title":"Production work item"}}"""),
                 });
-            using var client = new VisualstudioteamservicesClient(
+            using var client = new VisualStudioTeamServicesClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: setup.Credential,
                 options: setup.Options);
@@ -294,15 +318,15 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.AreEqual(expected: 42, actual: response.Fields!.Value.GetProperty("System_Id").GetInt32());
             Assert.AreEqual(expected: "/connection/_apis/wit/workitems/42", actual: setup.GetLastRequest()!.RequestUri!.AbsolutePath);
-            Assert.IsNull(typeof(VisualstudioteamservicesClient).GetMethod("GetWorkItemDetailsV2Async"));
+            Assert.IsNull(typeof(VisualStudioTeamServicesClient).GetMethod("GetWorkItemDetailsV2Async"));
         }
 
         [TestMethod]
         [Owner("swapnilnagar")]
         public async Task MockConstructor_VirtualOperation_ReturnsFactoryModel()
         {
-            var build = VisualstudioteamservicesModelFactory.BuildResult(buildId: 42);
-            var client = new Mock<VisualstudioteamservicesClient>();
+            var build = VisualStudioTeamServicesModelFactory.BuildResult(buildId: 42);
+            var client = new Mock<VisualStudioTeamServicesClient>();
             client.Setup(instance => instance.GetBuildAsync("SDK", 42, "example", CancellationToken.None))
                 .ReturnsAsync(build);
 
