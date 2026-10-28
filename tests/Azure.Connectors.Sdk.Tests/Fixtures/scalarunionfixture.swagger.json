@@ -1,0 +1,41 @@
+{
+  "swagger": "2.0",
+  "info": { "title": "Scalar union fixture", "version": "1.0" },
+  "host": "example.invalid", "basePath": "/", "schemes": ["https"],
+  "paths": {
+    "/maps": {
+      "get": {
+        "operationId": "GetMaps", "summary": "Get maps",
+        "responses": { "200": { "description": "OK", "schema": { "$ref": "#/definitions/Envelope" } } }
+      },
+      "post": {
+        "operationId": "UpdateMaps", "summary": "Update maps",
+        "parameters": [{ "name": "body", "in": "body", "required": true, "schema": { "$ref": "#/definitions/Envelope" } }],
+        "responses": { "200": { "description": "OK", "schema": { "$ref": "#/definitions/Envelope" } } }
+      }
+    }
+  },
+  "definitions": {
+    "Envelope": {
+      "type": "object",
+      "required": ["scalar-map", "nullableMap"],
+      "properties": {
+        "scalar-map": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean"] } },
+        "scalar_map": { "type": "object", "additionalProperties": { "anyOf": [{ "type": "string" }, { "type": "integer" }, { "type": "boolean" }] } },
+        "oneOfMap": { "type": "object", "additionalProperties": { "oneOf": [{ "$ref": "#/definitions/Text" }, { "type": "number" }, { "type": "boolean" }] } },
+        "nullableMap": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean", "null"] } },
+        "nullableAnyOf": { "type": "object", "additionalProperties": { "anyOf": [{ "type": "string" }, { "type": "null" }] } },
+        "nullableOneOf": { "type": "object", "additionalProperties": { "oneOf": [{ "type": "boolean" }, { "type": "null" }] } },
+        "numericMap": { "type": "object", "additionalProperties": { "anyOf": [{ "type": "integer" }, { "type": "number" }] } },
+        "implicitMap": { "additionalProperties": { "type": ["string", "boolean"] } },
+        "arrayMap": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": ["string", "boolean"] } } },
+        "structuredMap": { "type": "object", "additionalProperties": { "$ref": "#/definitions/StructuredValue" } },
+        "structuredArray": { "type": "array", "items": { "$ref": "#/definitions/StructuredValue" } },
+        "emptyObject": { "type": "object" },
+        "emptyMap": { "type": "object", "additionalProperties": {} }
+      }
+    },
+    "Text": { "type": "string" },
+    "StructuredValue": { "type": "object", "required": ["wire-name"], "properties": { "wire-name": { "type": "string" } } }
+  }
+}
