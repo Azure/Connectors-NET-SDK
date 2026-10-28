@@ -18,7 +18,9 @@ The SDK pull request records the pinned generator revision, output hash, live
 refresh scope, and its upstream merge gate.
 
 `ScalarUnionContractTests` exercises the generated request through the real SDK's
-injected HTTP transport and deserializes its response. It also checks object,
+injected HTTP transport and deserializes its response. The POST request includes
+both schema-required maps and asserts that a declared null map entry stays in the
+captured JSON. It also checks object,
 array, undeclared-null, fractional-integer, and default-value rejection. The
 paired generator tests compile positive consumers and verify that structured
 assignments fail compilation. Open SQL and Fin & Ops maps are separate controls:

@@ -37,6 +37,11 @@ namespace Azure.Connectors.Sdk.Tests
                     ["number"] = 1.5,
                     ["boolean"] = true,
                 },
+                NullableMap = new Dictionary<string, ScalarStringNumberBooleanNullValue>
+                {
+                    ["nil"] = ScalarStringNumberBooleanNullValue.FromJsonElement(
+                        value: JsonSerializer.SerializeToElement<string?>(value: null)),
+                },
             };
 
             var response = await client.UpdateMapsAsync(input)
@@ -49,6 +54,9 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: JsonValueKind.Number, actual: sent.GetProperty("integer").ValueKind);
             Assert.AreEqual(expected: 1.5, actual: sent.GetProperty("number").GetDouble());
             Assert.AreEqual(expected: JsonValueKind.True, actual: sent.GetProperty("boolean").ValueKind);
+            Assert.AreEqual(
+                expected: JsonValueKind.Null,
+                actual: request.RootElement.GetProperty("nullableMap").GetProperty("nil").ValueKind);
             Assert.AreEqual(expected: "sample", actual: response.ScalarMap["text"].Value.GetString());
             Assert.AreEqual(expected: 1, actual: response.ScalarMap["integer"].Value.GetInt32());
             Assert.AreEqual(expected: 1.5, actual: response.ScalarMap["number"].Value.GetDouble());
