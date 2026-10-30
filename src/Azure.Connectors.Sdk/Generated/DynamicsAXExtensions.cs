@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.DynamicsAX.Models;
 using Azure.Core;
@@ -96,11 +97,15 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
     /// <summary>
     /// List of Items
     /// </summary>
-    public class ItemsList
+    public class ItemsList : IPageable<Item>
     {
         /// <summary>List of Items</summary>
         [JsonPropertyName("value")]
         public List<Item> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -532,11 +537,13 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// Creates a new instance of <see cref="ItemsList"/>.
         /// </summary>
         public static ItemsList ItemsList(
-            List<Item> value = default)
+            List<Item> value = default,
+            string nextLink = default)
         {
             return new ItemsList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1034,42 +1041,33 @@ namespace Azure.Connectors.Sdk.DynamicsAX
         /// <param name="selectQuery">Select Query</param>
         /// <param name="crossCompany">Cross Company</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Lists items present in table response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, bool? crossCompany = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsAsync([DynamicValues("GetDataSets")] string instance, [DynamicValues("GetTables")] string entityName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, bool? crossCompany = default, CancellationToken cancellationToken = default)
         {
-            using var activity = DynamicsAXClient.ConnectorActivitySource.StartActivity("DynamicsAXClient.GetItemsAsync");
-            try
-            {
-                if (instance is null)
-                    throw new ArgumentNullException(nameof(instance));
-                if (entityName is null)
-                    throw new ArgumentNullException(nameof(entityName));
-                var queryParams = new List<string>();
-                if (aggregationTransformation != default)
-                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                if (crossCompany.HasValue)
-                    queryParams.Add($"cross-company={Uri.EscapeDataString(Convert.ToString(crossCompany.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (instance is null)
+                throw new ArgumentNullException(nameof(instance));
+            if (entityName is null)
+                throw new ArgumentNullException(nameof(entityName));
+            var queryParams = new List<string>();
+            if (aggregationTransformation != default)
+                queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            if (crossCompany.HasValue)
+                queryParams.Add($"cross-company={Uri.EscapeDataString(Convert.ToString(crossCompany.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(instance))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(entityName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>

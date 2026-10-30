@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Shifts.Models;
 using Azure.Core;
@@ -55,7 +56,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Time Off instances in a team
     /// </summary>
-    public class ListTimesOffResponse
+    public class ListTimesOffResponse : IPageable<TimeOffResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -63,7 +64,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Time Off instances</summary>
         [JsonPropertyName("value")]
-        public List<TimeOffResponse> TimeOffInstancesList { get; set; }
+        public List<TimeOffResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -181,7 +186,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Shifts in a team
     /// </summary>
-    public class ListShiftsResponse
+    public class ListShiftsResponse : IPageable<ShiftResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -189,7 +194,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Shifts</summary>
         [JsonPropertyName("value")]
-        public List<ShiftResponse> ShiftsList { get; set; }
+        public List<ShiftResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -321,7 +330,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Open Shifts in a team
     /// </summary>
-    public class ListOpenShiftsResponse
+    public class ListOpenShiftsResponse : IPageable<OpenShiftResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -329,7 +338,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Open Shifts</summary>
         [JsonPropertyName("value")]
-        public List<OpenShiftResponse> OpenShiftsList { get; set; }
+        public List<OpenShiftResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -443,7 +456,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// The list of Time Off Reasons.
     /// </summary>
-    public class GetTimeOffReasonsResponse
+    public class GetTimeOffReasonsResponse : IPageable<JsonElement?>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -451,13 +464,17 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>The list of Time Off Reasons.</summary>
         [JsonPropertyName("value")]
-        public List<JsonElement?> ArrayContainingTimeOffReasons { get; set; }
+        public List<JsonElement?> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
     /// Response for List all Scheduling Groups in a team
     /// </summary>
-    public class ListSchedulingGroupsResponse
+    public class ListSchedulingGroupsResponse : IPageable<SchedulingGroupResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -465,7 +482,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Scheduling Groups.</summary>
         [JsonPropertyName("value")]
-        public List<SchedulingGroupResponse> SchedulingGroupsList { get; set; }
+        public List<SchedulingGroupResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -493,7 +514,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Time Off requests in a team
     /// </summary>
-    public class ListTimeOffRequestsResponse
+    public class ListTimeOffRequestsResponse : IPageable<TimeOffRequestResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -501,7 +522,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Time Off requests.</summary>
         [JsonPropertyName("value")]
-        public List<TimeOffRequestResponse> TimeOffRequestsList { get; set; }
+        public List<TimeOffRequestResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -614,7 +639,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Offer Shift requests in a team
     /// </summary>
-    public class ListOfferShiftRequestsResponse
+    public class ListOfferShiftRequestsResponse : IPageable<OfferShiftRequestResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -622,7 +647,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Offer Shift requests.</summary>
         [JsonPropertyName("value")]
-        public List<OfferShiftRequestResponse> OfferShiftRequestsList { get; set; }
+        public List<OfferShiftRequestResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -739,7 +768,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Swap Shifts requests in a team
     /// </summary>
-    public class ListSwapShiftsChangeRequestsResponse
+    public class ListSwapShiftsChangeRequestsResponse : IPageable<SwapShiftsChangeRequestResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -747,7 +776,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Swap Shifts Change Requests.</summary>
         [JsonPropertyName("value")]
-        public List<SwapShiftsChangeRequestResponse> SwapShiftsChangeRequestsList { get; set; }
+        public List<SwapShiftsChangeRequestResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -868,7 +901,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Open Shift requests in a team
     /// </summary>
-    public class ListOpenShiftChangeRequestsResponse
+    public class ListOpenShiftChangeRequestsResponse : IPageable<OpenShiftChangeRequestResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -876,7 +909,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Open Shift Change Requests.</summary>
         [JsonPropertyName("value")]
-        public List<OpenShiftChangeRequestResponse> OpenShiftChangeRequestsList { get; set; }
+        public List<OpenShiftChangeRequestResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -981,7 +1018,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     /// <summary>
     /// Response for List all Open Shifts from my teams
     /// </summary>
-    public class ListOpenShiftsCrossTeamResponse
+    public class ListOpenShiftsCrossTeamResponse : IPageable<OpenShiftResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -989,13 +1026,17 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Open Shifts</summary>
         [JsonPropertyName("value")]
-        public List<OpenShiftResponse> OpenShiftsList { get; set; }
+        public List<OpenShiftResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
     /// Response for List all Shifts from my teams
     /// </summary>
-    public class ListShiftsCrossTeamResponse
+    public class ListShiftsCrossTeamResponse : IPageable<ShiftResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -1003,13 +1044,17 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Shifts</summary>
         [JsonPropertyName("value")]
-        public List<ShiftResponse> ShiftsList { get; set; }
+        public List<ShiftResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
     /// Response for List all Times Off from my teams
     /// </summary>
-    public class ListTimesOffCrossTeamResponse
+    public class ListTimesOffCrossTeamResponse : IPageable<TimeOffResponse>
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -1017,7 +1062,11 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of Times off</summary>
         [JsonPropertyName("value")]
-        public List<TimeOffResponse> TimesOffList { get; set; }
+        public List<TimeOffResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -1230,12 +1279,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListTimesOffResponse ListTimesOffResponse(
             string context = default,
-            List<TimeOffResponse> timeOffInstancesList = default)
+            List<TimeOffResponse> value = default,
+            string nextLink = default)
         {
             return new ListTimesOffResponse
             {
                 Context = context,
-                TimeOffInstancesList = timeOffInstancesList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1334,12 +1385,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListShiftsResponse ListShiftsResponse(
             string context = default,
-            List<ShiftResponse> shiftsList = default)
+            List<ShiftResponse> value = default,
+            string nextLink = default)
         {
             return new ListShiftsResponse
             {
                 Context = context,
-                ShiftsList = shiftsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1438,12 +1491,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListOpenShiftsResponse ListOpenShiftsResponse(
             string context = default,
-            List<OpenShiftResponse> openShiftsList = default)
+            List<OpenShiftResponse> value = default,
+            string nextLink = default)
         {
             return new ListOpenShiftsResponse
             {
                 Context = context,
-                OpenShiftsList = openShiftsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1526,12 +1581,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static GetTimeOffReasonsResponse GetTimeOffReasonsResponse(
             string context = default,
-            List<JsonElement?> arrayContainingTimeOffReasons = default)
+            List<JsonElement?> value = default,
+            string nextLink = default)
         {
             return new GetTimeOffReasonsResponse
             {
                 Context = context,
-                ArrayContainingTimeOffReasons = arrayContainingTimeOffReasons,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1540,12 +1597,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListSchedulingGroupsResponse ListSchedulingGroupsResponse(
             string context = default,
-            List<SchedulingGroupResponse> schedulingGroupsList = default)
+            List<SchedulingGroupResponse> value = default,
+            string nextLink = default)
         {
             return new ListSchedulingGroupsResponse
             {
                 Context = context,
-                SchedulingGroupsList = schedulingGroupsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1572,12 +1631,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListTimeOffRequestsResponse ListTimeOffRequestsResponse(
             string context = default,
-            List<TimeOffRequestResponse> timeOffRequestsList = default)
+            List<TimeOffRequestResponse> value = default,
+            string nextLink = default)
         {
             return new ListTimeOffRequestsResponse
             {
                 Context = context,
-                TimeOffRequestsList = timeOffRequestsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1648,12 +1709,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListOfferShiftRequestsResponse ListOfferShiftRequestsResponse(
             string context = default,
-            List<OfferShiftRequestResponse> offerShiftRequestsList = default)
+            List<OfferShiftRequestResponse> value = default,
+            string nextLink = default)
         {
             return new ListOfferShiftRequestsResponse
             {
                 Context = context,
-                OfferShiftRequestsList = offerShiftRequestsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1726,12 +1789,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListSwapShiftsChangeRequestsResponse ListSwapShiftsChangeRequestsResponse(
             string context = default,
-            List<SwapShiftsChangeRequestResponse> swapShiftsChangeRequestsList = default)
+            List<SwapShiftsChangeRequestResponse> value = default,
+            string nextLink = default)
         {
             return new ListSwapShiftsChangeRequestsResponse
             {
                 Context = context,
-                SwapShiftsChangeRequestsList = swapShiftsChangeRequestsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1806,12 +1871,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListOpenShiftChangeRequestsResponse ListOpenShiftChangeRequestsResponse(
             string context = default,
-            List<OpenShiftChangeRequestResponse> openShiftChangeRequestsList = default)
+            List<OpenShiftChangeRequestResponse> value = default,
+            string nextLink = default)
         {
             return new ListOpenShiftChangeRequestsResponse
             {
                 Context = context,
-                OpenShiftChangeRequestsList = openShiftChangeRequestsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1878,12 +1945,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListOpenShiftsCrossTeamResponse ListOpenShiftsCrossTeamResponse(
             string context = default,
-            List<OpenShiftResponse> openShiftsList = default)
+            List<OpenShiftResponse> value = default,
+            string nextLink = default)
         {
             return new ListOpenShiftsCrossTeamResponse
             {
                 Context = context,
-                OpenShiftsList = openShiftsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1892,12 +1961,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListShiftsCrossTeamResponse ListShiftsCrossTeamResponse(
             string context = default,
-            List<ShiftResponse> shiftsList = default)
+            List<ShiftResponse> value = default,
+            string nextLink = default)
         {
             return new ListShiftsCrossTeamResponse
             {
                 Context = context,
-                ShiftsList = shiftsList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1906,12 +1977,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         /// </summary>
         public static ListTimesOffCrossTeamResponse ListTimesOffCrossTeamResponse(
             string context = default,
-            List<TimeOffResponse> timesOffList = default)
+            List<TimeOffResponse> value = default,
+            string nextLink = default)
         {
             return new ListTimesOffCrossTeamResponse
             {
                 Context = context,
-                TimesOffList = timesOffList,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -2336,32 +2409,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="toEndTime">To End Time</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Time Off instances in a team response.</returns>
-        public virtual async Task<ListTimesOffResponse> ListTimesOffAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="TimeOffResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<TimeOffResponse> ListTimesOffAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimesOffAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
-                if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/timesoff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListTimesOffResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (fromStartTime != default)
+                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
+            if (toEndTime != default)
+                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/timesoff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListTimesOffResponse, TimeOffResponse>(
+                ct => this.CallConnectorAsync<ListTimesOffResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListTimesOffResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2460,32 +2524,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="toEndTime">To End Time</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Shifts in a team response.</returns>
-        public virtual async Task<ListShiftsResponse> ListShiftsAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="ShiftResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<ShiftResponse> ListShiftsAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListShiftsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
-                if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/shifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (fromStartTime != default)
+                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
+            if (toEndTime != default)
+                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/shifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListShiftsResponse, ShiftResponse>(
+                ct => this.CallConnectorAsync<ListShiftsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListShiftsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2584,32 +2639,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="toEndTime">To End Time</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Open Shifts in a team response.</returns>
-        public virtual async Task<ListOpenShiftsResponse> ListOpenShiftsAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="OpenShiftResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<OpenShiftResponse> ListOpenShiftsAsync([DynamicValues("GetAllTeams")] string team, string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
-                if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/openShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListOpenShiftsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (fromStartTime != default)
+                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
+            if (toEndTime != default)
+                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/openShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListOpenShiftsResponse, OpenShiftResponse>(
+                ct => this.CallConnectorAsync<ListOpenShiftsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListOpenShiftsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2737,28 +2783,19 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="team">Team</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Time Off Reasons in a team response.</returns>
-        public virtual async Task<GetTimeOffReasonsResponse> ListTimeOffReasonsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListTimeOffReasonsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimeOffReasonsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/timeOffReasons" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetTimeOffReasonsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/timeOffReasons" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<GetTimeOffReasonsResponse, JsonElement?>(
+                ct => this.CallConnectorAsync<GetTimeOffReasonsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<GetTimeOffReasonsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2768,28 +2805,19 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="team">Team</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Scheduling Groups in a team response.</returns>
-        public virtual async Task<ListSchedulingGroupsResponse> ListSchedulingGroupsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="SchedulingGroupResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<SchedulingGroupResponse> ListSchedulingGroupsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListSchedulingGroupsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/schedulinggroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListSchedulingGroupsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/schedulinggroups" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListSchedulingGroupsResponse, SchedulingGroupResponse>(
+                ct => this.CallConnectorAsync<ListSchedulingGroupsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListSchedulingGroupsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2830,30 +2858,21 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="pageSize">Page Size</param>
         /// <param name="requestState">Request State</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Time Off requests in a team response.</returns>
-        public virtual async Task<ListTimeOffRequestsResponse> ListTimeOffRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="TimeOffRequestResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<TimeOffRequestResponse> ListTimeOffRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimeOffRequestsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/timeOffRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListTimeOffRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            if (requestState != default)
+                queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/timeOffRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListTimeOffRequestsResponse, TimeOffRequestResponse>(
+                ct => this.CallConnectorAsync<ListTimeOffRequestsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListTimeOffRequestsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2956,30 +2975,21 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="pageSize">Page Size</param>
         /// <param name="requestState">Request State</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Offer Shift requests in a team response.</returns>
-        public virtual async Task<ListOfferShiftRequestsResponse> ListOfferShiftRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="OfferShiftRequestResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<OfferShiftRequestResponse> ListOfferShiftRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOfferShiftRequestsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/offerShiftRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListOfferShiftRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            if (requestState != default)
+                queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/offerShiftRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListOfferShiftRequestsResponse, OfferShiftRequestResponse>(
+                ct => this.CallConnectorAsync<ListOfferShiftRequestsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListOfferShiftRequestsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -3082,30 +3092,21 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="pageSize">Page Size</param>
         /// <param name="requestState">Request State</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Swap Shifts requests in a team response.</returns>
-        public virtual async Task<ListSwapShiftsChangeRequestsResponse> ListSwapShiftsChangeRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="SwapShiftsChangeRequestResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<SwapShiftsChangeRequestResponse> ListSwapShiftsChangeRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListSwapShiftsChangeRequestsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/swapShiftsChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListSwapShiftsChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            if (requestState != default)
+                queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/swapShiftsChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListSwapShiftsChangeRequestsResponse, SwapShiftsChangeRequestResponse>(
+                ct => this.CallConnectorAsync<ListSwapShiftsChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListSwapShiftsChangeRequestsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -3208,30 +3209,21 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="pageSize">Page Size</param>
         /// <param name="requestState">Request State</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Open Shift requests in a team response.</returns>
-        public virtual async Task<ListOpenShiftChangeRequestsResponse> ListOpenShiftChangeRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="OpenShiftChangeRequestResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<OpenShiftChangeRequestResponse> ListOpenShiftChangeRequestsAsync([DynamicValues("GetAllTeams")] string team, int? pageSize = default, string requestState = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftChangeRequestsAsync");
-            try
-            {
-                if (team is null)
-                    throw new ArgumentNullException(nameof(team));
-                var queryParams = new List<string>();
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                if (requestState != default)
-                    queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
-                var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/openShiftChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListOpenShiftChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (team is null)
+                throw new ArgumentNullException(nameof(team));
+            var queryParams = new List<string>();
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            if (requestState != default)
+                queryParams.Add($"state={Uri.EscapeDataString(requestState)}");
+            var path = $"/v1.0/teams/{Uri.EscapeDataString(team)}/schedule/openShiftChangeRequests" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListOpenShiftChangeRequestsResponse, OpenShiftChangeRequestResponse>(
+                ct => this.CallConnectorAsync<ListOpenShiftChangeRequestsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListOpenShiftChangeRequestsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -3334,30 +3326,21 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="toEndTime">To End Time</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Open Shifts from my teams response.</returns>
-        public virtual async Task<ListOpenShiftsCrossTeamResponse> ListOpenShiftsCrossTeamAsync(string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="OpenShiftResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<OpenShiftResponse> ListOpenShiftsCrossTeamAsync(string fromStartTime = default, string toEndTime = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListOpenShiftsCrossTeamAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
-                if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/beta/me/joinedTeams/getOpenShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListOpenShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (fromStartTime != default)
+                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
+            if (toEndTime != default)
+                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/beta/me/joinedTeams/getOpenShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListOpenShiftsCrossTeamResponse, OpenShiftResponse>(
+                ct => this.CallConnectorAsync<ListOpenShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListOpenShiftsCrossTeamResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -3369,32 +3352,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="userDisplayName">User Display Name</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Shifts from my teams response.</returns>
-        public virtual async Task<ListShiftsCrossTeamResponse> ListShiftsCrossTeamAsync(string fromStartTime = default, string toEndTime = default, string userDisplayName = default, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="ShiftResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<ShiftResponse> ListShiftsCrossTeamAsync(string fromStartTime = default, string toEndTime = default, string userDisplayName = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListShiftsCrossTeamAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
-                if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
-                if (userDisplayName != default)
-                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName)}");
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/beta/me/joinedTeams/getShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (fromStartTime != default)
+                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
+            if (toEndTime != default)
+                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
+            if (userDisplayName != default)
+                queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName)}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/beta/me/joinedTeams/getShifts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListShiftsCrossTeamResponse, ShiftResponse>(
+                ct => this.CallConnectorAsync<ListShiftsCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListShiftsCrossTeamResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -3406,32 +3380,23 @@ namespace Azure.Connectors.Sdk.Shifts
         /// <param name="userDisplayName">User Display Name</param>
         /// <param name="pageSize">Page Size</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List all Times Off from my teams response.</returns>
-        public virtual async Task<ListTimesOffCrossTeamResponse> ListTimesOffCrossTeamAsync(string fromStartTime = default, string toEndTime = default, string userDisplayName = default, int? pageSize = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="TimeOffResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<TimeOffResponse> ListTimesOffCrossTeamAsync(string fromStartTime = default, string toEndTime = default, string userDisplayName = default, int? pageSize = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ShiftsClient.ConnectorActivitySource.StartActivity("ShiftsClient.ListTimesOffCrossTeamAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (fromStartTime != default)
-                    queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
-                if (toEndTime != default)
-                    queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
-                if (userDisplayName != default)
-                    queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName)}");
-                if (pageSize.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/beta/me/joinedTeams/getTimesOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (fromStartTime != default)
+                queryParams.Add($"startTime={Uri.EscapeDataString(fromStartTime)}");
+            if (toEndTime != default)
+                queryParams.Add($"endTime={Uri.EscapeDataString(toEndTime)}");
+            if (userDisplayName != default)
+                queryParams.Add($"assignedToUserName={Uri.EscapeDataString(userDisplayName)}");
+            if (pageSize.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(pageSize.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/beta/me/joinedTeams/getTimesOff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ListTimesOffCrossTeamResponse, TimeOffResponse>(
+                ct => this.CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListTimesOffCrossTeamResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>

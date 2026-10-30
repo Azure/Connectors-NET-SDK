@@ -259,6 +259,10 @@ Validation must use techniques that can falsify those contract assertions:
    operation schema, and a nonempty response. Callback tests do not establish an
    action's send contract. The [ClickSend campaign regression](../tests/Azure.Connectors.Sdk.Tests/ClickSendSmsClientTests.cs)
    covers this separately from callback collision round-trips; no live SMS is needed.
+- For pageable operations, test continuation retrieval and resumption through the
+   generated public client. Compatibility reports identify migration work; they
+   do not justify disabling owner-declared paging solely to preserve a single-page
+   return type. Record an intended break and test the correct behavior instead.
 
 When prior generated output exists, regression validation must additionally
 confirm:
