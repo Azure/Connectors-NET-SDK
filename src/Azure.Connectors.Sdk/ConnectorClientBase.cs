@@ -168,7 +168,7 @@ namespace Azure.Connectors.Sdk
             CancellationToken cancellationToken = default)
         {
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;
@@ -232,7 +232,7 @@ namespace Azure.Connectors.Sdk
             ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
 
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;
@@ -279,7 +279,7 @@ namespace Azure.Connectors.Sdk
             CancellationToken cancellationToken = default)
         {
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;
@@ -326,7 +326,7 @@ namespace Azure.Connectors.Sdk
             ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
 
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;

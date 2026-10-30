@@ -61,6 +61,15 @@ It does not replace a caller-supplied retry policy or change the pre-built pipel
 boundary described below. This additional .NET rule does not claim matching
 behavior in other language SDKs.
 
+### Error diagnostics
+
+Connector error operation labels contain the HTTP method and resolved path, not
+query strings. This prevents URL query values, including SMS recipients and
+messages, from being copied into exception operation labels and generated
+activity status. Error-path tests must assert both the unchanged outgoing query
+and the absence of its values from these diagnostics. Service response bodies
+and caller-configured diagnostics can still contain sensitive data.
+
 ### Custom policy precedence
 
 A caller-supplied `ClientOptions.RetryPolicy` replaces Azure.Core's standard retry implementation and remains authoritative. The SDK does not replace or wrap it. Custom retry-policy authors own HTTP-method safety, and `RetryUnsafeHttpMethods` does not alter their policy.
