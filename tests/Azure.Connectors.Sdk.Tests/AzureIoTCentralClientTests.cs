@@ -60,6 +60,21 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        [Owner("daviburg")]
+        public void WebhookActionBodyNotification_TimestampFactory_PreservesWireName()
+        {
+            var timestamp = new DateTime(2026, 10, 30, 12, 0, 0, DateTimeKind.Utc);
+            var model = AzureIoTCentralModelFactory.WebhookActionBodyNotification(webhookTimestamp: timestamp);
+            var json = JsonSerializer.Serialize(model);
+            using var document = JsonDocument.Parse(json);
+            Assert.AreEqual(expected: timestamp, actual: document.RootElement.GetProperty("timestamp").GetDateTime());
+            var restored = JsonSerializer.Deserialize<WebhookActionBodyNotification>(json);
+            Assert.IsNotNull(restored);
+            Assert.AreEqual(expected: timestamp, actual: restored.WebhookTimestamp);
+            Assert.IsNull(typeof(WebhookActionBodyNotification).GetProperty("WebhookTimespamp"));
+        }
+
+        [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             using var client = new AzureIoTCentralClient("https://test.azure.com/connection");
