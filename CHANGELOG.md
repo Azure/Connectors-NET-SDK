@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models and existing public APIs remain available. See [webhook callback schemas](docs/triggers.md#webhook-callback-schemas).
+- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](docs/triggers.md#webhook-callback-schemas).
 
 - **DataFlows SMS and ServiceNow connector clients** - added `DataflowsSmsClient` (`dataflowssms`) for SMS messaging and account actions, and `ServiceNowClient` (`service-now`) for records, catalog items, knowledge articles, and binary attachment uploads. DataFlows SMS is distinct from Power Query Dataflows. Both clients include mocked request and serialization tests.
 
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Azure DevOps callback and search binding** - search results preserve arbitrary JSON field values, pull-request commit truncation flags bind as booleans, and merge strategies bind as strings. Work-item detail lookup exposes only the production revision.
 
-- **DataFlows SMS retry safety** - sending uses the POST action only; the GET send alternative is excluded to avoid automatic retries duplicating accepted messages.
+- **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
 
 - **ServiceNow attachment reads return their response bodies** - attachment listing and metadata retrieval now return JSON-preserving models, and `RetrieveAttachmentContentAsync` returns the downloaded bytes instead of discarding them.
 
@@ -54,6 +54,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **SigningHub: over 60 previously opaque `JsonElement?` properties now have typed models** — properties such as `CertifyPolicyResponse.Certify`, `GetDocumentDetailsResponse.Certify`, `GetDocumentDetailsResponse.Template`, and many authentication, permission, access-duration, and signature-field objects are now strongly typed with dedicated model classes. Consumer code that read these properties as raw `JsonElement` and called `.GetProperty()` must switch to the typed accessors; see the Breaking Changes section.
 
 ### Breaking Changes
+
+- **PDF.co public method casing** - use `PdfFromXlsXlsxAsync` and `PdfFromXlsXlsxInput` instead of `PDFFromXLSXLSXAsync` and `PDFFromXLSXLSXInput`. The refreshed client also renames `PDFUnSearchableAsync` to `PDFUnsearchableAsync` and the `XLStoCSV`, `XLStoHTML`, `XLStoJSON`, `XLStoTXT`, and `XLStoXML` async methods to `XLSToCSV`, `XLSToHTML`, `XLSToJSON`, `XLSToTXT`, and `XLSToXML`. Update derived request-model and model-factory references where applicable; HTTP routes and JSON fields are unchanged.
+
+- **Teams AI insight model casing** - `AiInsightResponse` is now `AIInsightResponse`, including `TeamsModelFactory.AIInsightResponse`. Update explicit model references and factory calls. `GetAiInsightAsync` and `AiInsightCollectionResponse.AIInsights` use the corrected model type; their wire fields and routes are unchanged.
 
 - **Seismic Planner `CustomPropertyValues.Localizations` now exposes typed values** — callers that previously inspected the nullable raw `JsonElement` must use the `Dictionary<string, CustomPropertyDataDisplay>` entries directly. For example, replace `Localizations.Value.GetProperty("en-US").GetProperty("name").GetString()` with `Localizations["en-US"].Name`. ([#262](https://github.com/Azure/Connectors-NET-SDK/issues/262))
 

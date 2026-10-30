@@ -47,6 +47,20 @@ var options = new ConnectorClientOptions
 
 When `RetryUnsafeHttpMethods` is `true`, unsafe methods use the same configured standard retry behavior as safe methods. Request content created by generated clients is buffered so JSON and binary bodies can be replayed.
 
+### Side-Effecting GET Operations
+
+The .NET generated clients also block standard retries for known side-effecting
+operations, even when their HTTP verb is normally retryable. The current blocklist
+contains DataFlows SMS `GET /sms/send`, exposed as `SendSmsGetAsync`. The operation
+remains callable and returns its response; transient responses and transport
+failures make one attempt rather than risk sending the SMS twice. Ordinary reads,
+such as `ListSmsAsync`, keep normal GET retry behavior.
+
+This operation-specific blocklist takes precedence over `RetryUnsafeHttpMethods`.
+It does not replace a caller-supplied retry policy or change the pre-built pipeline
+boundary described below. This additional .NET rule does not claim matching
+behavior in other language SDKs.
+
 ### Custom policy precedence
 
 A caller-supplied `ClientOptions.RetryPolicy` replaces Azure.Core's standard retry implementation and remains authoritative. The SDK does not replace or wrap it. Custom retry-policy authors own HTTP-method safety, and `RetryUnsafeHttpMethods` does not alter their policy.

@@ -1571,13 +1571,13 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of AI insights</summary>
         [JsonPropertyName("value")]
-        public List<AiInsightResponse> AIInsights { get; set; }
+        public List<AIInsightResponse> AIInsights { get; set; }
     }
 
     /// <summary>
     /// An AI-generated insight for an online meeting
     /// </summary>
-    public class AiInsightResponse
+    public class AIInsightResponse
     {
         /// <summary>The AI insight ID</summary>
         [JsonPropertyName("id")]
@@ -3612,7 +3612,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static AiInsightCollectionResponse AiInsightCollectionResponse(
             string context = default,
-            List<AiInsightResponse> aiInsights = default)
+            List<AIInsightResponse> aiInsights = default)
         {
             return new AiInsightCollectionResponse
             {
@@ -3622,16 +3622,16 @@ namespace Azure.Connectors.Sdk.Teams.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AiInsightResponse"/>.
+        /// Creates a new instance of <see cref="AIInsightResponse"/>.
         /// </summary>
-        public static AiInsightResponse AiInsightResponse(
+        public static AIInsightResponse AIInsightResponse(
             string aiInsightId = default,
             string callId = default,
             string contentCorrelationId = default,
             DateTime? createdDateTime = default,
             DateTime? endDateTime = default)
         {
-            return new AiInsightResponse
+            return new AIInsightResponse
             {
                 AIInsightId = aiInsightId,
                 CallId = callId,
@@ -6383,7 +6383,7 @@ namespace Azure.Connectors.Sdk.Teams
         /// <param name="aIInsightId">AI Insight ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get AI insight response.</returns>
-        public virtual async Task<AiInsightResponse> GetAiInsightAsync(string meetingId, string aIInsightId, CancellationToken cancellationToken = default)
+        public virtual async Task<AIInsightResponse> GetAiInsightAsync(string meetingId, string aIInsightId, CancellationToken cancellationToken = default)
         {
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAiInsightAsync");
             try
@@ -6394,7 +6394,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(aIInsightId));
                 var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId)}/aiInsights/{Uri.EscapeDataString(aIInsightId)}";
                 return await this
-                    .CallConnectorAsync<AiInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AIInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -31,6 +31,24 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
     #region Types
 
     /// <summary>
+    /// Response for Send SMS via GET (Alternative method)
+    /// </summary>
+    public class SmsResponse
+    {
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public Status? Status { get; set; }
+
+        /// <summary>SMS report details with message ID, cost, and delivery info</summary>
+        [JsonPropertyName("data")]
+        public JsonElement? Data { get; set; }
+
+        /// <summary>Human-readable response message</summary>
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
+    }
+
+    /// <summary>
     /// Send SMS Message
     /// </summary>
     public class SendSmsInput
@@ -58,24 +76,6 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
         /// <summary>DLT template ID for regulatory compliance</summary>
         [JsonPropertyName("dlt_template_id")]
         public string DltTemplateId { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Send SMS Message
-    /// </summary>
-    public class SmsResponse
-    {
-        /// <summary>status</summary>
-        [JsonPropertyName("status")]
-        public Status? Status { get; set; }
-
-        /// <summary>SMS report details with message ID, cost, and delivery info</summary>
-        [JsonPropertyName("data")]
-        public JsonElement? Data { get; set; }
-
-        /// <summary>Human-readable response message</summary>
-        [JsonPropertyName("message")]
-        public string Message { get; set; }
     }
 
     /// <summary>
@@ -389,6 +389,22 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
     public static class DataflowsSmsModelFactory
     {
         /// <summary>
+        /// Creates a new instance of <see cref="SmsResponse"/>.
+        /// </summary>
+        public static SmsResponse SmsResponse(
+            Status? status = default,
+            JsonElement? data = default,
+            string message = default)
+        {
+            return new SmsResponse
+            {
+                Status = status,
+                Data = data,
+                Message = message,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="SendSmsInput"/>.
         /// </summary>
         public static SendSmsInput SendSmsInput(
@@ -407,22 +423,6 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
                 Type = type,
                 ScheduleTime = scheduleTime,
                 DltTemplateId = dltTemplateId,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="SmsResponse"/>.
-        /// </summary>
-        public static SmsResponse SmsResponse(
-            Status? status = default,
-            JsonElement? data = default,
-            string message = default)
-        {
-            return new SmsResponse
-            {
-                Status = status,
-                Data = data,
-                Message = message,
             };
         }
 
@@ -688,6 +688,46 @@ namespace Azure.Connectors.Sdk.DataflowsSms
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
+
+        /// <summary>
+        /// Send SMS via GET (Alternative method)
+        /// </summary>
+        /// <remarks>Send SMS using GET parameters (for simple integrations)</remarks>
+        /// <param name="recipient">Recipient</param>
+        /// <param name="senderId">Sender ID</param>
+        /// <param name="message">Message</param>
+        /// <param name="messageType">Message Type</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Send SMS via GET (Alternative method) response.</returns>
+        public virtual async Task<SmsResponse> SendSmsGetAsync(string recipient, string senderId, string message, string messageType = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = DataflowsSmsClient.ConnectorActivitySource.StartActivity("DataflowsSmsClient.SendSmsGetAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (recipient is null)
+                    throw new ArgumentNullException(nameof(recipient));
+                queryParams.Add($"recipient={Uri.EscapeDataString(recipient)}");
+                if (senderId is null)
+                    throw new ArgumentNullException(nameof(senderId));
+                queryParams.Add($"sender_id={Uri.EscapeDataString(senderId)}");
+                if (message is null)
+                    throw new ArgumentNullException(nameof(message));
+                queryParams.Add($"message={Uri.EscapeDataString(message)}");
+                if (messageType != default)
+                    queryParams.Add($"type={Uri.EscapeDataString(messageType)}");
+                var path = $"/sms/send" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<SmsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
 
         /// <summary>
         /// Send SMS Message
