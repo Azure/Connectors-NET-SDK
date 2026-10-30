@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -3026,6 +3027,64 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Individual Payload.
+    /// </summary>
+    public class IndividualPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public IndividualPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications.</summary>
+        [JsonPropertyName("Notifications")]
+        public List<IndividualPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class IndividualPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Item.
+    /// </summary>
+    public class IndividualPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Individual Id.</summary>
+        [JsonPropertyName("IndividualId")]
+        public string IndividualId { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - First Name.</summary>
+        [JsonPropertyName("FirstName")]
+        public string FirstName { get; set; }
+
+        /// <summary>Notifications - Last Name.</summary>
+        [JsonPropertyName("LastName")]
+        public string LastName { get; set; }
+
+        /// <summary>Notifications - Email Address.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+    }
+
+    /// <summary>
     /// When an individual is deleted
     /// </summary>
     public class WhenIndividualDeletedInput
@@ -3070,6 +3129,52 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Response for When an individual requests to be forgotten
+    /// </summary>
+    public class IndividualRequestToBeForgottenPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public IndividualRequestToBeForgottenPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<IndividualRequestToBeForgottenPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class IndividualRequestToBeForgottenPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class IndividualRequestToBeForgottenPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Individual Id.</summary>
+        [JsonPropertyName("IndividualId")]
+        public string IndividualId { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+    }
+
+    /// <summary>
     /// When a product is purchased
     /// </summary>
     public class WhenProductPurchasedInput
@@ -3100,6 +3205,104 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Response for When a product is purchased
+    /// </summary>
+    public class ProductPurchasePayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public ProductPurchasePayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<ProductPurchasePayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class ProductPurchasePayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class ProductPurchasePayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Order Number.</summary>
+        [JsonPropertyName("OrderNumber")]
+        public string OrderNumber { get; set; }
+
+        /// <summary>Notifications - Invoice Number.</summary>
+        [JsonPropertyName("InvoiceNumber")]
+        public string InvoiceNumber { get; set; }
+
+        /// <summary>Notifications - Product Code.</summary>
+        [JsonPropertyName("ProductCode")]
+        public string ProductCode { get; set; }
+
+        /// <summary>Notifications - Product Name.</summary>
+        [JsonPropertyName("ProductName")]
+        public string ProductName { get; set; }
+
+        /// <summary>Notifications - Product Type.</summary>
+        [JsonPropertyName("ProductType")]
+        public string ProductType { get; set; }
+
+        /// <summary>Notifications - Parent Product Code.</summary>
+        [JsonPropertyName("ParentProductCode")]
+        public string ParentProductCode { get; set; }
+
+        /// <summary>Notifications - Quantity.</summary>
+        [JsonPropertyName("Quantity")]
+        public int? Quantity { get; set; }
+
+        /// <summary>Notifications - Item Price.</summary>
+        [JsonPropertyName("ItemPrice")]
+        public double? ItemPrice { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Full Name.</summary>
+        [JsonPropertyName("FullName")]
+        public string FullName { get; set; }
+
+        /// <summary>Notifications - First Name.</summary>
+        [JsonPropertyName("FirstName")]
+        public string FirstName { get; set; }
+
+        /// <summary>Notifications - Last Name.</summary>
+        [JsonPropertyName("LastName")]
+        public string LastName { get; set; }
+
+        /// <summary>Notifications - Email Address.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+    }
+
+    /// <summary>
     /// When a committee member is updated
     /// </summary>
     public class WhenCommitteeMemberUpdatedInput
@@ -3119,6 +3322,134 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Committee Member Payload.
+    /// </summary>
+    public class CommitteeMemberPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CommitteeMemberPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications.</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CommitteeMemberPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CommitteeMemberPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Item.
+    /// </summary>
+    public class CommitteeMemberPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Committee Code.</summary>
+        [JsonPropertyName("CommitteeCode")]
+        public string CommitteeCode { get; set; }
+
+        /// <summary>Notifications - Committee Name.</summary>
+        [JsonPropertyName("CommitteeName")]
+        public string CommitteeName { get; set; }
+
+        /// <summary>Notifications - Position Code.</summary>
+        [JsonPropertyName("PositionCode")]
+        public string PositionCode { get; set; }
+
+        /// <summary>Notifications - Position Name.</summary>
+        [JsonPropertyName("PositionName")]
+        public string PositionName { get; set; }
+
+        /// <summary>Notifications - Start Date.</summary>
+        [JsonPropertyName("StartDate")]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>Notifications - End Date.</summary>
+        [JsonPropertyName("EndDate")]
+        public DateTime? EndDate { get; set; }
+
+        /// <summary>Notifications - Old.</summary>
+        [JsonPropertyName("Old")]
+        public CommitteeMemberPayloadNotificationNotificationsItemOld Old { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Old.
+    /// </summary>
+    public class CommitteeMemberPayloadNotificationNotificationsItemOld
+    {
+        /// <summary>Notifications - Old - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Old - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Old - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Old - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Old - Committee Code.</summary>
+        [JsonPropertyName("CommitteeCode")]
+        public string CommitteeCode { get; set; }
+
+        /// <summary>Notifications - Old - Committee Name.</summary>
+        [JsonPropertyName("CommitteeName")]
+        public string CommitteeName { get; set; }
+
+        /// <summary>Notifications - Old - Position Code.</summary>
+        [JsonPropertyName("PositionCode")]
+        public string PositionCode { get; set; }
+
+        /// <summary>Notifications - Old - Position Name.</summary>
+        [JsonPropertyName("PositionName")]
+        public string PositionName { get; set; }
+
+        /// <summary>Notifications - Old - Start Date.</summary>
+        [JsonPropertyName("StartDate")]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>Notifications - Old - End Date.</summary>
+        [JsonPropertyName("EndDate")]
+        public DateTime? EndDate { get; set; }
     }
 
     /// <summary>
@@ -3152,6 +3483,108 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Purchase Canceled Payload.
+    /// </summary>
+    public class PurchaseCancelledPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public PurchaseCancelledPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications.</summary>
+        [JsonPropertyName("Notifications")]
+        public List<PurchaseCancelledPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class PurchaseCancelledPayloadNotificationProperties
+    {
+        /// <summary>Properties - Additional Filter.</summary>
+        [JsonPropertyName("AdditionalFilter")]
+        public string AdditionalFilter { get; set; }
+
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Notifications.
+    /// </summary>
+    public class PurchaseCancelledPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Order Number.</summary>
+        [JsonPropertyName("OrderNumber")]
+        public string OrderNumber { get; set; }
+
+        /// <summary>Notifications - Invoice Number.</summary>
+        [JsonPropertyName("InvoiceNumber")]
+        public string InvoiceNumber { get; set; }
+
+        /// <summary>Notifications - Product Code.</summary>
+        [JsonPropertyName("ProductCode")]
+        public string ProductCode { get; set; }
+
+        /// <summary>Notifications - Product Name.</summary>
+        [JsonPropertyName("ProductName")]
+        public string ProductName { get; set; }
+
+        /// <summary>Notifications - Product Type.</summary>
+        [JsonPropertyName("ProductType")]
+        public string ProductType { get; set; }
+
+        /// <summary>Notifications - Parent Product Code.</summary>
+        [JsonPropertyName("ParentProductCode")]
+        public string ParentProductCode { get; set; }
+
+        /// <summary>Notifications - Quantity Canceled.</summary>
+        [JsonPropertyName("QuantityCancelled")]
+        public int? QuantityCancelled { get; set; }
+
+        /// <summary>Notifications - Item Price.</summary>
+        [JsonPropertyName("ItemPrice")]
+        public double? ItemPrice { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Full Name.</summary>
+        [JsonPropertyName("FullName")]
+        public string FullName { get; set; }
+
+        /// <summary>Notifications - First Name.</summary>
+        [JsonPropertyName("FirstName")]
+        public string FirstName { get; set; }
+
+        /// <summary>Notifications - Last Name.</summary>
+        [JsonPropertyName("LastName")]
+        public string LastName { get; set; }
+
+        /// <summary>Notifications - Email Address.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+    }
+
+    /// <summary>
     /// When a customer request is updated
     /// </summary>
     public class WhenRequestUpdatedInput
@@ -3174,6 +3607,96 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Customer Request Payload.
+    /// </summary>
+    public class CustomerRequestPayloadNotification
+    {
+        /// <summary>Webhook Id,.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CustomerRequestPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications.</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CustomerRequestPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CustomerRequestPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Item.
+    /// </summary>
+    public class CustomerRequestPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Request Number.</summary>
+        [JsonPropertyName("RequestNumber")]
+        public string RequestNumber { get; set; }
+
+        /// <summary>Notifications - Request Type.</summary>
+        [JsonPropertyName("RequestType")]
+        public string RequestType { get; set; }
+
+        /// <summary>Notifications - Request Description.</summary>
+        [JsonPropertyName("RequestDescription")]
+        public string RequestDescription { get; set; }
+
+        /// <summary>Notifications - Source.</summary>
+        [JsonPropertyName("Source")]
+        public string Source { get; set; }
+
+        /// <summary>Notifications - Closed Date.</summary>
+        [JsonPropertyName("ClosedDate")]
+        public DateTime? ClosedDate { get; set; }
+
+        /// <summary>Notifications - Email Address.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+
+        /// <summary>Notifications - Full Name.</summary>
+        [JsonPropertyName("FullName")]
+        public string FullName { get; set; }
+
+        /// <summary>Notifications - First Name.</summary>
+        [JsonPropertyName("FirstName")]
+        public string FirstName { get; set; }
+
+        /// <summary>Notifications - Last Name.</summary>
+        [JsonPropertyName("LastName")]
+        public string LastName { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+    }
+
+    /// <summary>
     /// When a customer email is updated
     /// </summary>
     public class WhenEmailUpdatedInput
@@ -3193,6 +3716,118 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Email Payload.
+    /// </summary>
+    public class EmailPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public EmailPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications.</summary>
+        [JsonPropertyName("Notifications")]
+        public List<EmailPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class EmailPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Item.
+    /// </summary>
+    public class EmailPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Email Address.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+
+        /// <summary>Notifications - Email Type.</summary>
+        [JsonPropertyName("EmailType")]
+        public string EmailType { get; set; }
+
+        /// <summary>Notifications - Is Login Email.</summary>
+        [JsonPropertyName("IsLoginEmail")]
+        public bool? IsLoginEmail { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Is Primary.</summary>
+        [JsonPropertyName("IsPrimary")]
+        public bool? IsPrimary { get; set; }
+
+        /// <summary>Notifications - Old.</summary>
+        [JsonPropertyName("Old")]
+        public EmailPayloadNotificationNotificationsItemOld Old { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Old.
+    /// </summary>
+    public class EmailPayloadNotificationNotificationsItemOld
+    {
+        /// <summary>Notifications - Old - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Old - Email Address.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+
+        /// <summary>Notifications - Old - Email Type.</summary>
+        [JsonPropertyName("EmailType")]
+        public string EmailType { get; set; }
+
+        /// <summary>Notifications - Old - Is Login Email.</summary>
+        [JsonPropertyName("IsLoginEmail")]
+        public bool? IsLoginEmail { get; set; }
+
+        /// <summary>Notifications - Old - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Old - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Old - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Old - Is Primary.</summary>
+        [JsonPropertyName("IsPrimary")]
+        public bool? IsPrimary { get; set; }
     }
 
     /// <summary>
@@ -3222,6 +3857,60 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Response for When a customer custom field value is updated
+    /// </summary>
+    public class CustomerCustomFieldValuePayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CustomerCustomFieldValuePayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CustomerCustomFieldValuePayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CustomerCustomFieldValuePayloadNotificationProperties
+    {
+        /// <summary>Properties - Additional Filter.</summary>
+        [JsonPropertyName("AdditionalFilter")]
+        public string AdditionalFilter { get; set; }
+
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class CustomerCustomFieldValuePayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Custom Field Name.</summary>
+        [JsonPropertyName("CustomFieldName")]
+        public string CustomFieldName { get; set; }
+
+        /// <summary>Notifications - Custom Field Value.</summary>
+        [JsonPropertyName("CustomFieldValue")]
+        public string CustomFieldValue { get; set; }
+    }
+
+    /// <summary>
     /// When a customer is merged
     /// </summary>
     public class WhenCustomerIsMergedInput
@@ -3241,6 +3930,60 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a customer is merged
+    /// </summary>
+    public class CustomerMergedPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CustomerMergedPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CustomerMergedPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CustomerMergedPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class CustomerMergedPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("Type")]
+        public string Type { get; set; }
+
+        /// <summary>Notifications - New Record Number.</summary>
+        [JsonPropertyName("NewRecordNumber")]
+        public string NewRecordNumber { get; set; }
+
+        /// <summary>Notifications - Old Id.</summary>
+        [JsonPropertyName("OldId")]
+        public string OldId { get; set; }
+
+        /// <summary>Notifications - New Id.</summary>
+        [JsonPropertyName("NewId")]
+        public string NewId { get; set; }
     }
 
     /// <summary>
@@ -3266,6 +4009,80 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Response for When a customer relationship is updated
+    /// </summary>
+    public class CustomerRelationshipUpdatedPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CustomerRelationshipUpdatedPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CustomerRelationshipUpdatedPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CustomerRelationshipUpdatedPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class CustomerRelationshipUpdatedPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Related To Customer Id.</summary>
+        [JsonPropertyName("RelatedToCustomerId")]
+        public string RelatedToCustomerId { get; set; }
+
+        /// <summary>Notifications - Related To Customer Type.</summary>
+        [JsonPropertyName("RelatedToCustomerType")]
+        public string RelatedToCustomerType { get; set; }
+
+        /// <summary>Notifications - Relationship.</summary>
+        [JsonPropertyName("Relationship")]
+        public string Relationship { get; set; }
+
+        /// <summary>Notifications - Reciprocal Relationship.</summary>
+        [JsonPropertyName("ReciprocalRelationship")]
+        public string ReciprocalRelationship { get; set; }
+
+        /// <summary>Notifications - Start Date.</summary>
+        [JsonPropertyName("StartDate")]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>Notifications - End Date.</summary>
+        [JsonPropertyName("EndDate")]
+        public DateTime? EndDate { get; set; }
+    }
+
+    /// <summary>
     /// When a customer phone is updated
     /// </summary>
     public class WhenCustomerPhoneUpdatedInput
@@ -3288,6 +4105,122 @@ namespace Azure.Connectors.Sdk.Impexium.Models
     }
 
     /// <summary>
+    /// Response for When a customer phone is updated
+    /// </summary>
+    public class CustomerPhoneUpdatedPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CustomerPhoneUpdatedPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CustomerPhoneUpdatedPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CustomerPhoneUpdatedPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class CustomerPhoneUpdatedPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Id.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Notifications - Phone Type.</summary>
+        [JsonPropertyName("PhoneType")]
+        public string PhoneType { get; set; }
+
+        /// <summary>Notifications - Number.</summary>
+        [JsonPropertyName("Number")]
+        public string Number { get; set; }
+
+        /// <summary>Notifications - Extension.</summary>
+        [JsonPropertyName("Extension")]
+        public string Extension { get; set; }
+
+        /// <summary>Notifications - Is Primary.</summary>
+        [JsonPropertyName("IsPrimary")]
+        public bool? IsPrimary { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Old.</summary>
+        [JsonPropertyName("Old")]
+        public CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld Old { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Old.
+    /// </summary>
+    public class CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld
+    {
+        /// <summary>Notifications - Old - Id.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Notifications - Old - Phone Type.</summary>
+        [JsonPropertyName("PhoneType")]
+        public string PhoneType { get; set; }
+
+        /// <summary>Notifications - Old - Number.</summary>
+        [JsonPropertyName("Number")]
+        public string Number { get; set; }
+
+        /// <summary>Notifications - Old - Extension.</summary>
+        [JsonPropertyName("Extension")]
+        public string Extension { get; set; }
+
+        /// <summary>Notifications - Old - Is Primary.</summary>
+        [JsonPropertyName("IsPrimary")]
+        public bool? IsPrimary { get; set; }
+
+        /// <summary>Notifications - Old - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Old - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Old - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+    }
+
+    /// <summary>
     /// When a customer address is updated
     /// </summary>
     public class WhenCustomerAddressUpdatedInput
@@ -3307,6 +4240,142 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a customer address is updated
+    /// </summary>
+    public class CustomerAddressUpdatedPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public CustomerAddressUpdatedPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<CustomerAddressUpdatedPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class CustomerAddressUpdatedPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class CustomerAddressUpdatedPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Action Type.</summary>
+        [JsonPropertyName("ActionType")]
+        public string ActionType { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Id.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Notifications - Primary.</summary>
+        [JsonPropertyName("Primary")]
+        public bool? Primary { get; set; }
+
+        /// <summary>Notifications - Line 1.</summary>
+        [JsonPropertyName("Line1")]
+        public string Line1 { get; set; }
+
+        /// <summary>Notifications - Line 2.</summary>
+        [JsonPropertyName("Line2")]
+        public string Line2 { get; set; }
+
+        /// <summary>Notifications - Line 3.</summary>
+        [JsonPropertyName("Line3")]
+        public string Line3 { get; set; }
+
+        /// <summary>Notifications - City.</summary>
+        [JsonPropertyName("City")]
+        public string City { get; set; }
+
+        /// <summary>Notifications - State.</summary>
+        [JsonPropertyName("State")]
+        public string State { get; set; }
+
+        /// <summary>Notifications - Zip Code.</summary>
+        [JsonPropertyName("Zipcode")]
+        public string Zipcode { get; set; }
+
+        /// <summary>Notifications - Country.</summary>
+        [JsonPropertyName("Country")]
+        public string Country { get; set; }
+
+        /// <summary>Notifications - Old.</summary>
+        [JsonPropertyName("Old")]
+        public CustomerAddressUpdatedPayloadNotificationNotificationsItemOld Old { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications - Old.
+    /// </summary>
+    public class CustomerAddressUpdatedPayloadNotificationNotificationsItemOld
+    {
+        /// <summary>Notifications - Old - Id.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Notifications - Old - Primary.</summary>
+        [JsonPropertyName("Primary")]
+        public bool? Primary { get; set; }
+
+        /// <summary>Notifications - Old - Line 1.</summary>
+        [JsonPropertyName("Line1")]
+        public string Line1 { get; set; }
+
+        /// <summary>Notifications - Old - Line 2.</summary>
+        [JsonPropertyName("Line2")]
+        public string Line2 { get; set; }
+
+        /// <summary>Notifications - Old - Line 3.</summary>
+        [JsonPropertyName("Line3")]
+        public string Line3 { get; set; }
+
+        /// <summary>Notifications - Old - City.</summary>
+        [JsonPropertyName("City")]
+        public string City { get; set; }
+
+        /// <summary>Notifications - Old - State.</summary>
+        [JsonPropertyName("State")]
+        public string State { get; set; }
+
+        /// <summary>Notifications - Old - Zip Code.</summary>
+        [JsonPropertyName("Zipcode")]
+        public string Zipcode { get; set; }
+
+        /// <summary>Notifications - Old - Country.</summary>
+        [JsonPropertyName("Country")]
+        public string Country { get; set; }
     }
 
     /// <summary>
@@ -3333,6 +4402,96 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When an event registration is substituted
+    /// </summary>
+    public class EventRegistrationSubstitutedPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public EventRegistrationSubstitutedPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<EventRegistrationSubstitutedPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class EventRegistrationSubstitutedPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class EventRegistrationSubstitutedPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Order Number.</summary>
+        [JsonPropertyName("OrderNumber")]
+        public string OrderNumber { get; set; }
+
+        /// <summary>Notifications - Invoice Number.</summary>
+        [JsonPropertyName("InvoiceNumber")]
+        public string InvoiceNumber { get; set; }
+
+        /// <summary>Notifications - Product Code.</summary>
+        [JsonPropertyName("ProductCode")]
+        public string ProductCode { get; set; }
+
+        /// <summary>Notifications - Product Name.</summary>
+        [JsonPropertyName("ProductName")]
+        public string ProductName { get; set; }
+
+        /// <summary>Notifications - Product Type.</summary>
+        [JsonPropertyName("ProductType")]
+        public string ProductType { get; set; }
+
+        /// <summary>Notifications - Parent Product Code.</summary>
+        [JsonPropertyName("ParentProductCode")]
+        public string ParentProductCode { get; set; }
+
+        /// <summary>Notifications - Substituted For Customer Id.</summary>
+        [JsonPropertyName("SubstitutedForCustomerId")]
+        public string SubstitutedForCustomerId { get; set; }
+
+        /// <summary>Notifications - Substituted For Customer Record Number.</summary>
+        [JsonPropertyName("SubstitutedForCustomerRecordNumber")]
+        public string SubstitutedForCustomerRecordNumber { get; set; }
+
+        /// <summary>Notifications - Substituted By Customer Id.</summary>
+        [JsonPropertyName("SubstitutedByCustomerId")]
+        public string SubstitutedByCustomerId { get; set; }
+
+        /// <summary>Notifications - Substituted By Customer Record Number.</summary>
+        [JsonPropertyName("SubstitutedByCustomerRecordNumber")]
+        public string SubstitutedByCustomerRecordNumber { get; set; }
+
+        /// <summary>Notifications - Substituted By Customer First Name.</summary>
+        [JsonPropertyName("SubstitutedByCustomerFirstName")]
+        public string SubstitutedByCustomerFirstName { get; set; }
+
+        /// <summary>Notifications - Substituted By Customer Last Name.</summary>
+        [JsonPropertyName("SubstitutedByCustomerLastName")]
+        public string SubstitutedByCustomerLastName { get; set; }
+
+        /// <summary>Notifications - Substituted By Customer Email Address.</summary>
+        [JsonPropertyName("SubstitutedByCustomerEmailAddress")]
+        public string SubstitutedByCustomerEmailAddress { get; set; }
     }
 
     /// <summary>
@@ -3385,6 +4544,72 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
         public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a membership is terminated
+    /// </summary>
+    public class MembershipTypeTerminatedPayloadNotification
+    {
+        /// <summary>Webhook Id.</summary>
+        [JsonPropertyName("WebhookId")]
+        public string WebhookId { get; set; }
+
+        /// <summary>Properties.</summary>
+        [JsonPropertyName("Properties")]
+        public MembershipTypeTerminatedPayloadNotificationProperties Properties { get; set; }
+
+        /// <summary>Notifications</summary>
+        [JsonPropertyName("Notifications")]
+        public List<MembershipTypeTerminatedPayloadNotificationNotificationsItem> Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// Properties.
+    /// </summary>
+    public class MembershipTypeTerminatedPayloadNotificationProperties
+    {
+        /// <summary>Properties - Date.</summary>
+        [JsonPropertyName("Date")]
+        public DateTime? Date { get; set; }
+    }
+
+    /// <summary>
+    /// Notifications.
+    /// </summary>
+    public class MembershipTypeTerminatedPayloadNotificationNotificationsItem
+    {
+        /// <summary>Notifications - Action.</summary>
+        [JsonPropertyName("Action")]
+        public string Action { get; set; }
+
+        /// <summary>Notifications - Customer Id.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Notifications - Customer Type.</summary>
+        [JsonPropertyName("CustomerType")]
+        public string CustomerType { get; set; }
+
+        /// <summary>Notifications - Record Number.</summary>
+        [JsonPropertyName("RecordNumber")]
+        public string RecordNumber { get; set; }
+
+        /// <summary>Notifications - Membership Type.</summary>
+        [JsonPropertyName("MembershipType")]
+        public string MembershipType { get; set; }
+
+        /// <summary>Notifications - Membership Type Code.</summary>
+        [JsonPropertyName("MembershipTypeCode")]
+        public string MembershipTypeCode { get; set; }
+
+        /// <summary>Notifications - Terminate Date.</summary>
+        [JsonPropertyName("TerminateDate")]
+        public DateTime? TerminateDate { get; set; }
+
+        /// <summary>Notifications - Terminate Reason.</summary>
+        [JsonPropertyName("TerminateReason")]
+        public string TerminateReason { get; set; }
     }
 
     /// <summary>
@@ -6241,6 +7466,56 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="IndividualPayloadNotification"/>.
+        /// </summary>
+        public static IndividualPayloadNotification IndividualPayloadNotification(
+            string webhookId = default,
+            IndividualPayloadNotificationProperties properties = default,
+            List<IndividualPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new IndividualPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="IndividualPayloadNotificationProperties"/>.
+        /// </summary>
+        public static IndividualPayloadNotificationProperties IndividualPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new IndividualPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="IndividualPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static IndividualPayloadNotificationNotificationsItem IndividualPayloadNotificationNotificationsItem(
+            string action = default,
+            string individualId = default,
+            string recordNumber = default,
+            string firstName = default,
+            string lastName = default,
+            string emailAddress = default)
+        {
+            return new IndividualPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                IndividualId = individualId,
+                RecordNumber = recordNumber,
+                FirstName = firstName,
+                LastName = lastName,
+                EmailAddress = emailAddress,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenIndividualDeletedInput"/>.
         /// </summary>
         public static WhenIndividualDeletedInput WhenIndividualDeletedInput(
@@ -6277,6 +7552,50 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="IndividualRequestToBeForgottenPayloadNotification"/>.
+        /// </summary>
+        public static IndividualRequestToBeForgottenPayloadNotification IndividualRequestToBeForgottenPayloadNotification(
+            string webhookId = default,
+            IndividualRequestToBeForgottenPayloadNotificationProperties properties = default,
+            List<IndividualRequestToBeForgottenPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new IndividualRequestToBeForgottenPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="IndividualRequestToBeForgottenPayloadNotificationProperties"/>.
+        /// </summary>
+        public static IndividualRequestToBeForgottenPayloadNotificationProperties IndividualRequestToBeForgottenPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new IndividualRequestToBeForgottenPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="IndividualRequestToBeForgottenPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static IndividualRequestToBeForgottenPayloadNotificationNotificationsItem IndividualRequestToBeForgottenPayloadNotificationNotificationsItem(
+            string action = default,
+            string individualId = default,
+            string recordNumber = default)
+        {
+            return new IndividualRequestToBeForgottenPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                IndividualId = individualId,
+                RecordNumber = recordNumber,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenProductPurchasedInput"/>.
         /// </summary>
         public static WhenProductPurchasedInput WhenProductPurchasedInput(
@@ -6299,6 +7618,76 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ProductPurchasePayloadNotification"/>.
+        /// </summary>
+        public static ProductPurchasePayloadNotification ProductPurchasePayloadNotification(
+            string webhookId = default,
+            ProductPurchasePayloadNotificationProperties properties = default,
+            List<ProductPurchasePayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new ProductPurchasePayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProductPurchasePayloadNotificationProperties"/>.
+        /// </summary>
+        public static ProductPurchasePayloadNotificationProperties ProductPurchasePayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new ProductPurchasePayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProductPurchasePayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static ProductPurchasePayloadNotificationNotificationsItem ProductPurchasePayloadNotificationNotificationsItem(
+            string action = default,
+            string orderNumber = default,
+            string invoiceNumber = default,
+            string productCode = default,
+            string productName = default,
+            string productType = default,
+            string parentProductCode = default,
+            int? quantity = default,
+            double? itemPrice = default,
+            string customerType = default,
+            string customerId = default,
+            string fullName = default,
+            string firstName = default,
+            string lastName = default,
+            string emailAddress = default,
+            string recordNumber = default)
+        {
+            return new ProductPurchasePayloadNotificationNotificationsItem
+            {
+                Action = action,
+                OrderNumber = orderNumber,
+                InvoiceNumber = invoiceNumber,
+                ProductCode = productCode,
+                ProductName = productName,
+                ProductType = productType,
+                ParentProductCode = parentProductCode,
+                Quantity = quantity,
+                ItemPrice = itemPrice,
+                CustomerType = customerType,
+                CustomerId = customerId,
+                FullName = fullName,
+                FirstName = firstName,
+                LastName = lastName,
+                EmailAddress = emailAddress,
+                RecordNumber = recordNumber,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenCommitteeMemberUpdatedInput"/>.
         /// </summary>
         public static WhenCommitteeMemberUpdatedInput WhenCommitteeMemberUpdatedInput(
@@ -6313,6 +7702,98 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Secret = secret,
                 CallBackUrl = callBackUrl,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CommitteeMemberPayloadNotification"/>.
+        /// </summary>
+        public static CommitteeMemberPayloadNotification CommitteeMemberPayloadNotification(
+            string webhookId = default,
+            CommitteeMemberPayloadNotificationProperties properties = default,
+            List<CommitteeMemberPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CommitteeMemberPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CommitteeMemberPayloadNotificationProperties"/>.
+        /// </summary>
+        public static CommitteeMemberPayloadNotificationProperties CommitteeMemberPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new CommitteeMemberPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CommitteeMemberPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CommitteeMemberPayloadNotificationNotificationsItem CommitteeMemberPayloadNotificationNotificationsItem(
+            string action = default,
+            string customerId = default,
+            string actionType = default,
+            string customerType = default,
+            string recordNumber = default,
+            string committeeCode = default,
+            string committeeName = default,
+            string positionCode = default,
+            string positionName = default,
+            DateTime? startDate = default,
+            DateTime? endDate = default,
+            CommitteeMemberPayloadNotificationNotificationsItemOld old = default)
+        {
+            return new CommitteeMemberPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                CustomerId = customerId,
+                ActionType = actionType,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                CommitteeCode = committeeCode,
+                CommitteeName = committeeName,
+                PositionCode = positionCode,
+                PositionName = positionName,
+                StartDate = startDate,
+                EndDate = endDate,
+                Old = old,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CommitteeMemberPayloadNotificationNotificationsItemOld"/>.
+        /// </summary>
+        public static CommitteeMemberPayloadNotificationNotificationsItemOld CommitteeMemberPayloadNotificationNotificationsItemOld(
+            string customerId = default,
+            string actionType = default,
+            string customerType = default,
+            string recordNumber = default,
+            string committeeCode = default,
+            string committeeName = default,
+            string positionCode = default,
+            string positionName = default,
+            DateTime? startDate = default,
+            DateTime? endDate = default)
+        {
+            return new CommitteeMemberPayloadNotificationNotificationsItemOld
+            {
+                CustomerId = customerId,
+                ActionType = actionType,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                CommitteeCode = committeeCode,
+                CommitteeName = committeeName,
+                PositionCode = positionCode,
+                PositionName = positionName,
+                StartDate = startDate,
+                EndDate = endDate,
             };
         }
 
@@ -6339,6 +7820,78 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="PurchaseCancelledPayloadNotification"/>.
+        /// </summary>
+        public static PurchaseCancelledPayloadNotification PurchaseCancelledPayloadNotification(
+            string webhookId = default,
+            PurchaseCancelledPayloadNotificationProperties properties = default,
+            List<PurchaseCancelledPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new PurchaseCancelledPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PurchaseCancelledPayloadNotificationProperties"/>.
+        /// </summary>
+        public static PurchaseCancelledPayloadNotificationProperties PurchaseCancelledPayloadNotificationProperties(
+            string additionalFilter = default,
+            DateTime? date = default)
+        {
+            return new PurchaseCancelledPayloadNotificationProperties
+            {
+                AdditionalFilter = additionalFilter,
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PurchaseCancelledPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static PurchaseCancelledPayloadNotificationNotificationsItem PurchaseCancelledPayloadNotificationNotificationsItem(
+            string action = default,
+            string orderNumber = default,
+            string invoiceNumber = default,
+            string productCode = default,
+            string productName = default,
+            string productType = default,
+            string parentProductCode = default,
+            int? quantityCancelled = default,
+            double? itemPrice = default,
+            string customerType = default,
+            string customerId = default,
+            string fullName = default,
+            string firstName = default,
+            string lastName = default,
+            string emailAddress = default,
+            string recordNumber = default)
+        {
+            return new PurchaseCancelledPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                OrderNumber = orderNumber,
+                InvoiceNumber = invoiceNumber,
+                ProductCode = productCode,
+                ProductName = productName,
+                ProductType = productType,
+                ParentProductCode = parentProductCode,
+                QuantityCancelled = quantityCancelled,
+                ItemPrice = itemPrice,
+                CustomerType = customerType,
+                CustomerId = customerId,
+                FullName = fullName,
+                FirstName = firstName,
+                LastName = lastName,
+                EmailAddress = emailAddress,
+                RecordNumber = recordNumber,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenRequestUpdatedInput"/>.
         /// </summary>
         public static WhenRequestUpdatedInput WhenRequestUpdatedInput(
@@ -6357,6 +7910,72 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="CustomerRequestPayloadNotification"/>.
+        /// </summary>
+        public static CustomerRequestPayloadNotification CustomerRequestPayloadNotification(
+            string webhookId = default,
+            CustomerRequestPayloadNotificationProperties properties = default,
+            List<CustomerRequestPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CustomerRequestPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerRequestPayloadNotificationProperties"/>.
+        /// </summary>
+        public static CustomerRequestPayloadNotificationProperties CustomerRequestPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new CustomerRequestPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerRequestPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CustomerRequestPayloadNotificationNotificationsItem CustomerRequestPayloadNotificationNotificationsItem(
+            string action = default,
+            string actionType = default,
+            string requestNumber = default,
+            string requestType = default,
+            string requestDescription = default,
+            string source = default,
+            DateTime? closedDate = default,
+            string emailAddress = default,
+            string fullName = default,
+            string firstName = default,
+            string lastName = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default)
+        {
+            return new CustomerRequestPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                ActionType = actionType,
+                RequestNumber = requestNumber,
+                RequestType = requestType,
+                RequestDescription = requestDescription,
+                Source = source,
+                ClosedDate = closedDate,
+                EmailAddress = emailAddress,
+                FullName = fullName,
+                FirstName = firstName,
+                LastName = lastName,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenEmailUpdatedInput"/>.
         /// </summary>
         public static WhenEmailUpdatedInput WhenEmailUpdatedInput(
@@ -6371,6 +7990,90 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Secret = secret,
                 CallBackUrl = callBackUrl,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailPayloadNotification"/>.
+        /// </summary>
+        public static EmailPayloadNotification EmailPayloadNotification(
+            string webhookId = default,
+            EmailPayloadNotificationProperties properties = default,
+            List<EmailPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new EmailPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailPayloadNotificationProperties"/>.
+        /// </summary>
+        public static EmailPayloadNotificationProperties EmailPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new EmailPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static EmailPayloadNotificationNotificationsItem EmailPayloadNotificationNotificationsItem(
+            string action = default,
+            string actionType = default,
+            string emailAddress = default,
+            string emailType = default,
+            bool? isLoginEmail = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default,
+            bool? isPrimary = default,
+            EmailPayloadNotificationNotificationsItemOld old = default)
+        {
+            return new EmailPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                ActionType = actionType,
+                EmailAddress = emailAddress,
+                EmailType = emailType,
+                IsLoginEmail = isLoginEmail,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                IsPrimary = isPrimary,
+                Old = old,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EmailPayloadNotificationNotificationsItemOld"/>.
+        /// </summary>
+        public static EmailPayloadNotificationNotificationsItemOld EmailPayloadNotificationNotificationsItemOld(
+            string actionType = default,
+            string emailAddress = default,
+            string emailType = default,
+            bool? isLoginEmail = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default,
+            bool? isPrimary = default)
+        {
+            return new EmailPayloadNotificationNotificationsItemOld
+            {
+                ActionType = actionType,
+                EmailAddress = emailAddress,
+                EmailType = emailType,
+                IsLoginEmail = isLoginEmail,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                IsPrimary = isPrimary,
             };
         }
 
@@ -6395,6 +8098,54 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="CustomerCustomFieldValuePayloadNotification"/>.
+        /// </summary>
+        public static CustomerCustomFieldValuePayloadNotification CustomerCustomFieldValuePayloadNotification(
+            string webhookId = default,
+            CustomerCustomFieldValuePayloadNotificationProperties properties = default,
+            List<CustomerCustomFieldValuePayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CustomerCustomFieldValuePayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerCustomFieldValuePayloadNotificationProperties"/>.
+        /// </summary>
+        public static CustomerCustomFieldValuePayloadNotificationProperties CustomerCustomFieldValuePayloadNotificationProperties(
+            string additionalFilter = default,
+            DateTime? date = default)
+        {
+            return new CustomerCustomFieldValuePayloadNotificationProperties
+            {
+                AdditionalFilter = additionalFilter,
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerCustomFieldValuePayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CustomerCustomFieldValuePayloadNotificationNotificationsItem CustomerCustomFieldValuePayloadNotificationNotificationsItem(
+            string action = default,
+            string customerId = default,
+            string customFieldName = default,
+            string customFieldValue = default)
+        {
+            return new CustomerCustomFieldValuePayloadNotificationNotificationsItem
+            {
+                Action = action,
+                CustomerId = customerId,
+                CustomFieldName = customFieldName,
+                CustomFieldValue = customFieldValue,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenCustomerIsMergedInput"/>.
         /// </summary>
         public static WhenCustomerIsMergedInput WhenCustomerIsMergedInput(
@@ -6409,6 +8160,54 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Secret = secret,
                 CallBackUrl = callBackUrl,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerMergedPayloadNotification"/>.
+        /// </summary>
+        public static CustomerMergedPayloadNotification CustomerMergedPayloadNotification(
+            string webhookId = default,
+            CustomerMergedPayloadNotificationProperties properties = default,
+            List<CustomerMergedPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CustomerMergedPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerMergedPayloadNotificationProperties"/>.
+        /// </summary>
+        public static CustomerMergedPayloadNotificationProperties CustomerMergedPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new CustomerMergedPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerMergedPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CustomerMergedPayloadNotificationNotificationsItem CustomerMergedPayloadNotificationNotificationsItem(
+            string action = default,
+            string type = default,
+            string newRecordNumber = default,
+            string oldId = default,
+            string newId = default)
+        {
+            return new CustomerMergedPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                Type = type,
+                NewRecordNumber = newRecordNumber,
+                OldId = oldId,
+                NewId = newId,
             };
         }
 
@@ -6431,6 +8230,64 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="CustomerRelationshipUpdatedPayloadNotification"/>.
+        /// </summary>
+        public static CustomerRelationshipUpdatedPayloadNotification CustomerRelationshipUpdatedPayloadNotification(
+            string webhookId = default,
+            CustomerRelationshipUpdatedPayloadNotificationProperties properties = default,
+            List<CustomerRelationshipUpdatedPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CustomerRelationshipUpdatedPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerRelationshipUpdatedPayloadNotificationProperties"/>.
+        /// </summary>
+        public static CustomerRelationshipUpdatedPayloadNotificationProperties CustomerRelationshipUpdatedPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new CustomerRelationshipUpdatedPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerRelationshipUpdatedPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CustomerRelationshipUpdatedPayloadNotificationNotificationsItem CustomerRelationshipUpdatedPayloadNotificationNotificationsItem(
+            string action = default,
+            string actionType = default,
+            string customerId = default,
+            string customerType = default,
+            string relatedToCustomerId = default,
+            string relatedToCustomerType = default,
+            string relationship = default,
+            string reciprocalRelationship = default,
+            DateTime? startDate = default,
+            DateTime? endDate = default)
+        {
+            return new CustomerRelationshipUpdatedPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                ActionType = actionType,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RelatedToCustomerId = relatedToCustomerId,
+                RelatedToCustomerType = relatedToCustomerType,
+                Relationship = relationship,
+                ReciprocalRelationship = reciprocalRelationship,
+                StartDate = startDate,
+                EndDate = endDate,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenCustomerPhoneUpdatedInput"/>.
         /// </summary>
         public static WhenCustomerPhoneUpdatedInput WhenCustomerPhoneUpdatedInput(
@@ -6445,6 +8302,92 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Secret = secret,
                 CallBackUrl = callBackUrl,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerPhoneUpdatedPayloadNotification"/>.
+        /// </summary>
+        public static CustomerPhoneUpdatedPayloadNotification CustomerPhoneUpdatedPayloadNotification(
+            string webhookId = default,
+            CustomerPhoneUpdatedPayloadNotificationProperties properties = default,
+            List<CustomerPhoneUpdatedPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CustomerPhoneUpdatedPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerPhoneUpdatedPayloadNotificationProperties"/>.
+        /// </summary>
+        public static CustomerPhoneUpdatedPayloadNotificationProperties CustomerPhoneUpdatedPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new CustomerPhoneUpdatedPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerPhoneUpdatedPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CustomerPhoneUpdatedPayloadNotificationNotificationsItem CustomerPhoneUpdatedPayloadNotificationNotificationsItem(
+            string action = default,
+            string actionType = default,
+            string id = default,
+            string phoneType = default,
+            string number = default,
+            string extension = default,
+            bool? isPrimary = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default,
+            CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld old = default)
+        {
+            return new CustomerPhoneUpdatedPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                ActionType = actionType,
+                Id = id,
+                PhoneType = phoneType,
+                Number = number,
+                Extension = extension,
+                IsPrimary = isPrimary,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                Old = old,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld"/>.
+        /// </summary>
+        public static CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld(
+            string id = default,
+            string phoneType = default,
+            string number = default,
+            string extension = default,
+            bool? isPrimary = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default)
+        {
+            return new CustomerPhoneUpdatedPayloadNotificationNotificationsItemOld
+            {
+                Id = id,
+                PhoneType = phoneType,
+                Number = number,
+                Extension = extension,
+                IsPrimary = isPrimary,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
             };
         }
 
@@ -6467,6 +8410,102 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="CustomerAddressUpdatedPayloadNotification"/>.
+        /// </summary>
+        public static CustomerAddressUpdatedPayloadNotification CustomerAddressUpdatedPayloadNotification(
+            string webhookId = default,
+            CustomerAddressUpdatedPayloadNotificationProperties properties = default,
+            List<CustomerAddressUpdatedPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new CustomerAddressUpdatedPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerAddressUpdatedPayloadNotificationProperties"/>.
+        /// </summary>
+        public static CustomerAddressUpdatedPayloadNotificationProperties CustomerAddressUpdatedPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new CustomerAddressUpdatedPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerAddressUpdatedPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static CustomerAddressUpdatedPayloadNotificationNotificationsItem CustomerAddressUpdatedPayloadNotificationNotificationsItem(
+            string action = default,
+            string actionType = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default,
+            string id = default,
+            bool? primary = default,
+            string line1 = default,
+            string line2 = default,
+            string line3 = default,
+            string city = default,
+            string state = default,
+            string zipcode = default,
+            string country = default,
+            CustomerAddressUpdatedPayloadNotificationNotificationsItemOld old = default)
+        {
+            return new CustomerAddressUpdatedPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                ActionType = actionType,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                Id = id,
+                Primary = primary,
+                Line1 = line1,
+                Line2 = line2,
+                Line3 = line3,
+                City = city,
+                State = state,
+                Zipcode = zipcode,
+                Country = country,
+                Old = old,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerAddressUpdatedPayloadNotificationNotificationsItemOld"/>.
+        /// </summary>
+        public static CustomerAddressUpdatedPayloadNotificationNotificationsItemOld CustomerAddressUpdatedPayloadNotificationNotificationsItemOld(
+            string id = default,
+            bool? primary = default,
+            string line1 = default,
+            string line2 = default,
+            string line3 = default,
+            string city = default,
+            string state = default,
+            string zipcode = default,
+            string country = default)
+        {
+            return new CustomerAddressUpdatedPayloadNotificationNotificationsItemOld
+            {
+                Id = id,
+                Primary = primary,
+                Line1 = line1,
+                Line2 = line2,
+                Line3 = line3,
+                City = city,
+                State = state,
+                Zipcode = zipcode,
+                Country = country,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WhenEventRegistrationSubstitutedInput"/>.
         /// </summary>
         public static WhenEventRegistrationSubstitutedInput WhenEventRegistrationSubstitutedInput(
@@ -6483,6 +8522,72 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Secret = secret,
                 CallBackUrl = callBackUrl,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EventRegistrationSubstitutedPayloadNotification"/>.
+        /// </summary>
+        public static EventRegistrationSubstitutedPayloadNotification EventRegistrationSubstitutedPayloadNotification(
+            string webhookId = default,
+            EventRegistrationSubstitutedPayloadNotificationProperties properties = default,
+            List<EventRegistrationSubstitutedPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new EventRegistrationSubstitutedPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EventRegistrationSubstitutedPayloadNotificationProperties"/>.
+        /// </summary>
+        public static EventRegistrationSubstitutedPayloadNotificationProperties EventRegistrationSubstitutedPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new EventRegistrationSubstitutedPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="EventRegistrationSubstitutedPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static EventRegistrationSubstitutedPayloadNotificationNotificationsItem EventRegistrationSubstitutedPayloadNotificationNotificationsItem(
+            string action = default,
+            string orderNumber = default,
+            string invoiceNumber = default,
+            string productCode = default,
+            string productName = default,
+            string productType = default,
+            string parentProductCode = default,
+            string substitutedForCustomerId = default,
+            string substitutedForCustomerRecordNumber = default,
+            string substitutedByCustomerId = default,
+            string substitutedByCustomerRecordNumber = default,
+            string substitutedByCustomerFirstName = default,
+            string substitutedByCustomerLastName = default,
+            string substitutedByCustomerEmailAddress = default)
+        {
+            return new EventRegistrationSubstitutedPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                OrderNumber = orderNumber,
+                InvoiceNumber = invoiceNumber,
+                ProductCode = productCode,
+                ProductName = productName,
+                ProductType = productType,
+                ParentProductCode = parentProductCode,
+                SubstitutedForCustomerId = substitutedForCustomerId,
+                SubstitutedForCustomerRecordNumber = substitutedForCustomerRecordNumber,
+                SubstitutedByCustomerId = substitutedByCustomerId,
+                SubstitutedByCustomerRecordNumber = substitutedByCustomerRecordNumber,
+                SubstitutedByCustomerFirstName = substitutedByCustomerFirstName,
+                SubstitutedByCustomerLastName = substitutedByCustomerLastName,
+                SubstitutedByCustomerEmailAddress = substitutedByCustomerEmailAddress,
             };
         }
 
@@ -6523,6 +8628,60 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Secret = secret,
                 CallBackUrl = callBackUrl,
                 Description = description,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipTypeTerminatedPayloadNotification"/>.
+        /// </summary>
+        public static MembershipTypeTerminatedPayloadNotification MembershipTypeTerminatedPayloadNotification(
+            string webhookId = default,
+            MembershipTypeTerminatedPayloadNotificationProperties properties = default,
+            List<MembershipTypeTerminatedPayloadNotificationNotificationsItem> notifications = default)
+        {
+            return new MembershipTypeTerminatedPayloadNotification
+            {
+                WebhookId = webhookId,
+                Properties = properties,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipTypeTerminatedPayloadNotificationProperties"/>.
+        /// </summary>
+        public static MembershipTypeTerminatedPayloadNotificationProperties MembershipTypeTerminatedPayloadNotificationProperties(
+            DateTime? date = default)
+        {
+            return new MembershipTypeTerminatedPayloadNotificationProperties
+            {
+                Date = date,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipTypeTerminatedPayloadNotificationNotificationsItem"/>.
+        /// </summary>
+        public static MembershipTypeTerminatedPayloadNotificationNotificationsItem MembershipTypeTerminatedPayloadNotificationNotificationsItem(
+            string action = default,
+            string customerId = default,
+            string customerType = default,
+            string recordNumber = default,
+            string membershipType = default,
+            string membershipTypeCode = default,
+            DateTime? terminateDate = default,
+            string terminateReason = default)
+        {
+            return new MembershipTypeTerminatedPayloadNotificationNotificationsItem
+            {
+                Action = action,
+                CustomerId = customerId,
+                CustomerType = customerType,
+                RecordNumber = recordNumber,
+                MembershipType = membershipType,
+                MembershipTypeCode = membershipTypeCode,
+                TerminateDate = terminateDate,
+                TerminateReason = terminateReason,
             };
         }
 
@@ -6877,6 +9036,173 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenCommitteeMemberUpdated trigger (Impexium "When a committee member is updated", operationId: When-Committee-Member-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenCommitteeMemberUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenCommitteeMemberUpdatedTriggerPayload : TriggerCallbackPayload<CommitteeMemberPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenCustomerAddressUpdated trigger (Impexium "When a customer address is updated", operationId: When-Customer-Address-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenCustomerAddressUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenCustomerAddressUpdatedTriggerPayload : TriggerCallbackPayload<CustomerAddressUpdatedPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenCustomerCustomFieldValueUpdated trigger (Impexium "When a customer custom field value is updated", operationId: When-Customer-Custom-Field-Value-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenCustomerCustomFieldValueUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenCustomerCustomFieldValueUpdatedTriggerPayload : TriggerCallbackPayload<CustomerCustomFieldValuePayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenCustomerIsMerged trigger (Impexium "When a customer is merged", operationId: When-Customer-Is-Merged).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenCustomerIsMergedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenCustomerIsMergedTriggerPayload : TriggerCallbackPayload<CustomerMergedPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenCustomerPhoneUpdated trigger (Impexium "When a customer phone is updated", operationId: When-Customer-Phone-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenCustomerPhoneUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenCustomerPhoneUpdatedTriggerPayload : TriggerCallbackPayload<CustomerPhoneUpdatedPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenCustomerRelationshipUpdated trigger (Impexium "When a customer relationship is updated", operationId: When-Customer-Relationship-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenCustomerRelationshipUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenCustomerRelationshipUpdatedTriggerPayload : TriggerCallbackPayload<CustomerRelationshipUpdatedPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenEmailUpdated trigger (Impexium "When a customer email is updated", operationId: When-Email-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenEmailUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenEmailUpdatedTriggerPayload : TriggerCallbackPayload<EmailPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenEventRegistrationSubstituted trigger (Impexium "When an event registration is substituted", operationId: When-Event-Registration-Substituted).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenEventRegistrationSubstitutedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenEventRegistrationSubstitutedTriggerPayload : TriggerCallbackPayload<EventRegistrationSubstitutedPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenIndividualCreated trigger (Impexium "When an individual is created", operationId: When-Individual-Created).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenIndividualCreatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenIndividualCreatedTriggerPayload : TriggerCallbackPayload<IndividualPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenIndividualDeleted trigger (Impexium "When an individual is deleted", operationId: When-Individual-Deleted).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenIndividualDeletedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenIndividualDeletedTriggerPayload : TriggerCallbackPayload<IndividualPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenIndividualRequestForgotten trigger (Impexium "When an individual requests to be forgotten", operationId: When-Individual-Request-Forgotten).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenIndividualRequestForgottenTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenIndividualRequestForgottenTriggerPayload : TriggerCallbackPayload<IndividualRequestToBeForgottenPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenMembershipTerminated trigger (Impexium "When a membership is terminated", operationId: When-Membership-Terminated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenMembershipTerminatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenMembershipTerminatedTriggerPayload : TriggerCallbackPayload<MembershipTypeTerminatedPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenProductPurchased trigger (Impexium "When a product is purchased", operationId: When-product-purchased).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenProductPurchasedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenProductPurchasedTriggerPayload : TriggerCallbackPayload<ProductPurchasePayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenPurchaseCancelled trigger (Impexium "When a purchase is canceled", operationId: When-purchase-cancelled).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenPurchaseCancelledTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenPurchaseCancelledTriggerPayload : TriggerCallbackPayload<PurchaseCancelledPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenPurchasePaid trigger (Impexium "When a purchase is paid", operationId: When-Purchase-Paid).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenPurchasePaidTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenPurchasePaidTriggerPayload : TriggerCallbackPayload<ProductPurchasePayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWhenRequestUpdated trigger (Impexium "When a customer request is updated", operationId: When-Request-Updated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ImpexiumOnWhenRequestUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ImpexiumOnWhenRequestUpdatedTriggerPayload : TriggerCallbackPayload<CustomerRequestPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Impexium connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="ImpexiumTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class ImpexiumTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Impexium connector.
+        /// This is a subset of all triggers — see <see cref="ImpexiumTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["When-Committee-Member-Updated"] = typeof(ImpexiumOnWhenCommitteeMemberUpdatedTriggerPayload),
+                ["When-Customer-Address-Updated"] = typeof(ImpexiumOnWhenCustomerAddressUpdatedTriggerPayload),
+                ["When-Customer-Custom-Field-Value-Updated"] = typeof(ImpexiumOnWhenCustomerCustomFieldValueUpdatedTriggerPayload),
+                ["When-Customer-Is-Merged"] = typeof(ImpexiumOnWhenCustomerIsMergedTriggerPayload),
+                ["When-Customer-Phone-Updated"] = typeof(ImpexiumOnWhenCustomerPhoneUpdatedTriggerPayload),
+                ["When-Customer-Relationship-Updated"] = typeof(ImpexiumOnWhenCustomerRelationshipUpdatedTriggerPayload),
+                ["When-Email-Updated"] = typeof(ImpexiumOnWhenEmailUpdatedTriggerPayload),
+                ["When-Event-Registration-Substituted"] = typeof(ImpexiumOnWhenEventRegistrationSubstitutedTriggerPayload),
+                ["When-Individual-Created"] = typeof(ImpexiumOnWhenIndividualCreatedTriggerPayload),
+                ["When-Individual-Deleted"] = typeof(ImpexiumOnWhenIndividualDeletedTriggerPayload),
+                ["When-Individual-Request-Forgotten"] = typeof(ImpexiumOnWhenIndividualRequestForgottenTriggerPayload),
+                ["When-Membership-Terminated"] = typeof(ImpexiumOnWhenMembershipTerminatedTriggerPayload),
+                ["When-product-purchased"] = typeof(ImpexiumOnWhenProductPurchasedTriggerPayload),
+                ["When-purchase-cancelled"] = typeof(ImpexiumOnWhenPurchaseCancelledTriggerPayload),
+                ["When-Purchase-Paid"] = typeof(ImpexiumOnWhenPurchasePaidTriggerPayload),
+                ["When-Request-Updated"] = typeof(ImpexiumOnWhenRequestUpdatedTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Impexium
@@ -6893,81 +9219,97 @@ namespace Azure.Connectors.Sdk.Impexium
     {
         /// <summary>
         /// When a committee member is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenCommitteeMemberUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenCommitteeMemberUpdated = "When-Committee-Member-Updated";
 
         /// <summary>
         /// When a customer address is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenCustomerAddressUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenCustomerAddressUpdated = "When-Customer-Address-Updated";
 
         /// <summary>
         /// When a customer custom field value is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenCustomerCustomFieldValueUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenCustomerCustomFieldValueUpdated = "When-Customer-Custom-Field-Value-Updated";
 
         /// <summary>
         /// When a customer is merged.
+        /// Payload type: <see cref="ImpexiumOnWhenCustomerIsMergedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenCustomerIsMerged = "When-Customer-Is-Merged";
 
         /// <summary>
         /// When a customer phone is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenCustomerPhoneUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenCustomerPhoneUpdated = "When-Customer-Phone-Updated";
 
         /// <summary>
         /// When a customer relationship is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenCustomerRelationshipUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenCustomerRelationshipUpdated = "When-Customer-Relationship-Updated";
 
         /// <summary>
         /// When a customer email is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenEmailUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenEmailUpdated = "When-Email-Updated";
 
         /// <summary>
         /// When an event registration is substituted.
+        /// Payload type: <see cref="ImpexiumOnWhenEventRegistrationSubstitutedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenEventRegistrationSubstituted = "When-Event-Registration-Substituted";
 
         /// <summary>
         /// When an individual is created.
+        /// Payload type: <see cref="ImpexiumOnWhenIndividualCreatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenIndividualCreated = "When-Individual-Created";
 
         /// <summary>
         /// When an individual is deleted.
+        /// Payload type: <see cref="ImpexiumOnWhenIndividualDeletedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenIndividualDeleted = "When-Individual-Deleted";
 
         /// <summary>
         /// When an individual requests to be forgotten.
+        /// Payload type: <see cref="ImpexiumOnWhenIndividualRequestForgottenTriggerPayload"/>.
         /// </summary>
         public const string OnWhenIndividualRequestForgotten = "When-Individual-Request-Forgotten";
 
         /// <summary>
         /// When a membership is terminated.
+        /// Payload type: <see cref="ImpexiumOnWhenMembershipTerminatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenMembershipTerminated = "When-Membership-Terminated";
 
         /// <summary>
         /// When a product is purchased.
+        /// Payload type: <see cref="ImpexiumOnWhenProductPurchasedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenProductPurchased = "When-product-purchased";
 
         /// <summary>
         /// When a purchase is canceled.
+        /// Payload type: <see cref="ImpexiumOnWhenPurchaseCancelledTriggerPayload"/>.
         /// </summary>
         public const string OnWhenPurchaseCancelled = "When-purchase-cancelled";
 
         /// <summary>
         /// When a purchase is paid.
+        /// Payload type: <see cref="ImpexiumOnWhenPurchasePaidTriggerPayload"/>.
         /// </summary>
         public const string OnWhenPurchasePaid = "When-Purchase-Paid";
 
         /// <summary>
         /// When a customer request is updated.
+        /// Payload type: <see cref="ImpexiumOnWhenRequestUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnWhenRequestUpdated = "When-Request-Updated";
 

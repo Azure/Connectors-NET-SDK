@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -73,6 +74,269 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         /// <summary>appname</summary>
         [JsonPropertyName("appname")]
         public string AppName { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Zoho Sign Triggers
+    /// </summary>
+    public class ZohoSignTriggersNotification
+    {
+        /// <summary>requests</summary>
+        [JsonPropertyName("requests")]
+        public ZohoSignTriggersNotificationRequests Requests { get; set; }
+
+        /// <summary>notifications</summary>
+        [JsonPropertyName("notifications")]
+        public ZohoSignTriggersNotificationNotifications Notifications { get; set; }
+    }
+
+    /// <summary>
+    /// requests
+    /// </summary>
+    public class ZohoSignTriggersNotificationRequests
+    {
+        /// <summary>request status</summary>
+        [JsonPropertyName("request_status")]
+        public string RequestStatus { get; set; }
+
+        /// <summary>notes</summary>
+        [JsonPropertyName("notes")]
+        public string Notes { get; set; }
+
+        /// <summary>reminder period</summary>
+        [JsonPropertyName("reminder_period")]
+        public int? ReminderPeriod { get; set; }
+
+        /// <summary>owner id</summary>
+        [JsonPropertyName("owner_id")]
+        public string OwnerId { get; set; }
+
+        /// <summary>description</summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        /// <summary>Request name</summary>
+        [JsonPropertyName("request_name")]
+        public string RequestName { get; set; }
+
+        /// <summary>Modified time</summary>
+        [JsonPropertyName("modified_time")]
+        public int? ModifiedTime { get; set; }
+
+        /// <summary>Action time</summary>
+        [JsonPropertyName("action_time")]
+        public int? ActionTime { get; set; }
+
+        /// <summary>Status of deleted</summary>
+        [JsonPropertyName("is_deleted")]
+        public bool? IsDeleted { get; set; }
+
+        /// <summary>Expiration days</summary>
+        [JsonPropertyName("expiration_days")]
+        public int? ExpirationDays { get; set; }
+
+        /// <summary>Status of sequential operation</summary>
+        [JsonPropertyName("is_sequential")]
+        public bool? IsSequential { get; set; }
+
+        /// <summary>Sign submitted time</summary>
+        [JsonPropertyName("sign_submitted_time")]
+        public int? SignSubmittedTime { get; set; }
+
+        /// <summary>Owner of the first name</summary>
+        [JsonPropertyName("owner_first_name")]
+        public string OwnerFirstName { get; set; }
+
+        /// <summary>Sign percentage</summary>
+        [JsonPropertyName("sign_percentage")]
+        public int? SignPercentage { get; set; }
+
+        /// <summary>Expire by</summary>
+        [JsonPropertyName("expire_by")]
+        public int? ExpireBy { get; set; }
+
+        /// <summary>Owner email</summary>
+        [JsonPropertyName("owner_email")]
+        public string OwnerEmail { get; set; }
+
+        /// <summary>Created time</summary>
+        [JsonPropertyName("created_time")]
+        [JsonInclude]
+        public int? CreatedTime { get; init; }
+
+        /// <summary>Email reminders</summary>
+        [JsonPropertyName("email_reminders")]
+        public bool? EmailReminders { get; set; }
+
+        /// <summary>Document ids list</summary>
+        [JsonPropertyName("document_ids")]
+        public List<ZohoSignTriggersNotificationRequestsDocumentIdsItem> DocumentIds { get; set; }
+
+        /// <summary>Status of self sign</summary>
+        [JsonPropertyName("self_sign")]
+        public bool? SelfSign { get; set; }
+
+        /// <summary>Status of in process</summary>
+        [JsonPropertyName("in_process")]
+        public bool? InProcess { get; set; }
+
+        /// <summary>Validity</summary>
+        [JsonPropertyName("validity")]
+        public int? Validity { get; set; }
+
+        /// <summary>Request type name</summary>
+        [JsonPropertyName("request_type_name")]
+        public string RequestTypeName { get; set; }
+
+        /// <summary>Decline reason</summary>
+        [JsonPropertyName("decline_reason")]
+        public string DeclineReason { get; set; }
+
+        /// <summary>Request id</summary>
+        [JsonPropertyName("request_id")]
+        public string RequestId { get; set; }
+
+        /// <summary>Request type id</summary>
+        [JsonPropertyName("request_type_id")]
+        public string RequestTypeId { get; set; }
+
+        /// <summary>Owner last name</summary>
+        [JsonPropertyName("owner_last_name")]
+        public string OwnerLastName { get; set; }
+
+        /// <summary>actions</summary>
+        [JsonPropertyName("actions")]
+        public List<ZohoSignTriggersNotificationRequestsActionsItem> Actions { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Document ids list
+    /// </summary>
+    public class ZohoSignTriggersNotificationRequestsDocumentIdsItem
+    {
+        /// <summary>Enter the document name</summary>
+        [JsonPropertyName("document_name")]
+        public string DocumentName { get; set; }
+
+        /// <summary>Size of the document</summary>
+        [JsonPropertyName("document_size")]
+        public int? DocumentSize { get; set; }
+
+        /// <summary>Order of the document</summary>
+        [JsonPropertyName("document_order")]
+        public string DocumentOrder { get; set; }
+
+        /// <summary>Total number of pages in the document</summary>
+        [JsonPropertyName("total_pages")]
+        public int? TotalPages { get; set; }
+
+        /// <summary>Document ID</summary>
+        [JsonPropertyName("document_id")]
+        public string DocumentId { get; set; }
+    }
+
+    /// <summary>
+    /// Item in actions
+    /// </summary>
+    public class ZohoSignTriggersNotificationRequestsActionsItem
+    {
+        /// <summary>Verify recipient</summary>
+        [JsonPropertyName("verify_recipient")]
+        public bool? VerifyRecipient { get; set; }
+
+        /// <summary>Type of action</summary>
+        [JsonPropertyName("action_type")]
+        public string ActionType { get; set; }
+
+        /// <summary>Private notes</summary>
+        [JsonPropertyName("private_notes")]
+        public string PrivateNotes { get; set; }
+
+        /// <summary>Recipient email</summary>
+        [JsonPropertyName("recipient_email")]
+        public string RecipientEmail { get; set; }
+
+        /// <summary>Status of signing</summary>
+        [JsonPropertyName("allow_signing")]
+        public bool? AllowSigning { get; set; }
+
+        /// <summary>Recipient phonenumber</summary>
+        [JsonPropertyName("recipient_phonenumber")]
+        public string RecipientPhonenumber { get; set; }
+
+        /// <summary>Status of bulk action</summary>
+        [JsonPropertyName("is_bulk")]
+        public bool? IsBulk { get; set; }
+
+        /// <summary>Action id</summary>
+        [JsonPropertyName("action_id")]
+        public string ActionId { get; set; }
+
+        /// <summary>Status of revoke</summary>
+        [JsonPropertyName("is_revoked")]
+        public bool? IsRevoked { get; set; }
+
+        /// <summary>Status of embedded</summary>
+        [JsonPropertyName("is_embedded")]
+        public bool? IsEmbedded { get; set; }
+
+        /// <summary>Signing order</summary>
+        [JsonPropertyName("signing_order")]
+        public int? SigningOrder { get; set; }
+
+        /// <summary>Recipient name</summary>
+        [JsonPropertyName("recipient_name")]
+        public string RecipientName { get; set; }
+
+        /// <summary>Action status</summary>
+        [JsonPropertyName("action_status")]
+        public string ActionStatus { get; set; }
+
+        /// <summary>Country Code of the recipient</summary>
+        [JsonPropertyName("recipient_countrycode")]
+        public string RecipientCountrycode { get; set; }
+    }
+
+    /// <summary>
+    /// notifications
+    /// </summary>
+    public class ZohoSignTriggersNotificationNotifications
+    {
+        /// <summary>Performed by email</summary>
+        [JsonPropertyName("performed_by_email")]
+        public string PerformedByEmail { get; set; }
+
+        /// <summary>Performed at</summary>
+        [JsonPropertyName("performed_at")]
+        public int? PerformedAt { get; set; }
+
+        /// <summary>Reason</summary>
+        [JsonPropertyName("reason")]
+        public string Reason { get; set; }
+
+        /// <summary>Activity</summary>
+        [JsonPropertyName("activity")]
+        public string Activity { get; set; }
+
+        /// <summary>Operation Type</summary>
+        [JsonPropertyName("operation_type")]
+        public string OperationType { get; set; }
+
+        /// <summary>Action id</summary>
+        [JsonPropertyName("action_id")]
+        public string ActionId { get; set; }
+
+        /// <summary>Performed by name</summary>
+        [JsonPropertyName("performed_by_name")]
+        public string PerformedByName { get; set; }
+
+        /// <summary>Signing order</summary>
+        [JsonPropertyName("signing_order")]
+        public int? SigningOrder { get; set; }
+
+        /// <summary>Ip address</summary>
+        [JsonPropertyName("ip_address")]
+        public string IpAddress { get; set; }
     }
 
     /// <summary>
@@ -268,6 +532,172 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ZohoSignTriggersNotification"/>.
+        /// </summary>
+        public static ZohoSignTriggersNotification ZohoSignTriggersNotification(
+            ZohoSignTriggersNotificationRequests requests = default,
+            ZohoSignTriggersNotificationNotifications notifications = default)
+        {
+            return new ZohoSignTriggersNotification
+            {
+                Requests = requests,
+                Notifications = notifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ZohoSignTriggersNotificationRequests"/>.
+        /// </summary>
+        public static ZohoSignTriggersNotificationRequests ZohoSignTriggersNotificationRequests(
+            string requestStatus = default,
+            string notes = default,
+            int? reminderPeriod = default,
+            string ownerId = default,
+            string description = default,
+            string requestName = default,
+            int? modifiedTime = default,
+            int? actionTime = default,
+            bool? isDeleted = default,
+            int? expirationDays = default,
+            bool? isSequential = default,
+            int? signSubmittedTime = default,
+            string ownerFirstName = default,
+            int? signPercentage = default,
+            int? expireBy = default,
+            string ownerEmail = default,
+            int? createdTime = default,
+            bool? emailReminders = default,
+            List<ZohoSignTriggersNotificationRequestsDocumentIdsItem> documentIds = default,
+            bool? selfSign = default,
+            bool? inProcess = default,
+            int? validity = default,
+            string requestTypeName = default,
+            string declineReason = default,
+            string requestId = default,
+            string requestTypeId = default,
+            string ownerLastName = default,
+            List<ZohoSignTriggersNotificationRequestsActionsItem> actions = default)
+        {
+            return new ZohoSignTriggersNotificationRequests
+            {
+                RequestStatus = requestStatus,
+                Notes = notes,
+                ReminderPeriod = reminderPeriod,
+                OwnerId = ownerId,
+                Description = description,
+                RequestName = requestName,
+                ModifiedTime = modifiedTime,
+                ActionTime = actionTime,
+                IsDeleted = isDeleted,
+                ExpirationDays = expirationDays,
+                IsSequential = isSequential,
+                SignSubmittedTime = signSubmittedTime,
+                OwnerFirstName = ownerFirstName,
+                SignPercentage = signPercentage,
+                ExpireBy = expireBy,
+                OwnerEmail = ownerEmail,
+                CreatedTime = createdTime,
+                EmailReminders = emailReminders,
+                DocumentIds = documentIds,
+                SelfSign = selfSign,
+                InProcess = inProcess,
+                Validity = validity,
+                RequestTypeName = requestTypeName,
+                DeclineReason = declineReason,
+                RequestId = requestId,
+                RequestTypeId = requestTypeId,
+                OwnerLastName = ownerLastName,
+                Actions = actions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ZohoSignTriggersNotificationRequestsDocumentIdsItem"/>.
+        /// </summary>
+        public static ZohoSignTriggersNotificationRequestsDocumentIdsItem ZohoSignTriggersNotificationRequestsDocumentIdsItem(
+            string documentName = default,
+            int? documentSize = default,
+            string documentOrder = default,
+            int? totalPages = default,
+            string documentId = default)
+        {
+            return new ZohoSignTriggersNotificationRequestsDocumentIdsItem
+            {
+                DocumentName = documentName,
+                DocumentSize = documentSize,
+                DocumentOrder = documentOrder,
+                TotalPages = totalPages,
+                DocumentId = documentId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ZohoSignTriggersNotificationRequestsActionsItem"/>.
+        /// </summary>
+        public static ZohoSignTriggersNotificationRequestsActionsItem ZohoSignTriggersNotificationRequestsActionsItem(
+            bool? verifyRecipient = default,
+            string actionType = default,
+            string privateNotes = default,
+            string recipientEmail = default,
+            bool? allowSigning = default,
+            string recipientPhonenumber = default,
+            bool? isBulk = default,
+            string actionId = default,
+            bool? isRevoked = default,
+            bool? isEmbedded = default,
+            int? signingOrder = default,
+            string recipientName = default,
+            string actionStatus = default,
+            string recipientCountrycode = default)
+        {
+            return new ZohoSignTriggersNotificationRequestsActionsItem
+            {
+                VerifyRecipient = verifyRecipient,
+                ActionType = actionType,
+                PrivateNotes = privateNotes,
+                RecipientEmail = recipientEmail,
+                AllowSigning = allowSigning,
+                RecipientPhonenumber = recipientPhonenumber,
+                IsBulk = isBulk,
+                ActionId = actionId,
+                IsRevoked = isRevoked,
+                IsEmbedded = isEmbedded,
+                SigningOrder = signingOrder,
+                RecipientName = recipientName,
+                ActionStatus = actionStatus,
+                RecipientCountrycode = recipientCountrycode,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ZohoSignTriggersNotificationNotifications"/>.
+        /// </summary>
+        public static ZohoSignTriggersNotificationNotifications ZohoSignTriggersNotificationNotifications(
+            string performedByEmail = default,
+            int? performedAt = default,
+            string reason = default,
+            string activity = default,
+            string operationType = default,
+            string actionId = default,
+            string performedByName = default,
+            int? signingOrder = default,
+            string ipAddress = default)
+        {
+            return new ZohoSignTriggersNotificationNotifications
+            {
+                PerformedByEmail = performedByEmail,
+                PerformedAt = performedAt,
+                Reason = reason,
+                Activity = activity,
+                OperationType = operationType,
+                ActionId = actionId,
+                PerformedByName = performedByName,
+                SigningOrder = signingOrder,
+                IpAddress = ipAddress,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GetFormDataResponse"/>.
         /// </summary>
         public static GetFormDataResponse GetFormDataResponse(
@@ -360,6 +790,38 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnZohoSignTriggers trigger (ZohoSign "Zoho Sign Triggers", operationId: zoho-sign-triggers).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ZohoSignOnZohoSignTriggersTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ZohoSignOnZohoSignTriggersTriggerPayload : TriggerCallbackPayload<ZohoSignTriggersNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the ZohoSign connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="ZohoSignTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class ZohoSignTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the ZohoSign connector.
+        /// This is a subset of all triggers — see <see cref="ZohoSignTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["zoho-sign-triggers"] = typeof(ZohoSignOnZohoSignTriggersTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.ZohoSign
@@ -376,6 +838,7 @@ namespace Azure.Connectors.Sdk.ZohoSign
     {
         /// <summary>
         /// Zoho Sign Triggers.
+        /// Payload type: <see cref="ZohoSignOnZohoSignTriggersTriggerPayload"/>.
         /// </summary>
         public const string OnZohoSignTriggers = "zoho-sign-triggers";
 

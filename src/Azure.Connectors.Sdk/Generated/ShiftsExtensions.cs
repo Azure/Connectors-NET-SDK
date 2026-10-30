@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -1020,6 +1021,60 @@ namespace Azure.Connectors.Sdk.Shifts.Models
     }
 
     /// <summary>
+    /// Payload from backend containing subscription metadata as well as data
+    /// </summary>
+    public class WebhookPushResponseNotification
+    {
+        /// <summary>List of values</summary>
+        [JsonPropertyName("value")]
+        public List<WebhookNotificationEntityNotification> Value { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of values
+    /// </summary>
+    public class WebhookNotificationEntityNotification
+    {
+        /// <summary>WebHook Subscription Id</summary>
+        [JsonPropertyName("subscriptionId")]
+        public string WebHookSubscriptionId { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ (UTC format)</summary>
+        [JsonPropertyName("expirationDateTime")]
+        public DateTime? ExpirationTimeForWebhookSubscription { get; set; }
+
+        /// <summary>Resource change type (created/updated/deleted).</summary>
+        [JsonPropertyName("changeType")]
+        public string ChangeType { get; set; }
+
+        /// <summary>resourceData</summary>
+        [JsonPropertyName("resourceData")]
+        public WebhookPushResponseResourceEntityNotification ResourceData { get; set; }
+    }
+
+    /// <summary>
+    /// resourceData
+    /// </summary>
+    public class WebhookPushResponseResourceEntityNotification
+    {
+        /// <summary>Full resource path.</summary>
+        [JsonPropertyName("@odata.id")]
+        public string ResourcePath { get; set; }
+
+        /// <summary>Resoure Type.</summary>
+        [JsonPropertyName("@odata.type")]
+        public string ResourceType { get; set; }
+
+        /// <summary>ID of the resource that is updated.</summary>
+        [JsonPropertyName("id")]
+        public string ResourceId { get; set; }
+
+        /// <summary>ID of team where the update happened.</summary>
+        [JsonPropertyName("teamId")]
+        public string TeamId { get; set; }
+    }
+
+    /// <summary>
     /// Response for List teams
     /// </summary>
     public class GetAllTeamsResponse
@@ -1861,6 +1916,54 @@ namespace Azure.Connectors.Sdk.Shifts.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookPushResponseNotification"/>.
+        /// </summary>
+        public static WebhookPushResponseNotification WebhookPushResponseNotification(
+            List<WebhookNotificationEntityNotification> value = default)
+        {
+            return new WebhookPushResponseNotification
+            {
+                Value = value,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookNotificationEntityNotification"/>.
+        /// </summary>
+        public static WebhookNotificationEntityNotification WebhookNotificationEntityNotification(
+            string webHookSubscriptionId = default,
+            DateTime? expirationTimeForWebhookSubscription = default,
+            string changeType = default,
+            WebhookPushResponseResourceEntityNotification resourceData = default)
+        {
+            return new WebhookNotificationEntityNotification
+            {
+                WebHookSubscriptionId = webHookSubscriptionId,
+                ExpirationTimeForWebhookSubscription = expirationTimeForWebhookSubscription,
+                ChangeType = changeType,
+                ResourceData = resourceData,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPushResponseResourceEntityNotification"/>.
+        /// </summary>
+        public static WebhookPushResponseResourceEntityNotification WebhookPushResponseResourceEntityNotification(
+            string resourcePath = default,
+            string resourceType = default,
+            string resourceId = default,
+            string teamId = default)
+        {
+            return new WebhookPushResponseResourceEntityNotification
+            {
+                ResourcePath = resourcePath,
+                ResourceType = resourceType,
+                ResourceId = resourceId,
+                TeamId = teamId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GetAllTeamsResponse"/>.
         /// </summary>
         public static GetAllTeamsResponse GetAllTeamsResponse(
@@ -1933,6 +2036,74 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnTriggerForOfferShiftRequests trigger (Shifts "When an Offer Shift request is created, updated or deleted", operationId: TriggerForOfferShiftRequests).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ShiftsOnTriggerForOfferShiftRequestsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ShiftsOnTriggerForOfferShiftRequestsTriggerPayload : TriggerCallbackPayload<WebhookNotificationEntityNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTriggerForOpenShiftChangeRequests trigger (Shifts "When an Open Shift request is created, updated or deleted", operationId: TriggerForOpenShiftChangeRequests).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ShiftsOnTriggerForOpenShiftChangeRequestsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ShiftsOnTriggerForOpenShiftChangeRequestsTriggerPayload : TriggerCallbackPayload<WebhookNotificationEntityNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTriggerForShifts trigger (Shifts "When a Shift is created, updated or deleted", operationId: TriggerForShifts).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ShiftsOnTriggerForShiftsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ShiftsOnTriggerForShiftsTriggerPayload : TriggerCallbackPayload<WebhookNotificationEntityNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTriggerForSwapShiftsChangeRequests trigger (Shifts "When a Swap Shifts request is created, updated or deleted", operationId: TriggerForSwapShiftsChangeRequests).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ShiftsOnTriggerForSwapShiftsChangeRequestsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ShiftsOnTriggerForSwapShiftsChangeRequestsTriggerPayload : TriggerCallbackPayload<WebhookNotificationEntityNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTriggerForTimeOffRequests trigger (Shifts "When a Time Off request is created, updated or deleted", operationId: TriggerForTimeOffRequests).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ShiftsOnTriggerForTimeOffRequestsTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ShiftsOnTriggerForTimeOffRequestsTriggerPayload : TriggerCallbackPayload<WebhookNotificationEntityNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Shifts connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="ShiftsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class ShiftsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Shifts connector.
+        /// This is a subset of all triggers — see <see cref="ShiftsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["TriggerForOfferShiftRequests"] = typeof(ShiftsOnTriggerForOfferShiftRequestsTriggerPayload),
+                ["TriggerForOpenShiftChangeRequests"] = typeof(ShiftsOnTriggerForOpenShiftChangeRequestsTriggerPayload),
+                ["TriggerForShifts"] = typeof(ShiftsOnTriggerForShiftsTriggerPayload),
+                ["TriggerForSwapShiftsChangeRequests"] = typeof(ShiftsOnTriggerForSwapShiftsChangeRequestsTriggerPayload),
+                ["TriggerForTimeOffRequests"] = typeof(ShiftsOnTriggerForTimeOffRequestsTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Shifts
@@ -1949,26 +2120,31 @@ namespace Azure.Connectors.Sdk.Shifts
     {
         /// <summary>
         /// When an Offer Shift request is created, updated or deleted.
+        /// Payload type: <see cref="ShiftsOnTriggerForOfferShiftRequestsTriggerPayload"/>.
         /// </summary>
         public const string OnTriggerForOfferShiftRequests = "TriggerForOfferShiftRequests";
 
         /// <summary>
         /// When an Open Shift request is created, updated or deleted.
+        /// Payload type: <see cref="ShiftsOnTriggerForOpenShiftChangeRequestsTriggerPayload"/>.
         /// </summary>
         public const string OnTriggerForOpenShiftChangeRequests = "TriggerForOpenShiftChangeRequests";
 
         /// <summary>
         /// When a Shift is created, updated or deleted.
+        /// Payload type: <see cref="ShiftsOnTriggerForShiftsTriggerPayload"/>.
         /// </summary>
         public const string OnTriggerForShifts = "TriggerForShifts";
 
         /// <summary>
         /// When a Swap Shifts request is created, updated or deleted.
+        /// Payload type: <see cref="ShiftsOnTriggerForSwapShiftsChangeRequestsTriggerPayload"/>.
         /// </summary>
         public const string OnTriggerForSwapShiftsChangeRequests = "TriggerForSwapShiftsChangeRequests";
 
         /// <summary>
         /// When a Time Off request is created, updated or deleted.
+        /// Payload type: <see cref="ShiftsOnTriggerForTimeOffRequestsTriggerPayload"/>.
         /// </summary>
         public const string OnTriggerForTimeOffRequests = "TriggerForTimeOffRequests";
 

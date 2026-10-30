@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -75,6 +76,244 @@ namespace Azure.Connectors.Sdk.Typeform.Models
         /// <summary>Date of last update to webhook. In ISO 8601 format, UTC time, to the second, with T as a delimeter between the date and time.</summary>
         [JsonPropertyName("updated_at")]
         public DateTime? UpdatedAt { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a response is submitted
+    /// </summary>
+    public class WebhookPayloadNotification
+    {
+        /// <summary>Unique ID for the webhook. Automatically assigned by Typeform.</summary>
+        [JsonPropertyName("event_id")]
+        public string EventId { get; set; }
+
+        /// <summary>Reason the webhook is being sent.</summary>
+        [JsonPropertyName("event_type")]
+        public string EventType { get; set; }
+
+        /// <summary>Object that contains information about the typeform and account associated with the webhook.</summary>
+        [JsonPropertyName("form_response")]
+        public WebhookPayloadNotificationFormResponse FormResponse { get; set; }
+    }
+
+    /// <summary>
+    /// Object that contains information about the typeform and account associated with the webhook.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponse
+    {
+        /// <summary>Unique ID for the typeform.</summary>
+        [JsonPropertyName("form_id")]
+        public string FormId { get; set; }
+
+        /// <summary>Unique ID for the typeform submission.</summary>
+        [JsonPropertyName("token")]
+        public string Token { get; set; }
+
+        /// <summary>Date and time the typeform responses were submitted. In ISO 8601 format, Coordinated Universal Time (UTC), to the second.</summary>
+        [JsonPropertyName("submitted_at")]
+        public DateTime? SubmittedAt { get; set; }
+
+        /// <summary>Date and time of the form landing. In ISO 8601 format, Coordinated Universal Time (UTC), to the second.</summary>
+        [JsonPropertyName("landed_at")]
+        public DateTime? LandedAt { get; set; }
+
+        /// <summary>If your typeform includes a score calculation, the webhook response will contain this object.</summary>
+        [JsonPropertyName("calculated")]
+        public WebhookPayloadNotificationFormResponseCalculated Calculated { get; set; }
+
+        /// <summary>Object that lists the questions in your typeform.</summary>
+        [JsonPropertyName("definition")]
+        public WebhookPayloadNotificationFormResponseDefinition Definition { get; set; }
+
+        /// <summary>Array of objects that lists the answers for all the answered questions in your typeform.</summary>
+        [JsonPropertyName("answers")]
+        public List<WebhookPayloadNotificationFormResponseAnswersItem> Answers { get; set; }
+
+        /// <summary>Object that contains the answers for all the answered questions in your typeform.</summary>
+        [JsonPropertyName("answersObject")]
+        public WebhookPayloadNotificationFormResponseAnswersObject AnswersObject { get; set; }
+    }
+
+    /// <summary>
+    /// If your typeform includes a score calculation, the webhook response will contain this object.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseCalculated
+    {
+        /// <summary>Score the respondent entered.</summary>
+        [JsonPropertyName("score")]
+        public int? Score { get; set; }
+    }
+
+    /// <summary>
+    /// Object that lists the questions in your typeform.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseDefinition
+    {
+        /// <summary>Unique ID of the typeform.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Title of the typeform.</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Questions in your typeform.</summary>
+        [JsonPropertyName("fields")]
+        public List<WebhookPayloadNotificationFormResponseDefinitionFieldsItem> Fields { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Questions in your typeform.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseDefinitionFieldsItem
+    {
+        /// <summary>Unique ID for the field.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Title of the question associated with the field.</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>Question type</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        /// <summary>A name you can use to reference the field. Only usable for typeforms created using the Create API.</summary>
+        [JsonPropertyName("ref")]
+        public string Ref { get; set; }
+
+        /// <summary>Multiple choice options.</summary>
+        [JsonPropertyName("choices")]
+        public List<WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem> Choices { get; set; }
+
+        /// <summary>Allows multiple selections</summary>
+        [JsonPropertyName("allow_multiple_selections")]
+        public bool? AllowMultipleSelections { get; set; }
+
+        /// <summary>Allows &apos;Other&apos; response.</summary>
+        [JsonPropertyName("allow_other_choice")]
+        public bool? AllowOtherChoice { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Multiple choice options.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem
+    {
+        /// <summary>Unique ID for the field.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Choice label.</summary>
+        [JsonPropertyName("label")]
+        public string Label { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Array of objects that lists the answers for all the answered questions in your typeform.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseAnswersItem
+    {
+        /// <summary>Type of the answer.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        /// <summary>Text.</summary>
+        [JsonPropertyName("text")]
+        public string Text { get; set; }
+
+        /// <summary>Email Address.</summary>
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        /// <summary>Date.</summary>
+        [JsonPropertyName("date")]
+        public DateTime? Date { get; set; }
+
+        /// <summary>Number.</summary>
+        [JsonPropertyName("number")]
+        public int? Number { get; set; }
+
+        /// <summary>Boolean.</summary>
+        [JsonPropertyName("boolean")]
+        public bool? Boolean { get; set; }
+
+        /// <summary>URL.</summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>File URL.</summary>
+        [JsonPropertyName("file_url")]
+        public string FileUrl { get; set; }
+
+        /// <summary>Single-selection choice.</summary>
+        [JsonPropertyName("choice")]
+        public WebhookPayloadNotificationFormResponseAnswersItemChoice Choice { get; set; }
+
+        /// <summary>Multiple-selection choices.</summary>
+        [JsonPropertyName("choices")]
+        public WebhookPayloadNotificationFormResponseAnswersItemChoices Choices { get; set; }
+
+        /// <summary>Object that contains identifying information to help you match the answer with the question.</summary>
+        [JsonPropertyName("field")]
+        public WebhookPayloadNotificationFormResponseAnswersItemField Field { get; set; }
+    }
+
+    /// <summary>
+    /// Single-selection choice.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseAnswersItemChoice
+    {
+        /// <summary>Choice label.</summary>
+        [JsonPropertyName("label")]
+        public string Label { get; set; }
+
+        /// <summary>Other choice.</summary>
+        [JsonPropertyName("other")]
+        public string Other { get; set; }
+    }
+
+    /// <summary>
+    /// Multiple-selection choices.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseAnswersItemChoices
+    {
+        /// <summary>Choice label.</summary>
+        [JsonPropertyName("labels")]
+        public List<string> Labels { get; set; }
+
+        /// <summary>Other choice.</summary>
+        [JsonPropertyName("other")]
+        public string Other { get; set; }
+    }
+
+    /// <summary>
+    /// Object that contains identifying information to help you match the answer with the question.
+    /// </summary>
+    public class WebhookPayloadNotificationFormResponseAnswersItemField
+    {
+        /// <summary>Unique ID for the field.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Type of question associated with the field.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
+    /// Object that contains the answers for all the answered questions in your typeform.
+    /// </summary>
+    [DynamicSchema("GetSchema_V3")]
+    public class WebhookPayloadNotificationFormResponseAnswersObject
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -145,6 +384,188 @@ namespace Azure.Connectors.Sdk.Typeform.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotification"/>.
+        /// </summary>
+        public static WebhookPayloadNotification WebhookPayloadNotification(
+            string eventId = default,
+            string eventType = default,
+            WebhookPayloadNotificationFormResponse formResponse = default)
+        {
+            return new WebhookPayloadNotification
+            {
+                EventId = eventId,
+                EventType = eventType,
+                FormResponse = formResponse,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponse"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponse WebhookPayloadNotificationFormResponse(
+            string formId = default,
+            string token = default,
+            DateTime? submittedAt = default,
+            DateTime? landedAt = default,
+            WebhookPayloadNotificationFormResponseCalculated calculated = default,
+            WebhookPayloadNotificationFormResponseDefinition definition = default,
+            List<WebhookPayloadNotificationFormResponseAnswersItem> answers = default,
+            WebhookPayloadNotificationFormResponseAnswersObject answersObject = default)
+        {
+            return new WebhookPayloadNotificationFormResponse
+            {
+                FormId = formId,
+                Token = token,
+                SubmittedAt = submittedAt,
+                LandedAt = landedAt,
+                Calculated = calculated,
+                Definition = definition,
+                Answers = answers,
+                AnswersObject = answersObject,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseCalculated"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseCalculated WebhookPayloadNotificationFormResponseCalculated(
+            int? score = default)
+        {
+            return new WebhookPayloadNotificationFormResponseCalculated
+            {
+                Score = score,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseDefinition"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseDefinition WebhookPayloadNotificationFormResponseDefinition(
+            string id = default,
+            string title = default,
+            List<WebhookPayloadNotificationFormResponseDefinitionFieldsItem> fields = default)
+        {
+            return new WebhookPayloadNotificationFormResponseDefinition
+            {
+                Id = id,
+                Title = title,
+                Fields = fields,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseDefinitionFieldsItem"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseDefinitionFieldsItem WebhookPayloadNotificationFormResponseDefinitionFieldsItem(
+            string id = default,
+            string title = default,
+            string type = default,
+            string @ref = default,
+            List<WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem> choices = default,
+            bool? allowMultipleSelections = default,
+            bool? allowOtherChoice = default)
+        {
+            return new WebhookPayloadNotificationFormResponseDefinitionFieldsItem
+            {
+                Id = id,
+                Title = title,
+                Type = type,
+                Ref = @ref,
+                Choices = choices,
+                AllowMultipleSelections = allowMultipleSelections,
+                AllowOtherChoice = allowOtherChoice,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem(
+            string id = default,
+            string label = default)
+        {
+            return new WebhookPayloadNotificationFormResponseDefinitionFieldsItemChoicesItem
+            {
+                Id = id,
+                Label = label,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseAnswersItem"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseAnswersItem WebhookPayloadNotificationFormResponseAnswersItem(
+            string type = default,
+            string text = default,
+            string email = default,
+            DateTime? date = default,
+            int? number = default,
+            bool? boolean = default,
+            string url = default,
+            string fileUrl = default,
+            WebhookPayloadNotificationFormResponseAnswersItemChoice choice = default,
+            WebhookPayloadNotificationFormResponseAnswersItemChoices choices = default,
+            WebhookPayloadNotificationFormResponseAnswersItemField field = default)
+        {
+            return new WebhookPayloadNotificationFormResponseAnswersItem
+            {
+                Type = type,
+                Text = text,
+                Email = email,
+                Date = date,
+                Number = number,
+                Boolean = boolean,
+                Url = url,
+                FileUrl = fileUrl,
+                Choice = choice,
+                Choices = choices,
+                Field = field,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseAnswersItemChoice"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseAnswersItemChoice WebhookPayloadNotificationFormResponseAnswersItemChoice(
+            string label = default,
+            string other = default)
+        {
+            return new WebhookPayloadNotificationFormResponseAnswersItemChoice
+            {
+                Label = label,
+                Other = other,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseAnswersItemChoices"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseAnswersItemChoices WebhookPayloadNotificationFormResponseAnswersItemChoices(
+            List<string> labels = default,
+            string other = default)
+        {
+            return new WebhookPayloadNotificationFormResponseAnswersItemChoices
+            {
+                Labels = labels,
+                Other = other,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationFormResponseAnswersItemField"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationFormResponseAnswersItemField WebhookPayloadNotificationFormResponseAnswersItemField(
+            string id = default,
+            string type = default)
+        {
+            return new WebhookPayloadNotificationFormResponseAnswersItemField
+            {
+                Id = id,
+                Type = type,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="ListFormsResponse"/>.
         /// </summary>
         public static ListFormsResponse ListFormsResponse(
@@ -163,6 +584,38 @@ namespace Azure.Connectors.Sdk.Typeform.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewResponseWebhook trigger (Typeform "When a response is submitted", operationId: NewResponseWebhook_V2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TypeformOnNewResponseWebhookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TypeformOnNewResponseWebhookTriggerPayload : TriggerCallbackPayload<WebhookPayloadNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Typeform connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="TypeformTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class TypeformTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Typeform connector.
+        /// This is a subset of all triggers — see <see cref="TypeformTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["NewResponseWebhook_V2"] = typeof(TypeformOnNewResponseWebhookTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Typeform
@@ -179,6 +632,7 @@ namespace Azure.Connectors.Sdk.Typeform
     {
         /// <summary>
         /// When a response is submitted.
+        /// Payload type: <see cref="TypeformOnNewResponseWebhookTriggerPayload"/>.
         /// </summary>
         public const string OnNewResponseWebhook = "NewResponseWebhook_V2";
 
