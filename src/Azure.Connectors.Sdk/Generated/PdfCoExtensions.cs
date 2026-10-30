@@ -1527,7 +1527,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF to Scanned PDF
     /// </summary>
-    public class PDFUnsearchableInput
+    public class PdfUnsearchableInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1553,7 +1553,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF to Scanned PDF
     /// </summary>
-    public class PDFUnSearchableResponse
+    public class PdfUnsearchableResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3173,7 +3173,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF From Spreadsheet
     /// </summary>
-    public class PDFFromXLSXLSXResponse
+    public class PdfFromXlsXlsxResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3215,7 +3215,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to CSV
     /// </summary>
-    public class XLSToCSVInput
+    public class XlsToCsvInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3253,7 +3253,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Spreadsheet to CSV
     /// </summary>
-    public class XLStoCSVResponse
+    public class XlsToCsvResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3291,7 +3291,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to JSON
     /// </summary>
-    public class XLSToJSONInput
+    public class XlsToJsonInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3321,7 +3321,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Spreadsheet to JSON
     /// </summary>
-    public class XLStoJSONResponse
+    public class XlsToJsonResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3359,7 +3359,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to HTML
     /// </summary>
-    public class XLSToHTMLInput
+    public class XlsToHtmlInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3389,7 +3389,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Spreadsheet to HTML
     /// </summary>
-    public class XLStoHTMLResponse
+    public class XlsToHtmlResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3427,7 +3427,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to TXT
     /// </summary>
-    public class XLSToTXTInput
+    public class XlsToTxtInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3457,7 +3457,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Spreadsheet to TXT
     /// </summary>
-    public class XLStoTXTResponse
+    public class XlsToTxtResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3495,7 +3495,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to XML
     /// </summary>
-    public class XLSToXMLInput
+    public class XlsToXmlInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3525,7 +3525,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Spreadsheet to XML
     /// </summary>
-    public class XLStoXMLResponse
+    public class XlsToXmlResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -5814,16 +5814,16 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFUnsearchableInput"/>.
+        /// Creates a new instance of <see cref="PdfUnsearchableInput"/>.
         /// </summary>
-        public static PDFUnsearchableInput PDFUnsearchableInput(
+        public static PdfUnsearchableInput PdfUnsearchableInput(
             string url = default,
             string pages = default,
             string password = default,
             bool? async = default,
             string profiles = default)
         {
-            return new PDFUnsearchableInput
+            return new PdfUnsearchableInput
             {
                 Url = url,
                 Pages = pages,
@@ -5834,9 +5834,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFUnSearchableResponse"/>.
+        /// Creates a new instance of <see cref="PdfUnsearchableResponse"/>.
         /// </summary>
-        public static PDFUnSearchableResponse PDFUnSearchableResponse(
+        public static PdfUnsearchableResponse PdfUnsearchableResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -5847,7 +5847,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFUnSearchableResponse
+            return new PdfUnsearchableResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6910,9 +6910,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromXLSXLSXResponse"/>.
+        /// Creates a new instance of <see cref="PdfFromXlsXlsxResponse"/>.
         /// </summary>
-        public static PDFFromXLSXLSXResponse PDFFromXLSXLSXResponse(
+        public static PdfFromXlsXlsxResponse PdfFromXlsXlsxResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6923,7 +6923,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFromXLSXLSXResponse
+            return new PdfFromXlsXlsxResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6938,9 +6938,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLSToCSVInput"/>.
+        /// Creates a new instance of <see cref="XlsToCsvInput"/>.
         /// </summary>
-        public static XLSToCSVInput XLSToCSVInput(
+        public static XlsToCsvInput XlsToCsvInput(
             string url = default,
             string worksheetIndex = default,
             string quotationSymbol = default,
@@ -6950,7 +6950,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLSToCSVInput
+            return new XlsToCsvInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -6964,9 +6964,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoCSVResponse"/>.
+        /// Creates a new instance of <see cref="XlsToCsvResponse"/>.
         /// </summary>
-        public static XLStoCSVResponse XLStoCSVResponse(
+        public static XlsToCsvResponse XlsToCsvResponse(
             string url = default,
             string jobId = default,
             bool? error = default,
@@ -6976,7 +6976,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new XLStoCSVResponse
+            return new XlsToCsvResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6990,9 +6990,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLSToJSONInput"/>.
+        /// Creates a new instance of <see cref="XlsToJsonInput"/>.
         /// </summary>
-        public static XLSToJSONInput XLSToJSONInput(
+        public static XlsToJsonInput XlsToJsonInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7000,7 +7000,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLSToJSONInput
+            return new XlsToJsonInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7012,9 +7012,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoJSONResponse"/>.
+        /// Creates a new instance of <see cref="XlsToJsonResponse"/>.
         /// </summary>
-        public static XLStoJSONResponse XLStoJSONResponse(
+        public static XlsToJsonResponse XlsToJsonResponse(
             string url = default,
             string jobId = default,
             bool? error = default,
@@ -7024,7 +7024,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new XLStoJSONResponse
+            return new XlsToJsonResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7038,9 +7038,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLSToHTMLInput"/>.
+        /// Creates a new instance of <see cref="XlsToHtmlInput"/>.
         /// </summary>
-        public static XLSToHTMLInput XLSToHTMLInput(
+        public static XlsToHtmlInput XlsToHtmlInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7048,7 +7048,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLSToHTMLInput
+            return new XlsToHtmlInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7060,9 +7060,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoHTMLResponse"/>.
+        /// Creates a new instance of <see cref="XlsToHtmlResponse"/>.
         /// </summary>
-        public static XLStoHTMLResponse XLStoHTMLResponse(
+        public static XlsToHtmlResponse XlsToHtmlResponse(
             string url = default,
             string jobId = default,
             bool? error = default,
@@ -7072,7 +7072,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new XLStoHTMLResponse
+            return new XlsToHtmlResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7086,9 +7086,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLSToTXTInput"/>.
+        /// Creates a new instance of <see cref="XlsToTxtInput"/>.
         /// </summary>
-        public static XLSToTXTInput XLSToTXTInput(
+        public static XlsToTxtInput XlsToTxtInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7096,7 +7096,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLSToTXTInput
+            return new XlsToTxtInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7108,9 +7108,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoTXTResponse"/>.
+        /// Creates a new instance of <see cref="XlsToTxtResponse"/>.
         /// </summary>
-        public static XLStoTXTResponse XLStoTXTResponse(
+        public static XlsToTxtResponse XlsToTxtResponse(
             string url = default,
             string jobId = default,
             bool? error = default,
@@ -7120,7 +7120,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new XLStoTXTResponse
+            return new XlsToTxtResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7134,9 +7134,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLSToXMLInput"/>.
+        /// Creates a new instance of <see cref="XlsToXmlInput"/>.
         /// </summary>
-        public static XLSToXMLInput XLSToXMLInput(
+        public static XlsToXmlInput XlsToXmlInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7144,7 +7144,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLSToXMLInput
+            return new XlsToXmlInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7156,9 +7156,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoXMLResponse"/>.
+        /// Creates a new instance of <see cref="XlsToXmlResponse"/>.
         /// </summary>
-        public static XLStoXMLResponse XLStoXMLResponse(
+        public static XlsToXmlResponse XlsToXmlResponse(
             string url = default,
             string jobId = default,
             bool? error = default,
@@ -7168,7 +7168,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new XLStoXMLResponse
+            return new XlsToXmlResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -8193,14 +8193,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF to Scanned PDF response.</returns>
-        public virtual async Task<PDFUnSearchableResponse> PDFUnsearchableAsync(PDFUnsearchableInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfUnsearchableResponse> PdfUnsearchableAsync(PdfUnsearchableInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFUnsearchableAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfUnsearchableAsync");
             try
             {
                 var path = $"/v1/pdf/makeunsearchable";
                 return await this
-                    .CallConnectorAsync<PDFUnSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfUnsearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8668,14 +8668,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF From Spreadsheet response.</returns>
-        public virtual async Task<PDFFromXLSXLSXResponse> PdfFromXlsXlsxAsync(PdfFromXlsXlsxInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFromXlsXlsxResponse> PdfFromXlsXlsxAsync(PdfFromXlsXlsxInput input, CancellationToken cancellationToken = default)
         {
             using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFromXlsXlsxAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/pdf";
                 return await this
-                    .CallConnectorAsync<PDFFromXLSXLSXResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFromXlsXlsxResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8693,14 +8693,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to CSV response.</returns>
-        public virtual async Task<XLStoCSVResponse> XLSToCSVAsync(XLSToCSVInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XlsToCsvResponse> XlsToCsvAsync(XlsToCsvInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToCSVAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XlsToCsvAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/csv";
                 return await this
-                    .CallConnectorAsync<XLStoCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<XlsToCsvResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8718,14 +8718,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to JSON response.</returns>
-        public virtual async Task<XLStoJSONResponse> XLSToJSONAsync(XLSToJSONInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XlsToJsonResponse> XlsToJsonAsync(XlsToJsonInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToJSONAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XlsToJsonAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/json";
                 return await this
-                    .CallConnectorAsync<XLStoJSONResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<XlsToJsonResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8743,14 +8743,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to HTML response.</returns>
-        public virtual async Task<XLStoHTMLResponse> XLSToHTMLAsync(XLSToHTMLInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XlsToHtmlResponse> XlsToHtmlAsync(XlsToHtmlInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToHTMLAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XlsToHtmlAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/html";
                 return await this
-                    .CallConnectorAsync<XLStoHTMLResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<XlsToHtmlResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8768,14 +8768,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to TXT response.</returns>
-        public virtual async Task<XLStoTXTResponse> XLSToTXTAsync(XLSToTXTInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XlsToTxtResponse> XlsToTxtAsync(XlsToTxtInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToTXTAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XlsToTxtAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/txt";
                 return await this
-                    .CallConnectorAsync<XLStoTXTResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<XlsToTxtResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8793,14 +8793,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to XML response.</returns>
-        public virtual async Task<XLStoXMLResponse> XLSToXMLAsync(XLSToXMLInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XlsToXmlResponse> XlsToXmlAsync(XlsToXmlInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToXMLAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XlsToXmlAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/xml";
                 return await this
-                    .CallConnectorAsync<XLStoXMLResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<XlsToXmlResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -5,6 +5,11 @@ generator and generated connector SDKs must preserve. It applies to every
 language target. Language-specific naming and idioms remain governed by that
 language's Azure SDK guidelines.
 
+For the .NET acronym families covered here, use `Pdf`, `Xls`, `Csv`, `Html`,
+`Json`, `Txt`, and `Xml`, but retain `AI` as a two-letter acronym. Validate the
+affected methods, input/response types, collection types, and factories together;
+correcting only one member leaves an inconsistent public API.
+
 ## Source of Truth
 
 The connector Swagger document is the backend contract. A generated client may
