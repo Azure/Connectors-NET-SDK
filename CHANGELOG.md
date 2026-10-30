@@ -7,23 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+<!-- MAINTAINER NOTE: Cut pending changes into a versioned section before tagging,
+  update the compare links, and mirror the release in release_notes.md while
+  preserving its historical sections. Use absolute documentation links there;
+  do NOT add HTML comments because the package includes its contents verbatim. -->
+
 ### Added
 
-- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](docs/triggers.md#webhook-callback-schemas).
-
-- **DataFlows SMS and ServiceNow connector clients** - added `DataflowsSmsClient` (`dataflowssms`) for SMS messaging and account actions, and `ServiceNowClient` (`service-now`) for records, catalog items, knowledge articles, and binary attachment uploads. DataFlows SMS is distinct from Power Query Dataflows. Both clients include mocked request and serialization tests.
-
-- **Azure DevOps (VSTS) and Power Query Dataflows connector clients** - added `VisualStudioTeamServicesClient` (`visualstudioteamservices`) and `DataflowsClient` (`dataflows`), with models, model factories, discovery operations, trigger registration metadata, and mocked HTTP and serialization tests. Azure DevOps also includes typed trigger callbacks. See [connector usage](README.md#azure-devops-and-dataflows).
+- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/triggers.md#webhook-callback-schemas).
 
 ### Fixed
 
 - **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
-
-- **Azure DevOps public naming** - use `VisualStudioTeamServices` for namespaces and client, factory, trigger, and enum type prefixes. Acronyms use .NET casing, including `Url`, `AccountUri`, `MemberUri`, `XmlForm`, and `HtmlLink`, without changing their JSON keys.
-
-- **DataFlows SMS public naming** - use PascalCase namespaces, clients, models, model factories, and SMS methods, including `DataflowsSmsClient`, `SendSmsInput`, and `SendSmsAsync`. Wire identifiers and JSON property names are unchanged.
-
-- **Azure DevOps callback and search binding** - search results preserve arbitrary JSON field values, pull-request commit truncation flags bind as booleans, and merge strategies bind as strings. Work-item detail lookup exposes only the production revision.
 
 - **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
 
@@ -31,19 +26,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Azure IoT Central callback naming** - use `WebhookTimestamp` and the model factory parameter `webhookTimestamp`. The JSON field remains `timestamp`.
 
+### Breaking Changes
+
+- **PDF.co public method casing** - use `PdfFromXlsXlsxAsync` and `PdfFromXlsXlsxInput` instead of `PDFFromXLSXLSXAsync` and `PDFFromXLSXLSXInput`. The refreshed client also renames `PDFUnSearchableAsync` to `PDFUnsearchableAsync` and the `XLStoCSV`, `XLStoHTML`, `XLStoJSON`, `XLStoTXT`, and `XLStoXML` async methods to `XLSToCSV`, `XLSToHTML`, `XLSToJSON`, `XLSToTXT`, and `XLSToXML`. Update derived request-model and model-factory references where applicable; HTTP routes and JSON fields are unchanged.
+
+- **Teams AI insight model casing** - `AiInsightResponse` is now `AIInsightResponse`, including `TeamsModelFactory.AIInsightResponse`. Update explicit model references and factory calls. `GetAiInsightAsync` and `AiInsightCollectionResponse.AIInsights` use the corrected model type; their wire fields and routes are unchanged.
+
+## [0.15.0-preview.1] - 2026-10-29
+
+### Added
+
+- **Zoho ZeptoMail generated client** — adds five public mail-agent, send-mail, template-mail, and analytics actions. `SendTemplateMailInput.MergeInfo` remains `List<JsonElement?>` so fixed string fields and arbitrary non-string merge values stay representable. The malformed Swagger type `ReplyToAddresss` is exposed as `ReplyToAddress` without changing the `reply_to` wire property.
+
+- **DataFlows SMS and ServiceNow connector clients** - added `DataflowsSmsClient` (`dataflowssms`) for SMS messaging and account actions, and `ServiceNowClient` (`service-now`) for records, catalog items, knowledge articles, and binary attachment uploads. DataFlows SMS is distinct from Power Query Dataflows. Both clients include mocked request and serialization tests.
+
+- **Azure DevOps (VSTS) and Power Query Dataflows connector clients** - added `VisualStudioTeamServicesClient` (`visualstudioteamservices`) and `DataflowsClient` (`dataflows`), with models, model factories, discovery operations, trigger registration metadata, and mocked HTTP and serialization tests. Azure DevOps also includes typed trigger callbacks. See [connector usage](https://github.com/Azure/Connectors-NET-SDK/blob/v0.15.0-preview.1/README.md#azure-devops-and-dataflows).
+
+### Fixed
+
+- **Azure DevOps public naming** - use `VisualStudioTeamServices` for namespaces and client, factory, trigger, and enum type prefixes. Acronyms use .NET casing, including `Url`, `AccountUri`, `MemberUri`, `XmlForm`, and `HtmlLink`, without changing their JSON keys.
+
+- **DataFlows SMS public naming** - use PascalCase namespaces, clients, models, model factories, and SMS methods, including `DataflowsSmsClient`, `SendSmsInput`, and `SendSmsAsync`. Wire identifiers and JSON property names are unchanged.
+
+- **Azure DevOps callback and search binding** - search results preserve arbitrary JSON field values, pull-request commit truncation flags bind as booleans, and merge strategies bind as strings. Work-item detail lookup exposes only the production revision.
+
+- **DataFlows SMS retry safety** - sending uses the POST action only; the GET send alternative is excluded to avoid automatic retries duplicating accepted messages.
+
 - **ServiceNow attachment reads return their response bodies** - attachment listing and metadata retrieval now return JSON-preserving models, and `RetrieveAttachmentContentAsync` returns the downloaded bytes instead of discarding them.
 
 - Add generator support and generated-client acceptance coverage for explicit scalar-only union map schemas, including mixed scalar serialization, invalid nested values, and independent nullability. Existing live connector contracts remain unchanged; open SQL query and Fin & Ops payloads are not reinterpreted as scalar-only. ([#280](https://github.com/Azure/Connectors-NET-SDK/issues/280))
 
 - **Seismic Planner localization values are strongly typed** — `CustomPropertyValues.Localizations` is now `Dictionary<string, CustomPropertyDataDisplay>` instead of `JsonElement?`, preserving the Swagger `additionalProperties` value schema. ([#262](https://github.com/Azure/Connectors-NET-SDK/issues/262))
 
-- **Microsoft Dataverse list rows now traverses every result page** — `GetItemsAsync` preserves the connector's `@odata.nextLink` continuation and returns an `AsyncPageable<Item>`. Live validation against a synthetic 5,001-row table retrieved all rows across ten connector pages without overlap. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208), AzureUX-BPM PR 17086991)
+- **Microsoft Dataverse list rows now traverses every result page** — `GetItemsAsync` preserves the connector's `@odata.nextLink` continuation and returns an `AsyncPageable<Item>`. Live validation against a synthetic 5,001-row table retrieved all rows across ten connector pages without overlap. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208))
 
-- **Extensible enum member collisions now preserve every wire value** — distinct values that normalize to one C# identifier are allocated stable unique names instead of dropping later claimants. Sign-and-number collisions use readable names, such as `Etc/GMT+4` → `EtcGmtPlus4` and `Etc/GMT-4` → `EtcGmtMinus4`; ordinary delimiter hyphens still use the general numeric fallback. Values normalized to mandatory struct members (`Equals`, `GetHashCode`, `ToString`) use an available `Value`-suffixed name. The frozen-cache audit tested 100 checked-in SDK names: 97 connectors generated, 96 were unchanged, and Plumsail was the only generated client affected. `MsGraphGroupsAndUsers` was unavailable from the current ARM catalog, while `ConnectorNames` and `ManagedConnectors` are infrastructure files rather than connector inputs. ([#181](https://github.com/Azure/Connectors-NET-SDK/issues/181), AzureUX-BPM PR 16971205)
+- **Extensible enum member collisions now preserve every wire value** — distinct values that normalize to one C# identifier are allocated stable unique names instead of dropping later claimants. Sign-and-number collisions use readable names, such as `Etc/GMT+4` → `EtcGmtPlus4` and `Etc/GMT-4` → `EtcGmtMinus4`; ordinary delimiter hyphens still use the general numeric fallback. Values normalized to mandatory struct members (`Equals`, `GetHashCode`, `ToString`) use an available `Value`-suffixed name. ([#181](https://github.com/Azure/Connectors-NET-SDK/issues/181))
 
-  Plumsail exercises the general normalization-collision path, not the reserved-member path. Reserved-member handling is retained as a synthetic generator regression for the historical failure reported in #181; no active reserved-member collision was found in the 97 connectors generated from the frozen snapshot. Of the eleven connector names in the issue, only Etsy remains in the current catalog, and its current Swagger has no such collision.
-
-- **All 98 connector clients re-synchronized with live Swagger** — regenerated every shipped client from the ARM catalog captured 2026-08-31. DocuSign and Jira are intentionally excluded from unfiltered generation by the generator skip list, but explicit filtered generation succeeded from their current ARM exports. Seven clients have content changes: Azure Monitor Logs, Google Drive, Jira, Key Vault, Plumsail, SigningHub, and Teams. The other 91 clients are byte-identical to their current versions. Validation found no dangling discovery references or type-name collapses. (AzureUX-BPM PRs 16971205 and 16998561; live cache SHA-256 `894FB4C0977736CDF2A3D1103894C75470BF1ADBB2B2E44D742F20AACAFCED25`)
+- **Existing connector clients refreshed from current Swagger** — updated Azure Monitor Logs, Google Drive, Jira, Key Vault, Plumsail, SigningHub, and Teams. See the contract and migration details below.
 
 ### Changed
 
@@ -59,15 +78,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Breaking Changes
 
-- **PDF.co public method casing** - use `PdfFromXlsXlsxAsync` and `PdfFromXlsXlsxInput` instead of `PDFFromXLSXLSXAsync` and `PDFFromXLSXLSXInput`. The refreshed client also renames `PDFUnSearchableAsync` to `PDFUnsearchableAsync` and the `XLStoCSV`, `XLStoHTML`, `XLStoJSON`, `XLStoTXT`, and `XLStoXML` async methods to `XLSToCSV`, `XLSToHTML`, `XLSToJSON`, `XLSToTXT`, and `XLSToXML`. Update derived request-model and model-factory references where applicable; HTTP routes and JSON fields are unchanged.
-
-- **Teams AI insight model casing** - `AiInsightResponse` is now `AIInsightResponse`, including `TeamsModelFactory.AIInsightResponse`. Update explicit model references and factory calls. `GetAiInsightAsync` and `AiInsightCollectionResponse.AIInsights` use the corrected model type; their wire fields and routes are unchanged.
-
 - **Seismic Planner `CustomPropertyValues.Localizations` now exposes typed values** — callers that previously inspected the nullable raw `JsonElement` must use the `Dictionary<string, CustomPropertyDataDisplay>` entries directly. For example, replace `Localizations.Value.GetProperty("en-US").GetProperty("name").GetString()` with `Localizations["en-US"].Name`. ([#262](https://github.com/Azure/Connectors-NET-SDK/issues/262))
 
-- **Automatic retries now default to methods that are safe to replay** — `GET`, `HEAD`, `OPTIONS`, and `TRACE` retain the configured Azure.Core retry behavior. `POST`, `PUT`, `PATCH`, `DELETE`, and all other methods make one attempt by default for both transient responses and ambiguous transport failures. Set `ConnectorClientOptions.RetryUnsafeHttpMethods` to `true` only when replaying side effects is acceptable. A caller-supplied `RetryPolicy` remains authoritative, and callers that construct a standalone `ConnectorHttpClient` pipeline own its retry semantics. See [Retry safety](docs/retry-safety.md). ([#269](https://github.com/Azure/Connectors-NET-SDK/issues/269))
+- **Automatic retries now default to methods that are safe to replay** — `GET`, `HEAD`, `OPTIONS`, and `TRACE` retain the configured Azure.Core retry behavior. `POST`, `PUT`, `PATCH`, `DELETE`, and all other methods make one attempt by default for both transient responses and ambiguous transport failures. Set `ConnectorClientOptions.RetryUnsafeHttpMethods` to `true` only when replaying side effects is acceptable. A caller-supplied `RetryPolicy` remains authoritative, and callers that construct a standalone `ConnectorHttpClient` pipeline own its retry semantics. See [Retry safety](https://github.com/Azure/Connectors-NET-SDK/blob/v0.15.0-preview.1/docs/retry-safety.md). ([#269](https://github.com/Azure/Connectors-NET-SDK/issues/269))
 
-- **Microsoft Dataverse `GetItemsAsync` now returns `AsyncPageable<Item>`** — callers that previously awaited one `ItemsList` page must enumerate the pageable with `await foreach`, or call `AsPages()` when page boundaries and continuation tokens are required. This prevents the connector's `@odata.nextLink` value from being discarded after the first page. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208), AzureUX-BPM PR 17086991)
+- **Microsoft Dataverse `GetItemsAsync` now returns `AsyncPageable<Item>`** — callers that previously awaited one `ItemsList` page must enumerate the pageable with `await foreach`, or call `AsPages()` when page boundaries and continuation tokens are required. This prevents the connector's `@odata.nextLink` value from being discarded after the first page. ([#208](https://github.com/Azure/Connectors-NET-SDK/issues/208))
 
 - **Google Drive `CreateFileAsync`: parameter renamed, route updated to v2, query key changed** — the `folderPath` parameter is now named `folder`, and the method calls `/datasets/default/v2/files` with the query key `folderId` instead of the previous `/datasets/default/files` with `folderPath`. Callers using the named argument `folderPath:` must rename it to `folder:`. Callers using positional arguments compile cleanly but will route to the v2 endpoint automatically.
 
@@ -81,14 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **SigningHub: over 60 properties changed from `JsonElement?` to typed model classes** — properties including `CertifyPolicyResponse.Certify` (→ `CertifyPermissionResponse`), `GetDocumentDetailsResponse.Certify` (→ `DocumentCertifyResponse`), `GetDocumentDetailsResponse.Template` (→ `DocumentTemplateResponse`), and many authentication, permission, access-duration, and signature-field properties are now strongly typed. Source code that called `.GetProperty(...)` on these `JsonElement?` properties no longer compiles; switch to the typed model accessors.
 
-- **Uppercase extensible-enum values now retain PascalCase word boundaries** — Key Vault members `Rsaoaep` and `Rsaoaep256` become `RsaOaep` and `RsaOaep256`. Plumsail members `Wsu` and `Nzchat` become `WSu` and `NzChat`. SigningHub corrects 20 members, including `Authenticationpassword` → `AuthenticationPassword`, `AUTHENTICATIONOIdC` → `AuthenticationOidc`, `Companylogo` → `CompanyLogo`, and `VALId` → `Valid`. Exact wire values are unchanged. (AzureUX-BPM PR 16998561)
-
-<!-- MAINTAINER NOTE: release_notes.md continuously mirrors this [Unreleased]
-  content for NuGet packaging. Before tagging a release, (1) cut this content
-  into a new versioned section here (e.g. ## [X.Y.Z-preview.N] - YYYY-MM-DD),
-  (2) add a reference link at the bottom, (3) update [Unreleased] compare base,
-  and (4) rename the mirrored release_notes.md heading to the same version/date.
-  Do NOT put HTML comments in release_notes.md — it is packed verbatim. -->
+- **Uppercase extensible-enum values now retain PascalCase word boundaries** — Key Vault members `Rsaoaep` and `Rsaoaep256` become `RsaOaep` and `RsaOaep256`. Plumsail members `Wsu` and `Nzchat` become `WSu` and `NzChat`. SigningHub corrects 20 members, including `Authenticationpassword` → `AuthenticationPassword`, `AUTHENTICATIONOIdC` → `AuthenticationOidc`, `Companylogo` → `CompanyLogo`, and `VALId` → `Valid`. Exact wire values are unchanged.
 
 ## [0.14.0-preview.1] - 2026-08-12
 
@@ -134,7 +142,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Zoho ZeptoMail generated client** — adds five public mail-agent, send-mail, template-mail, and analytics actions. `SendTemplateMailInput.MergeInfo` remains `List<JsonElement?>` so fixed string fields and arbitrary non-string merge values stay representable. The malformed Swagger type `ReplyToAddresss` is exposed as `ReplyToAddress` without changing the `reply_to` wire property.
 - **CloudConvert typed client** — adds the four public file-conversion operations and five internal discovery helpers referenced exclusively through `x-ms-dynamic-properties`.
 - **MailChimp A/B split options preserve both wait fields** — `ABSplitOpts` now exposes distinct `WaitUnits` and `WaitTime` properties for the `wait_units` and `wait_time` wire fields instead of silently dropping one generated-name collision. ([#231](https://github.com/Azure/Connectors-NET-SDK/issues/231), AzureUX-BPM PR 16763267)
 - **Discovery helpers retained from nested trigger and response schemas** — regenerated Azure Automation, Azure Monitor Logs, Elfsquad Data, Formstack Forms, Monday, Typeform, and Microsoft Defender ATP clients now include helpers pinned by nested trigger and response schemas in connector Swagger. Added `GetRunbookAsync`, `GetTimeRangeSelectionControlAsync`, `GetTriggerSchemaAsync`, `GetFormSchemaAsync`, three Monday column-schema helpers, Typeform's current `GetSchemaAsync`, and `AdvancedHuntingSchemaAsync`, plus five response/request models and four model-factory methods. Elfsquad Data's `GetTriggerSchemaAsync` and Formstack Forms' `GetFormSchemaAsync` return `Task` because owner Swagger declares no success response schema. Azure Automation's single-runbook route is likewise typed as `RunbookListResults` because that is the response definition declared by owner Swagger for both runbook routes. (AzureUX-BPM PR 16671915)
@@ -412,7 +419,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.14.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.15.0-preview.1...HEAD
+[0.15.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.14.0-preview.1...v0.15.0-preview.1
 [0.14.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.13.0-preview.1...v0.14.0-preview.1
 [0.13.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.12.0-preview.1...v0.13.0-preview.1
 [0.12.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.11.0-preview.1...v0.12.0-preview.1
