@@ -20,9 +20,9 @@
 
 - **Shifts and Dynamics AX lists now page automatically** - all twelve Shifts list methods and `DynamicsAXClient.GetItemsAsync` return `AsyncPageable<T>` instead of `Task<TPage>`. Replace single-page `await` calls with `await foreach`, or use `AsPages()` for page boundaries and continuation-token resumption. Shifts page-model collections now use `Value`; page-model factories also change to expose the paging contract, including the Dynamics AX `nextLink` parameter. JSON `value` and `@odata.nextLink` fields are unchanged. These clients no longer stop after the first page.
 
-- **PDF.co public method casing** - use `PdfFromXlsXlsxAsync` and `PdfFromXlsXlsxInput` instead of `PDFFromXLSXLSXAsync` and `PDFFromXLSXLSXInput`. The refreshed client also renames `PDFUnSearchableAsync` to `PDFUnsearchableAsync` and the `XLStoCSV`, `XLStoHTML`, `XLStoJSON`, `XLStoTXT`, and `XLStoXML` async methods to `XLSToCSV`, `XLSToHTML`, `XLSToJSON`, `XLSToTXT`, and `XLSToXML`. Update derived request-model and model-factory references where applicable; HTTP routes and JSON fields are unchanged.
+- **PDF.co public API casing** - rename `PDFFromXLSXLSXAsync` to `PdfFromXlsXlsxAsync`, `PDFUnSearchableAsync` to `PdfUnsearchableAsync`, and `XLStoCSVAsync`, `XLStoHTMLAsync`, `XLStoJSONAsync`, `XLStoTXTAsync`, and `XLStoXMLAsync` to `XlsToCsvAsync`, `XlsToHtmlAsync`, `XlsToJsonAsync`, `XlsToTxtAsync`, and `XlsToXmlAsync`. Corresponding `Input` and `Response` types and model-factory members use the same corrected stems, including `PdfFromXlsXlsxResponse`. HTTP routes and JSON fields are unchanged.
 
-- **Teams AI insight model casing** - `AiInsightResponse` is now `AIInsightResponse`, including `TeamsModelFactory.AIInsightResponse`. Update explicit model references and factory calls. `GetAiInsightAsync` and `AiInsightCollectionResponse.AIInsights` use the corrected model type; their wire fields and routes are unchanged.
+- **Teams AI insight API casing** - rename `GetAiInsightAsync` to `GetAIInsightAsync` and `ListAiInsightsAsync` to `ListAIInsightsAsync`. `AiInsightResponse` and `AiInsightCollectionResponse` become `AIInsightResponse` and `AIInsightCollectionResponse`, including their `TeamsModelFactory` members. Update method calls, explicit model references, and factory calls; JSON fields and HTTP routes are unchanged.
 
 ### 0.15.0-preview.1 (2026-10-29)
 

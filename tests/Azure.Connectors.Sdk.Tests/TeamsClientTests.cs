@@ -35,7 +35,74 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task GetAiInsightAsync_WithCurrentDetailResponse_DeserializesRichWireFields()
+        [Owner("daviburg")]
+        [DataRow(false)]
+        [DataRow(true)]
+        public async Task AIInsightOperations_WithMockedResponse_PreserveWireContract(bool list)
+        {
+            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(() => new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(list
+                    ? """{"@odata.context":"https://graph.microsoft.com/metadata","value":[{"id":"insight-1","callId":"call-1"}]}"""
+                    : """{"id":"insight-1","callId":"call-1"}"""),
+            });
+            using var client = new TeamsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: credential,
+                options: options);
+
+            if (list)
+            {
+                AIInsightCollectionResponse result = await client
+                    .ListAIInsightsAsync(meetingId: "meeting-1")
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var insights = result.AIInsights;
+                Assert.IsNotNull(insights);
+                Assert.AreEqual(expected: 1, actual: insights.Count);
+                Assert.AreEqual(expected: "insight-1", actual: insights[0].AIInsightId);
+                Assert.AreEqual(expected: "call-1", actual: insights[0].CallId);
+                Assert.AreEqual(expected: "https://graph.microsoft.com/metadata", actual: result.Context);
+            }
+            else
+            {
+                AiInsightDetailResponse result = await client
+                    .GetAIInsightAsync(meetingId: "meeting-1", aIInsightId: "insight-1")
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                Assert.AreEqual(expected: "insight-1", actual: result.AIInsightId);
+                Assert.AreEqual(expected: "call-1", actual: result.CallId);
+            }
+
+            var request = getLastRequest() ?? throw new AssertFailedException("Expected an AI insight request.");
+            Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+            Assert.AreEqual(
+                expected: new Uri("https://test.azure.com/connection/v1.0/copilot/me/onlineMeetings/meeting-1/aiInsights" + (list ? string.Empty : "/insight-1")),
+                actual: request.RequestUri);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        public void AIInsightCollectionResponse_ModelFactory_PreservesWireNames()
+        {
+            var model = TeamsModelFactory.AIInsightCollectionResponse(
+                context: "https://graph.microsoft.com/metadata",
+                aiInsights: new List<AIInsightResponse>
+                {
+                    TeamsModelFactory.AIInsightResponse(aiInsightId: "insight-1", callId: "call-1"),
+                });
+            var json = JsonSerializer.Serialize(model);
+            using var document = JsonDocument.Parse(json);
+            Assert.AreEqual(expected: "https://graph.microsoft.com/metadata", actual: document.RootElement.GetProperty("@odata.context").GetString());
+            Assert.AreEqual(expected: "insight-1", actual: document.RootElement.GetProperty("value")[0].GetProperty("id").GetString());
+            var restored = JsonSerializer.Deserialize<AIInsightCollectionResponse>(json);
+            var insights = restored?.AIInsights;
+            Assert.IsNotNull(insights);
+            Assert.AreEqual(expected: 1, actual: insights.Count);
+            Assert.AreEqual(expected: "insight-1", actual: insights[0].AIInsightId);
+            Assert.AreEqual(expected: "call-1", actual: insights[0].CallId);
+        }
+
+        [TestMethod]
+        public async Task GetAIInsightAsync_WithCurrentDetailResponse_DeserializesRichWireFields()
         {
             const string responseBody = """
                 {
@@ -56,7 +123,7 @@ namespace Azure.Connectors.Sdk.Tests
                 options: setup.Options);
 
             AiInsightDetailResponse result = await client
-                .GetAiInsightAsync(meetingId: "meeting/1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
+                .GetAIInsightAsync(meetingId: "meeting/1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(expected: "https://example.invalid/$metadata#insight", actual: result.Context);
@@ -78,7 +145,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task GetAiInsightAsync_WithPermissionFailure_PreservesServiceError()
+        public async Task GetAIInsightAsync_WithPermissionFailure_PreservesServiceError()
         {
             using var client = TeamsClientTests.CreateMockedClient(
                 () => new HttpResponseMessage(HttpStatusCode.Forbidden)
@@ -87,7 +154,7 @@ namespace Azure.Connectors.Sdk.Tests
                 });
             var exception = await Assert
                 .ThrowsExactlyAsync<ConnectorException>(async () => await client
-                    .GetAiInsightAsync(meetingId: "meeting-1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
+                    .GetAIInsightAsync(meetingId: "meeting-1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
             Assert.AreEqual(expected: 403, actual: exception.Status);
