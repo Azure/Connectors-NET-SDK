@@ -1527,7 +1527,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF to Scanned PDF
     /// </summary>
-    public class PDFUnSearchableInput
+    public class PDFUnsearchableInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3143,7 +3143,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF From Spreadsheet
     /// </summary>
-    public class PDFFromXLSXLSXInput
+    public class PdfFromXlsXlsxInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3215,7 +3215,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to CSV
     /// </summary>
-    public class XLStoCSVInput
+    public class XLSToCSVInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3291,7 +3291,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to JSON
     /// </summary>
-    public class XLStoJSONInput
+    public class XLSToJSONInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3359,7 +3359,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to HTML
     /// </summary>
-    public class XLStoHTMLInput
+    public class XLSToHTMLInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3427,7 +3427,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to TXT
     /// </summary>
-    public class XLStoTXTInput
+    public class XLSToTXTInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3495,7 +3495,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Spreadsheet to XML
     /// </summary>
-    public class XLStoXMLInput
+    public class XLSToXMLInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -5814,16 +5814,16 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFUnSearchableInput"/>.
+        /// Creates a new instance of <see cref="PDFUnsearchableInput"/>.
         /// </summary>
-        public static PDFUnSearchableInput PDFUnSearchableInput(
+        public static PDFUnsearchableInput PDFUnsearchableInput(
             string url = default,
             string pages = default,
             string password = default,
             bool? async = default,
             string profiles = default)
         {
-            return new PDFUnSearchableInput
+            return new PDFUnsearchableInput
             {
                 Url = url,
                 Pages = pages,
@@ -6888,9 +6888,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromXLSXLSXInput"/>.
+        /// Creates a new instance of <see cref="PdfFromXlsXlsxInput"/>.
         /// </summary>
-        public static PDFFromXLSXLSXInput PDFFromXLSXLSXInput(
+        public static PdfFromXlsXlsxInput PdfFromXlsXlsxInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -6898,7 +6898,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFFromXLSXLSXInput
+            return new PdfFromXlsXlsxInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -6938,9 +6938,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoCSVInput"/>.
+        /// Creates a new instance of <see cref="XLSToCSVInput"/>.
         /// </summary>
-        public static XLStoCSVInput XLStoCSVInput(
+        public static XLSToCSVInput XLSToCSVInput(
             string url = default,
             string worksheetIndex = default,
             string quotationSymbol = default,
@@ -6950,7 +6950,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLStoCSVInput
+            return new XLSToCSVInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -6990,9 +6990,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoJSONInput"/>.
+        /// Creates a new instance of <see cref="XLSToJSONInput"/>.
         /// </summary>
-        public static XLStoJSONInput XLStoJSONInput(
+        public static XLSToJSONInput XLSToJSONInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7000,7 +7000,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLStoJSONInput
+            return new XLSToJSONInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7038,9 +7038,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoHTMLInput"/>.
+        /// Creates a new instance of <see cref="XLSToHTMLInput"/>.
         /// </summary>
-        public static XLStoHTMLInput XLStoHTMLInput(
+        public static XLSToHTMLInput XLSToHTMLInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7048,7 +7048,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLStoHTMLInput
+            return new XLSToHTMLInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7086,9 +7086,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoTXTInput"/>.
+        /// Creates a new instance of <see cref="XLSToTXTInput"/>.
         /// </summary>
-        public static XLStoTXTInput XLStoTXTInput(
+        public static XLSToTXTInput XLSToTXTInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7096,7 +7096,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLStoTXTInput
+            return new XLSToTXTInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -7134,9 +7134,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="XLStoXMLInput"/>.
+        /// Creates a new instance of <see cref="XLSToXMLInput"/>.
         /// </summary>
-        public static XLStoXMLInput XLStoXMLInput(
+        public static XLSToXMLInput XLSToXMLInput(
             string url = default,
             string worksheetIndex = default,
             string name = default,
@@ -7144,7 +7144,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new XLStoXMLInput
+            return new XLSToXMLInput
             {
                 Url = url,
                 WorksheetIndex = worksheetIndex,
@@ -8193,9 +8193,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF to Scanned PDF response.</returns>
-        public virtual async Task<PDFUnSearchableResponse> PDFUnSearchableAsync(PDFUnSearchableInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PDFUnSearchableResponse> PDFUnsearchableAsync(PDFUnsearchableInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFUnSearchableAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFUnsearchableAsync");
             try
             {
                 var path = $"/v1/pdf/makeunsearchable";
@@ -8668,9 +8668,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF From Spreadsheet response.</returns>
-        public virtual async Task<PDFFromXLSXLSXResponse> PDFFromXLSXLSXAsync(PDFFromXLSXLSXInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PDFFromXLSXLSXResponse> PdfFromXlsXlsxAsync(PdfFromXlsXlsxInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromXLSXLSXAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFromXlsXlsxAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/pdf";
@@ -8693,9 +8693,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to CSV response.</returns>
-        public virtual async Task<XLStoCSVResponse> XLStoCSVAsync(XLStoCSVInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XLStoCSVResponse> XLSToCSVAsync(XLSToCSVInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoCSVAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToCSVAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/csv";
@@ -8718,9 +8718,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to JSON response.</returns>
-        public virtual async Task<XLStoJSONResponse> XLStoJSONAsync(XLStoJSONInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XLStoJSONResponse> XLSToJSONAsync(XLSToJSONInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoJSONAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToJSONAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/json";
@@ -8743,9 +8743,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to HTML response.</returns>
-        public virtual async Task<XLStoHTMLResponse> XLStoHTMLAsync(XLStoHTMLInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XLStoHTMLResponse> XLSToHTMLAsync(XLSToHTMLInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoHTMLAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToHTMLAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/html";
@@ -8768,9 +8768,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to TXT response.</returns>
-        public virtual async Task<XLStoTXTResponse> XLStoTXTAsync(XLStoTXTInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XLStoTXTResponse> XLSToTXTAsync(XLSToTXTInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoTXTAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToTXTAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/txt";
@@ -8793,9 +8793,9 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Spreadsheet to XML response.</returns>
-        public virtual async Task<XLStoXMLResponse> XLStoXMLAsync(XLStoXMLInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<XLStoXMLResponse> XLSToXMLAsync(XLSToXMLInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLStoXMLAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.XLSToXMLAsync");
             try
             {
                 var path = $"/v1/xls/convert/to/xml";

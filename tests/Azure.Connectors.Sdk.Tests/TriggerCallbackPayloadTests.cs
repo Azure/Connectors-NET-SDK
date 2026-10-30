@@ -24,12 +24,13 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var result = JsonSerializer.Deserialize<TriggerCallbackPayload<Dictionary<string, string>>>(payload);
 
-            Assert.IsNotNull(result?.Body?.Value);
-            Assert.AreEqual(expected: count, actual: result.Body.Value.Count);
+            var items = result?.Body?.Value;
+            Assert.IsNotNull(items);
+            Assert.AreEqual(expected: count, actual: items.Count);
             if (count > 0)
             {
-                Assert.AreEqual(expected: "first", actual: result.Body.Value[0]["id"]);
-                Assert.AreEqual(expected: "second", actual: result.Body.Value[1]["id"]);
+                Assert.AreEqual(expected: "first", actual: items[0]["id"]);
+                Assert.AreEqual(expected: "second", actual: items[1]["id"]);
             }
         }
 

@@ -112,7 +112,25 @@ namespace Azure.Connectors.Sdk
                     options,
                     perCallPolicies: Array.Empty<HttpPipelinePolicy>(),
                     perRetryPolicies: perRetryPolicies,
-                    responseClassifier: new HttpMethodResponseClassifier(options.RetryUnsafeHttpMethods));
+                    responseClassifier: new HttpMethodResponseClassifier(
+                        retryUnsafeHttpMethods: options.RetryUnsafeHttpMethods,
+                        isOperationRetryBlocked: this.IsOperationRetryBlocked));
+        }
+
+        /// <summary>
+        /// Prevents standard retries for known side-effecting operations that use otherwise safe methods.
+        /// </summary>
+        /// <param name="message">The outgoing request.</param>
+        private bool IsOperationRetryBlocked(HttpMessage message)
+        {
+            if (!string.Equals(this.ConnectorName, "dataflowssms", StringComparison.OrdinalIgnoreCase) ||
+                message.Request.Method != RequestMethod.Get)
+            {
+                return false;
+            }
+
+            var sendPath = new Uri(this._connectionRuntimeUrl).AbsolutePath.TrimEnd('/') + "/sms/send";
+            return string.Equals(message.Request.Uri.ToUri().AbsolutePath, sendPath, StringComparison.Ordinal);
         }
 
         /// <summary>

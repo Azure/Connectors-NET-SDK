@@ -26,8 +26,9 @@ namespace Azure.Connectors.Sdk.Tests
             var payload = splitItem ? "{\"body\":" + item + "}" : "{\"body\":{\"value\":[" + item + "]}}";
             var result = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerTriggerPayload>(payload);
 
-            Assert.IsNotNull(result?.Body?.Value);
-            var message = result.Body.Value.Single();
+            var messages = result?.Body?.Value;
+            Assert.IsNotNull(messages);
+            var message = messages.Single();
             Assert.AreEqual(expected: "chat-id", actual: message.ConversationId);
             Assert.AreEqual(expected: "message-id", actual: message.Id);
             Assert.AreEqual(expected: "https://example.test/message", actual: message.Link);
@@ -39,8 +40,9 @@ namespace Azure.Connectors.Sdk.Tests
             var payload = """{"body":{"threadType":"groupchat","chatId":"chat-id","messageId":"message-id","userId":"user-id","messageReaction":"like"}}""";
             var result = JsonSerializer.Deserialize<TeamsOnWebhookMessageReactionTriggerTriggerPayload>(payload);
 
-            Assert.IsNotNull(result?.Body?.Value);
-            var reaction = result.Body.Value.Single();
+            var reactions = result?.Body?.Value;
+            Assert.IsNotNull(reactions);
+            var reaction = reactions.Single();
             Assert.AreEqual(expected: "message-id", actual: reaction.MessageId);
             Assert.AreEqual(expected: "like", actual: reaction.MessageReaction);
             Assert.AreEqual(expected: "user-id", actual: reaction.UserId);
@@ -57,14 +59,18 @@ namespace Azure.Connectors.Sdk.Tests
                 {"body":{"id":"transcript-id","transcriptContentUrl":"https://example.test/transcript","meetingOrganizer":{"user":{"id":"organizer-id"}}}}
                 """);
 
-            Assert.IsNotNull(recording?.Body?.Value);
-            Assert.IsNotNull(transcript?.Body?.Value);
-            Assert.AreEqual(expected: "recording-id", actual: recording.Body.Value.Single().RecordingId);
-            Assert.AreEqual(expected: "https://example.test/recording", actual: recording.Body.Value.Single().RecordingContentURL);
-            Assert.AreEqual(expected: "organizer-id", actual: recording.Body.Value.Single().MeetingOrganizer.User.UserId);
-            Assert.AreEqual(expected: "transcript-id", actual: transcript.Body.Value.Single().TranscriptId);
-            Assert.AreEqual(expected: "https://example.test/transcript", actual: transcript.Body.Value.Single().TranscriptContentURL);
-            Assert.AreEqual(expected: "organizer-id", actual: transcript.Body.Value.Single().MeetingOrganizer.User.UserId);
+            var recordings = recording?.Body?.Value;
+            var transcripts = transcript?.Body?.Value;
+            Assert.IsNotNull(recordings);
+            Assert.IsNotNull(transcripts);
+            var recordingItem = recordings.Single();
+            var transcriptItem = transcripts.Single();
+            Assert.AreEqual(expected: "recording-id", actual: recordingItem.RecordingId);
+            Assert.AreEqual(expected: "https://example.test/recording", actual: recordingItem.RecordingContentURL);
+            Assert.AreEqual(expected: "organizer-id", actual: recordingItem.MeetingOrganizer.User.UserId);
+            Assert.AreEqual(expected: "transcript-id", actual: transcriptItem.TranscriptId);
+            Assert.AreEqual(expected: "https://example.test/transcript", actual: transcriptItem.TranscriptContentURL);
+            Assert.AreEqual(expected: "organizer-id", actual: transcriptItem.MeetingOrganizer.User.UserId);
         }
 
         [TestMethod]
@@ -75,12 +81,15 @@ namespace Azure.Connectors.Sdk.Tests
             var keyword = JsonSerializer.Deserialize<TeamsOnWebhookKeywordTriggerTriggerPayload>(payload);
             var message = JsonSerializer.Deserialize<TeamsOnWebhookNewMessageTriggerTriggerPayload>(payload);
 
-            Assert.IsNotNull(mention?.Body?.Value);
-            Assert.IsNotNull(keyword?.Body?.Value);
-            Assert.IsNotNull(message?.Body?.Value);
-            Assert.AreEqual(expected: "message-id", actual: mention.Body.Value.Single().AdditionalProperties["messageId"].GetString());
-            Assert.AreEqual(expected: "groupchat", actual: keyword.Body.Value.Single().AdditionalProperties["threadType"].GetString());
-            Assert.IsTrue(condition: message.Body.Value.Single().AdditionalProperties["extra"].GetProperty("enabled").GetBoolean());
+            var mentions = mention?.Body?.Value;
+            var keywords = keyword?.Body?.Value;
+            var messages = message?.Body?.Value;
+            Assert.IsNotNull(mentions);
+            Assert.IsNotNull(keywords);
+            Assert.IsNotNull(messages);
+            Assert.AreEqual(expected: "message-id", actual: mentions.Single().AdditionalProperties["messageId"].GetString());
+            Assert.AreEqual(expected: "groupchat", actual: keywords.Single().AdditionalProperties["threadType"].GetString());
+            Assert.IsTrue(condition: messages.Single().AdditionalProperties["extra"].GetProperty("enabled").GetBoolean());
         }
 
         private static readonly JsonSerializerOptions JsonOptions = new()

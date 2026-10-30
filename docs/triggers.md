@@ -138,7 +138,7 @@ ID, and link properties:
 
 ```csharp
 using System.Text.Json;
-using Azure.Connectors.Sdk.Teams;
+using Azure.Connectors.Sdk.Teams.Models;
 
 var payload = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerTriggerPayload>(
     """
