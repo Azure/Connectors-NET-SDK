@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,6 +28,36 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
 {
 
     #region Types
+
+    /// <summary>
+    /// Response for When a resource event occurs
+    /// </summary>
+    public class EventSchemaNotificationItem
+    {
+        /// <summary>Contains the data from the event.</summary>
+        [JsonPropertyName("data")]
+        public JsonElement? EventData { get; set; }
+
+        /// <summary>Time of the event.</summary>
+        [JsonPropertyName("eventTime")]
+        public DateTime? EventTime { get; set; }
+
+        /// <summary>Type of the event.</summary>
+        [JsonPropertyName("eventType")]
+        public string EventType { get; set; }
+
+        /// <summary>ID for the event.</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>Subject of the event.</summary>
+        [JsonPropertyName("subject")]
+        public string Subject { get; set; }
+
+        /// <summary>Resource that fired the event.</summary>
+        [JsonPropertyName("topic")]
+        public string Topic { get; set; }
+    }
 
     /// <summary>
     /// Subscription list operation response.
@@ -91,6 +122,28 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
     public static class AzureEventGridModelFactory
     {
         /// <summary>
+        /// Creates a new instance of <see cref="EventSchemaNotificationItem"/>.
+        /// </summary>
+        public static EventSchemaNotificationItem EventSchemaNotificationItem(
+            JsonElement? eventData = default,
+            DateTime? eventTime = default,
+            string eventType = default,
+            string id = default,
+            string subject = default,
+            string topic = default)
+        {
+            return new EventSchemaNotificationItem
+            {
+                EventData = eventData,
+                EventTime = eventTime,
+                EventType = eventType,
+                Id = id,
+                Subject = subject,
+                Topic = topic,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="SubscriptionListResult"/>.
         /// </summary>
         public static SubscriptionListResult SubscriptionListResult(
@@ -145,6 +198,38 @@ namespace Azure.Connectors.Sdk.AzureEventGrid.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnCreateSubscription trigger (AzureEventGrid "When a resource event occurs", operationId: CreateSubscription).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureEventGridOnCreateSubscriptionTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class AzureEventGridOnCreateSubscriptionTriggerPayload : TriggerCallbackPayload<EventSchemaNotificationItem>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the AzureEventGrid connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="AzureEventGridTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class AzureEventGridTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the AzureEventGrid connector.
+        /// This is a subset of all triggers — see <see cref="AzureEventGridTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["CreateSubscription"] = typeof(AzureEventGridOnCreateSubscriptionTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.AzureEventGrid
@@ -161,6 +246,7 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
     {
         /// <summary>
         /// When a resource event occurs.
+        /// Payload type: <see cref="AzureEventGridOnCreateSubscriptionTriggerPayload"/>.
         /// </summary>
         public const string OnCreateSubscription = "CreateSubscription";
 

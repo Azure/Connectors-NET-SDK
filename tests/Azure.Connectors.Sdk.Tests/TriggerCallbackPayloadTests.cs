@@ -17,6 +17,22 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class TriggerCallbackPayloadTests
     {
+        [TestMethod]
+        [DataRow("{\"body\":[]}", 0)]
+        [DataRow("{\"body\":[{\"id\":\"first\"},{\"id\":\"second\"}]}", 2)]
+        public void Deserialize_ArrayNotification_PreservesItems(string payload, int count)
+        {
+            var result = JsonSerializer.Deserialize<TriggerCallbackPayload<Dictionary<string, string>>>(payload);
+
+            Assert.IsNotNull(result?.Body?.Value);
+            Assert.AreEqual(expected: count, actual: result.Body.Value.Count);
+            if (count > 0)
+            {
+                Assert.AreEqual(expected: "first", actual: result.Body.Value[0]["id"]);
+                Assert.AreEqual(expected: "second", actual: result.Body.Value[1]["id"]);
+            }
+        }
+
         /// <summary>
         /// Captured Connector Gateway trigger callback payload from production (2026-03-16).
         /// </summary>

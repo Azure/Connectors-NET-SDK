@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -167,6 +168,50 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
         /// <summary>message</summary>
         [JsonPropertyName("message")]
         public string Message { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When SMS received
+    /// </summary>
+    public class RegisterWebhookNotification
+    {
+        /// <summary>trigger_type</summary>
+        [JsonPropertyName("trigger_type")]
+        public string EventType { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public RegisterWebhookNotificationData EventData { get; set; }
+    }
+
+    /// <summary>
+    /// RegisterWebhookNotificationData
+    /// </summary>
+    public class RegisterWebhookNotificationData
+    {
+        /// <summary>message_id</summary>
+        [JsonPropertyName("message_id")]
+        public string MessageId { get; set; }
+
+        /// <summary>The phone number of the person who sent the SMS</summary>
+        [JsonPropertyName("sender_phone")]
+        public string SenderPhone { get; set; }
+
+        /// <summary>Your virtual number that received the SMS</summary>
+        [JsonPropertyName("recipient_phone")]
+        public string RecipientPhone { get; set; }
+
+        /// <summary>message</summary>
+        [JsonPropertyName("message")]
+        public string SMSMessage { get; set; }
+
+        /// <summary>received_at</summary>
+        [JsonPropertyName("received_at")]
+        public string ReceivedAt { get; set; }
+
+        /// <summary>sender_name</summary>
+        [JsonPropertyName("sender_name")]
+        public string SenderName { get; set; }
     }
 
     /// <summary>
@@ -470,6 +515,42 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="RegisterWebhookNotification"/>.
+        /// </summary>
+        public static RegisterWebhookNotification RegisterWebhookNotification(
+            string eventType = default,
+            RegisterWebhookNotificationData eventData = default)
+        {
+            return new RegisterWebhookNotification
+            {
+                EventType = eventType,
+                EventData = eventData,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RegisterWebhookNotificationData"/>.
+        /// </summary>
+        public static RegisterWebhookNotificationData RegisterWebhookNotificationData(
+            string messageId = default,
+            string senderPhone = default,
+            string recipientPhone = default,
+            string smsMessage = default,
+            string receivedAt = default,
+            string senderName = default)
+        {
+            return new RegisterWebhookNotificationData
+            {
+                MessageId = messageId,
+                SenderPhone = senderPhone,
+                RecipientPhone = recipientPhone,
+                SMSMessage = smsMessage,
+                ReceivedAt = receivedAt,
+                SenderName = senderName,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="UnregisterWebhookResponse"/>.
         /// </summary>
         public static UnregisterWebhookResponse UnregisterWebhookResponse(
@@ -485,6 +566,38 @@ namespace Azure.Connectors.Sdk.DataflowsSms.Models
     }
 
     #endregion Model Factory
+
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnRegisterWebhook trigger (DataflowsSms "When SMS received", operationId: RegisterWebhook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;DataflowsSmsOnRegisterWebhookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class DataflowsSmsOnRegisterWebhookTriggerPayload : TriggerCallbackPayload<RegisterWebhookNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the DataflowsSms connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="DataflowsSmsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class DataflowsSmsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the DataflowsSms connector.
+        /// This is a subset of all triggers — see <see cref="DataflowsSmsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["RegisterWebhook"] = typeof(DataflowsSmsOnRegisterWebhookTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
 
 }
 
@@ -502,6 +615,7 @@ namespace Azure.Connectors.Sdk.DataflowsSms
     {
         /// <summary>
         /// When SMS received.
+        /// Payload type: <see cref="DataflowsSmsOnRegisterWebhookTriggerPayload"/>.
         /// </summary>
         public const string OnRegisterWebhook = "RegisterWebhook";
 

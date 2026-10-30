@@ -882,6 +882,20 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
+    /// Response for Triggers - Trigger when new WDATP alert occurs
+    /// </summary>
+    public class WebHookNotificationNotification
+    {
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>machineId</summary>
+        [JsonPropertyName("machineId")]
+        public string MachineId { get; set; }
+    }
+
+    /// <summary>
     /// Response for Triggers when a new remediation activity is created (Preview)
     /// </summary>
     public class OnNewRemediationActivityResponse : IPageable<RemediationActivity>
@@ -2356,6 +2370,20 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebHookNotificationNotification"/>.
+        /// </summary>
+        public static WebHookNotificationNotification WebHookNotificationNotification(
+            string id = default,
+            string machineId = default)
+        {
+            return new WebHookNotificationNotification
+            {
+                Id = id,
+                MachineId = machineId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="OnNewRemediationActivityResponse"/>.
         /// </summary>
         public static OnNewRemediationActivityResponse OnNewRemediationActivityResponse(
@@ -2417,6 +2445,14 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
     }
 
     /// <summary>
+    /// Typed trigger payload for the OnWebHooksCreateWebHook trigger (Wdatp "Triggers - Trigger when new WDATP alert occurs", operationId: WebHooks_CreateWebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WdatpOnWebHooksCreateWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WdatpOnWebHooksCreateWebHookTriggerPayload : TriggerCallbackPayload<WebHookNotificationNotification>
+    {
+    }
+
+    /// <summary>
     /// Static registry of trigger operations for the Wdatp connector that have typed payloads.
     /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
     /// Triggers that return binary content (e.g., file downloads) are not included here
@@ -2433,6 +2469,7 @@ namespace Azure.Connectors.Sdk.Wdatp.Models
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
                 ["OnNewRemediationActivity"] = typeof(WdatpOnNewRemediationActivityTriggerPayload),
+                ["WebHooks_CreateWebHook"] = typeof(WdatpOnWebHooksCreateWebHookTriggerPayload),
             });
     }
 
@@ -2460,6 +2497,7 @@ namespace Azure.Connectors.Sdk.Wdatp
 
         /// <summary>
         /// Triggers - Trigger when new WDATP alert occurs.
+        /// Payload type: <see cref="WdatpOnWebHooksCreateWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnWebHooksCreateWebHook = "WebHooks_CreateWebHook";
 

@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -38,6 +39,20 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
         /// <summary>callbackUrl</summary>
         [JsonPropertyName("callbackUrl")]
         public string CallbackUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Custom trigger
+    /// </summary>
+    [DynamicSchema("get_trigger_schema")]
+    public class CreateTriggerNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -178,6 +193,38 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnCreateTrigger trigger (ElfsquadData "Custom trigger", operationId: create_trigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ElfsquadDataOnCreateTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ElfsquadDataOnCreateTriggerTriggerPayload : TriggerCallbackPayload<CreateTriggerNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the ElfsquadData connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="ElfsquadDataTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class ElfsquadDataTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the ElfsquadData connector.
+        /// This is a subset of all triggers — see <see cref="ElfsquadDataTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["create_trigger"] = typeof(ElfsquadDataOnCreateTriggerTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.ElfsquadData
@@ -194,6 +241,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
     {
         /// <summary>
         /// Custom trigger.
+        /// Payload type: <see cref="ElfsquadDataOnCreateTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnCreateTrigger = "create_trigger";
 

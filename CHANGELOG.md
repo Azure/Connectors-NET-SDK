@@ -23,6 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   operation signatures remain unchanged. UTF-8 disposition headers also preserve
   Unicode for receivers reading plain `filename` rather than `filename*`.
 
+- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models and existing public APIs remain available. See [webhook callback schemas](docs/triggers.md#webhook-callback-schemas).
+
 ### Fixed
 
 - Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,
@@ -53,6 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Azure DevOps (VSTS) and Power Query Dataflows connector clients** - added `VisualStudioTeamServicesClient` (`visualstudioteamservices`) and `DataflowsClient` (`dataflows`), with models, model factories, discovery operations, trigger registration metadata, and mocked HTTP and serialization tests. Azure DevOps also includes typed trigger callbacks. See [connector usage](https://github.com/Azure/Connectors-NET-SDK/blob/v0.15.0-preview.1/README.md#azure-devops-and-dataflows).
 
 ### Fixed
+
+- **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
 
 - **Azure DevOps public naming** - use `VisualStudioTeamServices` for namespaces and client, factory, trigger, and enum type prefixes. Acronyms use .NET casing, including `Url`, `AccountUri`, `MemberUri`, `XmlForm`, and `HtmlLink`, without changing their JSON keys.
 

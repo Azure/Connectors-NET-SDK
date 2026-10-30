@@ -17,6 +17,72 @@ namespace Azure.Connectors.Sdk.Tests
     [TestClass]
     public class TeamsTriggerPayloadTests
     {
+        [TestMethod]
+        [DataRow(false)]
+        [DataRow(true)]
+        public void Deserialize_ChatWebhook_TypesBatchAndSplitItems(bool splitItem)
+        {
+            var item = """{"conversationId":"chat-id","messageId":"message-id","linkToMessage":"https://example.test/message"}""";
+            var payload = splitItem ? "{\"body\":" + item + "}" : "{\"body\":{\"value\":[" + item + "]}}";
+            var result = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerTriggerPayload>(payload);
+
+            Assert.IsNotNull(result?.Body?.Value);
+            var message = result.Body.Value.Single();
+            Assert.AreEqual(expected: "chat-id", actual: message.ConversationId);
+            Assert.AreEqual(expected: "message-id", actual: message.Id);
+            Assert.AreEqual(expected: "https://example.test/message", actual: message.Link);
+        }
+
+        [TestMethod]
+        public void Deserialize_ReactionWebhook_UsesNotificationFields()
+        {
+            var payload = """{"body":{"threadType":"groupchat","chatId":"chat-id","messageId":"message-id","userId":"user-id","messageReaction":"like"}}""";
+            var result = JsonSerializer.Deserialize<TeamsOnWebhookMessageReactionTriggerTriggerPayload>(payload);
+
+            Assert.IsNotNull(result?.Body?.Value);
+            var reaction = result.Body.Value.Single();
+            Assert.AreEqual(expected: "message-id", actual: reaction.MessageId);
+            Assert.AreEqual(expected: "like", actual: reaction.MessageReaction);
+            Assert.AreEqual(expected: "user-id", actual: reaction.UserId);
+            Assert.AreEqual(expected: "groupchat", actual: reaction.ThreadType?.ToString());
+        }
+
+        [TestMethod]
+        public void Deserialize_RecordingAndTranscriptWebhooks_RetainsNestedIdentity()
+        {
+            var recording = JsonSerializer.Deserialize<TeamsOnRecordingTriggerTriggerPayload>("""
+                {"body":{"id":"recording-id","recordingContentUrl":"https://example.test/recording","meetingOrganizer":{"user":{"id":"organizer-id","userPrincipalName":"user@example.test"}}}}
+                """);
+            var transcript = JsonSerializer.Deserialize<TeamsOnTranscriptTriggerTriggerPayload>("""
+                {"body":{"id":"transcript-id","transcriptContentUrl":"https://example.test/transcript","meetingOrganizer":{"user":{"id":"organizer-id"}}}}
+                """);
+
+            Assert.IsNotNull(recording?.Body?.Value);
+            Assert.IsNotNull(transcript?.Body?.Value);
+            Assert.AreEqual(expected: "recording-id", actual: recording.Body.Value.Single().RecordingId);
+            Assert.AreEqual(expected: "https://example.test/recording", actual: recording.Body.Value.Single().RecordingContentURL);
+            Assert.AreEqual(expected: "organizer-id", actual: recording.Body.Value.Single().MeetingOrganizer.User.UserId);
+            Assert.AreEqual(expected: "transcript-id", actual: transcript.Body.Value.Single().TranscriptId);
+            Assert.AreEqual(expected: "https://example.test/transcript", actual: transcript.Body.Value.Single().TranscriptContentURL);
+            Assert.AreEqual(expected: "organizer-id", actual: transcript.Body.Value.Single().MeetingOrganizer.User.UserId);
+        }
+
+        [TestMethod]
+        public void Deserialize_DynamicWebhooks_PreservesRuntimeFields()
+        {
+            var payload = """{"body":{"messageId":"message-id","threadType":"groupchat","extra":{"enabled":true}}}""";
+            var mention = JsonSerializer.Deserialize<TeamsOnWebhookAtMentionTriggerTriggerPayload>(payload);
+            var keyword = JsonSerializer.Deserialize<TeamsOnWebhookKeywordTriggerTriggerPayload>(payload);
+            var message = JsonSerializer.Deserialize<TeamsOnWebhookNewMessageTriggerTriggerPayload>(payload);
+
+            Assert.IsNotNull(mention?.Body?.Value);
+            Assert.IsNotNull(keyword?.Body?.Value);
+            Assert.IsNotNull(message?.Body?.Value);
+            Assert.AreEqual(expected: "message-id", actual: mention.Body.Value.Single().AdditionalProperties["messageId"].GetString());
+            Assert.AreEqual(expected: "groupchat", actual: keyword.Body.Value.Single().AdditionalProperties["threadType"].GetString());
+            Assert.IsTrue(condition: message.Body.Value.Single().AdditionalProperties["extra"].GetProperty("enabled").GetBoolean());
+        }
+
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true,
@@ -221,24 +287,10 @@ namespace Azure.Connectors.Sdk.Tests
                 .Select(field => (string)field.GetRawConstantValue()!)
                 .ToList();
 
-            // Assert — every constant that has a payload type maps to a key in TeamsTriggers.Operations
-            foreach (var constant in constants)
-            {
-                // Only constants whose values appear as Operations keys should pass;
-                // others (webhook-only triggers) are intentionally absent from the registry.
-                if (TeamsTriggers.Operations.ContainsKey(constant))
-                {
-                    Assert.AreEqual(
-                        constant,
-                        TeamsTriggers.Operations.Keys.First(key => string.Equals(key, constant, System.StringComparison.OrdinalIgnoreCase)),
-                        $"TeamsTriggerOperations constant '{constant}' does not match its registry key casing.");
-                }
-            }
-
-            // At least some constants must be registered
-            var registeredCount = constants.Count(constant => TeamsTriggers.Operations.ContainsKey(constant));
-            Assert.IsTrue(registeredCount > 0,
-                "Expected at least one TeamsTriggerOperations constant to be registered in TeamsTriggers.Operations.");
+            CollectionAssert.AreEquivalent(
+                expected: constants,
+                actual: TeamsTriggers.Operations.Keys.ToList(),
+                message: "Every supported Teams trigger must map to a generated callback payload.");
         }
 
         [TestMethod]

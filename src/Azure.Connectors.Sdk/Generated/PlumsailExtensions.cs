@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,6 +28,20 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 {
 
     #region Types
+
+    /// <summary>
+    /// Response for Process finished
+    /// </summary>
+    [DynamicSchema("FlowV1ProcessesFlowTriggersByProcessIdSchemaGet")]
+    public class ProcessSchemaDynamicTypeNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
 
     /// <summary>
     /// Response for Get Profile Info
@@ -5950,6 +5965,38 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnFlowV1ProcessesFlowTriggersPost trigger (Plumsail "Process finished", operationId: FlowV1ProcessesFlowTriggersPost).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload : TriggerCallbackPayload<ProcessSchemaDynamicTypeNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Plumsail connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="PlumsailTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class PlumsailTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Plumsail connector.
+        /// This is a subset of all triggers — see <see cref="PlumsailTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["FlowV1ProcessesFlowTriggersPost"] = typeof(PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Plumsail
@@ -5966,6 +6013,7 @@ namespace Azure.Connectors.Sdk.Plumsail
     {
         /// <summary>
         /// Process finished.
+        /// Payload type: <see cref="PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload"/>.
         /// </summary>
         public const string OnFlowV1ProcessesFlowTriggersPost = "FlowV1ProcessesFlowTriggersPost";
 

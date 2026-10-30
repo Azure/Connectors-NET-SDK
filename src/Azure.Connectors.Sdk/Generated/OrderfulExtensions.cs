@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -73,6 +74,18 @@ namespace Azure.Connectors.Sdk.Orderful.Models
         public int? WebhookCommunicationChannelId { get; set; }
     }
 
+    /// <summary>
+    /// Response for Listen to Communication Channel
+    /// </summary>
+    public class CommunicationChannelEventResponseNotification
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -117,6 +130,38 @@ namespace Azure.Connectors.Sdk.Orderful.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnCommunicationChannel trigger (Orderful "Listen to Communication Channel", operationId: Communication-Channel).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;OrderfulOnCommunicationChannelTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class OrderfulOnCommunicationChannelTriggerPayload : TriggerCallbackPayload<CommunicationChannelEventResponseNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Orderful connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="OrderfulTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class OrderfulTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Orderful connector.
+        /// This is a subset of all triggers — see <see cref="OrderfulTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["Communication-Channel"] = typeof(OrderfulOnCommunicationChannelTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Orderful
@@ -133,6 +178,7 @@ namespace Azure.Connectors.Sdk.Orderful
     {
         /// <summary>
         /// Listen to Communication Channel.
+        /// Payload type: <see cref="OrderfulOnCommunicationChannelTriggerPayload"/>.
         /// </summary>
         public const string OnCommunicationChannel = "Communication-Channel";
 

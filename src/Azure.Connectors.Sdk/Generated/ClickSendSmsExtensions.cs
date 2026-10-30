@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -62,19 +63,69 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     }
 
     /// <summary>
-    /// Create New Contact List
+    /// Send SMS Campaign
     /// </summary>
-    public class CreateListInput
+    public class SmsCampaignSendInput
     {
-        /// <summary>Your contact list name</summary>
-        [JsonPropertyName("list_name")]
-        public string ListName { get; set; }
+        /// <summary>The list_id of the contact list to send the campaign to (max 20,000 recipients). You may use the Search Contact List action OR Get Contact List action to get the List ID.</summary>
+        [JsonPropertyName("list_id")]
+        public int? ListId { get; set; }
+
+        /// <summary>The SMS campaign name.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>The sender of the message (Sender ID): a shared number, dedicated number (E.164), alpha tag, or your own verified number.</summary>
+        [JsonPropertyName("from")]
+        public string From { get; set; }
+
+        /// <summary>The message to send. 160 characters (GSM) or 70 (Unicode) per part. Marketing messages must include an opt-out, e.g. &apos;Reply STOP to opt-out&apos; or StopMsg.me/xxxxx.</summary>
+        [JsonPropertyName("body")]
+        public string Body { get; set; }
+
+        /// <summary>Time to send the campaign, as a Unix timestamp. Leave empty to send immediately.</summary>
+        [JsonPropertyName("schedule")]
+        public long? Schedule { get; set; }
+
+        /// <summary>The URL to shorten. The shortened URL is appended to the end of the message body.</summary>
+        [JsonPropertyName("url_to_shorten")]
+        public string UrlToShorten { get; set; }
+
+        /// <summary>Per-country sender configuration.</summary>
+        [JsonPropertyName("senders")]
+        public List<JsonElement?> Senders { get; set; }
+
+        /// <summary>Source</summary>
+        [JsonPropertyName("source")]
+        public string Source { get; set; }
     }
 
     /// <summary>
-    /// Response for Create New Contact List
+    /// Response for Send SMS Campaign
     /// </summary>
-    public class CreateListResponse
+    public class SmsCampaignSendResponse
+    {
+        /// <summary>Http Code</summary>
+        [JsonPropertyName("http_code")]
+        public int? HttpCode { get; set; }
+
+        /// <summary>Response Code</summary>
+        [JsonPropertyName("response_code")]
+        public string ResponseCode { get; set; }
+
+        /// <summary>Response Message</summary>
+        [JsonPropertyName("response_msg")]
+        public string ResponseMsg { get; set; }
+
+        /// <summary>Campaign details</summary>
+        [JsonPropertyName("data")]
+        public JsonElement? Data { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get Contact Lists
+    /// </summary>
+    public class GetContactListsResponse
     {
         /// <summary>Http Code</summary>
         [JsonPropertyName("http_code")]
@@ -94,9 +145,19 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     }
 
     /// <summary>
-    /// Response for Get Contact Lists
+    /// Create New Contact List
     /// </summary>
-    public class GetContactListsResponse
+    public class CreateListInput
+    {
+        /// <summary>Your contact list name</summary>
+        [JsonPropertyName("list_name")]
+        public string ListName { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Create New Contact List
+    /// </summary>
+    public class CreateListResponse
     {
         /// <summary>Http Code</summary>
         [JsonPropertyName("http_code")]
@@ -163,6 +224,28 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         /// <summary>Response Message</summary>
         [JsonPropertyName("response_msg")]
         public string ResponseMsg { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Get Contacts in a List
+    /// </summary>
+    public class ViewListContactsResponse
+    {
+        /// <summary>Http Code</summary>
+        [JsonPropertyName("http_code")]
+        public int? HttpCode { get; set; }
+
+        /// <summary>Response Code</summary>
+        [JsonPropertyName("response_code")]
+        public string ResponseCode { get; set; }
+
+        /// <summary>Response Message</summary>
+        [JsonPropertyName("response_msg")]
+        public string ResponseMsg { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public JsonElement? Data { get; set; }
     }
 
     /// <summary>
@@ -239,28 +322,6 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
     /// Response for Create New Contact
     /// </summary>
     public class CreateListContactResponse
-    {
-        /// <summary>Http Code</summary>
-        [JsonPropertyName("http_code")]
-        public int? HttpCode { get; set; }
-
-        /// <summary>Response Code</summary>
-        [JsonPropertyName("response_code")]
-        public string ResponseCode { get; set; }
-
-        /// <summary>Response Message</summary>
-        [JsonPropertyName("response_msg")]
-        public string ResponseMsg { get; set; }
-
-        /// <summary>data</summary>
-        [JsonPropertyName("data")]
-        public JsonElement? Data { get; set; }
-    }
-
-    /// <summary>
-    /// Response for Get Contacts in a List
-    /// </summary>
-    public class ViewListContactsResponse
     {
         /// <summary>Http Code</summary>
         [JsonPropertyName("http_code")]
@@ -553,6 +614,77 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         public int? Enabled { get; set; }
     }
 
+    /// <summary>
+    /// Response for SMS Inbound Automation
+    /// </summary>
+    public class SmsInboundAutomationNotification
+    {
+        /// <summary>body</summary>
+        [JsonPropertyName("body")]
+        public string Body { get; set; }
+
+        /// <summary>Recipient phone number</summary>
+        [JsonPropertyName("to")]
+        public string To { get; set; }
+
+        /// <summary>Sender Id</summary>
+        [JsonPropertyName("from")]
+        public string From { get; set; }
+
+        /// <summary>custom_string</summary>
+        [JsonPropertyName("custom_string")]
+        public string CustomString { get; set; }
+
+        /// <summary>original_message_id</summary>
+        [JsonPropertyName("original_message_id")]
+        public string OriginalMessageId { get; set; }
+
+        /// <summary>Original Body</summary>
+        [JsonPropertyName("original_body")]
+        public string OriginalBody { get; set; }
+
+        /// <summary>The user ID of the user who sent the message.</summary>
+        [JsonPropertyName("user_id")]
+        public int? UserId { get; set; }
+
+        /// <summary>The subaccount ID of the user who sent the message.</summary>
+        [JsonPropertyName("subaccount_id")]
+        public int? SubaccountId { get; set; }
+
+        /// <summary>Timestamp in UNIX format</summary>
+        [JsonPropertyName("timestamp")]
+        [JsonInclude]
+        public long? Timestamp { get; init; }
+
+        /// <summary>The Message ID for the inbound message</summary>
+        [JsonPropertyName("message_id")]
+        public string MessageId { get; set; }
+
+        /// <summary>Orignal Sender ID</summary>
+        [JsonPropertyName("originalsenderid")]
+        public string Originalsenderid { get; set; }
+
+        /// <summary>Message</summary>
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
+
+        /// <summary>SMS</summary>
+        [JsonPropertyName("sms")]
+        public string Sms { get; set; }
+
+        /// <summary>Orginal Message ID</summary>
+        [JsonPropertyName("originalmessageid")]
+        public string Originalmessageid { get; set; }
+
+        /// <summary>Custom String</summary>
+        [JsonPropertyName("customstring")]
+        public string Customstring { get; set; }
+
+        /// <summary>Original Message</summary>
+        [JsonPropertyName("originalmessage")]
+        public string Originalmessage { get; set; }
+    }
+
     #endregion Types
 
     #region Model Factory
@@ -595,6 +727,68 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="SmsCampaignSendInput"/>.
+        /// </summary>
+        public static SmsCampaignSendInput SmsCampaignSendInput(
+            int? listId = default,
+            string name = default,
+            string from = default,
+            string body = default,
+            long? schedule = default,
+            string urlToShorten = default,
+            List<JsonElement?> senders = default,
+            string source = default)
+        {
+            return new SmsCampaignSendInput
+            {
+                ListId = listId,
+                Name = name,
+                From = from,
+                Body = body,
+                Schedule = schedule,
+                UrlToShorten = urlToShorten,
+                Senders = senders,
+                Source = source,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SmsCampaignSendResponse"/>.
+        /// </summary>
+        public static SmsCampaignSendResponse SmsCampaignSendResponse(
+            int? httpCode = default,
+            string responseCode = default,
+            string responseMsg = default,
+            JsonElement? data = default)
+        {
+            return new SmsCampaignSendResponse
+            {
+                HttpCode = httpCode,
+                ResponseCode = responseCode,
+                ResponseMsg = responseMsg,
+                Data = data,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetContactListsResponse"/>.
+        /// </summary>
+        public static GetContactListsResponse GetContactListsResponse(
+            int? httpCode = default,
+            string responseCode = default,
+            string responseMsg = default,
+            JsonElement? data = default)
+        {
+            return new GetContactListsResponse
+            {
+                HttpCode = httpCode,
+                ResponseCode = responseCode,
+                ResponseMsg = responseMsg,
+                Data = data,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="CreateListInput"/>.
         /// </summary>
         public static CreateListInput CreateListInput(
@@ -616,24 +810,6 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             JsonElement? data = default)
         {
             return new CreateListResponse
-            {
-                HttpCode = httpCode,
-                ResponseCode = responseCode,
-                ResponseMsg = responseMsg,
-                Data = data,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="GetContactListsResponse"/>.
-        /// </summary>
-        public static GetContactListsResponse GetContactListsResponse(
-            int? httpCode = default,
-            string responseCode = default,
-            string responseMsg = default,
-            JsonElement? data = default)
-        {
-            return new GetContactListsResponse
             {
                 HttpCode = httpCode,
                 ResponseCode = responseCode,
@@ -689,6 +865,24 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ViewListContactsResponse"/>.
+        /// </summary>
+        public static ViewListContactsResponse ViewListContactsResponse(
+            int? httpCode = default,
+            string responseCode = default,
+            string responseMsg = default,
+            JsonElement? data = default)
+        {
+            return new ViewListContactsResponse
+            {
+                HttpCode = httpCode,
+                ResponseCode = responseCode,
+                ResponseMsg = responseMsg,
+                Data = data,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="CreateListContactInput"/>.
         /// </summary>
         public static CreateListContactInput CreateListContactInput(
@@ -740,24 +934,6 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
             JsonElement? data = default)
         {
             return new CreateListContactResponse
-            {
-                HttpCode = httpCode,
-                ResponseCode = responseCode,
-                ResponseMsg = responseMsg,
-                Data = data,
-            };
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="ViewListContactsResponse"/>.
-        /// </summary>
-        public static ViewListContactsResponse ViewListContactsResponse(
-            int? httpCode = default,
-            string responseCode = default,
-            string responseMsg = default,
-            JsonElement? data = default)
-        {
-            return new ViewListContactsResponse
             {
                 HttpCode = httpCode,
                 ResponseCode = responseCode,
@@ -993,9 +1169,83 @@ namespace Azure.Connectors.Sdk.ClickSendSms.Models
                 Enabled = enabled,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SmsInboundAutomationNotification"/>.
+        /// </summary>
+        public static SmsInboundAutomationNotification SmsInboundAutomationNotification(
+            string body = default,
+            string to = default,
+            string from = default,
+            string customString = default,
+            string originalMessageId = default,
+            string originalBody = default,
+            int? userId = default,
+            int? subaccountId = default,
+            long? timestamp = default,
+            string messageId = default,
+            string originalsenderid = default,
+            string message = default,
+            string sms = default,
+            string originalmessageid = default,
+            string customstring = default,
+            string originalmessage = default)
+        {
+            return new SmsInboundAutomationNotification
+            {
+                Body = body,
+                To = to,
+                From = from,
+                CustomString = customString,
+                OriginalMessageId = originalMessageId,
+                OriginalBody = originalBody,
+                UserId = userId,
+                SubaccountId = subaccountId,
+                Timestamp = timestamp,
+                MessageId = messageId,
+                Originalsenderid = originalsenderid,
+                Message = message,
+                Sms = sms,
+                Originalmessageid = originalmessageid,
+                Customstring = customstring,
+                Originalmessage = originalmessage,
+            };
+        }
     }
 
     #endregion Model Factory
+
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnSmsInboundAutomation trigger (ClickSendSms "SMS Inbound Automation", operationId: sms_inbound_automation).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ClickSendSmsOnSmsInboundAutomationTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ClickSendSmsOnSmsInboundAutomationTriggerPayload : TriggerCallbackPayload<SmsInboundAutomationNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the ClickSendSms connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="ClickSendSmsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class ClickSendSmsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the ClickSendSms connector.
+        /// This is a subset of all triggers — see <see cref="ClickSendSmsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["sms_inbound_automation"] = typeof(ClickSendSmsOnSmsInboundAutomationTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
 
 }
 
@@ -1013,6 +1263,7 @@ namespace Azure.Connectors.Sdk.ClickSendSms
     {
         /// <summary>
         /// SMS Inbound Automation.
+        /// Payload type: <see cref="ClickSendSmsOnSmsInboundAutomationTriggerPayload"/>.
         /// </summary>
         public const string OnSmsInboundAutomation = "sms_inbound_automation";
 
@@ -1112,20 +1363,20 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         }
 
         /// <summary>
-        /// Create New Contact List
+        /// Send SMS Campaign
         /// </summary>
-        /// <remarks>Create New Contact List</remarks>
+        /// <remarks>Send an SMS campaign to a contact list (up to 20,000 recipients).</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Create New Contact List response.</returns>
-        public virtual async Task<CreateListResponse> CreateListAsync(CreateListInput input, CancellationToken cancellationToken = default)
+        /// <returns>The Send SMS Campaign response.</returns>
+        public virtual async Task<SmsCampaignSendResponse> SmsCampaignSendAsync(SmsCampaignSendInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.CreateListAsync");
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.SmsCampaignSendAsync");
             try
             {
-                var path = $"/lists";
+                var path = $"/sms-campaigns/send";
                 return await this
-                    .CallConnectorAsync<CreateListResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SmsCampaignSendResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1157,6 +1408,31 @@ namespace Azure.Connectors.Sdk.ClickSendSms
                 var path = $"/lists" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetContactListsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create New Contact List
+        /// </summary>
+        /// <remarks>Create New Contact List</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Create New Contact List response.</returns>
+        public virtual async Task<CreateListResponse> CreateListAsync(CreateListInput input, CancellationToken cancellationToken = default)
+        {
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.CreateListAsync");
+            try
+            {
+                var path = $"/lists";
+                return await this
+                    .CallConnectorAsync<CreateListResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1218,6 +1494,31 @@ namespace Azure.Connectors.Sdk.ClickSendSms
         }
 
         /// <summary>
+        /// Get Contacts in a List
+        /// </summary>
+        /// <remarks>Get all Contacts in a List</remarks>
+        /// <param name="listId">List ID</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get Contacts in a List response.</returns>
+        public virtual async Task<ViewListContactsResponse> ViewListContactsAsync(int listId, CancellationToken cancellationToken = default)
+        {
+            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.ViewListContactsAsync");
+            try
+            {
+                var path = $"/lists/{Uri.EscapeDataString(Convert.ToString(listId, CultureInfo.InvariantCulture))}/contacts";
+                return await this
+                    .CallConnectorAsync<ViewListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Create New Contact
         /// </summary>
         /// <remarks>Create New Contact</remarks>
@@ -1233,31 +1534,6 @@ namespace Azure.Connectors.Sdk.ClickSendSms
                 var path = $"/lists/{Uri.EscapeDataString(Convert.ToString(listId, CultureInfo.InvariantCulture))}/contacts";
                 return await this
                     .CallConnectorAsync<CreateListContactResponse>(HttpMethod.Post, path, input, cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get Contacts in a List
-        /// </summary>
-        /// <remarks>Get all Contacts in a List</remarks>
-        /// <param name="listId">List ID</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Contacts in a List response.</returns>
-        public virtual async Task<ViewListContactsResponse> ViewListContactsAsync(int listId, CancellationToken cancellationToken = default)
-        {
-            using var activity = ClickSendSmsClient.ConnectorActivitySource.StartActivity("ClickSendSmsClient.ViewListContactsAsync");
-            try
-            {
-                var path = $"/lists/{Uri.EscapeDataString(Convert.ToString(listId, CultureInfo.InvariantCulture))}/contacts";
-                return await this
-                    .CallConnectorAsync<ViewListContactsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

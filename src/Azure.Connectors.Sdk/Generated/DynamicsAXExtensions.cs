@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -49,6 +50,18 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
         /// <summary>Notification Url</summary>
         [JsonPropertyName("notificationUrl")]
         public string NotificationUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a Business Event occurs
+    /// </summary>
+    public class ObjectNotification
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -808,6 +821,38 @@ namespace Azure.Connectors.Sdk.DynamicsAX.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnSubscribeOnABusinessEvent trigger (DynamicsAX "When a Business Event occurs", operationId: SubscribeOnABusinessEvent).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;DynamicsAXOnSubscribeOnABusinessEventTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class DynamicsAXOnSubscribeOnABusinessEventTriggerPayload : TriggerCallbackPayload<ObjectNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the DynamicsAX connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="DynamicsAXTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class DynamicsAXTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the DynamicsAX connector.
+        /// This is a subset of all triggers — see <see cref="DynamicsAXTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["SubscribeOnABusinessEvent"] = typeof(DynamicsAXOnSubscribeOnABusinessEventTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.DynamicsAX
@@ -824,6 +869,7 @@ namespace Azure.Connectors.Sdk.DynamicsAX
     {
         /// <summary>
         /// When a Business Event occurs.
+        /// Payload type: <see cref="DynamicsAXOnSubscribeOnABusinessEventTriggerPayload"/>.
         /// </summary>
         public const string OnSubscribeOnABusinessEvent = "SubscribeOnABusinessEvent";
 
