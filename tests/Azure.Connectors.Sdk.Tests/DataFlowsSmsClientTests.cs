@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -222,6 +223,50 @@ namespace Azure.Connectors.Sdk.Tests
             }
 
             Assert.AreEqual(expected: 1, actual: attempts);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        [DoNotParallelize]
+        public async Task SendSmsGetAsync_WithErrorResponse_ExcludesQueryValuesFromDiagnostics()
+        {
+            const string recipient = "15555550987";
+            const string sender = "PrivateSender";
+            const string message = "Verification code 246810 + confirm";
+            Activity? stoppedActivity = null;
+            using var listener = new ActivityListener
+            {
+                ShouldListenTo = source => string.Equals(source.Name, "Azure.Connectors.Sdk.dataflowssms", StringComparison.Ordinal),
+                Sample = (ref ActivityCreationOptions<ActivityContext> options) => ActivitySamplingResult.AllDataAndRecorded,
+                ActivityStopped = activity => stoppedActivity = activity,
+            };
+            ActivitySource.AddActivityListener(listener);
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.IsNotNull(request.RequestUri);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "recipient=" + recipient);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "sender_id=" + sender);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "message=" + Uri.EscapeDataString(message));
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("""{"code":"InvalidRecipient","message":"Rejected."}"""),
+                });
+            });
+
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(
+                () => client.SendSmsGetAsync(recipient: recipient, senderId: sender, message: message))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: "GET /connection/sms/send", actual: exception.Operation);
+            Assert.AreEqual(expected: "InvalidRecipient", actual: exception.ErrorCode);
+            Assert.IsNotNull(stoppedActivity);
+            Assert.AreEqual(expected: ActivityStatusCode.Error, actual: stoppedActivity.Status);
+            foreach (var secret in new[] { recipient, sender, message, Uri.EscapeDataString(message) })
+            {
+                Assert.IsFalse(condition: exception.ToString().Contains(secret, StringComparison.Ordinal));
+                Assert.IsFalse(condition: (stoppedActivity.StatusDescription ?? string.Empty).Contains(secret, StringComparison.Ordinal));
+            }
         }
 
         [TestMethod]
