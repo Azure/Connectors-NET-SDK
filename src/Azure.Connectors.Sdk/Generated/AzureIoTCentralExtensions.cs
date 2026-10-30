@@ -611,7 +611,8 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
 
         /// <summary>Timestamp at which the webhook was triggered.</summary>
         [JsonPropertyName("timestamp")]
-        public DateTime? WebhookTimespamp { get; set; }
+        [JsonInclude]
+        public DateTime? WebhookTimestamp { get; init; }
     }
 
     /// <summary>
@@ -1937,7 +1938,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
             ApplicationNotification webhookApplication = default,
             WebhookActionDeviceNotification webhookDevice = default,
             RuleNotification webhookRule = default,
-            DateTime? webhookTimespamp = default)
+            DateTime? webhookTimestamp = default)
         {
             return new WebhookActionBodyNotification
             {
@@ -1945,7 +1946,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
                 WebhookApplication = webhookApplication,
                 WebhookDevice = webhookDevice,
                 WebhookRule = webhookRule,
-                WebhookTimespamp = webhookTimespamp,
+                WebhookTimestamp = webhookTimestamp,
             };
         }
 

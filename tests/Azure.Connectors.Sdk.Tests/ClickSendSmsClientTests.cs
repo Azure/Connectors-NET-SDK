@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -115,6 +116,37 @@ namespace Azure.Connectors.Sdk.Tests
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
                 client.GetContactListsAsync(cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        [DataRow(false)]
+        [DataRow(true)]
+        public void SmsInboundAutomationNotification_CollidingNames_PreservesEveryWireField(bool caseInsensitive)
+        {
+            var model = ClickSendSmsModelFactory.SmsInboundAutomationNotification(
+                originalMessageId: "underscored-message",
+                originalmessageid: "compact-message",
+                customString: "underscored-custom",
+                customstring: "compact-custom");
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = caseInsensitive };
+            var json = JsonSerializer.Serialize(model, options);
+            var restored = JsonSerializer.Deserialize<SmsInboundAutomationNotification>(json, options);
+            Assert.IsNotNull(restored);
+            var callback = JsonSerializer.Deserialize<ClickSendSmsOnSmsInboundAutomationTriggerPayload>(
+                "{\"body\":" + json + "}", options);
+            var items = callback?.Body?.Value;
+            Assert.IsNotNull(items);
+            var callbackItem = items.Single();
+
+            foreach (var serialized in new[] { json, JsonSerializer.Serialize(restored, options), JsonSerializer.Serialize(callbackItem, options) })
+            {
+                using var document = JsonDocument.Parse(serialized);
+                Assert.AreEqual(expected: "underscored-message", actual: document.RootElement.GetProperty("original_message_id").GetString());
+                Assert.AreEqual(expected: "compact-message", actual: document.RootElement.GetProperty("originalmessageid").GetString());
+                Assert.AreEqual(expected: "underscored-custom", actual: document.RootElement.GetProperty("custom_string").GetString());
+                Assert.AreEqual(expected: "compact-custom", actual: document.RootElement.GetProperty("customstring").GetString());
+            }
         }
 
         [TestMethod]
