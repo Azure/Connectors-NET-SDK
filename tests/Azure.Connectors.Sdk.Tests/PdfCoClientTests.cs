@@ -88,7 +88,7 @@ namespace Azure.Connectors.Sdk.Tests
         [DataRow(nameof(PdfCoClient.XlsToXmlAsync), "/v1/xls/convert/to/xml")]
         public async Task RenamedOperations_WithMockedRequest_PreserveWireContract(string operation, string path)
         {
-            var sourceUrl = operation == nameof(PdfCoClient.PdfUnsearchableAsync)
+            var sourceUrl = string.Equals(operation, nameof(PdfCoClient.PdfUnsearchableAsync), StringComparison.Ordinal)
                 ? "https://example.com/source.pdf"
                 : "https://example.com/source.xlsx";
             const string resultUrl = "https://example.com/result";
@@ -115,13 +115,34 @@ namespace Azure.Connectors.Sdk.Tests
 
             var result = operation switch
             {
-                nameof(PdfCoClient.PdfUnsearchableAsync) => JsonSerializer.SerializeToElement(await client.PdfUnsearchableAsync(PdfCoModelFactory.PdfUnsearchableInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
-                nameof(PdfCoClient.PdfFromXlsXlsxAsync) => JsonSerializer.SerializeToElement(await client.PdfFromXlsXlsxAsync(PdfCoModelFactory.PdfFromXlsXlsxInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
-                nameof(PdfCoClient.XlsToCsvAsync) => JsonSerializer.SerializeToElement(await client.XlsToCsvAsync(PdfCoModelFactory.XlsToCsvInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
-                nameof(PdfCoClient.XlsToHtmlAsync) => JsonSerializer.SerializeToElement(await client.XlsToHtmlAsync(PdfCoModelFactory.XlsToHtmlInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
-                nameof(PdfCoClient.XlsToJsonAsync) => JsonSerializer.SerializeToElement(await client.XlsToJsonAsync(PdfCoModelFactory.XlsToJsonInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
-                nameof(PdfCoClient.XlsToTxtAsync) => JsonSerializer.SerializeToElement(await client.XlsToTxtAsync(PdfCoModelFactory.XlsToTxtInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
-                nameof(PdfCoClient.XlsToXmlAsync) => JsonSerializer.SerializeToElement(await client.XlsToXmlAsync(PdfCoModelFactory.XlsToXmlInput(url: sourceUrl)).ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.PdfUnsearchableAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .PdfUnsearchableAsync(input: PdfCoModelFactory.PdfUnsearchableInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.PdfFromXlsXlsxAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .PdfFromXlsXlsxAsync(input: PdfCoModelFactory.PdfFromXlsXlsxInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.XlsToCsvAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .XlsToCsvAsync(input: PdfCoModelFactory.XlsToCsvInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.XlsToHtmlAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .XlsToHtmlAsync(input: PdfCoModelFactory.XlsToHtmlInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.XlsToJsonAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .XlsToJsonAsync(input: PdfCoModelFactory.XlsToJsonInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.XlsToTxtAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .XlsToTxtAsync(input: PdfCoModelFactory.XlsToTxtInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
+                nameof(PdfCoClient.XlsToXmlAsync) => JsonSerializer.SerializeToElement(
+                    await client
+                        .XlsToXmlAsync(input: PdfCoModelFactory.XlsToXmlInput(url: sourceUrl))
+                        .ConfigureAwait(continueOnCapturedContext: false)),
                 _ => throw new AssertFailedException("Unexpected PDF.co operation."),
             };
             var factoryResult = operation switch
