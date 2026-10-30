@@ -261,11 +261,12 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "GET /connection/sms/send", actual: exception.Operation);
             Assert.AreEqual(expected: "InvalidRecipient", actual: exception.ErrorCode);
             Assert.IsNotNull(stoppedActivity);
-            Assert.AreEqual(expected: ActivityStatusCode.Error, actual: stoppedActivity.Status);
+            var recordedActivity = stoppedActivity!;
+            Assert.AreEqual(expected: ActivityStatusCode.Error, actual: recordedActivity.Status);
             foreach (var secret in new[] { recipient, sender, message, Uri.EscapeDataString(message) })
             {
                 Assert.IsFalse(condition: exception.ToString().Contains(secret, StringComparison.Ordinal));
-                Assert.IsFalse(condition: (stoppedActivity.StatusDescription ?? string.Empty).Contains(secret, StringComparison.Ordinal));
+                Assert.IsFalse(condition: (recordedActivity.StatusDescription ?? string.Empty).Contains(secret, StringComparison.Ordinal));
             }
         }
 
