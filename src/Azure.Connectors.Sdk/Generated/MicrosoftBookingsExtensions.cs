@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -46,6 +47,274 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         /// <summary>Webhook ID.</summary>
         [JsonPropertyName("webhookId")]
         public string WebhookId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When an appointment is created
+    /// </summary>
+    public class AppointmentDataNotification
+    {
+        /// <summary>Additional Info about the booking.</summary>
+        [JsonPropertyName("AdditionalInfo")]
+        public string AdditionalInfo { get; set; }
+
+        /// <summary>Customer Email address in case of 1:1 bookings.</summary>
+        [JsonPropertyName("CustomerEmail")]
+        public string CustomerEmail { get; set; }
+
+        /// <summary>Customer Id in case of 1:1 bookings.</summary>
+        [JsonPropertyName("CustomerId")]
+        public string CustomerId { get; set; }
+
+        /// <summary>Location of customer in 1:1 booking</summary>
+        [JsonPropertyName("CustomerLocation")]
+        public AppointmentDataNotificationCustomerLocation CustomerLocation { get; set; }
+
+        /// <summary>Customer Name for 1:1 booking.</summary>
+        [JsonPropertyName("CustomerName")]
+        public string CustomerName { get; set; }
+
+        /// <summary>Customer Notes for 1:1 booking.</summary>
+        [JsonPropertyName("CustomerNotes")]
+        public string CustomerNotes { get; set; }
+
+        /// <summary>All the custom questions and answers for 1:1 booking.</summary>
+        [JsonPropertyName("CustomQuestionAnswers")]
+        public List<CustomQuestionNotification> CustomQuestionAnswers { get; set; }
+
+        /// <summary>Customer phone for 1:1 booking.</summary>
+        [JsonPropertyName("CustomerPhone")]
+        public string CustomerPhone { get; set; }
+
+        /// <summary>Customer Time Zone for 1:1 booking.</summary>
+        [JsonPropertyName("CustomerTimeZone")]
+        public string CustomerTimeZone { get; set; }
+
+        /// <summary>List of customers in the 1:N booking</summary>
+        [JsonPropertyName("Customers")]
+        public List<CustomerDataNotification> Customers { get; set; }
+
+        /// <summary>Duration of the appointment</summary>
+        [JsonPropertyName("Duration")]
+        public int? Duration { get; set; }
+
+        /// <summary>End Time of the appointment.</summary>
+        [JsonPropertyName("EndTime")]
+        public string EndTime { get; set; }
+
+        /// <summary>Number of attendees who have booked this appoinment slot.</summary>
+        [JsonPropertyName("FilledAttendeesCount")]
+        public int? FilledAttendeesCount { get; set; }
+
+        /// <summary>[Deprecated] - use selfServiceAppointmentId as unique identifier for the bookings appointment.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Field to check if SMS notification is enabled for the appointment.</summary>
+        [JsonPropertyName("IsSMSNotificationsEnabled")]
+        public bool? IsSMSNotificationsEnabled { get; set; }
+
+        /// <summary>URL for joining this online appointment.</summary>
+        [JsonPropertyName("JoinWebURL")]
+        public string JoinWebURL { get; set; }
+
+        /// <summary>Max number of attendees allowed in this appoinment.</summary>
+        [JsonPropertyName("MaxAttendeesCount")]
+        public int? MaxAttendeesCount { get; set; }
+
+        /// <summary>Appointment id for the booking appointment.</summary>
+        [JsonPropertyName("SelfServiceAppointmentId")]
+        public string SelfServiceAppointmentId { get; set; }
+
+        /// <summary>Unique Service Identifier.</summary>
+        [JsonPropertyName("ServiceId")]
+        public string ServiceId { get; set; }
+
+        /// <summary>Name of the bookings service.</summary>
+        [JsonPropertyName("ServiceName")]
+        public string ServiceName { get; set; }
+
+        /// <summary>Service level notes for the staff and admin.</summary>
+        [JsonPropertyName("ServiceNotes")]
+        public string ServiceNotes { get; set; }
+
+        /// <summary>List of staff members</summary>
+        [JsonPropertyName("StaffMembers")]
+        public List<StaffMemberDataNotification> StaffMembers { get; set; }
+
+        /// <summary>Start Time of the appointment.</summary>
+        [JsonPropertyName("StartTime")]
+        public string StartTime { get; set; }
+
+        /// <summary>Campaign tracking Data.</summary>
+        [JsonPropertyName("TrackingData")]
+        public string TrackingData { get; set; }
+
+        /// <summary>Reason for cancellation of this booking appointment</summary>
+        [JsonPropertyName("CancelReason")]
+        public string CancelReason { get; set; }
+    }
+
+    /// <summary>
+    /// Location of customer in 1:1 booking
+    /// </summary>
+    public class AppointmentDataNotificationCustomerLocation
+    {
+        /// <summary>Customer location display name. Location filled from C2 page for 1:1 Booking.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>PhysicalAddress</summary>
+        [JsonPropertyName("PhysicalAddress")]
+        public AppointmentDataNotificationCustomerLocationPhysicalAddress PhysicalAddress { get; set; }
+    }
+
+    /// <summary>
+    /// PhysicalAddress
+    /// </summary>
+    public class AppointmentDataNotificationCustomerLocationPhysicalAddress
+    {
+        /// <summary>City the customer belongs to for 1:1 booking.</summary>
+        [JsonPropertyName("City")]
+        public string City { get; set; }
+
+        /// <summary>Country Or Region of the customer for 1:1 booking.</summary>
+        [JsonPropertyName("CountryOrRegion")]
+        public string CountryOrRegion { get; set; }
+
+        /// <summary>Postal Code of the customer for 1:1 booking.</summary>
+        [JsonPropertyName("PostalCode")]
+        public string PostalCode { get; set; }
+
+        /// <summary>State where the customer belongs to in the 1:1 booking.</summary>
+        [JsonPropertyName("State")]
+        public string State { get; set; }
+
+        /// <summary>Street where the customer belongs to in the 1:1 booking.</summary>
+        [JsonPropertyName("Street")]
+        public string Street { get; set; }
+    }
+
+    /// <summary>
+    /// Item in All the custom questions and answers for 1:1 booking.
+    /// </summary>
+    public class CustomQuestionNotification
+    {
+        /// <summary>Answer to this custom question.</summary>
+        [JsonPropertyName("Answer")]
+        public string Answer { get; set; }
+
+        /// <summary>All the answer options.</summary>
+        [JsonPropertyName("AnswerOptions")]
+        public List<string> AnswerOptions { get; set; }
+
+        /// <summary>Tells if answering this question is mandatory.</summary>
+        [JsonPropertyName("IsRequired")]
+        public bool? IsRequired { get; set; }
+
+        /// <summary>Question to be answered.</summary>
+        [JsonPropertyName("Question")]
+        public string Question { get; set; }
+
+        /// <summary>Unique Identifier of the Question to be answered.</summary>
+        [JsonPropertyName("QuestionID")]
+        public string QuestionId { get; set; }
+
+        /// <summary>All the selected answer options.</summary>
+        [JsonPropertyName("SelectedOptions")]
+        public List<int?> SelectedOptions { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of customers in the 1:N booking
+    /// </summary>
+    public class CustomerDataNotification
+    {
+        /// <summary>Email of the customer in the group booking.</summary>
+        [JsonPropertyName("Email")]
+        public string Email { get; set; }
+
+        /// <summary>Unique ID of the customer in the group booking.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
+
+        /// <summary>Location of customer in a group booking.</summary>
+        [JsonPropertyName("Location")]
+        public CustomerDataNotificationLocation Location { get; set; }
+
+        /// <summary>Display Name of the customer in the group booking.</summary>
+        [JsonPropertyName("Name")]
+        public string Name { get; set; }
+
+        /// <summary>Notes of the customer in the group booking.</summary>
+        [JsonPropertyName("Notes")]
+        public string Notes { get; set; }
+
+        /// <summary>Timezone of the customer in the group booking.</summary>
+        [JsonPropertyName("TimeZone")]
+        public string TimeZone { get; set; }
+
+        /// <summary>All the custom questions and answers.</summary>
+        [JsonPropertyName("Answers")]
+        public List<CustomQuestionNotification> Answers { get; set; }
+    }
+
+    /// <summary>
+    /// Location of customer in a group booking.
+    /// </summary>
+    public class CustomerDataNotificationLocation
+    {
+        /// <summary>Customer location display name. Location filled from C2 page for group booking.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>PhysicalAddress</summary>
+        [JsonPropertyName("PhysicalAddress")]
+        public CustomerDataNotificationLocationPhysicalAddress PhysicalAddress { get; set; }
+    }
+
+    /// <summary>
+    /// PhysicalAddress
+    /// </summary>
+    public class CustomerDataNotificationLocationPhysicalAddress
+    {
+        /// <summary>City the customer belongs to for group booking.</summary>
+        [JsonPropertyName("City")]
+        public string City { get; set; }
+
+        /// <summary>Country Or Region of the customer for group booking.</summary>
+        [JsonPropertyName("CountryOrRegion")]
+        public string CountryOrRegion { get; set; }
+
+        /// <summary>Postal Code of the customer for group booking.</summary>
+        [JsonPropertyName("PostalCode")]
+        public string PostalCode { get; set; }
+
+        /// <summary>State where the customer belongs to in the group booking.</summary>
+        [JsonPropertyName("State")]
+        public string State { get; set; }
+
+        /// <summary>Street where the customer belongs to in the group booking.</summary>
+        [JsonPropertyName("Street")]
+        public string Street { get; set; }
+    }
+
+    /// <summary>
+    /// Item in List of staff members
+    /// </summary>
+    public class StaffMemberDataNotification
+    {
+        /// <summary>Display Name of the staff assigned for this appointment.</summary>
+        [JsonPropertyName("DisplayName")]
+        public string DisplayName { get; set; }
+
+        /// <summary>Email Address of the staff assigned to this appointment.</summary>
+        [JsonPropertyName("EmailAddress")]
+        public string EmailAddress { get; set; }
+
+        /// <summary>Unique Staff identifier.</summary>
+        [JsonPropertyName("Id")]
+        public string Id { get; set; }
     }
 
     /// <summary>
@@ -128,6 +397,196 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="AppointmentDataNotification"/>.
+        /// </summary>
+        public static AppointmentDataNotification AppointmentDataNotification(
+            string additionalInfo = default,
+            string customerEmail = default,
+            string customerId = default,
+            AppointmentDataNotificationCustomerLocation customerLocation = default,
+            string customerName = default,
+            string customerNotes = default,
+            List<CustomQuestionNotification> customQuestionAnswers = default,
+            string customerPhone = default,
+            string customerTimeZone = default,
+            List<CustomerDataNotification> customers = default,
+            int? duration = default,
+            string endTime = default,
+            int? filledAttendeesCount = default,
+            string id = default,
+            bool? isSMSNotificationsEnabled = default,
+            string joinWebURL = default,
+            int? maxAttendeesCount = default,
+            string selfServiceAppointmentId = default,
+            string serviceId = default,
+            string serviceName = default,
+            string serviceNotes = default,
+            List<StaffMemberDataNotification> staffMembers = default,
+            string startTime = default,
+            string trackingData = default,
+            string cancelReason = default)
+        {
+            return new AppointmentDataNotification
+            {
+                AdditionalInfo = additionalInfo,
+                CustomerEmail = customerEmail,
+                CustomerId = customerId,
+                CustomerLocation = customerLocation,
+                CustomerName = customerName,
+                CustomerNotes = customerNotes,
+                CustomQuestionAnswers = customQuestionAnswers,
+                CustomerPhone = customerPhone,
+                CustomerTimeZone = customerTimeZone,
+                Customers = customers,
+                Duration = duration,
+                EndTime = endTime,
+                FilledAttendeesCount = filledAttendeesCount,
+                Id = id,
+                IsSMSNotificationsEnabled = isSMSNotificationsEnabled,
+                JoinWebURL = joinWebURL,
+                MaxAttendeesCount = maxAttendeesCount,
+                SelfServiceAppointmentId = selfServiceAppointmentId,
+                ServiceId = serviceId,
+                ServiceName = serviceName,
+                ServiceNotes = serviceNotes,
+                StaffMembers = staffMembers,
+                StartTime = startTime,
+                TrackingData = trackingData,
+                CancelReason = cancelReason,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AppointmentDataNotificationCustomerLocation"/>.
+        /// </summary>
+        public static AppointmentDataNotificationCustomerLocation AppointmentDataNotificationCustomerLocation(
+            string displayName = default,
+            AppointmentDataNotificationCustomerLocationPhysicalAddress physicalAddress = default)
+        {
+            return new AppointmentDataNotificationCustomerLocation
+            {
+                DisplayName = displayName,
+                PhysicalAddress = physicalAddress,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AppointmentDataNotificationCustomerLocationPhysicalAddress"/>.
+        /// </summary>
+        public static AppointmentDataNotificationCustomerLocationPhysicalAddress AppointmentDataNotificationCustomerLocationPhysicalAddress(
+            string city = default,
+            string countryOrRegion = default,
+            string postalCode = default,
+            string state = default,
+            string street = default)
+        {
+            return new AppointmentDataNotificationCustomerLocationPhysicalAddress
+            {
+                City = city,
+                CountryOrRegion = countryOrRegion,
+                PostalCode = postalCode,
+                State = state,
+                Street = street,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomQuestionNotification"/>.
+        /// </summary>
+        public static CustomQuestionNotification CustomQuestionNotification(
+            string answer = default,
+            List<string> answerOptions = default,
+            bool? isRequired = default,
+            string question = default,
+            string questionId = default,
+            List<int?> selectedOptions = default)
+        {
+            return new CustomQuestionNotification
+            {
+                Answer = answer,
+                AnswerOptions = answerOptions,
+                IsRequired = isRequired,
+                Question = question,
+                QuestionId = questionId,
+                SelectedOptions = selectedOptions,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerDataNotification"/>.
+        /// </summary>
+        public static CustomerDataNotification CustomerDataNotification(
+            string email = default,
+            string id = default,
+            CustomerDataNotificationLocation location = default,
+            string name = default,
+            string notes = default,
+            string timeZone = default,
+            List<CustomQuestionNotification> answers = default)
+        {
+            return new CustomerDataNotification
+            {
+                Email = email,
+                Id = id,
+                Location = location,
+                Name = name,
+                Notes = notes,
+                TimeZone = timeZone,
+                Answers = answers,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerDataNotificationLocation"/>.
+        /// </summary>
+        public static CustomerDataNotificationLocation CustomerDataNotificationLocation(
+            string displayName = default,
+            CustomerDataNotificationLocationPhysicalAddress physicalAddress = default)
+        {
+            return new CustomerDataNotificationLocation
+            {
+                DisplayName = displayName,
+                PhysicalAddress = physicalAddress,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CustomerDataNotificationLocationPhysicalAddress"/>.
+        /// </summary>
+        public static CustomerDataNotificationLocationPhysicalAddress CustomerDataNotificationLocationPhysicalAddress(
+            string city = default,
+            string countryOrRegion = default,
+            string postalCode = default,
+            string state = default,
+            string street = default)
+        {
+            return new CustomerDataNotificationLocationPhysicalAddress
+            {
+                City = city,
+                CountryOrRegion = countryOrRegion,
+                PostalCode = postalCode,
+                State = state,
+                Street = street,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StaffMemberDataNotification"/>.
+        /// </summary>
+        public static StaffMemberDataNotification StaffMemberDataNotification(
+            string displayName = default,
+            string emailAddress = default,
+            string id = default)
+        {
+            return new StaffMemberDataNotification
+            {
+                DisplayName = displayName,
+                EmailAddress = emailAddress,
+                Id = id,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="UpdateAppointmentInput"/>.
         /// </summary>
         public static UpdateAppointmentInput UpdateAppointmentInput(
@@ -180,6 +639,56 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnCancelAppointment trigger (MicrosoftBookings "When an appointment is Cancelled", operationId: CancelAppointment).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MicrosoftBookingsOnCancelAppointmentTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MicrosoftBookingsOnCancelAppointmentTriggerPayload : TriggerCallbackPayload<AppointmentDataNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnCreateAppointment trigger (MicrosoftBookings "When an appointment is created", operationId: CreateAppointment).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MicrosoftBookingsOnCreateAppointmentTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MicrosoftBookingsOnCreateAppointmentTriggerPayload : TriggerCallbackPayload<AppointmentDataNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnUpdateAppointment trigger (MicrosoftBookings "When an appointment is Updated", operationId: UpdateAppointment).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MicrosoftBookingsOnUpdateAppointmentTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MicrosoftBookingsOnUpdateAppointmentTriggerPayload : TriggerCallbackPayload<AppointmentDataNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the MicrosoftBookings connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="MicrosoftBookingsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class MicrosoftBookingsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the MicrosoftBookings connector.
+        /// This is a subset of all triggers — see <see cref="MicrosoftBookingsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["CancelAppointment"] = typeof(MicrosoftBookingsOnCancelAppointmentTriggerPayload),
+                ["CreateAppointment"] = typeof(MicrosoftBookingsOnCreateAppointmentTriggerPayload),
+                ["UpdateAppointment"] = typeof(MicrosoftBookingsOnUpdateAppointmentTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.MicrosoftBookings
@@ -196,16 +705,19 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
     {
         /// <summary>
         /// When an appointment is Cancelled.
+        /// Payload type: <see cref="MicrosoftBookingsOnCancelAppointmentTriggerPayload"/>.
         /// </summary>
         public const string OnCancelAppointment = "CancelAppointment";
 
         /// <summary>
         /// When an appointment is created.
+        /// Payload type: <see cref="MicrosoftBookingsOnCreateAppointmentTriggerPayload"/>.
         /// </summary>
         public const string OnCreateAppointment = "CreateAppointment";
 
         /// <summary>
         /// When an appointment is Updated.
+        /// Payload type: <see cref="MicrosoftBookingsOnUpdateAppointmentTriggerPayload"/>.
         /// </summary>
         public const string OnUpdateAppointment = "UpdateAppointment";
 

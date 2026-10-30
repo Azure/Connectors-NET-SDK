@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -950,6 +951,98 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
     }
 
     /// <summary>
+    /// Response for Triggers when a text is sent or received
+    /// </summary>
+    public class TextingWebhookNotification
+    {
+        /// <summary>messageUniqueIdentifier</summary>
+        [JsonPropertyName("messageUniqueIdentifier")]
+        public string MessageUniqueIdentifier { get; set; }
+
+        /// <summary>account</summary>
+        [JsonPropertyName("account")]
+        public TextingWebhookNotificationAccount Account { get; set; }
+
+        /// <summary>yourPhoneNumber</summary>
+        [JsonPropertyName("yourPhoneNumber")]
+        public TextingWebhookNotificationYourPhoneNumber YourPhoneNumber { get; set; }
+
+        /// <summary>conversation</summary>
+        [JsonPropertyName("conversation")]
+        public TextingWebhookNotificationConversation Conversation { get; set; }
+    }
+
+    /// <summary>
+    /// account
+    /// </summary>
+    public class TextingWebhookNotificationAccount
+    {
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+    }
+
+    /// <summary>
+    /// yourPhoneNumber
+    /// </summary>
+    public class TextingWebhookNotificationYourPhoneNumber
+    {
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>description</summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        /// <summary>phoneNumber</summary>
+        [JsonPropertyName("phoneNumber")]
+        public string PhoneNumber { get; set; }
+    }
+
+    /// <summary>
+    /// conversation
+    /// </summary>
+    public class TextingWebhookNotificationConversation
+    {
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>date</summary>
+        [JsonPropertyName("date")]
+        public string Date { get; set; }
+
+        /// <summary>consumerPhoneNumber</summary>
+        [JsonPropertyName("consumerPhoneNumber")]
+        public string ConsumerPhoneNumber { get; set; }
+
+        /// <summary>messageDirection</summary>
+        [JsonPropertyName("messageDirection")]
+        public string MessageDirection { get; set; }
+
+        /// <summary>message</summary>
+        [JsonPropertyName("message")]
+        public string Message { get; set; }
+
+        /// <summary>numSegments</summary>
+        [JsonPropertyName("numSegments")]
+        public int? NumSegments { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
+        /// <summary>claimedBy</summary>
+        [JsonPropertyName("claimedBy")]
+        public string ClaimedBy { get; set; }
+
+        /// <summary>consumerFriendlyName</summary>
+        [JsonPropertyName("consumerFriendlyName")]
+        public string ConsumerFriendlyName { get; set; }
+    }
+
+    /// <summary>
     /// Extensible enum for known Event values.
     /// </summary>
     [JsonConverter(typeof(Event.EventJsonConverter))]
@@ -1681,9 +1774,115 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
                 Event = @event,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextingWebhookNotification"/>.
+        /// </summary>
+        public static TextingWebhookNotification TextingWebhookNotification(
+            string messageUniqueIdentifier = default,
+            TextingWebhookNotificationAccount account = default,
+            TextingWebhookNotificationYourPhoneNumber yourPhoneNumber = default,
+            TextingWebhookNotificationConversation conversation = default)
+        {
+            return new TextingWebhookNotification
+            {
+                MessageUniqueIdentifier = messageUniqueIdentifier,
+                Account = account,
+                YourPhoneNumber = yourPhoneNumber,
+                Conversation = conversation,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextingWebhookNotificationAccount"/>.
+        /// </summary>
+        public static TextingWebhookNotificationAccount TextingWebhookNotificationAccount(
+            int? id = default)
+        {
+            return new TextingWebhookNotificationAccount
+            {
+                Id = id,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextingWebhookNotificationYourPhoneNumber"/>.
+        /// </summary>
+        public static TextingWebhookNotificationYourPhoneNumber TextingWebhookNotificationYourPhoneNumber(
+            int? id = default,
+            string description = default,
+            string phoneNumber = default)
+        {
+            return new TextingWebhookNotificationYourPhoneNumber
+            {
+                Id = id,
+                Description = description,
+                PhoneNumber = phoneNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextingWebhookNotificationConversation"/>.
+        /// </summary>
+        public static TextingWebhookNotificationConversation TextingWebhookNotificationConversation(
+            int? id = default,
+            string date = default,
+            string consumerPhoneNumber = default,
+            string messageDirection = default,
+            string message = default,
+            int? numSegments = default,
+            string status = default,
+            string claimedBy = default,
+            string consumerFriendlyName = default)
+        {
+            return new TextingWebhookNotificationConversation
+            {
+                Id = id,
+                Date = date,
+                ConsumerPhoneNumber = consumerPhoneNumber,
+                MessageDirection = messageDirection,
+                Message = message,
+                NumSegments = numSegments,
+                Status = status,
+                ClaimedBy = claimedBy,
+                ConsumerFriendlyName = consumerFriendlyName,
+            };
+        }
     }
 
     #endregion Model Factory
+
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnTextingWebhook trigger (TextRequest "Triggers when a text is sent or received", operationId: TextingWebhook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TextRequestOnTextingWebhookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TextRequestOnTextingWebhookTriggerPayload : TriggerCallbackPayload<TextingWebhookNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the TextRequest connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="TextRequestTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class TextRequestTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the TextRequest connector.
+        /// This is a subset of all triggers — see <see cref="TextRequestTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["TextingWebhook"] = typeof(TextRequestOnTextingWebhookTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
 
 }
 
@@ -1701,6 +1900,7 @@ namespace Azure.Connectors.Sdk.TextRequest
     {
         /// <summary>
         /// Triggers when a text is sent or received.
+        /// Payload type: <see cref="TextRequestOnTextingWebhookTriggerPayload"/>.
         /// </summary>
         public const string OnTextingWebhook = "TextingWebhook";
 

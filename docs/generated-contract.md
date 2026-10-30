@@ -5,6 +5,11 @@ generator and generated connector SDKs must preserve. It applies to every
 language target. Language-specific naming and idioms remain governed by that
 language's Azure SDK guidelines.
 
+For the .NET acronym families covered here, use `Pdf`, `Xls`, `Csv`, `Html`,
+`Json`, `Txt`, and `Xml`, but retain `AI` as a two-letter acronym. Validate the
+affected methods, input/response types, collection types, and factories together;
+correcting only one member leaves an inconsistent public API.
+
 ## Source of Truth
 
 The connector Swagger document is the backend contract. A generated client may
@@ -114,12 +119,9 @@ such as unsupported multipart transport or a curated replacement route. Such a
 policy must preserve the intended SDK contract and be validated against the
 Swagger input.
 
-Current scoped exclusions include the DataFlows SMS GET send alternative when
-its POST action is present (GET retries could repeat a side effect), and the
-Azure DevOps work-item detail replacement while its live annotation explicitly
-marks it Preview and the production action remains available. The latter keeps
-the production route under the stable name rather than promoting a numeric
-revision without considering eligibility.
+A working operation is not excluded merely because its HTTP verb can trigger
+automatic retries. DataFlows SMS exposes both send variants; the .NET runtime
+blocks standard retries for its side-effecting GET send route instead.
 
 ## Trigger Contract
 
@@ -240,11 +242,26 @@ Validation must use techniques that can falsify those contract assertions:
 
 - Compile generated code semantically after all naming layers are emitted.
   Syntax-only parsing is insufficient to detect duplicate members or parameters.
+- Compile standalone C# documentation examples against the SDK with exactly their
+   documented imports. A test or smoke app with extra imports does not validate
+   the example's namespace references.
+- In callback tests, capture a nullable envelope's item collection in a local,
+   assert that local is non-null, and use it for subsequent accesses. Checking
+   `payload?.Body?.Value` does not validate a later dereference of `payload.Body`.
 - For collision regressions, serialize and deserialize all affected wire names
   together rather than checking only for generated declarations.
 - For response-body corrections, call the generated public methods with nonempty
   metadata or non-UTF8 binary responses and assert the returned content. A
   successful HTTP status alone does not prove that the body reached the caller.
+- For newly retained side-effecting actions, add a mocked invocation that checks
+   the HTTP method and route, exact request keys and values against the pinned
+   operation schema, and a nonempty response. Callback tests do not establish an
+   action's send contract. The [ClickSend campaign regression](../tests/Azure.Connectors.Sdk.Tests/ClickSendSmsClientTests.cs)
+   covers this separately from callback collision round-trips; no live SMS is needed.
+- For pageable operations, test continuation retrieval and resumption through the
+   generated public client. Compatibility reports identify migration work; they
+   do not justify disabling owner-declared paging solely to preserve a single-page
+   return type. Record an intended break and test the correct behavior instead.
 
 When prior generated output exists, regression validation must additionally
 confirm:

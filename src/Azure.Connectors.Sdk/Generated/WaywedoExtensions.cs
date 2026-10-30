@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -382,6 +383,48 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     }
 
     /// <summary>
+    /// Response for When a checklist instance is started
+    /// </summary>
+    public class ChecklistInstanceNotification
+    {
+        /// <summary>The unique ID of the checklist instance.</summary>
+        [JsonPropertyName("id")]
+        public string InstanceId { get; set; }
+
+        /// <summary>The unique ID of the procedure.</summary>
+        [JsonPropertyName("procedureId")]
+        public int? ProcedureId { get; set; }
+
+        /// <summary>The title of the checklist instance.</summary>
+        [JsonPropertyName("title")]
+        public string InstanceTitle { get; set; }
+
+        /// <summary>The URL to the checklist instance.</summary>
+        [JsonPropertyName("url")]
+        public string InstanceURL { get; set; }
+
+        /// <summary>The date and time the checklist instance was started.</summary>
+        [JsonPropertyName("created")]
+        public DateTime? InstanceCreatedDate { get; set; }
+
+        /// <summary>The email address of the user who started the checklist instance.</summary>
+        [JsonPropertyName("createdBy")]
+        public string InstanceUser { get; set; }
+
+        /// <summary>The date and time the checklist instance was finished.</summary>
+        [JsonPropertyName("finished")]
+        public DateTime? InstanceFinishDate { get; set; }
+
+        /// <summary>The earliest date and time the checklist instance could be due.</summary>
+        [JsonPropertyName("earliestDue")]
+        public DateTime? InstanceEarliestDueDate { get; set; }
+
+        /// <summary>The latest date and time the checklist instance could be due.</summary>
+        [JsonPropertyName("latestDue")]
+        public DateTime? InstanceLatestDueDate { get; set; }
+    }
+
+    /// <summary>
     /// When a comment is added to a checklist
     /// </summary>
     public class NewCommentWebHookInput
@@ -389,6 +432,56 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
         public string CallbackURL { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a comment is added to a checklist
+    /// </summary>
+    public class ChecklistCommentNotification
+    {
+        /// <summary>The unique ID of the comment.</summary>
+        [JsonPropertyName("id")]
+        public string CommentId { get; set; }
+
+        /// <summary>The type of comment; either 1 (standard) or 2 (attachment).</summary>
+        [JsonPropertyName("type")]
+        public int? CommentType { get; set; }
+
+        /// <summary>The unique ID of the procedure.</summary>
+        [JsonPropertyName("procedureId")]
+        public int? ProcedureId { get; set; }
+
+        /// <summary>The title of the procedure.</summary>
+        [JsonPropertyName("procedureTitle")]
+        public string ProcedureTitle { get; set; }
+
+        /// <summary>The unique ID of the checklist instance.</summary>
+        [JsonPropertyName("instanceId")]
+        public string InstanceId { get; set; }
+
+        /// <summary>The unique ID of the checklist step.</summary>
+        [JsonPropertyName("stepId")]
+        public string StepId { get; set; }
+
+        /// <summary>The title of the checklist instance.</summary>
+        [JsonPropertyName("instanceTitle")]
+        public string InstanceTitle { get; set; }
+
+        /// <summary>The comment text added to the step.</summary>
+        [JsonPropertyName("comment")]
+        public string CommentText { get; set; }
+
+        /// <summary>The date and time the comment was created.</summary>
+        [JsonPropertyName("created")]
+        public DateTime? CommentDate { get; set; }
+
+        /// <summary>The email address of the user who created the comment.</summary>
+        [JsonPropertyName("createdBy")]
+        public string CommentUser { get; set; }
+
+        /// <summary>The URL to the attached file. Valid for 5 minutes.</summary>
+        [JsonPropertyName("imageUrl")]
+        public string CommentAttachmentURL { get; set; }
     }
 
     /// <summary>
@@ -412,6 +505,36 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     }
 
     /// <summary>
+    /// Response for When a supervisor is invited
+    /// </summary>
+    public class InviteSupervisorWebHookNotification
+    {
+        /// <summary>The unique ID of the checklist instance.</summary>
+        [JsonPropertyName("instanceId")]
+        public string InstanceId { get; set; }
+
+        /// <summary>The title of the checklist instance.</summary>
+        [JsonPropertyName("instanceTitle")]
+        public string InstanceTitle { get; set; }
+
+        /// <summary>The unique ID of the procedure.</summary>
+        [JsonPropertyName("procedureId")]
+        public int? ProcedureId { get; set; }
+
+        /// <summary>The email address of the supervisor</summary>
+        [JsonPropertyName("collaborator")]
+        public string SupervisorEmail { get; set; }
+
+        /// <summary>The email address of the user that invited the supervisor.</summary>
+        [JsonPropertyName("createdBy")]
+        public string UserEmail { get; set; }
+
+        /// <summary>The date and time the invite was created.</summary>
+        [JsonPropertyName("created")]
+        public DateTime? InviteSent { get; set; }
+    }
+
+    /// <summary>
     /// When a procedure is accepted
     /// </summary>
     public class GenerateAcceptancePDFWebHookInput
@@ -422,6 +545,36 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     }
 
     /// <summary>
+    /// Response for When a procedure is accepted
+    /// </summary>
+    public class ProcedureAcceptanceNotification
+    {
+        /// <summary>The unique ID of the procedure acceptance</summary>
+        [JsonPropertyName("id")]
+        public int? AcceptanceId { get; set; }
+
+        /// <summary>The date and time the procedure was accepted.</summary>
+        [JsonPropertyName("accepted")]
+        public DateTime? Accepted { get; set; }
+
+        /// <summary>The email address of the user that accepted the procedure.</summary>
+        [JsonPropertyName("createdBy")]
+        public string AcceptedBy { get; set; }
+
+        /// <summary>The file name of the generated PDF.</summary>
+        [JsonPropertyName("fileName")]
+        public string PDFFileName { get; set; }
+
+        /// <summary>The URL to the generated PDF. Valid for 5 minutes.</summary>
+        [JsonPropertyName("attachmentUrl")]
+        public string PDFURL { get; set; }
+
+        /// <summary>The title of the accepted procedure.</summary>
+        [JsonPropertyName("procedureTitle")]
+        public string ProcedureTitle { get; set; }
+    }
+
+    /// <summary>
     /// When a checklist step is completed
     /// </summary>
     public class ChecklistStepCompletedWebHookInput
@@ -429,6 +582,62 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
         public string CallbackURL { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a checklist step is completed
+    /// </summary>
+    public class CompletedStepNotification
+    {
+        /// <summary>The unique ID of the checklist step completion.</summary>
+        [JsonPropertyName("id")]
+        public string CompletionId { get; set; }
+
+        /// <summary>The unique ID of the checklist instance.</summary>
+        [JsonPropertyName("instanceId")]
+        public string InstanceId { get; set; }
+
+        /// <summary>The unique ID of the procedure.</summary>
+        [JsonPropertyName("procedureId")]
+        public int? ProcedureId { get; set; }
+
+        /// <summary>The date and time the checklist step was completed.</summary>
+        [JsonPropertyName("created")]
+        public DateTime? StepCompletedDate { get; set; }
+
+        /// <summary>The email address of the user that completed the checklist step.</summary>
+        [JsonPropertyName("createdBy")]
+        public string CompletedBy { get; set; }
+
+        /// <summary>The date and time the checklist step was due.</summary>
+        [JsonPropertyName("due")]
+        public DateTime? StepDueDate { get; set; }
+
+        /// <summary>step</summary>
+        [JsonPropertyName("step")]
+        public ChecklistStepNotification Step { get; set; }
+
+        /// <summary>The list of choices made if the step is a decision point.</summary>
+        [JsonPropertyName("decisionChoices")]
+        public List<string> DecisionChoices { get; set; }
+    }
+
+    /// <summary>
+    /// step
+    /// </summary>
+    public class ChecklistStepNotification
+    {
+        /// <summary>The unique ID of the instance step.</summary>
+        [JsonPropertyName("id")]
+        public string StepId { get; set; }
+
+        /// <summary>The title of the instance step.</summary>
+        [JsonPropertyName("title")]
+        public string StepTitle { get; set; }
+
+        /// <summary>The number of the instance step.</summary>
+        [JsonPropertyName("ordinal")]
+        public int? StepNumber { get; set; }
     }
 
     /// <summary>
@@ -699,6 +908,34 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ChecklistInstanceNotification"/>.
+        /// </summary>
+        public static ChecklistInstanceNotification ChecklistInstanceNotification(
+            string instanceId = default,
+            int? procedureId = default,
+            string instanceTitle = default,
+            string instanceURL = default,
+            DateTime? instanceCreatedDate = default,
+            string instanceUser = default,
+            DateTime? instanceFinishDate = default,
+            DateTime? instanceEarliestDueDate = default,
+            DateTime? instanceLatestDueDate = default)
+        {
+            return new ChecklistInstanceNotification
+            {
+                InstanceId = instanceId,
+                ProcedureId = procedureId,
+                InstanceTitle = instanceTitle,
+                InstanceURL = instanceURL,
+                InstanceCreatedDate = instanceCreatedDate,
+                InstanceUser = instanceUser,
+                InstanceFinishDate = instanceFinishDate,
+                InstanceEarliestDueDate = instanceEarliestDueDate,
+                InstanceLatestDueDate = instanceLatestDueDate,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="NewCommentWebHookInput"/>.
         /// </summary>
         public static NewCommentWebHookInput NewCommentWebHookInput(
@@ -707,6 +944,38 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             return new NewCommentWebHookInput
             {
                 CallbackURL = callbackURL,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChecklistCommentNotification"/>.
+        /// </summary>
+        public static ChecklistCommentNotification ChecklistCommentNotification(
+            string commentId = default,
+            int? commentType = default,
+            int? procedureId = default,
+            string procedureTitle = default,
+            string instanceId = default,
+            string stepId = default,
+            string instanceTitle = default,
+            string commentText = default,
+            DateTime? commentDate = default,
+            string commentUser = default,
+            string commentAttachmentURL = default)
+        {
+            return new ChecklistCommentNotification
+            {
+                CommentId = commentId,
+                CommentType = commentType,
+                ProcedureId = procedureId,
+                ProcedureTitle = procedureTitle,
+                InstanceId = instanceId,
+                StepId = stepId,
+                InstanceTitle = instanceTitle,
+                CommentText = commentText,
+                CommentDate = commentDate,
+                CommentUser = commentUser,
+                CommentAttachmentURL = commentAttachmentURL,
             };
         }
 
@@ -735,6 +1004,28 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="InviteSupervisorWebHookNotification"/>.
+        /// </summary>
+        public static InviteSupervisorWebHookNotification InviteSupervisorWebHookNotification(
+            string instanceId = default,
+            string instanceTitle = default,
+            int? procedureId = default,
+            string supervisorEmail = default,
+            string userEmail = default,
+            DateTime? inviteSent = default)
+        {
+            return new InviteSupervisorWebHookNotification
+            {
+                InstanceId = instanceId,
+                InstanceTitle = instanceTitle,
+                ProcedureId = procedureId,
+                SupervisorEmail = supervisorEmail,
+                UserEmail = userEmail,
+                InviteSent = inviteSent,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GenerateAcceptancePDFWebHookInput"/>.
         /// </summary>
         public static GenerateAcceptancePDFWebHookInput GenerateAcceptancePDFWebHookInput(
@@ -747,6 +1038,28 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="ProcedureAcceptanceNotification"/>.
+        /// </summary>
+        public static ProcedureAcceptanceNotification ProcedureAcceptanceNotification(
+            int? acceptanceId = default,
+            DateTime? accepted = default,
+            string acceptedBy = default,
+            string pdfFileName = default,
+            string pdfurl = default,
+            string procedureTitle = default)
+        {
+            return new ProcedureAcceptanceNotification
+            {
+                AcceptanceId = acceptanceId,
+                Accepted = accepted,
+                AcceptedBy = acceptedBy,
+                PDFFileName = pdfFileName,
+                PDFURL = pdfurl,
+                ProcedureTitle = procedureTitle,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="ChecklistStepCompletedWebHookInput"/>.
         /// </summary>
         public static ChecklistStepCompletedWebHookInput ChecklistStepCompletedWebHookInput(
@@ -755,6 +1068,48 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             return new ChecklistStepCompletedWebHookInput
             {
                 CallbackURL = callbackURL,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CompletedStepNotification"/>.
+        /// </summary>
+        public static CompletedStepNotification CompletedStepNotification(
+            string completionId = default,
+            string instanceId = default,
+            int? procedureId = default,
+            DateTime? stepCompletedDate = default,
+            string completedBy = default,
+            DateTime? stepDueDate = default,
+            ChecklistStepNotification step = default,
+            List<string> decisionChoices = default)
+        {
+            return new CompletedStepNotification
+            {
+                CompletionId = completionId,
+                InstanceId = instanceId,
+                ProcedureId = procedureId,
+                StepCompletedDate = stepCompletedDate,
+                CompletedBy = completedBy,
+                StepDueDate = stepDueDate,
+                Step = step,
+                DecisionChoices = decisionChoices,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChecklistStepNotification"/>.
+        /// </summary>
+        public static ChecklistStepNotification ChecklistStepNotification(
+            string stepId = default,
+            string stepTitle = default,
+            int? stepNumber = default)
+        {
+            return new ChecklistStepNotification
+            {
+                StepId = stepId,
+                StepTitle = stepTitle,
+                StepNumber = stepNumber,
             };
         }
 
@@ -775,6 +1130,83 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnChecklistCreateWebHook trigger (Waywedo "When a checklist instance is started", operationId: Checklist_Create_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnChecklistCreateWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WaywedoOnChecklistCreateWebHookTriggerPayload : TriggerCallbackPayload<ChecklistInstanceNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnChecklistStepCompletedWebHook trigger (Waywedo "When a checklist step is completed", operationId: Checklist_Step_Completed_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnChecklistStepCompletedWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WaywedoOnChecklistStepCompletedWebHookTriggerPayload : TriggerCallbackPayload<CompletedStepNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnFinishChecklistWebHook trigger (Waywedo "When a checklist is finished", operationId: Finish_Checklist_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnFinishChecklistWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WaywedoOnFinishChecklistWebHookTriggerPayload : TriggerCallbackPayload<ChecklistInstanceNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnGenerateAcceptancePDFWebHook trigger (Waywedo "When a procedure is accepted", operationId: Generate_Acceptance_PDF_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload : TriggerCallbackPayload<ProcedureAcceptanceNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnInviteSupervisorWebHook trigger (Waywedo "When a supervisor is invited", operationId: Invite_Supervisor_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnInviteSupervisorWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WaywedoOnInviteSupervisorWebHookTriggerPayload : TriggerCallbackPayload<InviteSupervisorWebHookNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnNewCommentWebHook trigger (Waywedo "When a comment is added to a checklist", operationId: New_Comment_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnNewCommentWebHookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WaywedoOnNewCommentWebHookTriggerPayload : TriggerCallbackPayload<ChecklistCommentNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Waywedo connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="WaywedoTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class WaywedoTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Waywedo connector.
+        /// This is a subset of all triggers — see <see cref="WaywedoTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["Checklist_Create_WebHook"] = typeof(WaywedoOnChecklistCreateWebHookTriggerPayload),
+                ["Checklist_Step_Completed_WebHook"] = typeof(WaywedoOnChecklistStepCompletedWebHookTriggerPayload),
+                ["Finish_Checklist_WebHook"] = typeof(WaywedoOnFinishChecklistWebHookTriggerPayload),
+                ["Generate_Acceptance_PDF_WebHook"] = typeof(WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload),
+                ["Invite_Supervisor_WebHook"] = typeof(WaywedoOnInviteSupervisorWebHookTriggerPayload),
+                ["New_Comment_WebHook"] = typeof(WaywedoOnNewCommentWebHookTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Waywedo
@@ -791,31 +1223,37 @@ namespace Azure.Connectors.Sdk.Waywedo
     {
         /// <summary>
         /// When a checklist instance is started.
+        /// Payload type: <see cref="WaywedoOnChecklistCreateWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnChecklistCreateWebHook = "Checklist_Create_WebHook";
 
         /// <summary>
         /// When a checklist step is completed.
+        /// Payload type: <see cref="WaywedoOnChecklistStepCompletedWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnChecklistStepCompletedWebHook = "Checklist_Step_Completed_WebHook";
 
         /// <summary>
         /// When a checklist is finished.
+        /// Payload type: <see cref="WaywedoOnFinishChecklistWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnFinishChecklistWebHook = "Finish_Checklist_WebHook";
 
         /// <summary>
         /// When a procedure is accepted.
+        /// Payload type: <see cref="WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnGenerateAcceptancePDFWebHook = "Generate_Acceptance_PDF_WebHook";
 
         /// <summary>
         /// When a supervisor is invited.
+        /// Payload type: <see cref="WaywedoOnInviteSupervisorWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnInviteSupervisorWebHook = "Invite_Supervisor_WebHook";
 
         /// <summary>
         /// When a comment is added to a checklist.
+        /// Payload type: <see cref="WaywedoOnNewCommentWebHookTriggerPayload"/>.
         /// </summary>
         public const string OnNewCommentWebHook = "New_Comment_WebHook";
 

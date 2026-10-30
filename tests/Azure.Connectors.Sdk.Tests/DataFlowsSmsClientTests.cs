@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -154,7 +155,140 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.AreEqual(expected: 1, actual: attempts);
             Assert.IsNull(typeof(DataflowsSmsClient).GetMethod("SendSMSGetAsync"));
-            Assert.IsNull(typeof(DataflowsSmsClient).GetMethod("SendSmsGetAsync"));
+            Assert.IsNotNull(typeof(DataflowsSmsClient).GetMethod("SendSmsGetAsync"));
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        public async Task SendSmsGetAsync_WithSuccess_PreservesGetRouteAndResponse()
+        {
+            var attempts = 0;
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                attempts++;
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.AreEqual(expected: "/connection/sms/send", actual: request.RequestUri!.AbsolutePath);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "recipient=15555550123");
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("""{"status":"success","message":"Accepted"}"""),
+                });
+            });
+
+            var response = await client.SendSmsGetAsync(recipient: "15555550123", senderId: "Example", message: "Hello")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: attempts);
+            Assert.AreEqual(expected: "Accepted", actual: response.Message);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        [DataRow(false, false)]
+        [DataRow(true, false)]
+        [DataRow(false, true)]
+        [DataRow(true, true)]
+        public async Task SendSmsGetAsync_AmbiguousFailure_OperationBlocklistPreventsRetries(bool transportFailure, bool retryUnsafeHttpMethods)
+        {
+            var attempts = 0;
+            using var client = CreateMockedClient(
+                sendAsync: (request, cancellationToken) =>
+                {
+                    attempts++;
+                    Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                    if (transportFailure)
+                    {
+                        throw new HttpRequestException("Connection closed after GET SMS acceptance.");
+                    }
+
+                    return Task.FromResult(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+                    {
+                        Content = new StringContent("""{"message":"Response lost after SMS acceptance."}"""),
+                    });
+                },
+                maxRetries: 3,
+                retryUnsafeHttpMethods: retryUnsafeHttpMethods);
+
+            if (transportFailure)
+            {
+                await Assert.ThrowsExactlyAsync<global::Azure.RequestFailedException>(
+                    () => client.SendSmsGetAsync(recipient: "15555550123", senderId: "Example", message: "Hello"))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+            else
+            {
+                await Assert.ThrowsExactlyAsync<ConnectorException>(
+                    () => client.SendSmsGetAsync(recipient: "15555550123", senderId: "Example", message: "Hello"))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+
+            Assert.AreEqual(expected: 1, actual: attempts);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        [DoNotParallelize]
+        public async Task SendSmsGetAsync_WithErrorResponse_ExcludesQueryValuesFromDiagnostics()
+        {
+            const string recipient = "15555550987";
+            const string sender = "PrivateSender";
+            const string message = "Verification code 246810 + confirm";
+            Activity? stoppedActivity = null;
+            using var listener = new ActivityListener
+            {
+                ShouldListenTo = source => string.Equals(source.Name, "Azure.Connectors.Sdk.dataflowssms", StringComparison.Ordinal),
+                Sample = (ref ActivityCreationOptions<ActivityContext> options) => ActivitySamplingResult.AllDataAndRecorded,
+                ActivityStopped = activity => stoppedActivity = activity,
+            };
+            ActivitySource.AddActivityListener(listener);
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.IsNotNull(request.RequestUri);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "recipient=" + recipient);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "sender_id=" + sender);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "message=" + Uri.EscapeDataString(message));
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("""{"code":"InvalidRecipient","message":"Rejected."}"""),
+                });
+            });
+
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(
+                () => client.SendSmsGetAsync(recipient: recipient, senderId: sender, message: message))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: "GET /connection/sms/send", actual: exception.Operation);
+            Assert.AreEqual(expected: "InvalidRecipient", actual: exception.ErrorCode);
+            Assert.IsNotNull(stoppedActivity);
+            var recordedActivity = stoppedActivity!;
+            Assert.AreEqual(expected: ActivityStatusCode.Error, actual: recordedActivity.Status);
+            foreach (var secret in new[] { recipient, sender, message, Uri.EscapeDataString(message) })
+            {
+                Assert.IsFalse(condition: exception.ToString().Contains(secret, StringComparison.Ordinal));
+                Assert.IsFalse(condition: (recordedActivity.StatusDescription ?? string.Empty).Contains(secret, StringComparison.Ordinal));
+            }
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        public async Task ListSmsAsync_TransientResponse_RetainsNormalGetRetry()
+        {
+            var attempts = 0;
+            using var client = CreateMockedClient(
+                sendAsync: (request, cancellationToken) =>
+                {
+                    attempts++;
+                    return Task.FromResult(new HttpResponseMessage(attempts == 1 ? HttpStatusCode.ServiceUnavailable : HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("""{"status":"success","data":[]}"""),
+                    });
+                },
+                maxRetries: 3);
+
+            await client.ListSmsAsync().ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 2, actual: attempts);
         }
 
         [TestMethod]
@@ -190,7 +324,8 @@ namespace Azure.Connectors.Sdk.Tests
 
         private static DataflowsSmsClient CreateMockedClient(
             Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> sendAsync,
-            int maxRetries = 0)
+            int maxRetries = 0,
+            bool retryUnsafeHttpMethods = false)
         {
             var credential = new Mock<TokenCredential>();
             credential.Setup(tokenCredential => tokenCredential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.IsAny<CancellationToken>()))
@@ -201,9 +336,11 @@ namespace Azure.Connectors.Sdk.Tests
                 .Returns(sendAsync);
             var options = new ConnectorClientOptions
             {
-                Transport = new HttpClientTransport(new HttpClient(handler.Object))
+                Transport = new HttpClientTransport(new HttpClient(handler.Object)),
+                RetryUnsafeHttpMethods = retryUnsafeHttpMethods,
             };
             options.Retry.MaxRetries = maxRetries;
+            options.Retry.Delay = TimeSpan.Zero;
             return new DataflowsSmsClient(
                 connectionRuntimeUrl: new Uri("https://example.test/connection"),
                 credential: credential.Object,

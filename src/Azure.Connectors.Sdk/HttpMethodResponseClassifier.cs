@@ -9,10 +9,12 @@ namespace Azure.Connectors.Sdk
     internal sealed class HttpMethodResponseClassifier : ResponseClassifier
     {
         private readonly bool _retryUnsafeHttpMethods;
+        private readonly Func<HttpMessage, bool>? _isOperationRetryBlocked;
 
-        public HttpMethodResponseClassifier(bool retryUnsafeHttpMethods)
+        public HttpMethodResponseClassifier(bool retryUnsafeHttpMethods, Func<HttpMessage, bool>? isOperationRetryBlocked = null)
         {
             this._retryUnsafeHttpMethods = retryUnsafeHttpMethods;
+            this._isOperationRetryBlocked = isOperationRetryBlocked;
         }
 
         public override bool IsRetriableResponse(HttpMessage message)
@@ -38,8 +40,9 @@ namespace Azure.Connectors.Sdk
         private bool IsRetryEligible(HttpMessage message)
         {
             return
-                this._retryUnsafeHttpMethods ||
-                HttpMethodResponseClassifier.IsSafeHttpMethod(message.Request.Method);
+                this._isOperationRetryBlocked?.Invoke(message) != true &&
+                (this._retryUnsafeHttpMethods ||
+                 HttpMethodResponseClassifier.IsSafeHttpMethod(message.Request.Method));
         }
     }
 }

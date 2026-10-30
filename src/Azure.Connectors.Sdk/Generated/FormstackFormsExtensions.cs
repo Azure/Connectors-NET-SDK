@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -59,6 +60,20 @@ namespace Azure.Connectors.Sdk.FormstackForms.Models
         /// <summary>id</summary>
         [JsonPropertyName("id")]
         public string Id { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Triggers when a form is submitted
+    /// </summary>
+    [DynamicSchema("GetFormSchema")]
+    public class FormstackFormSubmittedNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -133,6 +148,38 @@ namespace Azure.Connectors.Sdk.FormstackForms.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnFormstackFormSubmitted trigger (FormstackForms "Triggers when a form is submitted", operationId: FormstackFormSubmitted).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;FormstackFormsOnFormstackFormSubmittedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class FormstackFormsOnFormstackFormSubmittedTriggerPayload : TriggerCallbackPayload<FormstackFormSubmittedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the FormstackForms connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="FormstackFormsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class FormstackFormsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the FormstackForms connector.
+        /// This is a subset of all triggers — see <see cref="FormstackFormsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["FormstackFormSubmitted"] = typeof(FormstackFormsOnFormstackFormSubmittedTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.FormstackForms
@@ -149,6 +196,7 @@ namespace Azure.Connectors.Sdk.FormstackForms
     {
         /// <summary>
         /// Triggers when a form is submitted.
+        /// Payload type: <see cref="FormstackFormsOnFormstackFormSubmittedTriggerPayload"/>.
         /// </summary>
         public const string OnFormstackFormSubmitted = "FormstackFormSubmitted";
 

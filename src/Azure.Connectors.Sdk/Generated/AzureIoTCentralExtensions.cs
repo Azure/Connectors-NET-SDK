@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -577,6 +578,150 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// <summary>Callback URL of the workflow Trigger.</summary>
         [JsonPropertyName("url")]
         public string WorkflowTriggerURL { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a rule is fired
+    /// </summary>
+    [DynamicSchema("Schema_WebhookActionBody")]
+    public class WebhookActionBodyNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+
+        /// <summary>Action that triggered the webhook.</summary>
+        [JsonPropertyName("action")]
+        public ActionNotification WebhookAction { get; set; }
+
+        /// <summary>Application that triggered the webhook.</summary>
+        [JsonPropertyName("application")]
+        public ApplicationNotification WebhookApplication { get; set; }
+
+        /// <summary>Device that triggered the webhook.</summary>
+        [JsonPropertyName("device")]
+        public WebhookActionDeviceNotification WebhookDevice { get; set; }
+
+        /// <summary>Rule that triggered the webhook.</summary>
+        [JsonPropertyName("rule")]
+        public RuleNotification WebhookRule { get; set; }
+
+        /// <summary>Timestamp at which the webhook was triggered.</summary>
+        [JsonPropertyName("timestamp")]
+        [JsonInclude]
+        public DateTime? WebhookTimestamp { get; init; }
+    }
+
+    /// <summary>
+    /// Action that triggered the webhook.
+    /// </summary>
+    public class ActionNotification
+    {
+        /// <summary>Unique ID of the action.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string ActionId { get; init; }
+
+        /// <summary>Display name of the action.</summary>
+        [JsonPropertyName("displayName")]
+        public string ActionName { get; set; }
+
+        /// <summary>Type of the action.</summary>
+        [JsonPropertyName("type")]
+        public ActionNotificationActionType? ActionType { get; set; }
+
+        /// <summary>Unique IDs of the rules that are tied to the action.</summary>
+        [JsonPropertyName("rules")]
+        public List<string> Rules { get; set; }
+    }
+
+    /// <summary>
+    /// Application that triggered the webhook.
+    /// </summary>
+    public class ApplicationNotification
+    {
+        /// <summary>Unique ID of the application.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string ApplicationId { get; init; }
+
+        /// <summary>Display name of the application.</summary>
+        [JsonPropertyName("displayName")]
+        public string ApplicationName { get; set; }
+
+        /// <summary>The URL subdomain of the application.</summary>
+        [JsonPropertyName("subdomain")]
+        public string Subdomain { get; set; }
+
+        /// <summary>The URL host of the application.</summary>
+        [JsonPropertyName("host")]
+        public string Host { get; set; }
+    }
+
+    /// <summary>
+    /// Device that triggered the webhook.
+    /// </summary>
+    public class WebhookActionDeviceNotification
+    {
+        /// <summary>Unique ID of the device.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string DeviceId { get; init; }
+
+        /// <summary>ETag used to prevent conflict in device updates.</summary>
+        [JsonPropertyName("etag")]
+        public string DeviceETag { get; set; }
+
+        /// <summary>Display name of the device.</summary>
+        [JsonPropertyName("displayName")]
+        public string DeviceName { get; set; }
+
+        /// <summary>The device template definition for the device.</summary>
+        [JsonPropertyName("instanceOf")]
+        public string DeviceTemplate { get; set; }
+
+        /// <summary>Whether the device is simulated.</summary>
+        [JsonPropertyName("simulated")]
+        public bool? Simulated { get; set; }
+
+        /// <summary>Whether the device has been approved to connect to IoT Central.</summary>
+        [JsonPropertyName("approved")]
+        public bool? Approved { get; set; }
+
+        /// <summary>Whether resources have been allocated for the device.</summary>
+        [JsonPropertyName("provisioned")]
+        [JsonInclude]
+        public bool? Provisioned { get; init; }
+
+        /// <summary>Cloud properties that triggered the webhook.</summary>
+        [JsonPropertyName("cloudProperties")]
+        public JsonElement? CloudProperties { get; set; }
+
+        /// <summary>Device properties that triggered the webhook.</summary>
+        [JsonPropertyName("properties")]
+        public JsonElement? Properties { get; set; }
+
+        /// <summary>Device telemetry that triggered the webhook.</summary>
+        [JsonPropertyName("telemetry")]
+        public JsonElement? Telemetry { get; set; }
+    }
+
+    /// <summary>
+    /// Rule that triggered the webhook.
+    /// </summary>
+    public class RuleNotification
+    {
+        /// <summary>Unique ID of the rule.</summary>
+        [JsonPropertyName("id")]
+        [JsonInclude]
+        public string RuleId { get; init; }
+
+        /// <summary>Display name of the rule.</summary>
+        [JsonPropertyName("displayName")]
+        public string RuleName { get; set; }
     }
 
     /// <summary>
@@ -1270,6 +1415,67 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
+    /// Extensible enum for known ActionNotificationActionType values.
+    /// </summary>
+    [JsonConverter(typeof(ActionNotificationActionType.ActionNotificationActionTypeJsonConverter))]
+    public readonly struct ActionNotificationActionType : IEquatable<ActionNotificationActionType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActionNotificationActionType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public ActionNotificationActionType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>EmailAction</summary>
+        public static ActionNotificationActionType EmailAction { get; } = new("EmailAction");
+
+        /// <summary>WebhookAction</summary>
+        public static ActionNotificationActionType WebhookAction { get; } = new("WebhookAction");
+
+        /// <summary>PowerAutomateAction</summary>
+        public static ActionNotificationActionType PowerAutomateAction { get; } = new("PowerAutomateAction");
+
+        /// <summary>LogicAppsAction</summary>
+        public static ActionNotificationActionType LogicAppsAction { get; } = new("LogicAppsAction");
+
+        /// <summary>ActionGroupsAction</summary>
+        public static ActionNotificationActionType ActionGroupsAction { get; } = new("ActionGroupsAction");
+
+        /// <summary>Converts a string to <see cref="ActionNotificationActionType"/>.</summary>
+        public static implicit operator ActionNotificationActionType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="ActionNotificationActionType"/> to its string representation.</summary>
+        public static implicit operator string(ActionNotificationActionType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(ActionNotificationActionType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is ActionNotificationActionType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(ActionNotificationActionType left, ActionNotificationActionType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(ActionNotificationActionType left, ActionNotificationActionType right) => !left.Equals(right);
+
+        internal sealed class ActionNotificationActionTypeJsonConverter : JsonConverter<ActionNotificationActionType>
+        {
+            public ActionNotificationActionTypeJsonConverter() { }
+            public override ActionNotificationActionType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ActionNotificationActionType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, ActionNotificationActionType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known AzureiotcentralType values.
     /// </summary>
     [JsonConverter(typeof(AzureiotcentralType.AzureiotcentralTypeJsonConverter))]
@@ -1725,6 +1931,106 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookActionBodyNotification"/>.
+        /// </summary>
+        public static WebhookActionBodyNotification WebhookActionBodyNotification(
+            ActionNotification webhookAction = default,
+            ApplicationNotification webhookApplication = default,
+            WebhookActionDeviceNotification webhookDevice = default,
+            RuleNotification webhookRule = default,
+            DateTime? webhookTimestamp = default)
+        {
+            return new WebhookActionBodyNotification
+            {
+                WebhookAction = webhookAction,
+                WebhookApplication = webhookApplication,
+                WebhookDevice = webhookDevice,
+                WebhookRule = webhookRule,
+                WebhookTimestamp = webhookTimestamp,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ActionNotification"/>.
+        /// </summary>
+        public static ActionNotification ActionNotification(
+            string actionId = default,
+            string actionName = default,
+            ActionNotificationActionType? actionType = default,
+            List<string> rules = default)
+        {
+            return new ActionNotification
+            {
+                ActionId = actionId,
+                ActionName = actionName,
+                ActionType = actionType,
+                Rules = rules,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ApplicationNotification"/>.
+        /// </summary>
+        public static ApplicationNotification ApplicationNotification(
+            string applicationId = default,
+            string applicationName = default,
+            string subdomain = default,
+            string host = default)
+        {
+            return new ApplicationNotification
+            {
+                ApplicationId = applicationId,
+                ApplicationName = applicationName,
+                Subdomain = subdomain,
+                Host = host,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookActionDeviceNotification"/>.
+        /// </summary>
+        public static WebhookActionDeviceNotification WebhookActionDeviceNotification(
+            string deviceId = default,
+            string deviceETag = default,
+            string deviceName = default,
+            string deviceTemplate = default,
+            bool? simulated = default,
+            bool? approved = default,
+            bool? provisioned = default,
+            JsonElement? cloudProperties = default,
+            JsonElement? properties = default,
+            JsonElement? telemetry = default)
+        {
+            return new WebhookActionDeviceNotification
+            {
+                DeviceId = deviceId,
+                DeviceETag = deviceETag,
+                DeviceName = deviceName,
+                DeviceTemplate = deviceTemplate,
+                Simulated = simulated,
+                Approved = approved,
+                Provisioned = provisioned,
+                CloudProperties = cloudProperties,
+                Properties = properties,
+                Telemetry = telemetry,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RuleNotification"/>.
+        /// </summary>
+        public static RuleNotification RuleNotification(
+            string ruleId = default,
+            string ruleName = default)
+        {
+            return new RuleNotification
+            {
+                RuleId = ruleId,
+                RuleName = ruleName,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="DeviceCommandV1"/>.
         /// </summary>
         public static DeviceCommandV1 DeviceCommandV1(
@@ -2113,6 +2419,38 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnWorkflowCreateTrigger trigger (AzureIoTCentral "When a rule is fired", operationId: Workflow_CreateTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload : TriggerCallbackPayload<WebhookActionBodyNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the AzureIoTCentral connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="AzureIoTCentralTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class AzureIoTCentralTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the AzureIoTCentral connector.
+        /// This is a subset of all triggers — see <see cref="AzureIoTCentralTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["Workflow_CreateTrigger"] = typeof(AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.AzureIoTCentral
@@ -2129,6 +2467,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
     {
         /// <summary>
         /// When a rule is fired.
+        /// Payload type: <see cref="AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWorkflowCreateTrigger = "Workflow_CreateTrigger";
 

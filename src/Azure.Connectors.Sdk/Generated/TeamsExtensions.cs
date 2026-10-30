@@ -550,6 +550,230 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// Response for When I&apos;m @mentioned
+    /// </summary>
+    [DynamicSchema("GetWebhookTriggerResponseSchema")]
+    public class DynamicAtMentionWebhookTriggerResponseSchemaNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Message details
+    /// </summary>
+    public class MessageReactionWebhookResponseSchemaNotification
+    {
+        /// <summary>threadType</summary>
+        [JsonPropertyName("threadType")]
+        public MessageReactionWebhookResponseSchemaNotificationThreadType? ThreadType { get; set; }
+
+        /// <summary>The chat&apos;s unique identifier</summary>
+        [JsonPropertyName("chatId")]
+        public string ChatId { get; set; }
+
+        /// <summary>The team&apos;s unique identifier</summary>
+        [JsonPropertyName("teamId")]
+        public string TeamId { get; set; }
+
+        /// <summary>The channel&apos;s unique identifier</summary>
+        [JsonPropertyName("channelId")]
+        public string ChannelId { get; set; }
+
+        /// <summary>Id of the message which was reacted</summary>
+        [JsonPropertyName("messageId")]
+        public string MessageId { get; set; }
+
+        /// <summary>ID of the parent message of the thread</summary>
+        [JsonPropertyName("replyToId")]
+        public string ReplyToId { get; set; }
+
+        /// <summary>Link to the message which was reacted</summary>
+        [JsonPropertyName("messageLink")]
+        public string Messagelink { get; set; }
+
+        /// <summary>Reacting user&apos;s Id</summary>
+        [JsonPropertyName("userId")]
+        public string UserId { get; set; }
+
+        /// <summary>Message reaction used</summary>
+        [JsonPropertyName("messageReaction")]
+        public string MessageReaction { get; set; }
+    }
+
+    /// <summary>
+    /// Transcript details
+    /// </summary>
+    public class TranscriptWebhookResponseSchemaNotification
+    {
+        /// <summary>Transcript identifier</summary>
+        [JsonPropertyName("id")]
+        public string TranscriptId { get; set; }
+
+        /// <summary>OData identifier</summary>
+        [JsonPropertyName("@odata.id")]
+        public string ODataId { get; set; }
+
+        /// <summary>Online meeting identifier (empty for ad-hoc call transcripts)</summary>
+        [JsonPropertyName("meetingId")]
+        public string MeetingId { get; set; }
+
+        /// <summary>Call identifier (set for ad-hoc call transcripts)</summary>
+        [JsonPropertyName("callId")]
+        public string CallId { get; set; }
+
+        /// <summary>Content correlation identifier</summary>
+        [JsonPropertyName("contentCorrelationId")]
+        public string ContentCorrelationId { get; set; }
+
+        /// <summary>meetingOrganizer</summary>
+        [JsonPropertyName("meetingOrganizer")]
+        public TeamsIdentitySetNotification MeetingOrganizer { get; set; }
+
+        /// <summary>URL to download the transcript content</summary>
+        [JsonPropertyName("transcriptContentUrl")]
+        public string TranscriptContentURL { get; set; }
+
+        /// <summary>When the transcript was created (UTC)</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>When the transcript ended (UTC)</summary>
+        [JsonPropertyName("endDateTime")]
+        [JsonInclude]
+        public DateTime? EndDateTime { get; init; }
+    }
+
+    /// <summary>
+    /// Identity set: one of application, device, or user is typically populated. Each identity is polymorphic via @odata.type.
+    /// </summary>
+    public class TeamsIdentitySetNotification
+    {
+        /// <summary>Application identity (bot or service)</summary>
+        [JsonPropertyName("application")]
+        public TeamsIdentitySetNotificationApplication Application { get; set; }
+
+        /// <summary>Device identity</summary>
+        [JsonPropertyName("device")]
+        public TeamsIdentitySetNotificationDevice Device { get; set; }
+
+        /// <summary>User identity</summary>
+        [JsonPropertyName("user")]
+        public TeamsIdentitySetNotificationUser User { get; set; }
+    }
+
+    /// <summary>
+    /// Application identity (bot or service)
+    /// </summary>
+    public class TeamsIdentitySetNotificationApplication
+    {
+        /// <summary>@odata.type</summary>
+        [JsonPropertyName("@odata.type")]
+        public string ODataType { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string ApplicationId { get; set; }
+
+        /// <summary>displayName</summary>
+        [JsonPropertyName("displayName")]
+        public string ApplicationDisplayName { get; set; }
+
+        /// <summary>applicationIdentityType</summary>
+        [JsonPropertyName("applicationIdentityType")]
+        public string ApplicationIdentityType { get; set; }
+    }
+
+    /// <summary>
+    /// Device identity
+    /// </summary>
+    public class TeamsIdentitySetNotificationDevice
+    {
+        /// <summary>@odata.type</summary>
+        [JsonPropertyName("@odata.type")]
+        public string ODataType { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string DeviceId { get; set; }
+
+        /// <summary>displayName</summary>
+        [JsonPropertyName("displayName")]
+        public string DeviceDisplayName { get; set; }
+    }
+
+    /// <summary>
+    /// User identity
+    /// </summary>
+    public class TeamsIdentitySetNotificationUser
+    {
+        /// <summary>@odata.type</summary>
+        [JsonPropertyName("@odata.type")]
+        public string ODataType { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string UserId { get; set; }
+
+        /// <summary>userIdentityType</summary>
+        [JsonPropertyName("userIdentityType")]
+        public string UserIdentityType { get; set; }
+
+        /// <summary>userPrincipalName</summary>
+        [JsonPropertyName("userPrincipalName")]
+        public string UserPrincipalName { get; set; }
+    }
+
+    /// <summary>
+    /// Recording details
+    /// </summary>
+    public class RecordingWebhookResponseSchemaNotification
+    {
+        /// <summary>Recording identifier</summary>
+        [JsonPropertyName("id")]
+        public string RecordingId { get; set; }
+
+        /// <summary>OData identifier</summary>
+        [JsonPropertyName("@odata.id")]
+        public string ODataId { get; set; }
+
+        /// <summary>Online meeting identifier (empty for ad-hoc call recordings)</summary>
+        [JsonPropertyName("meetingId")]
+        public string MeetingId { get; set; }
+
+        /// <summary>Call identifier (set for ad-hoc call recordings)</summary>
+        [JsonPropertyName("callId")]
+        public string CallId { get; set; }
+
+        /// <summary>Content correlation identifier</summary>
+        [JsonPropertyName("contentCorrelationId")]
+        public string ContentCorrelationId { get; set; }
+
+        /// <summary>meetingOrganizer</summary>
+        [JsonPropertyName("meetingOrganizer")]
+        public TeamsIdentitySetNotification MeetingOrganizer { get; set; }
+
+        /// <summary>URL to download the recording content</summary>
+        [JsonPropertyName("recordingContentUrl")]
+        public string RecordingContentURL { get; set; }
+
+        /// <summary>When the recording was created (UTC)</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? CreatedDateTime { get; init; }
+
+        /// <summary>When the recording ended (UTC)</summary>
+        [JsonPropertyName("endDateTime")]
+        [JsonInclude]
+        public DateTime? EndDateTime { get; init; }
+    }
+
+    /// <summary>
     /// When a new chat message is added
     /// </summary>
     public class WebhookChatMessageTriggerInput
@@ -557,6 +781,62 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// <summary>notificationUrl</summary>
         [JsonPropertyName("notificationUrl")]
         public string NotificationUrl { get; set; }
+    }
+
+    /// <summary>
+    /// Message details
+    /// </summary>
+    public class ChatMessageWebhookResponseSchemaNotification
+    {
+        /// <summary>Message details response</summary>
+        [JsonPropertyName("value")]
+        public List<ChatMessageWebhookResponseSchemaNotificationValueItem> Message { get; set; }
+    }
+
+    /// <summary>
+    /// Item in Message details response
+    /// </summary>
+    public class ChatMessageWebhookResponseSchemaNotificationValueItem
+    {
+        /// <summary>The chat&apos;s unique identifier</summary>
+        [JsonPropertyName("conversationId")]
+        public string ConversationId { get; set; }
+
+        /// <summary>Message ID</summary>
+        [JsonPropertyName("messageId")]
+        public string Id { get; set; }
+
+        /// <summary>Message link</summary>
+        [JsonPropertyName("linkToMessage")]
+        public string Link { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When keywords are mentioned
+    /// </summary>
+    [DynamicSchema("GetWebhookTriggerResponseSchema")]
+    public class DynamicKeywordWebhookTriggerResponseSchemaNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for When a new message is added to a chat or channel
+    /// </summary>
+    [DynamicSchema("GetWebhookTriggerResponseSchema")]
+    public class DynamicNewMessageWebhookTriggerResponseSchemaNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -1283,7 +1563,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// <summary>
     /// Response for List AI insights
     /// </summary>
-    public class AiInsightCollectionResponse
+    public class AIInsightCollectionResponse
     {
         /// <summary>@odata.context</summary>
         [JsonPropertyName("@odata.context")]
@@ -1291,13 +1571,13 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of AI insights</summary>
         [JsonPropertyName("value")]
-        public List<AiInsightResponse> AIInsights { get; set; }
+        public List<AIInsightResponse> AIInsights { get; set; }
     }
 
     /// <summary>
     /// An AI-generated insight for an online meeting
     /// </summary>
-    public class AiInsightResponse
+    public class AIInsightResponse
     {
         /// <summary>The AI insight ID</summary>
         [JsonPropertyName("id")]
@@ -1812,6 +2092,58 @@ namespace Azure.Connectors.Sdk.Teams.Models
             public ItemTypeJsonConverter() { }
             public override ItemType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for ItemType, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, ItemType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known MessageReactionWebhookResponseSchemaNotificationThreadType values.
+    /// </summary>
+    [JsonConverter(typeof(MessageReactionWebhookResponseSchemaNotificationThreadType.MessageReactionWebhookResponseSchemaNotificationThreadTypeJsonConverter))]
+    public readonly struct MessageReactionWebhookResponseSchemaNotificationThreadType : IEquatable<MessageReactionWebhookResponseSchemaNotificationThreadType>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageReactionWebhookResponseSchemaNotificationThreadType"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public MessageReactionWebhookResponseSchemaNotificationThreadType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>groupchat</summary>
+        public static MessageReactionWebhookResponseSchemaNotificationThreadType Groupchat { get; } = new("groupchat");
+
+        /// <summary>channel</summary>
+        public static MessageReactionWebhookResponseSchemaNotificationThreadType Channel { get; } = new("channel");
+
+        /// <summary>Converts a string to <see cref="MessageReactionWebhookResponseSchemaNotificationThreadType"/>.</summary>
+        public static implicit operator MessageReactionWebhookResponseSchemaNotificationThreadType(string value) => new(value);
+
+        /// <summary>Converts a <see cref="MessageReactionWebhookResponseSchemaNotificationThreadType"/> to its string representation.</summary>
+        public static implicit operator string(MessageReactionWebhookResponseSchemaNotificationThreadType value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(MessageReactionWebhookResponseSchemaNotificationThreadType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is MessageReactionWebhookResponseSchemaNotificationThreadType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(MessageReactionWebhookResponseSchemaNotificationThreadType left, MessageReactionWebhookResponseSchemaNotificationThreadType right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(MessageReactionWebhookResponseSchemaNotificationThreadType left, MessageReactionWebhookResponseSchemaNotificationThreadType right) => !left.Equals(right);
+
+        internal sealed class MessageReactionWebhookResponseSchemaNotificationThreadTypeJsonConverter : JsonConverter<MessageReactionWebhookResponseSchemaNotificationThreadType>
+        {
+            public MessageReactionWebhookResponseSchemaNotificationThreadTypeJsonConverter() { }
+            public override MessageReactionWebhookResponseSchemaNotificationThreadType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MessageReactionWebhookResponseSchemaNotificationThreadType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, MessageReactionWebhookResponseSchemaNotificationThreadType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -2496,6 +2828,158 @@ namespace Azure.Connectors.Sdk.Teams.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="MessageReactionWebhookResponseSchemaNotification"/>.
+        /// </summary>
+        public static MessageReactionWebhookResponseSchemaNotification MessageReactionWebhookResponseSchemaNotification(
+            MessageReactionWebhookResponseSchemaNotificationThreadType? threadType = default,
+            string chatId = default,
+            string teamId = default,
+            string channelId = default,
+            string messageId = default,
+            string replyToId = default,
+            string messagelink = default,
+            string userId = default,
+            string messageReaction = default)
+        {
+            return new MessageReactionWebhookResponseSchemaNotification
+            {
+                ThreadType = threadType,
+                ChatId = chatId,
+                TeamId = teamId,
+                ChannelId = channelId,
+                MessageId = messageId,
+                ReplyToId = replyToId,
+                Messagelink = messagelink,
+                UserId = userId,
+                MessageReaction = messageReaction,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TranscriptWebhookResponseSchemaNotification"/>.
+        /// </summary>
+        public static TranscriptWebhookResponseSchemaNotification TranscriptWebhookResponseSchemaNotification(
+            string transcriptId = default,
+            string oDataId = default,
+            string meetingId = default,
+            string callId = default,
+            string contentCorrelationId = default,
+            TeamsIdentitySetNotification meetingOrganizer = default,
+            string transcriptContentURL = default,
+            DateTime? createdDateTime = default,
+            DateTime? endDateTime = default)
+        {
+            return new TranscriptWebhookResponseSchemaNotification
+            {
+                TranscriptId = transcriptId,
+                ODataId = oDataId,
+                MeetingId = meetingId,
+                CallId = callId,
+                ContentCorrelationId = contentCorrelationId,
+                MeetingOrganizer = meetingOrganizer,
+                TranscriptContentURL = transcriptContentURL,
+                CreatedDateTime = createdDateTime,
+                EndDateTime = endDateTime,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TeamsIdentitySetNotification"/>.
+        /// </summary>
+        public static TeamsIdentitySetNotification TeamsIdentitySetNotification(
+            TeamsIdentitySetNotificationApplication application = default,
+            TeamsIdentitySetNotificationDevice device = default,
+            TeamsIdentitySetNotificationUser user = default)
+        {
+            return new TeamsIdentitySetNotification
+            {
+                Application = application,
+                Device = device,
+                User = user,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TeamsIdentitySetNotificationApplication"/>.
+        /// </summary>
+        public static TeamsIdentitySetNotificationApplication TeamsIdentitySetNotificationApplication(
+            string oDataType = default,
+            string applicationId = default,
+            string applicationDisplayName = default,
+            string applicationIdentityType = default)
+        {
+            return new TeamsIdentitySetNotificationApplication
+            {
+                ODataType = oDataType,
+                ApplicationId = applicationId,
+                ApplicationDisplayName = applicationDisplayName,
+                ApplicationIdentityType = applicationIdentityType,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TeamsIdentitySetNotificationDevice"/>.
+        /// </summary>
+        public static TeamsIdentitySetNotificationDevice TeamsIdentitySetNotificationDevice(
+            string oDataType = default,
+            string deviceId = default,
+            string deviceDisplayName = default)
+        {
+            return new TeamsIdentitySetNotificationDevice
+            {
+                ODataType = oDataType,
+                DeviceId = deviceId,
+                DeviceDisplayName = deviceDisplayName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TeamsIdentitySetNotificationUser"/>.
+        /// </summary>
+        public static TeamsIdentitySetNotificationUser TeamsIdentitySetNotificationUser(
+            string oDataType = default,
+            string userId = default,
+            string userIdentityType = default,
+            string userPrincipalName = default)
+        {
+            return new TeamsIdentitySetNotificationUser
+            {
+                ODataType = oDataType,
+                UserId = userId,
+                UserIdentityType = userIdentityType,
+                UserPrincipalName = userPrincipalName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RecordingWebhookResponseSchemaNotification"/>.
+        /// </summary>
+        public static RecordingWebhookResponseSchemaNotification RecordingWebhookResponseSchemaNotification(
+            string recordingId = default,
+            string oDataId = default,
+            string meetingId = default,
+            string callId = default,
+            string contentCorrelationId = default,
+            TeamsIdentitySetNotification meetingOrganizer = default,
+            string recordingContentURL = default,
+            DateTime? createdDateTime = default,
+            DateTime? endDateTime = default)
+        {
+            return new RecordingWebhookResponseSchemaNotification
+            {
+                RecordingId = recordingId,
+                ODataId = oDataId,
+                MeetingId = meetingId,
+                CallId = callId,
+                ContentCorrelationId = contentCorrelationId,
+                MeetingOrganizer = meetingOrganizer,
+                RecordingContentURL = recordingContentURL,
+                CreatedDateTime = createdDateTime,
+                EndDateTime = endDateTime,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WebhookChatMessageTriggerInput"/>.
         /// </summary>
         public static WebhookChatMessageTriggerInput WebhookChatMessageTriggerInput(
@@ -2504,6 +2988,34 @@ namespace Azure.Connectors.Sdk.Teams.Models
             return new WebhookChatMessageTriggerInput
             {
                 NotificationUrl = notificationUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChatMessageWebhookResponseSchemaNotification"/>.
+        /// </summary>
+        public static ChatMessageWebhookResponseSchemaNotification ChatMessageWebhookResponseSchemaNotification(
+            List<ChatMessageWebhookResponseSchemaNotificationValueItem> message = default)
+        {
+            return new ChatMessageWebhookResponseSchemaNotification
+            {
+                Message = message,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ChatMessageWebhookResponseSchemaNotificationValueItem"/>.
+        /// </summary>
+        public static ChatMessageWebhookResponseSchemaNotificationValueItem ChatMessageWebhookResponseSchemaNotificationValueItem(
+            string conversationId = default,
+            string id = default,
+            string link = default)
+        {
+            return new ChatMessageWebhookResponseSchemaNotificationValueItem
+            {
+                ConversationId = conversationId,
+                Id = id,
+                Link = link,
             };
         }
 
@@ -3096,13 +3608,13 @@ namespace Azure.Connectors.Sdk.Teams.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AiInsightCollectionResponse"/>.
+        /// Creates a new instance of <see cref="AIInsightCollectionResponse"/>.
         /// </summary>
-        public static AiInsightCollectionResponse AiInsightCollectionResponse(
+        public static AIInsightCollectionResponse AIInsightCollectionResponse(
             string context = default,
-            List<AiInsightResponse> aiInsights = default)
+            List<AIInsightResponse> aiInsights = default)
         {
-            return new AiInsightCollectionResponse
+            return new AIInsightCollectionResponse
             {
                 Context = context,
                 AIInsights = aiInsights,
@@ -3110,16 +3622,16 @@ namespace Azure.Connectors.Sdk.Teams.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AiInsightResponse"/>.
+        /// Creates a new instance of <see cref="AIInsightResponse"/>.
         /// </summary>
-        public static AiInsightResponse AiInsightResponse(
+        public static AIInsightResponse AIInsightResponse(
             string aiInsightId = default,
             string callId = default,
             string contentCorrelationId = default,
             DateTime? createdDateTime = default,
             DateTime? endDateTime = default)
         {
-            return new AiInsightResponse
+            return new AIInsightResponse
             {
                 AIInsightId = aiInsightId,
                 CallId = callId,
@@ -3349,6 +3861,14 @@ namespace Azure.Connectors.Sdk.Teams.Models
     }
 
     /// <summary>
+    /// Typed trigger payload for the OnRecordingTrigger trigger (Teams "When a recording is available", operationId: RecordingTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnRecordingTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnRecordingTriggerTriggerPayload : TriggerCallbackPayload<RecordingWebhookResponseSchemaNotification>
+    {
+    }
+
+    /// <summary>
     /// Typed trigger payload for the OnTeamMemberAdded trigger (Teams "When a new team member is added", operationId: OnGroupMembershipAdd).
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberAddedTriggerPayload&gt;(body)</c>.
     /// </summary>
@@ -3361,6 +3881,54 @@ namespace Azure.Connectors.Sdk.Teams.Models
     /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTeamMemberRemovedTriggerPayload&gt;(body)</c>.
     /// </summary>
     public class TeamsOnTeamMemberRemovedTriggerPayload : TriggerCallbackPayload<JsonElement?>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnTranscriptTrigger trigger (Teams "When a transcript is available", operationId: TranscriptTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTranscriptTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnTranscriptTriggerTriggerPayload : TriggerCallbackPayload<TranscriptWebhookResponseSchemaNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookAtMentionTrigger trigger (Teams "When I&apos;m @mentioned", operationId: WebhookAtMentionTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookAtMentionTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnWebhookAtMentionTriggerTriggerPayload : TriggerCallbackPayload<DynamicAtMentionWebhookTriggerResponseSchemaNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookChatMessageTrigger trigger (Teams "When a new chat message is added", operationId: WebhookChatMessageTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookChatMessageTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnWebhookChatMessageTriggerTriggerPayload : TriggerCallbackPayload<ChatMessageWebhookResponseSchemaNotificationValueItem>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookKeywordTrigger trigger (Teams "When keywords are mentioned", operationId: WebhookKeywordTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookKeywordTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnWebhookKeywordTriggerTriggerPayload : TriggerCallbackPayload<DynamicKeywordWebhookTriggerResponseSchemaNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookMessageReactionTrigger trigger (Teams "When someone reacted to a message in chat", operationId: WebhookMessageReactionTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookMessageReactionTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnWebhookMessageReactionTriggerTriggerPayload : TriggerCallbackPayload<MessageReactionWebhookResponseSchemaNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookNewMessageTrigger trigger (Teams "When a new message is added to a chat or channel", operationId: WebhookNewMessageTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookNewMessageTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class TeamsOnWebhookNewMessageTriggerTriggerPayload : TriggerCallbackPayload<DynamicNewMessageWebhookTriggerResponseSchemaNotification>
     {
     }
 
@@ -3382,8 +3950,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 ["OnNewChannelMessage"] = typeof(TeamsOnNewChannelMessageTriggerPayload),
                 ["OnNewChannelMessageMentioningMe"] = typeof(TeamsOnNewChannelMessageMentioningMeTriggerPayload),
+                ["RecordingTrigger"] = typeof(TeamsOnRecordingTriggerTriggerPayload),
                 ["OnGroupMembershipAdd"] = typeof(TeamsOnTeamMemberAddedTriggerPayload),
                 ["OnGroupMembershipRemoval"] = typeof(TeamsOnTeamMemberRemovedTriggerPayload),
+                ["TranscriptTrigger"] = typeof(TeamsOnTranscriptTriggerTriggerPayload),
+                ["WebhookAtMentionTrigger"] = typeof(TeamsOnWebhookAtMentionTriggerTriggerPayload),
+                ["WebhookChatMessageTrigger"] = typeof(TeamsOnWebhookChatMessageTriggerTriggerPayload),
+                ["WebhookKeywordTrigger"] = typeof(TeamsOnWebhookKeywordTriggerTriggerPayload),
+                ["WebhookMessageReactionTrigger"] = typeof(TeamsOnWebhookMessageReactionTriggerTriggerPayload),
+                ["WebhookNewMessageTrigger"] = typeof(TeamsOnWebhookNewMessageTriggerTriggerPayload),
             });
     }
 
@@ -3417,6 +3992,7 @@ namespace Azure.Connectors.Sdk.Teams
 
         /// <summary>
         /// When a recording is available.
+        /// Payload type: <see cref="TeamsOnRecordingTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnRecordingTrigger = "RecordingTrigger";
 
@@ -3434,31 +4010,37 @@ namespace Azure.Connectors.Sdk.Teams
 
         /// <summary>
         /// When a transcript is available.
+        /// Payload type: <see cref="TeamsOnTranscriptTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnTranscriptTrigger = "TranscriptTrigger";
 
         /// <summary>
         /// When I&apos;m @mentioned.
+        /// Payload type: <see cref="TeamsOnWebhookAtMentionTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
 
         /// <summary>
         /// When a new chat message is added.
+        /// Payload type: <see cref="TeamsOnWebhookChatMessageTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
 
         /// <summary>
         /// When keywords are mentioned.
+        /// Payload type: <see cref="TeamsOnWebhookKeywordTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
 
         /// <summary>
         /// When someone reacted to a message in chat.
+        /// Payload type: <see cref="TeamsOnWebhookMessageReactionTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
 
         /// <summary>
         /// When a new message is added to a chat or channel.
+        /// Payload type: <see cref="TeamsOnWebhookNewMessageTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
 
@@ -5773,16 +6355,16 @@ namespace Azure.Connectors.Sdk.Teams
         /// <param name="meetingId">Meeting ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List AI insights response.</returns>
-        public virtual async Task<AiInsightCollectionResponse> ListAiInsightsAsync(string meetingId, CancellationToken cancellationToken = default)
+        public virtual async Task<AIInsightCollectionResponse> ListAIInsightsAsync(string meetingId, CancellationToken cancellationToken = default)
         {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListAiInsightsAsync");
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.ListAIInsightsAsync");
             try
             {
                 if (meetingId is null)
                     throw new ArgumentNullException(nameof(meetingId));
                 var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId)}/aiInsights";
                 return await this
-                    .CallConnectorAsync<AiInsightCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AIInsightCollectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5801,9 +6383,9 @@ namespace Azure.Connectors.Sdk.Teams
         /// <param name="aIInsightId">AI Insight ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get AI insight response.</returns>
-        public virtual async Task<AiInsightResponse> GetAiInsightAsync(string meetingId, string aIInsightId, CancellationToken cancellationToken = default)
+        public virtual async Task<AIInsightResponse> GetAIInsightAsync(string meetingId, string aIInsightId, CancellationToken cancellationToken = default)
         {
-            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAiInsightAsync");
+            using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAIInsightAsync");
             try
             {
                 if (meetingId is null)
@@ -5812,7 +6394,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(aIInsightId));
                 var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId)}/aiInsights/{Uri.EscapeDataString(aIInsightId)}";
                 return await this
-                    .CallConnectorAsync<AiInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AIInsightResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

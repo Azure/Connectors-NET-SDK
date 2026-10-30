@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -45,6 +46,44 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
         /// <summary>The id of the Board that the card belongs to</summary>
         [JsonPropertyName("board_id")]
         public long? BoardId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a card is created
+    /// </summary>
+    public class SetWebhookCardCreateNotification
+    {
+        /// <summary>Describes the action that triggered the event</summary>
+        [JsonPropertyName("action")]
+        public string Action { get; set; }
+
+        /// <summary>The user who triggered the event</summary>
+        [JsonPropertyName("user")]
+        public string User { get; set; }
+
+        /// <summary>A link to the card URL</summary>
+        [JsonPropertyName("card_url")]
+        public string CardUrl { get; set; }
+
+        /// <summary>The name of the card</summary>
+        [JsonPropertyName("card_name")]
+        public string CardName { get; set; }
+
+        /// <summary>The current column the card is placed in</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
+        /// <summary>The name of the Board where the card lives</summary>
+        [JsonPropertyName("board_name")]
+        public string BoardName { get; set; }
+
+        /// <summary>The unique id of the board.</summary>
+        [JsonPropertyName("board_id")]
+        public int? BoardId { get; set; }
+
+        /// <summary>The unique ID of the card</summary>
+        [JsonPropertyName("card_id")]
+        public long? CardId { get; set; }
     }
 
     /// <summary>
@@ -86,6 +125,52 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
     }
 
     /// <summary>
+    /// Response for When a card&apos;s properties are changed
+    /// </summary>
+    public class SetWebhookPropertiesChangeNotification
+    {
+        /// <summary>Describes the action that triggered the event</summary>
+        [JsonPropertyName("action")]
+        public string Action { get; set; }
+
+        /// <summary>The user who triggered the event</summary>
+        [JsonPropertyName("user")]
+        public string User { get; set; }
+
+        /// <summary>A link to the card URL</summary>
+        [JsonPropertyName("card_url")]
+        public string CardUrl { get; set; }
+
+        /// <summary>The name of the card</summary>
+        [JsonPropertyName("card_name")]
+        public string CardName { get; set; }
+
+        /// <summary>The current column the card is placed in</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
+        /// <summary>The name of the Board where the card lives</summary>
+        [JsonPropertyName("board_name")]
+        public string BoardName { get; set; }
+
+        /// <summary>The unique id of the board.</summary>
+        [JsonPropertyName("board_id")]
+        public int? BoardId { get; set; }
+
+        /// <summary>The unique ID of the card</summary>
+        [JsonPropertyName("card_id")]
+        public long? CardId { get; set; }
+
+        /// <summary>The due date of the card</summary>
+        [JsonPropertyName("due_date")]
+        public string DueDate { get; set; }
+
+        /// <summary>The email of the card&apos;s assignee</summary>
+        [JsonPropertyName("assignee_email")]
+        public string AssigneeEmail { get; set; }
+    }
+
+    /// <summary>
     /// When a card is due
     /// </summary>
     public class SetWebhookCardDueDateInput
@@ -101,6 +186,52 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
         /// <summary>The id of the Board that the card belongs to</summary>
         [JsonPropertyName("board_id")]
         public long? BoardId { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a card is due
+    /// </summary>
+    public class SetWebhookCardDueDateNotification
+    {
+        /// <summary>Describes the action that triggered the event</summary>
+        [JsonPropertyName("action")]
+        public string Action { get; set; }
+
+        /// <summary>The user who triggered the event</summary>
+        [JsonPropertyName("user")]
+        public string User { get; set; }
+
+        /// <summary>A link to the card URL</summary>
+        [JsonPropertyName("card_url")]
+        public string CardUrl { get; set; }
+
+        /// <summary>The name of the card</summary>
+        [JsonPropertyName("card_name")]
+        public string CardName { get; set; }
+
+        /// <summary>The current column the card is placed in</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+
+        /// <summary>The name of the Board where the card lives</summary>
+        [JsonPropertyName("board_name")]
+        public string BoardName { get; set; }
+
+        /// <summary>The unique id of the board.</summary>
+        [JsonPropertyName("board_id")]
+        public int? BoardId { get; set; }
+
+        /// <summary>The unique ID of the card</summary>
+        [JsonPropertyName("card_id")]
+        public long? CardId { get; set; }
+
+        /// <summary>The due date of the card</summary>
+        [JsonPropertyName("due_date")]
+        public string DueDate { get; set; }
+
+        /// <summary>The email of the card&apos;s assignee</summary>
+        [JsonPropertyName("assignee_email")]
+        public string AssigneeEmail { get; set; }
     }
 
     /// <summary>
@@ -343,6 +474,32 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="SetWebhookCardCreateNotification"/>.
+        /// </summary>
+        public static SetWebhookCardCreateNotification SetWebhookCardCreateNotification(
+            string action = default,
+            string user = default,
+            string cardUrl = default,
+            string cardName = default,
+            string status = default,
+            string boardName = default,
+            int? boardId = default,
+            long? cardId = default)
+        {
+            return new SetWebhookCardCreateNotification
+            {
+                Action = action,
+                User = user,
+                CardUrl = cardUrl,
+                CardName = cardName,
+                Status = status,
+                BoardName = boardName,
+                BoardId = boardId,
+                CardId = cardId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="SetWebhookPropertiesChangeInput"/>.
         /// </summary>
         public static SetWebhookPropertiesChangeInput SetWebhookPropertiesChangeInput(
@@ -369,6 +526,36 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="SetWebhookPropertiesChangeNotification"/>.
+        /// </summary>
+        public static SetWebhookPropertiesChangeNotification SetWebhookPropertiesChangeNotification(
+            string action = default,
+            string user = default,
+            string cardUrl = default,
+            string cardName = default,
+            string status = default,
+            string boardName = default,
+            int? boardId = default,
+            long? cardId = default,
+            string dueDate = default,
+            string assigneeEmail = default)
+        {
+            return new SetWebhookPropertiesChangeNotification
+            {
+                Action = action,
+                User = user,
+                CardUrl = cardUrl,
+                CardName = cardName,
+                Status = status,
+                BoardName = boardName,
+                BoardId = boardId,
+                CardId = cardId,
+                DueDate = dueDate,
+                AssigneeEmail = assigneeEmail,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="SetWebhookCardDueDateInput"/>.
         /// </summary>
         public static SetWebhookCardDueDateInput SetWebhookCardDueDateInput(
@@ -381,6 +568,36 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
                 DueToday = dueToday,
                 Webhook = webhook,
                 BoardId = boardId,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SetWebhookCardDueDateNotification"/>.
+        /// </summary>
+        public static SetWebhookCardDueDateNotification SetWebhookCardDueDateNotification(
+            string action = default,
+            string user = default,
+            string cardUrl = default,
+            string cardName = default,
+            string status = default,
+            string boardName = default,
+            int? boardId = default,
+            long? cardId = default,
+            string dueDate = default,
+            string assigneeEmail = default)
+        {
+            return new SetWebhookCardDueDateNotification
+            {
+                Action = action,
+                User = user,
+                CardUrl = cardUrl,
+                CardName = cardName,
+                Status = status,
+                BoardName = boardName,
+                BoardId = boardId,
+                CardId = cardId,
+                DueDate = dueDate,
+                AssigneeEmail = assigneeEmail,
             };
         }
 
@@ -521,6 +738,56 @@ namespace Azure.Connectors.Sdk.Projectplace.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnSetWebhookCardCreate trigger (Projectplace "When a card is created", operationId: set_webhook_card_create).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ProjectplaceOnSetWebhookCardCreateTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ProjectplaceOnSetWebhookCardCreateTriggerPayload : TriggerCallbackPayload<SetWebhookCardCreateNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnSetWebhookCardDueDate trigger (Projectplace "When a card is due", operationId: set_webhook_card_due_date).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ProjectplaceOnSetWebhookCardDueDateTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ProjectplaceOnSetWebhookCardDueDateTriggerPayload : TriggerCallbackPayload<SetWebhookCardDueDateNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnSetWebhookPropertiesChange trigger (Projectplace "When a card&apos;s properties are changed", operationId: set_webhook_properties_change).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ProjectplaceOnSetWebhookPropertiesChangeTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class ProjectplaceOnSetWebhookPropertiesChangeTriggerPayload : TriggerCallbackPayload<SetWebhookPropertiesChangeNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Projectplace connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="ProjectplaceTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class ProjectplaceTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Projectplace connector.
+        /// This is a subset of all triggers — see <see cref="ProjectplaceTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["set_webhook_card_create"] = typeof(ProjectplaceOnSetWebhookCardCreateTriggerPayload),
+                ["set_webhook_card_due_date"] = typeof(ProjectplaceOnSetWebhookCardDueDateTriggerPayload),
+                ["set_webhook_properties_change"] = typeof(ProjectplaceOnSetWebhookPropertiesChangeTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Projectplace
@@ -537,16 +804,19 @@ namespace Azure.Connectors.Sdk.Projectplace
     {
         /// <summary>
         /// When a card is created.
+        /// Payload type: <see cref="ProjectplaceOnSetWebhookCardCreateTriggerPayload"/>.
         /// </summary>
         public const string OnSetWebhookCardCreate = "set_webhook_card_create";
 
         /// <summary>
         /// When a card is due.
+        /// Payload type: <see cref="ProjectplaceOnSetWebhookCardDueDateTriggerPayload"/>.
         /// </summary>
         public const string OnSetWebhookCardDueDate = "set_webhook_card_due_date";
 
         /// <summary>
         /// When a card&apos;s properties are changed.
+        /// Payload type: <see cref="ProjectplaceOnSetWebhookPropertiesChangeTriggerPayload"/>.
         /// </summary>
         public const string OnSetWebhookPropertiesChange = "set_webhook_properties_change";
 

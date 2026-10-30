@@ -1268,6 +1268,666 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
+    /// Webhook pull request response.
+    /// </summary>
+    public class WebhookPullRequestResponseNotification
+    {
+        /// <summary>The action that was performed.</summary>
+        [JsonPropertyName("action")]
+        public string ActionPerformed { get; set; }
+
+        /// <summary>The pull request number.</summary>
+        [JsonPropertyName("number")]
+        public int? PullRequestNumber { get; set; }
+
+        /// <summary>pull_request</summary>
+        [JsonPropertyName("pull_request")]
+        public PullRequestNotification PullRequest { get; set; }
+    }
+
+    /// <summary>
+    /// Pull requests let you tell others about changes you&apos;ve pushed to a repository on GitHub. Once a pull request is sent, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary.
+    /// </summary>
+    public class PullRequestNotification
+    {
+        /// <summary>The HTTP URL for this pull request.</summary>
+        [JsonPropertyName("url")]
+        public string PullRequestUrl { get; set; }
+
+        /// <summary>The Unique Identifier for the pull request.</summary>
+        [JsonPropertyName("id")]
+        public int? PullRequestId { get; set; }
+
+        /// <summary>The Node ID for the pull request.</summary>
+        [JsonPropertyName("node_id")]
+        public string PullRequestNodeId { get; set; }
+
+        /// <summary>The HTML URL for the pull request.</summary>
+        [JsonPropertyName("html_url")]
+        public string PullRequestHtmlUrl { get; set; }
+
+        /// <summary>The Diff URL for the pull request.</summary>
+        [JsonPropertyName("diff_url")]
+        public string DiffUrl { get; set; }
+
+        /// <summary>The patch URL for the pull request.</summary>
+        [JsonPropertyName("patch_url")]
+        public string PullRequestPatchUrl { get; set; }
+
+        /// <summary>The issue URL for the pull request.</summary>
+        [JsonPropertyName("issue_url")]
+        public string PullRequestIssueUrl { get; set; }
+
+        /// <summary>The commit URL for the pull request.</summary>
+        [JsonPropertyName("commits_url")]
+        public string PullRequestCommitUrl { get; set; }
+
+        /// <summary>The review comments URL for the pull request.</summary>
+        [JsonPropertyName("review_comments_url")]
+        public string PullRequestReviewCommentsUrl { get; set; }
+
+        /// <summary>The review comment URL for the pull request.</summary>
+        [JsonPropertyName("review_comment_url")]
+        public string PullRequestReviewCommentUrl { get; set; }
+
+        /// <summary>The Diff URL for the pull request.</summary>
+        [JsonPropertyName("comments_url")]
+        public string PullRequestDiffUrl { get; set; }
+
+        /// <summary>The statuses URL for the pull request.</summary>
+        [JsonPropertyName("statuses_url")]
+        public string PullRequestStatusesUrl { get; set; }
+
+        /// <summary>Number uniquely identifying the pull request within its repository.</summary>
+        [JsonPropertyName("number")]
+        public int? PullRequestNumber { get; set; }
+
+        /// <summary>State of this Pull Request. Either `open` or `closed`.</summary>
+        [JsonPropertyName("state")]
+        public PullRequestNotificationPullRequestState? PullRequestState { get; set; }
+
+        /// <summary>Whether the pull request is locked or not.</summary>
+        [JsonPropertyName("locked")]
+        public bool? IsPullRequestLocked { get; set; }
+
+        /// <summary>The title of the pull request.</summary>
+        [JsonPropertyName("title")]
+        public string PullRequestTitle { get; set; }
+
+        /// <summary>user</summary>
+        [JsonPropertyName("user")]
+        public UserDetailsModelNotification User { get; set; }
+
+        /// <summary>The body as Markdown.</summary>
+        [JsonPropertyName("body")]
+        public string PullRequestBody { get; set; }
+
+        /// <summary>The list of labels associated with the pull request.</summary>
+        [JsonPropertyName("labels")]
+        public List<LabelNotification> PullRequestLabels { get; set; }
+
+        /// <summary>milestone</summary>
+        [JsonPropertyName("milestone")]
+        public MilestoneNotification Milestone { get; set; }
+
+        /// <summary>Reason that the conversation was locked.</summary>
+        [JsonPropertyName("active_lock_reason")]
+        public string PullRequestActiveLockReason { get; set; }
+
+        /// <summary>The date and time when the pull request was created.</summary>
+        [JsonPropertyName("created_at")]
+        public DateTime? PullRequestCreatedAt { get; set; }
+
+        /// <summary>The date and time when the pull request was last updated.</summary>
+        [JsonPropertyName("updated_at")]
+        public DateTime? PullRequestUpdatedAt { get; set; }
+
+        /// <summary>The date and time when the pull request was closed.</summary>
+        [JsonPropertyName("closed_at")]
+        public DateTime? PullRequestClosedAt { get; set; }
+
+        /// <summary>The date and time that the pull request was merged.</summary>
+        [JsonPropertyName("merged_at")]
+        public DateTime? PullRequestMergedAt { get; set; }
+
+        /// <summary>The merge commit Sha of the pull request.</summary>
+        [JsonPropertyName("merge_commit_sha")]
+        public string PullRequestMergeCommitSha { get; set; }
+
+        /// <summary>assignee</summary>
+        [JsonPropertyName("assignee")]
+        public UserDetailsModelNotification Assignee { get; set; }
+
+        /// <summary>The list of assignees for the pull request.</summary>
+        [JsonPropertyName("assignees")]
+        public List<UserDetailsModelNotification> PullRequestAssignees { get; set; }
+
+        /// <summary>The list of Users assigned to this pull request.</summary>
+        [JsonPropertyName("requested_reviewers")]
+        public List<UserDetailsModelNotification> PullRequestRequestedReviewers { get; set; }
+
+        /// <summary>The list of requested teams to this pull request.</summary>
+        [JsonPropertyName("requested_teams")]
+        public List<TeamDetailsNotification> PullRequestRequestedTeams { get; set; }
+
+        /// <summary>Head</summary>
+        [JsonPropertyName("head")]
+        public PullRequestNotificationHead Head { get; set; }
+
+        /// <summary>Base</summary>
+        [JsonPropertyName("base")]
+        public PullRequestNotificationBase Base { get; set; }
+
+        /// <summary>Author&apos;s association with the subject of the comment.</summary>
+        [JsonPropertyName("author_association")]
+        public string PullRequestAuthorAssociation { get; set; }
+
+        /// <summary>Indicates whether or not the pull request is a draft.</summary>
+        [JsonPropertyName("draft")]
+        public bool? IsPullRequestDraft { get; set; }
+
+        /// <summary>Whether or not the pull request was merged.</summary>
+        [JsonPropertyName("merged")]
+        public bool? IsPullRequestMerged { get; set; }
+
+        /// <summary>Whether or not the pull request can be merged based on the existence of merge conflicts.</summary>
+        [JsonPropertyName("mergeable")]
+        public bool? IsPullRequestMergeable { get; set; }
+
+        /// <summary>Whether or not the pull request is rebaseable.</summary>
+        [JsonPropertyName("rebaseable")]
+        public bool? IsPullRequestRebaseable { get; set; }
+
+        /// <summary>The mergeable state of the pull request.</summary>
+        [JsonPropertyName("mergeable_state")]
+        public string PullRequestMergeableState { get; set; }
+
+        /// <summary>merged_by</summary>
+        [JsonPropertyName("merged_by")]
+        public UserDetailsModelNotification MergedBy { get; set; }
+
+        /// <summary>The number of comments in this pull request.</summary>
+        [JsonPropertyName("comments")]
+        public int? PullRequestCommentsCount { get; set; }
+
+        /// <summary>The number of review comments in this pull request.</summary>
+        [JsonPropertyName("review_comments")]
+        public int? PullRequestReviewCommentsCount { get; set; }
+
+        /// <summary>Indicates whether maintainers can modify the pull request.</summary>
+        [JsonPropertyName("maintainer_can_modify")]
+        public bool? CanMaintainerModifyPullRequest { get; set; }
+
+        /// <summary>The number of commits in this pull request.</summary>
+        [JsonPropertyName("commits")]
+        public int? PullRequestCommitsCount { get; set; }
+
+        /// <summary>The number of additions in this pull request.</summary>
+        [JsonPropertyName("additions")]
+        public int? PullRequestAdditionsCount { get; set; }
+
+        /// <summary>The number of deletions in this pull request.</summary>
+        [JsonPropertyName("deletions")]
+        public int? PullRequestDeletionsCount { get; set; }
+
+        /// <summary>The number of changed files in this pull request.</summary>
+        [JsonPropertyName("changed_files")]
+        public int? PullRequestChangedFilesCount { get; set; }
+    }
+
+    /// <summary>
+    /// Properties of a GitHub user.
+    /// </summary>
+    public class UserDetailsModelNotification
+    {
+        /// <summary>User Login.</summary>
+        [JsonPropertyName("login")]
+        public string Login { get; set; }
+
+        /// <summary>User Id.</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>User Node Id.</summary>
+        [JsonPropertyName("node_id")]
+        public string NodeId { get; set; }
+
+        /// <summary>User Avatar Url.</summary>
+        [JsonPropertyName("avatar_url")]
+        public string AvatarUrl { get; set; }
+
+        /// <summary>User Gravatar Id.</summary>
+        [JsonPropertyName("gravatar_id")]
+        public string GravatarId { get; set; }
+
+        /// <summary>User Url.</summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>User Html Url.</summary>
+        [JsonPropertyName("html_url")]
+        public string HtmlUrl { get; set; }
+
+        /// <summary>User FollowersUrl</summary>
+        [JsonPropertyName("followers_url")]
+        public string FollowersUrl { get; set; }
+
+        /// <summary>User Following Url.</summary>
+        [JsonPropertyName("following_url")]
+        public string FollowingUrl { get; set; }
+
+        /// <summary>User Gists Url.</summary>
+        [JsonPropertyName("gists_url")]
+        public string GistsUrl { get; set; }
+
+        /// <summary>User Starred Url.</summary>
+        [JsonPropertyName("starred_url")]
+        public string StarredUrl { get; set; }
+
+        /// <summary>User Subscriptions Url.</summary>
+        [JsonPropertyName("subscriptions_url")]
+        public string SubscriptionsUrl { get; set; }
+
+        /// <summary>User Organizations Url.</summary>
+        [JsonPropertyName("organizations_url")]
+        public string OrganizationsUrl { get; set; }
+
+        /// <summary>User Repos Url.</summary>
+        [JsonPropertyName("repos_url")]
+        public string ReposUrl { get; set; }
+
+        /// <summary>User Events Url.</summary>
+        [JsonPropertyName("events_url")]
+        public string EventsUrl { get; set; }
+
+        /// <summary>User Received Events Url.</summary>
+        [JsonPropertyName("received_events_url")]
+        public string ReceivedEventsUrl { get; set; }
+
+        /// <summary>User Type.</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+
+        /// <summary>Is User Site Admin?</summary>
+        [JsonPropertyName("site_admin")]
+        public bool? SiteAdmin { get; set; }
+
+        /// <summary>User Name.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>User Company.</summary>
+        [JsonPropertyName("company")]
+        public string Company { get; set; }
+
+        /// <summary>User Blog.</summary>
+        [JsonPropertyName("blog")]
+        public string Blog { get; set; }
+
+        /// <summary>User Location.</summary>
+        [JsonPropertyName("location")]
+        public string Location { get; set; }
+
+        /// <summary>User Email.</summary>
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        /// <summary>User Hireable?</summary>
+        [JsonPropertyName("hireable")]
+        public bool? Hireable { get; set; }
+
+        /// <summary>User Bio.</summary>
+        [JsonPropertyName("bio")]
+        public string Bio { get; set; }
+
+        /// <summary>User Public Repos.</summary>
+        [JsonPropertyName("public_repos")]
+        public int? PublicRepos { get; set; }
+
+        /// <summary>User Public Gists.</summary>
+        [JsonPropertyName("public_gists")]
+        public int? PublicGists { get; set; }
+
+        /// <summary>User Followers.</summary>
+        [JsonPropertyName("followers")]
+        public int? Followers { get; set; }
+
+        /// <summary>User Following.</summary>
+        [JsonPropertyName("following")]
+        public int? Following { get; set; }
+
+        /// <summary>User Created At.</summary>
+        [JsonPropertyName("created_at")]
+        public DateTime? CreatedAt { get; set; }
+
+        /// <summary>User Updated At.</summary>
+        [JsonPropertyName("updated_at")]
+        public DateTime? UpdatedAt { get; set; }
+    }
+
+    /// <summary>
+    /// Color-coded labels help you categorize and filter your issues (just like labels in Gmail).
+    /// </summary>
+    public class LabelNotification
+    {
+        /// <summary>The Unique Identifier for the label.</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>The Node ID for the label.</summary>
+        [JsonPropertyName("node_id")]
+        public string NodeId { get; set; }
+
+        /// <summary>URL for the label</summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>The name of the label.</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>A brief description of this label.</summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        /// <summary>6-character hex code, without the leading #, identifying the color</summary>
+        [JsonPropertyName("color")]
+        public string Color { get; set; }
+
+        /// <summary>Whether or not this is a default label.</summary>
+        [JsonPropertyName("default")]
+        public bool? IsDefault { get; set; }
+    }
+
+    /// <summary>
+    /// A collection of related issues and pull requests.
+    /// </summary>
+    public class MilestoneNotification
+    {
+        /// <summary>The HTTP URL for the milestone.</summary>
+        [JsonPropertyName("url")]
+        public string MilestoneUrl { get; set; }
+
+        /// <summary>The HTML URL for the milestone.</summary>
+        [JsonPropertyName("html_url")]
+        public string MilestoneHtmlUrl { get; set; }
+
+        /// <summary>The labels URL for the milestone.</summary>
+        [JsonPropertyName("labels_url")]
+        public string MilestoneLabelsUrl { get; set; }
+
+        /// <summary>The Unique Identifier for the milestone.</summary>
+        [JsonPropertyName("id")]
+        public int? MilestoneId { get; set; }
+
+        /// <summary>The Node ID for the milestone.</summary>
+        [JsonPropertyName("node_id")]
+        public string MilestoneNodeId { get; set; }
+
+        /// <summary>The number of the milestone.</summary>
+        [JsonPropertyName("number")]
+        public int? MilestoneNumber { get; set; }
+
+        /// <summary>The state of the milestone.</summary>
+        [JsonPropertyName("state")]
+        public MilestoneNotificationMilestoneState? MilestoneState { get; set; }
+
+        /// <summary>The title of the milestone.</summary>
+        [JsonPropertyName("title")]
+        public string MilestoneTitle { get; set; }
+
+        /// <summary>The description of the milestone.</summary>
+        [JsonPropertyName("description")]
+        public string MilestoneDescription { get; set; }
+
+        /// <summary>creator</summary>
+        [JsonPropertyName("creator")]
+        public UserDetailsModelNotification Creator { get; set; }
+
+        /// <summary>Number of open issues for the repository.</summary>
+        [JsonPropertyName("open_issues")]
+        public int? MilestoneOpenIssues { get; set; }
+
+        /// <summary>Number of closed issues for the repository.</summary>
+        [JsonPropertyName("closed_issues")]
+        public int? MilestoneClosedIssues { get; set; }
+
+        /// <summary>The date and time when the milestone was created.</summary>
+        [JsonPropertyName("created_at")]
+        public DateTime? MilestoneCreatedAt { get; set; }
+
+        /// <summary>The date and time when the milestone was last updated.</summary>
+        [JsonPropertyName("updated_at")]
+        public DateTime? MilestoneUpdatedAt { get; set; }
+
+        /// <summary>The date and time when the milestone was closed.</summary>
+        [JsonPropertyName("closed_at")]
+        public DateTime? MilestoneClosedAt { get; set; }
+
+        /// <summary>The due date of the milestone.</summary>
+        [JsonPropertyName("due_on")]
+        public DateTime? MilestoneDueOn { get; set; }
+    }
+
+    /// <summary>
+    /// Groups of organization members that gives permissions on specified repositories.
+    /// </summary>
+    public class TeamDetailsNotification
+    {
+        /// <summary>Unique identifier of the team.</summary>
+        [JsonPropertyName("id")]
+        public int? Id { get; set; }
+
+        /// <summary>The Node ID for the team.</summary>
+        [JsonPropertyName("node_id")]
+        public string NodeId { get; set; }
+
+        /// <summary>URL for the team.</summary>
+        [JsonPropertyName("url")]
+        public string Url { get; set; }
+
+        /// <summary>The HTTP URL for the team members.</summary>
+        [JsonPropertyName("members_url")]
+        public string MembersUrl { get; set; }
+
+        /// <summary>Name of the team</summary>
+        [JsonPropertyName("name")]
+        public string Value { get; set; }
+
+        /// <summary>Description of the team</summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        /// <summary>Permission that the team will have for its repositories</summary>
+        [JsonPropertyName("permission")]
+        public string Permission { get; set; }
+
+        /// <summary>The level of privacy this team should have</summary>
+        [JsonPropertyName("privacy")]
+        public string Privacy { get; set; }
+
+        /// <summary>HTML Url of the team.</summary>
+        [JsonPropertyName("html_url")]
+        public string HTMLUrl { get; set; }
+
+        /// <summary>The HTTP URL for this team&apos;s repositories.</summary>
+        [JsonPropertyName("repositories_url")]
+        public string RepositoriesUrl { get; set; }
+
+        /// <summary>The slug corresponding to the team.</summary>
+        [JsonPropertyName("slug")]
+        public string Slug { get; set; }
+
+        /// <summary>Distinguished Name (DN) that team maps to within LDAP environment</summary>
+        [JsonPropertyName("ldap_dn")]
+        public string LDAPDN { get; set; }
+    }
+
+    /// <summary>
+    /// Head
+    /// </summary>
+    public class PullRequestNotificationHead
+    {
+        /// <summary>Head label.</summary>
+        [JsonPropertyName("label")]
+        public string PullRequestHeadLabel { get; set; }
+
+        /// <summary>Head Reference</summary>
+        [JsonPropertyName("ref")]
+        public string PullRequestHeadReference { get; set; }
+
+        /// <summary>repo</summary>
+        [JsonPropertyName("repo")]
+        public RepositoryMiniDetailsNotification Repo { get; set; }
+
+        /// <summary>Head Sha</summary>
+        [JsonPropertyName("sha")]
+        public string PullRequestHeadSha { get; set; }
+
+        /// <summary>user</summary>
+        [JsonPropertyName("user")]
+        public UserDetailsModelNotification User { get; set; }
+    }
+
+    /// <summary>
+    /// A git repository
+    /// </summary>
+    public class RepositoryMiniDetailsNotification
+    {
+        /// <summary>Unique identifier of the repository.</summary>
+        [JsonPropertyName("id")]
+        public int? RepositoryId { get; set; }
+
+        /// <summary>The Node Id of the repository.</summary>
+        [JsonPropertyName("node_id")]
+        public string RepositoryNodeId { get; set; }
+
+        /// <summary>The name of the repository.</summary>
+        [JsonPropertyName("name")]
+        public string RepositoryName { get; set; }
+
+        /// <summary>The full name of the repository.</summary>
+        [JsonPropertyName("full_name")]
+        public string RepositoryFullName { get; set; }
+
+        /// <summary>Permissions on the repository.</summary>
+        [JsonPropertyName("permissions")]
+        public RepositoryMiniDetailsNotificationPermissions RepositoryPermissions { get; set; }
+
+        /// <summary>owner</summary>
+        [JsonPropertyName("owner")]
+        public UserDetailsModelNotification Owner { get; set; }
+
+        /// <summary>Whether the repository is private or public.</summary>
+        [JsonPropertyName("private")]
+        public bool? IsRepositoryPrivate { get; set; }
+
+        /// <summary>The description of the repository</summary>
+        [JsonPropertyName("description")]
+        public string RepositoryDescription { get; set; }
+
+        /// <summary>The homepage for this repository</summary>
+        [JsonPropertyName("homepage")]
+        public string RepositoryHomepage { get; set; }
+
+        /// <summary>The language for this repository</summary>
+        [JsonPropertyName("language")]
+        public string RepositoryLanguage { get; set; }
+
+        /// <summary>Whether the repository is archived.</summary>
+        [JsonPropertyName("archived")]
+        public bool? IsRepositoryArchived { get; set; }
+
+        /// <summary>Returns whether or not this repository disabled.</summary>
+        [JsonPropertyName("disabled")]
+        public bool? IsRepositoryDisabled { get; set; }
+
+        /// <summary>The repository visibility: public, private, or internal.</summary>
+        [JsonPropertyName("visibility")]
+        public string RepositoryVisibility { get; set; }
+
+        /// <summary>the date and time when the repository was created.</summary>
+        [JsonPropertyName("created_at")]
+        public DateTime? RepositoryCreatedAt { get; set; }
+
+        /// <summary>the date and time when the repository was last updated.</summary>
+        [JsonPropertyName("updated_at")]
+        public DateTime? RepositoryUpdatedAt { get; set; }
+
+        /// <summary>Whether to allow rebase merges for pull requests.</summary>
+        [JsonPropertyName("allow_rebase_merge")]
+        public bool? RepositoryAllowRebaseMerge { get; set; }
+
+        /// <summary>Whether to allow squash merges for pull requests.</summary>
+        [JsonPropertyName("allow_squash_merge")]
+        public bool? RepositoryAllowSquashMerge { get; set; }
+
+        /// <summary>Whether to delete head branches when pull requests are merged</summary>
+        [JsonPropertyName("delete_branch_on_merge")]
+        public bool? RepositoryDeleteBranchOnMerge { get; set; }
+
+        /// <summary>Whether to allow merge commits for pull requests.</summary>
+        [JsonPropertyName("allow_merge_commit")]
+        public bool? RepositoryAllowMergeCommit { get; set; }
+
+        /// <summary>Repository master branch.</summary>
+        [JsonPropertyName("master_branch")]
+        public string RepositoryMasterBranch { get; set; }
+    }
+
+    /// <summary>
+    /// Permissions on the repository.
+    /// </summary>
+    public class RepositoryMiniDetailsNotificationPermissions
+    {
+        /// <summary>admin</summary>
+        [JsonPropertyName("admin")]
+        public bool? Admin { get; set; }
+
+        /// <summary>pull</summary>
+        [JsonPropertyName("pull")]
+        public bool? Pull { get; set; }
+
+        /// <summary>triage</summary>
+        [JsonPropertyName("triage")]
+        public bool? Triage { get; set; }
+
+        /// <summary>push</summary>
+        [JsonPropertyName("push")]
+        public bool? Push { get; set; }
+
+        /// <summary>maintain</summary>
+        [JsonPropertyName("maintain")]
+        public bool? Maintain { get; set; }
+    }
+
+    /// <summary>
+    /// Base
+    /// </summary>
+    public class PullRequestNotificationBase
+    {
+        /// <summary>Head label.</summary>
+        [JsonPropertyName("label")]
+        public string PullRequestBaseLabel { get; set; }
+
+        /// <summary>Head Reference</summary>
+        [JsonPropertyName("ref")]
+        public string PullRequestBaseReference { get; set; }
+
+        /// <summary>repo</summary>
+        [JsonPropertyName("repo")]
+        public RepositoryMiniDetailsNotification Repo { get; set; }
+
+        /// <summary>Head Sha</summary>
+        [JsonPropertyName("sha")]
+        public string PullRequestBaseSha { get; set; }
+
+        /// <summary>user</summary>
+        [JsonPropertyName("user")]
+        public UserDetailsModelNotification User { get; set; }
+    }
+
+    /// <summary>
     /// Model for fetching search results
     /// </summary>
     public class MultipleSearchFetchModel
@@ -1747,6 +2407,110 @@ namespace Azure.Connectors.Sdk.GitHub.Models
             public MergeMethodJsonConverter() { }
             public override MergeMethod Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MergeMethod, got '{reader.TokenType}'.");
             public override void Write(Utf8JsonWriter writer, MergeMethod value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known MilestoneNotificationMilestoneState values.
+    /// </summary>
+    [JsonConverter(typeof(MilestoneNotificationMilestoneState.MilestoneNotificationMilestoneStateJsonConverter))]
+    public readonly struct MilestoneNotificationMilestoneState : IEquatable<MilestoneNotificationMilestoneState>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MilestoneNotificationMilestoneState"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public MilestoneNotificationMilestoneState(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>open</summary>
+        public static MilestoneNotificationMilestoneState Open { get; } = new("open");
+
+        /// <summary>closed</summary>
+        public static MilestoneNotificationMilestoneState Closed { get; } = new("closed");
+
+        /// <summary>Converts a string to <see cref="MilestoneNotificationMilestoneState"/>.</summary>
+        public static implicit operator MilestoneNotificationMilestoneState(string value) => new(value);
+
+        /// <summary>Converts a <see cref="MilestoneNotificationMilestoneState"/> to its string representation.</summary>
+        public static implicit operator string(MilestoneNotificationMilestoneState value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(MilestoneNotificationMilestoneState other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is MilestoneNotificationMilestoneState other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(MilestoneNotificationMilestoneState left, MilestoneNotificationMilestoneState right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(MilestoneNotificationMilestoneState left, MilestoneNotificationMilestoneState right) => !left.Equals(right);
+
+        internal sealed class MilestoneNotificationMilestoneStateJsonConverter : JsonConverter<MilestoneNotificationMilestoneState>
+        {
+            public MilestoneNotificationMilestoneStateJsonConverter() { }
+            public override MilestoneNotificationMilestoneState Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for MilestoneNotificationMilestoneState, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, MilestoneNotificationMilestoneState value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
+    /// Extensible enum for known PullRequestNotificationPullRequestState values.
+    /// </summary>
+    [JsonConverter(typeof(PullRequestNotificationPullRequestState.PullRequestNotificationPullRequestStateJsonConverter))]
+    public readonly struct PullRequestNotificationPullRequestState : IEquatable<PullRequestNotificationPullRequestState>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PullRequestNotificationPullRequestState"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public PullRequestNotificationPullRequestState(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>open</summary>
+        public static PullRequestNotificationPullRequestState Open { get; } = new("open");
+
+        /// <summary>closed</summary>
+        public static PullRequestNotificationPullRequestState Closed { get; } = new("closed");
+
+        /// <summary>Converts a string to <see cref="PullRequestNotificationPullRequestState"/>.</summary>
+        public static implicit operator PullRequestNotificationPullRequestState(string value) => new(value);
+
+        /// <summary>Converts a <see cref="PullRequestNotificationPullRequestState"/> to its string representation.</summary>
+        public static implicit operator string(PullRequestNotificationPullRequestState value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(PullRequestNotificationPullRequestState other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is PullRequestNotificationPullRequestState other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(PullRequestNotificationPullRequestState left, PullRequestNotificationPullRequestState right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(PullRequestNotificationPullRequestState left, PullRequestNotificationPullRequestState right) => !left.Equals(right);
+
+        internal sealed class PullRequestNotificationPullRequestStateJsonConverter : JsonConverter<PullRequestNotificationPullRequestState>
+        {
+            public PullRequestNotificationPullRequestStateJsonConverter() { }
+            public override PullRequestNotificationPullRequestState Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for PullRequestNotificationPullRequestState, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, PullRequestNotificationPullRequestState value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -2538,6 +3302,406 @@ namespace Azure.Connectors.Sdk.GitHub.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookPullRequestResponseNotification"/>.
+        /// </summary>
+        public static WebhookPullRequestResponseNotification WebhookPullRequestResponseNotification(
+            string actionPerformed = default,
+            int? pullRequestNumber = default,
+            PullRequestNotification pullRequest = default)
+        {
+            return new WebhookPullRequestResponseNotification
+            {
+                ActionPerformed = actionPerformed,
+                PullRequestNumber = pullRequestNumber,
+                PullRequest = pullRequest,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PullRequestNotification"/>.
+        /// </summary>
+        public static PullRequestNotification PullRequestNotification(
+            string pullRequestUrl = default,
+            int? pullRequestId = default,
+            string pullRequestNodeId = default,
+            string pullRequestHtmlUrl = default,
+            string diffUrl = default,
+            string pullRequestPatchUrl = default,
+            string pullRequestIssueUrl = default,
+            string pullRequestCommitUrl = default,
+            string pullRequestReviewCommentsUrl = default,
+            string pullRequestReviewCommentUrl = default,
+            string pullRequestDiffUrl = default,
+            string pullRequestStatusesUrl = default,
+            int? pullRequestNumber = default,
+            PullRequestNotificationPullRequestState? pullRequestState = default,
+            bool? isPullRequestLocked = default,
+            string pullRequestTitle = default,
+            UserDetailsModelNotification user = default,
+            string pullRequestBody = default,
+            List<LabelNotification> pullRequestLabels = default,
+            MilestoneNotification milestone = default,
+            string pullRequestActiveLockReason = default,
+            DateTime? pullRequestCreatedAt = default,
+            DateTime? pullRequestUpdatedAt = default,
+            DateTime? pullRequestClosedAt = default,
+            DateTime? pullRequestMergedAt = default,
+            string pullRequestMergeCommitSha = default,
+            UserDetailsModelNotification assignee = default,
+            List<UserDetailsModelNotification> pullRequestAssignees = default,
+            List<UserDetailsModelNotification> pullRequestRequestedReviewers = default,
+            List<TeamDetailsNotification> pullRequestRequestedTeams = default,
+            PullRequestNotificationHead head = default,
+            PullRequestNotificationBase @base = default,
+            string pullRequestAuthorAssociation = default,
+            bool? isPullRequestDraft = default,
+            bool? isPullRequestMerged = default,
+            bool? isPullRequestMergeable = default,
+            bool? isPullRequestRebaseable = default,
+            string pullRequestMergeableState = default,
+            UserDetailsModelNotification mergedBy = default,
+            int? pullRequestCommentsCount = default,
+            int? pullRequestReviewCommentsCount = default,
+            bool? canMaintainerModifyPullRequest = default,
+            int? pullRequestCommitsCount = default,
+            int? pullRequestAdditionsCount = default,
+            int? pullRequestDeletionsCount = default,
+            int? pullRequestChangedFilesCount = default)
+        {
+            return new PullRequestNotification
+            {
+                PullRequestUrl = pullRequestUrl,
+                PullRequestId = pullRequestId,
+                PullRequestNodeId = pullRequestNodeId,
+                PullRequestHtmlUrl = pullRequestHtmlUrl,
+                DiffUrl = diffUrl,
+                PullRequestPatchUrl = pullRequestPatchUrl,
+                PullRequestIssueUrl = pullRequestIssueUrl,
+                PullRequestCommitUrl = pullRequestCommitUrl,
+                PullRequestReviewCommentsUrl = pullRequestReviewCommentsUrl,
+                PullRequestReviewCommentUrl = pullRequestReviewCommentUrl,
+                PullRequestDiffUrl = pullRequestDiffUrl,
+                PullRequestStatusesUrl = pullRequestStatusesUrl,
+                PullRequestNumber = pullRequestNumber,
+                PullRequestState = pullRequestState,
+                IsPullRequestLocked = isPullRequestLocked,
+                PullRequestTitle = pullRequestTitle,
+                User = user,
+                PullRequestBody = pullRequestBody,
+                PullRequestLabels = pullRequestLabels,
+                Milestone = milestone,
+                PullRequestActiveLockReason = pullRequestActiveLockReason,
+                PullRequestCreatedAt = pullRequestCreatedAt,
+                PullRequestUpdatedAt = pullRequestUpdatedAt,
+                PullRequestClosedAt = pullRequestClosedAt,
+                PullRequestMergedAt = pullRequestMergedAt,
+                PullRequestMergeCommitSha = pullRequestMergeCommitSha,
+                Assignee = assignee,
+                PullRequestAssignees = pullRequestAssignees,
+                PullRequestRequestedReviewers = pullRequestRequestedReviewers,
+                PullRequestRequestedTeams = pullRequestRequestedTeams,
+                Head = head,
+                Base = @base,
+                PullRequestAuthorAssociation = pullRequestAuthorAssociation,
+                IsPullRequestDraft = isPullRequestDraft,
+                IsPullRequestMerged = isPullRequestMerged,
+                IsPullRequestMergeable = isPullRequestMergeable,
+                IsPullRequestRebaseable = isPullRequestRebaseable,
+                PullRequestMergeableState = pullRequestMergeableState,
+                MergedBy = mergedBy,
+                PullRequestCommentsCount = pullRequestCommentsCount,
+                PullRequestReviewCommentsCount = pullRequestReviewCommentsCount,
+                CanMaintainerModifyPullRequest = canMaintainerModifyPullRequest,
+                PullRequestCommitsCount = pullRequestCommitsCount,
+                PullRequestAdditionsCount = pullRequestAdditionsCount,
+                PullRequestDeletionsCount = pullRequestDeletionsCount,
+                PullRequestChangedFilesCount = pullRequestChangedFilesCount,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UserDetailsModelNotification"/>.
+        /// </summary>
+        public static UserDetailsModelNotification UserDetailsModelNotification(
+            string login = default,
+            int? id = default,
+            string nodeId = default,
+            string avatarUrl = default,
+            string gravatarId = default,
+            string url = default,
+            string htmlUrl = default,
+            string followersUrl = default,
+            string followingUrl = default,
+            string gistsUrl = default,
+            string starredUrl = default,
+            string subscriptionsUrl = default,
+            string organizationsUrl = default,
+            string reposUrl = default,
+            string eventsUrl = default,
+            string receivedEventsUrl = default,
+            string type = default,
+            bool? siteAdmin = default,
+            string name = default,
+            string company = default,
+            string blog = default,
+            string location = default,
+            string email = default,
+            bool? hireable = default,
+            string bio = default,
+            int? publicRepos = default,
+            int? publicGists = default,
+            int? followers = default,
+            int? following = default,
+            DateTime? createdAt = default,
+            DateTime? updatedAt = default)
+        {
+            return new UserDetailsModelNotification
+            {
+                Login = login,
+                Id = id,
+                NodeId = nodeId,
+                AvatarUrl = avatarUrl,
+                GravatarId = gravatarId,
+                Url = url,
+                HtmlUrl = htmlUrl,
+                FollowersUrl = followersUrl,
+                FollowingUrl = followingUrl,
+                GistsUrl = gistsUrl,
+                StarredUrl = starredUrl,
+                SubscriptionsUrl = subscriptionsUrl,
+                OrganizationsUrl = organizationsUrl,
+                ReposUrl = reposUrl,
+                EventsUrl = eventsUrl,
+                ReceivedEventsUrl = receivedEventsUrl,
+                Type = type,
+                SiteAdmin = siteAdmin,
+                Name = name,
+                Company = company,
+                Blog = blog,
+                Location = location,
+                Email = email,
+                Hireable = hireable,
+                Bio = bio,
+                PublicRepos = publicRepos,
+                PublicGists = publicGists,
+                Followers = followers,
+                Following = following,
+                CreatedAt = createdAt,
+                UpdatedAt = updatedAt,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="LabelNotification"/>.
+        /// </summary>
+        public static LabelNotification LabelNotification(
+            int? id = default,
+            string nodeId = default,
+            string url = default,
+            string name = default,
+            string description = default,
+            string color = default,
+            bool? isDefault = default)
+        {
+            return new LabelNotification
+            {
+                Id = id,
+                NodeId = nodeId,
+                Url = url,
+                Name = name,
+                Description = description,
+                Color = color,
+                IsDefault = isDefault,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MilestoneNotification"/>.
+        /// </summary>
+        public static MilestoneNotification MilestoneNotification(
+            string milestoneUrl = default,
+            string milestoneHtmlUrl = default,
+            string milestoneLabelsUrl = default,
+            int? milestoneId = default,
+            string milestoneNodeId = default,
+            int? milestoneNumber = default,
+            MilestoneNotificationMilestoneState? milestoneState = default,
+            string milestoneTitle = default,
+            string milestoneDescription = default,
+            UserDetailsModelNotification creator = default,
+            int? milestoneOpenIssues = default,
+            int? milestoneClosedIssues = default,
+            DateTime? milestoneCreatedAt = default,
+            DateTime? milestoneUpdatedAt = default,
+            DateTime? milestoneClosedAt = default,
+            DateTime? milestoneDueOn = default)
+        {
+            return new MilestoneNotification
+            {
+                MilestoneUrl = milestoneUrl,
+                MilestoneHtmlUrl = milestoneHtmlUrl,
+                MilestoneLabelsUrl = milestoneLabelsUrl,
+                MilestoneId = milestoneId,
+                MilestoneNodeId = milestoneNodeId,
+                MilestoneNumber = milestoneNumber,
+                MilestoneState = milestoneState,
+                MilestoneTitle = milestoneTitle,
+                MilestoneDescription = milestoneDescription,
+                Creator = creator,
+                MilestoneOpenIssues = milestoneOpenIssues,
+                MilestoneClosedIssues = milestoneClosedIssues,
+                MilestoneCreatedAt = milestoneCreatedAt,
+                MilestoneUpdatedAt = milestoneUpdatedAt,
+                MilestoneClosedAt = milestoneClosedAt,
+                MilestoneDueOn = milestoneDueOn,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TeamDetailsNotification"/>.
+        /// </summary>
+        public static TeamDetailsNotification TeamDetailsNotification(
+            int? id = default,
+            string nodeId = default,
+            string url = default,
+            string membersUrl = default,
+            string value = default,
+            string description = default,
+            string permission = default,
+            string privacy = default,
+            string htmlUrl = default,
+            string repositoriesUrl = default,
+            string slug = default,
+            string ldapdn = default)
+        {
+            return new TeamDetailsNotification
+            {
+                Id = id,
+                NodeId = nodeId,
+                Url = url,
+                MembersUrl = membersUrl,
+                Value = value,
+                Description = description,
+                Permission = permission,
+                Privacy = privacy,
+                HTMLUrl = htmlUrl,
+                RepositoriesUrl = repositoriesUrl,
+                Slug = slug,
+                LDAPDN = ldapdn,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PullRequestNotificationHead"/>.
+        /// </summary>
+        public static PullRequestNotificationHead PullRequestNotificationHead(
+            string pullRequestHeadLabel = default,
+            string pullRequestHeadReference = default,
+            RepositoryMiniDetailsNotification repo = default,
+            string pullRequestHeadSha = default,
+            UserDetailsModelNotification user = default)
+        {
+            return new PullRequestNotificationHead
+            {
+                PullRequestHeadLabel = pullRequestHeadLabel,
+                PullRequestHeadReference = pullRequestHeadReference,
+                Repo = repo,
+                PullRequestHeadSha = pullRequestHeadSha,
+                User = user,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RepositoryMiniDetailsNotification"/>.
+        /// </summary>
+        public static RepositoryMiniDetailsNotification RepositoryMiniDetailsNotification(
+            int? repositoryId = default,
+            string repositoryNodeId = default,
+            string repositoryName = default,
+            string repositoryFullName = default,
+            RepositoryMiniDetailsNotificationPermissions repositoryPermissions = default,
+            UserDetailsModelNotification owner = default,
+            bool? isRepositoryPrivate = default,
+            string repositoryDescription = default,
+            string repositoryHomepage = default,
+            string repositoryLanguage = default,
+            bool? isRepositoryArchived = default,
+            bool? isRepositoryDisabled = default,
+            string repositoryVisibility = default,
+            DateTime? repositoryCreatedAt = default,
+            DateTime? repositoryUpdatedAt = default,
+            bool? repositoryAllowRebaseMerge = default,
+            bool? repositoryAllowSquashMerge = default,
+            bool? repositoryDeleteBranchOnMerge = default,
+            bool? repositoryAllowMergeCommit = default,
+            string repositoryMasterBranch = default)
+        {
+            return new RepositoryMiniDetailsNotification
+            {
+                RepositoryId = repositoryId,
+                RepositoryNodeId = repositoryNodeId,
+                RepositoryName = repositoryName,
+                RepositoryFullName = repositoryFullName,
+                RepositoryPermissions = repositoryPermissions,
+                Owner = owner,
+                IsRepositoryPrivate = isRepositoryPrivate,
+                RepositoryDescription = repositoryDescription,
+                RepositoryHomepage = repositoryHomepage,
+                RepositoryLanguage = repositoryLanguage,
+                IsRepositoryArchived = isRepositoryArchived,
+                IsRepositoryDisabled = isRepositoryDisabled,
+                RepositoryVisibility = repositoryVisibility,
+                RepositoryCreatedAt = repositoryCreatedAt,
+                RepositoryUpdatedAt = repositoryUpdatedAt,
+                RepositoryAllowRebaseMerge = repositoryAllowRebaseMerge,
+                RepositoryAllowSquashMerge = repositoryAllowSquashMerge,
+                RepositoryDeleteBranchOnMerge = repositoryDeleteBranchOnMerge,
+                RepositoryAllowMergeCommit = repositoryAllowMergeCommit,
+                RepositoryMasterBranch = repositoryMasterBranch,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="RepositoryMiniDetailsNotificationPermissions"/>.
+        /// </summary>
+        public static RepositoryMiniDetailsNotificationPermissions RepositoryMiniDetailsNotificationPermissions(
+            bool? admin = default,
+            bool? pull = default,
+            bool? triage = default,
+            bool? push = default,
+            bool? maintain = default)
+        {
+            return new RepositoryMiniDetailsNotificationPermissions
+            {
+                Admin = admin,
+                Pull = pull,
+                Triage = triage,
+                Push = push,
+                Maintain = maintain,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PullRequestNotificationBase"/>.
+        /// </summary>
+        public static PullRequestNotificationBase PullRequestNotificationBase(
+            string pullRequestBaseLabel = default,
+            string pullRequestBaseReference = default,
+            RepositoryMiniDetailsNotification repo = default,
+            string pullRequestBaseSha = default,
+            UserDetailsModelNotification user = default)
+        {
+            return new PullRequestNotificationBase
+            {
+                PullRequestBaseLabel = pullRequestBaseLabel,
+                PullRequestBaseReference = pullRequestBaseReference,
+                Repo = repo,
+                PullRequestBaseSha = pullRequestBaseSha,
+                User = user,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="MultipleSearchFetchModel"/>.
         /// </summary>
         public static MultipleSearchFetchModel MultipleSearchFetchModel(
@@ -2907,6 +4071,14 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     }
 
     /// <summary>
+    /// Typed trigger payload for the OnWebhookPullRequestTrigger trigger (GitHub "When a pull request is created or modified", operationId: WebhookPullRequestTrigger).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnWebhookPullRequestTriggerTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class GitHubOnWebhookPullRequestTriggerTriggerPayload : TriggerCallbackPayload<WebhookPullRequestResponseNotification>
+    {
+    }
+
+    /// <summary>
     /// Static registry of trigger operations for the GitHub connector that have typed payloads.
     /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
     /// Triggers that return binary content (e.g., file downloads) are not included here
@@ -2925,6 +4097,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 ["IssueAssigned"] = typeof(GitHubOnIssueAssignedTriggerPayload),
                 ["IssueClosed"] = typeof(GitHubOnIssueClosedTriggerPayload),
                 ["IssueOpened"] = typeof(GitHubOnIssueOpenedTriggerPayload),
+                ["WebhookPullRequestTrigger"] = typeof(GitHubOnWebhookPullRequestTriggerTriggerPayload),
             });
     }
 
@@ -2964,6 +4137,7 @@ namespace Azure.Connectors.Sdk.GitHub
 
         /// <summary>
         /// When a pull request is created or modified.
+        /// Payload type: <see cref="GitHubOnWebhookPullRequestTriggerTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookPullRequestTrigger = "WebhookPullRequestTrigger";
 

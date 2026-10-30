@@ -12,6 +12,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   preserving its historical sections. Use absolute documentation links there;
   do NOT add HTML comments because the package includes its contents verbatim. -->
 
+### Added
+
+- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/triggers.md#webhook-callback-schemas).
+
+### Fixed
+
+- **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
+
+- **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
+
+- **Connector error diagnostics** - operation labels use the HTTP method and resolved path without query strings, keeping SMS query values out of the exception operation and generated activity status. Outgoing requests are unchanged.
+
+- **Azure IoT Central callback naming** - use `WebhookTimestamp` and the model factory parameter `webhookTimestamp`. The JSON field remains `timestamp`.
+
+### Breaking Changes
+
+- **Shifts and Dynamics AX lists now page automatically** - all twelve Shifts list methods and `DynamicsAXClient.GetItemsAsync` return `AsyncPageable<T>` instead of `Task<TPage>`. Replace single-page `await` calls with `await foreach`, or use `AsPages()` for page boundaries and continuation-token resumption. Shifts page-model collections now use `Value`; page-model factories also change to expose the paging contract, including the Dynamics AX `nextLink` parameter. JSON `value` and `@odata.nextLink` fields are unchanged. These clients no longer stop after the first page.
+
+- **PDF.co public API casing** - rename `PDFFromXLSXLSXAsync` to `PdfFromXlsXlsxAsync`, `PDFUnSearchableAsync` to `PdfUnsearchableAsync`, and `XLStoCSVAsync`, `XLStoHTMLAsync`, `XLStoJSONAsync`, `XLStoTXTAsync`, and `XLStoXMLAsync` to `XlsToCsvAsync`, `XlsToHtmlAsync`, `XlsToJsonAsync`, `XlsToTxtAsync`, and `XlsToXmlAsync`. Corresponding `Input` and `Response` types and model-factory members use the same corrected stems, including `PdfFromXlsXlsxResponse`. HTTP routes and JSON fields are unchanged.
+
+- **Teams AI insight API casing** - rename `GetAiInsightAsync` to `GetAIInsightAsync` and `ListAiInsightsAsync` to `ListAIInsightsAsync`. `AiInsightResponse` and `AiInsightCollectionResponse` become `AIInsightResponse` and `AIInsightCollectionResponse`, including their `TeamsModelFactory` members. Update method calls, explicit model references, and factory calls; JSON fields and HTTP routes are unchanged.
+
 ## [0.15.0-preview.1] - 2026-10-29
 
 ### Added
