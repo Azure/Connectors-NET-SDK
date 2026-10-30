@@ -1,5 +1,29 @@
 ## What's Changed
 
+### Unreleased
+
+#### Added
+
+- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/triggers.md#webhook-callback-schemas).
+
+#### Fixed
+
+- **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
+
+- **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
+
+- **Connector error diagnostics** - operation labels use the HTTP method and resolved path without query strings, keeping SMS query values out of the exception operation and generated activity status. Outgoing requests are unchanged.
+
+- **Azure IoT Central callback naming** - use `WebhookTimestamp` and the model factory parameter `webhookTimestamp`. The JSON field remains `timestamp`.
+
+#### Breaking Changes
+
+- **Shifts and Dynamics AX lists now page automatically** - all twelve Shifts list methods and `DynamicsAXClient.GetItemsAsync` return `AsyncPageable<T>` instead of `Task<TPage>`. Replace single-page `await` calls with `await foreach`, or use `AsPages()` for page boundaries and continuation-token resumption. Shifts page-model collections now use `Value`; page-model factories also change to expose the paging contract, including the Dynamics AX `nextLink` parameter. JSON `value` and `@odata.nextLink` fields are unchanged. These clients no longer stop after the first page.
+
+- **PDF.co public method casing** - use `PdfFromXlsXlsxAsync` and `PdfFromXlsXlsxInput` instead of `PDFFromXLSXLSXAsync` and `PDFFromXLSXLSXInput`. The refreshed client also renames `PDFUnSearchableAsync` to `PDFUnsearchableAsync` and the `XLStoCSV`, `XLStoHTML`, `XLStoJSON`, `XLStoTXT`, and `XLStoXML` async methods to `XLSToCSV`, `XLSToHTML`, `XLSToJSON`, `XLSToTXT`, and `XLSToXML`. Update derived request-model and model-factory references where applicable; HTTP routes and JSON fields are unchanged.
+
+- **Teams AI insight model casing** - `AiInsightResponse` is now `AIInsightResponse`, including `TeamsModelFactory.AIInsightResponse`. Update explicit model references and factory calls. `GetAiInsightAsync` and `AiInsightCollectionResponse.AIInsights` use the corrected model type; their wire fields and routes are unchanged.
+
 ### 0.15.0-preview.1 (2026-10-29)
 
 #### Added
