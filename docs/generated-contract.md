@@ -254,6 +254,11 @@ Validation must use techniques that can falsify those contract assertions:
 - For response-body corrections, call the generated public methods with nonempty
   metadata or non-UTF8 binary responses and assert the returned content. A
   successful HTTP status alone does not prove that the body reached the caller.
+- For newly retained side-effecting actions, add a mocked invocation that checks
+   the HTTP method and route, exact request keys and values against the pinned
+   operation schema, and a nonempty response. Callback tests do not establish an
+   action's send contract. The [ClickSend campaign regression](../tests/Azure.Connectors.Sdk.Tests/ClickSendSmsClientTests.cs)
+   covers this separately from callback collision round-trips; no live SMS is needed.
 
 When prior generated output exists, regression validation must additionally
 confirm:
