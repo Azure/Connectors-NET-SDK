@@ -2462,8 +2462,9 @@ namespace Azure.Connectors.Sdk.PowerBI
                 var queryParams = new List<string>();
                 queryParams.Add("pbi_source=powerAutomate");
                 var path = $"/v1.0/myorg/groups/{Uri.EscapeDataString(workspace)}/internalScorecards({Uri.EscapeDataString(scorecardId)})/goals({Uri.EscapeDataString(goalId)})/goalValues({Uri.EscapeDataString(checkInDate)})/notes" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                await (input is null
+                    ? this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

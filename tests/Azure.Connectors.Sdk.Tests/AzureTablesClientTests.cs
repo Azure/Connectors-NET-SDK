@@ -113,6 +113,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "/connection/v2/storageAccounts/AccountNameFromSettings/tables", actual: requestPath);
             Assert.AreEqual(expected: 1, actual: requestCount);
         }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {

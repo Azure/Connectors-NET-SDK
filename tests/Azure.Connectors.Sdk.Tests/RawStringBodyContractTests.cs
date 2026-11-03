@@ -120,8 +120,38 @@ namespace Azure.Connectors.Sdk.Tests
             }
 
             CollectionAssert.AreEqual(expected: Encoding.UTF8.GetBytes(payload), actual: setup.Capture.Body);
+            var expectedMediaType = string.Equals(operation, "CreatePageInSection", StringComparison.Ordinal)
+                ? "text/plain"
+                : "application/json";
+            Assert.AreEqual(expected: expectedMediaType, actual: setup.Capture.ContentType);
         }
 
+        [TestMethod]
+        public async Task StringBodyOperation_WithNullInput_PreservesAbsentBody()
+        {
+            var setup = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"TableName\":\"SdkNullBody\"}") });
+            using var client = new AzureTablesClient(new Uri("https://test.azure.com/connection"), setup.Credential, setup.Options);
+            await client
+                .CreateTableAsync(storageAccountNameOrTableEndpoint: "AccountNameFromSettings", input: null!, cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.IsNull(setup.Capture.Body);
+            Assert.IsNull(setup.Capture.ContentType);
+        }
+
+        [TestMethod]
+        public async Task StringBodyOperation_WithEmptyInput_UsesZeroBytes()
+        {
+            var setup = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"TableName\":\"SdkEmptyBody\"}") });
+            using var client = new AzureTablesClient(new Uri("https://test.azure.com/connection"), setup.Credential, setup.Options);
+            await client
+                .CreateTableAsync(storageAccountNameOrTableEndpoint: "AccountNameFromSettings", input: string.Empty, cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            CollectionAssert.AreEqual(expected: Array.Empty<byte>(), actual: setup.Capture.Body);
+        }
         [TestMethod]
         public async Task ObjectBodyOperation_WithEntityInput_RemainsJsonSerialized()
         {

@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+
+- Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,
+  OneNote, and Power BI clients to send string request bodies as unquoted UTF-8
+  content, preserving declared media types. This corrects invalid Azure Table
+  names and JSON-quoted queue messages; object and binary body encoding remains
+  unchanged.
 
 <!-- MAINTAINER NOTE: Cut pending changes into a versioned section before tagging,
   update the compare links, and mirror the release in release_notes.md while

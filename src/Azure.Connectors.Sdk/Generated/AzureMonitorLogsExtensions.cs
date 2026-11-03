@@ -661,8 +661,9 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
                     throw new ArgumentNullException(nameof(resourceName));
                 queryParams.Add($"resourcename={Uri.EscapeDataString(resourceName)}");
                 var path = $"/querySchemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, input, cancellationToken)
+                return await (input is null
+                    ? this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync<ObjectEntity>(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json; charset=utf-8", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
