@@ -59,6 +59,61 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task CreateTableAsync_WithValidName_SendsRawUtf8Body()
+        {
+            const string tableName = "SdkSerializationProbe";
+            byte[]? requestBytes = null;
+            string? requestContentType = null;
+            string? requestMethod = null;
+            string? requestPath = null;
+            var requestCount = 0;
+            var handler = new Mock<HttpMessageHandler>();
+            handler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns(async (HttpRequestMessage request, CancellationToken cancellationToken) =>
+                {
+                    requestCount++;
+                    requestBytes = await request.Content!
+                        .ReadAsByteArrayAsync(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                    requestContentType = request.Content.Headers.ContentType?.MediaType;
+                    requestMethod = request.Method.Method;
+                    requestPath = request.RequestUri!.AbsolutePath;
+                    var rawName = System.Text.Encoding.UTF8.GetBytes(tableName);
+                    var validName = System.Linq.Enumerable.SequenceEqual(requestBytes, rawName);
+                    return new HttpResponseMessage(validName ? HttpStatusCode.Created : HttpStatusCode.BadRequest)
+                    {
+                        Content = new StringContent(validName
+                            ? "{\"TableName\":\"SdkSerializationProbe\"}"
+                            : "{\"odata.error\":{\"code\":\"InvalidResourceName\",\"message\":{\"value\":\"The specified resource name contains invalid characters.\"}}}"),
+                    };
+                });
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(handler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new AzureTablesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: AzureTablesClientTests.SharedMockCredential.Object,
+                options: options);
+
+            var result = await client
+                .CreateTableAsync(
+                    storageAccountNameOrTableEndpoint: "AccountNameFromSettings",
+                    input: tableName,
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: tableName, actual: result.TableName);
+            CollectionAssert.AreEqual(expected: System.Text.Encoding.UTF8.GetBytes(tableName), actual: requestBytes);
+            Assert.AreEqual(expected: "application/json", actual: requestContentType);
+            Assert.AreEqual(expected: "POST", actual: requestMethod);
+            Assert.AreEqual(expected: "/connection/v2/storageAccounts/AccountNameFromSettings/tables", actual: requestPath);
+            Assert.AreEqual(expected: 1, actual: requestCount);
+        }
+        [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             using var client = new AzureTablesClient("https://test.azure.com/connection");
