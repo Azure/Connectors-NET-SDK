@@ -470,6 +470,41 @@ artifacts were not regenerated; their source commits and hashes remain as
 recorded in the preceding sections. Temporary response stores were removed
 after validation.
 
+## 2026-11-04 Multipart Operations
+
+Refreshed `cloudmersiveconvert`, `docuware`, `service-now`, and `zohosign` using
+generator commit `efcfdbd0455f6067eea9be802ee7af27683fddec`, active and unmerged
+when generated. This adds 82 operations without removing or changing any
+existing operation signature. Connector registrations and the 103-client
+inventory remain unchanged.
+
+The generator includes the existing ServiceNow attachment-response correction
+from source commit `9d80956afd705fbed97935edbaf6295928342390`. That prerequisite
+preserves the metadata and binary download contracts already shipped by this
+SDK; a regeneration from master without it discards those response bodies.
+The paired PR records both upstream PRs and their active/unmerged status.
+Their integration remains a final SDK merge gate.
+
+Generation used subscription `1a839f1f-10b2-4613-95ad-0800a22abbf2`, region
+`westus`, ARM API version `2018-07-01-preview`, and a new empty temporary
+`ARMCACHE_PATH`. Separate Python and C# live downloads returned identical
+Swagger bytes for their shared connectors. No stored responses or fixtures
+supplied the refreshed clients.
+
+| Connector API ID | Live Swagger SHA-256 |
+|---|---|
+| `cloudmersiveconvert` | `860768B6CEFF8CA5FD5F41B118B06D0CFE55076E15636295B3894E6C78CF067C` |
+| `docuware` | `7EBC04B5A47C35F5DA9A2AFDDB9DE3BB022E169744F5362F92449939F07DF143` |
+| `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` |
+| `zohosign` | `CE62C4D774B291D1CCBF5A1F258613E938F894400C77CEC02EEFCA0BBD9C8239` |
+
+`MultipartFile` supplies file bytes, filenames, and media types. Generated
+methods construct native multipart content and use the existing binary request
+overloads, preserving authentication, cancellation, retry safety, and response
+handling. See [multipart examples](README.md#multipart-file-uploads).
+Validation uses mocked HTTP responses; it does not create live documents or
+attachments.
+
 ## Automation
 
 ### CI/CD Integration

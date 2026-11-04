@@ -529,6 +529,52 @@ namespace Azure.Connectors.Sdk.ServiceNow
         }
 
         /// <summary>
+        /// Upload a multipart file attachment
+        /// </summary>
+        /// <remarks>Upload an attachment from a multipart form</remarks>
+        /// <param name="attachmentContent">Attachment content</param>
+        /// <param name="tableName">Table Name</param>
+        /// <param name="tableId">Table Id</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Upload a multipart file attachment response.</returns>
+        public virtual async Task<UploadAttachmentResponse> UploadAttachmentAsync(MultipartFile attachmentContent, string tableName, string tableId, CancellationToken cancellationToken = default)
+        {
+            using var activity = ServiceNowClient.ConnectorActivitySource.StartActivity("ServiceNowClient.UploadAttachmentAsync");
+            try
+            {
+                var path = $"/api/now/v1/attachment/upload";
+                using var multipartContent = new MultipartFormDataContent();
+                ArgumentNullException.ThrowIfNull(attachmentContent);
+                {
+                    var multipartFileContent = new ByteArrayContent(attachmentContent.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(attachmentContent.ContentType);
+                    multipartContent.Add(multipartFileContent, "attachment_content", attachmentContent.FileName);
+                }
+                ArgumentNullException.ThrowIfNull(tableName);
+                {
+                    multipartContent.Add(new StringContent(Convert.ToString(tableName, CultureInfo.InvariantCulture), Encoding.UTF8), "table_name");
+                }
+                ArgumentNullException.ThrowIfNull(tableId);
+                {
+                    multipartContent.Add(new StringContent(Convert.ToString(tableId, CultureInfo.InvariantCulture), Encoding.UTF8), "table_sys_id");
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<UploadAttachmentResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Retrieve attachment metadata
         /// </summary>
         /// <remarks>Retrieve attachment metadata</remarks>
