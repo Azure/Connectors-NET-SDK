@@ -134,6 +134,8 @@ with the matching boundary-bearing content type through the existing Azure Core
 binary request path. Scalars retain invariant formatting, including lowercase
 Booleans. Arrays preserve `csv`, `ssv`, `tsv`, `pipes`, and repeated `multi` fields.
 Encoding remains inside each async request lifetime, including pageable requests.
+For ServiceNow's attachment upload, table fields precede the file part as required
+by the backend. Wire ordering does not change public method argument order.
 
 Bodyless operations remain callable when their `consumes` metadata advertises
 multipart. File arrays, unknown collection formats, mixed body/form-data

@@ -114,7 +114,11 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.AreEqual(expected: "attachment-123", actual: response.Result!.Value.GetProperty("sys_id").GetString());
             Assert.AreEqual(expected: "/connection/api/now/v1/attachment/upload", actual: capture.RequestUri!.AbsolutePath);
-            var parts = MultipartRequestTests.ParseParts(capture).ToDictionary(part => part.Name, StringComparer.Ordinal);
+            var orderedParts = MultipartRequestTests.ParseParts(capture);
+            CollectionAssert.AreEqual(
+                expected: new[] { "table_name", "table_sys_id", "attachment_content" },
+                actual: orderedParts.Select(part => part.Name).ToArray());
+            var parts = orderedParts.ToDictionary(part => part.Name, StringComparer.Ordinal);
             Assert.AreEqual(expected: 3, actual: parts.Count);
             var part = parts["attachment_content"];
             Assert.AreEqual(expected: "attachment.bin", actual: part.FileName);

@@ -544,12 +544,6 @@ namespace Azure.Connectors.Sdk.ServiceNow
             {
                 var path = $"/api/now/v1/attachment/upload";
                 using var multipartContent = new MultipartFormDataContent();
-                ArgumentNullException.ThrowIfNull(attachmentContent);
-                {
-                    var multipartFileContent = new ByteArrayContent(attachmentContent.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(attachmentContent.ContentType);
-                    multipartContent.Add(multipartFileContent, "attachment_content", attachmentContent.FileName);
-                }
                 ArgumentNullException.ThrowIfNull(tableName);
                 {
                     multipartContent.Add(new StringContent(Convert.ToString(tableName, CultureInfo.InvariantCulture), Encoding.UTF8), "table_name");
@@ -557,6 +551,12 @@ namespace Azure.Connectors.Sdk.ServiceNow
                 ArgumentNullException.ThrowIfNull(tableId);
                 {
                     multipartContent.Add(new StringContent(Convert.ToString(tableId, CultureInfo.InvariantCulture), Encoding.UTF8), "table_sys_id");
+                }
+                ArgumentNullException.ThrowIfNull(attachmentContent);
+                {
+                    var multipartFileContent = new ByteArrayContent(attachmentContent.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(attachmentContent.ContentType);
+                    multipartContent.Add(multipartFileContent, "attachment_content", attachmentContent.FileName);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
