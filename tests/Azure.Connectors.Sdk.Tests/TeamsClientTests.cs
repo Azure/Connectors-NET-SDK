@@ -93,6 +93,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: 403, actual: exception.Status);
             StringAssert.Contains(value: exception.ResponseBody, substring: "Synthetic permission failure");
         }
+
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
