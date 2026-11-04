@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,
+  OneNote, Power BI, and Teams clients to send string request bodies as unquoted UTF-8
+  content, preserving declared media types. This corrects invalid Azure Table
+  names and JSON-quoted queue messages; object and binary body encoding remains
+  unchanged.
+
+### Changed
+
+- Teams `GetAiInsightAsync` now returns `AiInsightDetailResponse` rather than
+  `AiInsightResponse`, matching the current connector contract. The detail model
+  includes `@odata.context`, optional `recapUrl`, meeting notes and subpoints,
+  action items, and participant-specific mention events.
 <!-- MAINTAINER NOTE: Cut pending changes into a versioned section before tagging,
   update the compare links, and mirror the release in release_notes.md while
   preserving its historical sections. Use absolute documentation links there;

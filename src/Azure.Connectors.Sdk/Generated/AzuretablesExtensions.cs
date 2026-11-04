@@ -468,8 +468,9 @@ namespace Azure.Connectors.Sdk.Azuretables
                 if (storageAccountNameOrTableEndpoint is null)
                     throw new ArgumentNullException(nameof(storageAccountNameOrTableEndpoint));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables";
-                return await this
-                    .CallConnectorAsync<GetTableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                return await (input is null
+                    ? this.CallConnectorAsync<GetTableResponse>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync<GetTableResponse>(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json; charset=utf-8", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

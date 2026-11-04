@@ -890,8 +890,9 @@ namespace Azure.Connectors.Sdk.Onenote
                     throw new ArgumentNullException(nameof(notebookSection));
                 queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection)}");
                 var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
+                return await (input is null
+                    ? this.CallConnectorAsync<Page>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync<Page>(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "text/plain", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -948,8 +949,9 @@ namespace Azure.Connectors.Sdk.Onenote
             try
             {
                 var path = $"/pages";
-                return await this
-                    .CallConnectorAsync<Page>(HttpMethod.Post, path, input, cancellationToken)
+                return await (input is null
+                    ? this.CallConnectorAsync<Page>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync<Page>(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
