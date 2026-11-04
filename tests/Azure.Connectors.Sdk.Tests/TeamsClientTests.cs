@@ -35,6 +35,66 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public async Task GetAiInsightAsync_WithCurrentDetailResponse_DeserializesRichWireFields()
+        {
+            const string responseBody = """
+                {
+                  "@odata.context":"https://example.invalid/$metadata#insight",
+                  "id":"insight-1","callId":"call-1","contentCorrelationId":"correlation-1",
+                  "createdDateTime":"2026-01-01T00:00:00Z","endDateTime":"2026-01-01T00:01:00Z",
+                  "recapUrl":"https://example.invalid/recap",
+                  "meetingNotes":[{"title":"Topic","text":"Summary","subpoints":[{"title":"Detail","text":"Synthetic subpoint"}]}],
+                  "actionItems":[{"title":"Follow-up","text":"Synthetic action","ownerDisplayName":"Synthetic User"}],
+                  "viewpoint":{"mentionEvents":[{"eventDateTime":"2026-01-01T00:00:30Z","transcriptUtterance":"Synthetic mention","speaker":{"id":"synthetic-speaker"}}]}
+                }
+                """;
+            var setup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(responseBody) });
+            using var client = new TeamsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: setup.Credential,
+                options: setup.Options);
+
+            AiInsightDetailResponse result = await client
+                .GetAiInsightAsync(meetingId: "meeting/1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: "https://example.invalid/$metadata#insight", actual: result.Context);
+            Assert.AreEqual(expected: "insight-1", actual: result.AIInsightId);
+            Assert.AreEqual(expected: "call-1", actual: result.CallId);
+            Assert.AreEqual(expected: "correlation-1", actual: result.ContentCorrelationId);
+            Assert.AreEqual(expected: "https://example.invalid/recap", actual: result.RecapURL);
+            Assert.AreEqual(expected: "Synthetic subpoint", actual: result.MeetingNotes[0].Subpoints[0].Text);
+            Assert.AreEqual(expected: "Synthetic User", actual: result.ActionItems[0].OwnerDisplayName);
+            Assert.AreEqual(expected: "Synthetic mention", actual: result.Viewpoint.MentionEvents[0].TranscriptUtterance);
+            Assert.AreEqual(expected: "synthetic-speaker", actual: result.Viewpoint.MentionEvents[0].Speaker!.Value.GetProperty("id").GetString());
+            Assert.IsNotNull(result.CreatedDateTime);
+            Assert.IsNotNull(result.EndDateTime);
+            Assert.IsNotNull(result.Viewpoint.MentionEvents[0].EventDateTime);
+            var request = setup.GetLastRequest();
+            Assert.IsNotNull(request);
+            Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+            Assert.AreEqual(expected: "/connection/v1.0/copilot/me/onlineMeetings/meeting%2F1/aiInsights/insight-1", actual: request.RequestUri!.AbsolutePath);
+        }
+
+        [TestMethod]
+        public async Task GetAiInsightAsync_WithPermissionFailure_PreservesServiceError()
+        {
+            using var client = TeamsClientTests.CreateMockedClient(
+                () => new HttpResponseMessage(HttpStatusCode.Forbidden)
+                {
+                    Content = new StringContent("{\"error\":{\"code\":\"Forbidden\",\"message\":\"Synthetic permission failure\"}}"),
+                });
+            var exception = await Assert
+                .ThrowsExactlyAsync<ConnectorException>(async () => await client
+                    .GetAiInsightAsync(meetingId: "meeting-1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+            Assert.AreEqual(expected: 403, actual: exception.Status);
+            StringAssert.Contains(value: exception.ResponseBody, substring: "Synthetic permission failure");
+        }
+
+        [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act

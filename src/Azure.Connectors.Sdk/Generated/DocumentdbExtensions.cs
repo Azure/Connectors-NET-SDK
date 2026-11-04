@@ -872,8 +872,9 @@ namespace Azure.Connectors.Sdk.Documentdb
                 if (sprocId is null)
                     throw new ArgumentNullException(nameof(sprocId));
                 var path = $"/v2/cosmosdb/{Uri.EscapeDataString(azureCosmosDBAccountName)}/dbs/{Uri.EscapeDataString(databaseId)}/colls/{Uri.EscapeDataString(collectionId)}/sprocs/{Uri.EscapeDataString(sprocId)}";
-                return await this
-                    .CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, input, cancellationToken)
+                return await (input is null
+                    ? this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync<ObjectWithoutType>(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json; charset=utf-8", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -470,8 +470,9 @@ namespace Azure.Connectors.Sdk.Azurequeues
                 if (queueName is null)
                     throw new ArgumentNullException(nameof(queueName));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrQueueEndpoint))}/queues/{Uri.EscapeDataString(queueName)}/messages";
-                await this
-                    .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
+                await (input is null
+                    ? this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json; charset=utf-8", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
