@@ -250,13 +250,13 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | TextRequest | 🔄 SDK Generated | GetMessagesByContactPhone, SendMessageByPhoneNumber |
 | Ticketmaster | 🔄 SDK Generated | EventsGet, EventsGetDetails |
 | Way We Do | 🔄 SDK Generated | GetAllChecklistInstances, CommentAdd |
-| Word Online (Business) | 🔄 SDK Generated | GetFileSchemaAsync, CreateFileItemAsync, GetSourcesAsync |
+| Word Online (Business) | ✅ E2E Validated | GetSourcesAsync, GetDrivesAsync |
 | Azure Automation | 🔄 SDK Generated | CreateJob, GetStatusOfJob, GetJobOutput |
 | Azure Cosmos DB | 🔄 SDK Generated | GetCosmosDbAccountsAsync, CreateDocumentAsync |
 | Azure Data Factory | 🔄 SDK Generated | CreatePipelineRun, GetPipelineRun, CancelPipelineRun |
 | Azure Digital Twins | 🔄 SDK Generated | AddTwin, GetTwinById, QueryTwins |
 | Azure Event Hubs | 🔄 SDK Generated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
-| Azure Queues | 🔄 SDK Generated | GetMessagesAsync, PutMessageAsync, DeleteMessageAsync, ListQueuesAsync, PutQueueAsync |
+| Azure Queues | ✅ E2E Validated | GetStorageAccountsAsync (storage-account discovery only) |
 | Azure Tables | 🔄 SDK Generated | GetTableAsync, GetEntitiesAsync, CreateEntityAsync, MergeEntityAsync, DeleteEntityAsync |
 | Azure VM | 🔄 SDK Generated | VirtualMachineGet, VirtualMachineStart, VirtualMachineDeallocate |
 | Key Vault | 🔄 SDK Generated | GetSecret, ListSecrets, EncryptData |
