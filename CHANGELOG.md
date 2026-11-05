@@ -7,13 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Breaking Changes
-
-- Plivo uses `SendSmsAsync`, `Sms`, and `SendSmsResponse` instead of
-  `SendSMSAsync`, `SMS`, and `SendSMSResponse`. Model-factory method names follow
-  the same casing. Request routes, JSON fields, HTTP methods, and response values
-  remain unchanged.
-
 ### Added
 
 - **Multipart form-data operations** - adds file uploads for Cloudmersive Convert,
@@ -23,19 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   operation signatures remain unchanged. UTF-8 disposition headers also preserve
   Unicode for receivers reading plain `filename` rather than `filename*`.
 
-- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](docs/triggers.md#webhook-callback-schemas).
-
-### Fixed
-
-- Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,
-  OneNote, Power BI, and Teams clients to send string request bodies as unquoted UTF-8
-  content, preserving declared media types. This corrects invalid Azure Table
-  names and JSON-quoted queue messages; object and binary body encoding remains
-  unchanged.
+- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/triggers.md#webhook-callback-schemas).
 
 ### Changed
 
-- Teams `GetAiInsightAsync` now returns `AiInsightDetailResponse` rather than
+- Teams `GetAIInsightAsync` now returns `AiInsightDetailResponse` rather than
   `AiInsightResponse`, matching the current connector contract. The detail model
   includes `@odata.context`, optional `recapUrl`, meeting notes and subpoints,
   action items, and participant-specific mention events.
@@ -44,11 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   preserving its historical sections. Use absolute documentation links there;
   do NOT add HTML comments because the package includes its contents verbatim. -->
 
-### Added
-
-- **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/triggers.md#webhook-callback-schemas).
-
 ### Fixed
+
+- Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,
+  OneNote, Power BI, and Teams clients to send string request bodies as unquoted UTF-8
+  content, preserving declared media types. This corrects invalid Azure Table
+  names and JSON-quoted queue messages; object and binary body encoding remains
+  unchanged.
 
 - **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
 
@@ -59,6 +46,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Azure IoT Central callback naming** - use `WebhookTimestamp` and the model factory parameter `webhookTimestamp`. The JSON field remains `timestamp`.
 
 ### Breaking Changes
+
+- Plivo uses `SendSmsAsync`, `Sms`, and `SendSmsResponse` instead of
+  `SendSMSAsync`, `SMS`, and `SendSMSResponse`. Model-factory method names follow
+  the same casing. Request routes, JSON fields, HTTP methods, and response values
+  remain unchanged.
 
 - **Shifts and Dynamics AX lists now page automatically** - all twelve Shifts list methods and `DynamicsAXClient.GetItemsAsync` return `AsyncPageable<T>` instead of `Task<TPage>`. Replace single-page `await` calls with `await foreach`, or use `AsPages()` for page boundaries and continuation-token resumption. Shifts page-model collections now use `Value`; page-model factories also change to expose the paging contract, including the Dynamics AX `nextLink` parameter. JSON `value` and `@odata.nextLink` fields are unchanged. These clients no longer stop after the first page.
 
@@ -78,19 +70,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
-
 - **Azure DevOps public naming** - use `VisualStudioTeamServices` for namespaces and client, factory, trigger, and enum type prefixes. Acronyms use .NET casing, including `Url`, `AccountUri`, `MemberUri`, `XmlForm`, and `HtmlLink`, without changing their JSON keys.
 
 - **DataFlows SMS public naming** - use PascalCase namespaces, clients, models, model factories, and SMS methods, including `DataflowsSmsClient`, `SendSmsInput`, and `SendSmsAsync`. Wire identifiers and JSON property names are unchanged.
 
 - **Azure DevOps callback and search binding** - search results preserve arbitrary JSON field values, pull-request commit truncation flags bind as booleans, and merge strategies bind as strings. Work-item detail lookup exposes only the production revision.
 
-- **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
-
-- **Connector error diagnostics** - operation labels use the HTTP method and resolved path without query strings, keeping SMS query values out of the exception operation and generated activity status. Outgoing requests are unchanged.
-
-- **Azure IoT Central callback naming** - use `WebhookTimestamp` and the model factory parameter `webhookTimestamp`. The JSON field remains `timestamp`.
+- **DataFlows SMS retry safety** - sending uses the POST action only; the GET send alternative is excluded to avoid automatic retries duplicating accepted messages.
 
 - **ServiceNow attachment reads return their response bodies** - attachment listing and metadata retrieval now return JSON-preserving models, and `RetrieveAttachmentContentAsync` returns the downloaded bytes instead of discarding them.
 
@@ -117,10 +103,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **SigningHub: over 60 previously opaque `JsonElement?` properties now have typed models** — properties such as `CertifyPolicyResponse.Certify`, `GetDocumentDetailsResponse.Certify`, `GetDocumentDetailsResponse.Template`, and many authentication, permission, access-duration, and signature-field objects are now strongly typed with dedicated model classes. Consumer code that read these properties as raw `JsonElement` and called `.GetProperty()` must switch to the typed accessors; see the Breaking Changes section.
 
 ### Breaking Changes
-
-- **PDF.co public method casing** - use `PdfFromXlsXlsxAsync` and `PdfFromXlsXlsxInput` instead of `PDFFromXLSXLSXAsync` and `PDFFromXLSXLSXInput`. The refreshed client also renames `PDFUnSearchableAsync` to `PDFUnsearchableAsync` and the `XLStoCSV`, `XLStoHTML`, `XLStoJSON`, `XLStoTXT`, and `XLStoXML` async methods to `XLSToCSV`, `XLSToHTML`, `XLSToJSON`, `XLSToTXT`, and `XLSToXML`. Update derived request-model and model-factory references where applicable; HTTP routes and JSON fields are unchanged.
-
-- **Teams AI insight model casing** - `AiInsightResponse` is now `AIInsightResponse`, including `TeamsModelFactory.AIInsightResponse`. Update explicit model references and factory calls. `GetAiInsightAsync` and `AiInsightCollectionResponse.AIInsights` use the corrected model type; their wire fields and routes are unchanged.
 
 - **Seismic Planner `CustomPropertyValues.Localizations` now exposes typed values** — callers that previously inspected the nullable raw `JsonElement` must use the `Dictionary<string, CustomPropertyDataDisplay>` entries directly. For example, replace `Localizations.Value.GetProperty("en-US").GetProperty("name").GetString()` with `Localizations["en-US"].Name`. ([#262](https://github.com/Azure/Connectors-NET-SDK/issues/262))
 
