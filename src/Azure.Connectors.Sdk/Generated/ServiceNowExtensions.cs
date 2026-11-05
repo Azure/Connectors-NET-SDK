@@ -556,7 +556,13 @@ namespace Azure.Connectors.Sdk.ServiceNow
                 {
                     var multipartFileContent = new ByteArrayContent(attachmentContent.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(attachmentContent.ContentType);
-                    multipartContent.Add(multipartFileContent, "attachment_content", attachmentContent.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "attachment_content",
+                        FileNameStar = attachmentContent.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + attachmentContent.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)

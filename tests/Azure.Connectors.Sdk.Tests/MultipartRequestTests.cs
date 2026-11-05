@@ -91,6 +91,39 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         /// <summary>
+        /// Preserves the uploaded filename through a generated public method and MIME parsing.
+        /// </summary>
+        /// <param name="fileName">The upload filename.</param>
+        [TestMethod]
+        [Owner("swapnilnagar")]
+        [DataRow("invoice.docx")]
+        [DataRow("my invoice.docx")]
+        [DataRow("r\u00e9sum\u00e9-\u6587\u4ef6.docx")]
+        [DataRow("invoice%20paid%.docx")]
+        [DataRow("my \"invoice\".docx")]
+        public async Task DocuwareUpload_PreservesFilename(string fileName)
+        {
+            var content = new byte[] { 0, 127, 128, 255, 13, 10 };
+            var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"DocumentId\":123}") });
+            using var client = new DocuwareClient(new Uri("https://example.test/connection"), credential, options);
+
+            var response = await client
+                .StoreToFileCabinetAsync(
+                    fileCabinet: "cabinet",
+                    storeDialog: "dialog",
+                    fileContents: new MultipartFile(content, fileName, "application/custom"))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 123, actual: response.DocumentId);
+            Assert.AreEqual(expected: HttpMethod.Post, actual: capture.Method);
+            var file = MultipartRequestTests.ParseParts(capture).Single(part => string.Equals(part.Name, "file", StringComparison.Ordinal));
+            Assert.AreEqual(expected: fileName, actual: file.FileName);
+            Assert.AreEqual(expected: "application/custom", actual: file.ContentType);
+            CollectionAssert.AreEqual(expected: content, actual: file.Content);
+        }
+
+        /// <summary>
         /// Keeps the ServiceNow multipart route separate from its raw binary route.
         /// </summary>
         [TestMethod]
@@ -205,7 +238,8 @@ namespace Azure.Connectors.Sdk.Tests
                 var disposition = ContentDispositionHeaderValue.Parse(headers["Content-Disposition"]);
                 parts.Add(new MultipartPart(
                     Name: disposition.Name!.Trim('"'),
-                    FileName: disposition.FileName?.Trim('"'),
+                    FileName: disposition.FileNameStar ??
+                        new System.Net.Mime.ContentDisposition(headers["Content-Disposition"]).FileName,
                     ContentType: MediaTypeHeaderValue.Parse(headers["Content-Type"]).MediaType!,
                     Content: Encoding.Latin1.GetBytes(section[(separator + 4)..^2])));
             }

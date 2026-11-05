@@ -1013,7 +1013,13 @@ namespace Azure.Connectors.Sdk.Docuware
                 {
                     var multipartFileContent = new ByteArrayContent(fileContents.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
-                    multipartContent.Add(multipartFileContent, "file", fileContents.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 multipartContent.Add(new StringContent("{}", Encoding.UTF8), "Default");
                 var multipartBody = await multipartContent
@@ -1062,7 +1068,13 @@ namespace Azure.Connectors.Sdk.Docuware
                 {
                     var multipartFileContent = new ByteArrayContent(fileContents.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
-                    multipartContent.Add(multipartFileContent, "file", fileContents.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 multipartContent.Add(new StringContent("{}", Encoding.UTF8), "Default");
                 var multipartBody = await multipartContent
@@ -1438,7 +1450,13 @@ namespace Azure.Connectors.Sdk.Docuware
                 {
                     var multipartFileContent = new ByteArrayContent(fileContents.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
-                    multipartContent.Add(multipartFileContent, "file", fileContents.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -1507,7 +1525,13 @@ namespace Azure.Connectors.Sdk.Docuware
                 {
                     var multipartFileContent = new ByteArrayContent(fileContents.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
-                    multipartContent.Add(multipartFileContent, "file", fileContents.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)

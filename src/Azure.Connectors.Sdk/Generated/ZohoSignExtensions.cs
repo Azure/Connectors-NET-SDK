@@ -713,7 +713,13 @@ namespace Azure.Connectors.Sdk.ZohoSign
                 {
                     var multipartFileContent = new ByteArrayContent(createADocument.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(createADocument.ContentType);
-                    multipartContent.Add(multipartFileContent, "file", createADocument.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = createADocument.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + createADocument.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)

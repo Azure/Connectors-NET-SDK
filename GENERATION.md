@@ -473,7 +473,7 @@ after validation.
 ## 2026-11-04 Multipart Operations
 
 Refreshed `cloudmersiveconvert`, `docuware`, `service-now`, and `zohosign` using
-generator commit `b01d76781a8e48c04749bb06fdb8ff6a83c1dcc2`, active and unmerged
+generator commit `0e59e0177283438686e3c14b6dc59e6e2cc42859`, active and unmerged
 when generated. This adds 82 operations without removing or changing any
 existing operation signature. Connector registrations and the 103-client
 inventory remain unchanged.
@@ -489,6 +489,13 @@ The 2026-11-05 merge refresh includes BPM master
 string-body fixes alongside multipart serialization. The generator was built
 with the master-pinned .NET SDK `10.0.114`. Fresh live generation produced
 byte-identical output for all four multipart clients after the merge.
+
+The subsequent filename follow-up regenerates the four file-upload clients with
+native disposition headers containing escaped quoted-string filenames and a
+UTF-8 extended filename parameter. This avoids the filename overload that throws
+for embedded quotes. Generated DocuWare public-client regressions cover ordinary,
+spaced, Unicode, percent-sign, and quoted filenames, including exact file bytes
+and media types. The quote case fails before the correction and passes afterward.
 
 The generator includes the existing ServiceNow attachment-response correction
 from source commit `9d80956afd705fbed97935edbaf6295928342390`. That prerequisite

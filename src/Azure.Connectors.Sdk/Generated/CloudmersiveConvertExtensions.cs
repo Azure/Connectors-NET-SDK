@@ -5556,7 +5556,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5592,7 +5598,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5628,7 +5640,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5664,7 +5682,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5701,13 +5725,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5743,7 +5779,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5779,7 +5821,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5815,7 +5863,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5851,7 +5905,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5887,7 +5947,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5923,7 +5989,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5959,7 +6031,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -5995,7 +6073,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7156,7 +7240,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7192,7 +7282,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7228,7 +7324,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7270,7 +7372,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7306,7 +7414,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7343,7 +7457,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7385,7 +7505,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7447,13 +7573,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7498,61 +7636,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7589,13 +7787,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7640,61 +7850,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7731,13 +8001,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7774,13 +8056,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7825,61 +8119,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7916,13 +8270,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -7967,61 +8333,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8058,13 +8484,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8109,61 +8547,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8199,7 +8697,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8235,7 +8739,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8271,7 +8781,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8307,7 +8823,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8343,7 +8865,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8379,7 +8907,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8424,61 +8958,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8514,7 +9108,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8550,7 +9150,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8586,7 +9192,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8622,7 +9234,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8658,7 +9276,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8694,7 +9318,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8730,7 +9360,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8766,7 +9402,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8802,7 +9444,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8838,7 +9486,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8899,7 +9553,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8935,7 +9595,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -8971,7 +9637,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9007,7 +9679,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9043,7 +9721,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9079,7 +9763,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9115,7 +9805,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9226,7 +9922,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9337,7 +10039,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9373,7 +10081,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9409,7 +10123,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9445,7 +10165,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9481,7 +10207,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9517,7 +10249,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9553,7 +10291,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9589,7 +10333,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9625,7 +10375,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9661,7 +10417,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9697,7 +10459,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9733,7 +10501,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9769,7 +10543,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9805,7 +10585,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9841,7 +10627,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9886,61 +10678,121 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile1", firstInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (secondInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(secondInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile2", secondInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (thirdInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(thirdInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile3", thirdInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fourthInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fourthInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile4", fourthInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (fifthInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fifthInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile5", fifthInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (sixthInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(sixthInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile6", sixthInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (seventhInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(seventhInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile7", seventhInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (eighthInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(eighthInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile8", eighthInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (ninthInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(ninthInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile9", ninthInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 if (tenthInputXMLFileToPerformTheOperationOn != null)
                 {
                     var multipartFileContent = new ByteArrayContent(tenthInputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile10", tenthInputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -9976,7 +10828,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -10012,7 +10870,13 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)
@@ -10049,13 +10913,25 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
-                    multipartContent.Add(multipartFileContent, "inputFile", inputXMLFileToPerformTheOperationOn.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 ArgumentNullException.ThrowIfNull(inputXSLTFileToUseToTransformTheInputXMLFile);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXSLTFileToUseToTransformTheInputXMLFile.Content);
                     multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXSLTFileToUseToTransformTheInputXMLFile.ContentType);
-                    multipartContent.Add(multipartFileContent, "transformFile", inputXSLTFileToUseToTransformTheInputXMLFile.FileName);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "transformFile",
+                        FileNameStar = inputXSLTFileToUseToTransformTheInputXMLFile.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXSLTFileToUseToTransformTheInputXMLFile.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
                     .ReadAsByteArrayAsync(cancellationToken)

@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Multipart form-data operations** - adds file uploads for Cloudmersive Convert,
   DocuWare, Zoho Sign, and ServiceNow, plus DocuWare's bodyless file delete.
   `MultipartFile` preserves filenames and media types and accepts plain bytes
-  with default metadata. Existing operation signatures remain unchanged.
+  with default metadata, including filenames with embedded quotes. Existing
+  operation signatures remain unchanged.
 
 ### Fixed
 
