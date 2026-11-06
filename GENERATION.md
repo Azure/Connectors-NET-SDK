@@ -479,7 +479,7 @@ a pre-release public naming correction, not a change to the Plivo route, HTTP
 method, Swagger operation ID, JSON fields, or response values.
 
 The refresh uses generator
-`16d169d5ae28851f4056b27a6edeff8dc190cba5` from active, unmerged BPM PR
+`f73f866893706f4f0d017dfb2205b6539894526d` from active, unmerged BPM PR
 17700725, built with .NET SDK `10.0.114`. The live source is subscription
 `1a839f1f-10b2-4613-95ad-0800a22abbf2`, region `westus`, ARM API
 `2018-07-01-preview`, fetched into a new empty temporary `ARMCACHE_PATH`.
@@ -488,9 +488,9 @@ Plivo Swagger SHA-256:
 `85071BA3C076FC92EEF5AF2272CB2A775B9FE1B04242FDC86A7CF1429D78790A`.
 The LF-normalized generated client SHA-256 is
 `d199461892cd5950f883270555a98623110ce02ae071881915aad8b95772b919`.
-The latest live capture ran from `2026-11-06T20:24:42.133Z` to
-`2026-11-06T20:24:59.804Z`. A separate capture from
-`2026-11-06T20:26:10.415Z` to `2026-11-06T20:26:26.597Z` matched the
+The latest live capture ran from `2026-11-06T22:26:16.386Z` to
+`2026-11-06T22:26:34.303Z`. A separate capture from
+`2026-11-06T22:27:58.965Z` to `2026-11-06T22:28:16.093Z` matched the
 consumed Swagger and output hashes. The regenerated client is byte-identical
 after LF normalization to the prior SDK PR iteration.
 
@@ -506,6 +506,18 @@ to their retained artifacts. These sweeps do not establish live service behavior
 Only the Plivo SDK artifact is replaced; the connector inventory and shared
 registrations remain unchanged. Upstream generator integration remains the
 SDK merge gate. Request/response tests do not send live SMS messages.
+
+The final source merges master `1faa7f4730fc031e9ee8a419fd98b0c85fa31155`.
+A same-revision live catalog check requested all 103 shipped API names; both
+runs generated 100 clients with identical Swagger and output bytes. OneDrive,
+Orderful, and Universal Print were unavailable and retain their prior artifacts.
+The check found 48 changed outputs from the broader master webhook/casing work.
+That work remains in [SDK PR 286](https://github.com/Azure/Connectors-NET-SDK/pull/286);
+the naming follow-up stays focused on Plivo and the public test-category fix.
+The catalog collector failed after generation while parsing case-distinct JSON
+keys, so no consumed connector-list hash is claimed for that check. Per-client
+exported Swagger/output hashes were independently compared. The focused Plivo
+captures above completed with full metadata and unchanged output.
 
 ## 2026-11-04 Multipart Operations
 
