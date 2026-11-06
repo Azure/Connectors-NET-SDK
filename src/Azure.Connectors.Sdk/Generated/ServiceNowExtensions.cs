@@ -544,6 +544,8 @@ namespace Azure.Connectors.Sdk.ServiceNow
             {
                 var path = $"/api/now/v1/attachment/upload";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(tableName);
                 {
                     multipartContent.Add(new StringContent(Convert.ToString(tableName, CultureInfo.InvariantCulture), Encoding.UTF8), "table_name");

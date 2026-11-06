@@ -473,7 +473,7 @@ after validation.
 ## 2026-11-04 Multipart Operations
 
 Refreshed `cloudmersiveconvert`, `docuware`, `service-now`, and `zohosign` using
-generator commit `0e59e0177283438686e3c14b6dc59e6e2cc42859`, active and unmerged
+generator commit `83cca226971b19d8316364fe8d924a9926551d40`, active and unmerged
 when generated. This adds 82 operations without removing or changing any
 existing operation signature. Connector registrations and the 103-client
 inventory remain unchanged.
@@ -496,6 +496,17 @@ UTF-8 extended filename parameter. This avoids the filename overload that throws
 for embedded quotes. Generated DocuWare public-client regressions cover ordinary,
 spaced, Unicode, percent-sign, and quoted filenames, including exact file bytes
 and media types. The quote case fails before the correction and passes afterward.
+The current writer uses UTF-8 bytes for Content-Disposition, preserving plain
+Unicode filenames even when a receiver ignores `filename*`. Tests exercise both
+receiver modes independently; the plain Unicode case fails against the old
+writer and passes after regeneration. File-content bytes remain unchanged.
+
+Generator execution regressions also protect multipart argument values from
+helper/local shadowing and honor explicit continuation-operation verbs. They
+cover POST initiation followed by GET without a form body, explicit POST
+continuation, and unchanged behavior when no continuation operation is declared.
+These cases use authored Swagger; no affected live multipart-pageable method
+was identified in the refreshed clients.
 
 The generator includes the existing ServiceNow attachment-response correction
 from source commit `9d80956afd705fbed97935edbaf6295928342390`. That prerequisite

@@ -94,14 +94,20 @@ namespace Azure.Connectors.Sdk.Tests
         /// Preserves the uploaded filename through a generated public method and MIME parsing.
         /// </summary>
         /// <param name="fileName">The upload filename.</param>
+        /// <param name="useExtendedFileName">Whether the receiver uses the UTF-8 extended parameter.</param>
         [TestMethod]
         [Owner("swapnilnagar")]
-        [DataRow("invoice.docx")]
-        [DataRow("my invoice.docx")]
-        [DataRow("r\u00e9sum\u00e9-\u6587\u4ef6.docx")]
-        [DataRow("invoice%20paid%.docx")]
-        [DataRow("my \"invoice\".docx")]
-        public async Task DocuwareUpload_PreservesFilename(string fileName)
+        [DataRow("invoice.docx", true)]
+        [DataRow("my invoice.docx", true)]
+        [DataRow("r\u00e9sum\u00e9-\u6587\u4ef6.docx", true)]
+        [DataRow("invoice%20paid%.docx", true)]
+        [DataRow("my \"invoice\".docx", true)]
+        [DataRow("invoice.docx", false)]
+        [DataRow("my invoice.docx", false)]
+        [DataRow("r\u00e9sum\u00e9-\u6587\u4ef6.docx", false)]
+        [DataRow("invoice%20paid%.docx", false)]
+        [DataRow("my \"invoice\".docx", false)]
+        public async Task DocuwareUpload_PreservesFilename(string fileName, bool useExtendedFileName)
         {
             var content = new byte[] { 0, 127, 128, 255, 13, 10 };
             var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
@@ -117,7 +123,8 @@ namespace Azure.Connectors.Sdk.Tests
 
             Assert.AreEqual(expected: 123, actual: response.DocumentId);
             Assert.AreEqual(expected: HttpMethod.Post, actual: capture.Method);
-            var file = MultipartRequestTests.ParseParts(capture).Single(part => string.Equals(part.Name, "file", StringComparison.Ordinal));
+            var file = MultipartRequestTests.ParseParts(capture: capture, useExtendedFileName: useExtendedFileName)
+                .Single(part => string.Equals(part.Name, "file", StringComparison.Ordinal));
             Assert.AreEqual(expected: fileName, actual: file.FileName);
             Assert.AreEqual(expected: "application/custom", actual: file.ContentType);
             CollectionAssert.AreEqual(expected: content, actual: file.Content);
@@ -216,7 +223,10 @@ namespace Azure.Connectors.Sdk.Tests
         /// Reads each generated MIME part using the boundary from the actual request header.
         /// </summary>
         /// <param name="capture">The request snapshot captured by the transport.</param>
-        private static IReadOnlyList<MultipartPart> ParseParts(ConnectorTestHelpers.CapturedRequestContent capture)
+        /// <param name="useExtendedFileName">Whether to use filename* instead of the plain filename parameter.</param>
+        private static IReadOnlyList<MultipartPart> ParseParts(
+            ConnectorTestHelpers.CapturedRequestContent capture,
+            bool useExtendedFileName = true)
         {
             Assert.AreEqual(expected: "multipart/form-data", actual: capture.ContentType);
             Assert.IsNotNull(capture.Body);
@@ -232,19 +242,52 @@ namespace Azure.Connectors.Sdk.Tests
             {
                 var separator = section.IndexOf("\r\n\r\n", StringComparison.Ordinal);
                 Assert.IsTrue(condition: separator >= 0);
-                var headers = section[2..separator].Split("\r\n", StringSplitOptions.None)
+                var headerText = Encoding.UTF8.GetString(Encoding.Latin1.GetBytes(section[2..separator]));
+                var headers = headerText.Split("\r\n", StringSplitOptions.None)
                     .Select(line => line.Split(':', 2))
                     .ToDictionary(header => header[0], header => header[1].Trim(), StringComparer.OrdinalIgnoreCase);
                 var disposition = ContentDispositionHeaderValue.Parse(headers["Content-Disposition"]);
+                var extendedFileName = useExtendedFileName ? disposition.FileNameStar : null;
+                disposition.FileNameStar = null;
                 parts.Add(new MultipartPart(
                     Name: disposition.Name!.Trim('"'),
-                    FileName: disposition.FileNameStar ??
-                        new System.Net.Mime.ContentDisposition(headers["Content-Disposition"]).FileName,
+                    FileName: extendedFileName ?? MultipartRequestTests.ReadPlainFileName(disposition),
                     ContentType: MediaTypeHeaderValue.Parse(headers["Content-Type"]).MediaType!,
                     Content: Encoding.Latin1.GetBytes(section[(separator + 4)..^2])));
             }
 
             return parts;
+        }
+
+        /// <summary>
+        /// Decodes quoted pairs retained by the HTTP parser without consulting filename*.
+        /// </summary>
+        /// <param name="disposition">The parsed disposition header.</param>
+        private static string? ReadPlainFileName(ContentDispositionHeaderValue disposition)
+        {
+            var fileName = disposition.FileName;
+            if (fileName is { Length: >= 2 } && fileName[0] == '"' && fileName[^1] == '"')
+            {
+                fileName = fileName[1..^1];
+            }
+
+            if (fileName is null || !fileName.Contains('\\'))
+            {
+                return fileName;
+            }
+
+            var decoded = new StringBuilder(fileName.Length);
+            for (var index = 0; index < fileName.Length; index++)
+            {
+                if (fileName[index] == '\\' && index + 1 < fileName.Length)
+                {
+                    index++;
+                }
+
+                decoded.Append(fileName[index]);
+            }
+
+            return decoded.ToString();
         }
 
         /// <summary>

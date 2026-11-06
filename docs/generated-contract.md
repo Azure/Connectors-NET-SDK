@@ -130,6 +130,8 @@ optional fields do not produce parts; internal defaults remain on the wire
 without becoming public parameters.
 File headers use quoted-string escaping and a UTF-8 extended filename parameter,
 so embedded quotes do not fail the multipart-content filename overload.
+The writer encodes Content-Disposition headers as UTF-8, preserving Unicode
+even when a receiver ignores `filename*` and reads only plain `filename`.
 
 Generated operations use the native multipart writer and send its buffered body
 with the matching boundary-bearing content type through the existing Azure Core

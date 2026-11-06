@@ -1005,6 +1005,8 @@ namespace Azure.Connectors.Sdk.Docuware
                 queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog)}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet)}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 if (indexData != null)
                 {
                     multipartContent.Add(new StringContent(Convert.ToString(indexData, CultureInfo.InvariantCulture), Encoding.UTF8), "index");
@@ -1060,6 +1062,8 @@ namespace Azure.Connectors.Sdk.Docuware
                     queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog)}");
                 var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray)}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 if (indexData != null)
                 {
                     multipartContent.Add(new StringContent(Convert.ToString(indexData, CultureInfo.InvariantCulture), Encoding.UTF8), "index");
@@ -1446,6 +1450,8 @@ namespace Azure.Connectors.Sdk.Docuware
                 queryParams.Add($"DocID={Uri.EscapeDataString(documentId)}");
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 if (fileContents != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fileContents.Content);
@@ -1521,6 +1527,8 @@ namespace Azure.Connectors.Sdk.Docuware
                     throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Sections/{Uri.EscapeDataString(Convert.ToString(fileNumber, CultureInfo.InvariantCulture))}/Data";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 if (fileContents != null)
                 {
                     var multipartFileContent = new ByteArrayContent(fileContents.Content);

@@ -5552,6 +5552,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/autodetect/get-info";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5594,6 +5596,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/autodetect/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5636,6 +5640,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/autodetect/to/png";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5678,6 +5684,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/autodetect/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5721,6 +5729,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/compare/docx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -5775,6 +5785,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/csv/to/json";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5817,6 +5829,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/csv/to/xlsx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5859,6 +5873,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/doc/to/docx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5901,6 +5917,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/doc/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5943,6 +5961,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/doc/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -5985,6 +6005,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/docx/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -6027,6 +6049,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/docx/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -6069,6 +6093,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/edit/begin-editing";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7236,6 +7262,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/html/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7278,6 +7306,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/html/to/png";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7320,6 +7350,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/html/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7368,6 +7400,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                     throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
                 var path = $"/convert/image-multipage/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide)}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens)}";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7410,6 +7444,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/image/get-info";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7453,6 +7489,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/image/set-dpi/{Uri.EscapeDataString(Convert.ToString(newDPIInPixelsPerInchForExample300DPIOr600DPI, CultureInfo.InvariantCulture))}";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7501,6 +7539,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                     throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
                 var path = $"/convert/image/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide)}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens)}";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -7569,6 +7609,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/docx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -7632,6 +7674,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/docx/multi";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -7783,6 +7827,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -7846,6 +7892,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/pdf/multi";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -7997,6 +8045,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/png/vertical";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8052,6 +8102,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/pptx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8115,6 +8167,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/pptx/multi";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8266,6 +8320,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8329,6 +8385,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/txt/multi";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8480,6 +8538,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/xlsx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8543,6 +8603,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/merge/xlsx/multi";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -8693,6 +8755,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pdf/to/docx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -8735,6 +8799,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pdf/to/docx/rasterize";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -8777,6 +8843,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pdf/to/png";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -8819,6 +8887,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pdf/to/png/merge-single";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -8861,6 +8931,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pdf/to/pptx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -8903,6 +8975,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pdf/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -8954,6 +9028,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/png/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
@@ -9104,6 +9180,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/ppt/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9146,6 +9224,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/ppt/to/pptx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9188,6 +9268,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pptx/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9230,6 +9312,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/pptx/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9272,6 +9356,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/split/docx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9314,6 +9400,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/split/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9356,6 +9444,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/split/pptx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9398,6 +9488,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/split/txt/by-line";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9440,6 +9532,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/split/txt/by-string";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9482,6 +9576,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/split/xlsx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9549,6 +9645,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/autodetect";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9591,6 +9689,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/docx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9633,6 +9733,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/json";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9675,6 +9777,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9717,6 +9821,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/pptx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9759,6 +9865,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/xlsx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9801,6 +9909,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/validate/xml";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -9918,6 +10028,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/web/md/to/html";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10035,6 +10147,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xls/to/csv";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10077,6 +10191,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xls/to/json";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10119,6 +10235,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xls/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10161,6 +10279,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xls/to/xlsx";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10203,6 +10323,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xlsx/to/csv";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10245,6 +10367,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xlsx/to/json";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10287,6 +10411,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xlsx/to/pdf";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10329,6 +10455,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xlsx/to/txt";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10371,6 +10499,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/edit/xpath/add-attribute";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
@@ -10413,6 +10543,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/edit/xpath/add-child";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
@@ -10455,6 +10587,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/edit/xpath/remove";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10497,6 +10631,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/edit/xpath/remove-all-children";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
@@ -10539,6 +10675,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/edit/xpath/replace";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
@@ -10581,6 +10719,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/edit/xpath/set-value";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
@@ -10623,6 +10763,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/query/xquery";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
@@ -10674,6 +10816,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/query/xquery/multi";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(firstInputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(firstInputXMLFileToPerformTheOperationOn.Content);
@@ -10824,6 +10968,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/select/xpath";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10866,6 +11012,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/to/json";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
@@ -10909,6 +11057,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
             {
                 var path = $"/convert/xml/transform/xslt/to/xml";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
                 {
                     var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);

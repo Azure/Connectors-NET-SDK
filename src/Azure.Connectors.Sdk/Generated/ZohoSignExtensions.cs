@@ -709,6 +709,8 @@ namespace Azure.Connectors.Sdk.ZohoSign
             {
                 var path = $"/requests";
                 using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
                 ArgumentNullException.ThrowIfNull(createADocument);
                 {
                     var multipartFileContent = new ByteArrayContent(createADocument.Content);
