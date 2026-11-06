@@ -20,7 +20,6 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    [TestCategory("CheckInTests")]
     [ExcludeFromCodeCoverage]
     public class PlivoClientTests
     {
