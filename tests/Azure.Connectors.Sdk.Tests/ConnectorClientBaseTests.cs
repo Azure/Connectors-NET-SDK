@@ -153,6 +153,55 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        [DataRow(null)]
+        [DataRow("ConnectorApp/1.0")]
+        public async Task CallConnectorAsync_ApplicationId_SendsAzureSdkUserAgent(string? applicationId)
+        {
+            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK));
+            options.Diagnostics.ApplicationId = applicationId;
+            using var client = new TestBinaryConnectorClient(
+                new Uri("https://test.azure.com/connection"),
+                credential,
+                options);
+
+            await client
+                .TestSendBinaryAsync(Array.Empty<byte>(), CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var request = getLastRequest();
+            Assert.IsNotNull(request);
+            var userAgent = request.Headers.UserAgent.ToString();
+            var expectedUserAgent = new TelemetryDetails(typeof(ConnectorClientOptions).Assembly, applicationId).ToString();
+            Assert.AreEqual(expected: expectedUserAgent, actual: userAgent);
+            var expectedPrefix = applicationId is null
+                ? "azsdk-net-Connectors.Sdk/"
+                : $"{applicationId} azsdk-net-Connectors.Sdk/";
+            Assert.IsTrue(userAgent.StartsWith(expectedPrefix, StringComparison.Ordinal));
+            Console.WriteLine($"User-Agent: {userAgent}");
+        }
+
+        [TestMethod]
+        public async Task CallConnectorAsync_TelemetryDisabled_OmitsUserAgent()
+        {
+            var (credential, options, getLastRequest) = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK));
+            options.Diagnostics.IsTelemetryEnabled = false;
+            using var client = new TestBinaryConnectorClient(
+                new Uri("https://test.azure.com/connection"),
+                credential,
+                options);
+
+            await client
+                .TestSendBinaryAsync(Array.Empty<byte>(), CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            var request = getLastRequest();
+            Assert.IsNotNull(request);
+            Assert.IsFalse(request.Headers.Contains("User-Agent"));
+        }
+
+        [TestMethod]
         public async Task CallConnectorAsync_BinaryBody_SendsRawBytesAndContentType()
         {
             var expectedBody = new byte[] { 0x00, 0x7F, 0xFF };
