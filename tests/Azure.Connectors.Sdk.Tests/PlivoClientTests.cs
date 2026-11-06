@@ -3,11 +3,14 @@
 //------------------------------------------------------------
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.Plivo;
+using Azure.Connectors.Sdk.Plivo.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,6 +20,8 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
+    [TestCategory("CheckInTests")]
+    [ExcludeFromCodeCoverage]
     public class PlivoClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
@@ -49,6 +54,78 @@ namespace Azure.Connectors.Sdk.Tests
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
+        }
+
+        /// <summary>
+        /// Keeps the renamed SMS API bound to the exact Plivo route and JSON wire fields.
+        /// </summary>
+        [TestMethod]
+        [Owner("swapnilnagar")]
+        public async Task SendSmsAsync_PreservesRouteWireBodyAndResponse()
+        {
+            var attempts = 0;
+            var handler = new Mock<HttpMessageHandler>();
+            handler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns<HttpRequestMessage, CancellationToken>(async (request, cancellationToken) =>
+                {
+                    attempts++;
+                    Assert.AreEqual(expected: HttpMethod.Post, actual: request.Method);
+                    Assert.AreEqual(expected: "/connection/v1/Account/account%2Fid/Message/", actual: request.RequestUri!.AbsolutePath);
+                    using var body = JsonDocument.Parse(await request.Content!
+                        .ReadAsStringAsync(cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false));
+                    Assert.AreEqual(expected: "15550000000", actual: body.RootElement.GetProperty("src").GetString());
+                    Assert.AreEqual(expected: "15551111111", actual: body.RootElement.GetProperty("dst").GetString());
+                    Assert.AreEqual(expected: "Hello", actual: body.RootElement.GetProperty("text").GetString());
+                    Assert.AreEqual(expected: 3, actual: body.RootElement.GetPropertyCount());
+                    return new HttpResponseMessage(HttpStatusCode.Accepted)
+                    {
+                        Content = new StringContent("{\"api_id\":\"request-123\",\"message\":\"queued\",\"message_uuid\":[\"message-123\"]}")
+                    };
+                });
+            var options = new ConnectorClientOptions
+            {
+                Transport = new HttpClientTransport(new HttpClient(handler.Object))
+            };
+            options.Retry.MaxRetries = 0;
+            using var client = new PlivoClient(new Uri("https://test.azure.com/connection"), SharedMockCredential.Object, options);
+
+            var sentMessage = await client
+                .SendSmsAsync(
+                    authId: "account/id",
+                    input: new Sms { From = "15550000000", To = "15551111111", Message = "Hello" })
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: attempts);
+            Assert.AreEqual(expected: "request-123", actual: sentMessage.APIId);
+            Assert.AreEqual(expected: "queued", actual: sentMessage.Response);
+            CollectionAssert.AreEqual(expected: new[] { "message-123" }, actual: sentMessage.MessageUUID);
+        }
+
+        /// <summary>
+        /// Preserves the connector error contract on the renamed send operation.
+        /// </summary>
+        [TestMethod]
+        [Owner("swapnilnagar")]
+        public async Task SendSmsAsync_ErrorResponse_ThrowsConnectorException()
+        {
+            using var response = new HttpResponseMessage(HttpStatusCode.Forbidden)
+            {
+                Content = new StringContent("{\"error\":{\"message\":\"Not allowed\"}}")
+            };
+            using var client = CreateMockedClient(response);
+
+            var error = await Assert
+                .ThrowsExactlyAsync<ConnectorException>(() => client.SendSmsAsync(
+                    authId: "account",
+                    input: new Sms { From = "15550000000", To = "15551111111", Message = "Hello" }))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 403, actual: error.Status);
         }
 
         [TestMethod]
