@@ -115,6 +115,15 @@ namespace Azure.Connectors.Sdk.Tests
 
             /// <summary>Gets the captured request content type.</summary>
             public string? ContentType { get; internal set; }
+
+            /// <summary>Gets the complete content type, including multipart boundaries.</summary>
+            public string? ContentTypeHeader { get; internal set; }
+
+            /// <summary>Gets the outgoing request URI.</summary>
+            public Uri? RequestUri { get; internal set; }
+
+            /// <summary>Gets the outgoing request method.</summary>
+            public HttpMethod? Method { get; internal set; }
         }
 
         private sealed class ContentCapturingHandler : HttpMessageHandler
@@ -140,6 +149,9 @@ namespace Azure.Connectors.Sdk.Tests
                         .ReadAsByteArrayAsync(cancellationToken)
                         .ConfigureAwait(continueOnCapturedContext: false);
                 this._capture.ContentType = request.Content?.Headers.ContentType?.MediaType;
+                this._capture.ContentTypeHeader = request.Content?.Headers.ContentType?.ToString();
+                this._capture.RequestUri = request.RequestUri;
+                this._capture.Method = request.Method;
                 return this._responseFactory();
             }
         }

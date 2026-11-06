@@ -121,6 +121,30 @@ marks it Preview and the production action remains available. The latter keeps
 the production route under the stable name rather than promoting a numeric
 revision without considering eligibility.
 
+## Multipart Form-Data Contract
+
+Swagger 2.0 `formData` parameters become typed operation arguments. File fields
+use `MultipartFile`, which preserves unencoded bytes, the filename, and the media
+type. Plain `byte[]` values convert using the default file metadata. Omitted
+optional fields do not produce parts; internal defaults remain on the wire
+without becoming public parameters.
+File headers use quoted-string escaping and a UTF-8 extended filename parameter,
+so embedded quotes do not fail the multipart-content filename overload.
+The writer encodes Content-Disposition headers as UTF-8, preserving Unicode
+even when a receiver ignores `filename*` and reads only plain `filename`.
+
+Generated operations use the native multipart writer and send its buffered body
+with the matching boundary-bearing content type through the existing Azure Core
+binary request path. Scalars retain invariant formatting, including lowercase
+Booleans. Arrays preserve `csv`, `ssv`, `tsv`, `pipes`, and repeated `multi` fields.
+Encoding remains inside each async request lifetime, including pageable requests.
+For ServiceNow's attachment upload, table fields precede the file part as required
+by the backend. Wire ordering does not change public method argument order.
+
+Bodyless operations remain callable when their `consumes` metadata advertises
+multipart. File arrays, unknown collection formats, mixed body/form-data
+declarations, and `multipart/mixed` request payloads remain unsupported.
+
 ## Trigger Contract
 
 Routes marked `x-ms-trigger` are not ordinary data-plane invocations. They are

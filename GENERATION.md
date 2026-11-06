@@ -507,6 +507,71 @@ Only the Plivo SDK artifact is replaced; the connector inventory and shared
 registrations remain unchanged. Upstream generator integration remains the
 SDK merge gate. Request/response tests do not send live SMS messages.
 
+## 2026-11-04 Multipart Operations
+
+Refreshed `cloudmersiveconvert`, `docuware`, `service-now`, and `zohosign` using
+generator commit `83cca226971b19d8316364fe8d924a9926551d40`, active and unmerged
+when generated. This adds 82 operations without removing or changing any
+existing operation signature. Connector registrations and the 103-client
+inventory remain unchanged.
+
+The review refresh sends ServiceNow's `table_name` and `table_sys_id` form
+fields before `attachment_content`, as required by its upload API. The ordered
+MIME assertion fails against the original client and passes after regeneration.
+Other regenerated clients remain byte-identical, and public argument order is
+unchanged.
+
+The 2026-11-05 merge refresh includes BPM master
+`11164ff37305cce13cfc23905f9375ccea26a44d`, preserving its raw UTF-8
+string-body fixes alongside multipart serialization. The generator was built
+with the master-pinned .NET SDK `10.0.114`. Fresh live generation produced
+byte-identical output for all four multipart clients after the merge.
+
+The subsequent filename follow-up regenerates the four file-upload clients with
+native disposition headers containing escaped quoted-string filenames and a
+UTF-8 extended filename parameter. This avoids the filename overload that throws
+for embedded quotes. Generated DocuWare public-client regressions cover ordinary,
+spaced, Unicode, percent-sign, and quoted filenames, including exact file bytes
+and media types. The quote case fails before the correction and passes afterward.
+The current writer uses UTF-8 bytes for Content-Disposition, preserving plain
+Unicode filenames even when a receiver ignores `filename*`. Tests exercise both
+receiver modes independently; the plain Unicode case fails against the old
+writer and passes after regeneration. File-content bytes remain unchanged.
+
+Generator execution regressions also protect multipart argument values from
+helper/local shadowing and honor explicit continuation-operation verbs. They
+cover POST initiation followed by GET without a form body, explicit POST
+continuation, and unchanged behavior when no continuation operation is declared.
+These cases use authored Swagger; no affected live multipart-pageable method
+was identified in the refreshed clients.
+
+The generator includes the existing ServiceNow attachment-response correction
+from source commit `9d80956afd705fbed97935edbaf6295928342390`. That prerequisite
+preserves the metadata and binary download contracts already shipped by this
+SDK; a regeneration from master without it discards those response bodies.
+The paired PR records both upstream PRs and their active/unmerged status.
+Their integration remains a final SDK merge gate.
+
+Generation used subscription `1a839f1f-10b2-4613-95ad-0800a22abbf2`, region
+`westus`, ARM API version `2018-07-01-preview`, and a new empty temporary
+`ARMCACHE_PATH`. Separate Python and C# live downloads returned identical
+Swagger bytes for their shared connectors. No stored responses or fixtures
+supplied the refreshed clients.
+
+| Connector API ID | Live Swagger SHA-256 |
+|---|---|
+| `cloudmersiveconvert` | `860768B6CEFF8CA5FD5F41B118B06D0CFE55076E15636295B3894E6C78CF067C` |
+| `docuware` | `7EBC04B5A47C35F5DA9A2AFDDB9DE3BB022E169744F5362F92449939F07DF143` |
+| `service-now` | `121021EFF0C41E60D1CC304C00FC6A704988545953E8F5E520442E369F960A79` |
+| `zohosign` | `CE62C4D774B291D1CCBF5A1F258613E938F894400C77CEC02EEFCA0BBD9C8239` |
+
+`MultipartFile` supplies file bytes, filenames, and media types. Generated
+methods construct native multipart content and use the existing binary request
+overloads, preserving authentication, cancellation, retry safety, and response
+handling. See [multipart examples](README.md#multipart-file-uploads).
+Validation uses mocked HTTP responses; it does not create live documents or
+attachments.
+
 ## Automation
 
 ### CI/CD Integration

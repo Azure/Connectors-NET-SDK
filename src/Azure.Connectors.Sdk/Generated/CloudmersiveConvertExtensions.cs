@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -27,6 +28,100 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 {
 
     #region Types
+
+    /// <summary>
+    /// Result of an autodetect/get-info operation
+    /// </summary>
+    public class AutodetectGetInfoResult
+    {
+        /// <summary>Alternate file type options and their probability</summary>
+        [JsonPropertyName("AlternateFileTypeCandidates")]
+        public List<AlternateFileFormatCandidate> AlternateFileTypeCandidates { get; set; }
+
+        /// <summary>User name of the creator/author of the document, if available, null if not available</summary>
+        [JsonPropertyName("Author")]
+        public string Author { get; set; }
+
+        /// <summary>The timestamp that the document was last modified, if available, null if not available</summary>
+        [JsonPropertyName("DateModified")]
+        public DateTime? DateModified { get; set; }
+
+        /// <summary>Detected file extension of the file format, with a leading period</summary>
+        [JsonPropertyName("DetectedFileExtension")]
+        public string DetectedFileExtension { get; set; }
+
+        /// <summary>MIME type of this file extension</summary>
+        [JsonPropertyName("DetectedMimeType")]
+        public string DetectedMimeType { get; set; }
+
+        /// <summary>Number of pages in a page-based document; for presentations, this is the number of slides and for a spreadsheet this is the number of worksheets.  Contains 0 when the page count cannot be determined, or if the concept of page count does not apply (e.g. for an image)</summary>
+        [JsonPropertyName("PageCount")]
+        public long? PageCount { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Alternate file format possibility
+    /// </summary>
+    public class AlternateFileFormatCandidate
+    {
+        /// <summary>Detected file extension of the file format, with a leading period</summary>
+        [JsonPropertyName("DetectedFileExtension")]
+        public string DetectedFileExtension { get; set; }
+
+        /// <summary>MIME type of this file extension</summary>
+        [JsonPropertyName("DetectedMimeType")]
+        public string DetectedMimeType { get; set; }
+
+        /// <summary>Probability that this extension is the right one; possible values are between 0.0 (lowest confidence) and 1.0 (highest confidence)</summary>
+        [JsonPropertyName("Probability")]
+        public double? Probability { get; set; }
+    }
+
+    /// <summary>
+    /// Result of converting an autodetected input to a PNG array
+    /// </summary>
+    public class AutodetectToPngResult
+    {
+        /// <summary>Array of converted pages</summary>
+        [JsonPropertyName("PngResultPages")]
+        public List<ConvertedPngPage> PngResultPages { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single converted page
+    /// </summary>
+    public class ConvertedPngPage
+    {
+        /// <summary>Page number of the converted page, starting with 1</summary>
+        [JsonPropertyName("PageNumber")]
+        public int? PageNumber { get; set; }
+
+        /// <summary>URL to the PNG file of this page; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
+        public string URL { get; set; }
+    }
+
+    /// <summary>
+    /// Text conversion result from converting a document to Plain Text (TXT) format
+    /// </summary>
+    public class TextConversionResult
+    {
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+
+        /// <summary>Plain Text (TXT) format conversion result of the input document.  The text result is returned as a string.</summary>
+        [JsonPropertyName("TextResult")]
+        public string TextResult { get; set; }
+    }
 
     /// <summary>
     /// Result of creating a blank Word document
@@ -1233,6 +1328,144 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
+    /// Result of converting a PDF to a PNG array
+    /// </summary>
+    public class PdfToPngResult
+    {
+        /// <summary>Array of converted pages</summary>
+        [JsonPropertyName("PngResultPages")]
+        public List<ConvertedPngPage> PngResultPages { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of converting a multi-page image into individual pages with a different format
+    /// </summary>
+    public class MultipageImageFormatConversionResult
+    {
+        /// <summary>The number of pages in the converted output</summary>
+        [JsonPropertyName("PageCount")]
+        public int? PageCount { get; set; }
+
+        /// <summary>Converted page results</summary>
+        [JsonPropertyName("Pages")]
+        public List<PageConversionResult> Pages { get; set; }
+
+        /// <summary>True if successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Converted page as an image
+    /// </summary>
+    public class PageConversionResult
+    {
+        /// <summary>File bytes (contents) of the image in converted file format</summary>
+        [JsonPropertyName("FileBytes")]
+        public string FileBytes { get; set; }
+
+        /// <summary>File name of the image in the converted file format</summary>
+        [JsonPropertyName("Filename")]
+        public string Filename { get; set; }
+    }
+
+    /// <summary>
+    /// Result of running a get-info operation on an image
+    /// </summary>
+    public class GetImageInfoResult
+    {
+        /// <summary>Bit depth of the image</summary>
+        [JsonPropertyName("BitDepth")]
+        public int? BitDepth { get; set; }
+
+        /// <summary>Unique colors in the image</summary>
+        [JsonPropertyName("ColorCount")]
+        public int? ColorCount { get; set; }
+
+        /// <summary>Color space of the image</summary>
+        [JsonPropertyName("ColorSpace")]
+        public string ColorSpace { get; set; }
+
+        /// <summary>Color type of the image</summary>
+        [JsonPropertyName("ColorType")]
+        public string ColorType { get; set; }
+
+        /// <summary>Comment string in the image</summary>
+        [JsonPropertyName("Comment")]
+        public string Comment { get; set; }
+
+        /// <summary>Compression level value from 0 (lowest quality) to 100 (highest quality)</summary>
+        [JsonPropertyName("CompressionLevel")]
+        public int? CompressionLevel { get; set; }
+
+        /// <summary>DPI (pixels per unit, e.g. pixels per inch) of the image</summary>
+        [JsonPropertyName("DPI")]
+        public double? DPI { get; set; }
+
+        /// <summary>Units of the DPI measurement; can be either in Inches or Centimeters</summary>
+        [JsonPropertyName("DPIUnit")]
+        public string DPIUnit { get; set; }
+
+        /// <summary>Name of the EXIF profile used</summary>
+        [JsonPropertyName("ExifProfileName")]
+        public string ExifProfileName { get; set; }
+
+        /// <summary>EXIF tags and values embedded in the image</summary>
+        [JsonPropertyName("ExifValues")]
+        public List<ExifValue> ExifValues { get; set; }
+
+        /// <summary>True if the image contains transparency, otherwise false</summary>
+        [JsonPropertyName("HasTransparency")]
+        public bool? HasTransparency { get; set; }
+
+        /// <summary>Height in pixels of the image</summary>
+        [JsonPropertyName("Height")]
+        public int? Height { get; set; }
+
+        /// <summary>Image format</summary>
+        [JsonPropertyName("ImageFormat")]
+        public string ImageFormat { get; set; }
+
+        /// <summary>SHA256 hash signature of the image</summary>
+        [JsonPropertyName("ImageHashSignature")]
+        public string ImageHashSignature { get; set; }
+
+        /// <summary>MIME type of the image format</summary>
+        [JsonPropertyName("MimeType")]
+        public string MimeType { get; set; }
+
+        /// <summary>Successful</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+
+        /// <summary>Width in pixels of the image</summary>
+        [JsonPropertyName("Width")]
+        public int? Width { get; set; }
+    }
+
+    /// <summary>
+    /// EXIF tag and value
+    /// </summary>
+    public class ExifValue
+    {
+        /// <summary>Date type of the EXIF value</summary>
+        [JsonPropertyName("DataType")]
+        public string DataType { get; set; }
+
+        /// <summary>Value, formatted as a string of the EXIF value</summary>
+        [JsonPropertyName("DataValue")]
+        public string DataValue { get; set; }
+
+        /// <summary>Tag name for the EXIF value</summary>
+        [JsonPropertyName("Tag")]
+        public string Tag { get; set; }
+    }
+
+    /// <summary>
     /// Convert JSON to XML conversion
     /// </summary>
     public class ConvertDataJsonToXmlInput
@@ -1242,6 +1475,214 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Merge Two Text (TXT) Files Together
+    /// </summary>
+    public class MergeDocumentTxtResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// The result of splitting a Word document into individual Word DOCX pages
+    /// </summary>
+    public class SplitDocxDocumentResult
+    {
+        /// <summary>ResultDocuments</summary>
+        [JsonPropertyName("ResultDocuments")]
+        public List<SplitDocumentResult> ResultDocuments { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single Word DOCX file corresponding to one page in the original document
+    /// </summary>
+    public class SplitDocumentResult
+    {
+        /// <summary>Contents of the document in bytes</summary>
+        [JsonPropertyName("DocumentContents")]
+        public string DocumentContents { get; set; }
+
+        /// <summary>Page number of the converted page, starting with 1 for the first page</summary>
+        [JsonPropertyName("PageNumber")]
+        public int? PageNumber { get; set; }
+
+        /// <summary>URL to the DOCX file of this slide; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
+        public string URL { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a PDF file split operation
+    /// </summary>
+    public class SplitPdfResult
+    {
+        /// <summary>PDF documents as output</summary>
+        [JsonPropertyName("Documents")]
+        public List<PdfDocument> Documents { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single PDF file corresponding to one page in the original document
+    /// </summary>
+    public class PdfDocument
+    {
+        /// <summary>If returnDocumentContents is set to true, will contain the contents of the document; otherwise will be set to null and the document contents will be available via the URL parameter</summary>
+        [JsonPropertyName("DocumentContents")]
+        public string DocumentContents { get; set; }
+
+        /// <summary>Page number of the converted page, starting with 1 for the first page</summary>
+        [JsonPropertyName("PageNumber")]
+        public int? PageNumber { get; set; }
+
+        /// <summary>URL to the PDF file of this worksheet; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
+        public string URL { get; set; }
+    }
+
+    /// <summary>
+    /// The result of splitting a presentation into individual PowerPoint PPTX slides
+    /// </summary>
+    public class SplitPptxPresentationResult
+    {
+        /// <summary>ResultPresentations</summary>
+        [JsonPropertyName("ResultPresentations")]
+        public List<PresentationResult> ResultPresentations { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single Excel XLSX file corresponding to one worksheet (tab) in the original spreadsheet
+    /// </summary>
+    public class PresentationResult
+    {
+        /// <summary>Contents of the presentation in bytes</summary>
+        [JsonPropertyName("PresentationContents")]
+        public string PresentationContents { get; set; }
+
+        /// <summary>Worksheet number of the converted page, starting with 1 for the left-most worksheet</summary>
+        [JsonPropertyName("SlideNumber")]
+        public int? SlideNumber { get; set; }
+
+        /// <summary>URL to the PPTX file of this slide; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
+        public string URL { get; set; }
+    }
+
+    /// <summary>
+    /// The result of splitting a Text document into separate lines
+    /// </summary>
+    public class SplitTextDocumentByLinesResult
+    {
+        /// <summary>The count of lines in the text file</summary>
+        [JsonPropertyName("LineCount")]
+        public int? LineCount { get; set; }
+
+        /// <summary>ResultLines</summary>
+        [JsonPropertyName("ResultLines")]
+        public List<TextDocumentLine> ResultLines { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single line of a Text document
+    /// </summary>
+    public class TextDocumentLine
+    {
+        /// <summary>The text contents of a single line of a text file</summary>
+        [JsonPropertyName("LineContents")]
+        public string LineContents { get; set; }
+
+        /// <summary>The 1-based line index of the line</summary>
+        [JsonPropertyName("LineNumber")]
+        public int? LineNumber { get; set; }
+    }
+
+    /// <summary>
+    /// The result of splitting a Text document into separate elements
+    /// </summary>
+    public class SplitTextDocumentByStringResult
+    {
+        /// <summary>The count of elements in the text file</summary>
+        [JsonPropertyName("ElementCount")]
+        public int? ElementCount { get; set; }
+
+        /// <summary>ResultElements</summary>
+        [JsonPropertyName("ResultElements")]
+        public List<TextDocumentElement> ResultElements { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single element of a Text document
+    /// </summary>
+    public class TextDocumentElement
+    {
+        /// <summary>The text contents of a single element of a text file</summary>
+        [JsonPropertyName("ElementContents")]
+        public string ElementContents { get; set; }
+
+        /// <summary>The 1-based line index of the element</summary>
+        [JsonPropertyName("ElementNumber")]
+        public int? ElementNumber { get; set; }
+    }
+
+    /// <summary>
+    /// The result of splitting a spreadsheet into individual Excel XLSX worksheets
+    /// </summary>
+    public class SplitXlsxWorksheetResult
+    {
+        /// <summary>ResultWorksheets</summary>
+        [JsonPropertyName("ResultWorksheets")]
+        public List<WorksheetResult> ResultWorksheets { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// A single Excel XLSX file corresponding to one worksheet (tab) in the original spreadsheet
+    /// </summary>
+    public class WorksheetResult
+    {
+        /// <summary>URL to the XLSX file of this worksheet; file is stored in an in-memory cache and will be deleted</summary>
+        [JsonPropertyName("URL")]
+        public string URL { get; set; }
+
+        /// <summary>Contents of the worksheet in bytes</summary>
+        [JsonPropertyName("WorksheetContents")]
+        public string WorksheetContents { get; set; }
+
+        /// <summary>The name of the worksheet</summary>
+        [JsonPropertyName("WorksheetName")]
+        public string WorksheetName { get; set; }
+
+        /// <summary>Worksheet number of the converted page, starting with 1 for the left-most worksheet</summary>
+        [JsonPropertyName("WorksheetNumber")]
+        public int? WorksheetNumber { get; set; }
     }
 
     /// <summary>
@@ -1256,6 +1697,76 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// <summary>True if the operation was successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
         public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Document validation result
+    /// </summary>
+    public class AutodetectDocumentValidationResult
+    {
+        /// <summary>True if the document is valid and has no errors, false otherwise</summary>
+        [JsonPropertyName("DocumentIsValid")]
+        public bool? DocumentIsValid { get; set; }
+
+        /// <summary>Number of validation errors found in the document</summary>
+        [JsonPropertyName("ErrorCount")]
+        public int? ErrorCount { get; set; }
+
+        /// <summary>Details of errors and warnings found</summary>
+        [JsonPropertyName("ErrorsAndWarnings")]
+        public List<DocumentValidationError> ErrorsAndWarnings { get; set; }
+
+        /// <summary>FileFormatExtension</summary>
+        [JsonPropertyName("FileFormatExtension")]
+        public string FileFormatExtension { get; set; }
+
+        /// <summary>Number of validation warnings found in the document</summary>
+        [JsonPropertyName("WarningCount")]
+        public int? WarningCount { get; set; }
+    }
+
+    /// <summary>
+    /// Validation error found in document
+    /// </summary>
+    public class DocumentValidationError
+    {
+        /// <summary>Description of the error</summary>
+        [JsonPropertyName("Description")]
+        public string Description { get; set; }
+
+        /// <summary>True if this is an error, false otherwise</summary>
+        [JsonPropertyName("IsError")]
+        public bool? IsError { get; set; }
+
+        /// <summary>XPath to the error</summary>
+        [JsonPropertyName("Path")]
+        public string Path { get; set; }
+
+        /// <summary>URI of the part in question</summary>
+        [JsonPropertyName("Uri")]
+        public string Uri { get; set; }
+    }
+
+    /// <summary>
+    /// Document validation result
+    /// </summary>
+    public class DocumentValidationResult
+    {
+        /// <summary>True if the document is valid and has no errors, false otherwise</summary>
+        [JsonPropertyName("DocumentIsValid")]
+        public bool? DocumentIsValid { get; set; }
+
+        /// <summary>Number of validation errors found in the document</summary>
+        [JsonPropertyName("ErrorCount")]
+        public int? ErrorCount { get; set; }
+
+        /// <summary>Details of errors and warnings found</summary>
+        [JsonPropertyName("ErrorsAndWarnings")]
+        public List<DocumentValidationError> ErrorsAndWarnings { get; set; }
+
+        /// <summary>Number of validation warnings found in the document</summary>
+        [JsonPropertyName("WarningCount")]
+        public int? WarningCount { get; set; }
     }
 
     /// <summary>
@@ -1285,6 +1796,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     }
 
     /// <summary>
+    /// Result from converting a Markdown file to HTML
+    /// </summary>
+    public class HtmlMdResult
+    {
+        /// <summary>Resulting HTML from the conversion</summary>
+        [JsonPropertyName("Html")]
+        public string Html { get; set; }
+
+        /// <summary>True if operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
     /// Result of running the URL website to Text operation
     /// </summary>
     public class UrlToTextResponse
@@ -1296,6 +1821,184 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// <summary>Text content result from the URL website input</summary>
         [JsonPropertyName("TextContentResult")]
         public string TextContentResult { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a add attribute node operation on XML input using XPath
+    /// </summary>
+    public class XmlAddAttributeWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
+        public int? NodesEditedCount { get; set; }
+
+        /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
+        public string ResultingXmlDocument { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a add child node operation on XML input using XPath
+    /// </summary>
+    public class XmlAddChildWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
+        public int? NodesEditedCount { get; set; }
+
+        /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
+        public string ResultingXmlDocument { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a filter operation on XML input using XPath
+    /// </summary>
+    public class XmlRemoveWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesRemovedCount")]
+        public int? NodesRemovedCount { get; set; }
+
+        /// <summary>Resulting, modified XML document with matching nodes removed as a string</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
+        public string ResultingXmlDocument { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+
+        /// <summary>Matching selected XML nodes as strings</summary>
+        [JsonPropertyName("XmlNodesRemoved")]
+        public List<string> XmlNodesRemoved { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a remove all child nodes operation on XML input using XPath
+    /// </summary>
+    public class XmlRemoveAllChildrenWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
+        public int? NodesEditedCount { get; set; }
+
+        /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
+        public string ResultingXmlDocument { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a replace node operation on XML input using XPath
+    /// </summary>
+    public class XmlReplaceWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
+        public int? NodesEditedCount { get; set; }
+
+        /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
+        public string ResultingXmlDocument { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a set value operation on XML input using XPath
+    /// </summary>
+    public class XmlSetValueWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("NodesEditedCount")]
+        public int? NodesEditedCount { get; set; }
+
+        /// <summary>Resulting, modified XML document</summary>
+        [JsonPropertyName("ResultingXmlDocument")]
+        public string ResultingXmlDocument { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing an XQuery operation on an XML document.
+    /// </summary>
+    public class XmlQueryWithXQueryResult
+    {
+        /// <summary>If an error occurs, additional details on the error</summary>
+        [JsonPropertyName("ErrorMessage")]
+        public string ErrorMessage { get; set; }
+
+        /// <summary>Resulting XML result output</summary>
+        [JsonPropertyName("ResultingXml")]
+        public string ResultingXml { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing an XQuery operation on multiple XML documents.
+    /// </summary>
+    public class XmlQueryWithXQueryMultiResult
+    {
+        /// <summary>If an error occurs, additional details on the error</summary>
+        [JsonPropertyName("ErrorMessage")]
+        public string ErrorMessage { get; set; }
+
+        /// <summary>Resulting XML result output</summary>
+        [JsonPropertyName("ResultingXml")]
+        public string ResultingXml { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+    }
+
+    /// <summary>
+    /// Result of performing a filter operation on XML input using XPath
+    /// </summary>
+    public class XmlFilterWithXPathResult
+    {
+        /// <summary>Count of the matching results</summary>
+        [JsonPropertyName("ResultCount")]
+        public int? ResultCount { get; set; }
+
+        /// <summary>True if the operation was successful, false otherwise</summary>
+        [JsonPropertyName("Successful")]
+        public bool? Successful { get; set; }
+
+        /// <summary>Matching selected XML nodes as strings</summary>
+        [JsonPropertyName("XmlNodes")]
+        public List<string> XmlNodes { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Convert XML to JSON conversion
+    /// </summary>
+    public class ConvertDataXmlToJsonResponse
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
     }
 
     /// <summary>
@@ -2287,6 +2990,88 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     /// </summary>
     public static class CloudmersiveConvertModelFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="AutodetectGetInfoResult"/>.
+        /// </summary>
+        public static AutodetectGetInfoResult AutodetectGetInfoResult(
+            List<AlternateFileFormatCandidate> alternateFileTypeCandidates = default,
+            string author = default,
+            DateTime? dateModified = default,
+            string detectedFileExtension = default,
+            string detectedMimeType = default,
+            long? pageCount = default,
+            bool? successful = default)
+        {
+            return new AutodetectGetInfoResult
+            {
+                AlternateFileTypeCandidates = alternateFileTypeCandidates,
+                Author = author,
+                DateModified = dateModified,
+                DetectedFileExtension = detectedFileExtension,
+                DetectedMimeType = detectedMimeType,
+                PageCount = pageCount,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AlternateFileFormatCandidate"/>.
+        /// </summary>
+        public static AlternateFileFormatCandidate AlternateFileFormatCandidate(
+            string detectedFileExtension = default,
+            string detectedMimeType = default,
+            double? probability = default)
+        {
+            return new AlternateFileFormatCandidate
+            {
+                DetectedFileExtension = detectedFileExtension,
+                DetectedMimeType = detectedMimeType,
+                Probability = probability,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AutodetectToPngResult"/>.
+        /// </summary>
+        public static AutodetectToPngResult AutodetectToPngResult(
+            List<ConvertedPngPage> pngResultPages = default,
+            bool? successful = default)
+        {
+            return new AutodetectToPngResult
+            {
+                PngResultPages = pngResultPages,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ConvertedPngPage"/>.
+        /// </summary>
+        public static ConvertedPngPage ConvertedPngPage(
+            int? pageNumber = default,
+            string url = default)
+        {
+            return new ConvertedPngPage
+            {
+                PageNumber = pageNumber,
+                URL = url,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextConversionResult"/>.
+        /// </summary>
+        public static TextConversionResult TextConversionResult(
+            bool? successful = default,
+            string textResult = default)
+        {
+            return new TextConversionResult
+            {
+                Successful = successful,
+                TextResult = textResult,
+            };
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="CreateBlankDocxResponse"/>.
         /// </summary>
@@ -3290,6 +4075,292 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="PdfToPngResult"/>.
+        /// </summary>
+        public static PdfToPngResult PdfToPngResult(
+            List<ConvertedPngPage> pngResultPages = default,
+            bool? successful = default)
+        {
+            return new PdfToPngResult
+            {
+                PngResultPages = pngResultPages,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MultipageImageFormatConversionResult"/>.
+        /// </summary>
+        public static MultipageImageFormatConversionResult MultipageImageFormatConversionResult(
+            int? pageCount = default,
+            List<PageConversionResult> pages = default,
+            bool? successful = default)
+        {
+            return new MultipageImageFormatConversionResult
+            {
+                PageCount = pageCount,
+                Pages = pages,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PageConversionResult"/>.
+        /// </summary>
+        public static PageConversionResult PageConversionResult(
+            string fileBytes = default,
+            string filename = default)
+        {
+            return new PageConversionResult
+            {
+                FileBytes = fileBytes,
+                Filename = filename,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="GetImageInfoResult"/>.
+        /// </summary>
+        public static GetImageInfoResult GetImageInfoResult(
+            int? bitDepth = default,
+            int? colorCount = default,
+            string colorSpace = default,
+            string colorType = default,
+            string comment = default,
+            int? compressionLevel = default,
+            double? dpi = default,
+            string dpiUnit = default,
+            string exifProfileName = default,
+            List<ExifValue> exifValues = default,
+            bool? hasTransparency = default,
+            int? height = default,
+            string imageFormat = default,
+            string imageHashSignature = default,
+            string mimeType = default,
+            bool? successful = default,
+            int? width = default)
+        {
+            return new GetImageInfoResult
+            {
+                BitDepth = bitDepth,
+                ColorCount = colorCount,
+                ColorSpace = colorSpace,
+                ColorType = colorType,
+                Comment = comment,
+                CompressionLevel = compressionLevel,
+                DPI = dpi,
+                DPIUnit = dpiUnit,
+                ExifProfileName = exifProfileName,
+                ExifValues = exifValues,
+                HasTransparency = hasTransparency,
+                Height = height,
+                ImageFormat = imageFormat,
+                ImageHashSignature = imageHashSignature,
+                MimeType = mimeType,
+                Successful = successful,
+                Width = width,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ExifValue"/>.
+        /// </summary>
+        public static ExifValue ExifValue(
+            string dataType = default,
+            string dataValue = default,
+            string tag = default)
+        {
+            return new ExifValue
+            {
+                DataType = dataType,
+                DataValue = dataValue,
+                Tag = tag,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitDocxDocumentResult"/>.
+        /// </summary>
+        public static SplitDocxDocumentResult SplitDocxDocumentResult(
+            List<SplitDocumentResult> resultDocuments = default,
+            bool? successful = default)
+        {
+            return new SplitDocxDocumentResult
+            {
+                ResultDocuments = resultDocuments,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitDocumentResult"/>.
+        /// </summary>
+        public static SplitDocumentResult SplitDocumentResult(
+            string documentContents = default,
+            int? pageNumber = default,
+            string url = default)
+        {
+            return new SplitDocumentResult
+            {
+                DocumentContents = documentContents,
+                PageNumber = pageNumber,
+                URL = url,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitPdfResult"/>.
+        /// </summary>
+        public static SplitPdfResult SplitPdfResult(
+            List<PdfDocument> documents = default,
+            bool? successful = default)
+        {
+            return new SplitPdfResult
+            {
+                Documents = documents,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PdfDocument"/>.
+        /// </summary>
+        public static PdfDocument PdfDocument(
+            string documentContents = default,
+            int? pageNumber = default,
+            string url = default)
+        {
+            return new PdfDocument
+            {
+                DocumentContents = documentContents,
+                PageNumber = pageNumber,
+                URL = url,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitPptxPresentationResult"/>.
+        /// </summary>
+        public static SplitPptxPresentationResult SplitPptxPresentationResult(
+            List<PresentationResult> resultPresentations = default,
+            bool? successful = default)
+        {
+            return new SplitPptxPresentationResult
+            {
+                ResultPresentations = resultPresentations,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="PresentationResult"/>.
+        /// </summary>
+        public static PresentationResult PresentationResult(
+            string presentationContents = default,
+            int? slideNumber = default,
+            string url = default)
+        {
+            return new PresentationResult
+            {
+                PresentationContents = presentationContents,
+                SlideNumber = slideNumber,
+                URL = url,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitTextDocumentByLinesResult"/>.
+        /// </summary>
+        public static SplitTextDocumentByLinesResult SplitTextDocumentByLinesResult(
+            int? lineCount = default,
+            List<TextDocumentLine> resultLines = default,
+            bool? successful = default)
+        {
+            return new SplitTextDocumentByLinesResult
+            {
+                LineCount = lineCount,
+                ResultLines = resultLines,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextDocumentLine"/>.
+        /// </summary>
+        public static TextDocumentLine TextDocumentLine(
+            string lineContents = default,
+            int? lineNumber = default)
+        {
+            return new TextDocumentLine
+            {
+                LineContents = lineContents,
+                LineNumber = lineNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitTextDocumentByStringResult"/>.
+        /// </summary>
+        public static SplitTextDocumentByStringResult SplitTextDocumentByStringResult(
+            int? elementCount = default,
+            List<TextDocumentElement> resultElements = default,
+            bool? successful = default)
+        {
+            return new SplitTextDocumentByStringResult
+            {
+                ElementCount = elementCount,
+                ResultElements = resultElements,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TextDocumentElement"/>.
+        /// </summary>
+        public static TextDocumentElement TextDocumentElement(
+            string elementContents = default,
+            int? elementNumber = default)
+        {
+            return new TextDocumentElement
+            {
+                ElementContents = elementContents,
+                ElementNumber = elementNumber,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SplitXlsxWorksheetResult"/>.
+        /// </summary>
+        public static SplitXlsxWorksheetResult SplitXlsxWorksheetResult(
+            List<WorksheetResult> resultWorksheets = default,
+            bool? successful = default)
+        {
+            return new SplitXlsxWorksheetResult
+            {
+                ResultWorksheets = resultWorksheets,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WorksheetResult"/>.
+        /// </summary>
+        public static WorksheetResult WorksheetResult(
+            string url = default,
+            string worksheetContents = default,
+            string worksheetName = default,
+            int? worksheetNumber = default)
+        {
+            return new WorksheetResult
+            {
+                URL = url,
+                WorksheetContents = worksheetContents,
+                WorksheetName = worksheetName,
+                WorksheetNumber = worksheetNumber,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="HtmlTemplateApplicationResponse"/>.
         /// </summary>
         public static HtmlTemplateApplicationResponse HtmlTemplateApplicationResponse(
@@ -3300,6 +4371,62 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             {
                 FinalHtml = finalHtml,
                 Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AutodetectDocumentValidationResult"/>.
+        /// </summary>
+        public static AutodetectDocumentValidationResult AutodetectDocumentValidationResult(
+            bool? documentIsValid = default,
+            int? errorCount = default,
+            List<DocumentValidationError> errorsAndWarnings = default,
+            string fileFormatExtension = default,
+            int? warningCount = default)
+        {
+            return new AutodetectDocumentValidationResult
+            {
+                DocumentIsValid = documentIsValid,
+                ErrorCount = errorCount,
+                ErrorsAndWarnings = errorsAndWarnings,
+                FileFormatExtension = fileFormatExtension,
+                WarningCount = warningCount,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DocumentValidationError"/>.
+        /// </summary>
+        public static DocumentValidationError DocumentValidationError(
+            string description = default,
+            bool? isError = default,
+            string path = default,
+            string uri = default)
+        {
+            return new DocumentValidationError
+            {
+                Description = description,
+                IsError = isError,
+                Path = path,
+                Uri = uri,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="DocumentValidationResult"/>.
+        /// </summary>
+        public static DocumentValidationResult DocumentValidationResult(
+            bool? documentIsValid = default,
+            int? errorCount = default,
+            List<DocumentValidationError> errorsAndWarnings = default,
+            int? warningCount = default)
+        {
+            return new DocumentValidationResult
+            {
+                DocumentIsValid = documentIsValid,
+                ErrorCount = errorCount,
+                ErrorsAndWarnings = errorsAndWarnings,
+                WarningCount = warningCount,
             };
         }
 
@@ -3318,6 +4445,20 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="HtmlMdResult"/>.
+        /// </summary>
+        public static HtmlMdResult HtmlMdResult(
+            string html = default,
+            bool? successful = default)
+        {
+            return new HtmlMdResult
+            {
+                Html = html,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="UrlToTextResponse"/>.
         /// </summary>
         public static UrlToTextResponse UrlToTextResponse(
@@ -3328,6 +4469,152 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             {
                 Successful = successful,
                 TextContentResult = textContentResult,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlAddAttributeWithXPathResult"/>.
+        /// </summary>
+        public static XmlAddAttributeWithXPathResult XmlAddAttributeWithXPathResult(
+            int? nodesEditedCount = default,
+            string resultingXmlDocument = default,
+            bool? successful = default)
+        {
+            return new XmlAddAttributeWithXPathResult
+            {
+                NodesEditedCount = nodesEditedCount,
+                ResultingXmlDocument = resultingXmlDocument,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlAddChildWithXPathResult"/>.
+        /// </summary>
+        public static XmlAddChildWithXPathResult XmlAddChildWithXPathResult(
+            int? nodesEditedCount = default,
+            string resultingXmlDocument = default,
+            bool? successful = default)
+        {
+            return new XmlAddChildWithXPathResult
+            {
+                NodesEditedCount = nodesEditedCount,
+                ResultingXmlDocument = resultingXmlDocument,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlRemoveWithXPathResult"/>.
+        /// </summary>
+        public static XmlRemoveWithXPathResult XmlRemoveWithXPathResult(
+            int? nodesRemovedCount = default,
+            string resultingXmlDocument = default,
+            bool? successful = default,
+            List<string> xmlNodesRemoved = default)
+        {
+            return new XmlRemoveWithXPathResult
+            {
+                NodesRemovedCount = nodesRemovedCount,
+                ResultingXmlDocument = resultingXmlDocument,
+                Successful = successful,
+                XmlNodesRemoved = xmlNodesRemoved,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlRemoveAllChildrenWithXPathResult"/>.
+        /// </summary>
+        public static XmlRemoveAllChildrenWithXPathResult XmlRemoveAllChildrenWithXPathResult(
+            int? nodesEditedCount = default,
+            string resultingXmlDocument = default,
+            bool? successful = default)
+        {
+            return new XmlRemoveAllChildrenWithXPathResult
+            {
+                NodesEditedCount = nodesEditedCount,
+                ResultingXmlDocument = resultingXmlDocument,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlReplaceWithXPathResult"/>.
+        /// </summary>
+        public static XmlReplaceWithXPathResult XmlReplaceWithXPathResult(
+            int? nodesEditedCount = default,
+            string resultingXmlDocument = default,
+            bool? successful = default)
+        {
+            return new XmlReplaceWithXPathResult
+            {
+                NodesEditedCount = nodesEditedCount,
+                ResultingXmlDocument = resultingXmlDocument,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlSetValueWithXPathResult"/>.
+        /// </summary>
+        public static XmlSetValueWithXPathResult XmlSetValueWithXPathResult(
+            int? nodesEditedCount = default,
+            string resultingXmlDocument = default,
+            bool? successful = default)
+        {
+            return new XmlSetValueWithXPathResult
+            {
+                NodesEditedCount = nodesEditedCount,
+                ResultingXmlDocument = resultingXmlDocument,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlQueryWithXQueryResult"/>.
+        /// </summary>
+        public static XmlQueryWithXQueryResult XmlQueryWithXQueryResult(
+            string errorMessage = default,
+            string resultingXml = default,
+            bool? successful = default)
+        {
+            return new XmlQueryWithXQueryResult
+            {
+                ErrorMessage = errorMessage,
+                ResultingXml = resultingXml,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlQueryWithXQueryMultiResult"/>.
+        /// </summary>
+        public static XmlQueryWithXQueryMultiResult XmlQueryWithXQueryMultiResult(
+            string errorMessage = default,
+            string resultingXml = default,
+            bool? successful = default)
+        {
+            return new XmlQueryWithXQueryMultiResult
+            {
+                ErrorMessage = errorMessage,
+                ResultingXml = resultingXml,
+                Successful = successful,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="XmlFilterWithXPathResult"/>.
+        /// </summary>
+        public static XmlFilterWithXPathResult XmlFilterWithXPathResult(
+            int? resultCount = default,
+            bool? successful = default,
+            List<string> xmlNodes = default)
+        {
+            return new XmlFilterWithXPathResult
+            {
+                ResultCount = resultCount,
+                Successful = successful,
+                XmlNodes = xmlNodes,
             };
         }
 
@@ -4250,6 +5537,591 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
+
+        /// <summary>
+        /// Get document type information
+        /// </summary>
+        /// <remarks>Auto-detects a document&apos;s type information; does not require file extension.  Analyzes file contents to confirm file type.  Even if no file extension is present, the auto-detect system will reliably analyze the contents of the file and identify its file type.  Supports over 100 image file formats, Office document file formats, PDF, and more.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get document type information response.</returns>
+        public virtual async Task<AutodetectGetInfoResult> ConvertDocumentAutodetectGetInfoAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectGetInfoAsync");
+            try
+            {
+                var path = $"/convert/autodetect/get-info";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<AutodetectGetInfoResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Document to PDF
+        /// </summary>
+        /// <remarks>Automatically detect file type and convert it to PDF.  Supports all of the major Office document file formats including Word (DOCX, DOC), Excel (XLSX, XLS), PowerPoint (PPTX, PPT), over 100 image formats, HTML files, and even multi-page TIFF files.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Document to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentAutodetectToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectToPdfAsync");
+            try
+            {
+                var path = $"/convert/autodetect/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Document to PNG array
+        /// </summary>
+        /// <remarks>Automatically detect file type and convert it to an array of PNG images.  Supports all of the major Office document file formats, over 100 image formats, and even multi-page TIFF files.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Document to PNG array response.</returns>
+        public virtual async Task<AutodetectToPngResult> ConvertDocumentAutodetectToPngArrayAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectToPngArrayAsync");
+            try
+            {
+                var path = $"/convert/autodetect/to/png";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<AutodetectToPngResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Document to Text (txt)
+        /// </summary>
+        /// <remarks>Automatically detect file type and convert it to Text.  Supports all of the major Office document file formats including Word (DOCX, DOC), Excel (XLSX, XLS), PowerPoint (PPTX, PPT) and PDF files.  For spreadsheets, all worksheets will be included.  If you wish to exclude certain pages, worksheets, slides, etc. use the Split document API first, or the delete pages/slides/worksheet APIs first to adjust the document to the target state prior to converting to text.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Document to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentAutodetectToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentAutodetectToTxtAsync");
+            try
+            {
+                var path = $"/convert/autodetect/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Compare Two Word DOCX
+        /// </summary>
+        /// <remarks>Compare two Office Word Documents (docx) files and highlight the differences</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Compare Two Word DOCX response.</returns>
+        public virtual async Task<byte[]> CompareDocumentDocxAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.CompareDocumentDocxAsync");
+            try
+            {
+                var path = $"/convert/compare/docx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert CSV to JSON conversion
+        /// </summary>
+        /// <remarks>Convert a CSV file to a JSON object array</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert CSV to JSON conversion response.</returns>
+        public virtual async Task<List<JsonElement?>> ConvertDataCsvToJsonAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataCsvToJsonAsync");
+            try
+            {
+                var path = $"/convert/csv/to/json";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert CSV to Excel XLSX Spreadsheet
+        /// </summary>
+        /// <remarks>Convert CSV file to Office Excel XLSX Workbooks file format.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert CSV to Excel XLSX Spreadsheet response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentCsvToXlsxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentCsvToXlsxAsync");
+            try
+            {
+                var path = $"/convert/csv/to/xlsx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Word DOC (97-03) Document to DOCX
+        /// </summary>
+        /// <remarks>Convert/upgrade Office Word (97-2003 Format) Documents (doc) to the modern DOCX format</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Word DOC (97-03) Document to DOCX response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentDocToDocxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocToDocxAsync");
+            try
+            {
+                var path = $"/convert/doc/to/docx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Word DOC (97-03) Document to PDF
+        /// </summary>
+        /// <remarks>Convert Office Word (97-2003 Format) Documents (doc) to standard PDF</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Word DOC (97-03) Document to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentDocToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocToPdfAsync");
+            try
+            {
+                var path = $"/convert/doc/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Word DOC (97-03) Document to Text (txt)
+        /// </summary>
+        /// <remarks>Convert Office Word DOC (97-03) Document (doc) to text</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Word DOC (97-03) Document to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentDocToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocToTxtAsync");
+            try
+            {
+                var path = $"/convert/doc/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Word DOCX Document to PDF
+        /// </summary>
+        /// <remarks>Convert Office Word Documents (docx) to standard PDF</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Word DOCX Document to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentDocxToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocxToPdfAsync");
+            try
+            {
+                var path = $"/convert/docx/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Word DOCX Document to Text (txt)
+        /// </summary>
+        /// <remarks>Convert Office Word Documents (docx) to text</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Word DOCX Document to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentDocxToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentDocxToTxtAsync");
+            try
+            {
+                var path = $"/convert/docx/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Begin editing a document
+        /// </summary>
+        /// <remarks>Uploads a document to Cloudmersive to begin a series of one or more editing operations.  To edit a document, first call Begin Editing on the document.  Then perform operations on the document using the secure URL returned from BeginEditing, such as Word DOCX Delete Pages and Insert Table.  Finally, perform finish editing on the URL to return the resulting edited document.  The editing URL is temporary and only stored in-memory cache, and will automatically expire from the cache after 30 minutes, and cannot be directly accessed.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Begin editing a document response.</returns>
+        public virtual async Task<string> EditDocumentBeginEditingAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.EditDocumentBeginEditingAsync");
+            try
+            {
+                var path = $"/convert/edit/begin-editing";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
 
         /// <summary>
         /// Create a blank Word DOCX document
@@ -5377,6 +7249,327 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         }
 
         /// <summary>
+        /// Convert HTML document file to PDF Document
+        /// </summary>
+        /// <remarks>Convert standard HTML, with full support for CSS, JavaScript, Images, and other complex behavior to PDF.  To use external files such as images, use an absolute URL to the file.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert HTML document file to PDF Document response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentHtmlToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentHtmlToPdfAsync");
+            try
+            {
+                var path = $"/convert/html/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert HTML document file to PNG image array
+        /// </summary>
+        /// <remarks>Convert standard HTML, with full support for CSS, JavaScript, Images, and other complex behavior to an array of PNG images, one for each page.  To use external files in your HTML such as images, use an absolute URL to the file.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert HTML document file to PNG image array response.</returns>
+        public virtual async Task<PdfToPngResult> ConvertDocumentHtmlToPngAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentHtmlToPngAsync");
+            try
+            {
+                var path = $"/convert/html/to/png";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<PdfToPngResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// HTML Document file to Text (txt)
+        /// </summary>
+        /// <remarks>HTML document to text</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The HTML Document file to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentHtmlToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentHtmlToTxtAsync");
+            try
+            {
+                var path = $"/convert/html/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Multi-page image format conversion
+        /// </summary>
+        /// <remarks>Convert between over 100 file formats, including support for Multiple-Page formats (e.g. PDFs, TIFFs, etc. with multiple pages).</remarks>
+        /// <param name="inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide">Input file format as a 3+ letter file extension.  You can also provide</param>
+        /// <param name="outputConvertToThisFormatFileFormatAsA3LetterFileExtens">Output (convert to this format) file format as a 3+ letter file extens</param>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Multi-page image format conversion response.</returns>
+        public virtual async Task<MultipageImageFormatConversionResult> ConvertImageMultipageImageFormatConvertAsync(string inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide, string outputConvertToThisFormatFileFormatAsA3LetterFileExtens, MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageMultipageImageFormatConvertAsync");
+            try
+            {
+                if (inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide is null)
+                    throw new ArgumentNullException(nameof(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide));
+                if (outputConvertToThisFormatFileFormatAsA3LetterFileExtens is null)
+                    throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
+                var path = $"/convert/image-multipage/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide)}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens)}";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<MultipageImageFormatConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get information about an image
+        /// </summary>
+        /// <remarks>Get details from an image such as size, format and MIME type, compression, EXIF data such as location, DPI, unique colors, transparency information, and more</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get information about an image response.</returns>
+        public virtual async Task<GetImageInfoResult> ConvertImageGetImageInfoAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageGetImageInfoAsync");
+            try
+            {
+                var path = $"/convert/image/get-info";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<GetImageInfoResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Change image DPI
+        /// </summary>
+        /// <remarks>Resize an image to have a different DPI</remarks>
+        /// <param name="newDPIInPixelsPerInchForExample300DPIOr600DPI">New DPI in pixels-per-inch, for example 300 DPI or 600 DPI</param>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Change image DPI response.</returns>
+        public virtual async Task<byte[]> ConvertImageImageSetDPIAsync(int newDPIInPixelsPerInchForExample300DPIOr600DPI, MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageSetDPIAsync");
+            try
+            {
+                var path = $"/convert/image/set-dpi/{Uri.EscapeDataString(Convert.ToString(newDPIInPixelsPerInchForExample300DPIOr600DPI, CultureInfo.InvariantCulture))}";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Image format conversion
+        /// </summary>
+        /// <remarks>Convert between over 100 file formats, including key formats such as Photoshop (PSD), PNG, JPG, GIF, NEF, and BMP.</remarks>
+        /// <param name="inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide">Input file format as a 3+ letter file extension.  You can also provide</param>
+        /// <param name="outputConvertToThisFormatFileFormatAsA3LetterFileExtens">Output (convert to this format) file format as a 3+ letter file extens</param>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Image format conversion response.</returns>
+        public virtual async Task<byte[]> ConvertImageImageFormatConvertAsync(string inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide, string outputConvertToThisFormatFileFormatAsA3LetterFileExtens, MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageFormatConvertAsync");
+            try
+            {
+                if (inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide is null)
+                    throw new ArgumentNullException(nameof(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide));
+                if (outputConvertToThisFormatFileFormatAsA3LetterFileExtens is null)
+                    throw new ArgumentNullException(nameof(outputConvertToThisFormatFileFormatAsA3LetterFileExtens));
+                var path = $"/convert/image/{Uri.EscapeDataString(inputFileFormatAsA3LetterFileExtensionYouCanAlsoProvide)}/to/{Uri.EscapeDataString(outputConvertToThisFormatFileFormatAsA3LetterFileExtens)}";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Convert JSON to XML conversion
         /// </summary>
         /// <remarks>Convert a JSON object into XML</remarks>
@@ -5402,6 +7595,2018 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         }
 
         /// <summary>
+        /// Merge Two Word DOCX Together
+        /// </summary>
+        /// <remarks>Combine two Office Word Documents (docx) into one single Office Word document</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Two Word DOCX Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentDocxAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentDocxAsync");
+            try
+            {
+                var path = $"/convert/merge/docx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Multple Word DOCX Together
+        /// </summary>
+        /// <remarks>Combine multiple Office Word Documents (docx) into one single Office Word document</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOn">Second input file to perform the operation on.</param>
+        /// <param name="thirdInputFileToPerformTheOperationOn">Third input file to perform the operation on.</param>
+        /// <param name="fourthInputFileToPerformTheOperationOn">Fourth input file to perform the operation on.</param>
+        /// <param name="fifthInputFileToPerformTheOperationOn">Fifth input file to perform the operation on.</param>
+        /// <param name="sixthInputFileToPerformTheOperationOn">Sixth input file to perform the operation on.</param>
+        /// <param name="seventhInputFileToPerformTheOperationOn">Seventh input file to perform the operation on.</param>
+        /// <param name="eighthInputFileToPerformTheOperationOn">Eighth input file to perform the operation on.</param>
+        /// <param name="ninthInputFileToPerformTheOperationOn">Ninth input file to perform the operation on.</param>
+        /// <param name="tenthInputFileToPerformTheOperationOn">Tenth input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Multple Word DOCX Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentDocxMultiAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOn, MultipartFile thirdInputFileToPerformTheOperationOn = default, MultipartFile fourthInputFileToPerformTheOperationOn = default, MultipartFile fifthInputFileToPerformTheOperationOn = default, MultipartFile sixthInputFileToPerformTheOperationOn = default, MultipartFile seventhInputFileToPerformTheOperationOn = default, MultipartFile eighthInputFileToPerformTheOperationOn = default, MultipartFile ninthInputFileToPerformTheOperationOn = default, MultipartFile tenthInputFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentDocxMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/docx/multi";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Two PDF Files Together
+        /// </summary>
+        /// <remarks>Combine two PDF files (pdf) into a single PDF document, preserving the order of the input documents in the combined document</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Two PDF Files Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentPdfAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPdfAsync");
+            try
+            {
+                var path = $"/convert/merge/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Multple PDF Files Together
+        /// </summary>
+        /// <remarks>Combine multiple PDF files (pdf) into a single PDF document, preserving the order of the input documents in the combined document</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOn">Second input file to perform the operation on.</param>
+        /// <param name="thirdInputFileToPerformTheOperationOn">Third input file to perform the operation on.</param>
+        /// <param name="fourthInputFileToPerformTheOperationOn">Fourth input file to perform the operation on.</param>
+        /// <param name="fifthInputFileToPerformTheOperationOn">Fifth input file to perform the operation on.</param>
+        /// <param name="sixthInputFileToPerformTheOperationOn">Sixth input file to perform the operation on.</param>
+        /// <param name="seventhInputFileToPerformTheOperationOn">Seventh input file to perform the operation on.</param>
+        /// <param name="eighthInputFileToPerformTheOperationOn">Eighth input file to perform the operation on.</param>
+        /// <param name="ninthInputFileToPerformTheOperationOn">Ninth input file to perform the operation on.</param>
+        /// <param name="tenthInputFileToPerformTheOperationOn">Tenth input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Multple PDF Files Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentPdfMultiAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOn, MultipartFile thirdInputFileToPerformTheOperationOn = default, MultipartFile fourthInputFileToPerformTheOperationOn = default, MultipartFile fifthInputFileToPerformTheOperationOn = default, MultipartFile sixthInputFileToPerformTheOperationOn = default, MultipartFile seventhInputFileToPerformTheOperationOn = default, MultipartFile eighthInputFileToPerformTheOperationOn = default, MultipartFile ninthInputFileToPerformTheOperationOn = default, MultipartFile tenthInputFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPdfMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/pdf/multi";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Multple PNG Files Together
+        /// </summary>
+        /// <remarks>Combine multiple PNG files into a single PNG document, preserving the order of the input documents in the combined document by stacking them vertically</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Multple PNG Files Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentPngAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPngAsync");
+            try
+            {
+                var path = $"/convert/merge/png/vertical";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Two PowerPoint PPTX Together
+        /// </summary>
+        /// <remarks>Combine two Office PowerPoint presentations (pptx) into one single Office PowerPoint presentation</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Two PowerPoint PPTX Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentPptxAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPptxAsync");
+            try
+            {
+                var path = $"/convert/merge/pptx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Multple PowerPoint PPTX Together
+        /// </summary>
+        /// <remarks>Combine multiple Office PowerPoint presentations (pptx) into one single Office PowerPoint presentation</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOn">Second input file to perform the operation on.</param>
+        /// <param name="thirdInputFileToPerformTheOperationOn">Third input file to perform the operation on.</param>
+        /// <param name="fourthInputFileToPerformTheOperationOn">Fourth input file to perform the operation on.</param>
+        /// <param name="fifthInputFileToPerformTheOperationOn">Fifth input file to perform the operation on.</param>
+        /// <param name="sixthInputFileToPerformTheOperationOn">Sixth input file to perform the operation on.</param>
+        /// <param name="seventhInputFileToPerformTheOperationOn">Seventh input file to perform the operation on.</param>
+        /// <param name="eighthInputFileToPerformTheOperationOn">Eighth input file to perform the operation on.</param>
+        /// <param name="ninthInputFileToPerformTheOperationOn">Ninth input file to perform the operation on.</param>
+        /// <param name="tenthInputFileToPerformTheOperationOn">Tenth input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Multple PowerPoint PPTX Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentPptxMultiAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOn, MultipartFile thirdInputFileToPerformTheOperationOn = default, MultipartFile fourthInputFileToPerformTheOperationOn = default, MultipartFile fifthInputFileToPerformTheOperationOn = default, MultipartFile sixthInputFileToPerformTheOperationOn = default, MultipartFile seventhInputFileToPerformTheOperationOn = default, MultipartFile eighthInputFileToPerformTheOperationOn = default, MultipartFile ninthInputFileToPerformTheOperationOn = default, MultipartFile tenthInputFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentPptxMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/pptx/multi";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Two Text (TXT) Files Together
+        /// </summary>
+        /// <remarks>Combine two Text (.TXT) files into a single text document, preserving the order of the input documents in the combined document by stacking them vertically.</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Two Text (TXT) Files Together response.</returns>
+        public virtual async Task<MergeDocumentTxtResponse> MergeDocumentTxtAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentTxtAsync");
+            try
+            {
+                var path = $"/convert/merge/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<MergeDocumentTxtResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Multple Text (TXT) Files Together
+        /// </summary>
+        /// <remarks>Combine multiple Text (.TXT) files into a single text document, preserving the order of the input documents in the combined document by stacking them vertically.</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOn">Second input file to perform the operation on.</param>
+        /// <param name="thirdInputFileToPerformTheOperationOn">Third input file to perform the operation on.</param>
+        /// <param name="fourthInputFileToPerformTheOperationOn">Fourth input file to perform the operation on.</param>
+        /// <param name="fifthInputFileToPerformTheOperationOn">Fifth input file to perform the operation on.</param>
+        /// <param name="sixthInputFileToPerformTheOperationOn">Sixth input file to perform the operation on.</param>
+        /// <param name="seventhInputFileToPerformTheOperationOn">Seventh input file to perform the operation on.</param>
+        /// <param name="eighthInputFileToPerformTheOperationOn">Eighth input file to perform the operation on.</param>
+        /// <param name="ninthInputFileToPerformTheOperationOn">Ninth input file to perform the operation on.</param>
+        /// <param name="tenthInputFileToPerformTheOperationOn">Tenth input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Multple Text (TXT) Files Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentTxtMultiAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOn, MultipartFile thirdInputFileToPerformTheOperationOn = default, MultipartFile fourthInputFileToPerformTheOperationOn = default, MultipartFile fifthInputFileToPerformTheOperationOn = default, MultipartFile sixthInputFileToPerformTheOperationOn = default, MultipartFile seventhInputFileToPerformTheOperationOn = default, MultipartFile eighthInputFileToPerformTheOperationOn = default, MultipartFile ninthInputFileToPerformTheOperationOn = default, MultipartFile tenthInputFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentTxtMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/txt/multi";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Two Excel XLSX Together
+        /// </summary>
+        /// <remarks>Combine two Office Excel spreadsheets (xlsx) into a single Office Excel spreadsheet</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied">Second input file to perform the operation on (more than 2 can be supplied).</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Two Excel XLSX Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentXlsxAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentXlsxAsync");
+            try
+            {
+                var path = $"/convert/merge/xlsx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOnMoreThan2CanBeSupplied.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Merge Multple Excel XLSX Together
+        /// </summary>
+        /// <remarks>Combine multiple Office Excel spreadsheets (xlsx) into a single Office Excel spreadsheet</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOn">Second input file to perform the operation on.</param>
+        /// <param name="thirdInputFileToPerformTheOperationOn">Third input file to perform the operation on.</param>
+        /// <param name="fourthInputFileToPerformTheOperationOn">Fourth input file to perform the operation on.</param>
+        /// <param name="fifthInputFileToPerformTheOperationOn">Fifth input file to perform the operation on.</param>
+        /// <param name="sixthInputFileToPerformTheOperationOn">Sixth input file to perform the operation on.</param>
+        /// <param name="seventhInputFileToPerformTheOperationOn">Seventh input file to perform the operation on.</param>
+        /// <param name="eighthInputFileToPerformTheOperationOn">Eighth input file to perform the operation on.</param>
+        /// <param name="ninthInputFileToPerformTheOperationOn">Ninth input file to perform the operation on.</param>
+        /// <param name="tenthInputFileToPerformTheOperationOn">Tenth input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Merge Multple Excel XLSX Together response.</returns>
+        public virtual async Task<byte[]> MergeDocumentXlsxMultiAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOn, MultipartFile thirdInputFileToPerformTheOperationOn = default, MultipartFile fourthInputFileToPerformTheOperationOn = default, MultipartFile fifthInputFileToPerformTheOperationOn = default, MultipartFile sixthInputFileToPerformTheOperationOn = default, MultipartFile seventhInputFileToPerformTheOperationOn = default, MultipartFile eighthInputFileToPerformTheOperationOn = default, MultipartFile ninthInputFileToPerformTheOperationOn = default, MultipartFile tenthInputFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.MergeDocumentXlsxMultiAsync");
+            try
+            {
+                var path = $"/convert/merge/xlsx/multi";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PDF to Word DOCX Document
+        /// </summary>
+        /// <remarks>Convert standard PDF to Office Word Documents (docx).    Converts a PDF at high fidelity into Word format, where it can be easily edited and processed.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PDF to Word DOCX Document response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPdfToDocxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToDocxAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/docx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PDF to Word DOCX Document based on rasterized version of the PDF
+        /// </summary>
+        /// <remarks>Convert standard PDF to Office Word Documents (docx), but first rasterize the PDF.    Converts a PDF at high fidelity into Word format.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PDF to Word DOCX Document based on rasterized version of the PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPdfToDocxRasterizeAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToDocxRasterizeAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/docx/rasterize";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PDF to PNG Image Array
+        /// </summary>
+        /// <remarks>Convert PDF document to PNG array, one image per page.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PDF to PNG Image Array response.</returns>
+        public virtual async Task<PdfToPngResult> ConvertDocumentPdfToPngArrayAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToPngArrayAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/png";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<PdfToPngResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PDF to Single PNG image
+        /// </summary>
+        /// <remarks>Convert PDF document to a single tall PNG image, by stacking/concatenating the images vertically into a single &quot;tall&quot; image</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PDF to Single PNG image response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPdfToPngSingleAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToPngSingleAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/png/merge-single";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PDF to PowerPoint PPTX Presentation
+        /// </summary>
+        /// <remarks>Convert standard PDF to Office PowerPoint Presentation (pptx).  Converts a PDF file at high fidelity into PowerPoint format, where it can be easily edited and processed.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PDF to PowerPoint PPTX Presentation response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPdfToPptxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToPptxAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/pptx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PDF Document to Text (txt)
+        /// </summary>
+        /// <remarks>PDF document to text</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PDF Document to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentPdfToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPdfToTxtAsync");
+            try
+            {
+                var path = $"/convert/pdf/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PNG Array to PDF
+        /// </summary>
+        /// <remarks>Convert an array of PNG images, one image per page, into a newly-created PDF.  Supports images of different sizes as input.</remarks>
+        /// <param name="firstInputFileToPerformTheOperationOn">First input file to perform the operation on.</param>
+        /// <param name="secondInputFileToPerformTheOperationOn">Second input file to perform the operation on.</param>
+        /// <param name="thirdInputFileToPerformTheOperationOn">Third input file to perform the operation on.</param>
+        /// <param name="fourthInputFileToPerformTheOperationOn">Fourth input file to perform the operation on.</param>
+        /// <param name="fifthInputFileToPerformTheOperationOn">Fifth input file to perform the operation on.</param>
+        /// <param name="sixthInputFileToPerformTheOperationOn">Sixth input file to perform the operation on.</param>
+        /// <param name="seventhInputFileToPerformTheOperationOn">Seventh input file to perform the operation on.</param>
+        /// <param name="eighthInputFileToPerformTheOperationOn">Eighth input file to perform the operation on.</param>
+        /// <param name="ninthInputFileToPerformTheOperationOn">Ninth input file to perform the operation on.</param>
+        /// <param name="tenthInputFileToPerformTheOperationOn">Tenth input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PNG Array to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPngArrayToPdfAsync(MultipartFile firstInputFileToPerformTheOperationOn, MultipartFile secondInputFileToPerformTheOperationOn, MultipartFile thirdInputFileToPerformTheOperationOn = default, MultipartFile fourthInputFileToPerformTheOperationOn = default, MultipartFile fifthInputFileToPerformTheOperationOn = default, MultipartFile sixthInputFileToPerformTheOperationOn = default, MultipartFile seventhInputFileToPerformTheOperationOn = default, MultipartFile eighthInputFileToPerformTheOperationOn = default, MultipartFile ninthInputFileToPerformTheOperationOn = default, MultipartFile tenthInputFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPngArrayToPdfAsync");
+            try
+            {
+                var path = $"/convert/png/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(secondInputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PowerPoint PPT (97-03) Presentation to PDF
+        /// </summary>
+        /// <remarks>Convert Office PowerPoint (97-2003) Documents (ppt) to standard PDF</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PowerPoint PPT (97-03) Presentation to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPptToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptToPdfAsync");
+            try
+            {
+                var path = $"/convert/ppt/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PowerPoint PPT (97-03) Presentation to PPTX
+        /// </summary>
+        /// <remarks>Convert/upgrade Office PowerPoint (97-2003) Documents (ppt) to modern PPTX</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PowerPoint PPT (97-03) Presentation to PPTX response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPptToPptxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptToPptxAsync");
+            try
+            {
+                var path = $"/convert/ppt/to/pptx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PowerPoint PPTX Presentation to PDF
+        /// </summary>
+        /// <remarks>Convert Office PowerPoint Documents (pptx) to standard PDF</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PowerPoint PPTX Presentation to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentPptxToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptxToPdfAsync");
+            try
+            {
+                var path = $"/convert/pptx/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert PowerPoint PPTX Presentation to Text (txt)
+        /// </summary>
+        /// <remarks>Convert Office PowerPoint Documents (pptx) to standard Text</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert PowerPoint PPTX Presentation to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentPptxToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentPptxToTxtAsync");
+            try
+            {
+                var path = $"/convert/pptx/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Split a single Word Document DOCX into Separate Documents by Page
+        /// </summary>
+        /// <remarks>Split a Word DOCX Document, comprised of multiple pages into separate Word DOCX document files, with each containing exactly one page.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Split a single Word Document DOCX into Separate Documents by Page response.</returns>
+        public virtual async Task<SplitDocxDocumentResult> SplitDocumentDocxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentDocxAsync");
+            try
+            {
+                var path = $"/convert/split/docx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<SplitDocxDocumentResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Split a PDF file into separate PDF files, one per page
+        /// </summary>
+        /// <remarks>Split an input PDF file into separate pages, comprised of one PDF file per page.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Split a PDF file into separate PDF files, one per page response.</returns>
+        public virtual async Task<SplitPdfResult> SplitDocumentPdfByPageAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentPdfByPageAsync");
+            try
+            {
+                var path = $"/convert/split/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<SplitPdfResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Split a single PowerPoint Presentation PPTX into Separate Slides
+        /// </summary>
+        /// <remarks>Split an PowerPoint PPTX Presentation, comprised of multiple slides into separate PowerPoint PPTX presentation files, with each containing exactly one slide.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Split a single PowerPoint Presentation PPTX into Separate Slides response.</returns>
+        public virtual async Task<SplitPptxPresentationResult> SplitDocumentPptxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentPptxAsync");
+            try
+            {
+                var path = $"/convert/split/pptx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<SplitPptxPresentationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Split a single Text file (txt) into lines
+        /// </summary>
+        /// <remarks>Split a Text (txt) Document by line, returning each line separately in order.  Supports multiple types of newlines.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Split a single Text file (txt) into lines response.</returns>
+        public virtual async Task<SplitTextDocumentByLinesResult> SplitDocumentTxtByLineAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentTxtByLineAsync");
+            try
+            {
+                var path = $"/convert/split/txt/by-line";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<SplitTextDocumentByLinesResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Split a single Text file (txt) by a string delimiter
+        /// </summary>
+        /// <remarks>Split a Text (txt) Document by a string delimiter, returning each component of the string as an array of strings.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Split a single Text file (txt) by a string delimiter response.</returns>
+        public virtual async Task<SplitTextDocumentByStringResult> SplitDocumentTxtByStringAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentTxtByStringAsync");
+            try
+            {
+                var path = $"/convert/split/txt/by-string";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<SplitTextDocumentByStringResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Split a single Excel XLSX into Separate Worksheets
+        /// </summary>
+        /// <remarks>Split an Excel XLSX Spreadsheet, comprised of multiple Worksheets (or Tabs) into separate Excel XLSX spreadsheet files, with each containing exactly one Worksheet.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Split a single Excel XLSX into Separate Worksheets response.</returns>
+        public virtual async Task<SplitXlsxWorksheetResult> SplitDocumentXlsxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.SplitDocumentXlsxAsync");
+            try
+            {
+                var path = $"/convert/split/xlsx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<SplitXlsxWorksheetResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Apply HTML template
         /// </summary>
         /// <remarks>Apply operations to fill in an HTML template, generating a final HTML result</remarks>
@@ -5416,6 +9621,314 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 var path = $"/convert/template/html/apply";
                 return await this
                     .CallConnectorAsync<HtmlTemplateApplicationResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Autodetect content type and validate
+        /// </summary>
+        /// <remarks>Automatically detect the type of content, verify and validate that the content is indeed fully valid at depth, and then report the validation result.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Autodetect content type and validate response.</returns>
+        public virtual async Task<AutodetectDocumentValidationResult> ValidateDocumentAutodetectValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentAutodetectValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/autodetect";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<AutodetectDocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validate a Word document (DOCX)
+        /// </summary>
+        /// <remarks>Validate a Word document (DOCX); if the document is not valid, identifies the errors in the document</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Validate a Word document (DOCX) response.</returns>
+        public virtual async Task<DocumentValidationResult> ValidateDocumentDocxValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentDocxValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/docx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validate a JSON file
+        /// </summary>
+        /// <remarks>Validate a JSON (JavaScript Object Notation) document file; if the document is not valid, identifies the errors in the document</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Validate a JSON file response.</returns>
+        public virtual async Task<DocumentValidationResult> ValidateDocumentJsonValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentJsonValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/json";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validate a PDF document file
+        /// </summary>
+        /// <remarks>Validate a PDF document; if the document is not valid, identifies the errors in the document</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Validate a PDF document file response.</returns>
+        public virtual async Task<DocumentValidationResult> ValidateDocumentPdfValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentPdfValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validate a PowerPoint presentation (PPTX)
+        /// </summary>
+        /// <remarks>Validate a PowerPoint presentation (PPTX); if the document is not valid, identifies the errors in the document</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Validate a PowerPoint presentation (PPTX) response.</returns>
+        public virtual async Task<DocumentValidationResult> ValidateDocumentPptxValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentPptxValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/pptx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validate a Excel document (XLSX)
+        /// </summary>
+        /// <remarks>Validate a Excel document (XLSX); if the document is not valid, identifies the errors in the document</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Validate a Excel document (XLSX) response.</returns>
+        public virtual async Task<DocumentValidationResult> ValidateDocumentXlsxValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentXlsxValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/xlsx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Validate an XML file
+        /// </summary>
+        /// <remarks>Validate an XML document file; if the document is not valid, identifies the errors in the document</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Validate an XML file response.</returns>
+        public virtual async Task<DocumentValidationResult> ValidateDocumentXmlValidationAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ValidateDocumentXmlValidationAsync");
+            try
+            {
+                var path = $"/convert/validate/xml";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<DocumentValidationResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5502,6 +10015,50 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         }
 
         /// <summary>
+        /// Convert Markdown to HTML
+        /// </summary>
+        /// <remarks>Convert a markdown file (.md) to HTML</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Markdown to HTML response.</returns>
+        public virtual async Task<HtmlMdResult> ConvertWebMdToHtmlAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertWebMdToHtmlAsync");
+            try
+            {
+                var path = $"/convert/web/md/to/html";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<HtmlMdResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Convert a URL to PDF
         /// </summary>
         /// <remarks>Fully renders a website and returns a PDF of the full page.  Javascript, HTML5, CSS and other advanced features are all supported.</remarks>
@@ -5566,6 +10123,972 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 var path = $"/convert/web/url/to/txt";
                 return await this
                     .CallConnectorAsync<UrlToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLS (97-03) Spreadsheet to CSV
+        /// </summary>
+        /// <remarks>Convert/upgrade Office Excel (97-2003) Workbooks (xls) to standard CSV format.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLS (97-03) Spreadsheet to CSV response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentXlsToCsvAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsToCsvAsync");
+            try
+            {
+                var path = $"/convert/xls/to/csv";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel (97-2003) XLS to JSON conversion
+        /// </summary>
+        /// <remarks>Convert an Excel (97-2003) XLS file to a JSON object array</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel (97-2003) XLS to JSON conversion response.</returns>
+        public virtual async Task<List<JsonElement?>> ConvertDataXlsToJsonAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXlsToJsonAsync");
+            try
+            {
+                var path = $"/convert/xls/to/json";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLS (97-03) Spreadsheet to PDF
+        /// </summary>
+        /// <remarks>Convert Office Excel (97-2003) Workbooks (xls) to standard PDF.  Converts all worksheets in the workbook to PDF.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLS (97-03) Spreadsheet to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentXlsToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsToPdfAsync");
+            try
+            {
+                var path = $"/convert/xls/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLS (97-03) Spreadsheet to XLSX
+        /// </summary>
+        /// <remarks>Convert/upgrade Office Excel (97-2003) Workbooks (xls) to modern XLSX format.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLS (97-03) Spreadsheet to XLSX response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentXlsToXlsxAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsToXlsxAsync");
+            try
+            {
+                var path = $"/convert/xls/to/xlsx";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLSX Spreadsheet to CSV
+        /// </summary>
+        /// <remarks>Convert Office Excel Workbooks (XLSX) to standard Comma-Separated Values (CSV) format.  Supports both XLSX and XLSB file Excel formats.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLSX Spreadsheet to CSV response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentXlsxToCsvAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsxToCsvAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/csv";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLSX to JSON conversion
+        /// </summary>
+        /// <remarks>Convert an Excel XLSX file to a JSON object array</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLSX to JSON conversion response.</returns>
+        public virtual async Task<List<JsonElement?>> ConvertDataXlsxToJsonAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXlsxToJsonAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/json";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLSX Spreadsheet to PDF
+        /// </summary>
+        /// <remarks>Convert Office Excel Workbooks (XLSX) to standard PDF.  Converts all worksheets in the workbook to PDF.  Supports both XLSX and XLSB Excel file formats.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLSX Spreadsheet to PDF response.</returns>
+        public virtual async Task<byte[]> ConvertDocumentXlsxToPdfAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsxToPdfAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/pdf";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert Excel XLSX Spreadsheet to Text (txt)
+        /// </summary>
+        /// <remarks>Convert Office Excel Workbooks (XLSX) to standard Text.  Converts all worksheets in the workbook to Text.  Supports both XLSX and XLSB file formats.  When a spreadsheet contains multiple worksheets, will export all of the text from all of the worksheets.  If you wish to export the text from only one worksheet, try using the Split XLSX API to split the spreadsheet into multiple worksheet files, and then run XLSX to Text on the individual worksheet file that you need to extract the text from.</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert Excel XLSX Spreadsheet to Text (txt) response.</returns>
+        public virtual async Task<TextConversionResult> ConvertDocumentXlsxToTxtAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDocumentXlsxToTxtAsync");
+            try
+            {
+                var path = $"/convert/xlsx/to/txt";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<TextConversionResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Adds an attribute to all XML nodes matching XPath expression
+        /// </summary>
+        /// <remarks>Return the reuslts of editing an XML document by adding an attribute to all of the nodes that match an input XPath expression.</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Adds an attribute to all XML nodes matching XPath expression response.</returns>
+        public virtual async Task<XmlAddAttributeWithXPathResult> ConvertDataXmlEditAddAttributeWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditAddAttributeWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/add-attribute";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlAddAttributeWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Adds an XML node as a child to XML nodes matching XPath expression
+        /// </summary>
+        /// <remarks>Return the reuslts of editing an XML document by adding an XML node as a child to all of the nodes that match an input XPath expression.</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Adds an XML node as a child to XML nodes matching XPath expression response.</returns>
+        public virtual async Task<XmlAddChildWithXPathResult> ConvertDataXmlEditAddChildWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditAddChildWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/add-child";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlAddChildWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Remove, delete XML nodes and items matching XPath expression
+        /// </summary>
+        /// <remarks>Return the reuslts of editing an XML document by removing all of the nodes that match an input XPath expression</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Remove, delete XML nodes and items matching XPath expression response.</returns>
+        public virtual async Task<XmlRemoveWithXPathResult> ConvertDataXmlRemoveWithXPathAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlRemoveWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/remove";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlRemoveWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Removes, deletes all children of nodes matching XPath expression, but
+        /// </summary>
+        /// <remarks>Return the reuslts of editing an XML document by removing all child nodes of the nodes that match an input XPath expression.</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Removes, deletes all children of nodes matching XPath expression, but response.</returns>
+        public virtual async Task<XmlRemoveAllChildrenWithXPathResult> ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/remove-all-children";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlRemoveAllChildrenWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Replaces XML nodes matching XPath expression with new node
+        /// </summary>
+        /// <remarks>Return the reuslts of editing an XML document by replacing all of the nodes that match an input XPath expression with a new XML node expression.</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Replaces XML nodes matching XPath expression with new node response.</returns>
+        public virtual async Task<XmlReplaceWithXPathResult> ConvertDataXmlEditReplaceWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditReplaceWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/replace";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlReplaceWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Sets the value contents of XML nodes matching XPath expression
+        /// </summary>
+        /// <remarks>Return the reuslts of editing an XML document by setting the contents of all of the nodes that match an input XPath expression.  Supports elements and attributes.</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Sets the value contents of XML nodes matching XPath expression response.</returns>
+        public virtual async Task<XmlSetValueWithXPathResult> ConvertDataXmlEditSetValueWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditSetValueWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/edit/xpath/set-value";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlSetValueWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Query an XML file using XQuery query, get results
+        /// </summary>
+        /// <remarks>Return the reuslts of querying a single XML document with an XQuery expression.  Supports XQuery 3.1 and earlier.  This API is optimized for a single XML document as input.  Provided XML document is automatically loaded as the default context; to access elements in the document, simply refer to them without a document reference, such as bookstore/book</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Query an XML file using XQuery query, get results response.</returns>
+        public virtual async Task<XmlQueryWithXQueryResult> ConvertDataXmlQueryWithXQueryAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlQueryWithXQueryAsync");
+            try
+            {
+                var path = $"/convert/xml/query/xquery";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlQueryWithXQueryResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Query multiple XML files using XQuery query, get results
+        /// </summary>
+        /// <remarks>Return the reuslts of querying an XML document with an XQuery expression.  Supports XQuery 3.1 and earlier.  This API is optimized for multiple XML documents as input.  You can refer to the contents of a given document by name, for example doc(&quot;books.xml&quot;) or doc(&quot;restaurants.xml&quot;) if you included two input files named books.xml and restaurants.xml.  If input files contain no file name, they will default to file names input1.xml, input2.xml and so on.</remarks>
+        /// <param name="firstInputXMLFileToPerformTheOperationOn">First input XML file to perform the operation on.</param>
+        /// <param name="secondInputXMLFileToPerformTheOperationOn">Second input XML file to perform the operation on.</param>
+        /// <param name="thirdInputXMLFileToPerformTheOperationOn">Third input XML file to perform the operation on.</param>
+        /// <param name="fourthInputXMLFileToPerformTheOperationOn">Fourth input XML file to perform the operation on.</param>
+        /// <param name="fifthInputXMLFileToPerformTheOperationOn">Fifth input XML file to perform the operation on.</param>
+        /// <param name="sixthInputXMLFileToPerformTheOperationOn">Sixth input XML file to perform the operation on.</param>
+        /// <param name="seventhInputXMLFileToPerformTheOperationOn">Seventh input XML file to perform the operation on.</param>
+        /// <param name="eighthInputXMLFileToPerformTheOperationOn">Eighth input XML file to perform the operation on.</param>
+        /// <param name="ninthInputXMLFileToPerformTheOperationOn">Ninth input XML file to perform the operation on.</param>
+        /// <param name="tenthInputXMLFileToPerformTheOperationOn">Tenth input XML file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Query multiple XML files using XQuery query, get results response.</returns>
+        public virtual async Task<XmlQueryWithXQueryMultiResult> ConvertDataXmlQueryWithXQueryMultiAsync(MultipartFile firstInputXMLFileToPerformTheOperationOn, MultipartFile secondInputXMLFileToPerformTheOperationOn = default, MultipartFile thirdInputXMLFileToPerformTheOperationOn = default, MultipartFile fourthInputXMLFileToPerformTheOperationOn = default, MultipartFile fifthInputXMLFileToPerformTheOperationOn = default, MultipartFile sixthInputXMLFileToPerformTheOperationOn = default, MultipartFile seventhInputXMLFileToPerformTheOperationOn = default, MultipartFile eighthInputXMLFileToPerformTheOperationOn = default, MultipartFile ninthInputXMLFileToPerformTheOperationOn = default, MultipartFile tenthInputXMLFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlQueryWithXQueryMultiAsync");
+            try
+            {
+                var path = $"/convert/xml/query/xquery/multi";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(firstInputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(firstInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile1",
+                        FileNameStar = firstInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (secondInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(secondInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile2",
+                        FileNameStar = secondInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (thirdInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(thirdInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile3",
+                        FileNameStar = thirdInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fourthInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fourthInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile4",
+                        FileNameStar = fourthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (fifthInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fifthInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile5",
+                        FileNameStar = fifthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (sixthInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(sixthInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile6",
+                        FileNameStar = sixthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (seventhInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(seventhInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile7",
+                        FileNameStar = seventhInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (eighthInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(eighthInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile8",
+                        FileNameStar = eighthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (ninthInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(ninthInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile9",
+                        FileNameStar = ninthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                if (tenthInputXMLFileToPerformTheOperationOn != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(tenthInputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile10",
+                        FileNameStar = tenthInputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlQueryWithXQueryMultiResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Filter, select XML nodes using XPath expression, get results
+        /// </summary>
+        /// <remarks>Return the reuslts of filtering, selecting an XML document with an XPath expression</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Filter, select XML nodes using XPath expression, get results response.</returns>
+        public virtual async Task<XmlFilterWithXPathResult> ConvertDataXmlFilterWithXPathAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlFilterWithXPathAsync");
+            try
+            {
+                var path = $"/convert/xml/select/xpath";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<XmlFilterWithXPathResult>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Convert XML to JSON conversion
+        /// </summary>
+        /// <remarks>Convert an XML string or file into JSON</remarks>
+        /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Convert XML to JSON conversion response.</returns>
+        public virtual async Task<ConvertDataXmlToJsonResponse> ConvertDataXmlToJsonAsync(MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlToJsonAsync");
+            try
+            {
+                var path = $"/convert/xml/to/json";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<ConvertDataXmlToJsonResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Transform XML document file with XSLT into a new XML document
+        /// </summary>
+        /// <remarks>Convert an XML string or file into JSON</remarks>
+        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXSLTFileToUseToTransformTheInputXMLFile">Input XSLT file to use to transform the input XML file.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Transform XML document file with XSLT into a new XML document response.</returns>
+        public virtual async Task<string> ConvertDataXmlTransformWithXsltToXmlAsync(MultipartFile inputXMLFileToPerformTheOperationOn, MultipartFile inputXSLTFileToUseToTransformTheInputXMLFile, CancellationToken cancellationToken = default)
+        {
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlTransformWithXsltToXmlAsync");
+            try
+            {
+                var path = $"/convert/xml/transform/xslt/to/xml";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "inputFile",
+                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                ArgumentNullException.ThrowIfNull(inputXSLTFileToUseToTransformTheInputXMLFile);
+                {
+                    var multipartFileContent = new ByteArrayContent(inputXSLTFileToUseToTransformTheInputXMLFile.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXSLTFileToUseToTransformTheInputXMLFile.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "transformFile",
+                        FileNameStar = inputXSLTFileToUseToTransformTheInputXMLFile.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXSLTFileToUseToTransformTheInputXMLFile.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<string>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
