@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Multipart form-data operations** - adds file uploads for Cloudmersive Convert,
+  DocuWare, Zoho Sign, and ServiceNow, plus DocuWare's bodyless file delete.
+  `MultipartFile` preserves filenames and media types and accepts plain bytes
+  with default metadata, including filenames with embedded quotes. Existing
+  operation signatures remain unchanged. UTF-8 disposition headers also preserve
+  Unicode for receivers reading plain `filename` rather than `filename*`.
+
 ### Fixed
 
 - Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,

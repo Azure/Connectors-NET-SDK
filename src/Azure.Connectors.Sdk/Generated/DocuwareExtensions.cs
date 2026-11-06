@@ -30,6 +30,98 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     #region Types
 
     /// <summary>
+    /// Response for Store to file cabinet
+    /// </summary>
+    public class StoreToFileCabinetResponse
+    {
+        /// <summary>Sections</summary>
+        [JsonPropertyName("Sections")]
+        public List<JsonElement?> Sections { get; set; }
+
+        /// <summary>DocumentId</summary>
+        [JsonPropertyName("DocumentId")]
+        public int? DocumentId { get; set; }
+
+        /// <summary>IndexFields</summary>
+        [JsonPropertyName("IndexFields")]
+        public JsonElement? IndexFields { get; set; }
+
+        /// <summary>DocumentTitle</summary>
+        [JsonPropertyName("DocumentTitle")]
+        public string DocumentTitle { get; set; }
+
+        /// <summary>FileCabinetId</summary>
+        [JsonPropertyName("FileCabinetId")]
+        public string FileCabinetId { get; set; }
+
+        /// <summary>TotalPages</summary>
+        [JsonPropertyName("TotalPages")]
+        public int? TotalPages { get; set; }
+
+        /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
+        public int? FileSize { get; set; }
+
+        /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
+        public string ContentType { get; set; }
+
+        /// <summary>VersionStatus</summary>
+        [JsonPropertyName("VersionStatus")]
+        public string VersionStatus { get; set; }
+
+        /// <summary>DocumentFlags</summary>
+        [JsonPropertyName("DocumentFlags")]
+        public JsonElement? DocumentFlags { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Import to document tray
+    /// </summary>
+    public class ImportToDocumentTrayResponse
+    {
+        /// <summary>Sections</summary>
+        [JsonPropertyName("Sections")]
+        public List<JsonElement?> Sections { get; set; }
+
+        /// <summary>DocumentId</summary>
+        [JsonPropertyName("DocumentId")]
+        public int? DocumentId { get; set; }
+
+        /// <summary>IndexFields</summary>
+        [JsonPropertyName("IndexFields")]
+        public JsonElement? IndexFields { get; set; }
+
+        /// <summary>DocumentTitle</summary>
+        [JsonPropertyName("DocumentTitle")]
+        public string DocumentTitle { get; set; }
+
+        /// <summary>FileCabinetId</summary>
+        [JsonPropertyName("FileCabinetId")]
+        public string FileCabinetId { get; set; }
+
+        /// <summary>TotalPages</summary>
+        [JsonPropertyName("TotalPages")]
+        public int? TotalPages { get; set; }
+
+        /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
+        public int? FileSize { get; set; }
+
+        /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
+        public string ContentType { get; set; }
+
+        /// <summary>VersionStatus</summary>
+        [JsonPropertyName("VersionStatus")]
+        public string VersionStatus { get; set; }
+
+        /// <summary>DocumentFlags</summary>
+        [JsonPropertyName("DocumentFlags")]
+        public JsonElement? DocumentFlags { get; set; }
+    }
+
+    /// <summary>
     /// Search in file cabinet
     /// </summary>
     public class SearchForDocumentsInFileCabinetInput
@@ -286,6 +378,98 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     }
 
     /// <summary>
+    /// Response for Append a file
+    /// </summary>
+    public class AppendFileResponse
+    {
+        /// <summary>SignatureStatus</summary>
+        [JsonPropertyName("SignatureStatus")]
+        public List<string> SignatureStatus { get; set; }
+
+        /// <summary>SectionId</summary>
+        [JsonPropertyName("SectionId")]
+        public string SectionId { get; set; }
+
+        /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
+        public string ContentType { get; set; }
+
+        /// <summary>HaveMorePages</summary>
+        [JsonPropertyName("HaveMorePages")]
+        public bool? HaveMorePages { get; set; }
+
+        /// <summary>PageCount</summary>
+        [JsonPropertyName("PageCount")]
+        public int? PageCount { get; set; }
+
+        /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
+        public int? FileSize { get; set; }
+
+        /// <summary>OriginalFileName</summary>
+        [JsonPropertyName("OriginalFileName")]
+        public string OriginalFileName { get; set; }
+
+        /// <summary>ContentModified</summary>
+        [JsonPropertyName("ContentModified")]
+        public string ContentModified { get; set; }
+
+        /// <summary>HasTextAnnotation</summary>
+        [JsonPropertyName("HasTextAnnotation")]
+        public bool? HasTextAnnotation { get; set; }
+
+        /// <summary>AnnotationsPreview</summary>
+        [JsonPropertyName("AnnotationsPreview")]
+        public bool? AnnotationsPreview { get; set; }
+    }
+
+    /// <summary>
+    /// Response for Replace a file
+    /// </summary>
+    public class ReplaceFileResponse
+    {
+        /// <summary>SignatureStatus</summary>
+        [JsonPropertyName("SignatureStatus")]
+        public List<string> SignatureStatus { get; set; }
+
+        /// <summary>SectionId</summary>
+        [JsonPropertyName("SectionId")]
+        public string SectionId { get; set; }
+
+        /// <summary>ContentType</summary>
+        [JsonPropertyName("ContentType")]
+        public string ContentType { get; set; }
+
+        /// <summary>HaveMorePages</summary>
+        [JsonPropertyName("HaveMorePages")]
+        public bool? HaveMorePages { get; set; }
+
+        /// <summary>PageCount</summary>
+        [JsonPropertyName("PageCount")]
+        public int? PageCount { get; set; }
+
+        /// <summary>FileSize</summary>
+        [JsonPropertyName("FileSize")]
+        public int? FileSize { get; set; }
+
+        /// <summary>OriginalFileName</summary>
+        [JsonPropertyName("OriginalFileName")]
+        public string OriginalFileName { get; set; }
+
+        /// <summary>ContentModified</summary>
+        [JsonPropertyName("ContentModified")]
+        public string ContentModified { get; set; }
+
+        /// <summary>HasTextAnnotation</summary>
+        [JsonPropertyName("HasTextAnnotation")]
+        public bool? HasTextAnnotation { get; set; }
+
+        /// <summary>AnnotationsPreview</summary>
+        [JsonPropertyName("AnnotationsPreview")]
+        public bool? AnnotationsPreview { get; set; }
+    }
+
+    /// <summary>
     /// Response for Get stamps
     /// </summary>
     public class GetStampsResponse
@@ -350,6 +534,66 @@ namespace Azure.Connectors.Sdk.Docuware.Models
     /// </summary>
     public static class DocuwareModelFactory
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="StoreToFileCabinetResponse"/>.
+        /// </summary>
+        public static StoreToFileCabinetResponse StoreToFileCabinetResponse(
+            List<JsonElement?> sections = default,
+            int? documentId = default,
+            JsonElement? indexFields = default,
+            string documentTitle = default,
+            string fileCabinetId = default,
+            int? totalPages = default,
+            int? fileSize = default,
+            string contentType = default,
+            string versionStatus = default,
+            JsonElement? documentFlags = default)
+        {
+            return new StoreToFileCabinetResponse
+            {
+                Sections = sections,
+                DocumentId = documentId,
+                IndexFields = indexFields,
+                DocumentTitle = documentTitle,
+                FileCabinetId = fileCabinetId,
+                TotalPages = totalPages,
+                FileSize = fileSize,
+                ContentType = contentType,
+                VersionStatus = versionStatus,
+                DocumentFlags = documentFlags,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ImportToDocumentTrayResponse"/>.
+        /// </summary>
+        public static ImportToDocumentTrayResponse ImportToDocumentTrayResponse(
+            List<JsonElement?> sections = default,
+            int? documentId = default,
+            JsonElement? indexFields = default,
+            string documentTitle = default,
+            string fileCabinetId = default,
+            int? totalPages = default,
+            int? fileSize = default,
+            string contentType = default,
+            string versionStatus = default,
+            JsonElement? documentFlags = default)
+        {
+            return new ImportToDocumentTrayResponse
+            {
+                Sections = sections,
+                DocumentId = documentId,
+                IndexFields = indexFields,
+                DocumentTitle = documentTitle,
+                FileCabinetId = fileCabinetId,
+                TotalPages = totalPages,
+                FileSize = fileSize,
+                ContentType = contentType,
+                VersionStatus = versionStatus,
+                DocumentFlags = documentFlags,
+            };
+        }
+
         /// <summary>
         /// Creates a new instance of <see cref="SearchForDocumentsInFileCabinetResponse"/>.
         /// </summary>
@@ -543,6 +787,66 @@ namespace Azure.Connectors.Sdk.Docuware.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="AppendFileResponse"/>.
+        /// </summary>
+        public static AppendFileResponse AppendFileResponse(
+            List<string> signatureStatus = default,
+            string sectionId = default,
+            string contentType = default,
+            bool? haveMorePages = default,
+            int? pageCount = default,
+            int? fileSize = default,
+            string originalFileName = default,
+            string contentModified = default,
+            bool? hasTextAnnotation = default,
+            bool? annotationsPreview = default)
+        {
+            return new AppendFileResponse
+            {
+                SignatureStatus = signatureStatus,
+                SectionId = sectionId,
+                ContentType = contentType,
+                HaveMorePages = haveMorePages,
+                PageCount = pageCount,
+                FileSize = fileSize,
+                OriginalFileName = originalFileName,
+                ContentModified = contentModified,
+                HasTextAnnotation = hasTextAnnotation,
+                AnnotationsPreview = annotationsPreview,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ReplaceFileResponse"/>.
+        /// </summary>
+        public static ReplaceFileResponse ReplaceFileResponse(
+            List<string> signatureStatus = default,
+            string sectionId = default,
+            string contentType = default,
+            bool? haveMorePages = default,
+            int? pageCount = default,
+            int? fileSize = default,
+            string originalFileName = default,
+            string contentModified = default,
+            bool? hasTextAnnotation = default,
+            bool? annotationsPreview = default)
+        {
+            return new ReplaceFileResponse
+            {
+                SignatureStatus = signatureStatus,
+                SectionId = sectionId,
+                ContentType = contentType,
+                HaveMorePages = haveMorePages,
+                PageCount = pageCount,
+                FileSize = fileSize,
+                OriginalFileName = originalFileName,
+                ContentModified = contentModified,
+                HasTextAnnotation = hasTextAnnotation,
+                AnnotationsPreview = annotationsPreview,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GetStampsResponse"/>.
         /// </summary>
         public static GetStampsResponse GetStampsResponse(
@@ -677,6 +981,121 @@ namespace Azure.Connectors.Sdk.Docuware
         /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() => base.ToString();
+
+        /// <summary>
+        /// Store to file cabinet
+        /// </summary>
+        /// <remarks>Stores a new document to a file cabinet.</remarks>
+        /// <param name="fileCabinet">File Cabinet</param>
+        /// <param name="storeDialog">Store Dialog</param>
+        /// <param name="indexData">Index Data</param>
+        /// <param name="fileContents">File Contents</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Store to file cabinet response.</returns>
+        public virtual async Task<StoreToFileCabinetResponse> StoreToFileCabinetAsync([DynamicValues("GetFileCabinets")] string fileCabinet, [DynamicValues("GetDialogs")] string storeDialog, string indexData = default, MultipartFile fileContents = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.StoreToFileCabinetAsync");
+            try
+            {
+                if (fileCabinet is null)
+                    throw new ArgumentNullException(nameof(fileCabinet));
+                var queryParams = new List<string>();
+                if (storeDialog is null)
+                    throw new ArgumentNullException(nameof(storeDialog));
+                queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinet)}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                if (indexData != null)
+                {
+                    multipartContent.Add(new StringContent(Convert.ToString(indexData, CultureInfo.InvariantCulture), Encoding.UTF8), "index");
+                }
+                if (fileContents != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fileContents.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                multipartContent.Add(new StringContent("{}", Encoding.UTF8), "Default");
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<StoreToFileCabinetResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Import to document tray
+        /// </summary>
+        /// <remarks>Import a new document into a document tray.</remarks>
+        /// <param name="documentTray">Document Tray</param>
+        /// <param name="storeDialog">Store Dialog</param>
+        /// <param name="indexData">Index Data</param>
+        /// <param name="fileContents">File Contents</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Import to document tray response.</returns>
+        public virtual async Task<ImportToDocumentTrayResponse> ImportToDocumentTrayAsync([DynamicValues("GetFileCabinets")] string documentTray, [DynamicValues("GetDialogs")] string storeDialog = default, string indexData = default, MultipartFile fileContents = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ImportToDocumentTrayAsync");
+            try
+            {
+                if (documentTray is null)
+                    throw new ArgumentNullException(nameof(documentTray));
+                var queryParams = new List<string>();
+                if (storeDialog != default)
+                    queryParams.Add($"StoreDialogId={Uri.EscapeDataString(storeDialog)}");
+                var path = $"/DocumentTrays/{Uri.EscapeDataString(documentTray)}/Documents" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                if (indexData != null)
+                {
+                    multipartContent.Add(new StringContent(Convert.ToString(indexData, CultureInfo.InvariantCulture), Encoding.UTF8), "index");
+                }
+                if (fileContents != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fileContents.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                multipartContent.Add(new StringContent("{}", Encoding.UTF8), "Default");
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<ImportToDocumentTrayResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
 
         /// <summary>
         /// Search in file cabinet
@@ -999,6 +1418,135 @@ namespace Azure.Connectors.Sdk.Docuware
                 var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Dialogs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetDialogsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Append a file
+        /// </summary>
+        /// <remarks>Appends a file/section to an existing document.</remarks>
+        /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
+        /// <param name="documentId">Document ID</param>
+        /// <param name="fileContents">File Contents</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Append a file response.</returns>
+        public virtual async Task<AppendFileResponse> AppendFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, string documentId, MultipartFile fileContents = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.AppendFileAsync");
+            try
+            {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
+                var queryParams = new List<string>();
+                if (documentId is null)
+                    throw new ArgumentNullException(nameof(documentId));
+                queryParams.Add($"DocID={Uri.EscapeDataString(documentId)}");
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Sections" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                if (fileContents != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fileContents.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<AppendFileResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Delete a file
+        /// </summary>
+        /// <remarks>Deletes a file/section from an existing document.</remarks>
+        /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
+        /// <param name="documentId">Document ID</param>
+        /// <param name="fileNumber">File Number</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task DeleteFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, int fileNumber, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.DeleteFileAsync");
+            try
+            {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Sections/{Uri.EscapeDataString(Convert.ToString(fileNumber, CultureInfo.InvariantCulture))}/Data";
+                await this
+                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Replace a file
+        /// </summary>
+        /// <remarks>Replaces a file/section in an existing document.</remarks>
+        /// <param name="fileCabinetDocumentTray">File Cabinet/Document Tray</param>
+        /// <param name="documentId">Document ID</param>
+        /// <param name="fileNumber">File Number</param>
+        /// <param name="fileContents">File Contents</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Replace a file response.</returns>
+        public virtual async Task<ReplaceFileResponse> ReplaceFileAsync([DynamicValues("GetFileCabinets")] string fileCabinetDocumentTray, int documentId, int fileNumber, MultipartFile fileContents = default, CancellationToken cancellationToken = default)
+        {
+            using var activity = DocuwareClient.ConnectorActivitySource.StartActivity("DocuwareClient.ReplaceFileAsync");
+            try
+            {
+                if (fileCabinetDocumentTray is null)
+                    throw new ArgumentNullException(nameof(fileCabinetDocumentTray));
+                var path = $"/FileCabinets/{Uri.EscapeDataString(fileCabinetDocumentTray)}/Documents/{Uri.EscapeDataString(Convert.ToString(documentId, CultureInfo.InvariantCulture))}/Sections/{Uri.EscapeDataString(Convert.ToString(fileNumber, CultureInfo.InvariantCulture))}/Data";
+                using var multipartContent = new MultipartFormDataContent();
+                multipartContent.HeaderEncodingSelector = (headerName, _) =>
+                    string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
+                if (fileContents != null)
+                {
+                    var multipartFileContent = new ByteArrayContent(fileContents.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fileContents.ContentType);
+                    multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+                    {
+                        Name = "file",
+                        FileNameStar = fileContents.FileName,
+                    };
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fileContents.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartContent.Add(multipartFileContent);
+                }
+                var multipartBody = await multipartContent
+                    .ReadAsByteArrayAsync(cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                var multipartContentType = multipartContent.Headers.ContentType.ToString();
+                return await this
+                    .CallConnectorAsync<ReplaceFileResponse>(HttpMethod.Post, path, multipartBody, multipartContentType, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

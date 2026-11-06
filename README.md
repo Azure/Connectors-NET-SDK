@@ -132,6 +132,30 @@ await client.SendEmailAsync(new SendEmailInput
 var categories = await client.GetOutlookCategoryNamesAsync();
 ```
 
+### Multipart file uploads
+
+Cloudmersive Convert, DocuWare, Zoho Sign, and ServiceNow expose multipart
+operations. Use `MultipartFile` to set a filename and media type:
+
+```csharp
+using Azure.Connectors.Sdk;
+using Azure.Connectors.Sdk.CloudmersiveConvert;
+using Azure.Identity;
+
+using var client = new CloudmersiveConvertClient(
+    new Uri(connectionRuntimeUrl),
+    new AzureCliCredential());
+
+var pdf = await client.ConvertDocumentAutodetectToPdfAsync(
+    new MultipartFile(fileBytes, fileName: "source.doc", contentType: "application/msword"));
+```
+
+A `byte[]` also converts to `MultipartFile`, using the filename `blob` and
+media type `application/octet-stream`. The client sends a native multipart
+body through the existing Azure Core pipeline. Files are not JSON-encoded or
+base64-encoded. Optional form fields disappear when omitted; internal defaults
+remain on the wire.
+
 ## SDK Components
 
 ### Client Base
@@ -331,7 +355,8 @@ ServiceNow record fields are supplied through `RecordBody.AdditionalProperties`.
 Attachment-list and attachment-metadata responses preserve their full JSON body
 in `AdditionalProperties`; `RetrieveAttachmentContentAsync` returns raw `byte[]`.
 `UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
-the multipart attachment-upload operation is not generated. DataFlows SMS trigger
+`UploadAttachmentAsync` sends the file and table fields as multipart form-data.
+DataFlows SMS trigger
 registration uses `DataflowsSmsTriggerOperations.OnRegisterWebhook`.
 Sending SMS uses the POST action only; the GET send alternative is excluded
 because automatic retries could duplicate messages and charges.
