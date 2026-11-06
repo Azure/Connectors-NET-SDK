@@ -479,7 +479,7 @@ a pre-release public naming correction, not a change to the Plivo route, HTTP
 method, Swagger operation ID, JSON fields, or response values.
 
 The refresh uses generator
-`edf9bb04241ccad2c52ec7a81489cdbeb2319dd4` from active, unmerged BPM PR
+`16d169d5ae28851f4056b27a6edeff8dc190cba5` from active, unmerged BPM PR
 17700725, built with .NET SDK `10.0.114`. The live source is subscription
 `1a839f1f-10b2-4613-95ad-0800a22abbf2`, region `westus`, ARM API
 `2018-07-01-preview`, fetched into a new empty temporary `ARMCACHE_PATH`.
@@ -488,10 +488,13 @@ Plivo Swagger SHA-256:
 `85071BA3C076FC92EEF5AF2272CB2A775B9FE1B04242FDC86A7CF1429D78790A`.
 The LF-normalized generated client SHA-256 is
 `d199461892cd5950f883270555a98623110ce02ae071881915aad8b95772b919`.
-The corrected live capture ran from `2026-11-06T00:26:56.4805559Z` to
-`2026-11-06T00:41:33.3122189Z`.
+The latest live capture ran from `2026-11-06T20:24:42.133Z` to
+`2026-11-06T20:24:59.804Z`. A separate capture from
+`2026-11-06T20:26:10.415Z` to `2026-11-06T20:26:26.597Z` matched the
+consumed Swagger and output hashes. The regenerated client is byte-identical
+after LF normalization to the prior SDK PR iteration.
 
-Separate before/after live sweeps covered the 103 shipped API names plus all
+Earlier before/after live sweeps for source `edf9bb0` covered the 103 shipped API names plus all
 25 live API names containing `sms` (126 distinct names). Both returned the
 same 123 definitions, with identical consumed Swagger bytes. Ten outputs
 changed; Plivo was the only changed client among the 100 available shipped
