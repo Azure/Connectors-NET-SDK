@@ -65,7 +65,8 @@ namespace Azure.Connectors.Sdk
         /// </summary>
         /// <remarks>
         /// NOTE(daviburg): Enabling this option can repeat connector side effects after ambiguous
-        /// failures. This option does not govern a caller-supplied <see cref="ClientOptions.RetryPolicy"/>.
+        /// failures. Operation-specific retry blocks still apply. This option does not govern a
+        /// caller-supplied <see cref="ClientOptions.RetryPolicy"/>.
         /// </remarks>
         public bool RetryUnsafeHttpMethods { get; set; }
 

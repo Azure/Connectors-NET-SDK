@@ -112,7 +112,25 @@ namespace Azure.Connectors.Sdk
                     options,
                     perCallPolicies: Array.Empty<HttpPipelinePolicy>(),
                     perRetryPolicies: perRetryPolicies,
-                    responseClassifier: new HttpMethodResponseClassifier(options.RetryUnsafeHttpMethods));
+                    responseClassifier: new HttpMethodResponseClassifier(
+                        retryUnsafeHttpMethods: options.RetryUnsafeHttpMethods,
+                        isOperationRetryBlocked: this.IsOperationRetryBlocked));
+        }
+
+        /// <summary>
+        /// Prevents standard retries for known side-effecting operations that use otherwise safe methods.
+        /// </summary>
+        /// <param name="message">The outgoing request.</param>
+        private bool IsOperationRetryBlocked(HttpMessage message)
+        {
+            if (!string.Equals(this.ConnectorName, "dataflowssms", StringComparison.OrdinalIgnoreCase) ||
+                message.Request.Method != RequestMethod.Get)
+            {
+                return false;
+            }
+
+            var sendPath = new Uri(this._connectionRuntimeUrl).AbsolutePath.TrimEnd('/') + "/sms/send";
+            return string.Equals(message.Request.Uri.ToUri().AbsolutePath, sendPath, StringComparison.Ordinal);
         }
 
         /// <summary>
@@ -150,7 +168,7 @@ namespace Azure.Connectors.Sdk
             CancellationToken cancellationToken = default)
         {
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;
@@ -214,7 +232,7 @@ namespace Azure.Connectors.Sdk
             ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
 
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;
@@ -261,7 +279,7 @@ namespace Azure.Connectors.Sdk
             CancellationToken cancellationToken = default)
         {
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;
@@ -308,7 +326,7 @@ namespace Azure.Connectors.Sdk
             ArgumentException.ThrowIfNullOrWhiteSpace(contentType);
 
             var url = this.ResolveUrl(path);
-            var operation = $"{method} {path}";
+            var operation = $"{method} {new Uri(url).AbsolutePath}";
 
             using var message = this._pipeline.CreateMessage();
             var request = message.Request;

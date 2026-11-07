@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -28,6 +29,36 @@ namespace Azure.Connectors.Sdk.MicrosoftForms.Models
 {
 
     #region Types
+
+    /// <summary>
+    /// Response for When a new response is submitted
+    /// </summary>
+    public class WebhookPayloadNotification
+    {
+        /// <summary>value</summary>
+        [JsonPropertyName("value")]
+        public List<WebhookPayloadNotificationValueItem> ListOfResponseNotifications { get; set; }
+    }
+
+    /// <summary>
+    /// WebhookPayloadNotificationValueItem
+    /// </summary>
+    public class WebhookPayloadNotificationValueItem
+    {
+        /// <summary>resourceData</summary>
+        [JsonPropertyName("resourceData")]
+        public WebhookPayloadNotificationValueItemResourceData ResourceData { get; set; }
+    }
+
+    /// <summary>
+    /// resourceData
+    /// </summary>
+    public class WebhookPayloadNotificationValueItemResourceData
+    {
+        /// <summary>Unique identifier of the response. Use with &apos;Get response details&apos; action to fetch the content of the form response.</summary>
+        [JsonPropertyName("responseId")]
+        public int? ResponseId { get; set; }
+    }
 
     /// <summary>
     /// Form response details
@@ -99,6 +130,42 @@ namespace Azure.Connectors.Sdk.MicrosoftForms.Models
     public static class MicrosoftFormsModelFactory
     {
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotification"/>.
+        /// </summary>
+        public static WebhookPayloadNotification WebhookPayloadNotification(
+            List<WebhookPayloadNotificationValueItem> listOfResponseNotifications = default)
+        {
+            return new WebhookPayloadNotification
+            {
+                ListOfResponseNotifications = listOfResponseNotifications,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationValueItem"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationValueItem WebhookPayloadNotificationValueItem(
+            WebhookPayloadNotificationValueItemResourceData resourceData = default)
+        {
+            return new WebhookPayloadNotificationValueItem
+            {
+                ResourceData = resourceData,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookPayloadNotificationValueItemResourceData"/>.
+        /// </summary>
+        public static WebhookPayloadNotificationValueItemResourceData WebhookPayloadNotificationValueItemResourceData(
+            int? responseId = default)
+        {
+            return new WebhookPayloadNotificationValueItemResourceData
+            {
+                ResponseId = responseId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="GetFormDetailsByIdResult"/>.
         /// </summary>
         public static GetFormDetailsByIdResult GetFormDetailsByIdResult(
@@ -137,6 +204,38 @@ namespace Azure.Connectors.Sdk.MicrosoftForms.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnCreateFormWebhook trigger (MicrosoftForms "When a new response is submitted", operationId: CreateFormWebhook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MicrosoftFormsOnCreateFormWebhookTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MicrosoftFormsOnCreateFormWebhookTriggerPayload : TriggerCallbackPayload<WebhookPayloadNotificationValueItem>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the MicrosoftForms connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="MicrosoftFormsTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class MicrosoftFormsTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the MicrosoftForms connector.
+        /// This is a subset of all triggers — see <see cref="MicrosoftFormsTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["CreateFormWebhook"] = typeof(MicrosoftFormsOnCreateFormWebhookTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.MicrosoftForms
@@ -153,6 +252,7 @@ namespace Azure.Connectors.Sdk.MicrosoftForms
     {
         /// <summary>
         /// When a new response is submitted.
+        /// Payload type: <see cref="MicrosoftFormsOnCreateFormWebhookTriggerPayload"/>.
         /// </summary>
         public const string OnCreateFormWebhook = "CreateFormWebhook";
 

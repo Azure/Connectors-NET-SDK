@@ -82,16 +82,17 @@ public class TriggerCallbackBody<T>
 }
 ```
 
-#### Dual-shape normalization
+#### Callback Shape Normalization
 
-The Connector Namespace delivers callbacks in two shapes depending on the trigger's `splitOn` setting:
+The callback shape depends on the connector schema and the trigger's `splitOn` setting:
 
 | Shape | JSON | When used |
 |-------|------|-----------|
 | **Batch** | `{"body":{"value":[...items...]}}` | `splitOn` disabled — multiple items per call |
 | **Single-item** | `{"body":{...item...}}` | `splitOn` enabled — one item per call |
+| **Array** | `{"body":[...items...]}` | An array notification schema, such as Event Grid |
 
-Both shapes are transparently normalized to `Body.Value` as an `IReadOnlyList<T>` by `TriggerCallbackBodyConverterFactory`. Consumer code always iterates `payload.Body?.Value` regardless of which shape the connector delivers.
+These shapes normalize to `Body.Value` as an `IReadOnlyList<T>`. Consumer code always iterates `payload.Body?.Value` regardless of which shape the connector delivers.
 
 ```csharp
 // Works for both batch and single-item callbacks
@@ -119,6 +120,46 @@ Use the typed class directly to deserialize callbacks:
 ```csharp
 var payload = JsonSerializer.Deserialize<Office365OnNewEmailTriggerPayload>(callbackJson);
 ```
+
+### Webhook Callback Schemas
+
+Webhook registration responses describe the subscription, not the event. The
+.NET generator reads `x-ms-notification-content.schema` from the Swagger path
+item, with an operation-level fallback. Polling triggers without that extension
+continue to use their response schema. Existing registration models remain
+available separately from callback models.
+
+Callback models preserve nested fields, typed dictionaries, JSON property names,
+and read-only annotations. Both single-object notifications and batches get typed
+payload wrappers and entries in the connector's `Triggers.Operations` registry.
+
+For example, the Teams chat-message webhook exposes typed conversation, message
+ID, and link properties:
+
+```csharp
+using System.Text.Json;
+using Azure.Connectors.Sdk.Teams.Models;
+
+var payload = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerTriggerPayload>(
+    """
+    {"body":{"value":[{"conversationId":"chat-id","messageId":"message-id","linkToMessage":"https://example.test/message"}]}}
+    """);
+
+foreach (var message in payload?.Body?.Value ?? [])
+{
+    Console.WriteLine($"{message.ConversationId}: {message.Id} ({message.Link})");
+}
+```
+
+Teams also provides callback models for message reactions, recordings, and
+transcripts. Mention, keyword, and chat/channel-message webhooks declare dynamic
+schemas: their generated models retain `[DynamicSchema]` and capture runtime
+fields in `AdditionalProperties`. Their individual fields cannot be statically
+typed from the exported Swagger alone.
+
+This support does not enable excluded routes or deprecated operations. Binary
+notifications still use the binary-content helpers rather than JSON model
+wrappers. A binary file's content and response headers are separate contracts.
 
 ### Reading callbacks with `ConnectorTriggerPayload`
 

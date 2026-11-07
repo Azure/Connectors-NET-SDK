@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -73,6 +74,167 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for When a Docusign Connect event occurs (Organization-level)
+    /// </summary>
+    public class WebhookOrganizationResponseNotification
+    {
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public WebhookOrganizationResponseNotificationData Data { get; set; }
+    }
+
+    /// <summary>
+    /// WebhookOrganizationResponseNotificationData
+    /// </summary>
+    public class WebhookOrganizationResponseNotificationData
+    {
+        /// <summary>The organization ID.</summary>
+        [JsonPropertyName("organizationId")]
+        public string OrganizationId { get; set; }
+
+        /// <summary>envelopeSummary</summary>
+        [JsonPropertyName("envelopeSummary")]
+        public WebhookOrganizationResponseNotificationDataEnvelopeSummary EnvelopeSummary { get; set; }
+    }
+
+    /// <summary>
+    /// envelopeSummary
+    /// </summary>
+    public class WebhookOrganizationResponseNotificationDataEnvelopeSummary
+    {
+        /// <summary>Key-value pairs representing the custom fields for this envelope (where key is the field name, and value is the field value).</summary>
+        [JsonPropertyName("customFields")]
+        public Dictionary<string, string> CustomFields { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? EnvelopeCreatedDateTime { get; init; }
+
+        /// <summary>envelopeId</summary>
+        [JsonPropertyName("envelopeId")]
+        public string EnvelopeId { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("sentDateTime")]
+        [JsonInclude]
+        public DateTime? EnvelopeSentDateTime { get; init; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string EnvelopeStatus { get; set; }
+
+        /// <summary>emailSubject</summary>
+        [JsonPropertyName("emailSubject")]
+        public string EmailSubject { get; set; }
+
+        /// <summary>envelopeDocuments</summary>
+        [JsonPropertyName("envelopeDocuments")]
+        public List<WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem> EnvelopeDocuments { get; set; }
+
+        /// <summary>sender</summary>
+        [JsonPropertyName("sender")]
+        public WebhookOrganizationResponseNotificationDataEnvelopeSummarySender Sender { get; set; }
+
+        /// <summary>recipients</summary>
+        [JsonPropertyName("recipients")]
+        public WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients Recipients { get; set; }
+    }
+
+    /// <summary>
+    /// Item in envelopeDocuments
+    /// </summary>
+    public class WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem
+    {
+        /// <summary>documentId</summary>
+        [JsonPropertyName("documentId")]
+        public string DocumentId { get; set; }
+
+        /// <summary>documentIdGuid</summary>
+        [JsonPropertyName("documentIdGuid")]
+        public string DocumentGuid { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string DocumentName { get; set; }
+    }
+
+    /// <summary>
+    /// sender
+    /// </summary>
+    public class WebhookOrganizationResponseNotificationDataEnvelopeSummarySender
+    {
+        /// <summary>userName</summary>
+        [JsonPropertyName("userName")]
+        public string SenderSName { get; set; }
+
+        /// <summary>userId</summary>
+        [JsonPropertyName("userId")]
+        public string SenderSUserId { get; set; }
+
+        /// <summary>accountId</summary>
+        [JsonPropertyName("accountId")]
+        public string SenderSAccountId { get; set; }
+
+        /// <summary>email</summary>
+        [JsonPropertyName("email")]
+        public string SenderSEmailAddress { get; set; }
+    }
+
+    /// <summary>
+    /// recipients
+    /// </summary>
+    public class WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients
+    {
+        /// <summary>signers</summary>
+        [JsonPropertyName("signers")]
+        public List<WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem> Signers { get; set; }
+    }
+
+    /// <summary>
+    /// Item in signers
+    /// </summary>
+    public class WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem
+    {
+        /// <summary>Key-value pairs representing the tabs for this recipient (where key is the field name, and value is the field value).</summary>
+        [JsonPropertyName("tabs")]
+        public Dictionary<string, string> Tabs { get; set; }
+
+        /// <summary>email</summary>
+        [JsonPropertyName("email")]
+        public string RecipientEmail { get; set; }
+
+        /// <summary>recipientId</summary>
+        [JsonPropertyName("recipientId")]
+        public string RecipientId { get; set; }
+
+        /// <summary>routingOrder</summary>
+        [JsonPropertyName("routingOrder")]
+        public string RoutingOrder { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("sentDateTime")]
+        [JsonInclude]
+        public DateTime? RecipientSentDateTime { get; init; }
+
+        /// <summary>The status of the recipient.</summary>
+        [JsonPropertyName("status")]
+        public string RecipientStatus { get; set; }
+
+        /// <summary>The type of recipient.</summary>
+        [JsonPropertyName("recipientType")]
+        public string RecipientType { get; set; }
+
+        /// <summary>The type of the verification.</summary>
+        [JsonPropertyName("verificationType")]
+        public string VerificationType { get; set; }
+
+        /// <summary>The name of the recipient.</summary>
+        [JsonPropertyName("name")]
+        public string RecipientName { get; set; }
     }
 
     /// <summary>
@@ -738,6 +900,163 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
     }
 
     /// <summary>
+    /// Response for When a Docusign Connect event occurs (Account-level)
+    /// </summary>
+    public class WebhookEnvelopeResponseNotification
+    {
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public WebhookEnvelopeResponseNotificationData Data { get; set; }
+    }
+
+    /// <summary>
+    /// WebhookEnvelopeResponseNotificationData
+    /// </summary>
+    public class WebhookEnvelopeResponseNotificationData
+    {
+        /// <summary>envelopeSummary</summary>
+        [JsonPropertyName("envelopeSummary")]
+        public WebhookEnvelopeResponseNotificationDataEnvelopeSummary EnvelopeSummary { get; set; }
+    }
+
+    /// <summary>
+    /// envelopeSummary
+    /// </summary>
+    public class WebhookEnvelopeResponseNotificationDataEnvelopeSummary
+    {
+        /// <summary>Key-value pairs representing the custom fields for this envelope (where key is the field name, and value is the field value).</summary>
+        [JsonPropertyName("customFields")]
+        public Dictionary<string, string> EnvelopeCustomFields { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("createdDateTime")]
+        [JsonInclude]
+        public DateTime? EnvelopeCreatedDateTime { get; init; }
+
+        /// <summary>envelopeId</summary>
+        [JsonPropertyName("envelopeId")]
+        public string EnvelopeId { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("sentDateTime")]
+        [JsonInclude]
+        public DateTime? EnvelopeSentDateTime { get; init; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string EnvelopeStatus { get; set; }
+
+        /// <summary>emailSubject</summary>
+        [JsonPropertyName("emailSubject")]
+        public string EmailSubject { get; set; }
+
+        /// <summary>envelopeDocuments</summary>
+        [JsonPropertyName("envelopeDocuments")]
+        public List<WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem> EnvelopeDocuments { get; set; }
+
+        /// <summary>sender</summary>
+        [JsonPropertyName("sender")]
+        public WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender Sender { get; set; }
+
+        /// <summary>recipients</summary>
+        [JsonPropertyName("recipients")]
+        public WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients Recipients { get; set; }
+    }
+
+    /// <summary>
+    /// Item in envelopeDocuments
+    /// </summary>
+    public class WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem
+    {
+        /// <summary>documentId</summary>
+        [JsonPropertyName("documentId")]
+        public string DocumentId { get; set; }
+
+        /// <summary>documentIdGuid</summary>
+        [JsonPropertyName("documentIdGuid")]
+        public string DocumentGuid { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string DocumentName { get; set; }
+    }
+
+    /// <summary>
+    /// sender
+    /// </summary>
+    public class WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender
+    {
+        /// <summary>userName</summary>
+        [JsonPropertyName("userName")]
+        public string SenderSName { get; set; }
+
+        /// <summary>userId</summary>
+        [JsonPropertyName("userId")]
+        public string SenderSUserId { get; set; }
+
+        /// <summary>accountId</summary>
+        [JsonPropertyName("accountId")]
+        public string SenderSAccountId { get; set; }
+
+        /// <summary>email</summary>
+        [JsonPropertyName("email")]
+        public string SenderSEmailAddress { get; set; }
+    }
+
+    /// <summary>
+    /// recipients
+    /// </summary>
+    public class WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients
+    {
+        /// <summary>signers</summary>
+        [JsonPropertyName("signers")]
+        public List<WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem> Signers { get; set; }
+    }
+
+    /// <summary>
+    /// Item in signers
+    /// </summary>
+    public class WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem
+    {
+        /// <summary>Key-value pairs representing the tabs for this recipient (where key is the field name, and value is the field value).</summary>
+        [JsonPropertyName("tabs")]
+        public Dictionary<string, string> Tabs { get; set; }
+
+        /// <summary>email</summary>
+        [JsonPropertyName("email")]
+        public string RecipientEmail { get; set; }
+
+        /// <summary>recipientId</summary>
+        [JsonPropertyName("recipientId")]
+        public string RecipientId { get; set; }
+
+        /// <summary>routingOrder</summary>
+        [JsonPropertyName("routingOrder")]
+        public string RoutingOrder { get; set; }
+
+        /// <summary>yyyy-MM-ddTHH:mm:ss.fffZ</summary>
+        [JsonPropertyName("sentDateTime")]
+        [JsonInclude]
+        public DateTime? RecipientSentDateTime { get; init; }
+
+        /// <summary>The status of the recipient.</summary>
+        [JsonPropertyName("status")]
+        public string RecipientStatus { get; set; }
+
+        /// <summary>The type of recipient.</summary>
+        [JsonPropertyName("recipientType")]
+        public string RecipientType { get; set; }
+
+        /// <summary>The type of the verification.</summary>
+        [JsonPropertyName("verificationType")]
+        public string VerificationType { get; set; }
+
+        /// <summary>The name of the recipient.</summary>
+        [JsonPropertyName("name")]
+        public string RecipientName { get; set; }
+    }
+
+    /// <summary>
     /// Response for Generate Embedded Signing URL
     /// </summary>
     public class EmbeddedSigningResponse
@@ -1307,6 +1626,134 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotification"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotification WebhookOrganizationResponseNotification(
+            WebhookOrganizationResponseNotificationData data = default)
+        {
+            return new WebhookOrganizationResponseNotification
+            {
+                Data = data,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationData"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotificationData WebhookOrganizationResponseNotificationData(
+            string organizationId = default,
+            WebhookOrganizationResponseNotificationDataEnvelopeSummary envelopeSummary = default)
+        {
+            return new WebhookOrganizationResponseNotificationData
+            {
+                OrganizationId = organizationId,
+                EnvelopeSummary = envelopeSummary,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationDataEnvelopeSummary"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotificationDataEnvelopeSummary WebhookOrganizationResponseNotificationDataEnvelopeSummary(
+            Dictionary<string, string> customFields = default,
+            DateTime? envelopeCreatedDateTime = default,
+            string envelopeId = default,
+            DateTime? envelopeSentDateTime = default,
+            string envelopeStatus = default,
+            string emailSubject = default,
+            List<WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem> envelopeDocuments = default,
+            WebhookOrganizationResponseNotificationDataEnvelopeSummarySender sender = default,
+            WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients recipients = default)
+        {
+            return new WebhookOrganizationResponseNotificationDataEnvelopeSummary
+            {
+                CustomFields = customFields,
+                EnvelopeCreatedDateTime = envelopeCreatedDateTime,
+                EnvelopeId = envelopeId,
+                EnvelopeSentDateTime = envelopeSentDateTime,
+                EnvelopeStatus = envelopeStatus,
+                EmailSubject = emailSubject,
+                EnvelopeDocuments = envelopeDocuments,
+                Sender = sender,
+                Recipients = recipients,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem(
+            string documentId = default,
+            string documentGuid = default,
+            string documentName = default)
+        {
+            return new WebhookOrganizationResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem
+            {
+                DocumentId = documentId,
+                DocumentGuid = documentGuid,
+                DocumentName = documentName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationDataEnvelopeSummarySender"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotificationDataEnvelopeSummarySender WebhookOrganizationResponseNotificationDataEnvelopeSummarySender(
+            string senderSName = default,
+            string senderSUserId = default,
+            string senderSAccountId = default,
+            string senderSEmailAddress = default)
+        {
+            return new WebhookOrganizationResponseNotificationDataEnvelopeSummarySender
+            {
+                SenderSName = senderSName,
+                SenderSUserId = senderSUserId,
+                SenderSAccountId = senderSAccountId,
+                SenderSEmailAddress = senderSEmailAddress,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients(
+            List<WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem> signers = default)
+        {
+            return new WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipients
+            {
+                Signers = signers,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem"/>.
+        /// </summary>
+        public static WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem(
+            Dictionary<string, string> tabs = default,
+            string recipientEmail = default,
+            string recipientId = default,
+            string routingOrder = default,
+            DateTime? recipientSentDateTime = default,
+            string recipientStatus = default,
+            string recipientType = default,
+            string verificationType = default,
+            string recipientName = default)
+        {
+            return new WebhookOrganizationResponseNotificationDataEnvelopeSummaryRecipientsSignersItem
+            {
+                Tabs = tabs,
+                RecipientEmail = recipientEmail,
+                RecipientId = recipientId,
+                RoutingOrder = routingOrder,
+                RecipientSentDateTime = recipientSentDateTime,
+                RecipientStatus = recipientStatus,
+                RecipientType = recipientType,
+                VerificationType = verificationType,
+                RecipientName = recipientName,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="DocGenFormFieldsResponse"/>.
         /// </summary>
         public static DocGenFormFieldsResponse DocGenFormFieldsResponse(
@@ -1807,6 +2254,132 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotification"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotification WebhookEnvelopeResponseNotification(
+            WebhookEnvelopeResponseNotificationData data = default)
+        {
+            return new WebhookEnvelopeResponseNotification
+            {
+                Data = data,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationData"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotificationData WebhookEnvelopeResponseNotificationData(
+            WebhookEnvelopeResponseNotificationDataEnvelopeSummary envelopeSummary = default)
+        {
+            return new WebhookEnvelopeResponseNotificationData
+            {
+                EnvelopeSummary = envelopeSummary,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationDataEnvelopeSummary"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotificationDataEnvelopeSummary WebhookEnvelopeResponseNotificationDataEnvelopeSummary(
+            Dictionary<string, string> envelopeCustomFields = default,
+            DateTime? envelopeCreatedDateTime = default,
+            string envelopeId = default,
+            DateTime? envelopeSentDateTime = default,
+            string envelopeStatus = default,
+            string emailSubject = default,
+            List<WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem> envelopeDocuments = default,
+            WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender sender = default,
+            WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients recipients = default)
+        {
+            return new WebhookEnvelopeResponseNotificationDataEnvelopeSummary
+            {
+                EnvelopeCustomFields = envelopeCustomFields,
+                EnvelopeCreatedDateTime = envelopeCreatedDateTime,
+                EnvelopeId = envelopeId,
+                EnvelopeSentDateTime = envelopeSentDateTime,
+                EnvelopeStatus = envelopeStatus,
+                EmailSubject = emailSubject,
+                EnvelopeDocuments = envelopeDocuments,
+                Sender = sender,
+                Recipients = recipients,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem(
+            string documentId = default,
+            string documentGuid = default,
+            string documentName = default)
+        {
+            return new WebhookEnvelopeResponseNotificationDataEnvelopeSummaryEnvelopeDocumentsItem
+            {
+                DocumentId = documentId,
+                DocumentGuid = documentGuid,
+                DocumentName = documentName,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender(
+            string senderSName = default,
+            string senderSUserId = default,
+            string senderSAccountId = default,
+            string senderSEmailAddress = default)
+        {
+            return new WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender
+            {
+                SenderSName = senderSName,
+                SenderSUserId = senderSUserId,
+                SenderSAccountId = senderSAccountId,
+                SenderSEmailAddress = senderSEmailAddress,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients(
+            List<WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem> signers = default)
+        {
+            return new WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipients
+            {
+                Signers = signers,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem"/>.
+        /// </summary>
+        public static WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem(
+            Dictionary<string, string> tabs = default,
+            string recipientEmail = default,
+            string recipientId = default,
+            string routingOrder = default,
+            DateTime? recipientSentDateTime = default,
+            string recipientStatus = default,
+            string recipientType = default,
+            string verificationType = default,
+            string recipientName = default)
+        {
+            return new WebhookEnvelopeResponseNotificationDataEnvelopeSummaryRecipientsSignersItem
+            {
+                Tabs = tabs,
+                RecipientEmail = recipientEmail,
+                RecipientId = recipientId,
+                RoutingOrder = routingOrder,
+                RecipientSentDateTime = recipientSentDateTime,
+                RecipientStatus = recipientStatus,
+                RecipientType = recipientType,
+                VerificationType = verificationType,
+                RecipientName = recipientName,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="EmbeddedSigningResponse"/>.
         /// </summary>
         public static EmbeddedSigningResponse EmbeddedSigningResponse(
@@ -2099,6 +2672,47 @@ namespace Azure.Connectors.Sdk.DocuSign.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnCreateHookEnvelope trigger (DocuSign "When a Docusign Connect event occurs (Account-level)", operationId: CreateHookEnvelopeV4).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;DocuSignOnCreateHookEnvelopeTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class DocuSignOnCreateHookEnvelopeTriggerPayload : TriggerCallbackPayload<WebhookEnvelopeResponseNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnCreateOrgHookEnvelope trigger (DocuSign "When a Docusign Connect event occurs (Organization-level)", operationId: CreateOrgHookEnvelope).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;DocuSignOnCreateOrgHookEnvelopeTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class DocuSignOnCreateOrgHookEnvelopeTriggerPayload : TriggerCallbackPayload<WebhookOrganizationResponseNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the DocuSign connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="DocuSignTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class DocuSignTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the DocuSign connector.
+        /// This is a subset of all triggers — see <see cref="DocuSignTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["CreateHookEnvelopeV4"] = typeof(DocuSignOnCreateHookEnvelopeTriggerPayload),
+                ["CreateOrgHookEnvelope"] = typeof(DocuSignOnCreateOrgHookEnvelopeTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.DocuSign
@@ -2115,11 +2729,13 @@ namespace Azure.Connectors.Sdk.DocuSign
     {
         /// <summary>
         /// When a Docusign Connect event occurs (Account-level).
+        /// Payload type: <see cref="DocuSignOnCreateHookEnvelopeTriggerPayload"/>.
         /// </summary>
         public const string OnCreateHookEnvelope = "CreateHookEnvelopeV4";
 
         /// <summary>
         /// When a Docusign Connect event occurs (Organization-level).
+        /// Payload type: <see cref="DocuSignOnCreateOrgHookEnvelopeTriggerPayload"/>.
         /// </summary>
         public const string OnCreateOrgHookEnvelope = "CreateOrgHookEnvelope";
 

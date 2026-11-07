@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -59,6 +60,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
+    /// Response for When an item is created
+    /// </summary>
+    public class WebhookCreateItemNotification
+    {
+        /// <summary>The ID of the item</summary>
+        [JsonPropertyName("itemId")]
+        public string ItemId { get; set; }
+
+        /// <summary>The name of the item</summary>
+        [JsonPropertyName("itemName")]
+        public string ItemName { get; set; }
+    }
+
+    /// <summary>
     /// When a new update is posted
     /// </summary>
     public class WebhookCreateUpdateInput
@@ -83,6 +98,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for When a new update is posted
+    /// </summary>
+    [DynamicSchema("GetColumnNamesSchemaForUpdateWebhook")]
+    public class DynamicGetColumnNamesForUpdateWebhookNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
@@ -119,6 +148,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
+    /// Schema of webhook
+    /// </summary>
+    [DynamicSchema("GetColumnNamesSchemaForItemNameChangeWebhook")]
+    public class WebhookChangeNameNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// When a subitem&apos;s name changes
     /// </summary>
     public class WebhookChangeSubitemNameInput
@@ -143,6 +186,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Schema of webhook
+    /// </summary>
+    [DynamicSchema("GetColumnNamesSchemaForSubitemNameChangeWebhook")]
+    public class WebhookChangeSubitemNameNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
@@ -176,6 +233,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for When a subitem is created
+    /// </summary>
+    public class WebhookCreateSubitemNotification
+    {
+        /// <summary>The ID of the subitem</summary>
+        [JsonPropertyName("itemId")]
+        public string ItemId { get; set; }
+
+        /// <summary>The name of the subitem</summary>
+        [JsonPropertyName("itemName")]
+        public string ItemName { get; set; }
     }
 
     /// <summary>
@@ -213,6 +284,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
+    /// Schema of webhook
+    /// </summary>
+    [DynamicSchema("GetColumnNamesSchemaForColumnChangesWebhook")]
+    public class WebhookColumnChangesNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// When any column changes
     /// </summary>
     public class WebhookAnyColumnChangesInput
@@ -243,6 +328,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     }
 
     /// <summary>
+    /// Schema of webhook
+    /// </summary>
+    [DynamicSchema("GetColumnNamesSchemaForColumnChangesWebhook")]
+    public class WebhookAnyColumnChangesNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// When any subitem column changes
     /// </summary>
     public class WebhookSubitemColumnChangesInput
@@ -267,6 +366,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for When any subitem column changes
+    /// </summary>
+    [DynamicSchema("GetSubitemColumnNames")]
+    public class DynamicGetSubitemColumnNamesForWebhookNotification
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
@@ -1087,6 +1200,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="WebhookCreateItemNotification"/>.
+        /// </summary>
+        public static WebhookCreateItemNotification WebhookCreateItemNotification(
+            string itemId = default,
+            string itemName = default)
+        {
+            return new WebhookCreateItemNotification
+            {
+                ItemId = itemId,
+                ItemName = itemName,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="WebhookCreateUpdateInput"/>.
         /// </summary>
         public static WebhookCreateUpdateInput WebhookCreateUpdateInput(
@@ -1147,6 +1274,20 @@ namespace Azure.Connectors.Sdk.Monday.Models
                 WorkspaceId = workspaceId,
                 BoardId = boardId,
                 CallbackUrl = callbackUrl,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="WebhookCreateSubitemNotification"/>.
+        /// </summary>
+        public static WebhookCreateSubitemNotification WebhookCreateSubitemNotification(
+            string itemId = default,
+            string itemName = default)
+        {
+            return new WebhookCreateSubitemNotification
+            {
+                ItemId = itemId,
+                ItemName = itemName,
             };
         }
 
@@ -1725,6 +1866,101 @@ namespace Azure.Connectors.Sdk.Monday.Models
 
     #endregion Model Factory
 
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookAnyColumnChanges trigger (Monday "When any column changes", operationId: WebhookAnyColumnChanges).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookAnyColumnChangesTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookAnyColumnChangesTriggerPayload : TriggerCallbackPayload<WebhookAnyColumnChangesNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookChangeName trigger (Monday "When an item&apos;s name changes", operationId: WebhookChangeName).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookChangeNameTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookChangeNameTriggerPayload : TriggerCallbackPayload<WebhookChangeNameNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookChangeSubitemName trigger (Monday "When a subitem&apos;s name changes", operationId: WebhookChangeSubitemName).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookChangeSubitemNameTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookChangeSubitemNameTriggerPayload : TriggerCallbackPayload<WebhookChangeSubitemNameNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookColumnChanges trigger (Monday "When a column changes", operationId: WebhookColumnChanges).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookColumnChangesTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookColumnChangesTriggerPayload : TriggerCallbackPayload<WebhookColumnChangesNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookCreateItem trigger (Monday "When an item is created", operationId: WebhookCreateItem).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookCreateItemTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookCreateItemTriggerPayload : TriggerCallbackPayload<WebhookCreateItemNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookCreateSubitem trigger (Monday "When a subitem is created", operationId: WebhookCreateSubitem).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookCreateSubitemTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookCreateSubitemTriggerPayload : TriggerCallbackPayload<WebhookCreateSubitemNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookCreateUpdate trigger (Monday "When a new update is posted", operationId: WebhookCreateUpdate).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookCreateUpdateTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookCreateUpdateTriggerPayload : TriggerCallbackPayload<DynamicGetColumnNamesForUpdateWebhookNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnWebhookSubitemColumnChanges trigger (Monday "When any subitem column changes", operationId: WebhookSubitemColumnChanges).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;MondayOnWebhookSubitemColumnChangesTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class MondayOnWebhookSubitemColumnChangesTriggerPayload : TriggerCallbackPayload<DynamicGetSubitemColumnNamesForWebhookNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Monday connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="MondayTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class MondayTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Monday connector.
+        /// This is a subset of all triggers — see <see cref="MondayTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["WebhookAnyColumnChanges"] = typeof(MondayOnWebhookAnyColumnChangesTriggerPayload),
+                ["WebhookChangeName"] = typeof(MondayOnWebhookChangeNameTriggerPayload),
+                ["WebhookChangeSubitemName"] = typeof(MondayOnWebhookChangeSubitemNameTriggerPayload),
+                ["WebhookColumnChanges"] = typeof(MondayOnWebhookColumnChangesTriggerPayload),
+                ["WebhookCreateItem"] = typeof(MondayOnWebhookCreateItemTriggerPayload),
+                ["WebhookCreateSubitem"] = typeof(MondayOnWebhookCreateSubitemTriggerPayload),
+                ["WebhookCreateUpdate"] = typeof(MondayOnWebhookCreateUpdateTriggerPayload),
+                ["WebhookSubitemColumnChanges"] = typeof(MondayOnWebhookSubitemColumnChangesTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
+
 }
 
 namespace Azure.Connectors.Sdk.Monday
@@ -1741,41 +1977,49 @@ namespace Azure.Connectors.Sdk.Monday
     {
         /// <summary>
         /// When any column changes.
+        /// Payload type: <see cref="MondayOnWebhookAnyColumnChangesTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookAnyColumnChanges = "WebhookAnyColumnChanges";
 
         /// <summary>
         /// When an item&apos;s name changes.
+        /// Payload type: <see cref="MondayOnWebhookChangeNameTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookChangeName = "WebhookChangeName";
 
         /// <summary>
         /// When a subitem&apos;s name changes.
+        /// Payload type: <see cref="MondayOnWebhookChangeSubitemNameTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookChangeSubitemName = "WebhookChangeSubitemName";
 
         /// <summary>
         /// When a column changes.
+        /// Payload type: <see cref="MondayOnWebhookColumnChangesTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookColumnChanges = "WebhookColumnChanges";
 
         /// <summary>
         /// When an item is created.
+        /// Payload type: <see cref="MondayOnWebhookCreateItemTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookCreateItem = "WebhookCreateItem";
 
         /// <summary>
         /// When a subitem is created.
+        /// Payload type: <see cref="MondayOnWebhookCreateSubitemTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookCreateSubitem = "WebhookCreateSubitem";
 
         /// <summary>
         /// When a new update is posted.
+        /// Payload type: <see cref="MondayOnWebhookCreateUpdateTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookCreateUpdate = "WebhookCreateUpdate";
 
         /// <summary>
         /// When any subitem column changes.
+        /// Payload type: <see cref="MondayOnWebhookSubitemColumnChangesTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookSubitemColumnChanges = "WebhookSubitemColumnChanges";
 

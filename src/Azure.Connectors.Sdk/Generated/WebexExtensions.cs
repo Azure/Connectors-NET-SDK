@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
@@ -518,6 +519,102 @@ namespace Azure.Connectors.Sdk.Webex.Models
     }
 
     /// <summary>
+    /// Response for When a membership is updated
+    /// </summary>
+    public class MembershipsUpdatedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public MembershipsUpdatedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// MembershipsUpdatedNotificationData
+    /// </summary>
+    public class MembershipsUpdatedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>isModerator</summary>
+        [JsonPropertyName("isModerator")]
+        public bool? IsModerator { get; set; }
+
+        /// <summary>isMonitor</summary>
+        [JsonPropertyName("isMonitor")]
+        public bool? IsMonitor { get; set; }
+
+        /// <summary>personDisplayName</summary>
+        [JsonPropertyName("personDisplayName")]
+        public string PersonDisplayName { get; set; }
+
+        /// <summary>personEmail</summary>
+        [JsonPropertyName("personEmail")]
+        public string PersonEmail { get; set; }
+
+        /// <summary>personId</summary>
+        [JsonPropertyName("personId")]
+        public string PersonId { get; set; }
+
+        /// <summary>personOrgId</summary>
+        [JsonPropertyName("personOrgId")]
+        public string PersonOrgId { get; set; }
+
+        /// <summary>spaceId</summary>
+        [JsonPropertyName("roomId")]
+        public string RoomId { get; set; }
+    }
+
+    /// <summary>
     /// When a membership is deleted
     /// </summary>
     public class MembershipsDeletedInput
@@ -579,6 +676,102 @@ namespace Azure.Connectors.Sdk.Webex.Models
         /// <summary>status</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a membership is deleted
+    /// </summary>
+    public class MembershipsDeletedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public MembershipsDeletedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// MembershipsDeletedNotificationData
+    /// </summary>
+    public class MembershipsDeletedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>isModerator</summary>
+        [JsonPropertyName("isModerator")]
+        public bool? IsModerator { get; set; }
+
+        /// <summary>isMonitor</summary>
+        [JsonPropertyName("isMonitor")]
+        public bool? IsMonitor { get; set; }
+
+        /// <summary>personDisplayName</summary>
+        [JsonPropertyName("personDisplayName")]
+        public string PersonDisplayName { get; set; }
+
+        /// <summary>personEmail</summary>
+        [JsonPropertyName("personEmail")]
+        public string PersonEmail { get; set; }
+
+        /// <summary>personId</summary>
+        [JsonPropertyName("personId")]
+        public string PersonId { get; set; }
+
+        /// <summary>personOrgId</summary>
+        [JsonPropertyName("personOrgId")]
+        public string PersonOrgId { get; set; }
+
+        /// <summary>spaceId</summary>
+        [JsonPropertyName("roomId")]
+        public string RoomId { get; set; }
     }
 
     /// <summary>
@@ -646,6 +839,102 @@ namespace Azure.Connectors.Sdk.Webex.Models
     }
 
     /// <summary>
+    /// Response for When a membership is created
+    /// </summary>
+    public class MembershipsCreatedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public MembershipsCreatedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// MembershipsCreatedNotificationData
+    /// </summary>
+    public class MembershipsCreatedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>isModerator</summary>
+        [JsonPropertyName("isModerator")]
+        public bool? IsModerator { get; set; }
+
+        /// <summary>isMonitor</summary>
+        [JsonPropertyName("isMonitor")]
+        public bool? IsMonitor { get; set; }
+
+        /// <summary>personDisplayName</summary>
+        [JsonPropertyName("personDisplayName")]
+        public string PersonDisplayName { get; set; }
+
+        /// <summary>personEmail</summary>
+        [JsonPropertyName("personEmail")]
+        public string PersonEmail { get; set; }
+
+        /// <summary>personId</summary>
+        [JsonPropertyName("personId")]
+        public string PersonId { get; set; }
+
+        /// <summary>personOrgId</summary>
+        [JsonPropertyName("personOrgId")]
+        public string PersonOrgId { get; set; }
+
+        /// <summary>spaceId</summary>
+        [JsonPropertyName("roomId")]
+        public string RoomId { get; set; }
+    }
+
+    /// <summary>
     /// When a message is created
     /// </summary>
     public class MessagesCreatedInput
@@ -707,6 +996,86 @@ namespace Azure.Connectors.Sdk.Webex.Models
         /// <summary>status</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a message is created
+    /// </summary>
+    public class MessagesCreatedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public MessagesCreatedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// MessagesCreatedNotificationData
+    /// </summary>
+    public class MessagesCreatedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>personEmail</summary>
+        [JsonPropertyName("personEmail")]
+        public string PersonEmail { get; set; }
+
+        /// <summary>personId</summary>
+        [JsonPropertyName("personId")]
+        public string PersonId { get; set; }
+
+        /// <summary>spaceId</summary>
+        [JsonPropertyName("roomId")]
+        public string RoomId { get; set; }
     }
 
     /// <summary>
@@ -774,6 +1143,86 @@ namespace Azure.Connectors.Sdk.Webex.Models
     }
 
     /// <summary>
+    /// Response for When a message is deleted
+    /// </summary>
+    public class MessagesDeletedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public MessagesDeletedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// MessagesDeletedNotificationData
+    /// </summary>
+    public class MessagesDeletedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>personEmail</summary>
+        [JsonPropertyName("personEmail")]
+        public string PersonEmail { get; set; }
+
+        /// <summary>personId</summary>
+        [JsonPropertyName("personId")]
+        public string PersonId { get; set; }
+
+        /// <summary>spaceId</summary>
+        [JsonPropertyName("roomId")]
+        public string RoomId { get; set; }
+    }
+
+    /// <summary>
     /// When a space is created
     /// </summary>
     public class SpaceCreatedInput
@@ -838,6 +1287,98 @@ namespace Azure.Connectors.Sdk.Webex.Models
     }
 
     /// <summary>
+    /// Response for When a space is created
+    /// </summary>
+    public class SpaceCreatedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public SpaceCreatedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// SpaceCreatedNotificationData
+    /// </summary>
+    public class SpaceCreatedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>creatorId</summary>
+        [JsonPropertyName("creatorId")]
+        public string CreatorId { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>isLocked</summary>
+        [JsonPropertyName("isLocked")]
+        public bool? IsLocked { get; set; }
+
+        /// <summary>lastActivity</summary>
+        [JsonPropertyName("lastActivity")]
+        public string LastActivity { get; set; }
+
+        /// <summary>teamId</summary>
+        [JsonPropertyName("teamId")]
+        public string TeamId { get; set; }
+
+        /// <summary>title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>type</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+    }
+
+    /// <summary>
     /// When a space is updated
     /// </summary>
     public class SpaceUpdatedInput
@@ -899,6 +1440,98 @@ namespace Azure.Connectors.Sdk.Webex.Models
         /// <summary>status</summary>
         [JsonPropertyName("status")]
         public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// Response for When a space is updated
+    /// </summary>
+    public class SpaceUpdatedNotification
+    {
+        /// <summary>actorId</summary>
+        [JsonPropertyName("actorId")]
+        public string ActorId { get; set; }
+
+        /// <summary>appId</summary>
+        [JsonPropertyName("appId")]
+        public string AppId { get; set; }
+
+        /// <summary>createdBy</summary>
+        [JsonPropertyName("createdBy")]
+        public string CreatedBy { get; set; }
+
+        /// <summary>data</summary>
+        [JsonPropertyName("data")]
+        public SpaceUpdatedNotificationData Data { get; set; }
+
+        /// <summary>event</summary>
+        [JsonPropertyName("event")]
+        public string Event { get; set; }
+
+        /// <summary>filter</summary>
+        [JsonPropertyName("filter")]
+        public string Filter { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>name</summary>
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        /// <summary>orgId</summary>
+        [JsonPropertyName("orgId")]
+        public string OrgId { get; set; }
+
+        /// <summary>ownedBy</summary>
+        [JsonPropertyName("ownedBy")]
+        public string OwnedBy { get; set; }
+
+        /// <summary>resource</summary>
+        [JsonPropertyName("resource")]
+        public string Resource { get; set; }
+
+        /// <summary>status</summary>
+        [JsonPropertyName("status")]
+        public string Status { get; set; }
+    }
+
+    /// <summary>
+    /// SpaceUpdatedNotificationData
+    /// </summary>
+    public class SpaceUpdatedNotificationData
+    {
+        /// <summary>created</summary>
+        [JsonPropertyName("created")]
+        public string Created { get; set; }
+
+        /// <summary>creatorId</summary>
+        [JsonPropertyName("creatorId")]
+        public string CreatorId { get; set; }
+
+        /// <summary>id</summary>
+        [JsonPropertyName("id")]
+        public string Id { get; set; }
+
+        /// <summary>isLocked</summary>
+        [JsonPropertyName("isLocked")]
+        public bool? IsLocked { get; set; }
+
+        /// <summary>lastActivity</summary>
+        [JsonPropertyName("lastActivity")]
+        public string LastActivity { get; set; }
+
+        /// <summary>teamId</summary>
+        [JsonPropertyName("teamId")]
+        public string TeamId { get; set; }
+
+        /// <summary>title</summary>
+        [JsonPropertyName("title")]
+        public string Title { get; set; }
+
+        /// <summary>type</summary>
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
     }
 
     #endregion Types
@@ -1269,6 +1902,68 @@ namespace Azure.Connectors.Sdk.Webex.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="MembershipsUpdatedNotification"/>.
+        /// </summary>
+        public static MembershipsUpdatedNotification MembershipsUpdatedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            MembershipsUpdatedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new MembershipsUpdatedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipsUpdatedNotificationData"/>.
+        /// </summary>
+        public static MembershipsUpdatedNotificationData MembershipsUpdatedNotificationData(
+            string created = default,
+            string id = default,
+            bool? isModerator = default,
+            bool? isMonitor = default,
+            string personDisplayName = default,
+            string personEmail = default,
+            string personId = default,
+            string personOrgId = default,
+            string roomId = default)
+        {
+            return new MembershipsUpdatedNotificationData
+            {
+                Created = created,
+                Id = id,
+                IsModerator = isModerator,
+                IsMonitor = isMonitor,
+                PersonDisplayName = personDisplayName,
+                PersonEmail = personEmail,
+                PersonId = personId,
+                PersonOrgId = personOrgId,
+                RoomId = roomId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="MembershipsDeletedInput"/>.
         /// </summary>
         public static MembershipsDeletedInput MembershipsDeletedInput(
@@ -1311,6 +2006,68 @@ namespace Azure.Connectors.Sdk.Webex.Models
                 Filter = filter,
                 Secret = secret,
                 Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipsDeletedNotification"/>.
+        /// </summary>
+        public static MembershipsDeletedNotification MembershipsDeletedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            MembershipsDeletedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new MembershipsDeletedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipsDeletedNotificationData"/>.
+        /// </summary>
+        public static MembershipsDeletedNotificationData MembershipsDeletedNotificationData(
+            string created = default,
+            string id = default,
+            bool? isModerator = default,
+            bool? isMonitor = default,
+            string personDisplayName = default,
+            string personEmail = default,
+            string personId = default,
+            string personOrgId = default,
+            string roomId = default)
+        {
+            return new MembershipsDeletedNotificationData
+            {
+                Created = created,
+                Id = id,
+                IsModerator = isModerator,
+                IsMonitor = isMonitor,
+                PersonDisplayName = personDisplayName,
+                PersonEmail = personEmail,
+                PersonId = personId,
+                PersonOrgId = personOrgId,
+                RoomId = roomId,
             };
         }
 
@@ -1361,6 +2118,68 @@ namespace Azure.Connectors.Sdk.Webex.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="MembershipsCreatedNotification"/>.
+        /// </summary>
+        public static MembershipsCreatedNotification MembershipsCreatedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            MembershipsCreatedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new MembershipsCreatedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MembershipsCreatedNotificationData"/>.
+        /// </summary>
+        public static MembershipsCreatedNotificationData MembershipsCreatedNotificationData(
+            string created = default,
+            string id = default,
+            bool? isModerator = default,
+            bool? isMonitor = default,
+            string personDisplayName = default,
+            string personEmail = default,
+            string personId = default,
+            string personOrgId = default,
+            string roomId = default)
+        {
+            return new MembershipsCreatedNotificationData
+            {
+                Created = created,
+                Id = id,
+                IsModerator = isModerator,
+                IsMonitor = isMonitor,
+                PersonDisplayName = personDisplayName,
+                PersonEmail = personEmail,
+                PersonId = personId,
+                PersonOrgId = personOrgId,
+                RoomId = roomId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="MessagesCreatedInput"/>.
         /// </summary>
         public static MessagesCreatedInput MessagesCreatedInput(
@@ -1403,6 +2222,60 @@ namespace Azure.Connectors.Sdk.Webex.Models
                 Filter = filter,
                 Secret = secret,
                 Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessagesCreatedNotification"/>.
+        /// </summary>
+        public static MessagesCreatedNotification MessagesCreatedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            MessagesCreatedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new MessagesCreatedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessagesCreatedNotificationData"/>.
+        /// </summary>
+        public static MessagesCreatedNotificationData MessagesCreatedNotificationData(
+            string created = default,
+            string id = default,
+            string personEmail = default,
+            string personId = default,
+            string roomId = default)
+        {
+            return new MessagesCreatedNotificationData
+            {
+                Created = created,
+                Id = id,
+                PersonEmail = personEmail,
+                PersonId = personId,
+                RoomId = roomId,
             };
         }
 
@@ -1453,6 +2326,60 @@ namespace Azure.Connectors.Sdk.Webex.Models
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="MessagesDeletedNotification"/>.
+        /// </summary>
+        public static MessagesDeletedNotification MessagesDeletedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            MessagesDeletedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new MessagesDeletedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MessagesDeletedNotificationData"/>.
+        /// </summary>
+        public static MessagesDeletedNotificationData MessagesDeletedNotificationData(
+            string created = default,
+            string id = default,
+            string personEmail = default,
+            string personId = default,
+            string roomId = default)
+        {
+            return new MessagesDeletedNotificationData
+            {
+                Created = created,
+                Id = id,
+                PersonEmail = personEmail,
+                PersonId = personId,
+                RoomId = roomId,
+            };
+        }
+
+        /// <summary>
         /// Creates a new instance of <see cref="SpaceCreatedInput"/>.
         /// </summary>
         public static SpaceCreatedInput SpaceCreatedInput(
@@ -1495,6 +2422,66 @@ namespace Azure.Connectors.Sdk.Webex.Models
                 Filter = filter,
                 Secret = secret,
                 Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SpaceCreatedNotification"/>.
+        /// </summary>
+        public static SpaceCreatedNotification SpaceCreatedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            SpaceCreatedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new SpaceCreatedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SpaceCreatedNotificationData"/>.
+        /// </summary>
+        public static SpaceCreatedNotificationData SpaceCreatedNotificationData(
+            string created = default,
+            string creatorId = default,
+            string id = default,
+            bool? isLocked = default,
+            string lastActivity = default,
+            string teamId = default,
+            string title = default,
+            string type = default)
+        {
+            return new SpaceCreatedNotificationData
+            {
+                Created = created,
+                CreatorId = creatorId,
+                Id = id,
+                IsLocked = isLocked,
+                LastActivity = lastActivity,
+                TeamId = teamId,
+                Title = title,
+                Type = type,
             };
         }
 
@@ -1543,9 +2530,155 @@ namespace Azure.Connectors.Sdk.Webex.Models
                 Status = status,
             };
         }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SpaceUpdatedNotification"/>.
+        /// </summary>
+        public static SpaceUpdatedNotification SpaceUpdatedNotification(
+            string actorId = default,
+            string appId = default,
+            string createdBy = default,
+            SpaceUpdatedNotificationData data = default,
+            string @event = default,
+            string filter = default,
+            string id = default,
+            string name = default,
+            string orgId = default,
+            string ownedBy = default,
+            string resource = default,
+            string status = default)
+        {
+            return new SpaceUpdatedNotification
+            {
+                ActorId = actorId,
+                AppId = appId,
+                CreatedBy = createdBy,
+                Data = data,
+                Event = @event,
+                Filter = filter,
+                Id = id,
+                Name = name,
+                OrgId = orgId,
+                OwnedBy = ownedBy,
+                Resource = resource,
+                Status = status,
+            };
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SpaceUpdatedNotificationData"/>.
+        /// </summary>
+        public static SpaceUpdatedNotificationData SpaceUpdatedNotificationData(
+            string created = default,
+            string creatorId = default,
+            string id = default,
+            bool? isLocked = default,
+            string lastActivity = default,
+            string teamId = default,
+            string title = default,
+            string type = default)
+        {
+            return new SpaceUpdatedNotificationData
+            {
+                Created = created,
+                CreatorId = creatorId,
+                Id = id,
+                IsLocked = isLocked,
+                LastActivity = lastActivity,
+                TeamId = teamId,
+                Title = title,
+                Type = type,
+            };
+        }
     }
 
     #endregion Model Factory
+
+    #region Trigger Payloads
+
+    /// <summary>
+    /// Typed trigger payload for the OnMembershipsCreated trigger (Webex "When a membership is created", operationId: MembershipsCreated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnMembershipsCreatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnMembershipsCreatedTriggerPayload : TriggerCallbackPayload<MembershipsCreatedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnMembershipsDeleted trigger (Webex "When a membership is deleted", operationId: MembershipsDeleted).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnMembershipsDeletedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnMembershipsDeletedTriggerPayload : TriggerCallbackPayload<MembershipsDeletedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnMembershipsUpdated trigger (Webex "When a membership is updated", operationId: MembershipsUpdated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnMembershipsUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnMembershipsUpdatedTriggerPayload : TriggerCallbackPayload<MembershipsUpdatedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnMessagesCreated trigger (Webex "When a message is created", operationId: MessagesCreated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnMessagesCreatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnMessagesCreatedTriggerPayload : TriggerCallbackPayload<MessagesCreatedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnMessagesDeleted trigger (Webex "When a message is deleted", operationId: MessagesDeleted).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnMessagesDeletedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnMessagesDeletedTriggerPayload : TriggerCallbackPayload<MessagesDeletedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnSpaceCreated trigger (Webex "When a space is created", operationId: SpaceCreated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnSpaceCreatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnSpaceCreatedTriggerPayload : TriggerCallbackPayload<SpaceCreatedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Typed trigger payload for the OnSpaceUpdated trigger (Webex "When a space is updated", operationId: SpaceUpdated).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WebexOnSpaceUpdatedTriggerPayload&gt;(body)</c>.
+    /// </summary>
+    public class WebexOnSpaceUpdatedTriggerPayload : TriggerCallbackPayload<SpaceUpdatedNotification>
+    {
+    }
+
+    /// <summary>
+    /// Static registry of trigger operations for the Webex connector that have typed payloads.
+    /// Maps operation names to their typed <see cref="TriggerCallbackPayload{T}"/> subtypes.
+    /// Triggers that return binary content (e.g., file downloads) are not included here
+    /// because they have no JSON-deserializable payload type. See <see cref="WebexTriggerOperations"/>
+    /// for the complete list of trigger operation name constants.
+    /// </summary>
+    public static class WebexTriggers
+    {
+        /// <summary>
+        /// Trigger operations with typed payloads for the Webex connector.
+        /// This is a subset of all triggers — see <see cref="WebexTriggerOperations"/> for the full list.
+        /// </summary>
+        public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
+            new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["MembershipsCreated"] = typeof(WebexOnMembershipsCreatedTriggerPayload),
+                ["MembershipsDeleted"] = typeof(WebexOnMembershipsDeletedTriggerPayload),
+                ["MembershipsUpdated"] = typeof(WebexOnMembershipsUpdatedTriggerPayload),
+                ["MessagesCreated"] = typeof(WebexOnMessagesCreatedTriggerPayload),
+                ["MessagesDeleted"] = typeof(WebexOnMessagesDeletedTriggerPayload),
+                ["SpaceCreated"] = typeof(WebexOnSpaceCreatedTriggerPayload),
+                ["SpaceUpdated"] = typeof(WebexOnSpaceUpdatedTriggerPayload),
+            });
+    }
+
+    #endregion Trigger Payloads
 
 }
 
@@ -1563,36 +2696,43 @@ namespace Azure.Connectors.Sdk.Webex
     {
         /// <summary>
         /// When a membership is created.
+        /// Payload type: <see cref="WebexOnMembershipsCreatedTriggerPayload"/>.
         /// </summary>
         public const string OnMembershipsCreated = "MembershipsCreated";
 
         /// <summary>
         /// When a membership is deleted.
+        /// Payload type: <see cref="WebexOnMembershipsDeletedTriggerPayload"/>.
         /// </summary>
         public const string OnMembershipsDeleted = "MembershipsDeleted";
 
         /// <summary>
         /// When a membership is updated.
+        /// Payload type: <see cref="WebexOnMembershipsUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnMembershipsUpdated = "MembershipsUpdated";
 
         /// <summary>
         /// When a message is created.
+        /// Payload type: <see cref="WebexOnMessagesCreatedTriggerPayload"/>.
         /// </summary>
         public const string OnMessagesCreated = "MessagesCreated";
 
         /// <summary>
         /// When a message is deleted.
+        /// Payload type: <see cref="WebexOnMessagesDeletedTriggerPayload"/>.
         /// </summary>
         public const string OnMessagesDeleted = "MessagesDeleted";
 
         /// <summary>
         /// When a space is created.
+        /// Payload type: <see cref="WebexOnSpaceCreatedTriggerPayload"/>.
         /// </summary>
         public const string OnSpaceCreated = "SpaceCreated";
 
         /// <summary>
         /// When a space is updated.
+        /// Payload type: <see cref="WebexOnSpaceUpdatedTriggerPayload"/>.
         /// </summary>
         public const string OnSpaceUpdated = "SpaceUpdated";
 
