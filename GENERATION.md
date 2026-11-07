@@ -470,6 +470,55 @@ artifacts were not regenerated; their source commits and hashes remain as
 recorded in the preceding sections. Temporary response stores were removed
 after validation.
 
+## Plivo SMS naming follow-up
+
+The shared generator normalizes an unambiguous `SMS` identifier word to `Sms`
+without connector-specific operation/model tables. Plivo exposes `SendSmsAsync`,
+`Sms`, and `SendSmsResponse`; model-factory methods follow those names. This is
+a pre-release public naming correction, not a change to the Plivo route, HTTP
+method, Swagger operation ID, JSON fields, or response values.
+
+The refresh uses generator
+`f73f866893706f4f0d017dfb2205b6539894526d` from active, unmerged BPM PR
+17700725, built with .NET SDK `10.0.114`. The live source is subscription
+`1a839f1f-10b2-4613-95ad-0800a22abbf2`, region `westus`, ARM API
+`2018-07-01-preview`, fetched into a new empty temporary `ARMCACHE_PATH`.
+No repository fixtures or stored responses supplied the refreshed client.
+Plivo Swagger SHA-256:
+`85071BA3C076FC92EEF5AF2272CB2A775B9FE1B04242FDC86A7CF1429D78790A`.
+The LF-normalized generated client SHA-256 is
+`d199461892cd5950f883270555a98623110ce02ae071881915aad8b95772b919`.
+The latest live capture ran from `2026-11-06T22:26:16.386Z` to
+`2026-11-06T22:26:34.303Z`. A separate capture from
+`2026-11-06T22:27:58.965Z` to `2026-11-06T22:28:16.093Z` matched the
+consumed Swagger and output hashes. The regenerated client is byte-identical
+after LF normalization to the prior SDK PR iteration.
+
+Earlier before/after live sweeps for source `edf9bb0` covered the 103 shipped API names plus all
+25 live API names containing `sms` (126 distinct names). Both returned the
+same 123 definitions, with identical consumed Swagger bytes. Ten outputs
+changed; Plivo was the only changed client among the 100 available shipped
+clients. The other nine affected SMS clients also compiled against the SDK
+runtime with its internal exception helper. `onedrive`, `orderful`, and
+`universalprint` were unavailable in this capture; no freshness claim applies
+to their retained artifacts. These sweeps do not establish live service behavior.
+
+Only the Plivo SDK artifact is replaced; the connector inventory and shared
+registrations remain unchanged. Upstream generator integration remains the
+SDK merge gate. Request/response tests do not send live SMS messages.
+
+The final source merges master `1faa7f4730fc031e9ee8a419fd98b0c85fa31155`.
+A same-revision live catalog check requested all 103 shipped API names; both
+runs generated 100 clients with identical Swagger and output bytes. OneDrive,
+Orderful, and Universal Print were unavailable and retain their prior artifacts.
+The check found 48 changed outputs from the broader master webhook/casing work.
+That work remains in [SDK PR 286](https://github.com/Azure/Connectors-NET-SDK/pull/286);
+the naming follow-up stays focused on Plivo and the public test-category fix.
+The catalog collector failed after generation while parsing case-distinct JSON
+keys, so no consumed connector-list hash is claimed for that check. Per-client
+exported Swagger/output hashes were independently compared. The focused Plivo
+captures above completed with full metadata and unchanged output.
+
 ## 2026-11-04 Multipart Operations
 
 Refreshed `cloudmersiveconvert`, `docuware`, `service-now`, and `zohosign` using

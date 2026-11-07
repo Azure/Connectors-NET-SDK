@@ -67,7 +67,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     /// <summary>
     /// Response for Send SMS
     /// </summary>
-    public class SendSMSResponse
+    public class SendSmsResponse
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
@@ -144,7 +144,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     /// <summary>
     /// SMS
     /// </summary>
-    public class SMS
+    public class Sms
     {
         /// <summary>Plivo number from which the message is to be sent.</summary>
         [JsonPropertyName("src")]
@@ -225,14 +225,14 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SendSMSResponse"/>.
+        /// Creates a new instance of <see cref="SendSmsResponse"/>.
         /// </summary>
-        public static SendSMSResponse SendSMSResponse(
+        public static SendSmsResponse SendSmsResponse(
             string apiId = default,
             string response = default,
             List<string> messageUUID = default)
         {
-            return new SendSMSResponse
+            return new SendSmsResponse
             {
                 APIId = apiId,
                 Response = response,
@@ -277,14 +277,14 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SMS"/>.
+        /// Creates a new instance of <see cref="Sms"/>.
         /// </summary>
-        public static SMS SMS(
+        public static Sms Sms(
             string from = default,
             string to = default,
             string message = default)
         {
-            return new SMS
+            return new Sms
             {
                 From = from,
                 To = to,
@@ -447,16 +447,16 @@ namespace Azure.Connectors.Sdk.Plivo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Send SMS response.</returns>
-        public virtual async Task<SendSMSResponse> SendSMSAsync(string authId, SMS input, CancellationToken cancellationToken = default)
+        public virtual async Task<SendSmsResponse> SendSmsAsync(string authId, Sms input, CancellationToken cancellationToken = default)
         {
-            using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.SendSMSAsync");
+            using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.SendSmsAsync");
             try
             {
                 if (authId is null)
                     throw new ArgumentNullException(nameof(authId));
                 var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Message/";
                 return await this
-                    .CallConnectorAsync<SendSMSResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SendSmsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

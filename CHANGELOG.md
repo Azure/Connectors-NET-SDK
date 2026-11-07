@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- Plivo uses `SendSmsAsync`, `Sms`, and `SendSmsResponse` instead of
+  `SendSMSAsync`, `SMS`, and `SendSMSResponse`. Model-factory method names follow
+  the same casing. Request routes, JSON fields, HTTP methods, and response values
+  remain unchanged.
+
 ### Added
 
 - **Multipart form-data operations** - adds file uploads for Cloudmersive Convert,
