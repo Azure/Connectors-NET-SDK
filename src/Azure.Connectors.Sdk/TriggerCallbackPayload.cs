@@ -11,13 +11,14 @@ namespace Azure.Connectors.Sdk;
 
 /// <summary>
 /// Envelope type for Connector Namespace trigger callback payloads.
-/// The Connector Namespace delivers callbacks in two shapes depending on the trigger
+/// The Connector Namespace delivers callbacks in these shapes depending on the trigger
 /// configuration's splitOn setting:
 /// <list type="bullet">
 ///   <item><description>Batch (splitOn disabled): <c>{"body":{"value":[...items...]}}</c></description></item>
 ///   <item><description>Single-item (splitOn enabled): <c>{"body":{...item...}}</c></description></item>
+///   <item><description>Array notification: <c>{"body":[...items...]}</c></description></item>
 /// </list>
-/// The <see cref="TriggerCallbackBodyConverterFactory"/> handles both shapes transparently,
+/// The <see cref="TriggerCallbackBodyConverterFactory"/> handles these shapes transparently,
 /// always normalizing into <see cref="TriggerCallbackBody{T}.Value"/> as a list.
 /// </summary>
 /// <typeparam name="T">The connector-specific trigger item type (e.g., <c>GraphClientReceiveMessage</c> for Office 365 email triggers).</typeparam>
@@ -89,6 +90,14 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
             return null;
         }
 
+        if (reader.TokenType == JsonTokenType.StartArray)
+        {
+            return new TriggerCallbackBody<T>
+            {
+                Value = JsonSerializer.Deserialize<List<T>>(ref reader, options),
+            };
+        }
+
         if (reader.TokenType == JsonTokenType.String)
         {
             // A string body means this is a binary-content trigger callback (for example
@@ -104,7 +113,7 @@ internal sealed class TriggerCallbackBodyConverter<T> : JsonConverter<TriggerCal
 
         if (reader.TokenType != JsonTokenType.StartObject)
         {
-            throw new JsonException($"Expected StartObject or Null for TriggerCallbackBody<{typeof(T).Name}>, got {reader.TokenType}.");
+            throw new JsonException($"Expected StartObject, StartArray or Null for TriggerCallbackBody<{typeof(T).Name}>, got {reader.TokenType}.");
         }
 
         // Parse into a JsonDocument to inspect the structure without consuming the reader position.
