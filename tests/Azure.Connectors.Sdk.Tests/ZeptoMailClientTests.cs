@@ -10,8 +10,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Zeptomail;
-using Azure.Connectors.Sdk.Zeptomail.Models;
+using Azure.Connectors.Sdk.ZeptoMail;
+using Azure.Connectors.Sdk.ZeptoMail.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +20,7 @@ using Moq;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class ZeptomailClientTests
+    public class ZeptoMailClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -63,12 +63,12 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static ZeptomailClient CreateMockedClient(HttpResponseMessage response)
+        private static ZeptoMailClient CreateMockedClient(HttpResponseMessage response)
         {
             return CreateMockedClient(new[] { response }, out _);
         }
 
-        private static ZeptomailClient CreateMockedClient(
+        private static ZeptoMailClient CreateMockedClient(
             IEnumerable<HttpResponseMessage> responses,
             out RecordingHttpMessageHandler handler)
         {
@@ -76,26 +76,26 @@ namespace Azure.Connectors.Sdk.Tests
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(handler));
             options.Retry.MaxRetries = 0;
-            return new ZeptomailClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
+            return new ZeptoMailClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
         }
 
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new ZeptomailClient("https://test.azure.com/conn");
+            using var client = new ZeptoMailClient("https://test.azure.com/conn");
             Assert.AreEqual("zeptomail", client.ConnectorName);
         }
 
         [TestMethod]
         public void Constructor_WithNullUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new ZeptomailClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new ZeptoMailClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new ZeptomailClient("https://test.azure.com/conn");
+            var client = new ZeptoMailClient("https://test.azure.com/conn");
             client.Dispose();
             client.Dispose();
         }

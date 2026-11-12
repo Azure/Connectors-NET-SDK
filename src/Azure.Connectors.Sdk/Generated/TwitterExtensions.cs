@@ -946,4 +946,3 @@ namespace Azure.Connectors.Sdk.Twitter
 
     #endregion Client
 }
-

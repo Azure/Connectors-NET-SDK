@@ -19,6 +19,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Onenote.Models;
 using Azure.Core;
@@ -148,7 +149,7 @@ namespace Azure.Connectors.Sdk.Onenote.Models
     /// <summary>
     /// Response for Get pages for a specific section
     /// </summary>
-    public class GetPagesInSectionResponse
+    public class GetPagesInSectionResponse : IPageable<JsonElement?>
     {
         /// <summary>The OData context.</summary>
         [JsonPropertyName("@odata.context")]
@@ -156,7 +157,11 @@ namespace Azure.Connectors.Sdk.Onenote.Models
 
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<JsonElement?> PagesInSectionValueObject { get; set; }
+        public List<JsonElement?> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -451,12 +456,14 @@ namespace Azure.Connectors.Sdk.Onenote.Models
         /// </summary>
         public static GetPagesInSectionResponse GetPagesInSectionResponse(
             string oDataContext = default,
-            List<JsonElement?> pagesInSectionValueObject = default)
+            List<JsonElement?> value = default,
+            string nextLink = default)
         {
             return new GetPagesInSectionResponse
             {
                 ODataContext = oDataContext,
-                PagesInSectionValueObject = pagesInSectionValueObject,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -910,30 +917,21 @@ namespace Azure.Connectors.Sdk.Onenote
         /// <param name="notebookKey">Notebook Key</param>
         /// <param name="notebookSection">Notebook section</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get pages for a specific section response.</returns>
-        public virtual async Task<GetPagesInSectionResponse> GetPagesInSectionAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> GetPagesInSectionAsync([DynamicValues("GetNotebooks")] string notebookKey, [DynamicValues("GetSectionsInNotebook")] string notebookSection, CancellationToken cancellationToken = default)
         {
-            using var activity = OnenoteClient.ConnectorActivitySource.StartActivity("OnenoteClient.GetPagesInSectionAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (notebookKey is null)
-                    throw new ArgumentNullException(nameof(notebookKey));
-                queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey)}");
-                if (notebookSection is null)
-                    throw new ArgumentNullException(nameof(notebookSection));
-                queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection)}");
-                var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetPagesInSectionResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (notebookKey is null)
+                throw new ArgumentNullException(nameof(notebookKey));
+            queryParams.Add($"notebookKey={Uri.EscapeDataString(notebookKey)}");
+            if (notebookSection is null)
+                throw new ArgumentNullException(nameof(notebookSection));
+            queryParams.Add($"sectionId={Uri.EscapeDataString(notebookSection)}");
+            var path = $"/sections/Dynamic/pages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<GetPagesInSectionResponse, JsonElement?>(
+                ct => this.CallConnectorAsync<GetPagesInSectionResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<GetPagesInSectionResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1131,4 +1129,3 @@ namespace Azure.Connectors.Sdk.Onenote
 
     #endregion Client
 }
-

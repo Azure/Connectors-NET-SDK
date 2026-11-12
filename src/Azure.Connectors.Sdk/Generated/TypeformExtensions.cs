@@ -806,4 +806,3 @@ namespace Azure.Connectors.Sdk.Typeform
 
     #endregion Client
 }
-

@@ -7,7 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Revai;
+using Azure.Connectors.Sdk.Freshservice;
+using Azure.Connectors.Sdk.Freshservice.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +18,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class RevaiClientTests
+    public class FreshserviceClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -29,7 +30,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static RevaiClient CreateMockedClient(HttpResponseMessage response)
+        private static FreshserviceClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -45,7 +46,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new RevaiClient(
+            return new FreshserviceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -54,27 +55,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new RevaiClient("https://test.azure.com/connection");
+            using var client = new FreshserviceClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new RevaiClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new FreshserviceClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new RevaiClient("https://test.azure.com/connection");
+            var client = new FreshserviceClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new RevaiClient(
+            var client = new FreshserviceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();
@@ -82,7 +83,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public async Task TranscriptionGetAsync_WithMockedResponse_ReturnsExpected()
+        public async Task CreateTicketAsync_WithMockedResponse_ReturnsExpected()
         {
             using var responseMessage = new HttpResponseMessage
             {
@@ -93,14 +94,14 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .TranscriptionGetAsync(id: "j1", cancellationToken: CancellationToken.None)
+                .CreateTicketAsync(input: new CreateTicketRequest(), cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public async Task TranscriptionGetAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task CreateTicketAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
@@ -111,7 +112,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.TranscriptionGetAsync(id: "j1", cancellationToken: CancellationToken.None))
+                client.CreateTicketAsync(input: new CreateTicketRequest(), cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 

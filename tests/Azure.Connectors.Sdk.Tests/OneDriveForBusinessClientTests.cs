@@ -264,7 +264,7 @@ namespace Azure.Connectors.Sdk.Tests
             // Arrange
             var link = new SharingLink
             {
-                WebURL = "https://contoso-my.sharepoint.com/:w:/p/user/shared-link"
+                WebUrl = "https://contoso-my.sharepoint.com/:w:/p/user/shared-link"
             };
 
             // Act
@@ -273,7 +273,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual("https://contoso-my.sharepoint.com/:w:/p/user/shared-link", deserialized!.WebURL);
+            Assert.AreEqual("https://contoso-my.sharepoint.com/:w:/p/user/shared-link", deserialized!.WebUrl);
         }
 
         [TestMethod]
@@ -287,7 +287,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("https://contoso.sharepoint.com/share/abc", result!.WebURL);
+            Assert.AreEqual("https://contoso.sharepoint.com/share/abc", result!.WebUrl);
         }
 
         [TestMethod]

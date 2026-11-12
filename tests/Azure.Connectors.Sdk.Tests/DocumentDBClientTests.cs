@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Documentdb;
-using Azure.Connectors.Sdk.Documentdb.Models;
+using Azure.Connectors.Sdk.DocumentDB;
+using Azure.Connectors.Sdk.DocumentDB.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,10 +20,10 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated DocumentDbClient class.
+    /// Tests for the generated DocumentDBClient class.
     /// </summary>
     [TestClass]
-    public class DocumentDbClientTests
+    public class DocumentDBClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -36,7 +36,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static DocumentDbClient CreateMockedClient(HttpResponseMessage response)
+        private static DocumentDBClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -52,7 +52,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new DocumentDbClient(
+            return new DocumentDBClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -61,27 +61,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
-            using var client = new DocumentDbClient("https://test.azure.com/connection");
+            using var client = new DocumentDBClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new DocumentDbClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new DocumentDBClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new DocumentDbClient("https://test.azure.com/connection");
+            var client = new DocumentDBClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new DocumentDbClient(
+            var client = new DocumentDBClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();
@@ -219,10 +219,10 @@ namespace Azure.Connectors.Sdk.Tests
 
             var deserialized = JsonSerializer.Deserialize<QueryDocumentsResponse>(json);
             Assert.IsNotNull(deserialized);
-            Assert.HasCount(1, deserialized.Documents);
+            Assert.HasCount(1, deserialized.Value);
             Assert.AreEqual(expected: 1, actual: deserialized.NumberOfDocuments);
-            Assert.AreEqual(expected: "document-1", actual: deserialized.Documents[0].AdditionalProperties["id"].GetString());
-            Assert.AreEqual(expected: "contoso", actual: deserialized.Documents[0].AdditionalProperties["tenant"].GetString());
+            Assert.AreEqual(expected: "document-1", actual: deserialized.Value[0].AdditionalProperties["id"].GetString());
+            Assert.AreEqual(expected: "contoso", actual: deserialized.Value[0].AdditionalProperties["tenant"].GetString());
         }
     }
 }

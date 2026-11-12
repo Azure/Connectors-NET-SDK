@@ -181,7 +181,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var result = await client
-                .UserProfileAsync(userUPN: "anotheruser@contoso.com", cancellationToken: CancellationToken.None)
+                .UserProfileAsync(userUpn: "anotheruser@contoso.com", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
@@ -233,7 +233,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var result = await client
-                .ManagerAsync(userUPN: "testuser@contoso.com", cancellationToken: CancellationToken.None)
+                .ManagerAsync(userUpn: "testuser@contoso.com", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
@@ -295,7 +295,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             // Act
             var result = await client
-                .DirectReportsAsync(userUPN: "manager@contoso.com", cancellationToken: CancellationToken.None)
+                .DirectReportsAsync(userUpn: "manager@contoso.com", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             // Assert
@@ -395,7 +395,7 @@ namespace Azure.Connectors.Sdk.Tests
                 DisplayName = "Searched User",
                 Email = "searched@contoso.com",
                 Department = "Sales",
-                UserPrincipalNameUPN = "searched@contoso.com"
+                UserPrincipalNameUpn = "searched@contoso.com"
             };
 
             // Act
@@ -408,7 +408,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(user.DisplayName, deserialized.DisplayName);
             Assert.AreEqual(user.Email, deserialized.Email);
             Assert.AreEqual(user.Department, deserialized.Department);
-            Assert.AreEqual(user.UserPrincipalNameUPN, deserialized.UserPrincipalNameUPN);
+            Assert.AreEqual(user.UserPrincipalNameUpn, deserialized.UserPrincipalNameUpn);
         }
 
         [TestMethod]

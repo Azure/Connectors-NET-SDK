@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.SharePointOnline.Models;
 using Azure.Core;
@@ -122,7 +123,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -402,11 +403,15 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
     /// <summary>
     /// List of Items
     /// </summary>
-    public class ItemsList
+    public class ItemsList : IPageable<Item>
     {
         /// <summary>List of Items</summary>
         [JsonPropertyName("value")]
         public List<Item> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -424,7 +429,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -633,7 +638,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>File name with extension of the item in document libraries, same as Name of the item in lists</summary>
         [JsonPropertyName("FileNameWithExtension")]
-        public string FilenameWithExtension { get; set; }
+        public string FileNameWithExtension { get; set; }
 
         /// <summary>The name of the user who deleted this item</summary>
         [JsonPropertyName("DeletedByUserName")]
@@ -921,7 +926,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>DynamicProperties</summary>
         [JsonPropertyName("DynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -1061,7 +1066,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
 
         /// <summary>Enter JSON object of request headers</summary>
         [JsonPropertyName("headers")]
-        public JsonElement? Headers { get; set; }
+        public Dictionary<string, string> Headers { get; set; }
 
         /// <summary>Enter request content in JSON</summary>
         [JsonPropertyName("body")]
@@ -1190,7 +1195,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Table
             {
@@ -1374,11 +1379,13 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// Creates a new instance of <see cref="ItemsList"/>.
         /// </summary>
         public static ItemsList ItemsList(
-            List<Item> value = default)
+            List<Item> value = default,
+            string nextLink = default)
         {
             return new ItemsList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1386,7 +1393,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Item
             {
@@ -1460,7 +1467,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static DeletedItem DeletedItem(
             long? id = default,
             string name = default,
-            string filenameWithExtension = default,
+            string fileNameWithExtension = default,
             string deletedBy = default,
             DateTime? timeDeleted = default,
             bool? isFolder = default)
@@ -1469,7 +1476,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
             {
                 Id = id,
                 Name = name,
-                FilenameWithExtension = filenameWithExtension,
+                FileNameWithExtension = fileNameWithExtension,
                 DeletedBy = deletedBy,
                 TimeDeleted = timeDeleted,
                 IsFolder = isFolder,
@@ -1688,7 +1695,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static CreateNewDocumentSetParameters CreateNewDocumentSetParameters(
             string documentSetPath = default,
             string contentTypeId = default,
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new CreateNewDocumentSetParameters
             {
@@ -1814,7 +1821,7 @@ namespace Azure.Connectors.Sdk.SharePointOnline.Models
         public static SharePointHttpRequestBodyParameters SharePointHttpRequestBodyParameters(
             Method? method = default,
             string uri = default,
-            JsonElement? headers = default,
+            Dictionary<string, string> headers = default,
             string body = default)
         {
             return new SharePointHttpRequestBodyParameters
@@ -2912,6 +2919,41 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
+        /// Get file thumbnail
+        /// </summary>
+        /// <remarks>Gets the thumbnail of a file by its file identifier.</remarks>
+        /// <param name="siteAddress">Site Address</param>
+        /// <param name="fileIdentifier">File Identifier</param>
+        /// <param name="thumbnailSize">Thumbnail Size</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get file thumbnail response.</returns>
+        public virtual async Task<byte[]> GetFileThumbnailAsync([DynamicValues("GetDataSets")] string siteAddress, string fileIdentifier, [DynamicValues("GetThumbnailSizeOptions")] string thumbnailSize, CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileThumbnailAsync");
+            try
+            {
+                if (siteAddress is null)
+                    throw new ArgumentNullException(nameof(siteAddress));
+                if (fileIdentifier is null)
+                    throw new ArgumentNullException(nameof(fileIdentifier));
+                var queryParams = new List<string>();
+                if (thumbnailSize is null)
+                    throw new ArgumentNullException(nameof(thumbnailSize));
+                queryParams.Add($"size={Uri.EscapeDataString(thumbnailSize)}");
+                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress))}/files/{Uri.EscapeDataString(fileIdentifier)}/thumbnail" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                return await this
+                    .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// List root folder
         /// </summary>
         /// <remarks>Returns files in the root SharePoint folder.</remarks>
@@ -3470,40 +3512,31 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="includeNestedItems">Include Nested Items</param>
         /// <param name="limitColumnsByView">Limit Columns by View</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get files (properties only) response.</returns>
-        public virtual async Task<ItemsList> GetFileItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, string filterQuery = default, string orderBy = default, int? topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetFileItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTablesForLibraries")] string libraryName, string filterQuery = default, string orderBy = default, int? topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetFileItemsAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (libraryName is null)
-                    throw new ArgumentNullException(nameof(libraryName));
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (limitEntriesToFolder != default)
-                    queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder)}");
-                if (includeNestedItems != default)
-                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems)}");
-                if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView)}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName))}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (siteAddress is null)
+                throw new ArgumentNullException(nameof(siteAddress));
+            if (libraryName is null)
+                throw new ArgumentNullException(nameof(libraryName));
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (limitEntriesToFolder != default)
+                queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder)}");
+            if (includeNestedItems != default)
+                queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems)}");
+            if (limitColumnsByView != default)
+                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView)}");
+            var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(libraryName))}/getfileitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -3519,40 +3552,31 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <param name="includeNestedItems">Include Nested Items</param>
         /// <param name="limitColumnsByView">Limit Columns by View</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get items response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string filterQuery = default, string orderBy = default, int? topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsAsync([DynamicValues("GetDataSets")] string siteAddress, [DynamicValues("GetTables")] string listName, string filterQuery = default, string orderBy = default, int? topCount = default, string limitEntriesToFolder = default, [DynamicValues("GetViewScopeOptions")] string includeNestedItems = default, [DynamicValues("GetTableViews")] string limitColumnsByView = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetItemsAsync");
-            try
-            {
-                if (siteAddress is null)
-                    throw new ArgumentNullException(nameof(siteAddress));
-                if (listName is null)
-                    throw new ArgumentNullException(nameof(listName));
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (limitEntriesToFolder != default)
-                    queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder)}");
-                if (includeNestedItems != default)
-                    queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems)}");
-                if (limitColumnsByView != default)
-                    queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView)}");
-                var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (siteAddress is null)
+                throw new ArgumentNullException(nameof(siteAddress));
+            if (listName is null)
+                throw new ArgumentNullException(nameof(listName));
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (limitEntriesToFolder != default)
+                queryParams.Add($"folderPath={Uri.EscapeDataString(limitEntriesToFolder)}");
+            if (includeNestedItems != default)
+                queryParams.Add($"viewScopeOption={Uri.EscapeDataString(includeNestedItems)}");
+            if (limitColumnsByView != default)
+                queryParams.Add($"view={Uri.EscapeDataString(limitColumnsByView)}");
+            var path = $"/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(siteAddress))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(listName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -4428,6 +4452,30 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         }
 
         /// <summary>
+        /// Get thumbnail size options
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The Get thumbnail size options response.</returns>
+        public virtual async Task<ObjectEntity> GetThumbnailSizeOptionsAsync(CancellationToken cancellationToken = default)
+        {
+            using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetThumbnailSizeOptionsAsync");
+            try
+            {
+                var path = $"/getThumbnailSizeOptions";
+                return await this
+                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get lists and libraries
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
@@ -4587,14 +4635,14 @@ namespace Azure.Connectors.Sdk.SharePointOnline
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get SPViewScope options to use for folder querying behavior response.</returns>
-        public virtual async Task<ObjectEntity> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<List<ObjectEntity>> GetViewScopeOptionsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = SharePointOnlineClient.ConnectorActivitySource.StartActivity("SharePointOnlineClient.GetViewScopeOptionsAsync");
             try
             {
                 var path = $"/getViewScopeOptions";
                 return await this
-                    .CallConnectorAsync<ObjectEntity>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<ObjectEntity>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4868,4 +4916,3 @@ namespace Azure.Connectors.Sdk.SharePointOnline
 
     #endregion Client
 }
-

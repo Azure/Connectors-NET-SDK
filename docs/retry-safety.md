@@ -49,26 +49,24 @@ When `RetryUnsafeHttpMethods` is `true`, unsafe methods use the same configured 
 
 ### Side-Effecting GET Operations
 
-The .NET generated clients also block standard retries for known side-effecting
-operations, even when their HTTP verb is normally retryable. The current blocklist
-contains DataFlows SMS `GET /sms/send`, exposed as `SendSmsGetAsync`. The operation
-remains callable and returns its response; transient responses and transport
-failures make one attempt rather than risk sending the SMS twice. Ordinary reads,
-such as `ListSmsAsync`, keep normal GET retry behavior.
+The generated DataFlows SMS client excludes the side-effecting `GET /sms/send`
+operation rather than offering a retryable GET send method. Send messages through
+`SendSmsAsync`, which uses POST. With standard retry defaults, POST sends make one
+attempt; callers should opt into unsafe-method retries only when replay is safe.
+Ordinary read operations such as `ListSmsAsync` keep normal GET retry behavior.
 
-This operation-specific blocklist takes precedence over `RetryUnsafeHttpMethods`.
-It does not replace a caller-supplied retry policy or change the pre-built pipeline
-boundary described below. This additional .NET rule does not claim matching
+This generator-level exclusion does not change a caller-supplied retry policy or
+the pre-built pipeline boundary described below. It does not assert matching
 behavior in other language SDKs.
 
 ### Error diagnostics
 
 Connector error operation labels contain the HTTP method and resolved path, not
-query strings. This prevents URL query values, including SMS recipients and
-messages, from being copied into exception operation labels and generated
-activity status. Error-path tests must assert both the unchanged outgoing query
-and the absence of its values from these diagnostics. Service response bodies
-and caller-configured diagnostics can still contain sensitive data.
+query strings. This prevents URL query values from being copied into exception
+operation labels and generated activity status. DataFlows SMS sends use a POST
+body rather than query parameters; their error-path tests also verify that
+recipient and message values are absent from those diagnostics. Service response
+bodies and caller-configured diagnostics can still contain sensitive data.
 
 ### Custom policy precedence
 

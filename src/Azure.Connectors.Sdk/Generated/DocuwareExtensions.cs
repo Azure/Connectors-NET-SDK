@@ -364,7 +364,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
 
         /// <summary>Guid</summary>
         [JsonPropertyName("Guid")]
-        public string Id { get; set; }
+        public string Guid { get; set; }
     }
 
     /// <summary>
@@ -760,7 +760,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
             int? rotation = default,
             bool? transparent = default,
             int? strokeWidth = default,
-            string id = default)
+            string guid = default)
         {
             return new PlaceAStampResponse
             {
@@ -770,7 +770,7 @@ namespace Azure.Connectors.Sdk.Docuware.Models
                 Rotation = rotation,
                 Transparent = transparent,
                 StrokeWidth = strokeWidth,
-                Id = id,
+                Guid = guid,
             };
         }
 
@@ -1706,4 +1706,3 @@ namespace Azure.Connectors.Sdk.Docuware
 
     #endregion Client
 }
-

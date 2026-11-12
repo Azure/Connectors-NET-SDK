@@ -1030,7 +1030,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
 
         /// <summary>totp</summary>
         [JsonPropertyName("totp")]
-        public AccessSecurityTOTPResponse Totp { get; set; }
+        public AccessSecurityTotpResponse Totp { get; set; }
     }
 
     /// <summary>
@@ -1062,7 +1062,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
     /// <summary>
     /// totp
     /// </summary>
-    public class AccessSecurityTOTPResponse
+    public class AccessSecurityTotpResponse
     {
         /// <summary>True, if TOTP authentication is enabled for the package.</summary>
         [JsonPropertyName("enabled")]
@@ -6536,7 +6536,7 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         public static FieldAuthentication FieldAuthentication(
             bool? enabled = default,
             AccessSecuritySmsOtpResponse smsOtp = default,
-            AccessSecurityTOTPResponse totp = default)
+            AccessSecurityTotpResponse totp = default)
         {
             return new FieldAuthentication
             {
@@ -6567,12 +6567,12 @@ namespace Azure.Connectors.Sdk.SigningHub.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AccessSecurityTOTPResponse"/>.
+        /// Creates a new instance of <see cref="AccessSecurityTotpResponse"/>.
         /// </summary>
-        public static AccessSecurityTOTPResponse AccessSecurityTOTPResponse(
+        public static AccessSecurityTotpResponse AccessSecurityTotpResponse(
             bool? enabled = default)
         {
-            return new AccessSecurityTOTPResponse
+            return new AccessSecurityTotpResponse
             {
                 Enabled = enabled,
             };
@@ -11801,4 +11801,3 @@ namespace Azure.Connectors.Sdk.SigningHub
 
     #endregion Client
 }
-

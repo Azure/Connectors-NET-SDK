@@ -3386,7 +3386,7 @@ namespace Azure.Connectors.Sdk.VisualStudioTeamServices.Models
         public static VisualStudioTeamServicesType Double { get; } = new("Double");
 
         /// <summary>Guid</summary>
-        public static VisualStudioTeamServicesType Id { get; } = new("Guid");
+        public static VisualStudioTeamServicesType Guid { get; } = new("Guid");
 
         /// <summary>History</summary>
         public static VisualStudioTeamServicesType History { get; } = new("History");
@@ -8246,4 +8246,3 @@ namespace Azure.Connectors.Sdk.VisualStudioTeamServices
 
     #endregion Client
 }
-

@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Salesforce.Models;
 using Azure.Core;
@@ -33,11 +34,15 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     /// <summary>
     /// Represents a list of tables.
     /// </summary>
-    public class TablesList
+    public class TablesList : IPageable<Table>
     {
         /// <summary>List of Tables</summary>
         [JsonPropertyName("value")]
         public List<Table> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -56,7 +61,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -76,11 +81,15 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     /// <summary>
     /// List of Items
     /// </summary>
-    public class ItemsList
+    public class ItemsList : IPageable<Item>
     {
         /// <summary>List of Items</summary>
         [JsonPropertyName("value")]
         public List<Item> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -98,7 +107,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -128,7 +137,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>Next Record URL</summary>
         [JsonPropertyName("nextRecordUrl")]
-        public string NextRecoredURL { get; set; }
+        public string NextRecoredUrl { get; set; }
     }
 
     /// <summary>
@@ -138,7 +147,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     {
         /// <summary>API Version</summary>
         [JsonPropertyName("apiVersion")]
-        public float? APIVersion { get; set; }
+        public float? ApiVersion { get; set; }
 
         /// <summary>Column Delimiter</summary>
         [JsonPropertyName("columnDelimiter")]
@@ -154,7 +163,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>Content URL</summary>
         [JsonPropertyName("contentUrl")]
-        public string ContentURL { get; set; }
+        public string ContentUrl { get; set; }
 
         /// <summary>Created By ID</summary>
         [JsonPropertyName("createdById")]
@@ -204,15 +213,15 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     {
         /// <summary>APEX Processing Time</summary>
         [JsonPropertyName("apexProcessingTime")]
-        public double? APEXProcessingTime { get; set; }
+        public double? ApexProcessingTime { get; set; }
 
         /// <summary>API Active Processing Time</summary>
         [JsonPropertyName("apiActiveProcessingTime")]
-        public double? APIActiveProcessingTime { get; set; }
+        public double? ApiActiveProcessingTime { get; set; }
 
         /// <summary>API Version</summary>
         [JsonPropertyName("apiVersion")]
-        public float? APIVersion { get; set; }
+        public float? ApiVersion { get; set; }
 
         /// <summary>Column Delimiter</summary>
         [JsonPropertyName("columnDelimiter")]
@@ -228,7 +237,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>Content URL</summary>
         [JsonPropertyName("contentUrl")]
-        public string ContentURL { get; set; }
+        public string ContentUrl { get; set; }
 
         /// <summary>Created By ID</summary>
         [JsonPropertyName("createdById")]
@@ -282,7 +291,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     /// <summary>
     /// SOSL search query response
     /// </summary>
-    public class SOSLSearchQueryResponse
+    public class SoslSearchQueryResponse
     {
         /// <summary>A list of search records returned by an SOSL search query</summary>
         [JsonPropertyName("searchRecords")]
@@ -322,7 +331,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     /// <summary>
     /// Response for MCP server for Salesforce
     /// </summary>
-    public class MCPQueryResponse
+    public class McpQueryResponse
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -380,7 +389,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
 
         /// <summary>The API version that the job was created in.</summary>
         [JsonPropertyName("apiVersion")]
-        public float? APIVersion { get; set; }
+        public float? ApiVersion { get; set; }
 
         /// <summary>The concurrency mode for the job.</summary>
         [JsonPropertyName("concurrencyMode")]
@@ -684,11 +693,11 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     {
         /// <summary>SOQL Query text. Dynamic parameters can be specified using &apos;@paramName&apos; syntax.</summary>
         [JsonPropertyName("query")]
-        public string SOQLQuery { get; set; }
+        public string SoqlQuery { get; set; }
 
         /// <summary>SOQL Query dynamic parameters. Key is parameter name (without &apos;@&apos; at sign), value is parameter value.</summary>
         [JsonPropertyName("parameters")]
-        public JsonElement? QueryParameters { get; set; }
+        public Dictionary<string, string> QueryParameters { get; set; }
     }
 
     /// <summary>
@@ -704,7 +713,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
     /// <summary>
     /// MCPQueryRequest
     /// </summary>
-    public class MCPQueryRequest
+    public class McpQueryRequest
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -1031,11 +1040,13 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// Creates a new instance of <see cref="TablesList"/>.
         /// </summary>
         public static TablesList TablesList(
-            List<Table> value = default)
+            List<Table> value = default,
+            string nextLink = default)
         {
             return new TablesList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1045,7 +1056,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Table
             {
@@ -1059,11 +1070,13 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// Creates a new instance of <see cref="ItemsList"/>.
         /// </summary>
         public static ItemsList ItemsList(
-            List<Item> value = default)
+            List<Item> value = default,
+            string nextLink = default)
         {
             return new ItemsList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1071,7 +1084,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Item
             {
@@ -1085,13 +1098,13 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         public static GetAllJobsResponse GetAllJobsResponse(
             bool? done = default,
             List<JobInfo> records = default,
-            string nextRecoredURL = default)
+            string nextRecoredUrl = default)
         {
             return new GetAllJobsResponse
             {
                 Done = done,
                 Records = records,
-                NextRecoredURL = nextRecoredURL,
+                NextRecoredUrl = nextRecoredUrl,
             };
         }
 
@@ -1103,7 +1116,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
             ColumnDelimiter? columnDelimiter = default,
             ConcurrencyMode? concurrencyMode = default,
             string contentType = default,
-            string contentURL = default,
+            string contentUrl = default,
             string createdById = default,
             DateTime? createdDate = default,
             string externalIdFieldName = default,
@@ -1117,11 +1130,11 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         {
             return new JobInfo
             {
-                APIVersion = apiVersion,
+                ApiVersion = apiVersion,
                 ColumnDelimiter = columnDelimiter,
                 ConcurrencyMode = concurrencyMode,
                 ContentType = contentType,
-                ContentURL = contentURL,
+                ContentUrl = contentUrl,
                 CreatedById = createdById,
                 CreatedDate = createdDate,
                 ExternalIdFieldName = externalIdFieldName,
@@ -1145,7 +1158,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
             ColumnDelimiter? columnDelimiter = default,
             ConcurrencyMode? concurrencyMode = default,
             string contentType = default,
-            string contentURL = default,
+            string contentUrl = default,
             string createdById = default,
             DateTime? createdDate = default,
             string externalFieldName = default,
@@ -1161,13 +1174,13 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         {
             return new CheckJobResponse
             {
-                APEXProcessingTime = apexProcessingTime,
-                APIActiveProcessingTime = apiActiveProcessingTime,
-                APIVersion = apiVersion,
+                ApexProcessingTime = apexProcessingTime,
+                ApiActiveProcessingTime = apiActiveProcessingTime,
+                ApiVersion = apiVersion,
                 ColumnDelimiter = columnDelimiter,
                 ConcurrencyMode = concurrencyMode,
                 ContentType = contentType,
-                ContentURL = contentURL,
+                ContentUrl = contentUrl,
                 CreatedById = createdById,
                 CreatedDate = createdDate,
                 ExternalFieldName = externalFieldName,
@@ -1184,13 +1197,13 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="SOSLSearchQueryResponse"/>.
+        /// Creates a new instance of <see cref="SoslSearchQueryResponse"/>.
         /// </summary>
-        public static SOSLSearchQueryResponse SOSLSearchQueryResponse(
+        public static SoslSearchQueryResponse SoslSearchQueryResponse(
             List<SearchRecordObject> searchRecords = default,
             JsonElement? metadata = default)
         {
-            return new SOSLSearchQueryResponse
+            return new SoslSearchQueryResponse
             {
                 SearchRecords = searchRecords,
                 Metadata = metadata,
@@ -1212,9 +1225,9 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+        /// Creates a new instance of <see cref="McpQueryResponse"/>.
         /// </summary>
-        public static MCPQueryResponse MCPQueryResponse(
+        public static McpQueryResponse McpQueryResponse(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -1222,7 +1235,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
             JsonElement? result = default,
             JsonElement? error = default)
         {
-            return new MCPQueryResponse
+            return new McpQueryResponse
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -1261,7 +1274,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
                 ExternalIdFieldName = externalIdFieldName,
                 LineEnding = lineEnding,
                 ContentType = contentType,
-                APIVersion = apiVersion,
+                ApiVersion = apiVersion,
                 ConcurrencyMode = concurrencyMode,
                 ContentUrl = contentUrl,
                 CreatedById = createdById,
@@ -1416,11 +1429,11 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         /// </summary>
         public static ExecuteSoqlQueryParameters ExecuteSoqlQueryParameters(
             string soqlQuery = default,
-            JsonElement? queryParameters = default)
+            Dictionary<string, string> queryParameters = default)
         {
             return new ExecuteSoqlQueryParameters
             {
-                SOQLQuery = soqlQuery,
+                SoqlQuery = soqlQuery,
                 QueryParameters = queryParameters,
             };
         }
@@ -1438,9 +1451,9 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+        /// Creates a new instance of <see cref="McpQueryRequest"/>.
         /// </summary>
-        public static MCPQueryRequest MCPQueryRequest(
+        public static McpQueryRequest McpQueryRequest(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -1449,7 +1462,7 @@ namespace Azure.Connectors.Sdk.Salesforce.Models
             JsonElement? error = default,
             string callbackEndpoint = default)
         {
-            return new MCPQueryRequest
+            return new McpQueryRequest
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -1676,23 +1689,14 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// </summary>
         /// <remarks>This operation lists the available Salesforce object types.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get object types response.</returns>
-        public virtual async Task<TablesList> GetTablesAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetTablesAsync");
-            try
-            {
-                var path = $"/datasets/default/tables";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var path = $"/datasets/default/tables";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1739,36 +1743,27 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get records response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetTables")] string salesforceObjectType, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsAsync([DynamicValues("GetTables")] string salesforceObjectType, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsAsync");
-            try
-            {
-                if (salesforceObjectType is null)
-                    throw new ArgumentNullException(nameof(salesforceObjectType));
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (salesforceObjectType is null)
+                throw new ArgumentNullException(nameof(salesforceObjectType));
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(salesforceObjectType))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1781,34 +1776,25 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Account records from Salesforce response.</returns>
-        public virtual async Task<ItemsList> GetItemsTableAccountAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsTableAccountAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableAccountAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/account/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/account/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1821,34 +1807,25 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get User records from Salesforce response.</returns>
-        public virtual async Task<ItemsList> GetItemsTableUserAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsTableUserAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableUserAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/user/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/user/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1861,34 +1838,25 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Case records from Salesforce response.</returns>
-        public virtual async Task<ItemsList> GetItemsTableCaseAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsTableCaseAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableCaseAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/case/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/case/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1901,34 +1869,25 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Opportunity records from Salesforce response.</returns>
-        public virtual async Task<ItemsList> GetItemsTableOpportunityAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsTableOpportunityAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableOpportunityAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/opportunity/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/opportunity/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1941,34 +1900,25 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Product records from Salesforce response.</returns>
-        public virtual async Task<ItemsList> GetItemsTableProduct2Async(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsTableProduct2Async(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableProduct2Async");
-            try
-            {
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/product2/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/product2/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1981,34 +1931,25 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="skipCount">Skip Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get Contact records from Salesforce response.</returns>
-        public virtual async Task<ItemsList> GetItemsTableContactAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsTableContactAsync(string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.GetItemsTableContactAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/contact/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/contact/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2246,21 +2187,21 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// Execute SOSL search query
         /// </summary>
         /// <remarks>Execute the specified SOSL search qyery</remarks>
-        /// <param name="sOSLSearchString">SOSL search string</param>
+        /// <param name="soslSearchString">SOSL search string</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Execute SOSL search query response.</returns>
-        public virtual async Task<SOSLSearchQueryResponse> ExecuteSOSLQueryAsync(string sOSLSearchString, CancellationToken cancellationToken = default)
+        public virtual async Task<SoslSearchQueryResponse> ExecuteSoslQueryAsync(string soslSearchString, CancellationToken cancellationToken = default)
         {
-            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.ExecuteSOSLQueryAsync");
+            using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.ExecuteSoslQueryAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (sOSLSearchString is null)
-                    throw new ArgumentNullException(nameof(sOSLSearchString));
-                queryParams.Add($"q={Uri.EscapeDataString(sOSLSearchString)}");
+                if (soslSearchString is null)
+                    throw new ArgumentNullException(nameof(soslSearchString));
+                queryParams.Add($"q={Uri.EscapeDataString(soslSearchString)}");
                 var path = $"/codeless/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SOSLSearchQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<SoslSearchQueryResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2304,7 +2245,7 @@ namespace Azure.Connectors.Sdk.Salesforce
         /// <param name="sessionId">sessionId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The MCP server for Salesforce response.</returns>
-        public virtual async Task<MCPQueryResponse> McpSalesforceManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<McpQueryResponse> McpSalesforceManagementAsync(McpQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
             using var activity = SalesforceClient.ConnectorActivitySource.StartActivity("SalesforceClient.McpSalesforceManagementAsync");
             try
@@ -2314,7 +2255,7 @@ namespace Azure.Connectors.Sdk.Salesforce
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/SalesforceManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<McpQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -2620,4 +2561,3 @@ namespace Azure.Connectors.Sdk.Salesforce
 
     #endregion Client
 }
-

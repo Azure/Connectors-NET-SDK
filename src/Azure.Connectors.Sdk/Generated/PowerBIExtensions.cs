@@ -353,7 +353,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
 
         /// <summary>URL linking to the dashboard tile where the alert is set up.</summary>
         [JsonPropertyName("tileUrl")]
-        public string TileURL { get; set; }
+        public string TileUrl { get; set; }
 
         /// <summary>The value of the tile.</summary>
         [JsonPropertyName("tileValue")]
@@ -481,7 +481,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>OData context</summary>
         [JsonPropertyName("odata.context")]
-        public string OdataContext { get; set; }
+        public string ODataContext { get; set; }
 
         /// <summary>The report collection</summary>
         [JsonPropertyName("value")]
@@ -747,7 +747,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
     {
         /// <summary>The effective username reflected by a token for applying RLS rules (For OnPrem model, username can be composed of alpha-numerical characters or any of the following characters  &apos;.&apos;, &apos;-&apos;, &apos;_&apos;, &apos;!&apos;, &apos;#&apos;, &apos;^&apos;, &apos;~&apos;, &apos;\\&apos;, &apos;@&apos;, also username cannot contain spaces. For Cloud model, username can be composed of all ASCII characters. username must be up to 256 characters)</summary>
         [JsonPropertyName("username")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>An array of datasets for which this identity applies</summary>
         [JsonPropertyName("datasets")]
@@ -1360,7 +1360,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
             string alertTitle = default,
             double? alertThreshold = default,
             bool? isAlertTriggered = default,
-            string tileURL = default,
+            string tileUrl = default,
             JsonElement? tileValue = default)
         {
             return new EvaluatedAlert
@@ -1368,7 +1368,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
                 AlertTitle = alertTitle,
                 AlertThreshold = alertThreshold,
                 IsAlertTriggered = isAlertTriggered,
-                TileURL = tileURL,
+                TileUrl = tileUrl,
                 TileValue = tileValue,
             };
         }
@@ -1471,12 +1471,12 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="Reports"/>.
         /// </summary>
         public static Reports Reports(
-            string odataContext = default,
+            string oDataContext = default,
             List<JsonElement?> value = default)
         {
             return new Reports
             {
-                OdataContext = odataContext,
+                ODataContext = oDataContext,
                 Value = value,
             };
         }
@@ -1695,7 +1695,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         /// Creates a new instance of <see cref="EffectiveIdentity"/>.
         /// </summary>
         public static EffectiveIdentity EffectiveIdentity(
-            string username = default,
+            string userName = default,
             List<string> datasets = default,
             List<string> roles = default,
             string customData = default,
@@ -1704,7 +1704,7 @@ namespace Azure.Connectors.Sdk.PowerBI.Models
         {
             return new EffectiveIdentity
             {
-                Username = username,
+                UserName = userName,
                 Datasets = datasets,
                 Roles = roles,
                 CustomData = customData,
@@ -2895,4 +2895,3 @@ namespace Azure.Connectors.Sdk.PowerBI
 
     #endregion Client
 }
-

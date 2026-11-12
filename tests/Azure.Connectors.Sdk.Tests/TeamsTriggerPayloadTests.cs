@@ -66,10 +66,10 @@ namespace Azure.Connectors.Sdk.Tests
             var recordingItem = recordings.Single();
             var transcriptItem = transcripts.Single();
             Assert.AreEqual(expected: "recording-id", actual: recordingItem.RecordingId);
-            Assert.AreEqual(expected: "https://example.test/recording", actual: recordingItem.RecordingContentURL);
+            Assert.AreEqual(expected: "https://example.test/recording", actual: recordingItem.RecordingContentUrl);
             Assert.AreEqual(expected: "organizer-id", actual: recordingItem.MeetingOrganizer.User.UserId);
             Assert.AreEqual(expected: "transcript-id", actual: transcriptItem.TranscriptId);
-            Assert.AreEqual(expected: "https://example.test/transcript", actual: transcriptItem.TranscriptContentURL);
+            Assert.AreEqual(expected: "https://example.test/transcript", actual: transcriptItem.TranscriptContentUrl);
             Assert.AreEqual(expected: "organizer-id", actual: transcriptItem.MeetingOrganizer.User.UserId);
         }
 

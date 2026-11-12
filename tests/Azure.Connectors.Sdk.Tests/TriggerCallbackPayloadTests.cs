@@ -107,7 +107,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("This is a test email preview.", email.BodyPreview);
             Assert.AreEqual(false, email.HasAttachment);
             Assert.AreEqual(false, email.IsRead);
-            Assert.AreEqual(true, email.IsHTML);
+            Assert.AreEqual(true, email.IsHtml);
             Assert.AreEqual("<html><body>Hello</body></html>", email.Body);
         }
 

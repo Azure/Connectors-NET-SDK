@@ -256,7 +256,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
 
         /// <summary>The threads@odata.context link.</summary>
         [JsonPropertyName("threads@odata.context")]
-        public string ThreadsOdataContext { get; set; }
+        public string ThreadsODataContext { get; set; }
 
         /// <summary>Created conversation thread.</summary>
         [JsonPropertyName("threads")]
@@ -478,7 +478,7 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
     {
         /// <summary>@odata.type for a file attachment.</summary>
         [JsonPropertyName("@odata.type")]
-        public string FileAttachmentOdataType { get; set; }
+        public string FileAttachmentODataType { get; set; }
 
         /// <summary>Name of the attachment.</summary>
         [JsonPropertyName("Name")]
@@ -686,14 +686,14 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         public static CreateConversationResponse CreateConversationResponse(
             string context = default,
             string conversationId = default,
-            string threadsOdataContext = default,
+            string threadsODataContext = default,
             List<JsonElement?> conversationThreads = default)
         {
             return new CreateConversationResponse
             {
                 Context = context,
                 ConversationId = conversationId,
-                ThreadsOdataContext = threadsOdataContext,
+                ThreadsODataContext = threadsODataContext,
                 ConversationThreads = conversationThreads,
             };
         }
@@ -890,13 +890,13 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail.Models
         /// Creates a new instance of <see cref="ClientSendAttachment"/>.
         /// </summary>
         public static ClientSendAttachment ClientSendAttachment(
-            string fileAttachmentOdataType = default,
+            string fileAttachmentODataType = default,
             string attachmentName = default,
             string attachmentContent = default)
         {
             return new ClientSendAttachment
             {
-                FileAttachmentOdataType = fileAttachmentOdataType,
+                FileAttachmentODataType = fileAttachmentODataType,
                 AttachmentName = attachmentName,
                 AttachmentContent = attachmentContent,
             };
@@ -1576,4 +1576,3 @@ namespace Azure.Connectors.Sdk.Office365GroupsMail
 
     #endregion Client
 }
-

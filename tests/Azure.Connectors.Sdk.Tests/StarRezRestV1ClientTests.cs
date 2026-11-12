@@ -7,8 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.FreshService;
-using Azure.Connectors.Sdk.FreshService.Models;
+using Azure.Connectors.Sdk.StarRezRestV1;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,7 +17,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class FreshServiceClientTests
+    public class StarRezRestV1ClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -30,91 +29,58 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static FreshServiceClient CreateMockedClient(HttpResponseMessage response)
+        private static StarRezRestV1Client CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
-                .Setup<Task<HttpResponseMessage>>(
-                    "SendAsync",
-                    ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(response)
-                .Callback(() => { })
-                .Verifiable();
-
+                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(response).Callback(() => { }).Verifiable();
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
-
-            return new FreshServiceClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object,
-                options: options);
+            return new StarRezRestV1Client(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
         }
 
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new FreshServiceClient("https://test.azure.com/connection");
+            using var client = new StarRezRestV1Client("https://test.azure.com/conn");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
-        public void Constructor_WithNullUrl_ShouldThrowArgumentNullException()
+        public void Constructor_WithNull_ShouldThrow()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new FreshServiceClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new StarRezRestV1Client((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new FreshServiceClient("https://test.azure.com/connection");
+            var client = new StarRezRestV1Client("https://test.azure.com/conn");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new FreshServiceClient(
-                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
-                credential: SharedMockCredential.Object);
+            var client = new StarRezRestV1Client(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
         }
 
         [TestMethod]
-        public async Task CreateTicketAsync_WithMockedResponse_ReturnsExpected()
-        {
-            using var responseMessage = new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent("{}")
-            };
-
-            using var client = CreateMockedClient(responseMessage);
-
-            var result = await client
-                .CreateTicketAsync(input: new CreateTicketRequest(), cancellationToken: CancellationToken.None)
-                .ConfigureAwait(continueOnCapturedContext: false);
-
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public async Task CreateTicketAsync_WithErrorResponse_ThrowsConnectorException()
+        public async Task SelectEntryAsync_WithErrorResponse_ThrowsConnectorException()
         {
             using var responseMessage = new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.BadRequest,
                 Content = new StringContent("{\"error\": \"Bad request\"}")
             };
-
             using var client = CreateMockedClient(responseMessage);
-
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.CreateTicketAsync(input: new CreateTicketRequest(), cancellationToken: CancellationToken.None))
+                client.SelectEntryAsync(input: new Azure.Connectors.Sdk.StarRezRestV1.Models.SelectEntryInput(), cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
-
     }
 }

@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Revai;
+using Azure.Connectors.Sdk.RevAI;
 using Azure.Connectors.Sdk.Slack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableInt_WithNull_OmitsQueryParameter()
         {
             // Arrange
-            var clientSetup = CreateMockedClientWithCapture<RevaiClient>();
+            var clientSetup = CreateMockedClientWithCapture<RevAIClient>();
             using (clientSetup.Client)
             {
                 // Act — pass null for limit (int?)
@@ -62,7 +62,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableInt_WithZero_EmitsQueryParameterWithZero()
         {
             // Arrange
-            var clientSetup = CreateMockedClientWithCapture<RevaiClient>();
+            var clientSetup = CreateMockedClientWithCapture<RevAIClient>();
             using (clientSetup.Client)
             {
                 // Act — pass 0 for limit (int?) — this is a valid distinct value, not "unspecified"
@@ -81,7 +81,7 @@ namespace Azure.Connectors.Sdk.Tests
         public async Task NullableInt_WithPositiveValue_EmitsQueryParameter()
         {
             // Arrange
-            var clientSetup = CreateMockedClientWithCapture<RevaiClient>();
+            var clientSetup = CreateMockedClientWithCapture<RevAIClient>();
             using (clientSetup.Client)
             {
                 // Act

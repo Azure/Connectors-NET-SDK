@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIId { get; set; }
+        public string Apiid { get; set; }
 
         /// <summary>Response obtained when the call was made.</summary>
         [JsonPropertyName("message")]
@@ -43,7 +43,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
 
         /// <summary>Unique ID of the call.</summary>
         [JsonPropertyName("request_uuid")]
-        public string CallUUID { get; set; }
+        public string CallUuid { get; set; }
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIId { get; set; }
+        public string Apiid { get; set; }
 
         /// <summary>Meta information about the response.</summary>
         [JsonPropertyName("meta")]
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIId { get; set; }
+        public string Apiid { get; set; }
 
         /// <summary>Response of the sent message.</summary>
         [JsonPropertyName("message")]
@@ -79,7 +79,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
 
         /// <summary>Unique ID of the message.</summary>
         [JsonPropertyName("message_uuid")]
-        public List<string> MessageUUID { get; set; }
+        public List<string> MessageUuid { get; set; }
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string APIId { get; set; }
+        public string Apiid { get; set; }
 
         /// <summary>Delivery error code if the message isn&apos;t delivered.</summary>
         [JsonPropertyName("error_code")]
@@ -118,11 +118,11 @@ namespace Azure.Connectors.Sdk.Plivo.Models
 
         /// <summary>Unique ID of the message.</summary>
         [JsonPropertyName("message_uuid")]
-        public string MessageUUID { get; set; }
+        public string MessageUuid { get; set; }
 
         /// <summary>URI to get details of this single message.</summary>
         [JsonPropertyName("resource_uri")]
-        public string MessageURI { get; set; }
+        public string MessageUri { get; set; }
 
         /// <summary>Number to which the message was sent.</summary>
         [JsonPropertyName("to_number")]
@@ -174,7 +174,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
 
         /// <summary>URL to be called when the call is made.</summary>
         [JsonPropertyName("answer_url")]
-        public string AnswerURL { get; set; }
+        public string AnswerUrl { get; set; }
 
         /// <summary>HTTP Method (GET/POST) that should be used to call the Answer URL.</summary>
         [JsonPropertyName("answer_method")]
@@ -196,15 +196,15 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="MakeCallResponse"/>.
         /// </summary>
         public static MakeCallResponse MakeCallResponse(
-            string apiId = default,
+            string apiid = default,
             string response = default,
-            string callUUID = default)
+            string callUuid = default)
         {
             return new MakeCallResponse
             {
-                APIId = apiId,
+                Apiid = apiid,
                 Response = response,
-                CallUUID = callUUID,
+                CallUuid = callUuid,
             };
         }
 
@@ -212,13 +212,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="ListMessagesResponse"/>.
         /// </summary>
         public static ListMessagesResponse ListMessagesResponse(
-            string apiId = default,
+            string apiid = default,
             JsonElement? metaInformation = default,
             List<JsonElement?> messageList = default)
         {
             return new ListMessagesResponse
             {
-                APIId = apiId,
+                Apiid = apiid,
                 MetaInformation = metaInformation,
                 MessageList = messageList,
             };
@@ -228,15 +228,15 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="SendSmsResponse"/>.
         /// </summary>
         public static SendSmsResponse SendSmsResponse(
-            string apiId = default,
+            string apiid = default,
             string response = default,
-            List<string> messageUUID = default)
+            List<string> messageUuid = default)
         {
             return new SendSmsResponse
             {
-                APIId = apiId,
+                Apiid = apiid,
                 Response = response,
-                MessageUUID = messageUUID,
+                MessageUuid = messageUuid,
             };
         }
 
@@ -244,15 +244,15 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="GetMessageResponse"/>.
         /// </summary>
         public static GetMessageResponse GetMessageResponse(
-            string apiId = default,
+            string apiid = default,
             string errorCode = default,
             string from = default,
             string messageDirection = default,
             string messageDeliveryStatus = default,
             string timestamp = default,
             string messageType = default,
-            string messageUUID = default,
-            string messageURI = default,
+            string messageUuid = default,
+            string messageUri = default,
             string to = default,
             string totalAmount = default,
             string rate = default,
@@ -260,15 +260,15 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         {
             return new GetMessageResponse
             {
-                APIId = apiId,
+                Apiid = apiid,
                 ErrorCode = errorCode,
                 From = from,
                 MessageDirection = messageDirection,
                 MessageDeliveryStatus = messageDeliveryStatus,
                 Timestamp = timestamp,
                 MessageType = messageType,
-                MessageUUID = messageUUID,
-                MessageURI = messageURI,
+                MessageUuid = messageUuid,
+                MessageUri = messageUri,
                 To = to,
                 TotalAmount = totalAmount,
                 Rate = rate,
@@ -298,14 +298,14 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         public static Call Call(
             string from = default,
             string to = default,
-            string answerURL = default,
+            string answerUrl = default,
             string answerMethod = default)
         {
             return new Call
             {
                 From = from,
                 To = to,
-                AnswerURL = answerURL,
+                AnswerUrl = answerUrl,
                 AnswerMethod = answerMethod,
             };
         }
@@ -472,19 +472,19 @@ namespace Azure.Connectors.Sdk.Plivo
         /// </summary>
         /// <remarks>This operation is used to fetch the details of a message, given the message ID.</remarks>
         /// <param name="authId">Auth ID</param>
-        /// <param name="messageUUID">Message UUID</param>
+        /// <param name="messageUuid">Message UUID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get message response.</returns>
-        public virtual async Task<GetMessageResponse> GetMessageAsync(string authId, string messageUUID, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMessageResponse> GetMessageAsync(string authId, string messageUuid, CancellationToken cancellationToken = default)
         {
             using var activity = PlivoClient.ConnectorActivitySource.StartActivity("PlivoClient.GetMessageAsync");
             try
             {
                 if (authId is null)
                     throw new ArgumentNullException(nameof(authId));
-                if (messageUUID is null)
-                    throw new ArgumentNullException(nameof(messageUUID));
-                var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Message/{Uri.EscapeDataString(messageUUID)}/";
+                if (messageUuid is null)
+                    throw new ArgumentNullException(nameof(messageUuid));
+                var path = $"/v1/Account/{Uri.EscapeDataString(authId)}/Message/{Uri.EscapeDataString(messageUuid)}/";
                 return await this
                     .CallConnectorAsync<GetMessageResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -501,4 +501,3 @@ namespace Azure.Connectors.Sdk.Plivo
 
     #endregion Client
 }
-

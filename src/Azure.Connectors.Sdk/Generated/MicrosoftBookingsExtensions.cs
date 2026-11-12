@@ -112,11 +112,11 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
 
         /// <summary>Field to check if SMS notification is enabled for the appointment.</summary>
         [JsonPropertyName("IsSMSNotificationsEnabled")]
-        public bool? IsSMSNotificationsEnabled { get; set; }
+        public bool? IsSmsNotificationsEnabled { get; set; }
 
         /// <summary>URL for joining this online appointment.</summary>
         [JsonPropertyName("JoinWebURL")]
-        public string JoinWebURL { get; set; }
+        public string JoinWebUrl { get; set; }
 
         /// <summary>Max number of attendees allowed in this appoinment.</summary>
         [JsonPropertyName("MaxAttendeesCount")]
@@ -414,8 +414,8 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
             string endTime = default,
             int? filledAttendeesCount = default,
             string id = default,
-            bool? isSMSNotificationsEnabled = default,
-            string joinWebURL = default,
+            bool? isSmsNotificationsEnabled = default,
+            string joinWebUrl = default,
             int? maxAttendeesCount = default,
             string selfServiceAppointmentId = default,
             string serviceId = default,
@@ -442,8 +442,8 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings.Models
                 EndTime = endTime,
                 FilledAttendeesCount = filledAttendeesCount,
                 Id = id,
-                IsSMSNotificationsEnabled = isSMSNotificationsEnabled,
-                JoinWebURL = joinWebURL,
+                IsSmsNotificationsEnabled = isSmsNotificationsEnabled,
+                JoinWebUrl = joinWebUrl,
                 MaxAttendeesCount = maxAttendeesCount,
                 SelfServiceAppointmentId = selfServiceAppointmentId,
                 ServiceId = serviceId,
@@ -743,7 +743,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
             /// Required.
             /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
             /// </summary>
-            public const string SMTPAddress = "SMTPAddress";
+            public const string SmtpAddress = "SMTPAddress";
 
         }
 
@@ -757,7 +757,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
             /// Required.
             /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
             /// </summary>
-            public const string SMTPAddress = "SMTPAddress";
+            public const string SmtpAddress = "SMTPAddress";
 
         }
 
@@ -771,7 +771,7 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
             /// Required.
             /// Dynamic values from: ListBookingsBusinessUserAsAdmin.
             /// </summary>
-            public const string SMTPAddress = "SMTPAddress";
+            public const string SmtpAddress = "SMTPAddress";
 
         }
 
@@ -873,4 +873,3 @@ namespace Azure.Connectors.Sdk.MicrosoftBookings
 
     #endregion Client
 }
-

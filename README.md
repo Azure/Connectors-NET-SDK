@@ -58,6 +58,10 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 └─────────────────────────────────────┘
 ```
 
+For users upgrading generated client names from earlier previews, see the
+[systematic naming migration guide](docs/systematic-naming-migration.md) for updated
+namespaces, types, methods, and `ConnectorNames` constants.
+
 ## Installation
 
 ### From NuGet.org

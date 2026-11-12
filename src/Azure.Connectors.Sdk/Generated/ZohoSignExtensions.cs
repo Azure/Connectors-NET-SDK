@@ -33,7 +33,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
     /// <summary>
     /// Invoke API
     /// </summary>
-    public class InvokeAPIInput
+    public class InvokeApiInput
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
@@ -45,7 +45,7 @@ namespace Azure.Connectors.Sdk.ZohoSign.Models
     /// <summary>
     /// Response for Invoke API
     /// </summary>
-    public class InvokeAPIResponse
+    public class InvokeApiResponse
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
@@ -956,25 +956,25 @@ namespace Azure.Connectors.Sdk.ZohoSign
         /// Invoke API
         /// </summary>
         /// <remarks>Invoke API</remarks>
-        /// <param name="uRLPath">URL Path</param>
+        /// <param name="urlPath">URL Path</param>
         /// <param name="input">The request body.</param>
         /// <param name="method">Method</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Invoke API response.</returns>
-        public virtual async Task<InvokeAPIResponse> InvokeAPIAsync(string uRLPath, InvokeAPIInput input, string method, CancellationToken cancellationToken = default)
+        public virtual async Task<InvokeApiResponse> InvokeApiAsync(string urlPath, InvokeApiInput input, string method, CancellationToken cancellationToken = default)
         {
-            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.InvokeAPIAsync");
+            using var activity = ZohoSignClient.ConnectorActivitySource.StartActivity("ZohoSignClient.InvokeApiAsync");
             try
             {
-                if (uRLPath is null)
-                    throw new ArgumentNullException(nameof(uRLPath));
+                if (urlPath is null)
+                    throw new ArgumentNullException(nameof(urlPath));
                 var queryParams = new List<string>();
                 if (method is null)
                     throw new ArgumentNullException(nameof(method));
                 queryParams.Add($"method={Uri.EscapeDataString(method)}");
-                var path = $"/{Uri.EscapeDataString(uRLPath)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/{Uri.EscapeDataString(urlPath)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<InvokeAPIResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<InvokeApiResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1336,4 +1336,3 @@ namespace Azure.Connectors.Sdk.ZohoSign
 
     #endregion Client
 }
-

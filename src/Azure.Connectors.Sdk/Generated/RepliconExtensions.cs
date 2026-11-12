@@ -268,7 +268,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     /// <summary>
     /// Subscribe to Event triggers
     /// </summary>
-    public class WebhookSubscriptionsRestAPIInput
+    public class WebhookSubscriptionsRestApiInput
     {
         /// <summary>Event type to subscribe to</summary>
         [JsonPropertyName("eventType")]
@@ -318,11 +318,11 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     /// <summary>
     /// Response for Subscribe to Event triggers
     /// </summary>
-    public class WebhookSubscriptionsRestAPINotification
+    public class WebhookSubscriptionsRestApiNotification
     {
         /// <summary>timesheet</summary>
         [JsonPropertyName("timesheet")]
-        public WebhookSubscriptionsRestAPINotificationTimesheet Timesheet { get; set; }
+        public WebhookSubscriptionsRestApiNotificationTimesheet Timesheet { get; set; }
 
         /// <summary>approval status uri</summary>
         [JsonPropertyName("approvalStatusUri")]
@@ -330,7 +330,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
 
         /// <summary>authority</summary>
         [JsonPropertyName("authority")]
-        public WebhookSubscriptionsRestAPINotificationAuthority Authority { get; set; }
+        public WebhookSubscriptionsRestApiNotificationAuthority Authority { get; set; }
 
         /// <summary>status uri of the timesheet</summary>
         [JsonPropertyName("timesheetStatusUri")]
@@ -340,7 +340,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     /// <summary>
     /// timesheet
     /// </summary>
-    public class WebhookSubscriptionsRestAPINotificationTimesheet
+    public class WebhookSubscriptionsRestApiNotificationTimesheet
     {
         /// <summary>display text</summary>
         [JsonPropertyName("displayText")]
@@ -358,11 +358,11 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     /// <summary>
     /// authority
     /// </summary>
-    public class WebhookSubscriptionsRestAPINotificationAuthority
+    public class WebhookSubscriptionsRestApiNotificationAuthority
     {
         /// <summary>acting user</summary>
         [JsonPropertyName("actingUser")]
-        public WebhookSubscriptionsRestAPINotificationAuthorityActingUser ActingUser { get; set; }
+        public WebhookSubscriptionsRestApiNotificationAuthorityActingUser ActingUser { get; set; }
 
         /// <summary>display text</summary>
         [JsonPropertyName("displayText")]
@@ -374,13 +374,13 @@ namespace Azure.Connectors.Sdk.Replicon.Models
 
         /// <summary>authority Type</summary>
         [JsonPropertyName("authorityType")]
-        public WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType AuthorityType { get; set; }
+        public WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType AuthorityType { get; set; }
     }
 
     /// <summary>
     /// acting user
     /// </summary>
-    public class WebhookSubscriptionsRestAPINotificationAuthorityActingUser
+    public class WebhookSubscriptionsRestApiNotificationAuthorityActingUser
     {
         /// <summary>user display Text</summary>
         [JsonPropertyName("displayText")]
@@ -402,7 +402,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     /// <summary>
     /// authority Type
     /// </summary>
-    public class WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType
+    public class WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType
     {
         /// <summary>authority type display text</summary>
         [JsonPropertyName("displayText")]
@@ -731,13 +731,13 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookSubscriptionsRestAPIInput"/>.
+        /// Creates a new instance of <see cref="WebhookSubscriptionsRestApiInput"/>.
         /// </summary>
-        public static WebhookSubscriptionsRestAPIInput WebhookSubscriptionsRestAPIInput(
+        public static WebhookSubscriptionsRestApiInput WebhookSubscriptionsRestApiInput(
             string eventType = default,
             string targetUrl = default)
         {
-            return new WebhookSubscriptionsRestAPIInput
+            return new WebhookSubscriptionsRestApiInput
             {
                 EventType = eventType,
                 TargetUrl = targetUrl,
@@ -769,15 +769,15 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookSubscriptionsRestAPINotification"/>.
+        /// Creates a new instance of <see cref="WebhookSubscriptionsRestApiNotification"/>.
         /// </summary>
-        public static WebhookSubscriptionsRestAPINotification WebhookSubscriptionsRestAPINotification(
-            WebhookSubscriptionsRestAPINotificationTimesheet timesheet = default,
+        public static WebhookSubscriptionsRestApiNotification WebhookSubscriptionsRestApiNotification(
+            WebhookSubscriptionsRestApiNotificationTimesheet timesheet = default,
             string approvalStatusUri = default,
-            WebhookSubscriptionsRestAPINotificationAuthority authority = default,
+            WebhookSubscriptionsRestApiNotificationAuthority authority = default,
             string timesheetStatusUri = default)
         {
-            return new WebhookSubscriptionsRestAPINotification
+            return new WebhookSubscriptionsRestApiNotification
             {
                 Timesheet = timesheet,
                 ApprovalStatusUri = approvalStatusUri,
@@ -787,14 +787,14 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookSubscriptionsRestAPINotificationTimesheet"/>.
+        /// Creates a new instance of <see cref="WebhookSubscriptionsRestApiNotificationTimesheet"/>.
         /// </summary>
-        public static WebhookSubscriptionsRestAPINotificationTimesheet WebhookSubscriptionsRestAPINotificationTimesheet(
+        public static WebhookSubscriptionsRestApiNotificationTimesheet WebhookSubscriptionsRestApiNotificationTimesheet(
             string displayText = default,
             string uri = default,
             string slug = default)
         {
-            return new WebhookSubscriptionsRestAPINotificationTimesheet
+            return new WebhookSubscriptionsRestApiNotificationTimesheet
             {
                 DisplayText = displayText,
                 Uri = uri,
@@ -803,15 +803,15 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookSubscriptionsRestAPINotificationAuthority"/>.
+        /// Creates a new instance of <see cref="WebhookSubscriptionsRestApiNotificationAuthority"/>.
         /// </summary>
-        public static WebhookSubscriptionsRestAPINotificationAuthority WebhookSubscriptionsRestAPINotificationAuthority(
-            WebhookSubscriptionsRestAPINotificationAuthorityActingUser actingUser = default,
+        public static WebhookSubscriptionsRestApiNotificationAuthority WebhookSubscriptionsRestApiNotificationAuthority(
+            WebhookSubscriptionsRestApiNotificationAuthorityActingUser actingUser = default,
             string displayText = default,
             string actingForUser = default,
-            WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType authorityType = default)
+            WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType authorityType = default)
         {
-            return new WebhookSubscriptionsRestAPINotificationAuthority
+            return new WebhookSubscriptionsRestApiNotificationAuthority
             {
                 ActingUser = actingUser,
                 DisplayText = displayText,
@@ -821,15 +821,15 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookSubscriptionsRestAPINotificationAuthorityActingUser"/>.
+        /// Creates a new instance of <see cref="WebhookSubscriptionsRestApiNotificationAuthorityActingUser"/>.
         /// </summary>
-        public static WebhookSubscriptionsRestAPINotificationAuthorityActingUser WebhookSubscriptionsRestAPINotificationAuthorityActingUser(
+        public static WebhookSubscriptionsRestApiNotificationAuthorityActingUser WebhookSubscriptionsRestApiNotificationAuthorityActingUser(
             string displayText = default,
             string loginName = default,
             string uri = default,
             string slug = default)
         {
-            return new WebhookSubscriptionsRestAPINotificationAuthorityActingUser
+            return new WebhookSubscriptionsRestApiNotificationAuthorityActingUser
             {
                 DisplayText = displayText,
                 LoginName = loginName,
@@ -839,13 +839,13 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType"/>.
+        /// Creates a new instance of <see cref="WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType"/>.
         /// </summary>
-        public static WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType(
+        public static WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType(
             string displayText = default,
             string uri = default)
         {
-            return new WebhookSubscriptionsRestAPINotificationAuthorityAuthorityType
+            return new WebhookSubscriptionsRestApiNotificationAuthorityAuthorityType
             {
                 DisplayText = displayText,
                 Uri = uri,
@@ -934,10 +934,10 @@ namespace Azure.Connectors.Sdk.Replicon.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnWebhookSubscriptionsRestAPI trigger (Replicon "Subscribe to Event triggers", operationId: WebhookSubscriptionsRestAPI).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;RepliconOnWebhookSubscriptionsRestAPITriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnWebhookSubscriptionsRestApi trigger (Replicon "Subscribe to Event triggers", operationId: WebhookSubscriptionsRestAPI).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;RepliconOnWebhookSubscriptionsRestApiTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class RepliconOnWebhookSubscriptionsRestAPITriggerPayload : TriggerCallbackPayload<WebhookSubscriptionsRestAPINotification>
+    public class RepliconOnWebhookSubscriptionsRestApiTriggerPayload : TriggerCallbackPayload<WebhookSubscriptionsRestApiNotification>
     {
     }
 
@@ -957,7 +957,7 @@ namespace Azure.Connectors.Sdk.Replicon.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["WebhookSubscriptionsRestAPI"] = typeof(RepliconOnWebhookSubscriptionsRestAPITriggerPayload),
+                ["WebhookSubscriptionsRestAPI"] = typeof(RepliconOnWebhookSubscriptionsRestApiTriggerPayload),
             });
     }
 
@@ -979,9 +979,9 @@ namespace Azure.Connectors.Sdk.Replicon
     {
         /// <summary>
         /// Subscribe to Event triggers.
-        /// Payload type: <see cref="RepliconOnWebhookSubscriptionsRestAPITriggerPayload"/>.
+        /// Payload type: <see cref="RepliconOnWebhookSubscriptionsRestApiTriggerPayload"/>.
         /// </summary>
-        public const string OnWebhookSubscriptionsRestAPI = "WebhookSubscriptionsRestAPI";
+        public const string OnWebhookSubscriptionsRestApi = "WebhookSubscriptionsRestAPI";
 
     }
 
@@ -996,9 +996,9 @@ namespace Azure.Connectors.Sdk.Replicon
     public static class RepliconTriggerParameters
     {
         /// <summary>
-        /// Input parameters for the OnWebhookSubscriptionsRestAPI trigger operation (operationId: WebhookSubscriptionsRestAPI).
+        /// Input parameters for the OnWebhookSubscriptionsRestApi trigger operation (operationId: WebhookSubscriptionsRestAPI).
         /// </summary>
-        public static class OnWebhookSubscriptionsRestAPI
+        public static class OnWebhookSubscriptionsRestApi
         {
             /// <summary>
             /// Replicon Host Url
@@ -1433,4 +1433,3 @@ namespace Azure.Connectors.Sdk.Replicon
 
     #endregion Client
 }
-

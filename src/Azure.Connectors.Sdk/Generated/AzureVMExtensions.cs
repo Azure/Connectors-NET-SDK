@@ -604,10 +604,10 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get virtual machine in a VM scale set response.</returns>
-        public virtual async Task<VirtualMachineInScaleSet> VirtualMachineInScaleSetGetAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task<VirtualMachineInScaleSet> VirtualMachineInScaleSetGetAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetGetAsync");
             try
@@ -618,11 +618,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<VirtualMachineInScaleSet>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -642,9 +642,9 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task VirtualMachineInScaleSetDeallocateAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task VirtualMachineInScaleSetDeallocateAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetDeallocateAsync");
             try
@@ -655,11 +655,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/deallocate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}/deallocate" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -679,9 +679,9 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task VirtualMachineInScaleSetPowerOffAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task VirtualMachineInScaleSetPowerOffAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetPowerOffAsync");
             try
@@ -692,11 +692,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/poweroff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}/poweroff" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -716,9 +716,9 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task VirtualMachineInScaleSetRedeployAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task VirtualMachineInScaleSetRedeployAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetRedeployAsync");
             try
@@ -729,11 +729,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/redeploy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}/redeploy" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -753,9 +753,9 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task VirtualMachineInScaleSetReimageAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task VirtualMachineInScaleSetReimageAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetReimageAsync");
             try
@@ -766,11 +766,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/reimage" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}/reimage" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -790,9 +790,9 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task VirtualMachineInScaleSetRestartAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task VirtualMachineInScaleSetRestartAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetRestartAsync");
             try
@@ -803,11 +803,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/restart" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}/restart" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -827,9 +827,9 @@ namespace Azure.Connectors.Sdk.AzureVM
         /// <param name="subscriptionId">Subscription Id</param>
         /// <param name="resourceGroup">Resource Group</param>
         /// <param name="virtualMachineScaleSet">Virtual Machine Scale Set</param>
-        /// <param name="virtualMachineInAVMScaleSet">Virtual Machine in a VM scale set</param>
+        /// <param name="virtualMachineInAvmScaleSet">Virtual Machine in a VM scale set</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task VirtualMachineInScaleSetStartAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAVMScaleSet, CancellationToken cancellationToken = default)
+        public virtual async Task VirtualMachineInScaleSetStartAsync([DynamicValues("Subscriptions_List")] string subscriptionId, [DynamicValues("ResourceGroups_List")] string resourceGroup, [DynamicValues("VirtualMachineScaleSets_List")] string virtualMachineScaleSet, [DynamicValues("VirtualMachinesInScaleSet_List")] string virtualMachineInAvmScaleSet, CancellationToken cancellationToken = default)
         {
             using var activity = AzureVMClient.ConnectorActivitySource.StartActivity("AzureVMClient.VirtualMachineInScaleSetStartAsync");
             try
@@ -840,11 +840,11 @@ namespace Azure.Connectors.Sdk.AzureVM
                     throw new ArgumentNullException(nameof(resourceGroup));
                 if (virtualMachineScaleSet is null)
                     throw new ArgumentNullException(nameof(virtualMachineScaleSet));
-                if (virtualMachineInAVMScaleSet is null)
-                    throw new ArgumentNullException(nameof(virtualMachineInAVMScaleSet));
+                if (virtualMachineInAvmScaleSet is null)
+                    throw new ArgumentNullException(nameof(virtualMachineInAvmScaleSet));
                 var queryParams = new List<string>();
                 queryParams.Add("x-ms-api-version=2019-12-01");
-                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAVMScaleSet)}/start" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/subscriptions/{Uri.EscapeDataString(subscriptionId)}/resourcegroups/{Uri.EscapeDataString(resourceGroup)}/providers/Microsoft.Compute/virtualMachineScaleSets/{Uri.EscapeDataString(virtualMachineScaleSet)}/virtualMachines/{Uri.EscapeDataString(virtualMachineInAvmScaleSet)}/start" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1209,4 +1209,3 @@ namespace Azure.Connectors.Sdk.AzureVM
 
     #endregion Client
 }
-

@@ -343,7 +343,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The ISO-3166 alpha-2 country code string for the recipient in the shipping address.</summary>
         [JsonPropertyName("country_iso")]
-        public string CountryCodeISO { get; set; }
+        public string CountryCodeIso { get; set; }
 
         /// <summary>The payment method string identifying purchaser&apos;s payment method, which must be one of: &apos;cc&apos; (credit card), &apos;paypal&apos;, &apos;check&apos;, &apos;mo&apos; (money order), &apos;bt&apos; (bank transfer), &apos;other&apos;, &apos;ideal&apos;, &apos;sofort&apos;, &apos;apple_pay&apos;, &apos;google&apos;, &apos;android_pay&apos;, &apos;google_pay&apos;, &apos;klarna&apos;, &apos;k_pay_in_4&apos; (klarna), or &apos;k_financing&apos; (klarna).</summary>
         [JsonPropertyName("payment_method")]
@@ -619,7 +619,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The url to a photo provided with the feedback, dimensions fullxfull. Note: This field may be absent, depending on the buyer&apos;s privacy settings.</summary>
         [JsonPropertyName("image_url_fullxfull")]
-        public string FullsizeImageURL { get; set; }
+        public string FullsizeImageUrl { get; set; }
 
         /// <summary>The date and time the TransactionReview was created in epoch seconds.</summary>
         [JsonPropertyName("create_timestamp")]
@@ -713,7 +713,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The ISO code of the country from which the listing ships.</summary>
         [JsonPropertyName("origin_country_iso")]
-        public string OriginCountryISO { get; set; }
+        public string OriginCountryIso { get; set; }
 
         /// <summary>When true, someone deleted this shipping profile.</summary>
         [JsonPropertyName("is_deleted")]
@@ -751,11 +751,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The ISO code of the country from which the listing ships.</summary>
         [JsonPropertyName("origin_country_iso")]
-        public string OriginCountryISO { get; set; }
+        public string OriginCountryIso { get; set; }
 
         /// <summary>The ISO code of the country to which the listing ships. If null, request sets destination to destination_region</summary>
         [JsonPropertyName("destination_country_iso")]
-        public string DestinationCountryISO { get; set; }
+        public string DestinationCountryIso { get; set; }
 
         /// <summary>destination_region</summary>
         [JsonPropertyName("destination_region")]
@@ -851,7 +851,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The ISO code of the country from which the listing ships.</summary>
         [JsonPropertyName("origin_country_iso")]
-        public string OriginCountryISO { get; set; }
+        public string OriginCountryIso { get; set; }
 
         /// <summary>The cost of shipping to this country/region alone, measured in the store&apos;s default currency.</summary>
         [JsonPropertyName("primary_cost")]
@@ -875,7 +875,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The ISO code of the country to which the listing ships. If null, request sets destination to destination region.</summary>
         [JsonPropertyName("destination_country_iso")]
-        public string DestinationCountryISO { get; set; }
+        public string DestinationCountryIso { get; set; }
 
         /// <summary>The code of the region to which the listing ships. A region represents a set of countries. Supported regions are Europe Union and Non-Europe Union (countries in Europe not in EU). If none, request sets destination to destination country ISO, or everywhere if destination country ISO is also null.</summary>
         [JsonPropertyName("destination_region")]
@@ -1249,11 +1249,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The URL string for this shop.</summary>
         [JsonPropertyName("url")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>The URL string for this shop&apos;s banner image.</summary>
         [JsonPropertyName("image_url_760x100")]
-        public string BannerImageURL { get; set; }
+        public string BannerImageUrl { get; set; }
 
         /// <summary>The number of users who marked this shop a favorite.</summary>
         [JsonPropertyName("num_favorers")]
@@ -1265,7 +1265,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The URL string for this shop&apos;s icon image.</summary>
         [JsonPropertyName("icon_url_fullxfull")]
-        public string IconImageURL { get; set; }
+        public string IconImageUrl { get; set; }
 
         /// <summary>When true, the shop accepted using structured policies.</summary>
         [JsonPropertyName("is_using_structured_policies")]
@@ -1301,11 +1301,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The country iso the shop is shipping from.</summary>
         [JsonPropertyName("shipping_from_country_iso")]
-        public string ShippingFromCountryISO { get; set; }
+        public string ShippingFromCountryIso { get; set; }
 
         /// <summary>The country iso where the shop is located.</summary>
         [JsonPropertyName("shop_location_country_iso")]
-        public string ShopLocationISO { get; set; }
+        public string ShopLocationIso { get; set; }
 
         /// <summary>Number of reviews of shop listings in the past year.</summary>
         [JsonPropertyName("review_count")]
@@ -1486,7 +1486,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The ISO code of the country in this address.</summary>
         [JsonPropertyName("iso_country_code")]
-        public string CountryCodeISO { get; set; }
+        public string CountryCodeIso { get; set; }
 
         /// <summary>The name of the user&apos;s country.</summary>
         [JsonPropertyName("country_name")]
@@ -1737,7 +1737,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The full URL to the listing&apos;s page on Etsy.</summary>
         [JsonPropertyName("url")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>The number of users who marked this listing a favorite.</summary>
         [JsonPropertyName("num_favorers")]
@@ -2207,7 +2207,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The file name string for a file associated with a digital listing.</summary>
         [JsonPropertyName("filename")]
-        public string Filename { get; set; }
+        public string FileName { get; set; }
 
         /// <summary>A human-readable format size string for the size of a file.</summary>
         [JsonPropertyName("filesize")]
@@ -2318,19 +2318,19 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The url string for a 75x75 pixel thumbnail of the image.</summary>
         [JsonPropertyName("url_75x75")]
-        public string _75x75ImageURL { get; set; }
+        public string _75x75ImageUrl { get; set; }
 
         /// <summary>The url string for a 170x135 pixel thumbnail of the image.</summary>
         [JsonPropertyName("url_170x135")]
-        public string _170x135ImageURL { get; set; }
+        public string _170x135ImageUrl { get; set; }
 
         /// <summary>The url string for a thumbnail of the image, no more than 570 pixels wide with variable height.</summary>
         [JsonPropertyName("url_570xN")]
-        public string _570xNImageURL { get; set; }
+        public string _570xNImageUrl { get; set; }
 
         /// <summary>The url string for the full-size image, up to 3000 pixels in each dimension.</summary>
         [JsonPropertyName("url_fullxfull")]
-        public string FullSizeImageURL { get; set; }
+        public string FullSizeImageUrl { get; set; }
 
         /// <summary>The numeric height, measured in pixels, of the full-sized image referenced in url_fullxfull.</summary>
         [JsonPropertyName("full_height")]
@@ -2400,7 +2400,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>An array of unique listing property ID integers for the properties that change the product SKU, if any. For example, if you use specific skus for different colored products in the same listing, then this array contains the property ID for color.</summary>
         [JsonPropertyName("sku_on_property")]
-        public List<int?> SKUOnProperties { get; set; }
+        public List<int?> SkuOnProperties { get; set; }
 
         /// <summary>listing</summary>
         [JsonPropertyName("listing")]
@@ -2418,7 +2418,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The SKU string for the product</summary>
         [JsonPropertyName("sku")]
-        public string SKU { get; set; }
+        public string Sku { get; set; }
 
         /// <summary>When true, someone deleted this product.</summary>
         [JsonPropertyName("is_deleted")]
@@ -2500,7 +2500,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>An array of unique listing property ID integers for the properties that change the product SKU, if any. For example, if you use specific skus for different colored products in the same listing, then this array contains the property ID for color.</summary>
         [JsonPropertyName("sku_on_property")]
-        public List<int?> SKUOnProperties { get; set; }
+        public List<int?> SkuOnProperties { get; set; }
     }
 
     /// <summary>
@@ -3499,7 +3499,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string state = default,
             string zipCode = default,
             string formattedAddress = default,
-            string countryCodeISO = default,
+            string countryCodeIso = default,
             string paymentMethod = default,
             string paymentEmailAddress = default,
             string messageFromSeller = default,
@@ -3535,7 +3535,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 State = state,
                 ZipCode = zipCode,
                 FormattedAddress = formattedAddress,
-                CountryCodeISO = countryCodeISO,
+                CountryCodeIso = countryCodeIso,
                 PaymentMethod = paymentMethod,
                 PaymentEmailAddress = paymentEmailAddress,
                 MessageFromSeller = messageFromSeller,
@@ -3690,7 +3690,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             int? rating = default,
             string reviewMessage = default,
             string language = default,
-            string fullsizeImageURL = default,
+            string fullsizeImageUrl = default,
             int? createdTimestamp = default,
             int? updateTimestamp = default)
         {
@@ -3702,7 +3702,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Rating = rating,
                 ReviewMessage = reviewMessage,
                 Language = language,
-                FullsizeImageURL = fullsizeImageURL,
+                FullsizeImageUrl = fullsizeImageUrl,
                 CreatedTimestamp = createdTimestamp,
                 UpdateTimestamp = updateTimestamp,
             };
@@ -3764,7 +3764,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             int? minimumProcessingDays = default,
             int? maximumProcessingDays = default,
             string processingDaysLabel = default,
-            string originCountryISO = default,
+            string originCountryIso = default,
             bool? isDeleted = default,
             List<ShopShippingProfileDestination> shippingProfileDestinations = default,
             List<ShopShippingProfileUpgrade> shippingProfileUpgrades = default,
@@ -3779,7 +3779,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 MinimumProcessingDays = minimumProcessingDays,
                 MaximumProcessingDays = maximumProcessingDays,
                 ProcessingDaysLabel = processingDaysLabel,
-                OriginCountryISO = originCountryISO,
+                OriginCountryIso = originCountryIso,
                 IsDeleted = isDeleted,
                 ShippingProfileDestinations = shippingProfileDestinations,
                 ShippingProfileUpgrades = shippingProfileUpgrades,
@@ -3794,8 +3794,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         public static ShopShippingProfileDestination ShopShippingProfileDestination(
             int? shippingProfileDestinationId = default,
             int? shippingProfileId = default,
-            string originCountryISO = default,
-            string destinationCountryISO = default,
+            string originCountryIso = default,
+            string destinationCountryIso = default,
             string destinationRegion = default,
             Money primaryCost = default,
             Money secondaryCost = default,
@@ -3808,8 +3808,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             {
                 ShippingProfileDestinationId = shippingProfileDestinationId,
                 ShippingProfileId = shippingProfileId,
-                OriginCountryISO = originCountryISO,
-                DestinationCountryISO = destinationCountryISO,
+                OriginCountryIso = originCountryIso,
+                DestinationCountryIso = destinationCountryIso,
                 DestinationRegion = destinationRegion,
                 PrimaryCost = primaryCost,
                 SecondaryCost = secondaryCost,
@@ -3859,13 +3859,13 @@ namespace Azure.Connectors.Sdk.Etsy.Models
         /// </summary>
         public static ShippingCreateProfileInput ShippingCreateProfileInput(
             string title = default,
-            string originCountryISO = default,
+            string originCountryIso = default,
             float? primaryCost = default,
             float? secondaryCost = default,
             int? minimumProcessingTime = default,
             int? maximumProcessingTime = default,
             ProcessingTimeUnit? processingTimeUnit = default,
-            string destinationCountryISO = default,
+            string destinationCountryIso = default,
             DestinationRegion? destinationRegion = default,
             string originPostalCode = default,
             int? shippingCarrierId = default,
@@ -3876,13 +3876,13 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             return new ShippingCreateProfileInput
             {
                 Title = title,
-                OriginCountryISO = originCountryISO,
+                OriginCountryIso = originCountryIso,
                 PrimaryCost = primaryCost,
                 SecondaryCost = secondaryCost,
                 MinimumProcessingTime = minimumProcessingTime,
                 MaximumProcessingTime = maximumProcessingTime,
                 ProcessingTimeUnit = processingTimeUnit,
-                DestinationCountryISO = destinationCountryISO,
+                DestinationCountryIso = destinationCountryIso,
                 DestinationRegion = destinationRegion,
                 OriginPostalCode = originPostalCode,
                 ShippingCarrierId = shippingCarrierId,
@@ -4096,10 +4096,10 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string privacyPolicy = default,
             string vacationAutoreply = default,
             string url = default,
-            string bannerImageURL = default,
+            string bannerImageUrl = default,
             int? numberOfFavorers = default,
             List<string> languages = default,
-            string iconImageURL = default,
+            string iconImageUrl = default,
             bool? isUsingStructuredPolicies = default,
             bool? hasOnboardedStructuredPolicies = default,
             bool? includeDisputeFormLink = default,
@@ -4108,8 +4108,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             bool? isOptedInToBuyerPromise = default,
             bool? isUSBased = default,
             int? salesTransactionCount = default,
-            string shippingFromCountryISO = default,
-            string shopLocationISO = default,
+            string shippingFromCountryIso = default,
+            string shopLocationIso = default,
             int? reviewCount = default,
             double? reviewAverage = default)
         {
@@ -4142,11 +4142,11 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 HasUnstructuredPolicies = hasUnstructuredPolicies,
                 PrivacyPolicy = privacyPolicy,
                 VacationAutoreply = vacationAutoreply,
-                URL = url,
-                BannerImageURL = bannerImageURL,
+                Url = url,
+                BannerImageUrl = bannerImageUrl,
                 NumberOfFavorers = numberOfFavorers,
                 Languages = languages,
-                IconImageURL = iconImageURL,
+                IconImageUrl = iconImageUrl,
                 IsUsingStructuredPolicies = isUsingStructuredPolicies,
                 HasOnboardedStructuredPolicies = hasOnboardedStructuredPolicies,
                 IncludeDisputeFormLink = includeDisputeFormLink,
@@ -4155,8 +4155,8 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 IsOptedInToBuyerPromise = isOptedInToBuyerPromise,
                 IsUSBased = isUSBased,
                 SalesTransactionCount = salesTransactionCount,
-                ShippingFromCountryISO = shippingFromCountryISO,
-                ShopLocationISO = shopLocationISO,
+                ShippingFromCountryIso = shippingFromCountryIso,
+                ShopLocationIso = shopLocationIso,
                 ReviewCount = reviewCount,
                 ReviewAverage = reviewAverage,
             };
@@ -4274,7 +4274,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string city = default,
             string state = default,
             string zipCode = default,
-            string countryCodeISO = default,
+            string countryCodeIso = default,
             string country = default,
             bool? isDefaultShippingAddress = default)
         {
@@ -4288,7 +4288,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 City = city,
                 State = state,
                 ZipCode = zipCode,
-                CountryCodeISO = countryCodeISO,
+                CountryCodeIso = countryCodeIso,
                 Country = country,
                 IsDefaultShippingAddress = isDefaultShippingAddress,
             };
@@ -4504,7 +4504,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Quantity = quantity,
                 ShopSectionId = shopSectionId,
                 FeaturedRank = featuredRank,
-                URL = url,
+                Url = url,
                 NumberOfFavorers = numberOfFavorers,
                 NonTaxable = nonTaxable,
                 IsCustomizable = isCustomizable,
@@ -4749,7 +4749,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             int? listingFileId = default,
             int? listingId = default,
             int? rank = default,
-            string filename = default,
+            string fileName = default,
             string filesize = default,
             int? sizeInBytes = default,
             string filetype = default,
@@ -4760,7 +4760,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 ListingFileId = listingFileId,
                 ListingId = listingId,
                 Rank = rank,
-                Filename = filename,
+                FileName = fileName,
                 Filesize = filesize,
                 SizeInBytes = sizeInBytes,
                 Filetype = filetype,
@@ -4816,10 +4816,10 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             bool? isBlackAndWhite = default,
             int? creationTime = default,
             int? rank = default,
-            string _75x75ImageURL = default,
-            string _170x135ImageURL = default,
-            string _570xNImageURL = default,
-            string fullSizeImageURL = default,
+            string _75x75ImageUrl = default,
+            string _170x135ImageUrl = default,
+            string _570xNImageUrl = default,
+            string fullSizeImageUrl = default,
             int? fullSizeImageHeight = default,
             int? fullSizeImageWidth = default)
         {
@@ -4837,10 +4837,10 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 IsBlackAndWhite = isBlackAndWhite,
                 CreationTime = creationTime,
                 Rank = rank,
-                _75x75ImageURL = _75x75ImageURL,
-                _170x135ImageURL = _170x135ImageURL,
-                _570xNImageURL = _570xNImageURL,
-                FullSizeImageURL = fullSizeImageURL,
+                _75x75ImageUrl = _75x75ImageUrl,
+                _170x135ImageUrl = _170x135ImageUrl,
+                _570xNImageUrl = _570xNImageUrl,
+                FullSizeImageUrl = fullSizeImageUrl,
                 FullSizeImageHeight = fullSizeImageHeight,
                 FullSizeImageWidth = fullSizeImageWidth,
             };
@@ -4895,7 +4895,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Products = products,
                 PriceOnProperties = priceOnProperties,
                 QuantityOnProperties = quantityOnProperties,
-                SKUOnProperties = skuOnProperties,
+                SkuOnProperties = skuOnProperties,
                 Listing = listing,
             };
         }
@@ -4913,7 +4913,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             return new ListingInventoryProduct
             {
                 ProductId = productId,
-                SKU = sku,
+                Sku = sku,
                 IsDeleted = isDeleted,
                 Offerings = offerings,
                 PropertyValues = propertyValues,
@@ -4972,7 +4972,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Products = products,
                 PriceOnProperties = priceOnProperties,
                 QuantityOnProperties = quantityOnProperties,
-                SKUOnProperties = skuOnProperties,
+                SkuOnProperties = skuOnProperties,
             };
         }
 
@@ -5548,18 +5548,18 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get shipping carriers
         /// </summary>
         /// <remarks>Retrieves a list of available shipping carriers and the mail classes associated with them for a given country.</remarks>
-        /// <param name="originCountryISO">Origin Country ISO</param>
+        /// <param name="originCountryIso">Origin Country ISO</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get shipping carriers response.</returns>
-        public virtual async Task<ShippingCarriers> ShippingCarriersAsync(string originCountryISO, CancellationToken cancellationToken = default)
+        public virtual async Task<ShippingCarriers> ShippingCarriersAsync(string originCountryIso, CancellationToken cancellationToken = default)
         {
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ShippingCarriersAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (originCountryISO is null)
-                    throw new ArgumentNullException(nameof(originCountryISO));
-                queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryISO)}");
+                if (originCountryIso is null)
+                    throw new ArgumentNullException(nameof(originCountryIso));
+                queryParams.Add($"origin_country_iso={Uri.EscapeDataString(originCountryIso)}");
                 var path = $"/shipping-carriers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ShippingCarriers>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -7170,4 +7170,3 @@ namespace Azure.Connectors.Sdk.Etsy
 
     #endregion Client
 }
-

@@ -677,4 +677,3 @@ namespace Azure.Connectors.Sdk.ElfsquadData
 
     #endregion Client
 }
-

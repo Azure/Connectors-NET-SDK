@@ -8,8 +8,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Commondataservice;
-using Azure.Connectors.Sdk.Commondataservice.Models;
+using Azure.Connectors.Sdk.CommonDataService;
+using Azure.Connectors.Sdk.CommonDataService.Models;
 using global::Azure.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -20,12 +20,12 @@ namespace Azure.Connectors.Sdk.Tests
     /// Tests for the generated <see cref="CommondataserviceClient"/> class (Microsoft Dataverse).
     /// </summary>
     [TestClass]
-    public class CommondataserviceClientTests
+    public class CommonDataServiceClientTests
     {
-        private static CommondataserviceClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
+        private static CommonDataServiceClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
         {
             var (credential, options) = ConnectorTestHelpers.CreateMockedClientSetup(responseFactory);
-            return new CommondataserviceClient(
+            return new CommonDataServiceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: credential,
                 options: options);
@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new CommondataserviceClient("https://test.azure.com/connection");
+            using var client = new CommonDataServiceClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -45,14 +45,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new CommondataserviceClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new CommonDataServiceClient((string)null!));
         }
 
         [TestMethod]
         public void ConnectorName_ReturnsCommondataservice()
         {
             // Arrange
-            using var client = new CommondataserviceClient("https://test.azure.com/connection");
+            using var client = new CommonDataServiceClient("https://test.azure.com/connection");
 
             // Act & Assert
             Assert.AreEqual("commondataservice", client.ConnectorName, ignoreCase: false);
@@ -62,7 +62,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new CommondataserviceClient("https://test.azure.com/connection");
+            var client = new CommonDataServiceClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -73,7 +73,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
-            var client = new CommondataserviceClient(
+            var client = new CommonDataServiceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -163,7 +163,7 @@ namespace Azure.Connectors.Sdk.Tests
                     Content = new StringContent("{\"value\":[]}")
                 });
 
-            using var client = new CommondataserviceClient(
+            using var client = new CommonDataServiceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: clientSetup.Credential,
                 options: clientSetup.Options);
@@ -193,7 +193,7 @@ namespace Azure.Connectors.Sdk.Tests
                     Content = new StringContent("{}")
                 });
 
-            using var client = new CommondataserviceClient(
+            using var client = new CommonDataServiceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: clientSetup.Credential,
                 options: clientSetup.Options);
@@ -227,7 +227,7 @@ namespace Azure.Connectors.Sdk.Tests
                     Content = new StringContent("{\"value\":[]}")
                 });
 
-            using var client = new CommondataserviceClient(
+            using var client = new CommonDataServiceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: clientSetup.Credential,
                 options: clientSetup.Options);
@@ -266,7 +266,7 @@ namespace Azure.Connectors.Sdk.Tests
                     };
                 });
 
-            using var client = new CommondataserviceClient(
+            using var client = new CommonDataServiceClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: clientSetup.Credential,
                 options: clientSetup.Options);

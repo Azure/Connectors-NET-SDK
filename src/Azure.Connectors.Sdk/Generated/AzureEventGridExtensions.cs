@@ -421,4 +421,3 @@ namespace Azure.Connectors.Sdk.AzureEventGrid
 
     #endregion Client
 }
-

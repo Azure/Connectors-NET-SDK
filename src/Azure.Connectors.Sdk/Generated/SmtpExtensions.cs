@@ -312,4 +312,3 @@ namespace Azure.Connectors.Sdk.Smtp
 
     #endregion Client
 }
-

@@ -3427,4 +3427,3 @@ namespace Azure.Connectors.Sdk.Shifts
 
     #endregion Client
 }
-

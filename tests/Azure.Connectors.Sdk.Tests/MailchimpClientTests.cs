@@ -8,8 +8,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.MailChimp;
-using Azure.Connectors.Sdk.MailChimp.Models;
+using Azure.Connectors.Sdk.Mailchimp;
+using Azure.Connectors.Sdk.Mailchimp.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +19,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class MailChimpClientTests
+    public class MailchimpClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -31,7 +31,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static MailChimpClient CreateMockedClient(HttpResponseMessage response)
+        private static MailchimpClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -47,7 +47,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new MailChimpClient(
+            return new MailchimpClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -56,27 +56,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new MailChimpClient("https://test.azure.com/connection");
+            using var client = new MailchimpClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MailChimpClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MailchimpClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new MailChimpClient("https://test.azure.com/connection");
+            var client = new MailchimpClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new MailChimpClient(
+            var client = new MailchimpClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();

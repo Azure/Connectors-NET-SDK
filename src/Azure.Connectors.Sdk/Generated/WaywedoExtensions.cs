@@ -103,7 +103,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The URL to the attached file. Valid for 5 minutes.</summary>
         [JsonPropertyName("imageUrl")]
-        public string CommentAttachmentURL { get; set; }
+        public string CommentAttachmentUrl { get; set; }
     }
 
     /// <summary>
@@ -151,7 +151,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The URL to the checklist instance.</summary>
         [JsonPropertyName("url")]
-        public string InstanceURL { get; set; }
+        public string InstanceUrl { get; set; }
 
         /// <summary>The date and time the checklist instance was started.</summary>
         [JsonPropertyName("created")]
@@ -190,6 +190,22 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// <summary>The number of the instance step.</summary>
         [JsonPropertyName("ordinal")]
         public int? StepNumber { get; set; }
+
+        /// <summary>The completed status of the step.</summary>
+        [JsonPropertyName("status")]
+        public string StepStatus { get; set; }
+
+        /// <summary>Date and time of when the step was checked.</summary>
+        [JsonPropertyName("checked")]
+        public DateTime? StepCompletedDate { get; set; }
+
+        /// <summary>The email or username of the user that completed the step.</summary>
+        [JsonPropertyName("checkedBy")]
+        public string CompletedBy { get; set; }
+
+        /// <summary>Date and time of when the step is due.</summary>
+        [JsonPropertyName("due")]
+        public DateTime? StepDueDate { get; set; }
     }
 
     /// <summary>
@@ -275,15 +291,23 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The URL of the procedure.</summary>
         [JsonPropertyName("url")]
-        public string ProcedureURL { get; set; }
+        public string ProcedureUrl { get; set; }
 
         /// <summary>Whether the procedure is restricted or not.</summary>
         [JsonPropertyName("restricted")]
         public bool? Restricted { get; set; }
 
-        /// <summary>The type of procedure; 1 (standard) or 2 (checklist)</summary>
+        /// <summary>The type of procedure; 1 (standard), 2 (checklist), 3 (Quiz), 4 (Form)</summary>
         [JsonPropertyName("type")]
         public int? ProcedureType { get; set; }
+
+        /// <summary>The version of this procedure.</summary>
+        [JsonPropertyName("version")]
+        public string ProcedureVersion { get; set; }
+
+        /// <summary>Date and time of when the procedure was last edited.</summary>
+        [JsonPropertyName("lastEdited")]
+        public DateTime? LastEdited { get; set; }
     }
 
     /// <summary>
@@ -357,7 +381,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -371,7 +395,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackurl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>The date and time the webhook was registered.</summary>
         [JsonPropertyName("created")]
@@ -401,7 +425,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The URL to the checklist instance.</summary>
         [JsonPropertyName("url")]
-        public string InstanceURL { get; set; }
+        public string InstanceUrl { get; set; }
 
         /// <summary>The date and time the checklist instance was started.</summary>
         [JsonPropertyName("created")]
@@ -431,7 +455,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -481,7 +505,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The URL to the attached file. Valid for 5 minutes.</summary>
         [JsonPropertyName("imageUrl")]
-        public string CommentAttachmentURL { get; set; }
+        public string CommentAttachmentUrl { get; set; }
     }
 
     /// <summary>
@@ -491,7 +515,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -501,7 +525,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -537,11 +561,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     /// <summary>
     /// When a procedure is accepted
     /// </summary>
-    public class GenerateAcceptancePDFWebHookInput
+    public class GenerateAcceptancePdfWebHookInput
     {
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -563,11 +587,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>The file name of the generated PDF.</summary>
         [JsonPropertyName("fileName")]
-        public string PDFFileName { get; set; }
+        public string PdfFileName { get; set; }
 
         /// <summary>The URL to the generated PDF. Valid for 5 minutes.</summary>
         [JsonPropertyName("attachmentUrl")]
-        public string PDFURL { get; set; }
+        public string PdfUrl { get; set; }
 
         /// <summary>The title of the accepted procedure.</summary>
         [JsonPropertyName("procedureTitle")]
@@ -581,7 +605,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     {
         /// <summary>The URL to call when action occurs.</summary>
         [JsonPropertyName("callbackUrl")]
-        public string CallbackURL { get; set; }
+        public string CallbackUrl { get; set; }
     }
 
     /// <summary>
@@ -615,7 +639,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
 
         /// <summary>step</summary>
         [JsonPropertyName("step")]
-        public ChecklistStepNotification Step { get; set; }
+        public CompletedStepNotificationStep Step { get; set; }
 
         /// <summary>The list of choices made if the step is a decision point.</summary>
         [JsonPropertyName("decisionChoices")]
@@ -625,7 +649,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     /// <summary>
     /// step
     /// </summary>
-    public class ChecklistStepNotification
+    public class CompletedStepNotificationStep
     {
         /// <summary>The unique ID of the instance step.</summary>
         [JsonPropertyName("id")]
@@ -699,7 +723,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             string commentText = default,
             DateTime? commentDate = default,
             string commentUser = default,
-            string commentAttachmentURL = default)
+            string commentAttachmentUrl = default)
         {
             return new ChecklistComment
             {
@@ -713,7 +737,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 CommentText = commentText,
                 CommentDate = commentDate,
                 CommentUser = commentUser,
-                CommentAttachmentURL = commentAttachmentURL,
+                CommentAttachmentUrl = commentAttachmentUrl,
             };
         }
 
@@ -744,7 +768,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             string instanceId = default,
             int? procedureId = default,
             string instanceTitle = default,
-            string instanceURL = default,
+            string instanceUrl = default,
             DateTime? instanceCreatedDate = default,
             string instanceUser = default,
             DateTime? instanceFinishDate = default,
@@ -756,7 +780,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 InstanceId = instanceId,
                 ProcedureId = procedureId,
                 InstanceTitle = instanceTitle,
-                InstanceURL = instanceURL,
+                InstanceUrl = instanceUrl,
                 InstanceCreatedDate = instanceCreatedDate,
                 InstanceUser = instanceUser,
                 InstanceFinishDate = instanceFinishDate,
@@ -771,13 +795,21 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         public static ChecklistStep ChecklistStep(
             string stepId = default,
             string stepTitle = default,
-            int? stepNumber = default)
+            int? stepNumber = default,
+            string stepStatus = default,
+            DateTime? stepCompletedDate = default,
+            string completedBy = default,
+            DateTime? stepDueDate = default)
         {
             return new ChecklistStep
             {
                 StepId = stepId,
                 StepTitle = stepTitle,
                 StepNumber = stepNumber,
+                StepStatus = stepStatus,
+                StepCompletedDate = stepCompletedDate,
+                CompletedBy = completedBy,
+                StepDueDate = stepDueDate,
             };
         }
 
@@ -820,9 +852,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             string procedureStatus = default,
             string procedureSummary = default,
             string createdBy = default,
-            string procedureURL = default,
+            string procedureUrl = default,
             bool? restricted = default,
-            int? procedureType = default)
+            int? procedureType = default,
+            string procedureVersion = default,
+            DateTime? lastEdited = default)
         {
             return new Procedure
             {
@@ -831,9 +865,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 ProcedureStatus = procedureStatus,
                 ProcedureSummary = procedureSummary,
                 CreatedBy = createdBy,
-                ProcedureURL = procedureURL,
+                ProcedureUrl = procedureUrl,
                 Restricted = restricted,
                 ProcedureType = procedureType,
+                ProcedureVersion = procedureVersion,
+                LastEdited = lastEdited,
             };
         }
 
@@ -881,11 +917,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistCreateWebHookInput"/>.
         /// </summary>
         public static ChecklistCreateWebHookInput ChecklistCreateWebHookInput(
-            string callbackURL = default)
+            string callbackUrl = default)
         {
             return new ChecklistCreateWebHookInput
             {
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
             };
         }
 
@@ -894,14 +930,14 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// </summary>
         public static WebhookRegistered WebhookRegistered(
             int? webhookId = default,
-            string callbackURL = default,
+            string callbackUrl = default,
             DateTime? createdDate = default,
             string webhookEvent = default)
         {
             return new WebhookRegistered
             {
                 WebhookId = webhookId,
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
                 CreatedDate = createdDate,
                 WebhookEvent = webhookEvent,
             };
@@ -914,7 +950,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             string instanceId = default,
             int? procedureId = default,
             string instanceTitle = default,
-            string instanceURL = default,
+            string instanceUrl = default,
             DateTime? instanceCreatedDate = default,
             string instanceUser = default,
             DateTime? instanceFinishDate = default,
@@ -926,7 +962,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 InstanceId = instanceId,
                 ProcedureId = procedureId,
                 InstanceTitle = instanceTitle,
-                InstanceURL = instanceURL,
+                InstanceUrl = instanceUrl,
                 InstanceCreatedDate = instanceCreatedDate,
                 InstanceUser = instanceUser,
                 InstanceFinishDate = instanceFinishDate,
@@ -939,11 +975,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="NewCommentWebHookInput"/>.
         /// </summary>
         public static NewCommentWebHookInput NewCommentWebHookInput(
-            string callbackURL = default)
+            string callbackUrl = default)
         {
             return new NewCommentWebHookInput
             {
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
             };
         }
 
@@ -961,7 +997,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             string commentText = default,
             DateTime? commentDate = default,
             string commentUser = default,
-            string commentAttachmentURL = default)
+            string commentAttachmentUrl = default)
         {
             return new ChecklistCommentNotification
             {
@@ -975,7 +1011,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 CommentText = commentText,
                 CommentDate = commentDate,
                 CommentUser = commentUser,
-                CommentAttachmentURL = commentAttachmentURL,
+                CommentAttachmentUrl = commentAttachmentUrl,
             };
         }
 
@@ -983,11 +1019,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="FinishChecklistWebHookInput"/>.
         /// </summary>
         public static FinishChecklistWebHookInput FinishChecklistWebHookInput(
-            string callbackURL = default)
+            string callbackUrl = default)
         {
             return new FinishChecklistWebHookInput
             {
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
             };
         }
 
@@ -995,11 +1031,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="InviteSupervisorWebHookInput"/>.
         /// </summary>
         public static InviteSupervisorWebHookInput InviteSupervisorWebHookInput(
-            string callbackURL = default)
+            string callbackUrl = default)
         {
             return new InviteSupervisorWebHookInput
             {
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
             };
         }
 
@@ -1026,14 +1062,14 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="GenerateAcceptancePDFWebHookInput"/>.
+        /// Creates a new instance of <see cref="GenerateAcceptancePdfWebHookInput"/>.
         /// </summary>
-        public static GenerateAcceptancePDFWebHookInput GenerateAcceptancePDFWebHookInput(
-            string callbackURL = default)
+        public static GenerateAcceptancePdfWebHookInput GenerateAcceptancePdfWebHookInput(
+            string callbackUrl = default)
         {
-            return new GenerateAcceptancePDFWebHookInput
+            return new GenerateAcceptancePdfWebHookInput
             {
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
             };
         }
 
@@ -1045,7 +1081,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             DateTime? accepted = default,
             string acceptedBy = default,
             string pdfFileName = default,
-            string pdfurl = default,
+            string pdfUrl = default,
             string procedureTitle = default)
         {
             return new ProcedureAcceptanceNotification
@@ -1053,8 +1089,8 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 AcceptanceId = acceptanceId,
                 Accepted = accepted,
                 AcceptedBy = acceptedBy,
-                PDFFileName = pdfFileName,
-                PDFURL = pdfurl,
+                PdfFileName = pdfFileName,
+                PdfUrl = pdfUrl,
                 ProcedureTitle = procedureTitle,
             };
         }
@@ -1063,11 +1099,11 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         /// Creates a new instance of <see cref="ChecklistStepCompletedWebHookInput"/>.
         /// </summary>
         public static ChecklistStepCompletedWebHookInput ChecklistStepCompletedWebHookInput(
-            string callbackURL = default)
+            string callbackUrl = default)
         {
             return new ChecklistStepCompletedWebHookInput
             {
-                CallbackURL = callbackURL,
+                CallbackUrl = callbackUrl,
             };
         }
 
@@ -1081,7 +1117,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
             DateTime? stepCompletedDate = default,
             string completedBy = default,
             DateTime? stepDueDate = default,
-            ChecklistStepNotification step = default,
+            CompletedStepNotificationStep step = default,
             List<string> decisionChoices = default)
         {
             return new CompletedStepNotification
@@ -1098,14 +1134,14 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ChecklistStepNotification"/>.
+        /// Creates a new instance of <see cref="CompletedStepNotificationStep"/>.
         /// </summary>
-        public static ChecklistStepNotification ChecklistStepNotification(
+        public static CompletedStepNotificationStep CompletedStepNotificationStep(
             string stepId = default,
             string stepTitle = default,
             int? stepNumber = default)
         {
-            return new ChecklistStepNotification
+            return new CompletedStepNotificationStep
             {
                 StepId = stepId,
                 StepTitle = stepTitle,
@@ -1157,10 +1193,10 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnGenerateAcceptancePDFWebHook trigger (Waywedo "When a procedure is accepted", operationId: Generate_Acceptance_PDF_WebHook).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnGenerateAcceptancePdfWebHook trigger (Waywedo "When a procedure is accepted", operationId: Generate_Acceptance_PDF_WebHook).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;WaywedoOnGenerateAcceptancePdfWebHookTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload : TriggerCallbackPayload<ProcedureAcceptanceNotification>
+    public class WaywedoOnGenerateAcceptancePdfWebHookTriggerPayload : TriggerCallbackPayload<ProcedureAcceptanceNotification>
     {
     }
 
@@ -1199,7 +1235,7 @@ namespace Azure.Connectors.Sdk.Waywedo.Models
                 ["Checklist_Create_WebHook"] = typeof(WaywedoOnChecklistCreateWebHookTriggerPayload),
                 ["Checklist_Step_Completed_WebHook"] = typeof(WaywedoOnChecklistStepCompletedWebHookTriggerPayload),
                 ["Finish_Checklist_WebHook"] = typeof(WaywedoOnFinishChecklistWebHookTriggerPayload),
-                ["Generate_Acceptance_PDF_WebHook"] = typeof(WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload),
+                ["Generate_Acceptance_PDF_WebHook"] = typeof(WaywedoOnGenerateAcceptancePdfWebHookTriggerPayload),
                 ["Invite_Supervisor_WebHook"] = typeof(WaywedoOnInviteSupervisorWebHookTriggerPayload),
                 ["New_Comment_WebHook"] = typeof(WaywedoOnNewCommentWebHookTriggerPayload),
             });
@@ -1241,9 +1277,9 @@ namespace Azure.Connectors.Sdk.Waywedo
 
         /// <summary>
         /// When a procedure is accepted.
-        /// Payload type: <see cref="WaywedoOnGenerateAcceptancePDFWebHookTriggerPayload"/>.
+        /// Payload type: <see cref="WaywedoOnGenerateAcceptancePdfWebHookTriggerPayload"/>.
         /// </summary>
-        public const string OnGenerateAcceptancePDFWebHook = "Generate_Acceptance_PDF_WebHook";
+        public const string OnGenerateAcceptancePdfWebHook = "Generate_Acceptance_PDF_WebHook";
 
         /// <summary>
         /// When a supervisor is invited.
@@ -1722,4 +1758,3 @@ namespace Azure.Connectors.Sdk.Waywedo
 
     #endregion Client
 }
-

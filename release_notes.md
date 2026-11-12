@@ -10,13 +10,15 @@
 
 - **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
 
-- **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
+- **DataFlows SMS retry safety** - only the POST `SendSmsAsync` operation is exposed; the side-effecting GET send route is excluded from the generated client. POST sends make one attempt with standard retry defaults, while ordinary GET reads retain retries. `RetryUnsafeHttpMethods` remains a caller opt-in for other unsafe methods.
 
 - **Connector error diagnostics** - operation labels use the HTTP method and resolved path without query strings, keeping SMS query values out of the exception operation and generated activity status. Outgoing requests are unchanged.
 
 - **Azure IoT Central callback naming** - use `WebhookTimestamp` and the model factory parameter `webhookTimestamp`. The JSON field remains `timestamp`.
 
 #### Breaking Changes
+
+- **Systematic connector naming migration** - generated client types, namespaces, model factories, methods, models, and `ConnectorNames` constants now follow consistent .NET casing and published product spelling. For example, `AzureIoTCentralClient` becomes `AzureIotCentralClient`, `DocuSignClient` becomes `DocusignClient`, `MailChimpClient` becomes `MailchimpClient`, and `ConnectorNames.DataFlowsSMS` becomes `ConnectorNames.DataFlowsSms`. Update direct imports, dependency-injection registrations, named arguments, and type references. Raw connector IDs and serialized wire names remain unchanged. See the [naming migration guide](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/systematic-naming-migration.md).
 
 - **Shifts and Dynamics AX lists now page automatically** - all twelve Shifts list methods and `DynamicsAXClient.GetItemsAsync` return `AsyncPageable<T>` instead of `Task<TPage>`. Replace single-page `await` calls with `await foreach`, or use `AsPages()` for page boundaries and continuation-token resumption. Shifts page-model collections now use `Value`; page-model factories also change to expose the paging contract, including the Dynamics AX `nextLink` parameter. JSON `value` and `@odata.nextLink` fields are unchanged. These clients no longer stop after the first page.
 

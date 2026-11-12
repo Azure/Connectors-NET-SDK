@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Mq;
-using Azure.Connectors.Sdk.Mq.Models;
+using Azure.Connectors.Sdk.MQ;
+using Azure.Connectors.Sdk.MQ.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,16 +20,16 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated MqClient class.
+    /// Tests for the generated MQClient class.
     /// </summary>
     [TestClass]
-    public class MqClientTests
+    public class MQClientTests
     {
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             // Arrange & Act
-            using var client = new MqClient("https://test.azure.com/connection");
+            using var client = new MQClient("https://test.azure.com/connection");
 
             // Assert
             Assert.IsNotNull(client);
@@ -39,14 +39,14 @@ namespace Azure.Connectors.Sdk.Tests
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
             // Arrange & Act & Assert
-            Assert.ThrowsExactly<ArgumentNullException>(() => new MqClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MQClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
             // Arrange
-            var client = new MqClient("https://test.azure.com/connection");
+            var client = new MQClient("https://test.azure.com/connection");
 
             // Act & Assert - should not throw
             client.Dispose();
@@ -57,7 +57,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange
             var mockCredential = new Mock<TokenCredential>();
-            var client = new MqClient(
+            var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             // Arrange - no httpClient provided, so client creates its own
             var mockCredential = new Mock<TokenCredential>();
-            var client = new MqClient(
+            var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object);
 
@@ -119,7 +119,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new MqClient(
+            using var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -178,7 +178,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new MqClient(
+            using var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -228,7 +228,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new MqClient(
+            using var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -286,7 +286,7 @@ namespace Azure.Connectors.Sdk.Tests
 
             options.Retry.MaxRetries = 0;
 
-            using var client = new MqClient(
+            using var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);
@@ -399,7 +399,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            using var client = new MqClient(
+            using var client = new MQClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: mockCredential.Object,
                 options: options);

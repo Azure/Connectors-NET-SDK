@@ -201,7 +201,7 @@ namespace Azure.Connectors.Sdk.Tests
                 From = "sender@test.com",
                 To = "recipient@test.com",
                 Body = "This is a test message body.",
-                IsHTML = false,
+                IsHtml = false,
                 IsRead = true,
                 HasAttachment = false,
                 Importance = "normal"

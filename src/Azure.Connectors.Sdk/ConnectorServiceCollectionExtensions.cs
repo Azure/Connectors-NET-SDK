@@ -9,34 +9,34 @@ using Azure.Connectors.Sdk.AzureBlob;
 using Azure.Connectors.Sdk.AzureDataFactory;
 using Azure.Connectors.Sdk.AzureDigitalTwins;
 using Azure.Connectors.Sdk.AzureEventGrid;
-using Azure.Connectors.Sdk.AzureIoTCentral;
+using Azure.Connectors.Sdk.AzureIotCentral;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
-using Azure.Connectors.Sdk.Azurequeues;
-using Azure.Connectors.Sdk.Azuretables;
+using Azure.Connectors.Sdk.AzureQueues;
+using Azure.Connectors.Sdk.AzureTables;
 using Azure.Connectors.Sdk.AzureVM;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
-using Azure.Connectors.Sdk.Documentdb;
+using Azure.Connectors.Sdk.DocumentDB;
 using Azure.Connectors.Sdk.Docuware;
 using Azure.Connectors.Sdk.ElfsquadData;
 using Azure.Connectors.Sdk.Etsy;
-using Azure.Connectors.Sdk.Eventhubs;
+using Azure.Connectors.Sdk.EventHubs;
 using Azure.Connectors.Sdk.ExcelOnline;
 using Azure.Connectors.Sdk.ExcelOnlineBusiness;
 using Azure.Connectors.Sdk.FormstackForms;
-using Azure.Connectors.Sdk.FreshService;
+using Azure.Connectors.Sdk.Freshservice;
 using Azure.Connectors.Sdk.Impexium;
 using Azure.Connectors.Sdk.Infusionsoft;
 using Azure.Connectors.Sdk.Insightly;
-using Azure.Connectors.Sdk.JedoxOdataHub;
+using Azure.Connectors.Sdk.JedoxODataHub;
 using Azure.Connectors.Sdk.KeyVault;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.MeetingRoomMap;
 using Azure.Connectors.Sdk.MicrosoftBookings;
 using Azure.Connectors.Sdk.MicrosoftForms;
-using Azure.Connectors.Sdk.Mq;
-using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
+using Azure.Connectors.Sdk.MQ;
+using Azure.Connectors.Sdk.MSGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365Groups;
 using Azure.Connectors.Sdk.Office365GroupsMail;
@@ -53,15 +53,15 @@ using Azure.Connectors.Sdk.Plumsail;
 using Azure.Connectors.Sdk.PowerBI;
 using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
-using Azure.Connectors.Sdk.Revai;
+using Azure.Connectors.Sdk.RevAI;
 using Azure.Connectors.Sdk.SeismicPlanner;
-using Azure.Connectors.Sdk.Servicebus;
+using Azure.Connectors.Sdk.ServiceBus;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Shifts;
 using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Starmind;
-using Azure.Connectors.Sdk.StarrezRestV1;
+using Azure.Connectors.Sdk.StarRezRestV1;
 using Azure.Connectors.Sdk.Tallyfy;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Connectors.Sdk.TextRequest;
@@ -72,7 +72,7 @@ using Azure.Connectors.Sdk.Waywedo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.WordOnlineBusiness;
 using Azure.Connectors.Sdk.Yammer;
-using Azure.Connectors.Sdk.Zeptomail;
+using Azure.Connectors.Sdk.ZeptoMail;
 using Azure.Connectors.Sdk.ZohoSign;
 using Azure.Core;
 using Azure.Identity;
@@ -185,19 +185,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="AzureIoTCentralClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="AzureIotCentralClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddAzureIoTCentralClient(
+        public static IServiceCollection AddAzureIotCentralClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIoTCentralClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIotCentralClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.AzureIoTCentralV3,
-                factory: (connectionRuntimeUrl, credential) => new AzureIoTCentralClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.AzureIotCentralV3,
+                factory: (connectionRuntimeUrl, credential) => new AzureIotCentralClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -313,19 +313,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="DocumentDbClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="DocumentDBClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddDocumentDbClient(
+        public static IServiceCollection AddDocumentDBClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentDbClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocumentDBClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.AzureCosmosDB,
-                factory: (connectionRuntimeUrl, credential) => new DocumentDbClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new DocumentDBClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -425,19 +425,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="FreshServiceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="FreshserviceClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddFreshServiceClient(
+        public static IServiceCollection AddFreshserviceClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<FreshServiceClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<FreshserviceClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.Freshservice,
-                factory: (connectionRuntimeUrl, credential) => new FreshServiceClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new FreshserviceClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -489,19 +489,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="JedoxOdataHubClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="JedoxODataHubClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddJedoxOdataHubClient(
+        public static IServiceCollection AddJedoxODataHubClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<JedoxOdataHubClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<JedoxODataHubClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.JedoxODataHub,
-                factory: (connectionRuntimeUrl, credential) => new JedoxOdataHubClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new JedoxODataHubClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -537,35 +537,35 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="MqClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="MQClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddMqClient(
+        public static IServiceCollection AddMQClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<MqClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MQClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.MQ,
-                factory: (connectionRuntimeUrl, credential) => new MqClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new MQClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
-        /// Registers <see cref="MsGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="MSGraphGroupsAndUsersClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddMsGraphGroupsAndUsersClient(
+        public static IServiceCollection AddMSGraphGroupsAndUsersClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<MsGraphGroupsAndUsersClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<MSGraphGroupsAndUsersClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.MSGraphGroupsAndUsers,
-                factory: (connectionRuntimeUrl, credential) => new MsGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new MSGraphGroupsAndUsersClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -745,19 +745,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="RevaiClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="RevAIClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddRevaiClient(
+        public static IServiceCollection AddRevAIClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<RevaiClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<RevAIClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.RevAIIndependentPublisher,
-                factory: (connectionRuntimeUrl, credential) => new RevaiClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new RevAIClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -836,7 +836,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<SmtpClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.SMTP,
+                connectorName: ConnectorNames.Smtp,
                 factory: (connectionRuntimeUrl, credential) => new SmtpClient(connectionRuntimeUrl, credential));
         }
 
@@ -857,19 +857,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="StarrezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="StarRezRestV1Client"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddStarrezRestV1Client(
+        public static IServiceCollection AddStarRezRestV1Client(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<StarrezRestV1Client>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<StarRezRestV1Client>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.StarRezRESTV1,
-                factory: (connectionRuntimeUrl, credential) => new StarrezRestV1Client(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.StarRezRestV1,
+                factory: (connectionRuntimeUrl, credential) => new StarRezRestV1Client(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -980,7 +980,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<WdatpClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.MicrosoftDefenderATP,
+                connectorName: ConnectorNames.MicrosoftDefenderAtp,
                 factory: (connectionRuntimeUrl, credential) => new WdatpClient(connectionRuntimeUrl, credential));
         }
 
@@ -1017,19 +1017,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="ZeptomailClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="ZeptoMailClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddZeptomailClient(
+        public static IServiceCollection AddZeptoMailClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ZeptomailClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ZeptoMailClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.ZohoZeptoMail,
-                factory: (connectionRuntimeUrl, credential) => new ZeptomailClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new ZeptoMailClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

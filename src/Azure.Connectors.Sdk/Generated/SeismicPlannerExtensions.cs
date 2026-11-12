@@ -307,7 +307,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// <summary>Longer GUID format</summary>
         [JsonPropertyName("nodeGuid")]
         [JsonInclude]
-        public string NodeGUID { get; init; }
+        public string NodeGuid { get; init; }
 
         /// <summary>Node ID</summary>
         [JsonPropertyName("nodeId")]
@@ -320,7 +320,7 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         /// <summary>Longer GUID format</summary>
         [JsonPropertyName("spaceGuid")]
         [JsonInclude]
-        public string SpaceGUID { get; init; }
+        public string SpaceGuid { get; init; }
 
         /// <summary>Space ID</summary>
         [JsonPropertyName("spaceId")]
@@ -1990,20 +1990,20 @@ namespace Azure.Connectors.Sdk.SeismicPlanner.Models
         public static Association Association(
             string description = default,
             string name = default,
-            string nodeGUID = default,
+            string nodeGuid = default,
             string nodeId = default,
             string nodeType = default,
-            string spaceGUID = default,
+            string spaceGuid = default,
             string spaceId = default)
         {
             return new Association
             {
                 Description = description,
                 Name = name,
-                NodeGUID = nodeGUID,
+                NodeGuid = nodeGuid,
                 NodeId = nodeId,
                 NodeType = nodeType,
-                SpaceGUID = spaceGUID,
+                SpaceGuid = spaceGuid,
                 SpaceId = spaceId,
             };
         }
@@ -3517,13 +3517,13 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
         /// <param name="spaceId">Space ID</param>
         /// <param name="isDefault">Is Default</param>
         /// <param name="type">Type</param>
-        /// <param name="statusSchemaIdS">Status Schema IDS</param>
+        /// <param name="statusSchemaIds">Status Schema IDS</param>
         /// <param name="creatorIDs">Creator IDs</param>
         /// <param name="cursor">Cursor</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get status schemas response.</returns>
-        public virtual async Task<StatusSchemaQueryResponse> GetStatusSchemasAsync(string spaceId, bool? isDefault = default, string type = default, object[] statusSchemaIdS = default, object[] creatorIDs = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
+        public virtual async Task<StatusSchemaQueryResponse> GetStatusSchemasAsync(string spaceId, bool? isDefault = default, string type = default, object[] statusSchemaIds = default, object[] creatorIDs = default, string cursor = default, int? limit = default, CancellationToken cancellationToken = default)
         {
             using var activity = SeismicPlannerClient.ConnectorActivitySource.StartActivity("SeismicPlannerClient.GetStatusSchemasAsync");
             try
@@ -3535,8 +3535,8 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
                     queryParams.Add($"isDefault={Uri.EscapeDataString(Convert.ToString(isDefault.Value, CultureInfo.InvariantCulture))}");
                 if (type != default)
                     queryParams.Add($"type={Uri.EscapeDataString(type)}");
-                if (statusSchemaIdS != default)
-                    queryParams.Add($"ids={Uri.EscapeDataString(JsonSerializer.Serialize(statusSchemaIdS))}");
+                if (statusSchemaIds != default)
+                    queryParams.Add($"ids={Uri.EscapeDataString(JsonSerializer.Serialize(statusSchemaIds))}");
                 if (creatorIDs != default)
                     queryParams.Add($"creatorIds={Uri.EscapeDataString(JsonSerializer.Serialize(creatorIDs))}");
                 if (cursor != default)
@@ -3824,4 +3824,3 @@ namespace Azure.Connectors.Sdk.SeismicPlanner
 
     #endregion Client
 }
-

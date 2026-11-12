@@ -404,7 +404,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
 
         /// <summary>Free form property name and value for this user.</summary>
         [JsonPropertyName("customProperties")]
-        public JsonElement? CustomProperties { get; set; }
+        public Dictionary<string, string> CustomProperties { get; set; }
 
         /// <summary>onPremisesExtensionAttributes</summary>
         [JsonPropertyName("onPremisesExtensionAttributes")]
@@ -741,7 +741,7 @@ namespace Azure.Connectors.Sdk.AzureAD.Models
             string preferredLanguage = default,
             List<string> businessPhones = default,
             List<string> otherMails = default,
-            JsonElement? customProperties = default,
+            Dictionary<string, string> customProperties = default,
             JsonElement? onPremisesExtensionAttributes = default)
         {
             return new UpdateUserRequest
@@ -1270,4 +1270,3 @@ namespace Azure.Connectors.Sdk.AzureAD
 
     #endregion Client
 }
-

@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.DocuSign;
+using Azure.Connectors.Sdk.Docusign;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +17,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class DocuSignClientTests
+    public class DocusignClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static DocuSignClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
+        private static DocusignClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -45,7 +45,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new DocuSignClient(
+            return new DocusignClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -54,27 +54,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new DocuSignClient("https://test.azure.com/connection");
+            using var client = new DocusignClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new DocuSignClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new DocusignClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new DocuSignClient("https://test.azure.com/connection");
+            var client = new DocusignClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new DocuSignClient(
+            var client = new DocusignClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();
@@ -132,7 +132,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage, request => requestUri = request.RequestUri);
 
             var result = await client
-                .StaticResponseForEmbeddedSigningSchemaAsync(returnURL: "https://contoso.example/return",
+                .StaticResponseForEmbeddedSigningSchemaAsync(returnUrl: "https://contoso.example/return",
                     isThisAnPersonSigner: "true",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -157,7 +157,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.StaticResponseForEmbeddedSigningSchemaAsync(returnURL: "https://contoso.example/return",
+                client.StaticResponseForEmbeddedSigningSchemaAsync(returnUrl: "https://contoso.example/return",
                     isThisAnPersonSigner: "true",
                     cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);

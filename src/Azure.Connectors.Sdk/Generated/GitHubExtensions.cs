@@ -198,7 +198,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     /// <summary>
     /// Model for fetching single API response
     /// </summary>
-    public class GeneralAPIModel
+    public class GeneralApiModel
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
@@ -412,7 +412,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>The SSH URL to clone this repository</summary>
         [JsonPropertyName("ssh_url")]
-        public string SSHUrl { get; set; }
+        public string SshUrl { get; set; }
 
         /// <summary>The stargazers (Stargazers are the people that have bookmarked the GitHub repository) URL for this repository</summary>
         [JsonPropertyName("stargazers_url")]
@@ -456,7 +456,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>The SVN URL for this repository</summary>
         [JsonPropertyName("svn_url")]
-        public string SVNUrl { get; set; }
+        public string SvnUrl { get; set; }
 
         /// <summary>The homepage for this repository</summary>
         [JsonPropertyName("homepage")]
@@ -610,7 +610,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>Short identifier specified by https://spdx.org/licenses.</summary>
         [JsonPropertyName("spdx_id")]
-        public string SPDXId { get; set; }
+        public string SpdxId { get; set; }
 
         /// <summary>License Node Id.</summary>
         [JsonPropertyName("node_id")]
@@ -618,7 +618,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>License HTML URL.</summary>
         [JsonPropertyName("html_url")]
-        public string HTMLUrl { get; set; }
+        public string HtmlUrl { get; set; }
     }
 
     /// <summary>
@@ -994,7 +994,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>HTML Url of the team.</summary>
         [JsonPropertyName("html_url")]
-        public string HTMLUrl { get; set; }
+        public string HtmlUrl { get; set; }
 
         /// <summary>The HTTP URL for this team&apos;s repositories.</summary>
         [JsonPropertyName("repositories_url")]
@@ -1006,7 +1006,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>Distinguished Name (DN) that team maps to within LDAP environment</summary>
         [JsonPropertyName("ldap_dn")]
-        public string LDAPDN { get; set; }
+        public string Ldapdn { get; set; }
     }
 
     /// <summary>
@@ -1066,7 +1066,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>Html Url for the comparison</summary>
         [JsonPropertyName("html_url")]
-        public string HTMLUrl { get; set; }
+        public string HtmlUrl { get; set; }
 
         /// <summary>Permanent Url for the comparison </summary>
         [JsonPropertyName("permalink_url")]
@@ -1132,7 +1132,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>HTML Url of the commit</summary>
         [JsonPropertyName("html_url")]
-        public string HTMLUrl { get; set; }
+        public string HtmlUrl { get; set; }
 
         /// <summary>Comments Url of the commit</summary>
         [JsonPropertyName("comments_url")]
@@ -1748,7 +1748,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>HTML Url of the team.</summary>
         [JsonPropertyName("html_url")]
-        public string HTMLUrl { get; set; }
+        public string HtmlUrl { get; set; }
 
         /// <summary>The HTTP URL for this team&apos;s repositories.</summary>
         [JsonPropertyName("repositories_url")]
@@ -1760,7 +1760,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>Distinguished Name (DN) that team maps to within LDAP environment</summary>
         [JsonPropertyName("ldap_dn")]
-        public string LDAPDN { get; set; }
+        public string Ldapdn { get; set; }
     }
 
     /// <summary>
@@ -1934,7 +1934,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
     {
         /// <summary>body of result</summary>
         [JsonPropertyName("body")]
-        public List<GeneralAPIModel> Body { get; set; }
+        public List<GeneralApiModel> Body { get; set; }
     }
 
     /// <summary>
@@ -2831,7 +2831,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 NotificationsUrl = notificationsUrl,
                 PullsUrl = pullsUrl,
                 ReleasesUrl = releasesUrl,
-                SSHUrl = sshUrl,
+                SshUrl = sshUrl,
                 StargazersUrl = stargazersUrl,
                 StatusesUrl = statusesUrl,
                 SubscribersUrl = subscribersUrl,
@@ -2842,7 +2842,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 CloneUrl = cloneUrl,
                 MirrorUrl = mirrorUrl,
                 HooksUrl = hooksUrl,
-                SVNUrl = svnUrl,
+                SvnUrl = svnUrl,
                 Homepage = homepage,
                 Language = language,
                 ForksCount = forksCount,
@@ -2895,9 +2895,9 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 Key = key,
                 Name = name,
                 Url = url,
-                SPDXId = spdxId,
+                SpdxId = spdxId,
                 NodeId = nodeId,
-                HTMLUrl = htmlUrl,
+                HtmlUrl = htmlUrl,
             };
         }
 
@@ -3130,10 +3130,10 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 Description = description,
                 Permission = permission,
                 Privacy = privacy,
-                HTMLUrl = htmlUrl,
+                HtmlUrl = htmlUrl,
                 RepositoriesUrl = repositoriesUrl,
                 Slug = slug,
-                LDAPDN = ldapdn,
+                Ldapdn = ldapdn,
             };
         }
 
@@ -3188,7 +3188,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
             return new CommitComparison
             {
                 Url = url,
-                HTMLUrl = htmlUrl,
+                HtmlUrl = htmlUrl,
                 PermanentUrl = permanentUrl,
                 DiffUrl = diffUrl,
                 PatchUrl = patchUrl,
@@ -3224,7 +3224,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 CommitUrl = commitUrl,
                 CommitSha = commitSha,
                 NodeId = nodeId,
-                HTMLUrl = htmlUrl,
+                HtmlUrl = htmlUrl,
                 CommentsUrl = commentsUrl,
                 CommitValue = commitValue,
                 Author = author,
@@ -3584,10 +3584,10 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 Description = description,
                 Permission = permission,
                 Privacy = privacy,
-                HTMLUrl = htmlUrl,
+                HtmlUrl = htmlUrl,
                 RepositoriesUrl = repositoriesUrl,
                 Slug = slug,
-                LDAPDN = ldapdn,
+                Ldapdn = ldapdn,
             };
         }
 
@@ -3705,7 +3705,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
         /// Creates a new instance of <see cref="MultipleSearchFetchModel"/>.
         /// </summary>
         public static MultipleSearchFetchModel MultipleSearchFetchModel(
-            List<GeneralAPIModel> body = default)
+            List<GeneralApiModel> body = default)
         {
             return new MultipleSearchFetchModel
             {
@@ -4299,7 +4299,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all issues of a repository response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetIssuesAsync(string repositoryOwner, string repositoryName, string milestone = default, string state = default, string assignee = default, string creator = default, string mentioned = default, string labels = default, string sort = default, string direction = default, string since = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetIssuesAsync(string repositoryOwner, string repositoryName, string milestone = default, string state = default, string assignee = default, string creator = default, string mentioned = default, string labels = default, string sort = default, string direction = default, string since = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetIssuesAsync");
             try
@@ -4333,7 +4333,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -4761,7 +4761,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all Pull Requests of A Repository response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetPullRequestsAsync(string repositoryOwner, string repositoryName, string state = default, string head = default, string @base = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetPullRequestsAsync(string repositoryOwner, string repositoryName, string state = default, string head = default, string @base = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetPullRequestsAsync");
             try
@@ -4787,7 +4787,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/pulls" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5109,7 +5109,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists the available assignees for issues in a repository response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetAssigneesAsync(string repositoryOwner, string repositoryName, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetAssigneesAsync(string repositoryOwner, string repositoryName, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetAssigneesAsync");
             try
@@ -5125,7 +5125,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/assignees" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5146,7 +5146,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List repository collaborators response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> ListCollaboratorsAsync(string repositoryOwner, string repositoryName, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> ListCollaboratorsAsync(string repositoryOwner, string repositoryName, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.ListCollaboratorsAsync");
             try
@@ -5162,7 +5162,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/collaborators" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5182,7 +5182,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="userName">user Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Check if a user is a repository collaborator response.</returns>
-        public virtual async Task<GeneralAPIModel> CheckCollaboratorAsync(string repositoryOwner, string repositoryName, string userName, CancellationToken cancellationToken = default)
+        public virtual async Task<GeneralApiModel> CheckCollaboratorAsync(string repositoryOwner, string repositoryName, string userName, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.CheckCollaboratorAsync");
             try
@@ -5195,7 +5195,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     throw new ArgumentNullException(nameof(userName));
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/collaborators/{Uri.EscapeDataString(userName)}";
                 return await this
-                    .CallConnectorAsync<GeneralAPIModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<GeneralApiModel>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5219,7 +5219,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists all milestones of a repository response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetMilestonesAsync(string repositoryOwner, string repositoryName, string state = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetMilestonesAsync(string repositoryOwner, string repositoryName, string state = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetMilestonesAsync");
             try
@@ -5241,7 +5241,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/milestones" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5262,7 +5262,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists all labels for a repository response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetLabelsAsync(string repositoryOwner, string repositoryName, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetLabelsAsync(string repositoryOwner, string repositoryName, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetLabelsAsync");
             try
@@ -5278,7 +5278,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5300,7 +5300,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists all labels for an issue response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetIssueLabelsAsync(string repositoryOwner, string repositoryName, int issueNumber, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetIssueLabelsAsync(string repositoryOwner, string repositoryName, int issueNumber, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetIssueLabelsAsync");
             try
@@ -5316,7 +5316,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/repos/{Uri.EscapeDataString(repositoryOwner)}/{Uri.EscapeDataString(repositoryName)}/issues/{Uri.EscapeDataString(Convert.ToString(issueNumber, CultureInfo.InvariantCulture))}/labels" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5339,7 +5339,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists all public repositories for a user response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetReposAsync(string repositoryOwner, string type = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetReposAsync(string repositoryOwner, string type = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetReposAsync");
             try
@@ -5359,7 +5359,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/users/{Uri.EscapeDataString(repositoryOwner)}/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5382,7 +5382,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists all public repositories for an organization response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetOrgReposAsync(string repositoryOwner, string type = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetOrgReposAsync(string repositoryOwner, string type = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetOrgReposAsync");
             try
@@ -5402,7 +5402,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/orgs/{Uri.EscapeDataString(repositoryOwner)}/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5428,7 +5428,7 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <param name="page">page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Lists all repositories for the authenticated user response.</returns>
-        public virtual async Task<List<GeneralAPIModel>> GetUserReposAsync(string visibility = default, string affiliation = default, string since = default, string before = default, string type = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<GeneralApiModel>> GetUserReposAsync(string visibility = default, string affiliation = default, string since = default, string before = default, string type = default, string sort = default, string direction = default, int? perPage = default, int? page = default, CancellationToken cancellationToken = default)
         {
             using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.GetUserReposAsync");
             try
@@ -5454,7 +5454,7 @@ namespace Azure.Connectors.Sdk.GitHub
                     queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(page.Value, CultureInfo.InvariantCulture))}");
                 var path = $"/user/repos" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<List<GeneralAPIModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<List<GeneralApiModel>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5512,9 +5512,9 @@ namespace Azure.Connectors.Sdk.GitHub
         /// <remarks>Github MCP Server</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task InvokeMCPServerAsync(QueryRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task InvokeMcpServerAsync(QueryRequest input, CancellationToken cancellationToken = default)
         {
-            using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.InvokeMCPServerAsync");
+            using var activity = GitHubClient.ConnectorActivitySource.StartActivity("GitHubClient.InvokeMcpServerAsync");
             try
             {
                 var path = $"/mcp";
@@ -5534,4 +5534,3 @@ namespace Azure.Connectors.Sdk.GitHub
 
     #endregion Client
 }
-
