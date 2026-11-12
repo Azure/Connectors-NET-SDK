@@ -54,7 +54,6 @@ retains its suffix to avoid a dependency type collision. The SDK remains
 async-only and does not change `ETag` or URI-valued properties to framework
 value types as part of this migration.
 
-
 ## Automatic pagination (`AsyncPageable<T>`) and page-envelope metadata
 
 In alignment with the [Azure SDK Design Guidelines for .NET](https://azure.github.io/azure-sdk/dotnet_introduction.html#dotnet-pagination),
