@@ -10,7 +10,7 @@
 
 - **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
 
-- **DataFlows SMS retry safety** - only the POST `SendSmsAsync` operation is exposed; the side-effecting GET send route is excluded from the generated client. POST sends make one attempt with standard retry defaults, while ordinary GET reads retain retries. `RetryUnsafeHttpMethods` remains a caller opt-in for other unsafe methods.
+- **DataFlows SMS retry safety** - `SendSmsGetAsync` (`GET /sms/send`) and `SendSmsAsync` (`POST /sms/send`) are both exposed; standard retries are blocked for `GET /sms/send` even when `RetryUnsafeHttpMethods` is enabled, while ordinary GET reads such as `ListSmsAsync` retain retries.
 
 - **Connector error diagnostics** - operation labels use the HTTP method and resolved path without query strings, keeping SMS query values out of the exception operation and generated activity status. Outgoing requests are unchanged.
 

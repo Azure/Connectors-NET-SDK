@@ -120,11 +120,8 @@ policy must preserve the intended SDK contract and be validated against the
 Swagger input.
 
 A working operation is not excluded merely because its HTTP verb can trigger
-automatic retries. However, when a connector publishes a side-effecting,
-PII-in-query-string `GET` duplicate on the same path as a `POST` action (such
-as DataFlows SMS `SendSMSGet` alongside `POST /{connectionId}/sms/send`), the
-generator curates the surface to expose only the `POST` action (`SendSmsAsync`)
-and excludes the `GET` duplicate across all language targets.
+automatic retries. DataFlows SMS exposes both send variants; the .NET runtime
+blocks standard retries for its side-effecting GET send route instead.
 
 ## Multipart Form-Data Contract
 

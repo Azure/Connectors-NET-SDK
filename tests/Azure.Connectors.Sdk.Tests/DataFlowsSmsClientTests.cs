@@ -154,21 +154,81 @@ namespace Azure.Connectors.Sdk.Tests
             }
 
             Assert.AreEqual(expected: 1, actual: attempts);
+            Assert.IsNull(typeof(DataFlowsSmsClient).GetMethod("SendSMSGetAsync"));
+            Assert.IsNotNull(typeof(DataFlowsSmsClient).GetMethod("SendSmsGetAsync"));
         }
 
         [TestMethod]
         [Owner("daviburg")]
-        public void SendSmsGetAsync_UnsafeGetOperation_IsNotExposed()
+        public async Task SendSmsGetAsync_WithSuccess_PreservesGetRouteAndResponse()
         {
-            Assert.IsNull(typeof(DataFlowsSmsClient).GetMethod("SendSMSGetAsync"));
-            Assert.IsNull(typeof(DataFlowsSmsClient).GetMethod("SendSmsGetAsync"));
-            Assert.IsNotNull(typeof(DataFlowsSmsClient).GetMethod(nameof(DataFlowsSmsClient.SendSmsAsync)));
+            var attempts = 0;
+            using var client = CreateMockedClient((request, cancellationToken) =>
+            {
+                attempts++;
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.AreEqual(expected: "/connection/sms/send", actual: request.RequestUri!.AbsolutePath);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "recipient=15555550123");
+                return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent("""{"status":"success","message":"Accepted"}"""),
+                });
+            });
+
+            var response = await client.SendSmsGetAsync(recipient: "15555550123", senderId: "Example", message: "Hello")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: attempts);
+            Assert.AreEqual(expected: "Accepted", actual: response.Message);
+        }
+
+        [TestMethod]
+        [Owner("daviburg")]
+        [DataRow(false, false)]
+        [DataRow(true, false)]
+        [DataRow(false, true)]
+        [DataRow(true, true)]
+        public async Task SendSmsGetAsync_AmbiguousFailure_OperationBlocklistPreventsRetries(bool transportFailure, bool retryUnsafeHttpMethods)
+        {
+            var attempts = 0;
+            using var client = CreateMockedClient(
+                sendAsync: (request, cancellationToken) =>
+                {
+                    attempts++;
+                    Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                    if (transportFailure)
+                    {
+                        throw new HttpRequestException("Connection closed after GET SMS acceptance.");
+                    }
+
+                    return Task.FromResult(new HttpResponseMessage(HttpStatusCode.ServiceUnavailable)
+                    {
+                        Content = new StringContent("""{"message":"Response lost after SMS acceptance."}"""),
+                    });
+                },
+                maxRetries: 3,
+                retryUnsafeHttpMethods: retryUnsafeHttpMethods);
+
+            if (transportFailure)
+            {
+                await Assert.ThrowsExactlyAsync<global::Azure.RequestFailedException>(
+                    () => client.SendSmsGetAsync(recipient: "15555550123", senderId: "Example", message: "Hello"))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+            else
+            {
+                await Assert.ThrowsExactlyAsync<ConnectorException>(
+                    () => client.SendSmsGetAsync(recipient: "15555550123", senderId: "Example", message: "Hello"))
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+
+            Assert.AreEqual(expected: 1, actual: attempts);
         }
 
         [TestMethod]
         [Owner("daviburg")]
         [DoNotParallelize]
-        public async Task SendSmsAsync_WithErrorResponse_ExcludesRequestValuesFromDiagnostics()
+        public async Task SendSmsGetAsync_WithErrorResponse_ExcludesQueryValuesFromDiagnostics()
         {
             const string recipient = "15555550987";
             const string sender = "PrivateSender";
@@ -183,9 +243,11 @@ namespace Azure.Connectors.Sdk.Tests
             ActivitySource.AddActivityListener(listener);
             using var client = CreateMockedClient((request, cancellationToken) =>
             {
-                Assert.AreEqual(expected: HttpMethod.Post, actual: request.Method);
-                Assert.AreEqual(expected: "/connection/sms/send", actual: request.RequestUri!.AbsolutePath);
-                Assert.AreEqual(expected: string.Empty, actual: request.RequestUri.Query);
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                Assert.IsNotNull(request.RequestUri);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "recipient=" + recipient);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "sender_id=" + sender);
+                StringAssert.Contains(value: request.RequestUri.Query, substring: "message=" + Uri.EscapeDataString(message));
                 return Task.FromResult(new HttpResponseMessage(HttpStatusCode.BadRequest)
                 {
                     Content = new StringContent("""{"code":"InvalidRecipient","message":"Rejected."}"""),
@@ -193,10 +255,10 @@ namespace Azure.Connectors.Sdk.Tests
             });
 
             var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(
-                () => client.SendSmsAsync(new SendSmsInput { Recipient = recipient, SenderId = sender, Message = message }))
+                () => client.SendSmsGetAsync(recipient: recipient, senderId: sender, message: message))
                 .ConfigureAwait(continueOnCapturedContext: false);
 
-            Assert.AreEqual(expected: "POST /connection/sms/send", actual: exception.Operation);
+            Assert.AreEqual(expected: "GET /connection/sms/send", actual: exception.Operation);
             Assert.AreEqual(expected: "InvalidRecipient", actual: exception.ErrorCode);
             Assert.IsNotNull(stoppedActivity);
             var recordedActivity = stoppedActivity!;
