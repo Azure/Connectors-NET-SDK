@@ -248,18 +248,18 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | ClickSend SMS | 🔄 SDK Generated | SmsSend, CreateList, GetContactLists (trigger: OnSmsInboundAutomation) |
 | CloudConvert | 🔄 SDK Generated | ConvertFile, OptimizeFile, CaptureWebsite, MergeFiles; five dynamic-options discovery helpers |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
-| Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryID |
+| Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryId |
 | Excel Online (Business) | 🔄 SDK Generated | CreateTableAsync |
 | Formstack Forms | 🔄 SDK Generated | GetAvailableForms (trigger: OnFormstackFormSubmitted) |
-| FreshService | 🔄 SDK Generated | AddNote, CreateTicket, UpdateTicket (trigger: OnTicketCreated) |
+| Freshservice | 🔄 SDK Generated | AddNote, CreateTicket, UpdateTicket (trigger: OnTicketCreated) |
 | Infusionsoft (Keap) | 🔄 SDK Generated | CreateTask, UpdateTask, ListTasks (trigger: OnNewTask) |
 | Insightly | 🔄 SDK Generated | ListTasks, UpdateTask, AddTask (trigger: OnTaskAssignedToMe) |
 | Pipedrive | 🔄 SDK Generated | ListDeals, GetDeal, UpdateDealStatus (trigger: OnTrigNewActivity) |
-| Plivo | 🔄 SDK Generated | MakeCall, ListMessages, SendSMS |
+| Plivo | 🔄 SDK Generated | MakeCall, ListMessages, SendSms |
 | Plumsail | 🔄 SDK Generated | AddWatermarkToPdf, RegExpMatch, ParseCsv |
 | Replicon | 🔄 SDK Generated | BulkGetProjectDetails3, CreateProjectOrApplyModifications |
 | Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
-| Zoho Sign | 🔄 SDK Generated | InvokeAPI, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
+| Zoho Sign | 🔄 SDK Generated | InvokeApi, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
 | Zoho ZeptoMail | 🔄 SDK Generated | GetMailAgent, GetProcessedEmails, SendMail, SendTemplateMail, ProcessedMailStats |
 | Docuware | 🔄 SDK Generated | GetOrganization, StoreToFileCabinet |
 | Elfsquad Data | 🔄 SDK Generated | GetSchemas, GetEntities |
@@ -348,7 +348,7 @@ See [Connector triggers](docs/triggers.md) and
 
 ### DataFlows SMS and ServiceNow
 
-Use `DataflowsSmsClient` from `Azure.Connectors.Sdk.DataflowsSms` for DataFlows SMS
+Use `DataFlowsSmsClient` from `Azure.Connectors.Sdk.DataFlowsSms` for DataFlows SMS
 (`dataflowssms`), not `DataflowsClient`, which is the separate Power Query connector.
 Use `ServiceNowClient` from `Azure.Connectors.Sdk.ServiceNow` for ServiceNow
 (`service-now`). Models and model factories live in each connector's `.Models`
@@ -361,7 +361,7 @@ in `AdditionalProperties`; `RetrieveAttachmentContentAsync` returns raw `byte[]`
 `UploadAttachmentFileAsync` sends raw bytes with `application/octet-stream`;
 `UploadAttachmentAsync` sends the file and table fields as multipart form-data.
 DataFlows SMS trigger
-registration uses `DataflowsSmsTriggerOperations.OnRegisterWebhook`.
+registration uses `DataFlowsSmsTriggerOperations.OnRegisterWebhook`.
 Sending SMS uses the POST action only; the GET send alternative is excluded
 because automatic retries could duplicate messages and charges.
 These additions have mocked HTTP and serialization coverage, not live connection
