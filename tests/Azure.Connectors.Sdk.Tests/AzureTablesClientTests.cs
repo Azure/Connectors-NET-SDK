@@ -240,5 +240,102 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("myrow", deserialized.RowKey);
             Assert.AreEqual("https://test.azure.com/entity", deserialized.EntityMetadataLocation);
         }
+
+        [TestMethod]
+        public async Task GetEntitiesAsync_TwoPagesAndResume_FollowsNextLinkAndPreservesMetadata()
+        {
+            var requestedUris = new List<string>();
+            var handler = new Mock<HttpMessageHandler>();
+            handler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns((HttpRequestMessage request, CancellationToken _) =>
+                {
+                    var uri = request.RequestUri!.AbsoluteUri;
+                    requestedUris.Add(uri);
+                    if (uri.Contains("NextRowKey=row-2", StringComparison.Ordinal))
+                    {
+                        return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                        {
+                            Content = new StringContent("""
+                                {
+                                    "odata.metadata": "https://contoso.table.core.windows.net/$metadata#Customers",
+                                    "value": [{
+                                        "PartitionKey": "p1",
+                                        "RowKey": "row-2",
+                                        "additionalProperties": "{\"Name\":\"Contoso West\"}"
+                                    }]
+                                }
+                                """)
+                        });
+                    }
+
+                    return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("""
+                            {
+                                "odata.metadata": "https://contoso.table.core.windows.net/$metadata#Customers",
+                                "value": [{
+                                    "PartitionKey": "p1",
+                                    "RowKey": "row-1",
+                                    "additionalProperties": "{\"Name\":\"Contoso East\"}"
+                                }],
+                                "nextLink": "https://test.azure.com/connection/v2/storageAccounts/https%253A%252F%252Fcontoso.table.core.windows.net/tables/Customers/entities?NextPartitionKey=p1&NextRowKey=row-2"
+                            }
+                            """)
+                    });
+                });
+
+            var options = new ConnectorClientOptions
+            {
+                Transport = new HttpClientTransport(new HttpClient(handler.Object))
+            };
+            options.Retry.MaxRetries = 0;
+
+            using var client = new AzureTablesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
+
+            var pageable = client.GetEntitiesAsync(
+                storageAccountNameOrTableEndpoint: "https://contoso.table.core.windows.net",
+                table: "Customers",
+                filterQuery: "PartitionKey eq 'p1'",
+                selectQuery: "PartitionKey,RowKey,Name");
+
+            var pages = new List<global::Azure.Page<EntityItem>>();
+            await foreach (var page in pageable.AsPages().ConfigureAwait(continueOnCapturedContext: false))
+            {
+                pages.Add(page);
+            }
+
+            Assert.AreEqual(expected: 2, actual: pages.Count);
+            Assert.AreEqual(
+                expected: "https://test.azure.com/connection/v2/storageAccounts/https%253A%252F%252Fcontoso.table.core.windows.net/tables/Customers/entities?$filter=PartitionKey%20eq%20%27p1%27&$select=PartitionKey%2CRowKey%2CName",
+                actual: requestedUris[0]);
+            Assert.AreEqual(
+                expected: "https://test.azure.com/connection/v2/storageAccounts/https%253A%252F%252Fcontoso.table.core.windows.net/tables/Customers/entities?NextPartitionKey=p1&NextRowKey=row-2",
+                actual: requestedUris[1]);
+            Assert.AreEqual(expected: "row-1", actual: pages[0].Values[0].RowKey);
+            Assert.AreEqual(expected: "{\"Name\":\"Contoso East\"}", actual: pages[0].Values[0].EntityData);
+            Assert.AreEqual(expected: "row-2", actual: pages[1].Values[0].RowKey);
+
+            var typedPage1 = pages[0] as ConnectorPage<GetEntitiesResponse, EntityItem>;
+            Assert.IsNotNull(typedPage1);
+            Assert.AreEqual(
+                expected: "https://contoso.table.core.windows.net/$metadata#Customers",
+                actual: typedPage1.PageModel.TableMetadataLocation);
+
+            var resumed = new List<global::Azure.Page<EntityItem>>();
+            await foreach (var page in pageable.AsPages(continuationToken: pages[0].ContinuationToken).ConfigureAwait(continueOnCapturedContext: false))
+            {
+                resumed.Add(page);
+            }
+
+            Assert.AreEqual(expected: 1, actual: resumed.Count);
+            Assert.AreEqual(expected: "row-2", actual: resumed[0].Values[0].RowKey);
+        }
     }
 }

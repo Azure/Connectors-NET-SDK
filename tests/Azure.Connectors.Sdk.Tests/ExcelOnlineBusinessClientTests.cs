@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -197,5 +198,123 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
+
+        [TestMethod]
+        public async Task GetItemsAsync_WithSensitivityLabels_PreservesPageModelAndRawResponseAcrossPages()
+        {
+            var requestedUris = new List<string>();
+            var handler = new Mock<HttpMessageHandler>();
+            handler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns((HttpRequestMessage request, CancellationToken _) =>
+                {
+                    var uri = request.RequestUri!.ToString();
+                    requestedUris.Add(uri);
+                    if (requestedUris.Count == 1)
+                    {
+                        var page1 = new HttpResponseMessage(HttpStatusCode.OK)
+                        {
+                            Content = new StringContent("""
+                                {
+                                    "value": [{ "RowId": "row-1" }],
+                                    "sensitivityLabelInfo": [{
+                                        "sensitivityLabelId": "label-confidential",
+                                        "name": "Confidential",
+                                        "displayName": "Confidential - Internal",
+                                        "tooltip": "Internal data",
+                                        "priority": 2,
+                                        "color": "#FF0000",
+                                        "isEncrypted": true,
+                                        "isEnabled": true,
+                                        "isParent": false,
+                                        "parentSensitivityLabelId": "root-label"
+                                    }],
+                                    "@odata.nextLink": "https://test.azure.com/connection/drives/OneDrive/files/folder%252Fbook.xlsx/tables/Table1/items?$skiptoken=page-2"
+                                }
+                                """)
+                        };
+                        page1.Headers.Add("x-ms-request-id", "req-page-1");
+                        return Task.FromResult(page1);
+                    }
+
+                    var page2 = new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("""
+                            {
+                                "value": [],
+                                "sensitivityLabelInfo": [{
+                                    "sensitivityLabelId": "label-public",
+                                    "name": "Public",
+                                    "displayName": "Public Data",
+                                    "isEncrypted": false
+                                }]
+                            }
+                            """)
+                    };
+                    page2.Headers.Add("x-ms-request-id", "req-page-2");
+                    return Task.FromResult(page2);
+                });
+
+            var options = new ConnectorClientOptions
+            {
+                Transport = new HttpClientTransport(new HttpClient(handler.Object))
+            };
+            options.Retry.MaxRetries = 0;
+
+            using var client = new ExcelOnlineBusinessClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: SharedMockCredential.Object,
+                options: options);
+
+            var pageable = client.GetItemsAsync(
+                documentLibrary: "OneDrive",
+                file: "folder/book.xlsx",
+                table: "Table1",
+                location: "me",
+                extractSensitivityLabel: true,
+                sensitivityLabelMetadata: true);
+
+            Assert.AreEqual(expected: 0, actual: requestedUris.Count);
+
+            var pages = new List<global::Azure.Page<Item>>();
+            await foreach (var page in pageable.AsPages().ConfigureAwait(continueOnCapturedContext: false))
+            {
+                pages.Add(page);
+            }
+
+            Assert.AreEqual(expected: 2, actual: pages.Count);
+            Assert.AreEqual(
+                expected: "https://test.azure.com/connection/drives/OneDrive/files/folder%252Fbook.xlsx/tables/Table1/items?source=me&extractSensitivityLabel=True&fetchSensitivityLabelMetadata=True",
+                actual: requestedUris[0]);
+            Assert.AreEqual(
+                expected: "https://test.azure.com/connection/drives/OneDrive/files/folder%252Fbook.xlsx/tables/Table1/items?$skiptoken=page-2",
+                actual: requestedUris[1]);
+
+            var typedPage1 = pages[0] as ConnectorPage<ItemsList, Item>;
+            Assert.IsNotNull(typedPage1);
+            Assert.AreEqual(expected: 1, actual: typedPage1.Values.Count);
+            Assert.AreEqual(expected: "row-1", actual: typedPage1.Values[0].AdditionalProperties["RowId"].GetString());
+            Assert.IsNotNull(typedPage1.PageModel.SensitivityLabelInfo);
+            Assert.AreEqual(expected: 1, actual: typedPage1.PageModel.SensitivityLabelInfo.Count);
+            Assert.AreEqual(expected: "label-confidential", actual: typedPage1.PageModel.SensitivityLabelInfo[0].SensitivityLabelId);
+            Assert.AreEqual(expected: "Confidential - Internal", actual: typedPage1.PageModel.SensitivityLabelInfo[0].SensitivityLabelDisplayNameInfo);
+            Assert.AreEqual(expected: true, actual: typedPage1.PageModel.SensitivityLabelInfo[0].IsEncryptedStatusOfSensitivityLabel);
+
+            var rawEnvelope1 = pages[0].GetRawResponse().Content.ToObjectFromJson<ItemsList>();
+            Assert.IsNotNull(rawEnvelope1);
+            Assert.AreEqual(expected: "label-confidential", actual: rawEnvelope1.SensitivityLabelInfo[0].SensitivityLabelId);
+            Assert.IsTrue(pages[0].GetRawResponse().Headers.TryGetValue("x-ms-request-id", out var requestId1));
+            Assert.AreEqual(expected: "req-page-1", actual: requestId1);
+
+            var typedPage2 = pages[1] as ConnectorPage<ItemsList, Item>;
+            Assert.IsNotNull(typedPage2);
+            Assert.AreEqual(expected: 0, actual: typedPage2.Values.Count);
+            Assert.AreEqual(expected: "label-public", actual: typedPage2.PageModel.SensitivityLabelInfo[0].SensitivityLabelId);
+            Assert.IsTrue(pages[1].GetRawResponse().Headers.TryGetValue("x-ms-request-id", out var requestId2));
+            Assert.AreEqual(expected: "req-page-2", actual: requestId2);
+        }
     }
 }
