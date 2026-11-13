@@ -578,9 +578,9 @@ namespace Azure.Connectors.Sdk
         {
             private readonly int _status;
             private readonly string _reasonPhrase;
-            private readonly string _clientRequestId;
             private readonly byte[] _contentBytes;
             private readonly HttpHeader[] _headers;
+            private string _clientRequestId;
             private MemoryStream? _contentStream;
 
             private BufferedPageResponse(
@@ -611,7 +611,7 @@ namespace Azure.Connectors.Sdk
             public override string ClientRequestId
             {
                 get => this._clientRequestId;
-                set => throw new NotSupportedException("BufferedPageResponse is immutable.");
+                set => this._clientRequestId = value;
             }
 
             internal static BufferedPageResponse Capture(Response response, string responseBody)

@@ -101,7 +101,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
 
         /// <summary>Due date of the task (Ex. 2014-06-17T17:12:52.000Z</summary>
         [JsonPropertyName("due_date")]
-        public DateTime? DueDateFormatYyyyMMDdThhMmSsFffZ { get; set; }
+        public DateTime? DueDate { get; set; }
     }
 
     /// <summary>
@@ -225,7 +225,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
             string description = default,
             InfusionsoftType? type = default,
             int? priority = default,
-            DateTime? dueDateFormatYyyyMMDdThhMmSsFffZ = default)
+            DateTime? dueDate = default)
         {
             return new CreateTaskRequest
             {
@@ -233,7 +233,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
                 Description = description,
                 Type = type,
                 Priority = priority,
-                DueDateFormatYyyyMMDdThhMmSsFffZ = dueDateFormatYyyyMMDdThhMmSsFffZ,
+                DueDate = dueDate,
             };
         }
     }

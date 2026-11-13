@@ -315,6 +315,10 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual(expected: "label-public", actual: typedPage2.PageModel.SensitivityLabelInfo[0].SensitivityLabelId);
             Assert.IsTrue(pages[1].GetRawResponse().Headers.TryGetValue("x-ms-request-id", out var requestId2));
             Assert.AreEqual(expected: "req-page-2", actual: requestId2);
+
+            var rawResponse2 = pages[1].GetRawResponse();
+            rawResponse2.ClientRequestId = "caller-assigned-id";
+            Assert.AreEqual(expected: "caller-assigned-id", actual: rawResponse2.ClientRequestId);
         }
     }
 }

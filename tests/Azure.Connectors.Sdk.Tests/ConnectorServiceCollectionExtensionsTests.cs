@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+using System.Linq;
 using Azure.Connectors.Sdk.Arm;
 using Azure.Connectors.Sdk.AzureAutomation;
 using Azure.Connectors.Sdk.AzureBlob;
@@ -357,7 +359,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddYammerClient(configuration)
                 .AddZeptoMailClient(configuration)
                 .AddZohoSignClient(configuration)
-                .AddDocuwareClient(configuration)
+                .AddDocuWareClient(configuration)
                 .AddElfsquadDataClient(configuration)
                 .AddImpexiumClient(configuration)
                 .AddJedoxODataHubClient(configuration)
@@ -371,7 +373,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddTallyfyClient(configuration)
                 .AddTextRequestClient(configuration)
                 .AddTicketmasterClient(configuration)
-                .AddWaywedoClient(configuration)
+                .AddWayWeDoClient(configuration)
                 .AddAzureAutomationClient(configuration)
                 .AddAzureDataFactoryClient(configuration)
                 .AddAzureDigitalTwinsClient(configuration)
@@ -380,7 +382,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddMicrosoftBookingsClient(configuration)
                 .AddOffice365GroupsClient(configuration)
                 .AddOffice365GroupsMailClient(configuration)
-                .AddOnenoteClient(configuration)
+                .AddOneNoteClient(configuration)
                 .AddPlannerClient(configuration)
                 .AddPowerBIClient(configuration)
                 .AddShiftsClient(configuration)
@@ -450,6 +452,32 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("wdatp", provider.GetRequiredService<WdatpClient>().ConnectorName);
             Assert.AreEqual("yammer", provider.GetRequiredService<YammerClient>().ConnectorName);
             Assert.AreEqual("zohosign", provider.GetRequiredService<ZohoSignClient>().ConnectorName);
+        }
+
+        [TestMethod]
+        public void AddClientMethods_RegisterTypeNamedAfterMethod()
+        {
+            // Arrange
+            var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
+                ConnectorServiceCollectionExtensionsTests.TestConnectionRuntimeUrl);
+            var methods = typeof(ConnectorServiceCollectionExtensions)
+                .GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+                .Where(method => method.Name.StartsWith("Add", StringComparison.Ordinal) &&
+                    method.Name.EndsWith("Client", StringComparison.Ordinal) &&
+                    !method.IsGenericMethodDefinition &&
+                    method.GetParameters().Select(parameter => parameter.ParameterType)
+                        .SequenceEqual(new[] { typeof(IServiceCollection), typeof(IConfiguration) }))
+                .ToList();
+
+            // Act & Assert — a brand rename of a client must rename its DI helper too.
+            Assert.IsTrue(methods.Count > 60, $"Expected the generated DI helpers, found {methods.Count}.");
+            foreach (var method in methods)
+            {
+                var services = new ServiceCollection();
+                method.Invoke(null, new object[] { services, configuration });
+                var registered = services.Single().ServiceType.Name;
+                Assert.AreEqual(method.Name.Substring("Add".Length), registered, $"{method.Name} registers {registered}.");
+            }
         }
 
         private static IConfiguration BuildMockConfiguration(

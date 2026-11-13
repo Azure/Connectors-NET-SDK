@@ -301,7 +301,7 @@ namespace Azure.Connectors.Sdk
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddDocuwareClient(
+        public static IServiceCollection AddDocuWareClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
@@ -957,7 +957,7 @@ namespace Azure.Connectors.Sdk
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddWaywedoClient(
+        public static IServiceCollection AddWayWeDoClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
@@ -1197,7 +1197,7 @@ namespace Azure.Connectors.Sdk
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddOnenoteClient(
+        public static IServiceCollection AddOneNoteClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
