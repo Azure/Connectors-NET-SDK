@@ -107,7 +107,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
 
         /// <summary>Unique ID of the list.</summary>
         [JsonPropertyName("htmlLink")]
-        public string HTMLLink { get; set; }
+        public string HtmlLink { get; set; }
 
         /// <summary>Opaque identifier of the event.</summary>
         [JsonPropertyName("id")]
@@ -199,7 +199,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
 
         /// <summary>Unique ID of the list.</summary>
         [JsonPropertyName("htmlLink")]
-        public string HTMLLink { get; set; }
+        public string HtmlLink { get; set; }
 
         /// <summary>Opaque identifier of the event.</summary>
         [JsonPropertyName("id")]
@@ -500,7 +500,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
                 Description = description,
                 Location = location,
                 Status = status,
-                HTMLLink = htmlLink,
+                HtmlLink = htmlLink,
                 EventId = eventId,
                 Attendees = attendees,
                 Creator = creator,
@@ -552,7 +552,7 @@ namespace Azure.Connectors.Sdk.GoogleCalendar.Models
                 Description = description,
                 Location = location,
                 Status = status,
-                HTMLLink = htmlLink,
+                HtmlLink = htmlLink,
                 EventId = eventId,
                 Attendees = attendees,
                 Creator = creator,
@@ -1028,4 +1028,3 @@ namespace Azure.Connectors.Sdk.GoogleCalendar
 
     #endregion Client
 }
-

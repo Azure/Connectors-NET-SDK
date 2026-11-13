@@ -19,6 +19,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Yammer.Models;
 using Azure.Core;
@@ -72,7 +73,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     {
         /// <summary>Username.</summary>
         [JsonPropertyName("name")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>User job title.</summary>
         [JsonPropertyName("job_title")]
@@ -114,11 +115,15 @@ namespace Azure.Connectors.Sdk.Yammer.Models
     /// <summary>
     /// List of one or multiple messages.
     /// </summary>
-    public class PageableMessageList
+    public class PageableMessageList : IPageable<Message>
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
-        public List<Message> Messages { get; set; }
+        public List<Message> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -188,7 +193,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
 
         /// <summary>Web link of the client.</summary>
         [JsonPropertyName("client_url")]
-        public string ClientURL { get; set; }
+        public string ClientUrl { get; set; }
 
         /// <summary>Language used in the message.</summary>
         [JsonPropertyName("language")]
@@ -330,7 +335,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         /// Creates a new instance of <see cref="User"/>.
         /// </summary>
         public static User User(
-            string username = default,
+            string userName = default,
             string jobTitle = default,
             string location = default,
             string fullName = default,
@@ -343,7 +348,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         {
             return new User
             {
-                Username = username,
+                UserName = userName,
                 JobTitle = jobTitle,
                 Location = location,
                 FullName = fullName,
@@ -360,11 +365,13 @@ namespace Azure.Connectors.Sdk.Yammer.Models
         /// Creates a new instance of <see cref="PageableMessageList"/>.
         /// </summary>
         public static PageableMessageList PageableMessageList(
-            List<Message> messages = default)
+            List<Message> value = default,
+            string nextLink = default)
         {
             return new PageableMessageList
             {
-                Messages = messages,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -387,7 +394,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
             long? threadId = default,
             bool? directMessage = default,
             string clientId = default,
-            string clientURL = default,
+            string clientUrl = default,
             string language = default,
             List<long?> taggedUser = default,
             string privacy = default,
@@ -411,7 +418,7 @@ namespace Azure.Connectors.Sdk.Yammer.Models
                 ThreadId = threadId,
                 DirectMessage = directMessage,
                 ClientId = clientId,
-                ClientURL = clientURL,
+                ClientUrl = clientUrl,
                 Language = language,
                 TaggedUser = taggedUser,
                 Privacy = privacy,
@@ -759,34 +766,25 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get all messages response.</returns>
-        public virtual async Task<PageableMessageList> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Message"/> items across all pages.</returns>
+        public virtual AsyncPageable<Message> GetAllMessagesAsync([DynamicValues("GetNetworks")] string uniqueIdentifierOfTheNetwork = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetAllMessagesAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (uniqueIdentifierOfTheNetwork != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork)}");
-                if (olderThan.HasValue)
-                    queryParams.Add($"older_than={Uri.EscapeDataString(Convert.ToString(olderThan.Value, CultureInfo.InvariantCulture))}");
-                if (newerThan.HasValue)
-                    queryParams.Add($"newer_than={Uri.EscapeDataString(Convert.ToString(newerThan.Value, CultureInfo.InvariantCulture))}");
-                if (threadTypeOfMessages != default)
-                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages)}");
-                if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (uniqueIdentifierOfTheNetwork != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(uniqueIdentifierOfTheNetwork)}");
+            if (olderThan.HasValue)
+                queryParams.Add($"older_than={Uri.EscapeDataString(Convert.ToString(olderThan.Value, CultureInfo.InvariantCulture))}");
+            if (newerThan.HasValue)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(Convert.ToString(newerThan.Value, CultureInfo.InvariantCulture))}");
+            if (threadTypeOfMessages != default)
+                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages)}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v3/messages.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<PageableMessageList, Message>(
+                ct => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -799,34 +797,25 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get the messages from my Following feed response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Message"/> items across all pages.</returns>
+        public virtual AsyncPageable<Message> GetMessagesFollowingAsync([DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesFollowingAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (networkId != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId)}");
-                if (olderThan.HasValue)
-                    queryParams.Add($"older_than={Uri.EscapeDataString(Convert.ToString(olderThan.Value, CultureInfo.InvariantCulture))}");
-                if (newerThan.HasValue)
-                    queryParams.Add($"newer_than={Uri.EscapeDataString(Convert.ToString(newerThan.Value, CultureInfo.InvariantCulture))}");
-                if (threadTypeOfMessages != default)
-                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages)}");
-                if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (networkId != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkId)}");
+            if (olderThan.HasValue)
+                queryParams.Add($"older_than={Uri.EscapeDataString(Convert.ToString(olderThan.Value, CultureInfo.InvariantCulture))}");
+            if (newerThan.HasValue)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(Convert.ToString(newerThan.Value, CultureInfo.InvariantCulture))}");
+            if (threadTypeOfMessages != default)
+                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages)}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v3/messages/following.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<PageableMessageList, Message>(
+                ct => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -840,34 +829,25 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <param name="threadTypeOfMessages">Thread type of messages</param>
         /// <param name="limit">Limit</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get messages in a group response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Message"/> items across all pages.</returns>
+        public virtual AsyncPageable<Message> GetMessagesInGroupAsync([DynamicValues("GetGroups")] int groupId, [DynamicValues("GetNetworks")] string networkId = default, int? olderThan = default, int? newerThan = default, string threadTypeOfMessages = default, int? limit = default, CancellationToken cancellationToken = default)
         {
-            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInGroupAsync");
-            try
-            {
-                var queryParams = new List<string>();
-                if (networkId != default)
-                    queryParams.Add($"network_id={Uri.EscapeDataString(networkId)}");
-                if (olderThan.HasValue)
-                    queryParams.Add($"older_than={Uri.EscapeDataString(Convert.ToString(olderThan.Value, CultureInfo.InvariantCulture))}");
-                if (newerThan.HasValue)
-                    queryParams.Add($"newer_than={Uri.EscapeDataString(Convert.ToString(newerThan.Value, CultureInfo.InvariantCulture))}");
-                if (threadTypeOfMessages != default)
-                    queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages)}");
-                if (limit.HasValue)
-                    queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/v3/messages/in_group/{Uri.EscapeDataString(Convert.ToString(groupId, CultureInfo.InvariantCulture))}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var queryParams = new List<string>();
+            if (networkId != default)
+                queryParams.Add($"network_id={Uri.EscapeDataString(networkId)}");
+            if (olderThan.HasValue)
+                queryParams.Add($"older_than={Uri.EscapeDataString(Convert.ToString(olderThan.Value, CultureInfo.InvariantCulture))}");
+            if (newerThan.HasValue)
+                queryParams.Add($"newer_than={Uri.EscapeDataString(Convert.ToString(newerThan.Value, CultureInfo.InvariantCulture))}");
+            if (threadTypeOfMessages != default)
+                queryParams.Add($"threaded={Uri.EscapeDataString(threadTypeOfMessages)}");
+            if (limit.HasValue)
+                queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/v3/messages/in_group/{Uri.EscapeDataString(Convert.ToString(groupId, CultureInfo.InvariantCulture))}.json" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<PageableMessageList, Message>(
+                ct => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -876,23 +856,14 @@ namespace Azure.Connectors.Sdk.Yammer
         /// <remarks>This operation returns the messages posted in a thread.</remarks>
         /// <param name="threadId">Thread ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get messages in a thread response.</returns>
-        public virtual async Task<PageableMessageList> GetMessagesInThreadAsync(int threadId, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Message"/> items across all pages.</returns>
+        public virtual AsyncPageable<Message> GetMessagesInThreadAsync(int threadId, CancellationToken cancellationToken = default)
         {
-            using var activity = YammerClient.ConnectorActivitySource.StartActivity("YammerClient.GetMessagesInThreadAsync");
-            try
-            {
-                var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(Convert.ToString(threadId, CultureInfo.InvariantCulture))}.json";
-                return await this
-                    .CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var path = $"/v3/messages/in_thread/{Uri.EscapeDataString(Convert.ToString(threadId, CultureInfo.InvariantCulture))}.json";
+            return this.CreatePageable<PageableMessageList, Message>(
+                ct => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<PageableMessageList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -928,4 +899,3 @@ namespace Azure.Connectors.Sdk.Yammer
 
     #endregion Client
 }
-

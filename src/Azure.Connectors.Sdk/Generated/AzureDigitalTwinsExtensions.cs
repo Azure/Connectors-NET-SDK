@@ -887,21 +887,21 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// </summary>
         /// <remarks>Retrieves a component from a digital twin.</remarks>
         /// <param name="digitalTwinId">Digital twin id</param>
-        /// <param name="dTDLComponent">DTDL component</param>
+        /// <param name="dtdlComponent">DTDL component</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get Component response.</returns>
-        public virtual async Task<GetComponentResult> GetComponentAsync(string digitalTwinId, string dTDLComponent, CancellationToken cancellationToken = default)
+        public virtual async Task<GetComponentResult> GetComponentAsync(string digitalTwinId, string dtdlComponent, CancellationToken cancellationToken = default)
         {
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.GetComponentAsync");
             try
             {
                 if (digitalTwinId is null)
                     throw new ArgumentNullException(nameof(digitalTwinId));
-                if (dTDLComponent is null)
-                    throw new ArgumentNullException(nameof(dTDLComponent));
+                if (dtdlComponent is null)
+                    throw new ArgumentNullException(nameof(dtdlComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dTDLComponent)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dtdlComponent)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetComponentResult>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -919,21 +919,21 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// </summary>
         /// <remarks>Updates integer properties on a component of a twin.</remarks>
         /// <param name="digitalTwinId">Digital twin id</param>
-        /// <param name="dTDLComponent">DTDL component</param>
+        /// <param name="dtdlComponent">DTDL component</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task UpdateComponentAsync(string digitalTwinId, string dTDLComponent, UpdateComponentInput input, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateComponentAsync(string digitalTwinId, string dtdlComponent, UpdateComponentInput input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.UpdateComponentAsync");
             try
             {
                 if (digitalTwinId is null)
                     throw new ArgumentNullException(nameof(digitalTwinId));
-                if (dTDLComponent is null)
-                    throw new ArgumentNullException(nameof(dTDLComponent));
+                if (dtdlComponent is null)
+                    throw new ArgumentNullException(nameof(dtdlComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dTDLComponent)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dtdlComponent)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1131,21 +1131,21 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
         /// </summary>
         /// <remarks>Sends telemetry on behalf of a component in a digital twin.</remarks>
         /// <param name="digitalTwinId">Digital twin id</param>
-        /// <param name="dTDLComponent">DTDL component</param>
+        /// <param name="dtdlComponent">DTDL component</param>
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task SendComponentTelemetryAsync(string digitalTwinId, string dTDLComponent, SendComponentTelemetryInput input, CancellationToken cancellationToken = default)
+        public virtual async Task SendComponentTelemetryAsync(string digitalTwinId, string dtdlComponent, SendComponentTelemetryInput input, CancellationToken cancellationToken = default)
         {
             using var activity = AzureDigitalTwinsClient.ConnectorActivitySource.StartActivity("AzureDigitalTwinsClient.SendComponentTelemetryAsync");
             try
             {
                 if (digitalTwinId is null)
                     throw new ArgumentNullException(nameof(digitalTwinId));
-                if (dTDLComponent is null)
-                    throw new ArgumentNullException(nameof(dTDLComponent));
+                if (dtdlComponent is null)
+                    throw new ArgumentNullException(nameof(dtdlComponent));
                 var queryParams = new List<string>();
                 queryParams.Add("api-version=2020-10-31");
-                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dTDLComponent)}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/digitaltwins/{Uri.EscapeDataString(digitalTwinId)}/components/{Uri.EscapeDataString(dtdlComponent)}/telemetry" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1212,4 +1212,3 @@ namespace Azure.Connectors.Sdk.AzureDigitalTwins
 
     #endregion Client
 }
-

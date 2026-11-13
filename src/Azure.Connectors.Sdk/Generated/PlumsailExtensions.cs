@@ -32,7 +32,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     /// <summary>
     /// Response for Process finished
     /// </summary>
-    [DynamicSchema("FlowV1ProcessesFlowTriggersByProcessIdSchemaGet")]
+    [DynamicSchema("FlowV1ProcessesFlowTriggersByProcessIdSchemaV2Get")]
     public class ProcessSchemaDynamicTypeNotification
     {
         /// <summary>
@@ -112,14 +112,14 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Raw HTML result</summary>
         [JsonPropertyName("htmlResult")]
-        public string ResultHTML { get; set; }
+        public string ResultHtml { get; set; }
     }
 
     /// <summary>
     /// Split PDF
     /// </summary>
     [DynamicSchema("FlowV1DocumentsFlowSchemaSplitPdfPost")]
-    public class FlowV1DocumentsJobsSplitPdfV2Input
+    public class FlowDocumentsJobsSplitPdfInput
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -136,17 +136,17 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Array of raw contents of result files with their filenames</summary>
         [JsonPropertyName("resultFiles")]
-        public List<DocumentContentWithFilenameResponse> ResultFiles { get; set; }
+        public List<DocumentContentWithFileNameResponse> ResultFiles { get; set; }
     }
 
     /// <summary>
     /// Item in Array of raw contents of result files with their filenames
     /// </summary>
-    public class DocumentContentWithFilenameResponse
+    public class DocumentContentWithFileNameResponse
     {
         /// <summary>Name of the file</summary>
         [JsonPropertyName("filename")]
-        public string Filename { get; set; }
+        public string FileName { get; set; }
 
         /// <summary>File content</summary>
         [JsonPropertyName("fileContent")]
@@ -179,7 +179,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     /// Add a watermark to PDF
     /// </summary>
     [DynamicSchema("FlowV1DocumentsFlowSchemaAddWatermarkToPdfPost")]
-    public class FlowV1DocumentsJobsAddWatermarkToPdfInput
+    public class FlowDocumentsJobsAddWatermarkToPdfInput
     {
         /// <summary>
         /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
@@ -192,7 +192,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     /// <summary>
     /// Response for Parse CSV
     /// </summary>
-    [DynamicSchema("FlowV1DocumentsFlowSchemaParseCsvPost")]
+    [DynamicSchema("FlowV1DocumentsFlowSchemaParseCsvBodyPost")]
     public class ParseCsvSchemaResponse
     {
         /// <summary>
@@ -240,10 +240,24 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     /// <summary>
     /// Start document generation process with json
     /// </summary>
-    public class FlowV1ProcessesFlowJobsExecuteProcessInput
+    public class FlowProcessesFlowJobsExecuteProcessInput
     {
         /// <summary>
         /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
+    /// Response for Start document generation process with json
+    /// </summary>
+    [DynamicSchema("FlowV1ProcessesFlowSchemaGetStartProcessOutputSchemaPost")]
+    public class StartProcessOutputDynamicSchemaResponse
+    {
+        /// <summary>
+        /// Dynamic properties determined at runtime by the connector's schema discovery endpoint.
+        /// Populate this dictionary with the properties returned by the schema API.
         /// </summary>
         [JsonExtensionData]
         public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
@@ -261,6 +275,10 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>HookUrl</summary>
         [JsonPropertyName("hookUrl")]
         public string ProcessName { get; set; }
+
+        /// <summary>Choose whether output files are returned as separate variables or as an array of files</summary>
+        [JsonPropertyName("outputFilesAs")]
+        public OutputFilesAs? OutputFilesAs { get; set; }
     }
 
     /// <summary>
@@ -310,7 +328,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Text HTML template or HTML file template</summary>
         [JsonPropertyName("html")]
-        public string SourceHTML { get; set; }
+        public string SourceHtml { get; set; }
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
@@ -375,6 +393,10 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// <summary>The time zone of the document</summary>
         [JsonPropertyName("timezone")]
         public Timezone? TimeZone { get; set; }
+
+        /// <summary>The engine that will process the template</summary>
+        [JsonPropertyName("engine")]
+        public Engine? TemplateEngine { get; set; }
     }
 
     /// <summary>
@@ -434,15 +456,15 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>CSV column name or column index (1, 2, etc.)</summary>
         [JsonPropertyName("csvColumnIndexOrName")]
-        public string CSVColumnNameOrIndex { get; set; }
+        public string CsvColumnNameOrIndex { get; set; }
 
         /// <summary>Optional. Column type (ShortDateTime, TwoDecimal, etc.)</summary>
         [JsonPropertyName("xlsxColumnType")]
-        public XlsxColumnType? XLSXColumnType { get; set; }
+        public XlsxColumnType? XlsxColumnType { get; set; }
 
         /// <summary>Optional. Rename CSV column to this name</summary>
         [JsonPropertyName("xlsxColumnName")]
-        public string XLSXColumnName { get; set; }
+        public string XlsxColumnName { get; set; }
     }
 
     /// <summary>
@@ -452,7 +474,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Content of CSV document</summary>
         [JsonPropertyName("content")]
-        public string ContentOfCSVDocument { get; set; }
+        public string ContentOfCsvDocument { get; set; }
 
         /// <summary>Delimiter of columns (by default it is just comma)</summary>
         [JsonPropertyName("delimiter")]
@@ -538,7 +560,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>The data that will be used to fill out the form</summary>
         [JsonPropertyName("jsonData")]
-        public JsonElement? JSONData { get; set; }
+        public JsonElement? JsonData { get; set; }
 
         /// <summary>Disable fields editing after filling them</summary>
         [JsonPropertyName("lockFormFields")]
@@ -574,11 +596,11 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>HTML Data to convert to DOCX</summary>
         [JsonPropertyName("rawHtml")]
-        public string HTMLData { get; set; }
+        public string HtmlData { get; set; }
 
         /// <summary>URL to the web page to convert to DOCX</summary>
         [JsonPropertyName("htmlUrl")]
-        public string HTMLURL { get; set; }
+        public string HtmlUrl { get; set; }
 
         /// <summary>Can be A4,A5 etc...</summary>
         [JsonPropertyName("paperSize")]
@@ -590,7 +612,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Whether HTML should be decoded prior to conversion</summary>
         [JsonPropertyName("decodeHtml")]
-        public bool? DecodeHTML { get; set; }
+        public bool? DecodeHtml { get; set; }
 
         /// <summary>Page margins in pt. The syntax is the same as in CSS. Example: 25 50 75 100.</summary>
         [JsonPropertyName("margins")]
@@ -604,7 +626,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>HTML markup that should be converted to PDF</summary>
         [JsonPropertyName("html")]
-        public string SourceHTML { get; set; }
+        public string SourceHtml { get; set; }
 
         /// <summary>Conversion engine</summary>
         [JsonPropertyName("engine")]
@@ -624,11 +646,11 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>HTML markup that should be added as a header</summary>
         [JsonPropertyName("headerHtml")]
-        public string HeaderHTML { get; set; }
+        public string HeaderHtml { get; set; }
 
         /// <summary>HTML markup that should be added as a footer</summary>
         [JsonPropertyName("footerHtml")]
-        public string FooterHTML { get; set; }
+        public string FooterHtml { get; set; }
     }
 
     /// <summary>
@@ -652,11 +674,11 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Optional. Content of the JSON file</summary>
         [JsonPropertyName("content")]
-        public string JSONFileContent { get; set; }
+        public string JsonFileContent { get; set; }
 
         /// <summary>Optional. JSON data to process</summary>
         [JsonPropertyName("jsonData")]
-        public string JSONData { get; set; }
+        public string JsonData { get; set; }
 
         /// <summary>The locale that will be applyed to the document</summary>
         [JsonPropertyName("locale")]
@@ -664,7 +686,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Dot separated path to array in JSON. E.g.: &quot;data&quot; or &quot;prop1.prop2.prop3&quot;</summary>
         [JsonPropertyName("pathToJsonArray")]
-        public string PathToJSONArray { get; set; }
+        public string PathToJsonArray { get; set; }
 
         /// <summary>Delimiter of columns in CSV. Default is comma</summary>
         [JsonPropertyName("delimiter")]
@@ -678,15 +700,15 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Name of the JSON property</summary>
         [JsonPropertyName("jsonProperty")]
-        public string JSONProperty { get; set; }
+        public string JsonProperty { get; set; }
 
         /// <summary>Optional. Column type (ShortDateTime, TwoDecimal, etc.)</summary>
         [JsonPropertyName("xlsxColumnType")]
-        public XlsxColumnType? XLSXColumnType { get; set; }
+        public XlsxColumnType? XlsxColumnType { get; set; }
 
         /// <summary>Optional. Rename JSON property to this name</summary>
         [JsonPropertyName("xlsxColumnName")]
-        public string XLSXColumnName { get; set; }
+        public string XlsxColumnName { get; set; }
     }
 
     /// <summary>
@@ -696,11 +718,11 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Optional. Content of the JSON file</summary>
         [JsonPropertyName("content")]
-        public string JSONFileContent { get; set; }
+        public string JsonFileContent { get; set; }
 
         /// <summary>Optional. JSON data to process</summary>
         [JsonPropertyName("jsonData")]
-        public string JSONData { get; set; }
+        public string JsonData { get; set; }
 
         /// <summary>The locale that will be applyed to the document</summary>
         [JsonPropertyName("locale")]
@@ -708,7 +730,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Dot separated path to array in JSON. E.g.: &quot;data&quot; or &quot;prop1.prop2.prop3&quot;</summary>
         [JsonPropertyName("pathToJsonArray")]
-        public string PathToJSONArray { get; set; }
+        public string PathToJsonArray { get; set; }
 
         /// <summary>Rename headers and specify types for columns.</summary>
         [JsonPropertyName("mappings")]
@@ -758,7 +780,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Raw content of docx document template. MergeField names should be the same as keys in template data</summary>
         [JsonPropertyName("docxDocument")]
-        public string DOCXDocumentContent { get; set; }
+        public string DocxDocumentContent { get; set; }
 
         /// <summary>JSON data that should be applied to the template</summary>
         [JsonPropertyName("data")]
@@ -782,7 +804,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     {
         /// <summary>Content of CSV document</summary>
         [JsonPropertyName("content")]
-        public string ContentOfCSVDocument { get; set; }
+        public string ContentOfCsvDocument { get; set; }
 
         /// <summary>Delimiter of columns (by default it is just comma)</summary>
         [JsonPropertyName("delimiter")]
@@ -816,7 +838,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Optional. Output files will have this prefix followed by an index number for name</summary>
         [JsonPropertyName("filenamePrefix")]
-        public string FilenamePrefix { get; set; }
+        public string FileNamePrefix { get; set; }
 
         /// <summary>The first page to start extraction (1 based)</summary>
         [JsonPropertyName("startPage")]
@@ -836,7 +858,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>The resolution of the result image</summary>
         [JsonPropertyName("dpi")]
-        public int? DPI { get; set; }
+        public int? Dpi { get; set; }
 
         /// <summary>Password to decrypt document</summary>
         [JsonPropertyName("password")]
@@ -944,11 +966,11 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
 
         /// <summary>Enter an optional owner password here. This password can be used to disable document restrictions</summary>
         [JsonPropertyName("newOwnerPassword")]
-        public string PDFOwnerPassword { get; set; }
+        public string PdfOwnerPassword { get; set; }
 
         /// <summary>Enter an optional user password here. Each time an user opens the PDF he will be asked for this password. If you do not want a password prompt then leave this field blank</summary>
         [JsonPropertyName("newUserPassword")]
-        public string PDFUserPassword { get; set; }
+        public string PdfUserPassword { get; set; }
 
         /// <summary>Password to decrypt document</summary>
         [JsonPropertyName("password")]
@@ -1774,7 +1796,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Locale EnUS { get; } = new("en-US");
 
         /// <summary>en-US-POSIX</summary>
-        public static Locale EnUSPOSIX { get; } = new("en-US-POSIX");
+        public static Locale EnUSPosix { get; } = new("en-US-POSIX");
 
         /// <summary>en-VC</summary>
         public static Locale EnVC { get; } = new("en-VC");
@@ -3017,6 +3039,58 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     }
 
     /// <summary>
+    /// Extensible enum for known OutputFilesAs values.
+    /// </summary>
+    [JsonConverter(typeof(OutputFilesAs.OutputFilesAsJsonConverter))]
+    public readonly struct OutputFilesAs : IEquatable<OutputFilesAs>
+    {
+        private readonly string _value;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OutputFilesAs"/> struct.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        public OutputFilesAs(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+
+        /// <summary>SeparateFiles</summary>
+        public static OutputFilesAs SeparateFiles { get; } = new("SeparateFiles");
+
+        /// <summary>ArrayOfFiles</summary>
+        public static OutputFilesAs ArrayOfFiles { get; } = new("ArrayOfFiles");
+
+        /// <summary>Converts a string to <see cref="OutputFilesAs"/>.</summary>
+        public static implicit operator OutputFilesAs(string value) => new(value);
+
+        /// <summary>Converts a <see cref="OutputFilesAs"/> to its string representation.</summary>
+        public static implicit operator string(OutputFilesAs value) => value.ToString();
+
+        /// <inheritdoc/>
+        public override string ToString() => this._value;
+
+        /// <inheritdoc/>
+        public bool Equals(OutputFilesAs other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj) => obj is OutputFilesAs other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+
+        /// <inheritdoc/>
+        public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
+
+        /// <summary>Equality operator.</summary>
+        public static bool operator ==(OutputFilesAs left, OutputFilesAs right) => left.Equals(right);
+
+        /// <summary>Inequality operator.</summary>
+        public static bool operator !=(OutputFilesAs left, OutputFilesAs right) => !left.Equals(right);
+
+        internal sealed class OutputFilesAsJsonConverter : JsonConverter<OutputFilesAs>
+        {
+            public OutputFilesAsJsonConverter() { }
+            public override OutputFilesAs Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for OutputFilesAs, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, OutputFilesAs value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+        }
+    }
+
+    /// <summary>
     /// Extensible enum for known PaperSize values.
     /// </summary>
     [JsonConverter(typeof(PaperSize.PaperSizeJsonConverter))]
@@ -3841,7 +3915,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone PacificKiritimati { get; } = new("Pacific/Kiritimati");
 
         /// <summary>Etc/GMT-14</summary>
-        public static Timezone EtcGMT14 { get; } = new("Etc/GMT-14");
+        public static Timezone EtcGmt14 { get; } = new("Etc/GMT-14");
 
         /// <summary>Australia/Lord_Howe</summary>
         public static Timezone AustraliaLordHowe { get; } = new("Australia/Lord_Howe");
@@ -4354,7 +4428,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone PacificWallis { get; } = new("Pacific/Wallis");
 
         /// <summary>Etc/GMT-13</summary>
-        public static Timezone EtcGMT13 { get; } = new("Etc/GMT-13");
+        public static Timezone EtcGmt13 { get; } = new("Etc/GMT-13");
 
         /// <summary>Pacific/Enderbury</summary>
         public static Timezone PacificEnderbury { get; } = new("Pacific/Enderbury");
@@ -4363,10 +4437,10 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone PacificFakaofo { get; } = new("Pacific/Fakaofo");
 
         /// <summary>Etc/UTC</summary>
-        public static Timezone EtcUTC { get; } = new("Etc/UTC");
+        public static Timezone EtcUtc { get; } = new("Etc/UTC");
 
         /// <summary>Etc/GMT</summary>
-        public static Timezone EtcGMT { get; } = new("Etc/GMT");
+        public static Timezone EtcGmt { get; } = new("Etc/GMT");
 
         /// <summary>Etc/GMT+2</summary>
         public static Timezone EtcGmtPlus2 { get; } = new("Etc/GMT+2");
@@ -4882,7 +4956,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AustraliaCurrie { get; } = new("Australia/Currie");
 
         /// <summary>Australia/LHI</summary>
-        public static Timezone AustraliaLHI { get; } = new("Australia/LHI");
+        public static Timezone AustraliaLhi { get; } = new("Australia/LHI");
 
         /// <summary>Australia/Victoria</summary>
         public static Timezone AustraliaVictoria { get; } = new("Australia/Victoria");
@@ -4891,13 +4965,13 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone AustraliaWest { get; } = new("Australia/West");
 
         /// <summary>Australia/ACT</summary>
-        public static Timezone AustraliaACT { get; } = new("Australia/ACT");
+        public static Timezone AustraliaAct { get; } = new("Australia/ACT");
 
         /// <summary>Australia/Canberra</summary>
         public static Timezone AustraliaCanberra { get; } = new("Australia/Canberra");
 
         /// <summary>Australia/NSW</summary>
-        public static Timezone AustraliaNSW { get; } = new("Australia/NSW");
+        public static Timezone AustraliaNsw { get; } = new("Australia/NSW");
 
         /// <summary>Etc/GMT+0</summary>
         public static Timezone EtcGmtPlus0 { get; } = new("Etc/GMT+0");
@@ -4927,7 +5001,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Timezone Greenwich { get; } = new("Greenwich");
 
         /// <summary>Etc/UCT</summary>
-        public static Timezone EtcUCT { get; } = new("Etc/UCT");
+        public static Timezone EtcUct { get; } = new("Etc/UCT");
 
         /// <summary>Etc/Universal</summary>
         public static Timezone EtcUniversal { get; } = new("Etc/Universal");
@@ -5230,11 +5304,11 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="ApplyHtmlTemplateResponse"/>.
         /// </summary>
         public static ApplyHtmlTemplateResponse ApplyHtmlTemplateResponse(
-            string resultHTML = default)
+            string resultHtml = default)
         {
             return new ApplyHtmlTemplateResponse
             {
-                ResultHTML = resultHTML,
+                ResultHtml = resultHtml,
             };
         }
 
@@ -5242,7 +5316,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="DocumentsWithFilenamesResponse"/>.
         /// </summary>
         public static DocumentsWithFilenamesResponse DocumentsWithFilenamesResponse(
-            List<DocumentContentWithFilenameResponse> resultFiles = default)
+            List<DocumentContentWithFileNameResponse> resultFiles = default)
         {
             return new DocumentsWithFilenamesResponse
             {
@@ -5251,15 +5325,15 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="DocumentContentWithFilenameResponse"/>.
+        /// Creates a new instance of <see cref="DocumentContentWithFileNameResponse"/>.
         /// </summary>
-        public static DocumentContentWithFilenameResponse DocumentContentWithFilenameResponse(
-            string filename = default,
+        public static DocumentContentWithFileNameResponse DocumentContentWithFileNameResponse(
+            string fileName = default,
             string fileContent = default)
         {
-            return new DocumentContentWithFilenameResponse
+            return new DocumentContentWithFileNameResponse
             {
-                Filename = filename,
+                FileName = fileName,
                 FileContent = fileContent,
             };
         }
@@ -5305,12 +5379,14 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static AddPowerAutomateWebhookData AddPowerAutomateWebhookData(
             string processId = default,
-            string processName = default)
+            string processName = default,
+            OutputFilesAs? outputFilesAs = default)
         {
             return new AddPowerAutomateWebhookData
             {
                 ProcessId = processId,
                 ProcessName = processName,
+                OutputFilesAs = outputFilesAs,
             };
         }
 
@@ -5352,14 +5428,14 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="ApplyHtmlFlowTemplateRequest"/>.
         /// </summary>
         public static ApplyHtmlFlowTemplateRequest ApplyHtmlFlowTemplateRequest(
-            string sourceHTML = default,
+            string sourceHtml = default,
             JsonElement? templateData = default,
             Locale? locale = default,
             Timezone? timeZone = default)
         {
             return new ApplyHtmlFlowTemplateRequest
             {
-                SourceHTML = sourceHTML,
+                SourceHtml = sourceHtml,
                 TemplateData = templateData,
                 Locale = locale,
                 TimeZone = timeZone,
@@ -5394,7 +5470,8 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
             JsonElement? templateData = default,
             string documentOutputType = default,
             Locale? locale = default,
-            Timezone? timeZone = default)
+            Timezone? timeZone = default,
+            Engine? templateEngine = default)
         {
             return new ApplyXlsxTemplateRequest
             {
@@ -5403,6 +5480,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
                 DocumentOutputType = documentOutputType,
                 Locale = locale,
                 TimeZone = timeZone,
+                TemplateEngine = templateEngine,
             };
         }
 
@@ -5462,9 +5540,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         {
             return new Csv2XlsxColumnMapping
             {
-                CSVColumnNameOrIndex = csvColumnNameOrIndex,
-                XLSXColumnType = xlsxColumnType,
-                XLSXColumnName = xlsxColumnName,
+                CsvColumnNameOrIndex = csvColumnNameOrIndex,
+                XlsxColumnType = xlsxColumnType,
+                XlsxColumnName = xlsxColumnName,
             };
         }
 
@@ -5472,7 +5550,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="Csv2XlsxRequest"/>.
         /// </summary>
         public static Csv2XlsxRequest Csv2XlsxRequest(
-            string contentOfCSVDocument = default,
+            string contentOfCsvDocument = default,
             Delimiter? delimiter = default,
             Locale? locale = default,
             int? limit = default,
@@ -5481,7 +5559,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         {
             return new Csv2XlsxRequest
             {
-                ContentOfCSVDocument = contentOfCSVDocument,
+                ContentOfCsvDocument = contentOfCsvDocument,
                 Delimiter = delimiter,
                 Locale = locale,
                 Limit = limit,
@@ -5556,7 +5634,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
             return new FillInPdfFormRequest
             {
                 DocumentContent = documentContent,
-                JSONData = jsonData,
+                JsonData = jsonData,
                 LockFormFields = lockFormFields,
                 Password = password,
             };
@@ -5582,20 +5660,20 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Html2DocxFlowRequest Html2DocxFlowRequest(
             byte[] fileContent = default,
             string htmlData = default,
-            string htmlurl = default,
+            string htmlUrl = default,
             PaperSize? paperSize = default,
             Orientation? orientation = default,
-            bool? decodeHTML = default,
+            bool? decodeHtml = default,
             string margins = default)
         {
             return new Html2DocxFlowRequest
             {
                 FileContent = fileContent,
-                HTMLData = htmlData,
-                HTMLURL = htmlurl,
+                HtmlData = htmlData,
+                HtmlUrl = htmlUrl,
                 PaperSize = paperSize,
                 Orientation = orientation,
-                DecodeHTML = decodeHTML,
+                DecodeHtml = decodeHtml,
                 Margins = margins,
             };
         }
@@ -5604,23 +5682,23 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="Html2PdfFlowRequest"/>.
         /// </summary>
         public static Html2PdfFlowRequest Html2PdfFlowRequest(
-            string sourceHTML = default,
+            string sourceHtml = default,
             Engine? engine = default,
             Size? paperSize = default,
             Orientation? orientation = default,
             string margins = default,
-            string headerHTML = default,
-            string footerHTML = default)
+            string headerHtml = default,
+            string footerHtml = default)
         {
             return new Html2PdfFlowRequest
             {
-                SourceHTML = sourceHTML,
+                SourceHtml = sourceHtml,
                 Engine = engine,
                 PaperSize = paperSize,
                 Orientation = orientation,
                 Margins = margins,
-                HeaderHTML = headerHTML,
-                FooterHTML = footerHTML,
+                HeaderHtml = headerHtml,
+                FooterHtml = footerHtml,
             };
         }
 
@@ -5645,15 +5723,15 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
             string jsonFileContent = default,
             string jsonData = default,
             Locale? locale = default,
-            string pathToJSONArray = default,
+            string pathToJsonArray = default,
             Delimiter? delimiter = default)
         {
             return new Json2CsvRequest
             {
-                JSONFileContent = jsonFileContent,
-                JSONData = jsonData,
+                JsonFileContent = jsonFileContent,
+                JsonData = jsonData,
                 Locale = locale,
-                PathToJSONArray = pathToJSONArray,
+                PathToJsonArray = pathToJsonArray,
                 Delimiter = delimiter,
             };
         }
@@ -5668,9 +5746,9 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         {
             return new Json2XlsxColumnMapping
             {
-                JSONProperty = jsonProperty,
-                XLSXColumnType = xlsxColumnType,
-                XLSXColumnName = xlsxColumnName,
+                JsonProperty = jsonProperty,
+                XlsxColumnType = xlsxColumnType,
+                XlsxColumnName = xlsxColumnName,
             };
         }
 
@@ -5681,15 +5759,15 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
             string jsonFileContent = default,
             string jsonData = default,
             Locale? locale = default,
-            string pathToJSONArray = default,
+            string pathToJsonArray = default,
             List<Json2XlsxColumnMapping> mappings = default)
         {
             return new Json2XlsxRequest
             {
-                JSONFileContent = jsonFileContent,
-                JSONData = jsonData,
+                JsonFileContent = jsonFileContent,
+                JsonData = jsonData,
                 Locale = locale,
-                PathToJSONArray = pathToJSONArray,
+                PathToJsonArray = pathToJsonArray,
                 Mappings = mappings,
             };
         }
@@ -5735,7 +5813,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         {
             return new MergeFieldsTemplateRequest
             {
-                DOCXDocumentContent = docxDocumentContent,
+                DocxDocumentContent = docxDocumentContent,
                 TemplateData = templateData,
             };
         }
@@ -5756,7 +5834,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// Creates a new instance of <see cref="ParseCsvFlowRequest"/>.
         /// </summary>
         public static ParseCsvFlowRequest ParseCsvFlowRequest(
-            string contentOfCSVDocument = default,
+            string contentOfCsvDocument = default,
             Delimiter? delimiter = default,
             Locale? locale = default,
             int? limit = default,
@@ -5765,7 +5843,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         {
             return new ParseCsvFlowRequest
             {
-                ContentOfCSVDocument = contentOfCSVDocument,
+                ContentOfCsvDocument = contentOfCsvDocument,
                 Delimiter = delimiter,
                 Locale = locale,
                 Limit = limit,
@@ -5779,7 +5857,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         /// </summary>
         public static Pdf2ImageRequest Pdf2ImageRequest(
             string documentContent = default,
-            string filenamePrefix = default,
+            string fileNamePrefix = default,
             int? startPage = default,
             int? endPage = default,
             string pages = default,
@@ -5790,12 +5868,12 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
             return new Pdf2ImageRequest
             {
                 DocumentContent = documentContent,
-                FilenamePrefix = filenamePrefix,
+                FileNamePrefix = fileNamePrefix,
                 StartPage = startPage,
                 EndPage = endPage,
                 Pages = pages,
                 ImageFormat = imageFormat,
-                DPI = dpi,
+                Dpi = dpi,
                 Password = password,
             };
         }
@@ -5888,8 +5966,8 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
                 EnableModification = enableModification,
                 EnableExtractData = enableExtractData,
                 EnableAnnotate = enableAnnotate,
-                PDFOwnerPassword = pdfOwnerPassword,
-                PDFUserPassword = pdfUserPassword,
+                PdfOwnerPassword = pdfOwnerPassword,
+                PdfUserPassword = pdfUserPassword,
                 Password = password,
             };
         }
@@ -5968,10 +6046,10 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
     #region Trigger Payloads
 
     /// <summary>
-    /// Typed trigger payload for the OnFlowV1ProcessesFlowTriggersPost trigger (Plumsail "Process finished", operationId: FlowV1ProcessesFlowTriggersPost).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnFlowV1ProcessesFlowTriggersV2Post trigger (Plumsail "Process finished", operationId: FlowV1ProcessesFlowTriggersV2Post).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;PlumsailOnFlowV1ProcessesFlowTriggersV2PostTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload : TriggerCallbackPayload<ProcessSchemaDynamicTypeNotification>
+    public class PlumsailOnFlowV1ProcessesFlowTriggersV2PostTriggerPayload : TriggerCallbackPayload<ProcessSchemaDynamicTypeNotification>
     {
     }
 
@@ -5991,7 +6069,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["FlowV1ProcessesFlowTriggersPost"] = typeof(PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload),
+                ["FlowV1ProcessesFlowTriggersV2Post"] = typeof(PlumsailOnFlowV1ProcessesFlowTriggersV2PostTriggerPayload),
             });
     }
 
@@ -6013,9 +6091,9 @@ namespace Azure.Connectors.Sdk.Plumsail
     {
         /// <summary>
         /// Process finished.
-        /// Payload type: <see cref="PlumsailOnFlowV1ProcessesFlowTriggersPostTriggerPayload"/>.
+        /// Payload type: <see cref="PlumsailOnFlowV1ProcessesFlowTriggersV2PostTriggerPayload"/>.
         /// </summary>
-        public const string OnFlowV1ProcessesFlowTriggersPost = "FlowV1ProcessesFlowTriggersPost";
+        public const string OnFlowV1ProcessesFlowTriggersV2Post = "FlowV1ProcessesFlowTriggersV2Post";
 
     }
 
@@ -6494,7 +6572,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="typeOfSplit">Type of split</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Split PDF response.</returns>
-        public virtual async Task<DocumentsWithFilenamesResponse> FlowV1DocumentsJobsSplitPdfV2Async(FlowV1DocumentsJobsSplitPdfV2Input input, string typeOfSplit, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentsWithFilenamesResponse> FlowV1DocumentsJobsSplitPdfV2Async(FlowDocumentsJobsSplitPdfInput input, string typeOfSplit, CancellationToken cancellationToken = default)
         {
             using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsSplitPdfV2Async");
             try
@@ -6749,7 +6827,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="type">Type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add a watermark to PDF response.</returns>
-        public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsAddWatermarkToPdfAsync(FlowV1DocumentsJobsAddWatermarkToPdfInput input, string type, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentProcessingResponse> FlowV1DocumentsJobsAddWatermarkToPdfAsync(FlowDocumentsJobsAddWatermarkToPdfInput input, string type, CancellationToken cancellationToken = default)
         {
             using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsAddWatermarkToPdfAsync");
             try
@@ -6978,14 +7056,14 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create Archive response.</returns>
-        public virtual async Task<DocumentContentWithFilenameResponse> FlowV1DocumentsJobsCreateArchiveAsync(CreateArchiveRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<DocumentContentWithFileNameResponse> FlowV1DocumentsJobsCreateArchiveAsync(CreateArchiveRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsJobsCreateArchiveAsync");
             try
             {
                 var path = $"/flow/v1/Documents/jobs/CreateArchive";
                 return await this
-                    .CallConnectorAsync<DocumentContentWithFilenameResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<DocumentContentWithFileNameResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7052,20 +7130,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <remarks>Start document generation process fills a DOCX, XLSX, PPTX or PDF template related to the selected process with the JSON data. Documentation - https://plumsail.com/docs/documents/v1.x/flow/actions/document-processing.html##start-process-json</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="processName">Process name</param>
+        /// <param name="outputFilesAs">Output files as</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Start document generation process with json response.</returns>
-        public virtual async Task<byte[]> FlowV1ProcessesFlowJobsExecuteProcessAsync(FlowV1ProcessesFlowJobsExecuteProcessInput input, [DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
+        public virtual async Task<StartProcessOutputDynamicSchemaResponse> FlowV1ProcessesFlowJobsExecuteProcessV2Async(FlowProcessesFlowJobsExecuteProcessInput input, [DynamicValues("FlowV1ProcessesFlowSchemaGetUserProcessesPost")] string processName, [DynamicValues("FlowV1ProcessesFlowSchemaGetStartProcessOutputFilesAsPost")] string outputFilesAs, CancellationToken cancellationToken = default)
         {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowJobsExecuteProcessAsync");
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowJobsExecuteProcessV2Async");
             try
             {
                 var queryParams = new List<string>();
                 if (processName is null)
                     throw new ArgumentNullException(nameof(processName));
                 queryParams.Add($"processId={Uri.EscapeDataString(processName)}");
-                var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcess" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (outputFilesAs is null)
+                    throw new ArgumentNullException(nameof(outputFilesAs));
+                queryParams.Add($"outputFilesAs={Uri.EscapeDataString(outputFilesAs)}");
+                var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<StartProcessOutputDynamicSchemaResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7082,20 +7164,24 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <remarks>Start document generation process fills a DOCX, XLSX, PPTX or PDF template related to the selected process with the JSON data. Documentation - https://plumsail.com/docs/documents/v1.x/flow/actions/document-processing.html#start-document-generation-process</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="processName">Process name</param>
+        /// <param name="outputFilesAs">Output files as</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Start document generation process response.</returns>
-        public virtual async Task<byte[]> FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataAsync(ProcessJsonData input, [DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
+        public virtual async Task<StartProcessOutputDynamicSchemaResponse> FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataMultipleOutputsAsync(ProcessJsonData input, [DynamicValues("FlowV1ProcessesFlowSchemaGetUserProcessesPost")] string processName, [DynamicValues("FlowV1ProcessesFlowSchemaGetStartProcessOutputFilesAsPost")] string outputFilesAs, CancellationToken cancellationToken = default)
         {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataAsync");
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataMultipleOutputsAsync");
             try
             {
                 var queryParams = new List<string>();
                 if (processName is null)
                     throw new ArgumentNullException(nameof(processName));
                 queryParams.Add($"processId={Uri.EscapeDataString(processName)}");
-                var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedData" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                if (outputFilesAs is null)
+                    throw new ArgumentNullException(nameof(outputFilesAs));
+                queryParams.Add($"outputFilesAs={Uri.EscapeDataString(outputFilesAs)}");
+                var path = $"/flow/v1/ProcessesFlow/jobs/ExecuteProcessWithGeneratedDataMultipleOutputs" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<byte[]>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<StartProcessOutputDynamicSchemaResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7163,16 +7249,16 @@ namespace Azure.Connectors.Sdk.Plumsail
         }
 
         /// <summary>
-        /// GetProcessesSchema
+        /// GetUserProcessesSchema
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1ProcessesFlowSchemaGetProcessesAsync(CancellationToken cancellationToken = default)
+        public virtual async Task FlowV1ProcessesFlowSchemaGetUserProcessesAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetProcessesAsync");
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetUserProcessesAsync");
             try
             {
-                var path = $"/flow/v1/ProcessesFlow/Schema/GetProcesses";
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetUserProcesses";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7186,23 +7272,43 @@ namespace Azure.Connectors.Sdk.Plumsail
         }
 
         /// <summary>
-        /// ParseCsv
+        /// GetStartProcessOutputFilesAs
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
-        /// <param name="headers">headers</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1DocumentsFlowSchemaParseCsvAsync(string headers, CancellationToken cancellationToken = default)
+        public virtual async Task FlowV1ProcessesFlowSchemaGetStartProcessOutputFilesAsAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaParseCsvAsync");
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetStartProcessOutputFilesAsAsync");
             try
             {
-                var queryParams = new List<string>();
-                if (headers is null)
-                    throw new ArgumentNullException(nameof(headers));
-                queryParams.Add($"headers={Uri.EscapeDataString(headers)}");
-                var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsv" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetStartProcessOutputFilesAs";
                 await this
                     .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// ParseCsvBody
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="input">The request body.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1DocumentsFlowSchemaParseCsvBodyAsync(string input, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1DocumentsFlowSchemaParseCsvBodyAsync");
+            try
+            {
+                var path = $"/flow/v1/DocumentsFlow/Schema/ParseCsvBody";
+                await (input is null
+                    ? this.CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    : this.CallConnectorAsync(HttpMethod.Post, path, System.Text.Encoding.UTF8.GetBytes(input), "application/json", cancellationToken))
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -7219,7 +7325,7 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="processName">Process name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1ProcessesFlowSchemaGetJsonDataAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetProcessesPost")] string processName, CancellationToken cancellationToken = default)
+        public virtual async Task FlowV1ProcessesFlowSchemaGetJsonDataAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetUserProcessesPost")] string processName, CancellationToken cancellationToken = default)
         {
             using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetJsonDataAsync");
             try
@@ -7246,15 +7352,19 @@ namespace Azure.Connectors.Sdk.Plumsail
         /// </summary>
         /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
         /// <param name="processId">processId</param>
+        /// <param name="outputFilesAs">outputFilesAs</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        public virtual async Task FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync(string processId, CancellationToken cancellationToken = default)
+        public virtual async Task FlowV1ProcessesFlowTriggersByProcessIdSchemaV2GetAsync(string processId, string outputFilesAs = default, CancellationToken cancellationToken = default)
         {
-            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowTriggersByProcessIdSchemaGetAsync");
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowTriggersByProcessIdSchemaV2GetAsync");
             try
             {
                 if (processId is null)
                     throw new ArgumentNullException(nameof(processId));
-                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId)}/schema";
+                var queryParams = new List<string>();
+                if (outputFilesAs != default)
+                    queryParams.Add($"outputFilesAs={Uri.EscapeDataString(outputFilesAs)}");
+                var path = $"/flow/v1/ProcessesFlow/triggers/{Uri.EscapeDataString(processId)}/schemaV2" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 await this
                     .CallConnectorAsync(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -7295,8 +7405,39 @@ namespace Azure.Connectors.Sdk.Plumsail
             }
         }
 
+        /// <summary>
+        /// GetStartProcessOutputSchema
+        /// </summary>
+        /// <remarks>Discovery method used to populate dynamic parameter values at design time.</remarks>
+        /// <param name="processName">Process name</param>
+        /// <param name="outputFilesAs">Output files as</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public virtual async Task FlowV1ProcessesFlowSchemaGetStartProcessOutputSchemaAsync([DynamicValues("FlowV1ProcessesFlowSchemaGetUserProcessesPost")] string processName, [DynamicValues("FlowV1ProcessesFlowSchemaGetStartProcessOutputFilesAsPost")] string outputFilesAs, CancellationToken cancellationToken = default)
+        {
+            using var activity = PlumsailClient.ConnectorActivitySource.StartActivity("PlumsailClient.FlowV1ProcessesFlowSchemaGetStartProcessOutputSchemaAsync");
+            try
+            {
+                var queryParams = new List<string>();
+                if (processName is null)
+                    throw new ArgumentNullException(nameof(processName));
+                queryParams.Add($"processId={Uri.EscapeDataString(processName)}");
+                if (outputFilesAs is null)
+                    throw new ArgumentNullException(nameof(outputFilesAs));
+                queryParams.Add($"outputFilesAs={Uri.EscapeDataString(outputFilesAs)}");
+                var path = $"/flow/v1/ProcessesFlow/Schema/GetStartProcessOutputSchema" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                await this
+                    .CallConnectorAsync(HttpMethod.Post, path, cancellationToken: cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+
+            }
+            catch (Exception ex) when (!ex.IsFatal())
+            {
+                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
+                throw;
+            }
+        }
+
     }
 
     #endregion Client
 }
-

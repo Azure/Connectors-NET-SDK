@@ -154,12 +154,12 @@ namespace Azure.Connectors.Sdk.Tests
             var response = new WordPressPostResponse
             {
                 Id = 11,
-                Id2 = "response-guid"
+                Guid = "response-guid"
             };
             var post = new WordPressPost
             {
                 Id = 12,
-                Id2 = "post-guid"
+                Guid = "post-guid"
             };
 
             var responseJson = JsonSerializer.Serialize(response);
@@ -170,9 +170,9 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.IsNotNull(roundTrippedResponse);
             Assert.IsNotNull(roundTrippedPost);
             Assert.AreEqual(expected: response.Id, actual: roundTrippedResponse.Id);
-            Assert.AreEqual(expected: response.Id2, actual: roundTrippedResponse.Id2);
+            Assert.AreEqual(expected: response.Guid, actual: roundTrippedResponse.Guid);
             Assert.AreEqual(expected: post.Id, actual: roundTrippedPost.Id);
-            Assert.AreEqual(expected: post.Id2, actual: roundTrippedPost.Id2);
+            Assert.AreEqual(expected: post.Guid, actual: roundTrippedPost.Guid);
             StringAssert.Contains(responseJson, "\"ID\":11");
             StringAssert.Contains(responseJson, "\"guid\":\"response-guid\"");
             StringAssert.Contains(postJson, "\"ID\":12");

@@ -102,7 +102,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void PlumsailTimezone_SingletonEtcGmt14_KeepsNaturalMemberName()
         {
-            Assert.AreEqual(expected: "Etc/GMT-14", actual: (string)PlumsailTimezone.EtcGMT14);
+            Assert.AreEqual(expected: "Etc/GMT-14", actual: (string)PlumsailTimezone.EtcGmt14);
         }
 
         [TestMethod]

@@ -61,7 +61,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
 
         /// <summary>The link to the task.</summary>
         [JsonPropertyName("url")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>The datetime the task is due, given as GMT in ISO 8601 format.</summary>
         [JsonPropertyName("due_date")]
@@ -101,7 +101,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
 
         /// <summary>Due date of the task (Ex. 2014-06-17T17:12:52.000Z</summary>
         [JsonPropertyName("due_date")]
-        public DateTime? DueDateFormatYYYYMMDdThhMmSsFffZ { get; set; }
+        public DateTime? DueDate { get; set; }
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
                 Type = type,
                 Priority = priority,
                 Completed = completed,
-                URL = url,
+                Url = url,
                 DueDate = dueDate,
             };
         }
@@ -225,7 +225,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
             string description = default,
             InfusionsoftType? type = default,
             int? priority = default,
-            DateTime? dueDateFormatYYYYMMDdThhMmSsFffZ = default)
+            DateTime? dueDate = default)
         {
             return new CreateTaskRequest
             {
@@ -233,7 +233,7 @@ namespace Azure.Connectors.Sdk.Infusionsoft.Models
                 Description = description,
                 Type = type,
                 Priority = priority,
-                DueDateFormatYYYYMMDdThhMmSsFffZ = dueDateFormatYYYYMMDdThhMmSsFffZ,
+                DueDate = dueDate,
             };
         }
     }
@@ -484,4 +484,3 @@ namespace Azure.Connectors.Sdk.Infusionsoft
 
     #endregion Client
 }
-

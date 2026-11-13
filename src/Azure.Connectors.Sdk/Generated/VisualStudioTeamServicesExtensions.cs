@@ -3386,7 +3386,7 @@ namespace Azure.Connectors.Sdk.VisualStudioTeamServices.Models
         public static VisualStudioTeamServicesType Double { get; } = new("Double");
 
         /// <summary>Guid</summary>
-        public static VisualStudioTeamServicesType Id { get; } = new("Guid");
+        public static VisualStudioTeamServicesType Guid { get; } = new("Guid");
 
         /// <summary>History</summary>
         public static VisualStudioTeamServicesType History { get; } = new("History");
@@ -7505,11 +7505,11 @@ namespace Azure.Connectors.Sdk.VisualStudioTeamServices
         /// <remarks>Returns a list of work items.</remarks>
         /// <param name="projectName">Project Name</param>
         /// <param name="organizationName">Organization Name</param>
-        /// <param name="workItemIDs">Work Item IDs</param>
+        /// <param name="workItemIds">Work Item IDs</param>
         /// <param name="workItemType">Work Item Type</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List work items response.</returns>
-        public virtual async Task<VstsListListWorkItemResponse> ListWorkItemsAsync([DynamicValues("ListProjects")] string projectName, [DynamicValues("ListAccounts")] string organizationName, string workItemIDs, [DynamicValues("ListWorkItemTypes")] string workItemType = default, CancellationToken cancellationToken = default)
+        public virtual async Task<VstsListListWorkItemResponse> ListWorkItemsAsync([DynamicValues("ListProjects")] string projectName, [DynamicValues("ListAccounts")] string organizationName, string workItemIds, [DynamicValues("ListWorkItemTypes")] string workItemType = default, CancellationToken cancellationToken = default)
         {
             using var activity = VisualStudioTeamServicesClient.ConnectorActivitySource.StartActivity("VisualStudioTeamServicesClient.ListWorkItemsAsync");
             try
@@ -7520,9 +7520,9 @@ namespace Azure.Connectors.Sdk.VisualStudioTeamServices
                 if (organizationName is null)
                     throw new ArgumentNullException(nameof(organizationName));
                 queryParams.Add($"account={Uri.EscapeDataString(organizationName)}");
-                if (workItemIDs is null)
-                    throw new ArgumentNullException(nameof(workItemIDs));
-                queryParams.Add($"workItemIds={Uri.EscapeDataString(workItemIDs)}");
+                if (workItemIds is null)
+                    throw new ArgumentNullException(nameof(workItemIds));
+                queryParams.Add($"workItemIds={Uri.EscapeDataString(workItemIds)}");
                 if (workItemType != default)
                     queryParams.Add($"workItemType={Uri.EscapeDataString(workItemType)}");
                 var path = $"/{Uri.EscapeDataString(projectName)}/_apis/wit/workitems" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -8246,4 +8246,3 @@ namespace Azure.Connectors.Sdk.VisualStudioTeamServices
 
     #endregion Client
 }
-

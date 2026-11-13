@@ -279,7 +279,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     {
         /// <summary>Whether batching is done on a specified number of devices or a percentage of the total devices.</summary>
         [JsonPropertyName("type")]
-        public AzureiotcentralType? BatchType { get; set; }
+        public AzureIoTCentralType? BatchType { get; set; }
 
         /// <summary>The number or percentage of devices on which batching is done.</summary>
         [JsonPropertyName("value")]
@@ -293,7 +293,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     {
         /// <summary>Whether the cancellation threshold is per a specified number of devices or a percentage of the total devices.</summary>
         [JsonPropertyName("type")]
-        public AzureiotcentralType? CancellationThresholdType { get; set; }
+        public AzureIoTCentralType? CancellationThresholdType { get; set; }
 
         /// <summary>The number or percentage of devices on which the cancellation threshold is applied.</summary>
         [JsonPropertyName("value")]
@@ -577,7 +577,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
 
         /// <summary>Callback URL of the workflow Trigger.</summary>
         [JsonPropertyName("url")]
-        public string WorkflowTriggerURL { get; set; }
+        public string WorkflowTriggerUrl { get; set; }
     }
 
     /// <summary>
@@ -1476,54 +1476,54 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
     }
 
     /// <summary>
-    /// Extensible enum for known AzureiotcentralType values.
+    /// Extensible enum for known AzureIoTCentralType values.
     /// </summary>
-    [JsonConverter(typeof(AzureiotcentralType.AzureiotcentralTypeJsonConverter))]
-    public readonly struct AzureiotcentralType : IEquatable<AzureiotcentralType>
+    [JsonConverter(typeof(AzureIoTCentralType.AzureIoTCentralTypeJsonConverter))]
+    public readonly struct AzureIoTCentralType : IEquatable<AzureIoTCentralType>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AzureiotcentralType"/> struct.
+        /// Initializes a new instance of the <see cref="AzureIoTCentralType"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public AzureiotcentralType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public AzureIoTCentralType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>number</summary>
-        public static AzureiotcentralType Number { get; } = new("number");
+        public static AzureIoTCentralType Number { get; } = new("number");
 
         /// <summary>percentage</summary>
-        public static AzureiotcentralType Percentage { get; } = new("percentage");
+        public static AzureIoTCentralType Percentage { get; } = new("percentage");
 
-        /// <summary>Converts a string to <see cref="AzureiotcentralType"/>.</summary>
-        public static implicit operator AzureiotcentralType(string value) => new(value);
+        /// <summary>Converts a string to <see cref="AzureIoTCentralType"/>.</summary>
+        public static implicit operator AzureIoTCentralType(string value) => new(value);
 
-        /// <summary>Converts a <see cref="AzureiotcentralType"/> to its string representation.</summary>
-        public static implicit operator string(AzureiotcentralType value) => value.ToString();
+        /// <summary>Converts a <see cref="AzureIoTCentralType"/> to its string representation.</summary>
+        public static implicit operator string(AzureIoTCentralType value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(AzureiotcentralType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(AzureIoTCentralType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is AzureiotcentralType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is AzureIoTCentralType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(AzureiotcentralType left, AzureiotcentralType right) => left.Equals(right);
+        public static bool operator ==(AzureIoTCentralType left, AzureIoTCentralType right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(AzureiotcentralType left, AzureiotcentralType right) => !left.Equals(right);
+        public static bool operator !=(AzureIoTCentralType left, AzureIoTCentralType right) => !left.Equals(right);
 
-        internal sealed class AzureiotcentralTypeJsonConverter : JsonConverter<AzureiotcentralType>
+        internal sealed class AzureIoTCentralTypeJsonConverter : JsonConverter<AzureIoTCentralType>
         {
-            public AzureiotcentralTypeJsonConverter() { }
-            public override AzureiotcentralType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AzureiotcentralType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, AzureiotcentralType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public AzureIoTCentralTypeJsonConverter() { }
+            public override AzureIoTCentralType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for AzureIoTCentralType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, AzureIoTCentralType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -1710,7 +1710,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// Creates a new instance of <see cref="JobBatch"/>.
         /// </summary>
         public static JobBatch JobBatch(
-            AzureiotcentralType? batchType = default,
+            AzureIoTCentralType? batchType = default,
             double? batchValue = default)
         {
             return new JobBatch
@@ -1724,7 +1724,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         /// Creates a new instance of <see cref="JobCancellationThreshold"/>.
         /// </summary>
         public static JobCancellationThreshold JobCancellationThreshold(
-            AzureiotcentralType? cancellationThresholdType = default,
+            AzureIoTCentralType? cancellationThresholdType = default,
             double? cancellationThresholdValue = default,
             bool? cancellationThresholdBatch = default)
         {
@@ -1920,13 +1920,13 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         public static WorkflowTrigger WorkflowTrigger(
             string workflowTriggerId = default,
             string rule = default,
-            string workflowTriggerURL = default)
+            string workflowTriggerUrl = default)
         {
             return new WorkflowTrigger
             {
                 WorkflowTriggerId = workflowTriggerId,
                 Rule = rule,
-                WorkflowTriggerURL = workflowTriggerURL,
+                WorkflowTriggerUrl = workflowTriggerUrl,
             };
         }
 
@@ -2423,9 +2423,9 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
 
     /// <summary>
     /// Typed trigger payload for the OnWorkflowCreateTrigger trigger (AzureIoTCentral "When a rule is fired", operationId: Workflow_CreateTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;AzureIoTCentralOnWorkflowCreateTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload : TriggerCallbackPayload<WebhookActionBodyNotification>
+    public class AzureIoTCentralOnWorkflowCreateTriggerPayload : TriggerCallbackPayload<WebhookActionBodyNotification>
     {
     }
 
@@ -2445,7 +2445,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["Workflow_CreateTrigger"] = typeof(AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload),
+                ["Workflow_CreateTrigger"] = typeof(AzureIoTCentralOnWorkflowCreateTriggerPayload),
             });
     }
 
@@ -2467,7 +2467,7 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
     {
         /// <summary>
         /// When a rule is fired.
-        /// Payload type: <see cref="AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="AzureIoTCentralOnWorkflowCreateTriggerPayload"/>.
         /// </summary>
         public const string OnWorkflowCreateTrigger = "Workflow_CreateTrigger";
 
@@ -5087,4 +5087,3 @@ namespace Azure.Connectors.Sdk.AzureIoTCentral
 
     #endregion Client
 }
-

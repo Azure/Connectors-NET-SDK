@@ -685,4 +685,3 @@ namespace Azure.Connectors.Sdk.AzureAutomation
 
     #endregion Client
 }
-

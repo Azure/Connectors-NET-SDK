@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Sql.Models;
 using Azure.Core;
@@ -89,7 +90,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
     /// <summary>
     /// List of rows, with optional sensitivity label metadata.
     /// </summary>
-    public class GetItemsResponse
+    public class GetItemsResponse : IPageable<SqlItem>
     {
         /// <summary>List of Sensitivity Labels</summary>
         [JsonPropertyName("@metadata")]
@@ -98,6 +99,10 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>List of Columns</summary>
         [JsonPropertyName("value")]
         public List<SqlItem> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -175,7 +180,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -218,7 +223,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -303,7 +308,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>Additional server properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; init; }
 
         /// <summary>Table items</summary>
         [JsonPropertyName("databases")]
@@ -327,7 +332,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// <summary>Additional database properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; init; }
 
         /// <summary>Database items</summary>
         [JsonPropertyName("tables")]
@@ -348,11 +353,15 @@ namespace Azure.Connectors.Sdk.Sql.Models
     /// <summary>
     /// Represents a list of tables.
     /// </summary>
-    public class TablesList
+    public class TablesList : IPageable<Table>
     {
         /// <summary>List of Tables</summary>
         [JsonPropertyName("value")]
         public List<Table> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -566,7 +575,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
 
         /// <summary>Formal Parameters</summary>
         [JsonPropertyName("formalParameters")]
-        public JsonElement? FormalParameters { get; set; }
+        public Dictionary<string, string> FormalParameters { get; set; }
     }
 
     #endregion Types
@@ -585,12 +594,14 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// </summary>
         public static GetItemsResponse GetItemsResponse(
             List<DataWithSensitivityLabelInfo> metadata = default,
-            List<SqlItem> value = default)
+            List<SqlItem> value = default,
+            string nextLink = default)
         {
             return new GetItemsResponse
             {
                 Metadata = metadata,
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -642,7 +653,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// Creates a new instance of <see cref="SqlItem"/>.
         /// </summary>
         public static SqlItem SqlItem(
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new SqlItem
             {
@@ -682,7 +693,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Table
             {
@@ -710,7 +721,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static Server Server(
             string name = default,
             string displayName = default,
-            JsonElement? dynamicProperties = default,
+            Dictionary<string, ObjectEntity> dynamicProperties = default,
             List<Database> databases = default)
         {
             return new Server
@@ -728,7 +739,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static Database Database(
             string name = default,
             string displayName = default,
-            JsonElement? dynamicProperties = default,
+            Dictionary<string, ObjectEntity> dynamicProperties = default,
             List<Table> tables = default)
         {
             return new Database
@@ -756,11 +767,13 @@ namespace Azure.Connectors.Sdk.Sql.Models
         /// Creates a new instance of <see cref="TablesList"/>.
         /// </summary>
         public static TablesList TablesList(
-            List<Table> value = default)
+            List<Table> value = default,
+            string nextLink = default)
         {
             return new TablesList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -932,7 +945,7 @@ namespace Azure.Connectors.Sdk.Sql.Models
         public static SqlPassThroughNativeQueryBody SqlPassThroughNativeQueryBody(
             JsonElement? actualParameters = default,
             string query = default,
-            JsonElement? formalParameters = default)
+            Dictionary<string, string> formalParameters = default)
         {
             return new SqlPassThroughNativeQueryBody
             {
@@ -1345,51 +1358,42 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="topCount">Top Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="count">Count</param>
-        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="extractMipLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get rows response.</returns>
-        public virtual async Task<GetItemsResponse> GetItemsAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTables_V2")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? skipCount = default, int? topCount = default, string selectQuery = default, bool? count = default, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="SqlItem"/> items across all pages.</returns>
+        public virtual AsyncPageable<SqlItem> GetItemsAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, [DynamicValues("GetTables_V2")] string tableName, string aggregationTransformation = default, string filterQuery = default, string orderBy = default, int? skipCount = default, int? topCount = default, string selectQuery = default, bool? count = default, bool? extractMipLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetItemsAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var queryParams = new List<string>();
-                if (aggregationTransformation != default)
-                    queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                if (count.HasValue)
-                    queryParams.Add($"$count={Uri.EscapeDataString(Convert.ToString(count.Value, CultureInfo.InvariantCulture))}");
-                if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
-                if (purviewAccountName != default)
-                    queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            if (tableName is null)
+                throw new ArgumentNullException(nameof(tableName));
+            var queryParams = new List<string>();
+            if (aggregationTransformation != default)
+                queryParams.Add($"$apply={Uri.EscapeDataString(aggregationTransformation)}");
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            if (count.HasValue)
+                queryParams.Add($"$count={Uri.EscapeDataString(Convert.ToString(count.Value, CultureInfo.InvariantCulture))}");
+            if (extractMipLabels.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMipLabels.Value, CultureInfo.InvariantCulture))}");
+            if (purviewAccountName != default)
+                queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<GetItemsResponse, SqlItem>(
+                ct => this.CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<GetItemsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1398,11 +1402,11 @@ namespace Azure.Connectors.Sdk.Sql
         /// <remarks>This operation gets tables from a database.</remarks>
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
-        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="extractMipLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get tables response.</returns>
-        public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetTablesResponse> GetTablesAsync([DynamicValues("GetServers")] string serverName, [DynamicValues("GetDatabases")] string databaseName, bool? extractMipLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesAsync");
             try
@@ -1412,8 +1416,8 @@ namespace Azure.Connectors.Sdk.Sql
                 if (databaseName is null)
                     throw new ArgumentNullException(nameof(databaseName));
                 var queryParams = new List<string>();
-                if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
+                if (extractMipLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMipLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
                     queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
                 var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tables" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1560,27 +1564,18 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTablesForDeleteItem response.</returns>
-        public virtual async Task<TablesList> GetTablesForDeleteItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesForDeleteItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForDeleteItemAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/deleteitem";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/deleteitem";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1653,27 +1648,18 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTablesForGetItem response.</returns>
-        public virtual async Task<TablesList> GetTablesForGetItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesForGetItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetItemAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/getitem";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/getitem";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1683,27 +1669,18 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTablesForOnItemCreated response.</returns>
-        public virtual async Task<TablesList> GetTablesForGetOnNewItemsAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesForGetOnNewItemsAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetOnNewItemsAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/getonnewitems";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/getonnewitems";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1713,27 +1690,18 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTablesForOnItemUpdated response.</returns>
-        public virtual async Task<TablesList> GetTablesForGetOnUpdatedItemsAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesForGetOnUpdatedItemsAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForGetOnUpdatedItemsAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/getonupdateditems";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/getonupdateditems";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1743,27 +1711,18 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTablesForPatchItem response.</returns>
-        public virtual async Task<TablesList> GetTablesForPatchItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesForPatchItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForPatchItemAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/patchitem";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/patchitem";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1806,27 +1765,18 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The GetTablesForPostItem response.</returns>
-        public virtual async Task<TablesList> GetTablesForPostItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Table"/> items across all pages.</returns>
+        public virtual AsyncPageable<Table> GetTablesForPostItemAsync(string serverName, string databaseName, CancellationToken cancellationToken = default)
         {
-            using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTablesForPostItemAsync");
-            try
-            {
-                if (serverName is null)
-                    throw new ArgumentNullException(nameof(serverName));
-                if (databaseName is null)
-                    throw new ArgumentNullException(nameof(databaseName));
-                var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/postitem";
-                return await this
-                    .CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (serverName is null)
+                throw new ArgumentNullException(nameof(serverName));
+            if (databaseName is null)
+                throw new ArgumentNullException(nameof(databaseName));
+            var path = $"/v2/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tablesfor/postitem";
+            return this.CreatePageable<TablesList, Table>(
+                ct => this.CallConnectorAsync<TablesList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<TablesList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1836,11 +1786,11 @@ namespace Azure.Connectors.Sdk.Sql
         /// <param name="serverName">Server name</param>
         /// <param name="databaseName">Database name</param>
         /// <param name="tableName">Table name</param>
-        /// <param name="extractMIPLabels">Extract MIP Labels</param>
+        /// <param name="extractMipLabels">Extract MIP Labels</param>
         /// <param name="purviewAccountName">Purview Account Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get metadata of a table response.</returns>
-        public virtual async Task<TableMetadata> GetTableAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMIPLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TableMetadata> GetTableAsync(string serverName, string databaseName, [DynamicValues("GetTablesForGetItem_V2")] string tableName, bool? extractMipLabels = default, string purviewAccountName = default, CancellationToken cancellationToken = default)
         {
             using var activity = SqlClient.ConnectorActivitySource.StartActivity("SqlClient.GetTableAsync");
             try
@@ -1852,8 +1802,8 @@ namespace Azure.Connectors.Sdk.Sql
                 if (tableName is null)
                     throw new ArgumentNullException(nameof(tableName));
                 var queryParams = new List<string>();
-                if (extractMIPLabels.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMIPLabels.Value, CultureInfo.InvariantCulture))}");
+                if (extractMipLabels.HasValue)
+                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractMipLabels.Value, CultureInfo.InvariantCulture))}");
                 if (purviewAccountName != default)
                     queryParams.Add($"purviewAccountName={Uri.EscapeDataString(purviewAccountName)}");
                 var path = $"/v2/$metadata.json/datasets/{Uri.EscapeDataString(Uri.EscapeDataString(serverName))},{Uri.EscapeDataString(Uri.EscapeDataString(databaseName))}/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1955,4 +1905,3 @@ namespace Azure.Connectors.Sdk.Sql
 
     #endregion Client
 }
-

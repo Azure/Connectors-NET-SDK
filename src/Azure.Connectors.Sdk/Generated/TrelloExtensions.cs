@@ -783,7 +783,7 @@ namespace Azure.Connectors.Sdk.Trello.Models
 
         /// <summary>The username of the member.</summary>
         [JsonPropertyName("username")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>The initials of the member.</summary>
         [JsonPropertyName("initials")]
@@ -2138,14 +2138,14 @@ namespace Azure.Connectors.Sdk.Trello.Models
         public static Member Member(
             string memberId = default,
             string fullName = default,
-            string username = default,
+            string userName = default,
             string initials = default)
         {
             return new Member
             {
                 MemberId = memberId,
                 FullName = fullName,
-                Username = username,
+                UserName = userName,
                 Initials = initials,
             };
         }
@@ -3454,10 +3454,10 @@ namespace Azure.Connectors.Sdk.Trello
         /// <remarks>Add a member to a specific card.</remarks>
         /// <param name="cardId">Card Id</param>
         /// <param name="boardId">Board Id</param>
-        /// <param name="memberIdOrUsername">Member Id or Username</param>
+        /// <param name="memberIdOrUserName">Member Id or Username</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Add member to a card response.</returns>
-        public virtual async Task<List<Member>> AddMemberToCardAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, [DynamicValues("ListBoardMembers")] string memberIdOrUsername, CancellationToken cancellationToken = default)
+        public virtual async Task<List<Member>> AddMemberToCardAsync([DynamicValues("ListCardsSimple")] string cardId, [DynamicValues("ListBoardsSimple")] string boardId, [DynamicValues("ListBoardMembers")] string memberIdOrUserName, CancellationToken cancellationToken = default)
         {
             using var activity = TrelloClient.ConnectorActivitySource.StartActivity("TrelloClient.AddMemberToCardAsync");
             try
@@ -3468,9 +3468,9 @@ namespace Azure.Connectors.Sdk.Trello
                 if (boardId is null)
                     throw new ArgumentNullException(nameof(boardId));
                 queryParams.Add($"board_id={Uri.EscapeDataString(boardId)}");
-                if (memberIdOrUsername is null)
-                    throw new ArgumentNullException(nameof(memberIdOrUsername));
-                queryParams.Add($"memberId={Uri.EscapeDataString(memberIdOrUsername)}");
+                if (memberIdOrUserName is null)
+                    throw new ArgumentNullException(nameof(memberIdOrUserName));
+                queryParams.Add($"memberId={Uri.EscapeDataString(memberIdOrUserName)}");
                 var path = $"/cards/{Uri.EscapeDataString(cardId)}/idMembers" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<List<Member>>(HttpMethod.Post, path, cancellationToken: cancellationToken)
@@ -3628,4 +3628,3 @@ namespace Azure.Connectors.Sdk.Trello
 
     #endregion Client
 }
-

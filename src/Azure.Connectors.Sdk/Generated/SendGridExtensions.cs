@@ -203,7 +203,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
 
         /// <summary>A display name for each BCC email address separated by a semicolon or comma</summary>
         [JsonPropertyName("bccname")]
-        public string BCCNames { get; set; }
+        public string BccNames { get; set; }
     }
 
     /// <summary>
@@ -377,7 +377,7 @@ namespace Azure.Connectors.Sdk.SendGrid.Models
                 CC = cc,
                 CCNames = ccNames,
                 Bcc = bcc,
-                BCCNames = bccNames,
+                BccNames = bccNames,
             };
         }
 
@@ -736,4 +736,3 @@ namespace Azure.Connectors.Sdk.SendGrid
 
     #endregion Client
 }
-

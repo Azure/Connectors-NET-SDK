@@ -67,7 +67,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Array of MMS Media attachments for this message. Attachments must be urls gotten from the post /mms endpoint (not included in this connector). External attachment links will not be accepted.</summary>
         [JsonPropertyName("mms_media")]
-        public List<string> MMSMediaAttachmentsForThisMessage { get; set; }
+        public List<string> MmsMediaAttachmentsForThisMessage { get; set; }
     }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
 
         /// <summary>Username of the Text Request user that last sent a message to this user.</summary>
         [JsonPropertyName("response_by_username")]
-        public string ResponseByUsername { get; set; }
+        public string ResponseByUserName { get; set; }
 
         /// <summary>Timestamp of when the message was sent or received by Text Request.</summary>
         [JsonPropertyName("message_timestamp_utc")]
@@ -1135,7 +1135,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
                 NameOfTheSender = nameOfTheSender,
                 CallbackUrlForWhenTheMessageStatusUpdates = callbackUrlForWhenTheMessageStatusUpdates,
                 CallbackUrlForLocationRequestsIfThisMessageIncludesOne = callbackUrlForLocationRequestsIfThisMessageIncludesOne,
-                MMSMediaAttachmentsForThisMessage = mmsMediaAttachmentsForThisMessage,
+                MmsMediaAttachmentsForThisMessage = mmsMediaAttachmentsForThisMessage,
             };
         }
 
@@ -1146,7 +1146,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
             string messageId = default,
             string body = default,
             string messageDirection = default,
-            string responseByUsername = default,
+            string responseByUserName = default,
             string messageTimestampUtc = default,
             string deliveryStatus = default,
             string deliveryError = default,
@@ -1157,7 +1157,7 @@ namespace Azure.Connectors.Sdk.TextRequest.Models
                 MessageId = messageId,
                 Body = body,
                 MessageDirection = messageDirection,
-                ResponseByUsername = responseByUsername,
+                ResponseByUserName = responseByUserName,
                 MessageTimestampUtc = messageTimestampUtc,
                 DeliveryStatus = deliveryStatus,
                 DeliveryError = deliveryError,
@@ -2005,22 +2005,22 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// </summary>
         /// <remarks>Get the conversation between the specified dashboard and phone number.</remarks>
         /// <param name="idOfTheDashboardToMakeThisCallOn">Id of the dashboard to make this call on</param>
-        /// <param name="contactSPhoneNumberToSearchBy">Contact&apos;s phone number to search by</param>
+        /// <param name="contactPhoneNumberToSearchBy">Contact&apos;s phone number to search by</param>
         /// <param name="numberPageToGet">Number page to get</param>
         /// <param name="amountOfEachEntityToGetPerPage">Amount of each entity to get per page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a conversation&apos;s messages by a contact&apos;s phone number response.</returns>
-        public virtual async Task<GetMessagesByContactPhoneResponse> GetMessagesByContactPhoneAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string contactSPhoneNumberToSearchBy, int numberPageToGet, int amountOfEachEntityToGetPerPage, CancellationToken cancellationToken = default)
+        public virtual async Task<GetMessagesByContactPhoneResponse> GetMessagesByContactPhoneAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, string contactPhoneNumberToSearchBy, int numberPageToGet, int amountOfEachEntityToGetPerPage, CancellationToken cancellationToken = default)
         {
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetMessagesByContactPhoneAsync");
             try
             {
-                if (contactSPhoneNumberToSearchBy is null)
-                    throw new ArgumentNullException(nameof(contactSPhoneNumberToSearchBy));
+                if (contactPhoneNumberToSearchBy is null)
+                    throw new ArgumentNullException(nameof(contactPhoneNumberToSearchBy));
                 var queryParams = new List<string>();
                 queryParams.Add($"page={Uri.EscapeDataString(Convert.ToString(numberPageToGet, CultureInfo.InvariantCulture))}");
                 queryParams.Add($"page_size={Uri.EscapeDataString(Convert.ToString(amountOfEachEntityToGetPerPage, CultureInfo.InvariantCulture))}");
-                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(contactSPhoneNumberToSearchBy)}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/dashboards/{Uri.EscapeDataString(Convert.ToString(idOfTheDashboardToMakeThisCallOn, CultureInfo.InvariantCulture))}/contacts/{Uri.EscapeDataString(contactPhoneNumberToSearchBy)}/messages" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GetMessagesByContactPhoneResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -2208,12 +2208,12 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// </summary>
         /// <remarks>Gets all contacts that match the specified filtering criterion. Only the dashboard specified will be searched; there is no account level search for a number available.</remarks>
         /// <param name="idOfTheDashboardToMakeThisCallOn">Id of the dashboard to make this call on</param>
-        /// <param name="contactSPhoneNumberToSearchBy">Contact&apos;s phone number to search by</param>
-        /// <param name="lastMessageTimeSentBeforeSearchTimestampInUTCTime">&apos;Last-message-time sent before&apos; search timestamp in UTC time</param>
-        /// <param name="lastMessageTimeSentAfterSearchTimestampInUTCTime">&apos;Last-message-time sent after&apos; search timestamp in UTC time</param>
+        /// <param name="contactPhoneNumberToSearchBy">Contact&apos;s phone number to search by</param>
+        /// <param name="lastMessageTimeSentBeforeSearchTimestampInUtcTime">&apos;Last-message-time sent before&apos; search timestamp in UTC time</param>
+        /// <param name="lastMessageTimeSentAfterSearchTimestampInUtcTime">&apos;Last-message-time sent after&apos; search timestamp in UTC time</param>
         /// <param name="createdBeforeSearchTimestamp">&apos;Created before&apos; search timestamp</param>
         /// <param name="createdAfterSearchTimestamp">&apos;Created after&apos; search timestamp</param>
-        /// <param name="whetherContactSConversationIsResolved">Whether contact&apos;s conversation is resolved</param>
+        /// <param name="whetherContactConversationIsResolved">Whether contact&apos;s conversation is resolved</param>
         /// <param name="whetherContactIsBlocked">Whether contact is blocked</param>
         /// <param name="whetherContactIsArchived">Whether contact is archived</param>
         /// <param name="whetherContactIsSuppressed">Whether contact is suppressed</param>
@@ -2234,24 +2234,24 @@ namespace Azure.Connectors.Sdk.TextRequest
         /// <param name="amountOfEachEntityToGetPerPage">Amount of each entity to get per page</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all contacts that match the specified filtering criterion response.</returns>
-        public virtual async Task<GetContactsResponse> GetContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int numberPageToGet, int amountOfEachEntityToGetPerPage, string contactSPhoneNumberToSearchBy = default, string lastMessageTimeSentBeforeSearchTimestampInUTCTime = default, string lastMessageTimeSentAfterSearchTimestampInUTCTime = default, string createdBeforeSearchTimestamp = default, string createdAfterSearchTimestamp = default, bool? whetherContactSConversationIsResolved = default, bool? whetherContactIsBlocked = default, bool? whetherContactIsArchived = default, bool? whetherContactIsSuppressed = default, bool? whetherContactHasOptedOut = default, string lastMessageTimeSentBeforeSearchTimestamp = default, string lastMessageTimeSentAfterSearchTimestamp = default, string lastMessageTimeReceivedBeforeSearchTimestamp = default, string lastMessageTimeReceivedAfterSearchTimestamp = default, string contactTags = default, string contactGroups = default, string idOfCustomFieldToFilterBy = default, string valueOfCustomFieldToFilterBy = default, string idOfSecondCustomFieldToFilterBy = default, string valueOfSecondCustomFieldToFilterBy = default, string idOfThirdCustomFieldToFilterBy = default, string valueOfThirdCustomFieldToFilterBy = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GetContactsResponse> GetContactsAsync([DynamicValues("GetDashboards")] int idOfTheDashboardToMakeThisCallOn, int numberPageToGet, int amountOfEachEntityToGetPerPage, string contactPhoneNumberToSearchBy = default, string lastMessageTimeSentBeforeSearchTimestampInUtcTime = default, string lastMessageTimeSentAfterSearchTimestampInUtcTime = default, string createdBeforeSearchTimestamp = default, string createdAfterSearchTimestamp = default, bool? whetherContactConversationIsResolved = default, bool? whetherContactIsBlocked = default, bool? whetherContactIsArchived = default, bool? whetherContactIsSuppressed = default, bool? whetherContactHasOptedOut = default, string lastMessageTimeSentBeforeSearchTimestamp = default, string lastMessageTimeSentAfterSearchTimestamp = default, string lastMessageTimeReceivedBeforeSearchTimestamp = default, string lastMessageTimeReceivedAfterSearchTimestamp = default, string contactTags = default, string contactGroups = default, string idOfCustomFieldToFilterBy = default, string valueOfCustomFieldToFilterBy = default, string idOfSecondCustomFieldToFilterBy = default, string valueOfSecondCustomFieldToFilterBy = default, string idOfThirdCustomFieldToFilterBy = default, string valueOfThirdCustomFieldToFilterBy = default, CancellationToken cancellationToken = default)
         {
             using var activity = TextRequestClient.ConnectorActivitySource.StartActivity("TextRequestClient.GetContactsAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (contactSPhoneNumberToSearchBy != default)
-                    queryParams.Add($"contact_phone_number={Uri.EscapeDataString(contactSPhoneNumberToSearchBy)}");
-                if (lastMessageTimeSentBeforeSearchTimestampInUTCTime != default)
-                    queryParams.Add($"last_message_timestamp_before_utc={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestampInUTCTime)}");
-                if (lastMessageTimeSentAfterSearchTimestampInUTCTime != default)
-                    queryParams.Add($"last_message_timestamp_after_utc={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestampInUTCTime)}");
+                if (contactPhoneNumberToSearchBy != default)
+                    queryParams.Add($"contact_phone_number={Uri.EscapeDataString(contactPhoneNumberToSearchBy)}");
+                if (lastMessageTimeSentBeforeSearchTimestampInUtcTime != default)
+                    queryParams.Add($"last_message_timestamp_before_utc={Uri.EscapeDataString(lastMessageTimeSentBeforeSearchTimestampInUtcTime)}");
+                if (lastMessageTimeSentAfterSearchTimestampInUtcTime != default)
+                    queryParams.Add($"last_message_timestamp_after_utc={Uri.EscapeDataString(lastMessageTimeSentAfterSearchTimestampInUtcTime)}");
                 if (createdBeforeSearchTimestamp != default)
                     queryParams.Add($"contact_created_before={Uri.EscapeDataString(createdBeforeSearchTimestamp)}");
                 if (createdAfterSearchTimestamp != default)
                     queryParams.Add($"contact_created_after={Uri.EscapeDataString(createdAfterSearchTimestamp)}");
-                if (whetherContactSConversationIsResolved.HasValue)
-                    queryParams.Add($"is_resolved={Uri.EscapeDataString(Convert.ToString(whetherContactSConversationIsResolved.Value, CultureInfo.InvariantCulture))}");
+                if (whetherContactConversationIsResolved.HasValue)
+                    queryParams.Add($"is_resolved={Uri.EscapeDataString(Convert.ToString(whetherContactConversationIsResolved.Value, CultureInfo.InvariantCulture))}");
                 if (whetherContactIsBlocked.HasValue)
                     queryParams.Add($"is_blocked={Uri.EscapeDataString(Convert.ToString(whetherContactIsBlocked.Value, CultureInfo.InvariantCulture))}");
                 if (whetherContactIsArchived.HasValue)
@@ -2867,4 +2867,3 @@ namespace Azure.Connectors.Sdk.TextRequest
 
     #endregion Client
 }
-

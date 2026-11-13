@@ -461,15 +461,15 @@
 //   using Azure.Connectors.Sdk.Azureopenai;
 //   using Azure.Connectors.Sdk.Azureopenai.Models;
 //   var client = new AzureopenaiClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Azurequeues;
-//   using Azure.Connectors.Sdk.Azurequeues.Models;
-//   var client = new AzurequeuesClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureQueues;
+//   using Azure.Connectors.Sdk.AzureQueues.Models;
+//   var client = new AzureQueuesClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Azurespeechpronuncia;
 //   using Azure.Connectors.Sdk.Azurespeechpronuncia.Models;
 //   var client = new AzurespeechpronunciaClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Azuretables;
-//   using Azure.Connectors.Sdk.Azuretables.Models;
-//   var client = new AzuretablesClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureTables;
+//   using Azure.Connectors.Sdk.AzureTables.Models;
+//   var client = new AzureTablesClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Azuretexttospeech;
 //   using Azure.Connectors.Sdk.Azuretexttospeech.Models;
 //   var client = new AzuretexttospeechClient(connectionRuntimeUrl);
@@ -788,9 +788,9 @@
 //   using Azure.Connectors.Sdk.Cloudbot;
 //   using Azure.Connectors.Sdk.Cloudbot.Models;
 //   var client = new CloudbotClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Cloudconvert;
-//   using Azure.Connectors.Sdk.Cloudconvert.Models;
-//   var client = new CloudconvertClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.CloudConvert;
+//   using Azure.Connectors.Sdk.CloudConvert.Models;
+//   var client = new CloudConvertClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Cloudmersive;
 //   using Azure.Connectors.Sdk.Cloudmersive.Models;
 //   var client = new CloudmersiveClient(connectionRuntimeUrl);
@@ -887,9 +887,9 @@
 //   using Azure.Connectors.Sdk.Commercientcpq;
 //   using Azure.Connectors.Sdk.Commercientcpq.Models;
 //   var client = new CommercientcpqClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Commondataservice;
-//   using Azure.Connectors.Sdk.Commondataservice.Models;
-//   var client = new CommondataserviceClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.CommonDataService;
+//   using Azure.Connectors.Sdk.CommonDataService.Models;
+//   var client = new CommonDataServiceClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Companieshouseip;
 //   using Azure.Connectors.Sdk.Companieshouseip.Models;
 //   var client = new CompanieshouseipClient(connectionRuntimeUrl);
@@ -1055,9 +1055,9 @@
 //   using Azure.Connectors.Sdk.Dataflows;
 //   using Azure.Connectors.Sdk.Dataflows.Models;
 //   var client = new DataflowsClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Dataflowssms;
-//   using Azure.Connectors.Sdk.Dataflowssms.Models;
-//   var client = new DataflowssmsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.DataFlowsSms;
+//   using Azure.Connectors.Sdk.DataFlowsSms.Models;
+//   var client = new DataFlowsSmsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Datamuseip;
 //   using Azure.Connectors.Sdk.Datamuseip.Models;
 //   var client = new DatamuseipClient(connectionRuntimeUrl);
@@ -1163,9 +1163,9 @@
 //   using Azure.Connectors.Sdk.Documentaikonfuzio;
 //   using Azure.Connectors.Sdk.Documentaikonfuzio.Models;
 //   var client = new DocumentaikonfuzioClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Documentdb;
-//   using Azure.Connectors.Sdk.Documentdb.Models;
-//   var client = new DocumentdbClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.DocumentDB;
+//   using Azure.Connectors.Sdk.DocumentDB.Models;
+//   var client = new DocumentDBClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Documentdrafter;
 //   using Azure.Connectors.Sdk.Documentdrafter.Models;
 //   var client = new DocumentdrafterClient(connectionRuntimeUrl);
@@ -1184,12 +1184,15 @@
 //   using Azure.Connectors.Sdk.Docurain;
 //   using Azure.Connectors.Sdk.Docurain.Models;
 //   var client = new DocurainClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Docusign;
+//   using Azure.Connectors.Sdk.Docusign.Models;
+//   var client = new DocusignClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Docusignmcpdemo;
 //   using Azure.Connectors.Sdk.Docusignmcpdemo.Models;
 //   var client = new DocusignmcpdemoClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Docuware;
-//   using Azure.Connectors.Sdk.Docuware.Models;
-//   var client = new DocuwareClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.DocuWare;
+//   using Azure.Connectors.Sdk.DocuWare.Models;
+//   var client = new DocuWareClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Dokobitportal;
 //   using Azure.Connectors.Sdk.Dokobitportal.Models;
 //   var client = new DokobitportalClient(connectionRuntimeUrl);
@@ -1439,9 +1442,9 @@
 //   using Azure.Connectors.Sdk.Eventbrite;
 //   using Azure.Connectors.Sdk.Eventbrite.Models;
 //   var client = new EventbriteClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Eventhubs;
-//   using Azure.Connectors.Sdk.Eventhubs.Models;
-//   var client = new EventhubsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.EventHubs;
+//   using Azure.Connectors.Sdk.EventHubs.Models;
+//   var client = new EventHubsClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Eventtickets;
 //   using Azure.Connectors.Sdk.Eventtickets.Models;
 //   var client = new EventticketsClient(connectionRuntimeUrl);
@@ -1634,9 +1637,9 @@
 //   using Azure.Connectors.Sdk.Freshbooks;
 //   using Azure.Connectors.Sdk.Freshbooks.Models;
 //   var client = new FreshbooksClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.FreshService;
-//   using Azure.Connectors.Sdk.FreshService.Models;
-//   var client = new FreshServiceClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Freshservice;
+//   using Azure.Connectors.Sdk.Freshservice.Models;
+//   var client = new FreshserviceClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Ftp;
 //   using Azure.Connectors.Sdk.Ftp.Models;
 //   var client = new FtpClient(connectionRuntimeUrl);
@@ -2120,12 +2123,15 @@
 //   using Azure.Connectors.Sdk.Jbhunt;
 //   using Azure.Connectors.Sdk.Jbhunt.Models;
 //   var client = new JbhuntClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.JedoxOdataHub;
-//   using Azure.Connectors.Sdk.JedoxOdataHub.Models;
-//   var client = new JedoxOdataHubClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.JedoxODataHub;
+//   using Azure.Connectors.Sdk.JedoxODataHub.Models;
+//   var client = new JedoxODataHubClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Jgintegrations;
 //   using Azure.Connectors.Sdk.Jgintegrations.Models;
 //   var client = new JgintegrationsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Jira;
+//   using Azure.Connectors.Sdk.Jira.Models;
+//   var client = new JiraClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Jirasearch;
 //   using Azure.Connectors.Sdk.Jirasearch.Models;
 //   var client = new JirasearchClient(connectionRuntimeUrl);
@@ -2321,9 +2327,9 @@
 //   using Azure.Connectors.Sdk.Mailboxvalidatorip;
 //   using Azure.Connectors.Sdk.Mailboxvalidatorip.Models;
 //   var client = new MailboxvalidatoripClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.MailChimp;
-//   using Azure.Connectors.Sdk.MailChimp.Models;
-//   var client = new MailChimpClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Mailchimp;
+//   using Azure.Connectors.Sdk.Mailchimp.Models;
+//   var client = new MailchimpClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Mailform;
 //   using Azure.Connectors.Sdk.Mailform.Models;
 //   var client = new MailformClient(connectionRuntimeUrl);
@@ -2519,12 +2525,12 @@
 //   using Azure.Connectors.Sdk.Motimate;
 //   using Azure.Connectors.Sdk.Motimate.Models;
 //   var client = new MotimateClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Mq;
-//   using Azure.Connectors.Sdk.Mq.Models;
-//   var client = new MqClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
-//   using Azure.Connectors.Sdk.MsGraphGroupsAndUsers.Models;
-//   var client = new MsGraphGroupsAndUsersClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.MQ;
+//   using Azure.Connectors.Sdk.MQ.Models;
+//   var client = new MQClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.MSGraphGroupsAndUsers;
+//   using Azure.Connectors.Sdk.MSGraphGroupsAndUsers.Models;
+//   var client = new MSGraphGroupsAndUsersClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Msnweather;
 //   using Azure.Connectors.Sdk.Msnweather.Models;
 //   var client = new MsnweatherClient(connectionRuntimeUrl);
@@ -2696,9 +2702,9 @@
 //   using Azure.Connectors.Sdk.Occuspace;
 //   using Azure.Connectors.Sdk.Occuspace.Models;
 //   var client = new OccuspaceClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Odata;
-//   using Azure.Connectors.Sdk.Odata.Models;
-//   var client = new OdataClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.OData;
+//   using Azure.Connectors.Sdk.OData.Models;
+//   var client = new ODataClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Odbc;
 //   using Azure.Connectors.Sdk.Odbc.Models;
 //   var client = new OdbcClient(connectionRuntimeUrl);
@@ -2738,9 +2744,9 @@
 //   using Azure.Connectors.Sdk.Oneflow;
 //   using Azure.Connectors.Sdk.Oneflow.Models;
 //   var client = new OneflowClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Onenote;
-//   using Azure.Connectors.Sdk.Onenote.Models;
-//   var client = new OnenoteClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.OneNote;
+//   using Azure.Connectors.Sdk.OneNote.Models;
+//   var client = new OneNoteClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Onenotepersonalip;
 //   using Azure.Connectors.Sdk.Onenotepersonalip.Models;
 //   var client = new OnenotepersonalipClient(connectionRuntimeUrl);
@@ -3251,9 +3257,9 @@
 //   using Azure.Connectors.Sdk.Restcountriesip;
 //   using Azure.Connectors.Sdk.Restcountriesip.Models;
 //   var client = new RestcountriesipClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Revai;
-//   using Azure.Connectors.Sdk.Revai.Models;
-//   var client = new RevaiClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.RevAI;
+//   using Azure.Connectors.Sdk.RevAI.Models;
+//   var client = new RevAIClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Revelationhelpdesk;
 //   using Azure.Connectors.Sdk.Revelationhelpdesk.Models;
 //   var client = new RevelationhelpdeskClient(connectionRuntimeUrl);
@@ -3413,15 +3419,15 @@
 //   using Azure.Connectors.Sdk.Serverless360;
 //   using Azure.Connectors.Sdk.Serverless360.Models;
 //   var client = new Serverless360Client(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Servicebus;
-//   using Azure.Connectors.Sdk.Servicebus.Models;
-//   var client = new ServicebusClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Servicedeskpluscloud;
-//   using Azure.Connectors.Sdk.Servicedeskpluscloud.Models;
-//   var client = new ServicedeskpluscloudClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.ServiceNow;
 //   using Azure.Connectors.Sdk.ServiceNow.Models;
 //   var client = new ServiceNowClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ServiceBus;
+//   using Azure.Connectors.Sdk.ServiceBus.Models;
+//   var client = new ServiceBusConnectorClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Servicedeskpluscloud;
+//   using Azure.Connectors.Sdk.Servicedeskpluscloud.Models;
+//   var client = new ServicedeskpluscloudClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Serwersms;
 //   using Azure.Connectors.Sdk.Serwersms.Models;
 //   var client = new SerwersmsClient(connectionRuntimeUrl);
@@ -3656,9 +3662,9 @@
 //   using Azure.Connectors.Sdk.Starmind;
 //   using Azure.Connectors.Sdk.Starmind.Models;
 //   var client = new StarmindClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.StarrezRestV1;
-//   using Azure.Connectors.Sdk.StarrezRestV1.Models;
-//   var client = new StarrezRestV1Client(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.StarRezRestV1;
+//   using Azure.Connectors.Sdk.StarRezRestV1.Models;
+//   var client = new StarRezRestV1Client(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Starwarsip;
 //   using Azure.Connectors.Sdk.Starwarsip.Models;
 //   var client = new StarwarsipClient(connectionRuntimeUrl);
@@ -4097,9 +4103,9 @@
 //   using Azure.Connectors.Sdk.Virustotal;
 //   using Azure.Connectors.Sdk.Virustotal.Models;
 //   var client = new VirustotalClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Visualstudioteamservices;
-//   using Azure.Connectors.Sdk.Visualstudioteamservices.Models;
-//   var client = new VisualstudioteamservicesClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.VisualStudioTeamServices;
+//   using Azure.Connectors.Sdk.VisualStudioTeamServices.Models;
+//   var client = new VisualStudioTeamServicesClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Vitacloudquotes;
 //   using Azure.Connectors.Sdk.Vitacloudquotes.Models;
 //   var client = new VitacloudquotesClient(connectionRuntimeUrl);
@@ -4124,9 +4130,9 @@
 //   using Azure.Connectors.Sdk.Waybackmachineip;
 //   using Azure.Connectors.Sdk.Waybackmachineip.Models;
 //   var client = new WaybackmachineipClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Waywedo;
-//   using Azure.Connectors.Sdk.Waywedo.Models;
-//   var client = new WaywedoClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.WayWeDo;
+//   using Azure.Connectors.Sdk.WayWeDo.Models;
+//   var client = new WayWeDoClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Wdatp;
 //   using Azure.Connectors.Sdk.Wdatp.Models;
 //   var client = new WdatpClient(connectionRuntimeUrl);
@@ -4343,9 +4349,9 @@
 //   using Azure.Connectors.Sdk.Zenlogin;
 //   using Azure.Connectors.Sdk.Zenlogin.Models;
 //   var client = new ZenloginClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Zeptomail;
-//   using Azure.Connectors.Sdk.Zeptomail.Models;
-//   var client = new ZeptomailClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ZeptoMail;
+//   using Azure.Connectors.Sdk.ZeptoMail.Models;
+//   var client = new ZeptoMailClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Zerotrainaicore;
 //   using Azure.Connectors.Sdk.Zerotrainaicore.Models;
 //   var client = new ZerotrainaicoreClient(connectionRuntimeUrl);
@@ -4792,6 +4798,7 @@ public static class SdkConnectors
         "documentscorepackapi",
         "documotor",
         "docurain",
+        "docusign",
         "docusignmcpdemo",
         "docuware",
         "dokobitportal",
@@ -5106,6 +5113,7 @@ public static class SdkConnectors
         "jbhunt",
         "jedoxodatahub",
         "jgintegrations",
+        "jira",
         "jirasearch",
         "jotform",
         "jotformenterprise",

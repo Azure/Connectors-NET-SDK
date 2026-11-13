@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System;
+using System.Linq;
 using Azure.Connectors.Sdk.Arm;
 using Azure.Connectors.Sdk.AzureAutomation;
 using Azure.Connectors.Sdk.AzureBlob;
@@ -13,28 +15,28 @@ using Azure.Connectors.Sdk.AzureVM;
 using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
-using Azure.Connectors.Sdk.Docuware;
+using Azure.Connectors.Sdk.DocuWare;
 using Azure.Connectors.Sdk.ElfsquadData;
 using Azure.Connectors.Sdk.Etsy;
 using Azure.Connectors.Sdk.ExcelOnline;
 using Azure.Connectors.Sdk.FormstackForms;
-using Azure.Connectors.Sdk.FreshService;
+using Azure.Connectors.Sdk.Freshservice;
 using Azure.Connectors.Sdk.Impexium;
 using Azure.Connectors.Sdk.Infusionsoft;
 using Azure.Connectors.Sdk.Insightly;
-using Azure.Connectors.Sdk.JedoxOdataHub;
+using Azure.Connectors.Sdk.JedoxODataHub;
 using Azure.Connectors.Sdk.KeyVault;
 using Azure.Connectors.Sdk.Kusto;
 using Azure.Connectors.Sdk.MeetingRoomMap;
 using Azure.Connectors.Sdk.MicrosoftBookings;
-using Azure.Connectors.Sdk.Mq;
-using Azure.Connectors.Sdk.MsGraphGroupsAndUsers;
+using Azure.Connectors.Sdk.MQ;
+using Azure.Connectors.Sdk.MSGraphGroupsAndUsers;
 using Azure.Connectors.Sdk.Office365;
 using Azure.Connectors.Sdk.Office365Groups;
 using Azure.Connectors.Sdk.Office365GroupsMail;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
-using Azure.Connectors.Sdk.Onenote;
+using Azure.Connectors.Sdk.OneNote;
 using Azure.Connectors.Sdk.Orderful;
 using Azure.Connectors.Sdk.PdfCo;
 using Azure.Connectors.Sdk.Pipedrive;
@@ -44,24 +46,24 @@ using Azure.Connectors.Sdk.Plumsail;
 using Azure.Connectors.Sdk.PowerBI;
 using Azure.Connectors.Sdk.Projectplace;
 using Azure.Connectors.Sdk.Replicon;
-using Azure.Connectors.Sdk.Revai;
+using Azure.Connectors.Sdk.RevAI;
 using Azure.Connectors.Sdk.SeismicPlanner;
 using Azure.Connectors.Sdk.SharePointOnline;
 using Azure.Connectors.Sdk.Shifts;
 using Azure.Connectors.Sdk.SigningHub;
 using Azure.Connectors.Sdk.Smtp;
 using Azure.Connectors.Sdk.Starmind;
-using Azure.Connectors.Sdk.StarrezRestV1;
+using Azure.Connectors.Sdk.StarRezRestV1;
 using Azure.Connectors.Sdk.Tallyfy;
 using Azure.Connectors.Sdk.Teams;
 using Azure.Connectors.Sdk.TextRequest;
 using Azure.Connectors.Sdk.Ticketmaster;
 using Azure.Connectors.Sdk.Todo;
 using Azure.Connectors.Sdk.UniversalPrint;
-using Azure.Connectors.Sdk.Waywedo;
+using Azure.Connectors.Sdk.WayWeDo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.Yammer;
-using Azure.Connectors.Sdk.Zeptomail;
+using Azure.Connectors.Sdk.ZeptoMail;
 using Azure.Connectors.Sdk.ZohoSign;
 using global::Azure.Core;
 using Microsoft.Extensions.Configuration;
@@ -334,12 +336,12 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddEtsyClient(configuration)
                 .AddExcelOnlineClient(configuration)
                 .AddFormstackFormsClient(configuration)
-                .AddFreshServiceClient(configuration)
+                .AddFreshserviceClient(configuration)
                 .AddInfusionsoftClient(configuration)
                 .AddInsightlyClient(configuration)
                 .AddKustoClient(configuration)
-                .AddMqClient(configuration)
-                .AddMsGraphGroupsAndUsersClient(configuration)
+                .AddMQClient(configuration)
+                .AddMSGraphGroupsAndUsersClient(configuration)
                 .AddOffice365Client(configuration)
                 .AddOffice365UsersClient(configuration)
                 .AddOneDriveForBusinessClient(configuration)
@@ -347,7 +349,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddPlivoClient(configuration)
                 .AddPlumsailClient(configuration)
                 .AddRepliconClient(configuration)
-                .AddRevaiClient(configuration)
+                .AddRevAIClient(configuration)
                 .AddSharePointOnlineClient(configuration)
                 .AddSigningHubClient(configuration)
                 .AddSmtpClient(configuration)
@@ -355,23 +357,23 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddUniversalPrintClient(configuration)
                 .AddWdatpClient(configuration)
                 .AddYammerClient(configuration)
-                .AddZeptomailClient(configuration)
+                .AddZeptoMailClient(configuration)
                 .AddZohoSignClient(configuration)
-                .AddDocuwareClient(configuration)
+                .AddDocuWareClient(configuration)
                 .AddElfsquadDataClient(configuration)
                 .AddImpexiumClient(configuration)
-                .AddJedoxOdataHubClient(configuration)
+                .AddJedoxODataHubClient(configuration)
                 .AddMeetingRoomMapClient(configuration)
                 .AddOrderfulClient(configuration)
                 .AddPdfCoClient(configuration)
                 .AddProjectplaceClient(configuration)
                 .AddSeismicPlannerClient(configuration)
                 .AddStarmindClient(configuration)
-                .AddStarrezRestV1Client(configuration)
+                .AddStarRezRestV1Client(configuration)
                 .AddTallyfyClient(configuration)
                 .AddTextRequestClient(configuration)
                 .AddTicketmasterClient(configuration)
-                .AddWaywedoClient(configuration)
+                .AddWayWeDoClient(configuration)
                 .AddAzureAutomationClient(configuration)
                 .AddAzureDataFactoryClient(configuration)
                 .AddAzureDigitalTwinsClient(configuration)
@@ -380,7 +382,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddMicrosoftBookingsClient(configuration)
                 .AddOffice365GroupsClient(configuration)
                 .AddOffice365GroupsMailClient(configuration)
-                .AddOnenoteClient(configuration)
+                .AddOneNoteClient(configuration)
                 .AddPlannerClient(configuration)
                 .AddPowerBIClient(configuration)
                 .AddShiftsClient(configuration)
@@ -396,20 +398,20 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("campfire", provider.GetRequiredService<CampfireClient>().ConnectorName);
             Assert.AreEqual("clicksendsms", provider.GetRequiredService<ClickSendSmsClient>().ConnectorName);
             Assert.AreEqual("cloudmersiveconvert", provider.GetRequiredService<CloudmersiveConvertClient>().ConnectorName);
-            Assert.AreEqual("docuware", provider.GetRequiredService<DocuwareClient>().ConnectorName);
+            Assert.AreEqual("docuware", provider.GetRequiredService<DocuWareClient>().ConnectorName);
             Assert.AreEqual("elfsquaddata", provider.GetRequiredService<ElfsquadDataClient>().ConnectorName);
             Assert.AreEqual("etsy", provider.GetRequiredService<EtsyClient>().ConnectorName);
             Assert.AreEqual("excelonline", provider.GetRequiredService<ExcelOnlineClient>().ConnectorName);
             Assert.AreEqual("formstackforms", provider.GetRequiredService<FormstackFormsClient>().ConnectorName);
-            Assert.AreEqual("freshservice", provider.GetRequiredService<FreshServiceClient>().ConnectorName);
+            Assert.AreEqual("freshservice", provider.GetRequiredService<FreshserviceClient>().ConnectorName);
             Assert.AreEqual("impexium", provider.GetRequiredService<ImpexiumClient>().ConnectorName);
             Assert.AreEqual("infusionsoft", provider.GetRequiredService<InfusionsoftClient>().ConnectorName);
             Assert.AreEqual("insightly", provider.GetRequiredService<InsightlyClient>().ConnectorName);
-            Assert.AreEqual("jedoxodatahub", provider.GetRequiredService<JedoxOdataHubClient>().ConnectorName);
+            Assert.AreEqual("jedoxodatahub", provider.GetRequiredService<JedoxODataHubClient>().ConnectorName);
             Assert.AreEqual("kusto", provider.GetRequiredService<KustoClient>().ConnectorName);
             Assert.AreEqual("meetingroommap", provider.GetRequiredService<MeetingRoomMapClient>().ConnectorName);
-            Assert.AreEqual("mq", provider.GetRequiredService<MqClient>().ConnectorName);
-            Assert.AreEqual("msgraphgroupsanduser", provider.GetRequiredService<MsGraphGroupsAndUsersClient>().ConnectorName);
+            Assert.AreEqual("mq", provider.GetRequiredService<MQClient>().ConnectorName);
+            Assert.AreEqual("msgraphgroupsanduser", provider.GetRequiredService<MSGraphGroupsAndUsersClient>().ConnectorName);
             Assert.AreEqual("office365", provider.GetRequiredService<Office365Client>().ConnectorName);
             Assert.AreEqual("office365users", provider.GetRequiredService<Office365UsersClient>().ConnectorName);
             Assert.AreEqual("onedriveforbusiness", provider.GetRequiredService<OneDriveForBusinessClient>().ConnectorName);
@@ -420,20 +422,20 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("plumsail", provider.GetRequiredService<PlumsailClient>().ConnectorName);
             Assert.AreEqual("projectplace", provider.GetRequiredService<ProjectplaceClient>().ConnectorName);
             Assert.AreEqual("replicon", provider.GetRequiredService<RepliconClient>().ConnectorName);
-            Assert.AreEqual("revai", provider.GetRequiredService<RevaiClient>().ConnectorName);
+            Assert.AreEqual("revai", provider.GetRequiredService<RevAIClient>().ConnectorName);
             Assert.AreEqual("seismicplanner", provider.GetRequiredService<SeismicPlannerClient>().ConnectorName);
             Assert.AreEqual("sharepointonline", provider.GetRequiredService<SharePointOnlineClient>().ConnectorName);
             Assert.AreEqual("signinghub", provider.GetRequiredService<SigningHubClient>().ConnectorName);
             Assert.AreEqual("smtp", provider.GetRequiredService<SmtpClient>().ConnectorName);
             Assert.AreEqual("starmind", provider.GetRequiredService<StarmindClient>().ConnectorName);
-            Assert.AreEqual("starrezrestv1", provider.GetRequiredService<StarrezRestV1Client>().ConnectorName);
+            Assert.AreEqual("starrezrestv1", provider.GetRequiredService<StarRezRestV1Client>().ConnectorName);
             Assert.AreEqual("tallyfy", provider.GetRequiredService<TallyfyClient>().ConnectorName);
             Assert.AreEqual("teams", provider.GetRequiredService<TeamsClient>().ConnectorName);
             Assert.AreEqual("textrequest", provider.GetRequiredService<TextRequestClient>().ConnectorName);
             Assert.AreEqual("ticketmaster", provider.GetRequiredService<TicketmasterClient>().ConnectorName);
             Assert.AreEqual("universalprint", provider.GetRequiredService<UniversalPrintClient>().ConnectorName);
-            Assert.AreEqual("waywedo", provider.GetRequiredService<WaywedoClient>().ConnectorName);
-            Assert.AreEqual("zeptomail", provider.GetRequiredService<ZeptomailClient>().ConnectorName);
+            Assert.AreEqual("waywedo", provider.GetRequiredService<WayWeDoClient>().ConnectorName);
+            Assert.AreEqual("zeptomail", provider.GetRequiredService<ZeptoMailClient>().ConnectorName);
             Assert.AreEqual("azureautomation", provider.GetRequiredService<AzureAutomationClient>().ConnectorName);
             Assert.AreEqual("azuredatafactory", provider.GetRequiredService<AzureDataFactoryClient>().ConnectorName);
             Assert.AreEqual("azuredigitaltwins", provider.GetRequiredService<AzureDigitalTwinsClient>().ConnectorName);
@@ -442,7 +444,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("microsoftbookings", provider.GetRequiredService<MicrosoftBookingsClient>().ConnectorName);
             Assert.AreEqual("office365groups", provider.GetRequiredService<Office365GroupsClient>().ConnectorName);
             Assert.AreEqual("office365groupsmail", provider.GetRequiredService<Office365GroupsMailClient>().ConnectorName);
-            Assert.AreEqual("onenote", provider.GetRequiredService<OnenoteClient>().ConnectorName);
+            Assert.AreEqual("onenote", provider.GetRequiredService<OneNoteClient>().ConnectorName);
             Assert.AreEqual("planner", provider.GetRequiredService<PlannerClient>().ConnectorName);
             Assert.AreEqual("powerbi", provider.GetRequiredService<PowerBIClient>().ConnectorName);
             Assert.AreEqual("shifts", provider.GetRequiredService<ShiftsClient>().ConnectorName);
@@ -450,6 +452,32 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("wdatp", provider.GetRequiredService<WdatpClient>().ConnectorName);
             Assert.AreEqual("yammer", provider.GetRequiredService<YammerClient>().ConnectorName);
             Assert.AreEqual("zohosign", provider.GetRequiredService<ZohoSignClient>().ConnectorName);
+        }
+
+        [TestMethod]
+        public void AddClientMethods_RegisterTypeNamedAfterMethod()
+        {
+            // Arrange
+            var configuration = ConnectorServiceCollectionExtensionsTests.BuildMockConfiguration(
+                ConnectorServiceCollectionExtensionsTests.TestConnectionRuntimeUrl);
+            var methods = typeof(ConnectorServiceCollectionExtensions)
+                .GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
+                .Where(method => method.Name.StartsWith("Add", StringComparison.Ordinal) &&
+                    method.Name.EndsWith("Client", StringComparison.Ordinal) &&
+                    !method.IsGenericMethodDefinition &&
+                    method.GetParameters().Select(parameter => parameter.ParameterType)
+                        .SequenceEqual(new[] { typeof(IServiceCollection), typeof(IConfiguration) }))
+                .ToList();
+
+            // Act & Assert — a brand rename of a client must rename its DI helper too.
+            Assert.IsTrue(methods.Count > 60, $"Expected the generated DI helpers, found {methods.Count}.");
+            foreach (var method in methods)
+            {
+                var services = new ServiceCollection();
+                method.Invoke(null, new object[] { services, configuration });
+                var registered = services.Single().ServiceType.Name;
+                Assert.AreEqual(method.Name.Substring("Add".Length), registered, $"{method.Name} registers {registered}.");
+            }
         }
 
         private static IConfiguration BuildMockConfiguration(

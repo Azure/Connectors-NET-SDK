@@ -1307,4 +1307,3 @@ namespace Azure.Connectors.Sdk.Tallyfy
 
     #endregion Client
 }
-

@@ -74,17 +74,17 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
     /// <summary>
     /// Response for Get all rooms
     /// </summary>
-    public class AADMeetingRoomCollection
+    public class AadMeetingRoomCollection
     {
         /// <summary>rooms</summary>
         [JsonPropertyName("rooms")]
-        public List<AADMeetingRoom> Rooms { get; set; }
+        public List<AadMeetingRoom> Rooms { get; set; }
     }
 
     /// <summary>
     /// Item in rooms
     /// </summary>
-    public class AADMeetingRoom
+    public class AadMeetingRoom
     {
         /// <summary>name</summary>
         [JsonPropertyName("name")]
@@ -187,25 +187,25 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AADMeetingRoomCollection"/>.
+        /// Creates a new instance of <see cref="AadMeetingRoomCollection"/>.
         /// </summary>
-        public static AADMeetingRoomCollection AADMeetingRoomCollection(
-            List<AADMeetingRoom> rooms = default)
+        public static AadMeetingRoomCollection AadMeetingRoomCollection(
+            List<AadMeetingRoom> rooms = default)
         {
-            return new AADMeetingRoomCollection
+            return new AadMeetingRoomCollection
             {
                 Rooms = rooms,
             };
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="AADMeetingRoom"/>.
+        /// Creates a new instance of <see cref="AadMeetingRoom"/>.
         /// </summary>
-        public static AADMeetingRoom AADMeetingRoom(
+        public static AadMeetingRoom AadMeetingRoom(
             string name = default,
             string address = default)
         {
-            return new AADMeetingRoom
+            return new AadMeetingRoom
             {
                 Name = name,
                 Address = address,
@@ -619,17 +619,17 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// Search coworker
         /// </summary>
         /// <remarks>Search coworker by name/email</remarks>
-        /// <param name="theStringToUseForSearchingUsersSearchesInUserSEmailAndName">The string to use for searching users. Searches in user&apos;s email and name</param>
+        /// <param name="theStringToUseForSearchingUsersSearchesInUserEmailAndName">The string to use for searching users. Searches in user&apos;s email and name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Search coworker response.</returns>
-        public virtual async Task<List<JsonElement?>> SearchCoworkersAsync(string theStringToUseForSearchingUsersSearchesInUserSEmailAndName, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SearchCoworkersAsync(string theStringToUseForSearchingUsersSearchesInUserEmailAndName, CancellationToken cancellationToken = default)
         {
             using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.SearchCoworkersAsync");
             try
             {
-                if (theStringToUseForSearchingUsersSearchesInUserSEmailAndName is null)
-                    throw new ArgumentNullException(nameof(theStringToUseForSearchingUsersSearchesInUserSEmailAndName));
-                var path = $"/api/officelocations/searchCoworkers/{Uri.EscapeDataString(theStringToUseForSearchingUsersSearchesInUserSEmailAndName)}";
+                if (theStringToUseForSearchingUsersSearchesInUserEmailAndName is null)
+                    throw new ArgumentNullException(nameof(theStringToUseForSearchingUsersSearchesInUserEmailAndName));
+                var path = $"/api/officelocations/searchCoworkers/{Uri.EscapeDataString(theStringToUseForSearchingUsersSearchesInUserEmailAndName)}";
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -737,14 +737,14 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <remarks>Get all rooms (defined in Azure AD as meeting rooms)</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get all rooms response.</returns>
-        public virtual async Task<AADMeetingRoomCollection> GetRoomsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<AadMeetingRoomCollection> GetRoomsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.GetRoomsAsync");
             try
             {
                 var path = $"/api/rooms";
                 return await this
-                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AadMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -762,7 +762,7 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="theSearchStringToUseToLookUpMeetingRoomsByName">The search string to use to look up meeting rooms by name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Search for meeting room response.</returns>
-        public virtual async Task<AADMeetingRoomCollection> SearchMeetingRoomsAsync(string theSearchStringToUseToLookUpMeetingRoomsByName, CancellationToken cancellationToken = default)
+        public virtual async Task<AadMeetingRoomCollection> SearchMeetingRoomsAsync(string theSearchStringToUseToLookUpMeetingRoomsByName, CancellationToken cancellationToken = default)
         {
             using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.SearchMeetingRoomsAsync");
             try
@@ -771,7 +771,7 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
                     throw new ArgumentNullException(nameof(theSearchStringToUseToLookUpMeetingRoomsByName));
                 var path = $"/api/rooms/findbyname/{Uri.EscapeDataString(theSearchStringToUseToLookUpMeetingRoomsByName)}";
                 return await this
-                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AadMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -788,14 +788,14 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <remarks>Get meeting rooms lists as defined in Azure AD</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get meeting rooms lists response.</returns>
-        public virtual async Task<AADMeetingRoomCollection> RoomListsAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<AadMeetingRoomCollection> RoomListsAsync(CancellationToken cancellationToken = default)
         {
             using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.RoomListsAsync");
             try
             {
                 var path = $"/api/rooms/lists";
                 return await this
-                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AadMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -813,7 +813,7 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// <param name="nameOfRoomListAsDefinedInAzureADRoomLists">Name of room list as defined in Azure AD room lists</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get meeting rooms by list response.</returns>
-        public virtual async Task<AADMeetingRoomCollection> RoomsByListAddressAsync(string nameOfRoomListAsDefinedInAzureADRoomLists, CancellationToken cancellationToken = default)
+        public virtual async Task<AadMeetingRoomCollection> RoomsByListAddressAsync(string nameOfRoomListAsDefinedInAzureADRoomLists, CancellationToken cancellationToken = default)
         {
             using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.RoomsByListAddressAsync");
             try
@@ -822,7 +822,7 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
                     throw new ArgumentNullException(nameof(nameOfRoomListAsDefinedInAzureADRoomLists));
                 var path = $"/api/rooms/{Uri.EscapeDataString(nameOfRoomListAsDefinedInAzureADRoomLists)}";
                 return await this
-                    .CallConnectorAsync<AADMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<AadMeetingRoomCollection>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -864,4 +864,3 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
 
     #endregion Client
 }
-

@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Office365.Models;
 using Azure.Core;
@@ -301,7 +302,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     /// <summary>
     /// Response for Email Management MCP Server (deprecated)
     /// </summary>
-    public class MCPQueryResponse
+    public class McpQueryResponse
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -361,7 +362,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Set to true if the body is Html</summary>
         [JsonPropertyName("isHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
 
         /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
         [JsonPropertyName("responseType")]
@@ -532,7 +533,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Set to true if the body is Html</summary>
         [JsonPropertyName("isHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
 
         /// <summary>The response type of the event (none, organizer, tentativelyAccepted, accepted, declined or notResponded)</summary>
         [JsonPropertyName("responseType")]
@@ -839,11 +840,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
     /// <summary>
     /// Entity list response
     /// </summary>
-    public class EntityListResponseContactResponse
+    public class EntityListResponseContactResponse : IPageable<ContactResponse>
     {
         /// <summary>List of values</summary>
         [JsonPropertyName("value")]
         public List<ContactResponse> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -1042,7 +1047,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>The Bcc recipients for the message</summary>
         [JsonPropertyName("bccRecipients")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
         [JsonPropertyName("replyTo")]
@@ -1094,7 +1099,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Is Html?</summary>
         [JsonPropertyName("isHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
 
         /// <summary>sensitivityLabelInfo</summary>
         [JsonPropertyName("sensitivityLabelInfo")]
@@ -1370,7 +1375,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>Attachments</summary>
         [JsonPropertyName("Attachments")]
@@ -1416,7 +1421,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>Attachments</summary>
         [JsonPropertyName("Attachments")]
@@ -1450,7 +1455,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>Email subject (if empty, the original subject used).</summary>
         [JsonPropertyName("Subject")]
@@ -1526,15 +1531,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Use only HTML message</summary>
         [JsonPropertyName("UseOnlyHTMLMessage")]
-        public bool? UseOnlyHTMLMessage { get; set; }
+        public bool? UseOnlyHtmlMessage { get; set; }
 
         /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
         [JsonPropertyName("HideHTMLMessage")]
-        public bool? HideHTMLMessage { get; set; }
+        public bool? HideHtmlMessage { get; set; }
 
         /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
         [JsonPropertyName("ShowHTMLConfirmationDialog")]
-        public bool? ShowHTMLConfirmationDialog { get; set; }
+        public bool? ShowHtmlConfirmationDialog { get; set; }
 
         /// <summary>If set to Yes, then the Microsoft footer is hidden in the email body.</summary>
         [JsonPropertyName("HideMicrosoftFooter")]
@@ -1594,15 +1599,15 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Use only HTML message</summary>
         [JsonPropertyName("UseOnlyHTMLMessage")]
-        public bool? UseOnlyHTMLMessage { get; set; }
+        public bool? UseOnlyHtmlMessage { get; set; }
 
         /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
         [JsonPropertyName("HideHTMLMessage")]
-        public bool? HideHTMLMessage { get; set; }
+        public bool? HideHtmlMessage { get; set; }
 
         /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
         [JsonPropertyName("ShowHTMLConfirmationDialog")]
-        public bool? ShowHTMLConfirmationDialog { get; set; }
+        public bool? ShowHtmlConfirmationDialog { get; set; }
     }
 
     /// <summary>
@@ -1632,7 +1637,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
 
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>Attachments</summary>
         [JsonPropertyName("Attachments")]
@@ -1944,7 +1949,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
     /// <summary>
     /// MCPQueryRequest
     /// </summary>
-    public class MCPQueryRequest
+    public class McpQueryRequest
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -2210,412 +2215,412 @@ namespace Azure.Connectors.Sdk.Office365.Models
         public Office365TimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>(UTC-12:00) International Date Line West</summary>
-        public static Office365TimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
+        public static Office365TimeZone Utc1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
 
         /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
-        public static Office365TimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
+        public static Office365TimeZone Utc1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
 
         /// <summary>(UTC-10:00) Aleutian Islands</summary>
-        public static Office365TimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
+        public static Office365TimeZone Utc1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
 
         /// <summary>(UTC-10:00) Hawaii</summary>
-        public static Office365TimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
+        public static Office365TimeZone Utc1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
 
         /// <summary>(UTC-09:30) Marquesas Islands</summary>
-        public static Office365TimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
+        public static Office365TimeZone Utc0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
 
         /// <summary>(UTC-09:00) Alaska</summary>
-        public static Office365TimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
+        public static Office365TimeZone Utc0900Alaska { get; } = new("(UTC-09:00) Alaska");
 
         /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
-        public static Office365TimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
+        public static Office365TimeZone Utc0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
 
         /// <summary>(UTC-08:00) Baja California</summary>
-        public static Office365TimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
+        public static Office365TimeZone Utc0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
 
         /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
-        public static Office365TimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
+        public static Office365TimeZone Utc0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
 
         /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
+        public static Office365TimeZone Utc0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
 
         /// <summary>(UTC-07:00) Arizona</summary>
-        public static Office365TimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
+        public static Office365TimeZone Utc0700Arizona { get; } = new("(UTC-07:00) Arizona");
 
         /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
-        public static Office365TimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
+        public static Office365TimeZone Utc0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
 
         /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
+        public static Office365TimeZone Utc0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
 
         /// <summary>(UTC-06:00) Central America</summary>
-        public static Office365TimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
+        public static Office365TimeZone Utc0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
 
         /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
+        public static Office365TimeZone Utc0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
 
         /// <summary>(UTC-06:00) Easter Island</summary>
-        public static Office365TimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
+        public static Office365TimeZone Utc0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
 
         /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
-        public static Office365TimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
+        public static Office365TimeZone Utc0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
 
         /// <summary>(UTC-06:00) Saskatchewan</summary>
-        public static Office365TimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
+        public static Office365TimeZone Utc0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
 
         /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
-        public static Office365TimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
+        public static Office365TimeZone Utc0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
 
         /// <summary>(UTC-05:00) Chetumal</summary>
-        public static Office365TimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
+        public static Office365TimeZone Utc0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
 
         /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
-        public static Office365TimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
+        public static Office365TimeZone Utc0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
 
         /// <summary>(UTC-05:00) Haiti</summary>
-        public static Office365TimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
+        public static Office365TimeZone Utc0500Haiti { get; } = new("(UTC-05:00) Haiti");
 
         /// <summary>(UTC-05:00) Havana</summary>
-        public static Office365TimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
+        public static Office365TimeZone Utc0500Havana { get; } = new("(UTC-05:00) Havana");
 
         /// <summary>(UTC-05:00) Indiana (East)</summary>
-        public static Office365TimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
+        public static Office365TimeZone Utc0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
 
         /// <summary>(UTC-04:00) Asuncion</summary>
-        public static Office365TimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
+        public static Office365TimeZone Utc0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
 
         /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
-        public static Office365TimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
+        public static Office365TimeZone Utc0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
 
         /// <summary>(UTC-04:00) Caracas</summary>
-        public static Office365TimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
+        public static Office365TimeZone Utc0400Caracas { get; } = new("(UTC-04:00) Caracas");
 
         /// <summary>(UTC-04:00) Cuiaba</summary>
-        public static Office365TimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
+        public static Office365TimeZone Utc0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
 
         /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
-        public static Office365TimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
+        public static Office365TimeZone Utc0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
 
         /// <summary>(UTC-04:00) Santiago</summary>
-        public static Office365TimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
+        public static Office365TimeZone Utc0400Santiago { get; } = new("(UTC-04:00) Santiago");
 
         /// <summary>(UTC-04:00) Turks and Caicos</summary>
-        public static Office365TimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
+        public static Office365TimeZone Utc0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
 
         /// <summary>(UTC-03:30) Newfoundland</summary>
-        public static Office365TimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
+        public static Office365TimeZone Utc0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
 
         /// <summary>(UTC-03:00) Araguaina</summary>
-        public static Office365TimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
+        public static Office365TimeZone Utc0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
 
         /// <summary>(UTC-03:00) Brasilia</summary>
-        public static Office365TimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
+        public static Office365TimeZone Utc0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
 
         /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
-        public static Office365TimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
+        public static Office365TimeZone Utc0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
 
         /// <summary>(UTC-03:00) City of Buenos Aires</summary>
-        public static Office365TimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
+        public static Office365TimeZone Utc0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
 
         /// <summary>(UTC-03:00) Greenland</summary>
-        public static Office365TimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
+        public static Office365TimeZone Utc0300Greenland { get; } = new("(UTC-03:00) Greenland");
 
         /// <summary>(UTC-03:00) Montevideo</summary>
-        public static Office365TimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
+        public static Office365TimeZone Utc0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
 
         /// <summary>(UTC-03:00) Punta Arenas</summary>
-        public static Office365TimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
+        public static Office365TimeZone Utc0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
 
         /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
-        public static Office365TimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
+        public static Office365TimeZone Utc0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
 
         /// <summary>(UTC-03:00) Salvador</summary>
-        public static Office365TimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
+        public static Office365TimeZone Utc0300Salvador { get; } = new("(UTC-03:00) Salvador");
 
         /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
-        public static Office365TimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
+        public static Office365TimeZone Utc0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
 
         /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
-        public static Office365TimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
+        public static Office365TimeZone Utc0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
 
         /// <summary>(UTC-01:00) Azores</summary>
-        public static Office365TimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
+        public static Office365TimeZone Utc0100Azores { get; } = new("(UTC-01:00) Azores");
 
         /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
-        public static Office365TimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
+        public static Office365TimeZone Utc0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
 
         /// <summary>(UTC) Coordinated Universal Time</summary>
-        public static Office365TimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
+        public static Office365TimeZone UtcCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
 
         /// <summary>(UTC+00:00) Casablanca</summary>
-        public static Office365TimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
+        public static Office365TimeZone Utc0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
 
         /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
-        public static Office365TimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
+        public static Office365TimeZone Utc0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
 
         /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
-        public static Office365TimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
+        public static Office365TimeZone Utc0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
 
         /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
-        public static Office365TimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
+        public static Office365TimeZone Utc0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
 
         /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
-        public static Office365TimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
+        public static Office365TimeZone Utc0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
 
         /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
-        public static Office365TimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
+        public static Office365TimeZone Utc0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
 
         /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
-        public static Office365TimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
+        public static Office365TimeZone Utc0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
 
         /// <summary>(UTC+01:00) West Central Africa</summary>
-        public static Office365TimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
+        public static Office365TimeZone Utc0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
 
         /// <summary>(UTC+01:00) Windhoek</summary>
-        public static Office365TimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
+        public static Office365TimeZone Utc0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
 
         /// <summary>(UTC+02:00) Amman</summary>
-        public static Office365TimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
+        public static Office365TimeZone Utc0200Amman { get; } = new("(UTC+02:00) Amman");
 
         /// <summary>(UTC+02:00) Athens, Bucharest</summary>
-        public static Office365TimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
+        public static Office365TimeZone Utc0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
 
         /// <summary>(UTC+02:00) Beirut</summary>
-        public static Office365TimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
+        public static Office365TimeZone Utc0200Beirut { get; } = new("(UTC+02:00) Beirut");
 
         /// <summary>(UTC+02:00) Cairo</summary>
-        public static Office365TimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
+        public static Office365TimeZone Utc0200Cairo { get; } = new("(UTC+02:00) Cairo");
 
         /// <summary>(UTC+02:00) Chisinau</summary>
-        public static Office365TimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
+        public static Office365TimeZone Utc0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
 
         /// <summary>(UTC+02:00) Damascus</summary>
-        public static Office365TimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
+        public static Office365TimeZone Utc0200Damascus { get; } = new("(UTC+02:00) Damascus");
 
         /// <summary>(UTC+02:00) Gaza, Hebron</summary>
-        public static Office365TimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
+        public static Office365TimeZone Utc0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
 
         /// <summary>(UTC+02:00) Harare, Pretoria</summary>
-        public static Office365TimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
+        public static Office365TimeZone Utc0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
 
         /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
-        public static Office365TimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
+        public static Office365TimeZone Utc0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
 
         /// <summary>(UTC+02:00) Jerusalem</summary>
-        public static Office365TimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
+        public static Office365TimeZone Utc0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
 
         /// <summary>(UTC+02:00) Kaliningrad</summary>
-        public static Office365TimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
+        public static Office365TimeZone Utc0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
 
         /// <summary>(UTC+02:00) Tripoli</summary>
-        public static Office365TimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
+        public static Office365TimeZone Utc0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
 
         /// <summary>(UTC+03:00) Baghdad</summary>
-        public static Office365TimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
+        public static Office365TimeZone Utc0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
 
         /// <summary>(UTC+03:00) Istanbul</summary>
-        public static Office365TimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
+        public static Office365TimeZone Utc0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
 
         /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
-        public static Office365TimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
+        public static Office365TimeZone Utc0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
 
         /// <summary>(UTC+03:00) Minsk</summary>
-        public static Office365TimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
+        public static Office365TimeZone Utc0300Minsk { get; } = new("(UTC+03:00) Minsk");
 
         /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
-        public static Office365TimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
+        public static Office365TimeZone Utc0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
 
         /// <summary>(UTC+03:00) Nairobi</summary>
-        public static Office365TimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
+        public static Office365TimeZone Utc0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
 
         /// <summary>(UTC+03:30) Tehran</summary>
-        public static Office365TimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
+        public static Office365TimeZone Utc0330Tehran { get; } = new("(UTC+03:30) Tehran");
 
         /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
-        public static Office365TimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
+        public static Office365TimeZone Utc0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
 
         /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
-        public static Office365TimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
+        public static Office365TimeZone Utc0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
 
         /// <summary>(UTC+04:00) Baku</summary>
-        public static Office365TimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
+        public static Office365TimeZone Utc0400Baku { get; } = new("(UTC+04:00) Baku");
 
         /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
-        public static Office365TimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
+        public static Office365TimeZone Utc0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
 
         /// <summary>(UTC+04:00) Port Louis</summary>
-        public static Office365TimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
+        public static Office365TimeZone Utc0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
 
         /// <summary>(UTC+04:00) Saratov</summary>
-        public static Office365TimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
+        public static Office365TimeZone Utc0400Saratov { get; } = new("(UTC+04:00) Saratov");
 
         /// <summary>(UTC+04:00) Tbilisi</summary>
-        public static Office365TimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
+        public static Office365TimeZone Utc0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
 
         /// <summary>(UTC+04:00) Volgograd</summary>
-        public static Office365TimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
+        public static Office365TimeZone Utc0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
 
         /// <summary>(UTC+04:00) Yerevan</summary>
-        public static Office365TimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
+        public static Office365TimeZone Utc0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
 
         /// <summary>(UTC+04:30) Kabul</summary>
-        public static Office365TimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
+        public static Office365TimeZone Utc0430Kabul { get; } = new("(UTC+04:30) Kabul");
 
         /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
-        public static Office365TimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
+        public static Office365TimeZone Utc0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
 
         /// <summary>(UTC+05:00) Ekaterinburg</summary>
-        public static Office365TimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
+        public static Office365TimeZone Utc0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
 
         /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
-        public static Office365TimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
+        public static Office365TimeZone Utc0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
 
         /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
-        public static Office365TimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
+        public static Office365TimeZone Utc0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
 
         /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
-        public static Office365TimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
+        public static Office365TimeZone Utc0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
 
         /// <summary>(UTC+05:45) Kathmandu</summary>
-        public static Office365TimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
+        public static Office365TimeZone Utc0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
 
         /// <summary>(UTC+06:00) Astana</summary>
-        public static Office365TimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
+        public static Office365TimeZone Utc0600Astana { get; } = new("(UTC+06:00) Astana");
 
         /// <summary>(UTC+06:00) Dhaka</summary>
-        public static Office365TimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
+        public static Office365TimeZone Utc0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
 
         /// <summary>(UTC+06:00) Omsk</summary>
-        public static Office365TimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
+        public static Office365TimeZone Utc0600Omsk { get; } = new("(UTC+06:00) Omsk");
 
         /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
-        public static Office365TimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
+        public static Office365TimeZone Utc0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
 
         /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
-        public static Office365TimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
+        public static Office365TimeZone Utc0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
 
         /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
-        public static Office365TimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
+        public static Office365TimeZone Utc0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
 
         /// <summary>(UTC+07:00) Hovd</summary>
-        public static Office365TimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
+        public static Office365TimeZone Utc0700Hovd { get; } = new("(UTC+07:00) Hovd");
 
         /// <summary>(UTC+07:00) Krasnoyarsk</summary>
-        public static Office365TimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
+        public static Office365TimeZone Utc0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
 
         /// <summary>(UTC+07:00) Novosibirsk</summary>
-        public static Office365TimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
+        public static Office365TimeZone Utc0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
 
         /// <summary>(UTC+07:00) Tomsk</summary>
-        public static Office365TimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
+        public static Office365TimeZone Utc0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
 
         /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
-        public static Office365TimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
+        public static Office365TimeZone Utc0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
 
         /// <summary>(UTC+08:00) Irkutsk</summary>
-        public static Office365TimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
+        public static Office365TimeZone Utc0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
 
         /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
-        public static Office365TimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
+        public static Office365TimeZone Utc0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
 
         /// <summary>(UTC+08:00) Perth</summary>
-        public static Office365TimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
+        public static Office365TimeZone Utc0800Perth { get; } = new("(UTC+08:00) Perth");
 
         /// <summary>(UTC+08:00) Taipei</summary>
-        public static Office365TimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
+        public static Office365TimeZone Utc0800Taipei { get; } = new("(UTC+08:00) Taipei");
 
         /// <summary>(UTC+08:00) Ulaanbaatar</summary>
-        public static Office365TimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
+        public static Office365TimeZone Utc0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
 
         /// <summary>(UTC+08:30) Pyongyang</summary>
-        public static Office365TimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
+        public static Office365TimeZone Utc0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
 
         /// <summary>(UTC+08:45) Eucla</summary>
-        public static Office365TimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
+        public static Office365TimeZone Utc0845Eucla { get; } = new("(UTC+08:45) Eucla");
 
         /// <summary>(UTC+09:00) Chita</summary>
-        public static Office365TimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
+        public static Office365TimeZone Utc0900Chita { get; } = new("(UTC+09:00) Chita");
 
         /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
-        public static Office365TimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
+        public static Office365TimeZone Utc0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
 
         /// <summary>(UTC+09:00) Seoul</summary>
-        public static Office365TimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
+        public static Office365TimeZone Utc0900Seoul { get; } = new("(UTC+09:00) Seoul");
 
         /// <summary>(UTC+09:00) Yakutsk</summary>
-        public static Office365TimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
+        public static Office365TimeZone Utc0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
 
         /// <summary>(UTC+09:30) Adelaide</summary>
-        public static Office365TimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
+        public static Office365TimeZone Utc0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
 
         /// <summary>(UTC+09:30) Darwin</summary>
-        public static Office365TimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
+        public static Office365TimeZone Utc0930Darwin { get; } = new("(UTC+09:30) Darwin");
 
         /// <summary>(UTC+10:00) Brisbane</summary>
-        public static Office365TimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
+        public static Office365TimeZone Utc1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
 
         /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
-        public static Office365TimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
+        public static Office365TimeZone Utc1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
 
         /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
-        public static Office365TimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
+        public static Office365TimeZone Utc1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
 
         /// <summary>(UTC+10:00) Hobart</summary>
-        public static Office365TimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
+        public static Office365TimeZone Utc1000Hobart { get; } = new("(UTC+10:00) Hobart");
 
         /// <summary>(UTC+10:00) Vladivostok</summary>
-        public static Office365TimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
+        public static Office365TimeZone Utc1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
 
         /// <summary>(UTC+10:30) Lord Howe Island</summary>
-        public static Office365TimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
+        public static Office365TimeZone Utc1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
 
         /// <summary>(UTC+11:00) Bougainville Island</summary>
-        public static Office365TimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
+        public static Office365TimeZone Utc1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
 
         /// <summary>(UTC+11:00) Chokurdakh</summary>
-        public static Office365TimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
+        public static Office365TimeZone Utc1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
 
         /// <summary>(UTC+11:00) Magadan</summary>
-        public static Office365TimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
+        public static Office365TimeZone Utc1100Magadan { get; } = new("(UTC+11:00) Magadan");
 
         /// <summary>(UTC+11:00) Norfolk Island</summary>
-        public static Office365TimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
+        public static Office365TimeZone Utc1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
 
         /// <summary>(UTC+11:00) Sakhalin</summary>
-        public static Office365TimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
+        public static Office365TimeZone Utc1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
 
         /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
-        public static Office365TimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
+        public static Office365TimeZone Utc1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
 
         /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
-        public static Office365TimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
+        public static Office365TimeZone Utc1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
 
         /// <summary>(UTC+12:00) Auckland, Wellington</summary>
-        public static Office365TimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
+        public static Office365TimeZone Utc1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
 
         /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
-        public static Office365TimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
+        public static Office365TimeZone Utc1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
 
         /// <summary>(UTC+12:00) Fiji</summary>
-        public static Office365TimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
+        public static Office365TimeZone Utc1200Fiji { get; } = new("(UTC+12:00) Fiji");
 
         /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
-        public static Office365TimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
+        public static Office365TimeZone Utc1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
 
         /// <summary>(UTC+12:45) Chatham Islands</summary>
-        public static Office365TimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
+        public static Office365TimeZone Utc1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
 
         /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
-        public static Office365TimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
+        public static Office365TimeZone Utc1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
 
         /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
-        public static Office365TimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
+        public static Office365TimeZone Utc1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
 
         /// <summary>(UTC+13:00) Samoa</summary>
-        public static Office365TimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
+        public static Office365TimeZone Utc1300Samoa { get; } = new("(UTC+13:00) Samoa");
 
         /// <summary>(UTC+14:00) Kiritimati Island</summary>
-        public static Office365TimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
+        public static Office365TimeZone Utc1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
 
         /// <summary>Converts a string to <see cref="Office365TimeZone"/>.</summary>
         public static implicit operator Office365TimeZone(string value) => new(value);
@@ -3159,9 +3164,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+        /// Creates a new instance of <see cref="McpQueryResponse"/>.
         /// </summary>
-        public static MCPQueryResponse MCPQueryResponse(
+        public static McpQueryResponse McpQueryResponse(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -3169,7 +3174,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             JsonElement? result = default,
             JsonElement? error = default)
         {
-            return new MCPQueryResponse
+            return new McpQueryResponse
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -3190,7 +3195,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             DateTime? startTimeWithTimeZone = default,
             DateTime? endTimeWithTimeZone = default,
             string body = default,
-            bool? isHTML = default,
+            bool? isHtml = default,
             ResponseType? responseType = default,
             DateTime? responseTime = default,
             string id = default,
@@ -3225,7 +3230,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 StartTimeWithTimeZone = startTimeWithTimeZone,
                 EndTimeWithTimeZone = endTimeWithTimeZone,
                 Body = body,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
                 ResponseType = responseType,
                 ResponseTime = responseTime,
                 Id = id,
@@ -3291,7 +3296,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             DateTime? startTimeWithTimeZone = default,
             DateTime? endTimeWithTimeZone = default,
             string body = default,
-            bool? isHTML = default,
+            bool? isHtml = default,
             ResponseType? responseType = default,
             DateTime? responseTime = default,
             string id = default,
@@ -3329,7 +3334,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 StartTimeWithTimeZone = startTimeWithTimeZone,
                 EndTimeWithTimeZone = endTimeWithTimeZone,
                 Body = body,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
                 ResponseType = responseType,
                 ResponseTime = responseTime,
                 Id = id,
@@ -3488,11 +3493,13 @@ namespace Azure.Connectors.Sdk.Office365.Models
         /// Creates a new instance of <see cref="EntityListResponseContactResponse"/>.
         /// </summary>
         public static EntityListResponseContactResponse EntityListResponseContactResponse(
-            List<ContactResponse> value = default)
+            List<ContactResponse> value = default,
+            string nextLink = default)
         {
             return new EntityListResponseContactResponse
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -3646,7 +3653,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             DateTime? receivedTime = default,
             bool? isRead = default,
             List<GraphClientReceiveFileAttachment> attachments = default,
-            bool? isHTML = default,
+            bool? isHtml = default,
             List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
         {
             return new GraphClientReceiveMessage
@@ -3654,7 +3661,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 From = from,
                 To = to,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 ReplyTo = replyTo,
                 Subject = subject,
                 Body = body,
@@ -3667,7 +3674,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 ReceivedTime = receivedTime,
                 IsRead = isRead,
                 Attachments = attachments,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
                 SensitivityLabelInfo = sensitivityLabelInfo,
             };
         }
@@ -3926,7 +3933,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 Body = body,
                 FromSendAs = fromSendAs,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 Attachments = attachments,
                 Sensitivity = sensitivity,
                 ReplyTo = replyTo,
@@ -3956,7 +3963,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 Body = body,
                 FromSendAs = fromSendAs,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 Attachments = attachments,
                 Sensitivity = sensitivity,
                 ReplyTo = replyTo,
@@ -3981,7 +3988,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             {
                 To = to,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 Subject = subject,
                 Body = body,
                 ReplyAll = replyAll,
@@ -4016,9 +4023,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
             string body = default,
             string importance = default,
             List<ClientSendAttachment> attachments = default,
-            bool? useOnlyHTMLMessage = default,
-            bool? hideHTMLMessage = default,
-            bool? showHTMLConfirmationDialog = default,
+            bool? useOnlyHtmlMessage = default,
+            bool? hideHtmlMessage = default,
+            bool? showHtmlConfirmationDialog = default,
             bool? hideMicrosoftFooter = default)
         {
             return new MessageWithOptions
@@ -4031,9 +4038,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 Body = body,
                 Importance = importance,
                 Attachments = attachments,
-                UseOnlyHTMLMessage = useOnlyHTMLMessage,
-                HideHTMLMessage = hideHTMLMessage,
-                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+                UseOnlyHtmlMessage = useOnlyHtmlMessage,
+                HideHtmlMessage = hideHtmlMessage,
+                ShowHtmlConfirmationDialog = showHtmlConfirmationDialog,
                 HideMicrosoftFooter = hideMicrosoftFooter,
             };
         }
@@ -4064,9 +4071,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
             string body = default,
             string importance = default,
             List<ClientSendAttachment> attachments = default,
-            bool? useOnlyHTMLMessage = default,
-            bool? hideHTMLMessage = default,
-            bool? showHTMLConfirmationDialog = default)
+            bool? useOnlyHtmlMessage = default,
+            bool? hideHtmlMessage = default,
+            bool? showHtmlConfirmationDialog = default)
         {
             return new ApprovalMessage
             {
@@ -4078,9 +4085,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 Body = body,
                 Importance = importance,
                 Attachments = attachments,
-                UseOnlyHTMLMessage = useOnlyHTMLMessage,
-                HideHTMLMessage = hideHTMLMessage,
-                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+                UseOnlyHtmlMessage = useOnlyHtmlMessage,
+                HideHtmlMessage = hideHtmlMessage,
+                ShowHtmlConfirmationDialog = showHtmlConfirmationDialog,
             };
         }
 
@@ -4106,7 +4113,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
                 Subject = subject,
                 Body = body,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 Attachments = attachments,
                 Sensitivity = sensitivity,
                 ReplyTo = replyTo,
@@ -4301,9 +4308,9 @@ namespace Azure.Connectors.Sdk.Office365.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+        /// Creates a new instance of <see cref="McpQueryRequest"/>.
         /// </summary>
-        public static MCPQueryRequest MCPQueryRequest(
+        public static McpQueryRequest McpQueryRequest(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -4312,7 +4319,7 @@ namespace Azure.Connectors.Sdk.Office365.Models
             JsonElement? error = default,
             string callbackEndpoint = default)
         {
-            return new MCPQueryRequest
+            return new McpQueryRequest
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -5220,7 +5227,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="sessionId">sessionId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Email Management MCP Server (deprecated) response.</returns>
-        public virtual async Task<MCPQueryResponse> McpEmailsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<McpQueryResponse> McpEmailsManagementAsync(McpQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.McpEmailsManagementAsync");
             try
@@ -5230,7 +5237,7 @@ namespace Azure.Connectors.Sdk.Office365
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/EmailsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<McpQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5249,7 +5256,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="sessionId">sessionId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Meeting Management MCP Server (deprecated) response.</returns>
-        public virtual async Task<MCPQueryResponse> McpMeetingManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<McpQueryResponse> McpMeetingManagementAsync(McpQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.McpMeetingManagementAsync");
             try
@@ -5259,7 +5266,7 @@ namespace Azure.Connectors.Sdk.Office365
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/MeetingManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<McpQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5278,7 +5285,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="sessionId">sessionId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Contact Management MCP Server response.</returns>
-        public virtual async Task<MCPQueryResponse> McpContactsManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<McpQueryResponse> McpContactsManagementAsync(McpQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.McpContactsManagementAsync");
             try
@@ -5288,7 +5295,7 @@ namespace Azure.Connectors.Sdk.Office365
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/ContactsManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<McpQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5554,34 +5561,25 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="topCount">Top Count</param>
         /// <param name="skipCount">Skip Count</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get contacts response.</returns>
-        public virtual async Task<EntityListResponseContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="ContactResponse"/> items across all pages.</returns>
+        public virtual AsyncPageable<ContactResponse> ContactGetItemsAsync([DynamicValues("ContactGetTablesV2")] string folderId, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, CancellationToken cancellationToken = default)
         {
-            using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.ContactGetItemsAsync");
-            try
-            {
-                if (folderId is null)
-                    throw new ArgumentNullException(nameof(folderId));
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (folderId is null)
+                throw new ArgumentNullException(nameof(folderId));
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/codeless/v1.0/me/contactFolders/{Uri.EscapeDataString(Uri.EscapeDataString(folderId))}/contacts" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<EntityListResponseContactResponse, ContactResponse>(
+                ct => this.CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<EntityListResponseContactResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -5910,7 +5908,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <remarks>This operation gets emails from a folder via graph apis. Please note that filtering related to these fields: To, Cc, To Or Cc, From, Importance, Fetch Only With Attachments, Subject Filter, is performed using first 250 items in a given mail folder. To avoid that limitation you can use &apos;Search Query&apos; field.</remarks>
         /// <param name="folder">Folder</param>
         /// <param name="to">To</param>
-        /// <param name="cC">CC</param>
+        /// <param name="cc">CC</param>
         /// <param name="toOrCC">To or CC</param>
         /// <param name="from">From</param>
         /// <param name="importance">Importance</param>
@@ -5923,7 +5921,7 @@ namespace Azure.Connectors.Sdk.Office365
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get emails response.</returns>
-        public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BatchResponseGraphClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cc = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, string originalMailboxAddress = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365Client.ConnectorActivitySource.StartActivity("Office365Client.GetEmailsAsync");
             try
@@ -5934,8 +5932,8 @@ namespace Azure.Connectors.Sdk.Office365
                     queryParams.Add($"folderPath={Uri.EscapeDataString(folder)}");
                 if (to != default)
                     queryParams.Add($"to={Uri.EscapeDataString(to)}");
-                if (cC != default)
-                    queryParams.Add($"cc={Uri.EscapeDataString(cC)}");
+                if (cc != default)
+                    queryParams.Add($"cc={Uri.EscapeDataString(cc)}");
                 if (toOrCC != default)
                     queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC)}");
                 if (from != default)
@@ -6325,4 +6323,3 @@ namespace Azure.Connectors.Sdk.Office365
 
     #endregion Client
 }
-

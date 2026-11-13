@@ -197,9 +197,9 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
 
     /// <summary>
     /// Typed trigger payload for the OnCreateTrigger trigger (ElfsquadData "Custom trigger", operationId: create_trigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ElfsquadDataOnCreateTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;ElfsquadDataOnCreateTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class ElfsquadDataOnCreateTriggerTriggerPayload : TriggerCallbackPayload<CreateTriggerNotification>
+    public class ElfsquadDataOnCreateTriggerPayload : TriggerCallbackPayload<CreateTriggerNotification>
     {
     }
 
@@ -219,7 +219,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData.Models
         public static IReadOnlyDictionary<string, Type> Operations { get; } = new ReadOnlyDictionary<string, Type>(
             new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase)
             {
-                ["create_trigger"] = typeof(ElfsquadDataOnCreateTriggerTriggerPayload),
+                ["create_trigger"] = typeof(ElfsquadDataOnCreateTriggerPayload),
             });
     }
 
@@ -241,7 +241,7 @@ namespace Azure.Connectors.Sdk.ElfsquadData
     {
         /// <summary>
         /// Custom trigger.
-        /// Payload type: <see cref="ElfsquadDataOnCreateTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="ElfsquadDataOnCreateTriggerPayload"/>.
         /// </summary>
         public const string OnCreateTrigger = "create_trigger";
 
@@ -677,4 +677,3 @@ namespace Azure.Connectors.Sdk.ElfsquadData
 
     #endregion Client
 }
-

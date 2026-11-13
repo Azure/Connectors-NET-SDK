@@ -62,7 +62,7 @@ public const string OnNewFile = "OnNewFileV2";
 // Metadata — has payload type annotation
 /// <summary>
 /// When a file is created (properties only).
-/// Payload type: <see cref="OnedriveforbusinessOnNewFilesTriggerPayload"/>.
+/// Payload type: <see cref="OneDriveForBusinessOnNewFilesTriggerPayload"/>.
 /// </summary>
 public const string OnNewFiles = "OnNewFilesV2";
 ```
@@ -169,9 +169,9 @@ Each trigger operation requires specific parameters. Find them in the SDK's gene
 
 ```csharp
 // Example: OneDrive OnNewFileV2 parameters
-OnedriveforbusinessTriggerParameters.OnNewFile.FolderId      // Required — folder to watch
-OnedriveforbusinessTriggerParameters.OnNewFile.IncludeSubfolders  // Optional, default: false
-OnedriveforbusinessTriggerParameters.OnNewFile.InferContentType   // Optional, default: true
+OneDriveForBusinessTriggerParameters.OnNewFile.FolderId      // Required — folder to watch
+OneDriveForBusinessTriggerParameters.OnNewFile.IncludeSubfolders  // Optional, default: false
+OneDriveForBusinessTriggerParameters.OnNewFile.InferContentType   // Optional, default: true
 ```
 
 For folder IDs, use the connector's list operations to discover them:
@@ -384,7 +384,7 @@ if (root.TryGetProperty("body", out var bodyElement) &&
 ```csharp
 // Callback JSON shape: {"body":{"value":[{...BlobMetadata...}]}}
 // Deserialize using the SDK's typed trigger payload class.
-var payload = JsonSerializer.Deserialize<OnedriveforbusinessOnNewFilesTriggerPayload>(
+var payload = JsonSerializer.Deserialize<OneDriveForBusinessOnNewFilesTriggerPayload>(
     body, jsonOptions);
 
 var files = payload?.Body?.Value;

@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Jira.Models;
 using Azure.Core;
@@ -63,7 +64,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
 
         /// <summary>Browse to the issue using this URL.</summary>
         [JsonPropertyName("self")]
-        public string IssueURL { get; set; }
+        public string IssueUrl { get; set; }
 
         /// <summary>fields</summary>
         [JsonPropertyName("fields")]
@@ -161,7 +162,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     /// <summary>
     /// Response for Jira MCP Server
     /// </summary>
-    public class MCPQueryResponse
+    public class McpQueryResponse
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -378,29 +379,29 @@ namespace Azure.Connectors.Sdk.Jira.Models
     /// <summary>
     /// Response for Get list of Filters
     /// </summary>
-    public class ListFiltersResponse
+    public class ListFiltersResponse : IPageable<JsonElement?>
     {
         /// <summary>Next page of filters</summary>
         [JsonPropertyName("nextPage")]
-        public string NextPage { get; set; }
+        public string NextLink { get; set; }
 
         /// <summary>values</summary>
         [JsonPropertyName("values")]
-        public List<JsonElement?> Values { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
     /// Response for Get projects
     /// </summary>
-    public class ListProjectsResponse
+    public class ListProjectsResponse : IPageable<JsonElement?>
     {
         /// <summary>Next page of projects</summary>
         [JsonPropertyName("nextPage")]
-        public string NextPage { get; set; }
+        public string NextLink { get; set; }
 
         /// <summary>values</summary>
         [JsonPropertyName("values")]
-        public List<JsonElement?> Values { get; set; }
+        public List<JsonElement?> Value { get; set; }
     }
 
     /// <summary>
@@ -512,7 +513,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
     /// <summary>
     /// MCPQueryRequest
     /// </summary>
-    public class MCPQueryRequest
+    public class McpQueryRequest
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -640,14 +641,14 @@ namespace Azure.Connectors.Sdk.Jira.Models
         public static FullIssue FullIssue(
             string issueId = default,
             string issueKey = default,
-            string issueURL = default,
+            string issueUrl = default,
             JsonElement? fields = default)
         {
             return new FullIssue
             {
                 IssueId = issueId,
                 IssueKey = issueKey,
-                IssueURL = issueURL,
+                IssueUrl = issueUrl,
                 Fields = fields,
             };
         }
@@ -713,9 +714,9 @@ namespace Azure.Connectors.Sdk.Jira.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+        /// Creates a new instance of <see cref="McpQueryResponse"/>.
         /// </summary>
-        public static MCPQueryResponse MCPQueryResponse(
+        public static McpQueryResponse McpQueryResponse(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -723,7 +724,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
             JsonElement? result = default,
             JsonElement? error = default)
         {
-            return new MCPQueryResponse
+            return new McpQueryResponse
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -836,13 +837,13 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// Creates a new instance of <see cref="ListFiltersResponse"/>.
         /// </summary>
         public static ListFiltersResponse ListFiltersResponse(
-            string nextPage = default,
-            List<JsonElement?> values = default)
+            string nextLink = default,
+            List<JsonElement?> value = default)
         {
             return new ListFiltersResponse
             {
-                NextPage = nextPage,
-                Values = values,
+                NextLink = nextLink,
+                Value = value,
             };
         }
 
@@ -850,13 +851,13 @@ namespace Azure.Connectors.Sdk.Jira.Models
         /// Creates a new instance of <see cref="ListProjectsResponse"/>.
         /// </summary>
         public static ListProjectsResponse ListProjectsResponse(
-            string nextPage = default,
-            List<JsonElement?> values = default)
+            string nextLink = default,
+            List<JsonElement?> value = default)
         {
             return new ListProjectsResponse
             {
-                NextPage = nextPage,
-                Values = values,
+                NextLink = nextLink,
+                Value = value,
             };
         }
 
@@ -929,9 +930,9 @@ namespace Azure.Connectors.Sdk.Jira.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+        /// Creates a new instance of <see cref="McpQueryRequest"/>.
         /// </summary>
-        public static MCPQueryRequest MCPQueryRequest(
+        public static McpQueryRequest McpQueryRequest(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -940,7 +941,7 @@ namespace Azure.Connectors.Sdk.Jira.Models
             JsonElement? error = default,
             string callbackEndpoint = default)
         {
-            return new MCPQueryRequest
+            return new McpQueryRequest
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -990,18 +991,18 @@ namespace Azure.Connectors.Sdk.Jira.Models
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnNewIssueJQL trigger (Jira "When a new issue is returned by a JQL query (V2)", operationId: OnNewIssueJQL_V2).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJQLTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnNewIssueJql trigger (Jira "When a new issue is returned by a JQL query (V2)", operationId: OnNewIssueJQL_V2).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJqlTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class JiraOnNewIssueJQLTriggerPayload : TriggerCallbackPayload<FullIssue>
+    public class JiraOnNewIssueJqlTriggerPayload : TriggerCallbackPayload<FullIssue>
     {
     }
 
     /// <summary>
-    /// Typed trigger payload for the OnNewIssueJQLDatacenter trigger (Jira "When a new issue is returned by a JQL query (Datacenter)", operationId: OnNewIssueJQL_Datacenter).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJQLDatacenterTriggerPayload&gt;(body)</c>.
+    /// Typed trigger payload for the OnNewIssueJqlDatacenter trigger (Jira "When a new issue is returned by a JQL query (Datacenter)", operationId: OnNewIssueJQL_Datacenter).
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;JiraOnNewIssueJqlDatacenterTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class JiraOnNewIssueJQLDatacenterTriggerPayload : TriggerCallbackPayload<FullIssue>
+    public class JiraOnNewIssueJqlDatacenterTriggerPayload : TriggerCallbackPayload<FullIssue>
     {
     }
 
@@ -1025,8 +1026,8 @@ namespace Azure.Connectors.Sdk.Jira.Models
                 ["OnCloseIssue_Datacenter"] = typeof(JiraOnCloseIssueDatacenterTriggerPayload),
                 ["OnNewIssue_V2"] = typeof(JiraOnNewIssueTriggerPayload),
                 ["OnNewIssue_Datacenter"] = typeof(JiraOnNewIssueDatacenterTriggerPayload),
-                ["OnNewIssueJQL_V2"] = typeof(JiraOnNewIssueJQLTriggerPayload),
-                ["OnNewIssueJQL_Datacenter"] = typeof(JiraOnNewIssueJQLDatacenterTriggerPayload),
+                ["OnNewIssueJQL_V2"] = typeof(JiraOnNewIssueJqlTriggerPayload),
+                ["OnNewIssueJQL_Datacenter"] = typeof(JiraOnNewIssueJqlDatacenterTriggerPayload),
             });
     }
 
@@ -1072,15 +1073,15 @@ namespace Azure.Connectors.Sdk.Jira
 
         /// <summary>
         /// When a new issue is returned by a JQL query.
-        /// Payload type: <see cref="JiraOnNewIssueJQLTriggerPayload"/>.
+        /// Payload type: <see cref="JiraOnNewIssueJqlTriggerPayload"/>.
         /// </summary>
-        public const string OnNewIssueJQL = "OnNewIssueJQL_V2";
+        public const string OnNewIssueJql = "OnNewIssueJQL_V2";
 
         /// <summary>
         /// When a new issue is returned by a JQL query (Datacenter).
-        /// Payload type: <see cref="JiraOnNewIssueJQLDatacenterTriggerPayload"/>.
+        /// Payload type: <see cref="JiraOnNewIssueJqlDatacenterTriggerPayload"/>.
         /// </summary>
-        public const string OnNewIssueJQLDatacenter = "OnNewIssueJQL_Datacenter";
+        public const string OnNewIssueJqlDatacenter = "OnNewIssueJQL_Datacenter";
 
     }
 
@@ -1175,9 +1176,9 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Input parameters for the OnNewIssueJQL trigger operation (operationId: OnNewIssueJQL_V2).
+        /// Input parameters for the OnNewIssueJql trigger operation (operationId: OnNewIssueJQL_V2).
         /// </summary>
-        public static class OnNewIssueJQL
+        public static class OnNewIssueJql
         {
             /// <summary>
             /// The url where your Jira instance is hosted (must support https). 
@@ -1195,9 +1196,9 @@ namespace Azure.Connectors.Sdk.Jira
         }
 
         /// <summary>
-        /// Input parameters for the OnNewIssueJQLDatacenter trigger operation (operationId: OnNewIssueJQL_Datacenter).
+        /// Input parameters for the OnNewIssueJqlDatacenter trigger operation (operationId: OnNewIssueJQL_Datacenter).
         /// </summary>
-        public static class OnNewIssueJQLDatacenter
+        public static class OnNewIssueJqlDatacenter
         {
             /// <summary>
             /// The url where your Jira instance is hosted (must support https). 
@@ -1312,20 +1313,22 @@ namespace Azure.Connectors.Sdk.Jira
         /// Get list of issues
         /// </summary>
         /// <remarks>This operation returns a list of issues using JQL.</remarks>
-        /// <param name="jQLQuery">JQL Query</param>
+        /// <param name="jqlQuery">JQL Query</param>
+        /// <param name="fields">Fields</param>
         /// <param name="nextPageToken">Next page token</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get list of issues response.</returns>
-        public virtual async Task<ListIssuesResponse> ListIssuesAsync(string jQLQuery = default, string nextPageToken = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListIssuesResponse> ListIssuesAsync(string jqlQuery = default, string fields = default, string nextPageToken = default, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListIssuesAsync");
             try
             {
                 var queryParams = new List<string>();
                 queryParams.Add("expand=%2A");
-                queryParams.Add("fields=%2Aall");
-                if (jQLQuery != default)
-                    queryParams.Add($"jql={Uri.EscapeDataString(jQLQuery)}");
+                if (jqlQuery != default)
+                    queryParams.Add($"jql={Uri.EscapeDataString(jqlQuery)}");
+                if (fields != default)
+                    queryParams.Add($"fields={Uri.EscapeDataString(fields)}");
                 if (nextPageToken != default)
                     queryParams.Add($"nextPageToken={Uri.EscapeDataString(nextPageToken)}");
                 var path = $"/2/search" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -1456,7 +1459,7 @@ namespace Azure.Connectors.Sdk.Jira
         /// <param name="sessionId">sessionId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Jira MCP Server response.</returns>
-        public virtual async Task<MCPQueryResponse> McpJiraIssueManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<McpQueryResponse> McpJiraIssueManagementAsync(McpQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
             using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.McpJiraIssueManagementAsync");
             try
@@ -1466,7 +1469,7 @@ namespace Azure.Connectors.Sdk.Jira
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/JiraIssueManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<McpQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -1799,23 +1802,14 @@ namespace Azure.Connectors.Sdk.Jira
         /// </summary>
         /// <remarks>This operation returns a list of Filters accessible to user.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get list of Filters response.</returns>
-        public virtual async Task<ListFiltersResponse> ListFiltersAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListFiltersAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListFiltersAsync");
-            try
-            {
-                var path = $"/v2/filter/search";
-                return await this
-                    .CallConnectorAsync<ListFiltersResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var path = $"/v2/filter/search";
+            return this.CreatePageable<ListFiltersResponse, JsonElement?>(
+                ct => this.CallConnectorAsync<ListFiltersResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListFiltersResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1823,23 +1817,14 @@ namespace Azure.Connectors.Sdk.Jira
         /// </summary>
         /// <remarks>This operation is used to retrieve a list of projects for your Jira instance.</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get projects response.</returns>
-        public virtual async Task<ListProjectsResponse> ListProjectsAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="JsonElement"/> items across all pages.</returns>
+        public virtual AsyncPageable<JsonElement?> ListProjectsAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = JiraClient.ConnectorActivitySource.StartActivity("JiraClient.ListProjectsAsync");
-            try
-            {
-                var path = $"/v2/project/search";
-                return await this
-                    .CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var path = $"/v2/project/search";
+            return this.CreatePageable<ListProjectsResponse, JsonElement?>(
+                ct => this.CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1989,4 +1974,3 @@ namespace Azure.Connectors.Sdk.Jira
 
     #endregion Client
 }
-

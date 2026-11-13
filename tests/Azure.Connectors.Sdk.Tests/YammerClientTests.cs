@@ -110,7 +110,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var user = new User
             {
-                Username = "jdoe",
+                UserName = "jdoe",
                 FullName = "John Doe",
                 Email = "jdoe@contoso.com",
                 JobTitle = "Engineer",
@@ -120,7 +120,7 @@ namespace Azure.Connectors.Sdk.Tests
             var deserialized = JsonSerializer.Deserialize<User>(json);
 
             Assert.IsNotNull(deserialized);
-            Assert.AreEqual("jdoe", deserialized!.Username);
+            Assert.AreEqual("jdoe", deserialized!.UserName);
             Assert.AreEqual("John Doe", deserialized.FullName);
             Assert.AreEqual("jdoe@contoso.com", deserialized.Email);
         }

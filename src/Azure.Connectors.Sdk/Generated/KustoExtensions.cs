@@ -99,7 +99,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
     /// <summary>
     /// Response for Kusto Query MCP Server
     /// </summary>
-    public class MCPQueryResponse
+    public class McpQueryResponse
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -221,7 +221,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
     /// <summary>
     /// MCPQueryRequest
     /// </summary>
-    public class MCPQueryRequest
+    public class McpQueryRequest
     {
         /// <summary>jsonrpc</summary>
         [JsonPropertyName("jsonrpc")]
@@ -312,9 +312,9 @@ namespace Azure.Connectors.Sdk.Kusto.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryResponse"/>.
+        /// Creates a new instance of <see cref="McpQueryResponse"/>.
         /// </summary>
-        public static MCPQueryResponse MCPQueryResponse(
+        public static McpQueryResponse McpQueryResponse(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -322,7 +322,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
             JsonElement? result = default,
             JsonElement? error = default)
         {
-            return new MCPQueryResponse
+            return new McpQueryResponse
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -402,9 +402,9 @@ namespace Azure.Connectors.Sdk.Kusto.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="MCPQueryRequest"/>.
+        /// Creates a new instance of <see cref="McpQueryRequest"/>.
         /// </summary>
-        public static MCPQueryRequest MCPQueryRequest(
+        public static McpQueryRequest McpQueryRequest(
             string jsonrpc = default,
             string id = default,
             string method = default,
@@ -413,7 +413,7 @@ namespace Azure.Connectors.Sdk.Kusto.Models
             JsonElement? error = default,
             string callbackEndpoint = default)
         {
-            return new MCPQueryRequest
+            return new McpQueryRequest
             {
                 Jsonrpc = jsonrpc,
                 Id = id,
@@ -632,7 +632,7 @@ namespace Azure.Connectors.Sdk.Kusto
         /// <param name="sessionId">sessionId</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Kusto Query MCP Server response.</returns>
-        public virtual async Task<MCPQueryResponse> McpKustoQueryManagementAsync(MCPQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
+        public virtual async Task<McpQueryResponse> McpKustoQueryManagementAsync(McpQueryRequest input, string sessionId = default, CancellationToken cancellationToken = default)
         {
             using var activity = KustoClient.ConnectorActivitySource.StartActivity("KustoClient.McpKustoQueryManagementAsync");
             try
@@ -642,7 +642,7 @@ namespace Azure.Connectors.Sdk.Kusto
                     queryParams.Add($"sessionId={Uri.EscapeDataString(sessionId)}");
                 var path = $"/mcp/KustoQueryManagement" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<MCPQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<McpQueryResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -682,4 +682,3 @@ namespace Azure.Connectors.Sdk.Kusto
 
     #endregion Client
 }
-

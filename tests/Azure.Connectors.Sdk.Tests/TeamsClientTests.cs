@@ -66,7 +66,7 @@ namespace Azure.Connectors.Sdk.Tests
             else
             {
                 AiInsightDetailResponse result = await client
-                    .GetAIInsightAsync(meetingId: "meeting-1", aIInsightId: "insight-1")
+                    .GetAIInsightAsync(meetingId: "meeting-1", aiInsightId: "insight-1")
                     .ConfigureAwait(continueOnCapturedContext: false);
                 Assert.AreEqual(expected: "insight-1", actual: result.AIInsightId);
                 Assert.AreEqual(expected: "call-1", actual: result.CallId);
@@ -123,14 +123,14 @@ namespace Azure.Connectors.Sdk.Tests
                 options: setup.Options);
 
             AiInsightDetailResponse result = await client
-                .GetAIInsightAsync(meetingId: "meeting/1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
+                .GetAIInsightAsync(meetingId: "meeting/1", aiInsightId: "insight-1", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(expected: "https://example.invalid/$metadata#insight", actual: result.Context);
             Assert.AreEqual(expected: "insight-1", actual: result.AIInsightId);
             Assert.AreEqual(expected: "call-1", actual: result.CallId);
             Assert.AreEqual(expected: "correlation-1", actual: result.ContentCorrelationId);
-            Assert.AreEqual(expected: "https://example.invalid/recap", actual: result.RecapURL);
+            Assert.AreEqual(expected: "https://example.invalid/recap", actual: result.RecapUrl);
             Assert.AreEqual(expected: "Synthetic subpoint", actual: result.MeetingNotes[0].Subpoints[0].Text);
             Assert.AreEqual(expected: "Synthetic User", actual: result.ActionItems[0].OwnerDisplayName);
             Assert.AreEqual(expected: "Synthetic mention", actual: result.Viewpoint.MentionEvents[0].TranscriptUtterance);
@@ -154,7 +154,7 @@ namespace Azure.Connectors.Sdk.Tests
                 });
             var exception = await Assert
                 .ThrowsExactlyAsync<ConnectorException>(async () => await client
-                    .GetAIInsightAsync(meetingId: "meeting-1", aIInsightId: "insight-1", cancellationToken: CancellationToken.None)
+                    .GetAIInsightAsync(meetingId: "meeting-1", aiInsightId: "insight-1", cancellationToken: CancellationToken.None)
                     .ConfigureAwait(continueOnCapturedContext: false))
                 .ConfigureAwait(continueOnCapturedContext: false);
             Assert.AreEqual(expected: 403, actual: exception.Status);
@@ -274,7 +274,7 @@ namespace Azure.Connectors.Sdk.Tests
                 Importance = "normal",
                 IsOrganizer = true,
                 HasAttachments = false,
-                OnlineMeetingURL = "https://teams.microsoft.com/meet/123"
+                OnlineMeetingUrl = "https://teams.microsoft.com/meet/123"
             };
 
             // Assert
@@ -282,7 +282,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("Team Standup", meeting.Subject);
             Assert.AreEqual("normal", meeting.Importance);
             Assert.AreEqual(true, meeting.IsOrganizer);
-            Assert.AreEqual("https://teams.microsoft.com/meet/123", meeting.OnlineMeetingURL);
+            Assert.AreEqual("https://teams.microsoft.com/meet/123", meeting.OnlineMeetingUrl);
         }
 
         [TestMethod]

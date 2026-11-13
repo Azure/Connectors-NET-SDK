@@ -19,6 +19,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Insightly.Models;
 using Azure.Core;
@@ -179,11 +180,15 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     /// <summary>
     /// A Insightly Project response object
     /// </summary>
-    public class ListProjectsResponse
+    public class ListProjectsResponse : IPageable<Project>
     {
         /// <summary>A collection of projects</summary>
         [JsonPropertyName("projects")]
-        public List<Project> Projects { get; set; }
+        public List<Project> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -209,7 +214,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The image URL of the project.</summary>
         [JsonPropertyName("IMAGE_URL")]
-        public string ImageURL { get; set; }
+        public string ImageUrl { get; set; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
@@ -265,7 +270,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Can edit</summary>
         [JsonPropertyName("CAN_EDIT")]
@@ -360,7 +365,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Lead website URL</summary>
         [JsonPropertyName("WEBSITE_URL")]
-        public string WebsiteURL { get; set; }
+        public string WebsiteUrl { get; set; }
 
         /// <summary>The unique identifier of the lead owner.</summary>
         [JsonPropertyName("OWNER_USER_ID")]
@@ -428,11 +433,11 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Lead Image URL</summary>
         [JsonPropertyName("IMAGE_URL")]
-        public string ImageURL { get; set; }
+        public string ImageUrl { get; set; }
 
         /// <summary>Can edit</summary>
         [JsonPropertyName("CAN_EDIT")]
@@ -528,7 +533,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Contact image URL.</summary>
         [JsonPropertyName("IMAGE_URL")]
-        public string ImageURL { get; set; }
+        public string ImageUrl { get; set; }
 
         /// <summary>yyyy-MM-dd HH:mm:ss</summary>
         [JsonPropertyName("DATE_CREATED_UTC")]
@@ -562,7 +567,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Can edit</summary>
         [JsonPropertyName("CAN_EDIT")]
@@ -804,7 +809,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Organization image URL.</summary>
         [JsonPropertyName("IMAGE_URL")]
-        public string ImageURL { get; set; }
+        public string ImageUrl { get; set; }
 
         /// <summary>The unique identifier of the team.</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -812,7 +817,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
     }
 
     /// <summary>
@@ -860,7 +865,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Contact info type.</summary>
         [JsonPropertyName("TYPE")]
-        public TYPE? Type { get; set; }
+        public InsightlyType? Type { get; set; }
 
         /// <summary>Contact info sub-type.</summary>
         [JsonPropertyName("SUBTYPE")]
@@ -939,11 +944,11 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The image URL of the project.</summary>
         [JsonPropertyName("IMAGE_URL")]
-        public string ImageURL { get; set; }
+        public string ImageUrl { get; set; }
 
         /// <summary>Project Visibility.</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public VISIBLETO? ProjectVisibility { get; set; }
+        public VisibleTo? ProjectVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -951,7 +956,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>The unique identifier of the opportunity.</summary>
         [JsonPropertyName("OPPORTUNITY_ID")]
@@ -998,7 +1003,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Lead Visibility</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public VISIBLETO? LeadVisibility { get; set; }
+        public VisibleTo? LeadVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1006,7 +1011,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>The name of the organization.</summary>
         [JsonPropertyName("ORGANIZATION_NAME")]
@@ -1030,7 +1035,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Lead website URL</summary>
         [JsonPropertyName("WEBSITE_URL")]
-        public string WebsiteURL { get; set; }
+        public string WebsiteUrl { get; set; }
 
         /// <summary>The unique identifier of the lead owner.</summary>
         [JsonPropertyName("OWNER_USER_ID")]
@@ -1080,7 +1085,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Contact Visibility</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public VISIBLETO? ContactVisibility { get; set; }
+        public VisibleTo? ContactVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1088,7 +1093,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Contact Information</summary>
         [JsonPropertyName("CONTACTINFOS")]
@@ -1114,7 +1119,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Organization visibility.</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public VISIBLETO? OrganizationVisibility { get; set; }
+        public VisibleTo? OrganizationVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1122,7 +1127,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Organization Addresses</summary>
         [JsonPropertyName("ADDRESSES")]
@@ -1138,118 +1143,118 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Extensible enum for known TYPE values.
+    /// Extensible enum for known InsightlyType values.
     /// </summary>
-    [JsonConverter(typeof(TYPE.TYPEJsonConverter))]
-    public readonly struct TYPE : IEquatable<TYPE>
+    [JsonConverter(typeof(InsightlyType.InsightlyTypeJsonConverter))]
+    public readonly struct InsightlyType : IEquatable<InsightlyType>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TYPE"/> struct.
+        /// Initializes a new instance of the <see cref="InsightlyType"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public TYPE(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public InsightlyType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>Phone</summary>
-        public static TYPE Phone { get; } = new("Phone");
+        public static InsightlyType Phone { get; } = new("Phone");
 
         /// <summary>Email</summary>
-        public static TYPE Email { get; } = new("Email");
+        public static InsightlyType Email { get; } = new("Email");
 
         /// <summary>Social</summary>
-        public static TYPE Social { get; } = new("Social");
+        public static InsightlyType Social { get; } = new("Social");
 
         /// <summary>Website</summary>
-        public static TYPE Website { get; } = new("Website");
+        public static InsightlyType Website { get; } = new("Website");
 
-        /// <summary>Converts a string to <see cref="TYPE"/>.</summary>
-        public static implicit operator TYPE(string value) => new(value);
+        /// <summary>Converts a string to <see cref="InsightlyType"/>.</summary>
+        public static implicit operator InsightlyType(string value) => new(value);
 
-        /// <summary>Converts a <see cref="TYPE"/> to its string representation.</summary>
-        public static implicit operator string(TYPE value) => value.ToString();
+        /// <summary>Converts a <see cref="InsightlyType"/> to its string representation.</summary>
+        public static implicit operator string(InsightlyType value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(TYPE other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(InsightlyType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is TYPE other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is InsightlyType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(TYPE left, TYPE right) => left.Equals(right);
+        public static bool operator ==(InsightlyType left, InsightlyType right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(TYPE left, TYPE right) => !left.Equals(right);
+        public static bool operator !=(InsightlyType left, InsightlyType right) => !left.Equals(right);
 
-        internal sealed class TYPEJsonConverter : JsonConverter<TYPE>
+        internal sealed class InsightlyTypeJsonConverter : JsonConverter<InsightlyType>
         {
-            public TYPEJsonConverter() { }
-            public override TYPE Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for TYPE, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, TYPE value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public InsightlyTypeJsonConverter() { }
+            public override InsightlyType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for InsightlyType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, InsightlyType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
     /// <summary>
-    /// Extensible enum for known VISIBLETO values.
+    /// Extensible enum for known VisibleTo values.
     /// </summary>
-    [JsonConverter(typeof(VISIBLETO.VISIBLETOJsonConverter))]
-    public readonly struct VISIBLETO : IEquatable<VISIBLETO>
+    [JsonConverter(typeof(VisibleTo.VisibleToJsonConverter))]
+    public readonly struct VisibleTo : IEquatable<VisibleTo>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="VISIBLETO"/> struct.
+        /// Initializes a new instance of the <see cref="VisibleTo"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public VISIBLETO(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public VisibleTo(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>Everyone</summary>
-        public static VISIBLETO Everyone { get; } = new("Everyone");
+        public static VisibleTo Everyone { get; } = new("Everyone");
 
         /// <summary>Individuals</summary>
-        public static VISIBLETO Individuals { get; } = new("Individuals");
+        public static VisibleTo Individuals { get; } = new("Individuals");
 
         /// <summary>Owner</summary>
-        public static VISIBLETO Owner { get; } = new("Owner");
+        public static VisibleTo Owner { get; } = new("Owner");
 
         /// <summary>Team</summary>
-        public static VISIBLETO Team { get; } = new("Team");
+        public static VisibleTo Team { get; } = new("Team");
 
-        /// <summary>Converts a string to <see cref="VISIBLETO"/>.</summary>
-        public static implicit operator VISIBLETO(string value) => new(value);
+        /// <summary>Converts a string to <see cref="VisibleTo"/>.</summary>
+        public static implicit operator VisibleTo(string value) => new(value);
 
-        /// <summary>Converts a <see cref="VISIBLETO"/> to its string representation.</summary>
-        public static implicit operator string(VISIBLETO value) => value.ToString();
+        /// <summary>Converts a <see cref="VisibleTo"/> to its string representation.</summary>
+        public static implicit operator string(VisibleTo value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(VISIBLETO other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(VisibleTo other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is VISIBLETO other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is VisibleTo other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(VISIBLETO left, VISIBLETO right) => left.Equals(right);
+        public static bool operator ==(VisibleTo left, VisibleTo right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(VISIBLETO left, VISIBLETO right) => !left.Equals(right);
+        public static bool operator !=(VisibleTo left, VisibleTo right) => !left.Equals(right);
 
-        internal sealed class VISIBLETOJsonConverter : JsonConverter<VISIBLETO>
+        internal sealed class VisibleToJsonConverter : JsonConverter<VisibleTo>
         {
-            public VISIBLETOJsonConverter() { }
-            public override VISIBLETO Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for VISIBLETO, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, VISIBLETO value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public VisibleToJsonConverter() { }
+            public override VisibleTo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for VisibleTo, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, VisibleTo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -1352,11 +1357,13 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// Creates a new instance of <see cref="ListProjectsResponse"/>.
         /// </summary>
         public static ListProjectsResponse ListProjectsResponse(
-            List<Project> projects = default)
+            List<Project> value = default,
+            string nextLink = default)
         {
             return new ListProjectsResponse
             {
-                Projects = projects,
+                Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -1368,7 +1375,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string projectName = default,
             string projectStatus = default,
             string projectDetails = default,
-            string imageURL = default,
+            string imageUrl = default,
             string createdDateTime = default,
             string projectVisible = default,
             string updatedDateTime = default,
@@ -1381,7 +1388,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             int? stageId = default,
             int? categoryId = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             bool? canEdit = default,
             bool? canDelete = default)
         {
@@ -1391,7 +1398,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ProjectName = projectName,
                 ProjectStatus = projectStatus,
                 ProjectDetails = projectDetails,
-                ImageURL = imageURL,
+                ImageUrl = imageUrl,
                 CreatedDateTime = createdDateTime,
                 ProjectVisible = projectVisible,
                 UpdatedDateTime = updatedDateTime,
@@ -1404,7 +1411,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 StageId = stageId,
                 CategoryId = categoryId,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 CanEdit = canEdit,
                 CanDelete = canDelete,
             };
@@ -1442,7 +1449,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string mobilePhoneNumber = default,
             string emailAddress = default,
             bool? isConverted = default,
-            string websiteURL = default,
+            string websiteUrl = default,
             int? leadOwner = default,
             int? leadResponsible = default,
             int? leadEmployeeCount = default,
@@ -1459,8 +1466,8 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             int? convertedOpportunityId = default,
             int? leadSourceId = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
-            string imageURL = default,
+            int? visibleUserIds = default,
+            string imageUrl = default,
             bool? canEdit = default,
             bool? canDelete = default)
         {
@@ -1482,7 +1489,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 MobilePhoneNumber = mobilePhoneNumber,
                 EmailAddress = emailAddress,
                 IsConverted = isConverted,
-                WebsiteURL = websiteURL,
+                WebsiteUrl = websiteUrl,
                 LeadOwner = leadOwner,
                 LeadResponsible = leadResponsible,
                 LeadEmployeeCount = leadEmployeeCount,
@@ -1499,8 +1506,8 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ConvertedOpportunityId = convertedOpportunityId,
                 LeadSourceId = leadSourceId,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
-                ImageURL = imageURL,
+                VisibleUserIds = visibleUserIds,
+                ImageUrl = imageUrl,
                 CanEdit = canEdit,
                 CanDelete = canDelete,
             };
@@ -1539,7 +1546,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string salutation = default,
             string firstName = default,
             string lastName = default,
-            string imageURL = default,
+            string imageUrl = default,
             string createdDateTime = default,
             string contactVisibility = default,
             string background = default,
@@ -1547,7 +1554,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             int? ownerUserId = default,
             string updatedDateTime = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             bool? canEdit = default,
             bool? canDelete = default,
             string socialLinkedIn = default,
@@ -1573,7 +1580,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 Salutation = salutation,
                 FirstName = firstName,
                 LastName = lastName,
-                ImageURL = imageURL,
+                ImageUrl = imageUrl,
                 CreatedDateTime = createdDateTime,
                 ContactVisibility = contactVisibility,
                 Background = background,
@@ -1581,7 +1588,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 OwnerUserId = ownerUserId,
                 UpdatedDateTime = updatedDateTime,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 CanEdit = canEdit,
                 CanDelete = canDelete,
                 SocialLinkedIn = socialLinkedIn,
@@ -1708,9 +1715,9 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             List<Address> organizationValue = default,
             List<ContactInfo> contactInformation = default,
             string background = default,
-            string imageURL = default,
+            string imageUrl = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default)
+            int? visibleUserIds = default)
         {
             return new Organization
             {
@@ -1724,9 +1731,9 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 OrganizationValue = organizationValue,
                 ContactInformation = contactInformation,
                 Background = background,
-                ImageURL = imageURL,
+                ImageUrl = imageUrl,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
             };
         }
 
@@ -1759,7 +1766,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         /// </summary>
         public static ContactInfo ContactInfo(
             int? contactInfoId = default,
-            TYPE? type = default,
+            InsightlyType? type = default,
             string subType = default,
             string label = default,
             string detail = default)
@@ -1817,10 +1824,10 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string projectName = default,
             string projectDetails = default,
             string projectStatus = default,
-            string imageURL = default,
-            VISIBLETO? projectVisibility = default,
+            string imageUrl = default,
+            VisibleTo? projectVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             int? opportunityId = default,
             int? pipelineId = default,
             int? stageId = default,
@@ -1831,10 +1838,10 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ProjectName = projectName,
                 ProjectDetails = projectDetails,
                 ProjectStatus = projectStatus,
-                ImageURL = imageURL,
+                ImageUrl = imageUrl,
                 ProjectVisibility = projectVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 OpportunityId = opportunityId,
                 PipelineId = pipelineId,
                 StageId = stageId,
@@ -1851,15 +1858,15 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string lastName = default,
             string leadDescription = default,
             string convertedDateTime = default,
-            VISIBLETO? leadVisibility = default,
+            VisibleTo? leadVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             string organizationName = default,
             string phoneNumber = default,
             string mobilePhoneNumber = default,
             string emailAddress = default,
             bool? isConverted = default,
-            string websiteURL = default,
+            string websiteUrl = default,
             int? leadOwner = default,
             int? leadResponsible = default,
             int? leadEmployeeCount = default,
@@ -1876,13 +1883,13 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ConvertedDateTime = convertedDateTime,
                 LeadVisibility = leadVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 OrganizationName = organizationName,
                 PhoneNumber = phoneNumber,
                 MobilePhoneNumber = mobilePhoneNumber,
                 EmailAddress = emailAddress,
                 IsConverted = isConverted,
-                WebsiteURL = websiteURL,
+                WebsiteUrl = websiteUrl,
                 LeadOwner = leadOwner,
                 LeadResponsible = leadResponsible,
                 LeadEmployeeCount = leadEmployeeCount,
@@ -1900,9 +1907,9 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string firstName = default,
             string lastName = default,
             string background = default,
-            VISIBLETO? contactVisibility = default,
+            VisibleTo? contactVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             List<ContactInfo> contactInformation = default,
             List<Tag> tag = default)
         {
@@ -1914,7 +1921,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 Background = background,
                 ContactVisibility = contactVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 ContactInformation = contactInformation,
                 Tag = tag,
             };
@@ -1926,9 +1933,9 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         public static OrganizationRequest OrganizationRequest(
             string organizationName = default,
             string organizationBackground = default,
-            VISIBLETO? organizationVisibility = default,
+            VisibleTo? organizationVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             List<Address> organizationAddress = default,
             List<ContactInfo> contactInformation = default,
             List<Tag> tags = default)
@@ -1939,7 +1946,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 OrganizationBackground = organizationBackground,
                 OrganizationVisibility = organizationVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 OrganizationAddress = organizationAddress,
                 ContactInformation = contactInformation,
                 Tags = tags,
@@ -2172,23 +2179,14 @@ namespace Azure.Connectors.Sdk.Insightly
         /// </summary>
         /// <remarks>List projects</remarks>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List projects response.</returns>
-        public virtual async Task<ListProjectsResponse> ListProjectsAsync(CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Project"/> items across all pages.</returns>
+        public virtual AsyncPageable<Project> ListProjectsAsync(CancellationToken cancellationToken = default)
         {
-            using var activity = InsightlyClient.ConnectorActivitySource.StartActivity("InsightlyClient.ListProjectsAsync");
-            try
-            {
-                var path = $"/Projects";
-                return await this
-                    .CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            var path = $"/Projects";
+            return this.CreatePageable<ListProjectsResponse, Project>(
+                ct => this.CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ListProjectsResponse>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -2582,4 +2580,3 @@ namespace Azure.Connectors.Sdk.Insightly
 
     #endregion Client
 }
-

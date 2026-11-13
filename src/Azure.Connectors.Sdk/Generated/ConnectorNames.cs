@@ -58,42 +58,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>a365adminmcp</c> connector.
     /// </summary>
-    public const string Microsoft365AdminCenterMCP = "a365adminmcp";
+    public const string Microsoft365AdminCenterMcp = "a365adminmcp";
 
     /// <summary>
     /// The <c>a365copilotchatmcp</c> connector.
     /// </summary>
-    public const string WorkIQCopilotMCP = "a365copilotchatmcp";
+    public const string WorkIQCopilotMcp = "a365copilotchatmcp";
 
     /// <summary>
     /// The <c>a365mcpservers</c> connector.
     /// </summary>
-    public const string MicrosoftMCPServers = "a365mcpservers";
+    public const string MicrosoftMcpServers = "a365mcpservers";
 
     /// <summary>
     /// The <c>a365memcp</c> connector.
     /// </summary>
-    public const string WorkIQUserMCP = "a365memcp";
+    public const string WorkIQUserMcp = "a365memcp";
 
     /// <summary>
     /// The <c>a365outlookcalendarmcp</c> connector.
     /// </summary>
-    public const string WorkIQCalendarMCP = "a365outlookcalendarmcp";
+    public const string WorkIQCalendarMcp = "a365outlookcalendarmcp";
 
     /// <summary>
     /// The <c>a365outlookmailmcp</c> connector.
     /// </summary>
-    public const string WorkIQMailMCP = "a365outlookmailmcp";
+    public const string WorkIQMailMcp = "a365outlookmailmcp";
 
     /// <summary>
     /// The <c>a365teamsmcp</c> connector.
     /// </summary>
-    public const string WorkIQTeamsMCP = "a365teamsmcp";
+    public const string WorkIQTeamsMcp = "a365teamsmcp";
 
     /// <summary>
     /// The <c>a365wordmcp</c> connector.
     /// </summary>
-    public const string WorkIQWordMCP = "a365wordmcp";
+    public const string WorkIQWordMcp = "a365wordmcp";
 
     /// <summary>
     /// The <c>aadinvitationmanager</c> connector.
@@ -108,7 +108,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>abnlookup</c> connector.
     /// </summary>
-    public const string ABNLookupIndependentPublisher = "abnlookup";
+    public const string AbnLookupIndependentPublisher = "abnlookup";
 
     /// <summary>
     /// The <c>abortionpolicyapiip</c> connector.
@@ -138,7 +138,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>abstractibanvalidato</c> connector.
     /// </summary>
-    public const string AbstractIBANValidatorIndependentPublisher = "abstractibanvalidato";
+    public const string AbstractIbanValidatorIndependentPublisher = "abstractibanvalidato";
 
     /// <summary>
     /// The <c>abstractipgeolocatio</c> connector.
@@ -158,7 +158,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>abstractvatvalidator</c> connector.
     /// </summary>
-    public const string AbstractVATValidatorIndependentPublisher = "abstractvatvalidator";
+    public const string AbstractVatValidatorIndependentPublisher = "abstractvatvalidator";
 
     /// <summary>
     /// The <c>acceptmission</c> connector.
@@ -193,7 +193,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>acssmsevents</c> connector.
     /// </summary>
-    public const string AzureCommunicationServicesSMSEvents = "acssmsevents";
+    public const string AzureCommunicationServicesSmsEvents = "acssmsevents";
 
     /// <summary>
     /// The <c>act</c> connector.
@@ -243,7 +243,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>adobepdftools</c> connector.
     /// </summary>
-    public const string AdobePDFServices = "adobepdftools";
+    public const string AdobePdfServices = "adobepdftools";
 
     /// <summary>
     /// The <c>adobesign</c> connector.
@@ -253,7 +253,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>adoboards</c> connector.
     /// </summary>
-    public const string ADOBoards = "adoboards";
+    public const string AdoBoards = "adoboards";
 
     /// <summary>
     /// The <c>advanceddataoperatio</c> connector.
@@ -288,7 +288,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>africastalkingsms</c> connector.
     /// </summary>
-    public const string AfricasTalkingSMS = "africastalkingsms";
+    public const string AfricasTalkingSms = "africastalkingsms";
 
     /// <summary>
     /// The <c>africastalkingvoice</c> connector.
@@ -358,7 +358,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>airtable</c> connector.
     /// </summary>
-    public const string AirtableIndependentPublisherDEPRECATED = "airtable";
+    public const string AirtableIndependentPublisherDeprecated = "airtable";
 
     /// <summary>
     /// The <c>alchemy</c> connector.
@@ -368,7 +368,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>alembaitsm</c> connector.
     /// </summary>
-    public const string AlembaITSM = "alembaitsm";
+    public const string AlembaItsm = "alembaitsm";
 
     /// <summary>
     /// The <c>alertrelay</c> connector.
@@ -418,7 +418,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>alvao</c> connector.
     /// </summary>
-    public const string ALVAO = "alvao";
+    public const string Alvao = "alvao";
 
     /// <summary>
     /// The <c>amazons3</c> connector.
@@ -433,7 +433,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>amazonsqs</c> connector.
     /// </summary>
-    public const string AmazonSQS = "amazonsqs";
+    public const string AmazonSqs = "amazonsqs";
 
     /// <summary>
     /// The <c>ambeeip</c> connector.
@@ -443,7 +443,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ameeopenbusinessip</c> connector.
     /// </summary>
-    public const string AMEEOpenBusinessIndependentPublisher = "ameeopenbusinessip";
+    public const string AmeeOpenBusinessIndependentPublisher = "ameeopenbusinessip";
 
     /// <summary>
     /// The <c>annatureip</c> connector.
@@ -463,12 +463,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>anyrunthreatintellig</c> connector.
     /// </summary>
-    public const string ANYRUNThreatIntelligence = "anyrunthreatintellig";
+    public const string AnyrunThreatIntelligence = "anyrunthreatintellig";
 
     /// <summary>
     /// The <c>apitemplateip</c> connector.
     /// </summary>
-    public const string APITemplateIndependentPublisher = "apitemplateip";
+    public const string ApiTemplateIndependentPublisher = "apitemplateip";
 
     /// <summary>
     /// The <c>aplaceioip</c> connector.
@@ -508,7 +508,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>apptigentpowertoolslite</c> connector.
     /// </summary>
-    public const string ApptigentPowerToolsLITE = "apptigentpowertoolslite";
+    public const string ApptigentPowerToolsLite = "apptigentpowertoolslite";
 
     /// <summary>
     /// The <c>apptigentpowertoolspro</c> connector.
@@ -533,22 +533,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>aquaforest</c> connector.
     /// </summary>
-    public const string AquaforestPDF = "aquaforest";
+    public const string AquaforestPdf = "aquaforest";
 
     /// <summary>
     /// The <c>arcgis</c> connector.
     /// </summary>
-    public const string ArcGIS = "arcgis";
+    public const string ArcGis = "arcgis";
 
     /// <summary>
     /// The <c>arcgisenterprise</c> connector.
     /// </summary>
-    public const string ArcGISEnterprise = "arcgisenterprise";
+    public const string ArcGisEnterprise = "arcgisenterprise";
 
     /// <summary>
     /// The <c>arcgispaas</c> connector.
     /// </summary>
-    public const string ArcGISPaaS = "arcgispaas";
+    public const string ArcGisPaaS = "arcgispaas";
 
     /// <summary>
     /// The <c>arm</c> connector.
@@ -598,12 +598,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>asiteksa</c> connector.
     /// </summary>
-    public const string AsiteKSA = "asiteksa";
+    public const string AsiteKsa = "asiteksa";
 
     /// <summary>
     /// The <c>asiteuae</c> connector.
     /// </summary>
-    public const string AsiteUAE = "asiteuae";
+    public const string AsiteUae = "asiteuae";
 
     /// <summary>
     /// The <c>asiteusgov</c> connector.
@@ -613,7 +613,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>aspsms</c> connector.
     /// </summary>
-    public const string ASPSMS = "aspsms";
+    public const string Aspsms = "aspsms";
 
     /// <summary>
     /// The <c>assemblyai</c> connector.
@@ -723,7 +723,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azurecommunicationservicessms</c> connector.
     /// </summary>
-    public const string AzureCommunicationServicesSMS = "azurecommunicationservicessms";
+    public const string AzureCommunicationServicesSms = "azurecommunicationservicessms";
 
     /// <summary>
     /// The <c>azuredatafactory</c> connector.
@@ -773,7 +773,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azuremysql</c> connector.
     /// </summary>
-    public const string AzureDatabaseForMySQL = "azuremysql";
+    public const string AzureDatabaseForMySql = "azuremysql";
 
     /// <summary>
     /// The <c>azureopenai</c> connector.
@@ -818,7 +818,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bbcnews</c> connector.
     /// </summary>
-    public const string BBCNewsIndependentPublisher = "bbcnews";
+    public const string BbcNewsIndependentPublisher = "bbcnews";
 
     /// <summary>
     /// The <c>beauhurst</c> connector.
@@ -848,7 +848,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>billspls</c> connector.
     /// </summary>
-    public const string BillsPLS = "billspls";
+    public const string BillsPls = "billspls";
 
     /// <summary>
     /// The <c>binanceusip</c> connector.
@@ -858,7 +858,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bincheckerip</c> connector.
     /// </summary>
-    public const string BINCheckerIndependentPublisher = "bincheckerip";
+    public const string BinCheckerIndependentPublisher = "bincheckerip";
 
     /// <summary>
     /// The <c>bingmaps</c> connector.
@@ -913,7 +913,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bkkfutarip</c> connector.
     /// </summary>
-    public const string BKKFutarIndependentPublisher = "bkkfutarip";
+    public const string BkkFutarIndependentPublisher = "bkkfutarip";
 
     /// <summary>
     /// The <c>blackbaudaltruconsti</c> connector.
@@ -923,77 +923,77 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>blackbaudconstituent</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTConstituents = "blackbaudconstituent";
+    public const string BlackbaudRaisersEdgeNxtConstituents = "blackbaudconstituent";
 
     /// <summary>
     /// The <c>blackbaudcrmconstitu</c> connector.
     /// </summary>
-    public const string BlackbaudCRMConstituent = "blackbaudcrmconstitu";
+    public const string BlackbaudCrmConstituent = "blackbaudcrmconstitu";
 
     /// <summary>
     /// The <c>blackbaudcrmprospect</c> connector.
     /// </summary>
-    public const string BlackbaudCRMProspect = "blackbaudcrmprospect";
+    public const string BlackbaudCrmProspect = "blackbaudcrmprospect";
 
     /// <summary>
     /// The <c>blackbauddocuments</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTDocuments = "blackbauddocuments";
+    public const string BlackbaudRaisersEdgeNxtDocuments = "blackbauddocuments";
 
     /// <summary>
     /// The <c>blackbaudevents</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTEvents = "blackbaudevents";
+    public const string BlackbaudRaisersEdgeNxtEvents = "blackbaudevents";
 
     /// <summary>
     /// The <c>blackbaudfenxtquery</c> connector.
     /// </summary>
-    public const string BlackbaudFENXTQuery = "blackbaudfenxtquery";
+    public const string BlackbaudFenxtQuery = "blackbaudfenxtquery";
 
     /// <summary>
     /// The <c>blackbaudfundraising</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTFundraising = "blackbaudfundraising";
+    public const string BlackbaudRaisersEdgeNxtFundraising = "blackbaudfundraising";
 
     /// <summary>
     /// The <c>blackbaudgifts</c> connector.
     /// </summary>
-    public const string BlackbaudRENXTGifts = "blackbaudgifts";
+    public const string BlackbaudRenxtGifts = "blackbaudgifts";
 
     /// <summary>
     /// The <c>blackbaudinteraction</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTInteractions = "blackbaudinteraction";
+    public const string BlackbaudRaisersEdgeNxtInteractions = "blackbaudinteraction";
 
     /// <summary>
     /// The <c>blackbaudlists</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTLists = "blackbaudlists";
+    public const string BlackbaudRaisersEdgeNxtLists = "blackbaudlists";
 
     /// <summary>
     /// The <c>blackbaudprospects</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXTProspects = "blackbaudprospects";
+    public const string BlackbaudRaisersEdgeNxtProspects = "blackbaudprospects";
 
     /// <summary>
     /// The <c>blackbaudraisersedge</c> connector.
     /// </summary>
-    public const string BlackbaudRaisersEdgeNXT = "blackbaudraisersedge";
+    public const string BlackbaudRaisersEdgeNxt = "blackbaudraisersedge";
 
     /// <summary>
     /// The <c>blackbaudrenxtquery</c> connector.
     /// </summary>
-    public const string BlackbaudRENXTQuery = "blackbaudrenxtquery";
+    public const string BlackbaudRenxtQuery = "blackbaudrenxtquery";
 
     /// <summary>
     /// The <c>blackbaudrenxtreport</c> connector.
     /// </summary>
-    public const string BlackbaudRENXTReports = "blackbaudrenxtreport";
+    public const string BlackbaudRenxtReports = "blackbaudrenxtreport";
 
     /// <summary>
     /// The <c>blackbaudskyaddins</c> connector.
     /// </summary>
-    public const string BlackbaudSKYAddIns = "blackbaudskyaddins";
+    public const string BlackbaudSkyAddIns = "blackbaudskyaddins";
 
     /// <summary>
     /// The <c>blogger</c> connector.
@@ -1033,7 +1033,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>boxmcpserver</c> connector.
     /// </summary>
-    public const string BoxMCPServer = "boxmcpserver";
+    public const string BoxMcpServer = "boxmcpserver";
 
     /// <summary>
     /// The <c>bravesearch</c> connector.
@@ -1048,7 +1048,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bttnone</c> connector.
     /// </summary>
-    public const string BttnONE = "bttnone";
+    public const string BttnOne = "bttnone";
 
     /// <summary>
     /// The <c>buffer</c> connector.
@@ -1063,7 +1063,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>bulksms</c> connector.
     /// </summary>
-    public const string BulkSMS = "bulksms";
+    public const string BulkSms = "bulksms";
 
     /// <summary>
     /// The <c>bureauofeconomicanal</c> connector.
@@ -1128,7 +1128,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>capsulecrm</c> connector.
     /// </summary>
-    public const string CapsuleCRM = "capsulecrm";
+    public const string CapsuleCrm = "capsulecrm";
 
     /// <summary>
     /// The <c>captisaforms</c> connector.
@@ -1193,17 +1193,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cdccontentservicesip</c> connector.
     /// </summary>
-    public const string CDCContentServicesIndependentPublisher = "cdccontentservicesip";
+    public const string CdcContentServicesIndependentPublisher = "cdccontentservicesip";
 
     /// <summary>
     /// The <c>cdkdrivecustomer</c> connector.
     /// </summary>
-    public const string CDKDriveCustomer = "cdkdrivecustomer";
+    public const string CdkDriveCustomer = "cdkdrivecustomer";
 
     /// <summary>
     /// The <c>cdkdriveservicevehicles</c> connector.
     /// </summary>
-    public const string CDKDriveServiceVehicles = "cdkdriveservicevehicles";
+    public const string CdkDriveServiceVehicles = "cdkdriveservicevehicles";
 
     /// <summary>
     /// The <c>cdkeleadproductreferencedata</c> connector.
@@ -1228,7 +1228,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>celonismcpserver</c> connector.
     /// </summary>
-    public const string CelonisMCPServer = "celonismcpserver";
+    public const string CelonisMcpServer = "celonismcpserver";
 
     /// <summary>
     /// The <c>centrical</c> connector.
@@ -1323,7 +1323,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cloudbot</c> connector.
     /// </summary>
-    public const string CloudBOT = "cloudbot";
+    public const string CloudBot = "cloudbot";
 
     /// <summary>
     /// The <c>cloudconvert</c> connector.
@@ -1343,7 +1343,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cloudmersivecdr</c> connector.
     /// </summary>
-    public const string CloudmersiveCDR = "cloudmersivecdr";
+    public const string CloudmersiveCdr = "cloudmersivecdr";
 
     /// <summary>
     /// The <c>cloudmersiveconvert</c> connector.
@@ -1373,12 +1373,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cloudmersivenlp</c> connector.
     /// </summary>
-    public const string CloudmersiveNLP = "cloudmersivenlp";
+    public const string CloudmersiveNlp = "cloudmersivenlp";
 
     /// <summary>
     /// The <c>cloudmersivepdf</c> connector.
     /// </summary>
-    public const string CloudmersivePDF = "cloudmersivepdf";
+    public const string CloudmersivePdf = "cloudmersivepdf";
 
     /// <summary>
     /// The <c>cloudmersivesecurity</c> connector.
@@ -1393,7 +1393,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cloudpkimanagement</c> connector.
     /// </summary>
-    public const string CloudPKIManagement = "cloudpkimanagement";
+    public const string CloudPkiManagement = "cloudpkimanagement";
 
     /// <summary>
     /// The <c>cloverlyip</c> connector.
@@ -1408,7 +1408,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cmi</c> connector.
     /// </summary>
-    public const string CMI = "cmi";
+    public const string Cmi = "cmi";
 
     /// <summary>
     /// The <c>co2signalip</c> connector.
@@ -1428,7 +1428,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cognitiveservicescomputervision</c> connector.
     /// </summary>
-    public const string ComputerVisionAPI = "cognitiveservicescomputervision";
+    public const string ComputerVisionApi = "cognitiveservicescomputervision";
 
     /// <summary>
     /// The <c>cognitiveservicescontentmoderator</c> connector.
@@ -1478,7 +1478,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cohesitygaiamcp</c> connector.
     /// </summary>
-    public const string CohesityGaiaMCP = "cohesitygaiamcp";
+    public const string CohesityGaiaMcp = "cohesitygaiamcp";
 
     /// <summary>
     /// The <c>coinbaseip</c> connector.
@@ -1528,7 +1528,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>connectwisepsa</c> connector.
     /// </summary>
-    public const string ConnectWisePSAIndependentPublisher = "connectwisepsa";
+    public const string ConnectWisePsaIndependentPublisher = "connectwisepsa";
 
     /// <summary>
     /// The <c>connpassip</c> connector.
@@ -1583,7 +1583,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>cornerstonelearningv</c> connector.
     /// </summary>
-    public const string CornerstoneLearningVILT = "cornerstonelearningv";
+    public const string CornerstoneLearningVilt = "cornerstonelearningv";
 
     /// <summary>
     /// The <c>corporatebuzzwordip</c> connector.
@@ -1593,12 +1593,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>corptaxsandbox</c> connector.
     /// </summary>
-    public const string CSCCorptax = "corptaxsandbox";
+    public const string CscCorptax = "corptaxsandbox";
 
     /// <summary>
     /// The <c>cosmobot</c> connector.
     /// </summary>
-    public const string COSMOBot = "cosmobot";
+    public const string CosmoBot = "cosmobot";
 
     /// <summary>
     /// The <c>coupaip</c> connector.
@@ -1613,22 +1613,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>covid19jhucsseip</c> connector.
     /// </summary>
-    public const string COVID19JHUCSSEIndependentPublisher = "covid19jhucsseip";
+    public const string Covid19JhucsseIndependentPublisher = "covid19jhucsseip";
 
     /// <summary>
     /// The <c>cpqsync</c> connector.
     /// </summary>
-    public const string CPQSync = "cpqsync";
+    public const string CpqSync = "cpqsync";
 
     /// <summary>
     /// The <c>cpscrecallsretrievalip</c> connector.
     /// </summary>
-    public const string CPSCRecallsRetrievalIndependentPublisher = "cpscrecallsretrievalip";
+    public const string CpscRecallsRetrievalIndependentPublisher = "cpscrecallsretrievalip";
 
     /// <summary>
     /// The <c>cqcdata</c> connector.
     /// </summary>
-    public const string CQCDataIndependentPublisher = "cqcdata";
+    public const string CqcDataIndependentPublisher = "cqcdata";
 
     /// <summary>
     /// The <c>cradlai</c> connector.
@@ -1638,17 +1638,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>craftmypdfip</c> connector.
     /// </summary>
-    public const string CraftMyPDFIndependentPublisher = "craftmypdfip";
+    public const string CraftMyPdfIndependentPublisher = "craftmypdfip";
 
     /// <summary>
     /// The <c>crmbot</c> connector.
     /// </summary>
-    public const string CRMBot = "crmbot";
+    public const string CrmBot = "crmbot";
 
     /// <summary>
     /// The <c>cronofymcp</c> connector.
     /// </summary>
-    public const string CronofyMCP = "cronofymcp";
+    public const string CronofyMcp = "cronofymcp";
 
     /// <summary>
     /// The <c>crossbeam</c> connector.
@@ -1658,7 +1658,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>csvconverterbypower2</c> connector.
     /// </summary>
-    public const string CSVConverterByPower2Apps = "csvconverterbypower2";
+    public const string CsvConverterByPower2Apps = "csvconverterbypower2";
 
     /// <summary>
     /// The <c>customerinsights</c> connector.
@@ -1688,17 +1688,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>d365customerservicemcpserver</c> connector.
     /// </summary>
-    public const string Dynamics365ServiceMCP = "d365customerservicemcpserver";
+    public const string Dynamics365ServiceMcp = "d365customerservicemcpserver";
 
     /// <summary>
     /// The <c>d365erpmcpserver</c> connector.
     /// </summary>
-    public const string Dynamics365ERPAnalyticsMCP = "d365erpmcpserver";
+    public const string Dynamics365ErpAnalyticsMcp = "d365erpmcpserver";
 
     /// <summary>
     /// The <c>d365salesmcpserver</c> connector.
     /// </summary>
-    public const string Dynamics365SalesMCPServer = "d365salesmcpserver";
+    public const string Dynamics365SalesMcpServer = "d365salesmcpserver";
 
     /// <summary>
     /// The <c>d7messaging</c> connector.
@@ -1708,7 +1708,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>d7sms</c> connector.
     /// </summary>
-    public const string D7SMS = "d7sms";
+    public const string D7Sms = "d7sms";
 
     /// <summary>
     /// The <c>dadjokes</c> connector.
@@ -1773,7 +1773,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dataflowssms</c> connector.
     /// </summary>
-    public const string DataFlowsSMS = "dataflowssms";
+    public const string DataFlowsSms = "dataflowssms";
 
     /// <summary>
     /// The <c>datamuseip</c> connector.
@@ -1788,7 +1788,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dayforcehcm</c> connector.
     /// </summary>
-    public const string DayforceHCM = "dayforcehcm";
+    public const string DayforceHcm = "dayforcehcm";
 
     /// <summary>
     /// The <c>db2</c> connector.
@@ -1798,7 +1798,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dbftoxmlconverter</c> connector.
     /// </summary>
-    public const string DBF2XML = "dbftoxmlconverter";
+    public const string Dbf2Xml = "dbftoxmlconverter";
 
     /// <summary>
     /// The <c>decentralandip</c> connector.
@@ -1828,7 +1828,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>deeplipip</c> connector.
     /// </summary>
-    public const string DeepLIPIndependentPublisher = "deeplipip";
+    public const string DeepLipIndependentPublisher = "deeplipip";
 
     /// <summary>
     /// The <c>delijnip</c> connector.
@@ -1878,7 +1878,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>digileanconnect</c> connector.
     /// </summary>
-    public const string DigiLEANConnect = "digileanconnect";
+    public const string DigiLeanConnect = "digileanconnect";
 
     /// <summary>
     /// The <c>digitalhumaniip</c> connector.
@@ -1928,7 +1928,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>doctopdf</c> connector.
     /// </summary>
-    public const string DocToPDF = "doctopdf";
+    public const string DocToPdf = "doctopdf";
 
     /// <summary>
     /// The <c>docugami</c> connector.
@@ -1986,9 +1986,14 @@ public static class ConnectorNames
     public const string Docurain = "docurain";
 
     /// <summary>
+    /// The <c>docusign</c> connector.
+    /// </summary>
+    public const string Docusign = "docusign";
+
+    /// <summary>
     /// The <c>docusignmcpdemo</c> connector.
     /// </summary>
-    public const string DocusignMCPDemo = "docusignmcpdemo";
+    public const string DocusignMcpDemo = "docusignmcpdemo";
 
     /// <summary>
     /// The <c>docuware</c> connector.
@@ -2003,7 +2008,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dokobituniversalapi</c> connector.
     /// </summary>
-    public const string DokobitUniversalAPI = "dokobituniversalapi";
+    public const string DokobitUniversalApi = "dokobituniversalapi";
 
     /// <summary>
     /// The <c>domaintoolsirisenric</c> connector.
@@ -2033,17 +2038,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dpirdradarip</c> connector.
     /// </summary>
-    public const string DPIRDRadarWestAustraliaIndependentPublisher = "dpirdradarip";
+    public const string DpirdRadarWestAustraliaIndependentPublisher = "dpirdradarip";
 
     /// <summary>
     /// The <c>dpirdscienceip</c> connector.
     /// </summary>
-    public const string DPIRDScienceWestAustraliaIndependentPublisher = "dpirdscienceip";
+    public const string DpirdScienceWestAustraliaIndependentPublisher = "dpirdscienceip";
 
     /// <summary>
     /// The <c>dpirdweatherip</c> connector.
     /// </summary>
-    public const string DPIRDWeatherWestAustraliaIndependentPublisher = "dpirdweatherip";
+    public const string DpirdWeatherWestAustraliaIndependentPublisher = "dpirdweatherip";
 
     /// <summary>
     /// The <c>dqondemand</c> connector.
@@ -2058,7 +2063,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>draupmcpserver</c> connector.
     /// </summary>
-    public const string DraupMCPServer = "draupmcpserver";
+    public const string DraupMcpServer = "draupmcpserver";
 
     /// <summary>
     /// The <c>dropbox</c> connector.
@@ -2078,7 +2083,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dvlavehicleenquiryse</c> connector.
     /// </summary>
-    public const string DVLAVehicleEnquiryServiceIndependentPublisher = "dvlavehicleenquiryse";
+    public const string DvlaVehicleEnquiryServiceIndependentPublisher = "dvlavehicleenquiryse";
 
     /// <summary>
     /// The <c>dynamics365ratingsre</c> connector.
@@ -2113,12 +2118,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>dynamicsnav2016</c> connector.
     /// </summary>
-    public const string DynamicsNAV2016 = "dynamicsnav2016";
+    public const string DynamicsNaV2016 = "dynamicsnav2016";
 
     /// <summary>
     /// The <c>dynamicsnavision</c> connector.
     /// </summary>
-    public const string DynamicsNAV = "dynamicsnavision";
+    public const string DynamicsNav = "dynamicsnavision";
 
     /// <summary>
     /// The <c>dynamicssmbonprem</c> connector.
@@ -2178,12 +2183,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ebms</c> connector.
     /// </summary>
-    public const string EBMS = "ebms";
+    public const string Ebms = "ebms";
 
     /// <summary>
     /// The <c>ecfr</c> connector.
     /// </summary>
-    public const string ECFRIndependentPublisher = "ecfr";
+    public const string EcfrIndependentPublisher = "ecfr";
 
     /// <summary>
     /// The <c>ecode360</c> connector.
@@ -2268,7 +2273,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>emailveritasurlcheck</c> connector.
     /// </summary>
-    public const string EmailVeritasURLChecker = "emailveritasurlcheck";
+    public const string EmailVeritasUrlChecker = "emailveritasurlcheck";
 
     /// <summary>
     /// The <c>emfluencemp</c> connector.
@@ -2288,7 +2293,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>emtatlasaims</c> connector.
     /// </summary>
-    public const string EMTATLASAIMS = "emtatlasaims";
+    public const string Emtatlasaims = "emtatlasaims";
 
     /// <summary>
     /// The <c>enadoc</c> connector.
@@ -2328,7 +2333,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>encodianpdf</c> connector.
     /// </summary>
-    public const string EncodianPDF = "encodianpdf";
+    public const string EncodianPdf = "encodianpdf";
 
     /// <summary>
     /// The <c>encodianpowerpoint</c> connector.
@@ -2363,7 +2368,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>enlyftmcp</c> connector.
     /// </summary>
-    public const string EnlyftMCP = "enlyftmcp";
+    public const string EnlyftMcp = "enlyftmcp";
 
     /// <summary>
     /// The <c>entegrations</c> connector.
@@ -2388,7 +2393,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>eonetbynasaip</c> connector.
     /// </summary>
-    public const string EONETByNASAIndependentPublisher = "eonetbynasaip";
+    public const string EonetByNasaIndependentPublisher = "eonetbynasaip";
 
     /// <summary>
     /// The <c>ephesoftsemantikforinvoices</c> connector.
@@ -2433,7 +2438,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ewaycrm</c> connector.
     /// </summary>
-    public const string EWayCRM = "ewaycrm";
+    public const string EWayCrm = "ewaycrm";
 
     /// <summary>
     /// The <c>exactonlinetimebilip</c> connector.
@@ -2468,7 +2473,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>experlogixcpq</c> connector.
     /// </summary>
-    public const string ExperlogixCPQ = "experlogixcpq";
+    public const string ExperlogixCpq = "experlogixcpq";
 
     /// <summary>
     /// The <c>experlogixsmartflows</c> connector.
@@ -2483,12 +2488,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>expocad</c> connector.
     /// </summary>
-    public const string EXPOCAD = "expocad";
+    public const string Expocad = "expocad";
 
     /// <summary>
     /// The <c>ezekiamcp</c> connector.
     /// </summary>
-    public const string EzekiaMCP = "ezekiamcp";
+    public const string EzekiaMcp = "ezekiamcp";
 
     /// <summary>
     /// The <c>faanotam</c> connector.
@@ -2503,7 +2508,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>faceapi</c> connector.
     /// </summary>
-    public const string FaceAPI = "faceapi";
+    public const string FaceApi = "faceapi";
 
     /// <summary>
     /// The <c>factset</c> connector.
@@ -2518,17 +2523,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>farsightdnsdb</c> connector.
     /// </summary>
-    public const string FarsightDNSDB = "farsightdnsdb";
+    public const string FarsightDnsDB = "farsightdnsdb";
 
     /// <summary>
     /// The <c>fbimostwanted</c> connector.
     /// </summary>
-    public const string FBIMostWantedIndependentPublisher = "fbimostwanted";
+    public const string FbiMostWantedIndependentPublisher = "fbimostwanted";
 
     /// <summary>
     /// The <c>fdic</c> connector.
     /// </summary>
-    public const string FDICIndependentPublisher = "fdic";
+    public const string FdicIndependentPublisher = "fdic";
 
     /// <summary>
     /// The <c>featheryforms</c> connector.
@@ -2568,7 +2573,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>fema</c> connector.
     /// </summary>
-    public const string FEMAIndependentPublisher = "fema";
+    public const string FemaIndependentPublisher = "fema";
 
     /// <summary>
     /// The <c>festivoip</c> connector.
@@ -2578,17 +2583,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>fhirbase</c> connector.
     /// </summary>
-    public const string FHIRBase = "fhirbase";
+    public const string FhirBase = "fhirbase";
 
     /// <summary>
     /// The <c>fhirclinical</c> connector.
     /// </summary>
-    public const string FHIRClinical = "fhirclinical";
+    public const string FhirClinical = "fhirclinical";
 
     /// <summary>
     /// The <c>fhirlink</c> connector.
     /// </summary>
-    public const string FHIRlink = "fhirlink";
+    public const string FhiRlink = "fhirlink";
 
     /// <summary>
     /// The <c>fieldequip</c> connector.
@@ -2618,12 +2623,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>financialconductauth</c> connector.
     /// </summary>
-    public const string FCAIndependentPublisher = "financialconductauth";
+    public const string FcaIndependentPublisher = "financialconductauth";
 
     /// <summary>
     /// The <c>finnishbisip</c> connector.
     /// </summary>
-    public const string FinnishBISIndependentPublisher = "finnishbisip";
+    public const string FinnishBisIndependentPublisher = "finnishbisip";
 
     /// <summary>
     /// The <c>finnishrailwaytrafip</c> connector.
@@ -2633,7 +2638,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>finra</c> connector.
     /// </summary>
-    public const string FINRAIndependentPublisher = "finra";
+    public const string FinraIndependentPublisher = "finra";
 
     /// <summary>
     /// The <c>firetext</c> connector.
@@ -2668,7 +2673,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>flotiqheadlesscms</c> connector.
     /// </summary>
-    public const string FlotiqHeadlessCMS = "flotiqheadlesscms";
+    public const string FlotiqHeadlessCms = "flotiqheadlesscms";
 
     /// <summary>
     /// The <c>flowforma</c> connector.
@@ -2698,12 +2703,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>forcamforcebridge</c> connector.
     /// </summary>
-    public const string FORCAMFORCEBridge = "forcamforcebridge";
+    public const string ForcamforceBridge = "forcamforcebridge";
 
     /// <summary>
     /// The <c>forcemanagercrm</c> connector.
     /// </summary>
-    public const string ForceManagerCRM = "forcemanagercrm";
+    public const string ForceManagerCrm = "forcemanagercrm";
 
     /// <summary>
     /// The <c>foremip</c> connector.
@@ -2743,7 +2748,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ftp</c> connector.
     /// </summary>
-    public const string FTP = "ftp";
+    public const string Ftp = "ftp";
 
     /// <summary>
     /// The <c>fulcrum</c> connector.
@@ -2778,17 +2783,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>gienitsservermcp</c> connector.
     /// </summary>
-    public const string GieniTSServerMCP = "gienitsservermcp";
+    public const string GieniTSServerMcp = "gienitsservermcp";
 
     /// <summary>
     /// The <c>giphyip</c> connector.
     /// </summary>
-    public const string GIPHYIndependentPublisher = "giphyip";
+    public const string GiphyIndependentPublisher = "giphyip";
 
     /// <summary>
     /// The <c>giscloud</c> connector.
     /// </summary>
-    public const string GISCloud = "giscloud";
+    public const string GisCloud = "giscloud";
 
     /// <summary>
     /// The <c>github</c> connector.
@@ -2803,7 +2808,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>githubenterprise</c> connector.
     /// </summary>
-    public const string GitHubEnterpriseMSFT = "githubenterprise";
+    public const string GitHubEnterpriseMsft = "githubenterprise";
 
     /// <summary>
     /// The <c>githubgistsip</c> connector.
@@ -2848,7 +2853,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>gmosign</c> connector.
     /// </summary>
-    public const string GMOSign = "gmosign";
+    public const string GmoSign = "gmosign";
 
     /// <summary>
     /// The <c>gofileroom</c> connector.
@@ -2963,22 +2968,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>gsaanalytics</c> connector.
     /// </summary>
-    public const string GSAAnalyticsIndependentPublisher = "gsaanalytics";
+    public const string GsaAnalyticsIndependentPublisher = "gsaanalytics";
 
     /// <summary>
     /// The <c>gsaperdiem</c> connector.
     /// </summary>
-    public const string GSAPerDiemIndependentPublisher = "gsaperdiem";
+    public const string GsaPerDiemIndependentPublisher = "gsaperdiem";
 
     /// <summary>
     /// The <c>gsapubliccomment</c> connector.
     /// </summary>
-    public const string GSAPublicCommentIndependentPublisher = "gsapubliccomment";
+    public const string GsaPublicCommentIndependentPublisher = "gsapubliccomment";
 
     /// <summary>
     /// The <c>gsasitescanning</c> connector.
     /// </summary>
-    public const string GSASiteScanningIndependentPublisher = "gsasitescanning";
+    public const string GsaSiteScanningIndependentPublisher = "gsasitescanning";
 
     /// <summary>
     /// The <c>harnesspdfx</c> connector.
@@ -3003,7 +3008,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hashtagapiip</c> connector.
     /// </summary>
-    public const string HashtagAPIIndependentPublisher = "hashtagapiip";
+    public const string HashtagApiIndependentPublisher = "hashtagapiip";
 
     /// <summary>
     /// The <c>haveibeenpwnedip</c> connector.
@@ -3018,7 +3023,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hhsmediaservices</c> connector.
     /// </summary>
-    public const string HHSMediaServicesIndependentPublisher = "hhsmediaservices";
+    public const string HhsMediaServicesIndependentPublisher = "hhsmediaservices";
 
     /// <summary>
     /// The <c>highgearworkflow</c> connector.
@@ -3038,7 +3043,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>highspotmcptestjan20</c> connector.
     /// </summary>
-    public const string HighspotMCP = "highspotmcptestjan20";
+    public const string HighspotMcp = "highspotmcptestjan20";
 
     /// <summary>
     /// The <c>hipchat</c> connector.
@@ -3053,7 +3058,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hivecpqproductconfig</c> connector.
     /// </summary>
-    public const string HiveCPQProductConfigurator = "hivecpqproductconfig";
+    public const string HiveCpqProductConfigurator = "hivecpqproductconfig";
 
     /// <summary>
     /// The <c>holopin</c> connector.
@@ -3103,7 +3108,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>htmltopdfconverter</c> connector.
     /// </summary>
-    public const string HTMLToPDFByPascalcase = "htmltopdfconverter";
+    public const string HtmlToPdfByPascalcase = "htmltopdfconverter";
 
     /// <summary>
     /// The <c>httpgardenip</c> connector.
@@ -3113,12 +3118,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hubspotcms</c> connector.
     /// </summary>
-    public const string HubSpotCMSIndependentPublisher = "hubspotcms";
+    public const string HubSpotCmsIndependentPublisher = "hubspotcms";
 
     /// <summary>
     /// The <c>hubspotcmsv2</c> connector.
     /// </summary>
-    public const string HubSpotCMSV2IndependentPublisher = "hubspotcmsv2";
+    public const string HubSpotCmsV2IndependentPublisher = "hubspotcmsv2";
 
     /// <summary>
     /// The <c>hubspotconversations</c> connector.
@@ -3128,12 +3133,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hubspotcrm</c> connector.
     /// </summary>
-    public const string HubSpotCRMIndependentPublisher = "hubspotcrm";
+    public const string HubSpotCrmIndependentPublisher = "hubspotcrm";
 
     /// <summary>
     /// The <c>hubspotcrmv2</c> connector.
     /// </summary>
-    public const string HubSpotCRMV2IndependentPublisher = "hubspotcrmv2";
+    public const string HubSpotCrmV2IndependentPublisher = "hubspotcrmv2";
 
     /// <summary>
     /// The <c>hubspotengagementsv2</c> connector.
@@ -3168,7 +3173,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>huedatagate</c> connector.
     /// </summary>
-    public const string HUEDatagate = "huedatagate";
+    public const string HueDatagate = "huedatagate";
 
     /// <summary>
     /// The <c>huggingfaceip</c> connector.
@@ -3188,12 +3193,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>hvivehicleinspection</c> connector.
     /// </summary>
-    public const string HVIVehicleInspectionV12 = "hvivehicleinspection";
+    public const string HviVehicleInspectionV12 = "hvivehicleinspection";
 
     /// <summary>
     /// The <c>hyasinsight</c> connector.
     /// </summary>
-    public const string HYASInsight = "hyasinsight";
+    public const string HyasInsight = "hyasinsight";
 
     /// <summary>
     /// The <c>iaconnectdynamiccode</c> connector.
@@ -3208,7 +3213,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>iaconnectjml</c> connector.
     /// </summary>
-    public const string IAConnectJML = "iaconnectjml";
+    public const string IAConnectJml = "iaconnectjml";
 
     /// <summary>
     /// The <c>iaconnectmainframe</c> connector.
@@ -3223,7 +3228,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>iaconnectsapgui</c> connector.
     /// </summary>
-    public const string IAConnectSAPGUI = "iaconnectsapgui";
+    public const string IAConnectSapgui = "iaconnectsapgui";
 
     /// <summary>
     /// The <c>iaconnectsession</c> connector.
@@ -3243,12 +3248,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ibmwatsonassistantip</c> connector.
     /// </summary>
-    public const string IBMWatsonAssistantIndependentPublisher = "ibmwatsonassistantip";
+    public const string IbmWatsonAssistantIndependentPublisher = "ibmwatsonassistantip";
 
     /// <summary>
     /// The <c>ibmwatsontexttospeip</c> connector.
     /// </summary>
-    public const string IBMWatsonTextToSpeechIndependentPublisher = "ibmwatsontexttospeip";
+    public const string IbmWatsonTextToSpeechIndependentPublisher = "ibmwatsontexttospeip";
 
     /// <summary>
     /// The <c>icanhazdadjokeip</c> connector.
@@ -3288,7 +3293,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ilovepdf</c> connector.
     /// </summary>
-    public const string ILovePDF = "ilovepdf";
+    public const string ILovePdf = "ilovepdf";
 
     /// <summary>
     /// The <c>ilovepdfv2</c> connector.
@@ -3333,7 +3338,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>imis</c> connector.
     /// </summary>
-    public const string IMIS = "imis";
+    public const string Imis = "imis";
 
     /// <summary>
     /// The <c>impexium</c> connector.
@@ -3343,42 +3348,42 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>impower</c> connector.
     /// </summary>
-    public const string ImpowerERP = "impower";
+    public const string ImpowerErp = "impower";
 
     /// <summary>
     /// The <c>imprezian</c> connector.
     /// </summary>
-    public const string Imprezian360CRM = "imprezian";
+    public const string Imprezian360Crm = "imprezian";
 
     /// <summary>
     /// The <c>indaadhaarnm</c> connector.
     /// </summary>
-    public const string INDAadhaarNumberMasking = "indaadhaarnm";
+    public const string IndAadhaarNumberMasking = "indaadhaarnm";
 
     /// <summary>
     /// The <c>indfacematch</c> connector.
     /// </summary>
-    public const string INDFaceMatch = "indfacematch";
+    public const string IndFaceMatch = "indfacematch";
 
     /// <summary>
     /// The <c>indinsurance</c> connector.
     /// </summary>
-    public const string INDInsuranceICD10CPT = "indinsurance";
+    public const string IndInsuranceIcd10Cpt = "indinsurance";
 
     /// <summary>
     /// The <c>indinvoicedatacapture</c> connector.
     /// </summary>
-    public const string INDInvoiceDataCapture = "indinvoicedatacapture";
+    public const string IndInvoiceDataCapture = "indinvoicedatacapture";
 
     /// <summary>
     /// The <c>indkycindia</c> connector.
     /// </summary>
-    public const string INDKYCIndia = "indkycindia";
+    public const string IndkycIndia = "indkycindia";
 
     /// <summary>
     /// The <c>indpayables</c> connector.
     /// </summary>
-    public const string INDPayables = "indpayables";
+    public const string IndPayables = "indpayables";
 
     /// <summary>
     /// The <c>industrialappstore</c> connector.
@@ -3463,12 +3468,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>integrablepdf</c> connector.
     /// </summary>
-    public const string IntegrablePDF = "integrablepdf";
+    public const string IntegrablePdf = "integrablepdf";
 
     /// <summary>
     /// The <c>intelixiocanalysismc</c> connector.
     /// </summary>
-    public const string IntelixIOCAnalysisMCP = "intelixiocanalysismc";
+    public const string IntelixIocAnalysisMcp = "intelixiocanalysismc";
 
     /// <summary>
     /// The <c>intellihr</c> connector.
@@ -3503,17 +3508,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ip2locationip</c> connector.
     /// </summary>
-    public const string IP2LOCATIONIndependentPublisher = "ip2locationip";
+    public const string IP2LocationIndependentPublisher = "ip2locationip";
 
     /// <summary>
     /// The <c>ip2whoisip</c> connector.
     /// </summary>
-    public const string IP2WHOISIndependentPublisher = "ip2whoisip";
+    public const string IP2WhoisIndependentPublisher = "ip2whoisip";
 
     /// <summary>
     /// The <c>ipqsfraudandriskscor</c> connector.
     /// </summary>
-    public const string IPQSFraudAndRiskScoring = "ipqsfraudandriskscor";
+    public const string IpqsFraudAndRiskScoring = "ipqsfraudandriskscor";
 
     /// <summary>
     /// The <c>iqairip</c> connector.
@@ -3523,7 +3528,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>isoplanner</c> connector.
     /// </summary>
-    public const string ISOPlanner = "isoplanner";
+    public const string IsoPlanner = "isoplanner";
 
     /// <summary>
     /// The <c>itautomate</c> connector.
@@ -3556,9 +3561,14 @@ public static class ConnectorNames
     public const string JGIntegrations = "jgintegrations";
 
     /// <summary>
+    /// The <c>jira</c> connector.
+    /// </summary>
+    public const string Jira = "jira";
+
+    /// <summary>
     /// The <c>jirasearch</c> connector.
     /// </summary>
-    public const string JIRASearchIndependentPublisher = "jirasearch";
+    public const string JiraSearchIndependentPublisher = "jirasearch";
 
     /// <summary>
     /// The <c>jotform</c> connector.
@@ -3613,7 +3623,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>khalibrelms</c> connector.
     /// </summary>
-    public const string KhalibreLMS = "khalibrelms";
+    public const string KhalibreLms = "khalibrelms";
 
     /// <summary>
     /// The <c>kintone</c> connector.
@@ -3633,7 +3643,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>korto</c> connector.
     /// </summary>
-    public const string KORTOV2 = "korto";
+    public const string KortoV2 = "korto";
 
     /// <summary>
     /// The <c>kroki</c> connector.
@@ -3678,12 +3688,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>latinshareshpmanagement</c> connector.
     /// </summary>
-    public const string LatinShareSHPManagement = "latinshareshpmanagement";
+    public const string LatinShareShpManagement = "latinshareshpmanagement";
 
     /// <summary>
     /// The <c>latinshareshppermissions</c> connector.
     /// </summary>
-    public const string LatinShareSHPPermissions = "latinshareshppermissions";
+    public const string LatinShareShpPermissions = "latinshareshppermissions";
 
     /// <summary>
     /// The <c>launchlibrary2ip</c> connector.
@@ -3698,7 +3708,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>lcpicordis</c> connector.
     /// </summary>
-    public const string LCPICordis = "lcpicordis";
+    public const string LcpiCordis = "lcpicordis";
 
     /// <summary>
     /// The <c>leaddesk</c> connector.
@@ -3753,7 +3763,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>lettriagdprcompliance</c> connector.
     /// </summary>
-    public const string LettriaGDPRCompliance = "lettriagdprcompliance";
+    public const string LettriaGdprCompliance = "lettriagdprcompliance";
 
     /// <summary>
     /// The <c>lexicaip</c> connector.
@@ -3783,7 +3793,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>lifx</c> connector.
     /// </summary>
-    public const string LIFX = "lifx";
+    public const string Lifx = "lifx";
 
     /// <summary>
     /// The <c>linemessageip</c> connector.
@@ -3798,7 +3808,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>linkmobility</c> connector.
     /// </summary>
-    public const string LINKMobility = "linkmobility";
+    public const string LinkMobility = "linkmobility";
 
     /// <summary>
     /// The <c>literasearch</c> connector.
@@ -3823,7 +3833,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>lms365</c> connector.
     /// </summary>
-    public const string LMS365 = "lms365";
+    public const string Lms365 = "lms365";
 
     /// <summary>
     /// The <c>lnkbio</c> connector.
@@ -3843,22 +3853,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>lseg</c> connector.
     /// </summary>
-    public const string LSEG = "lseg";
+    public const string Lseg = "lseg";
 
     /// <summary>
     /// The <c>lsegfinancialanalyti</c> connector.
     /// </summary>
-    public const string LSEGFinancialAnalytics = "lsegfinancialanalyti";
+    public const string LsegFinancialAnalytics = "lsegfinancialanalyti";
 
     /// <summary>
     /// The <c>lucidmcpserver</c> connector.
     /// </summary>
-    public const string LucidMCPServer = "lucidmcpserver";
+    public const string LucidMcpServer = "lucidmcpserver";
 
     /// <summary>
     /// The <c>luis</c> connector.
     /// </summary>
-    public const string LUIS = "luis";
+    public const string Luis = "luis";
 
     /// <summary>
     /// The <c>m365messagecenter</c> connector.
@@ -3883,7 +3893,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mailchimp</c> connector.
     /// </summary>
-    public const string MailChimp = "mailchimp";
+    public const string Mailchimp = "mailchimp";
 
     /// <summary>
     /// The <c>mailform</c> connector.
@@ -3963,12 +3973,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>maximizercrm</c> connector.
     /// </summary>
-    public const string MaximizerCRM = "maximizercrm";
+    public const string MaximizerCrm = "maximizercrm";
 
     /// <summary>
     /// The <c>mcphivetintegration</c> connector.
     /// </summary>
-    public const string MCPHiveTIntegration = "mcphivetintegration";
+    public const string McpHiveTIntegration = "mcphivetintegration";
 
     /// <summary>
     /// The <c>meaningcloudip</c> connector.
@@ -4028,7 +4038,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>messagebirdsmsip</c> connector.
     /// </summary>
-    public const string MessageBirdSMSIndependentPublisher = "messagebirdsmsip";
+    public const string MessageBirdSmsIndependentPublisher = "messagebirdsmsip";
 
     /// <summary>
     /// The <c>metatask</c> connector.
@@ -4048,7 +4058,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>microsoftd365cev9ip</c> connector.
     /// </summary>
-    public const string MicrosoftD365CEV9OnPremIndependentPublisher = "microsoftd365cev9ip";
+    public const string MicrosoftD365CeV9OnPremIndependentPublisher = "microsoftd365cev9ip";
 
     /// <summary>
     /// The <c>microsoftforms</c> connector.
@@ -4073,7 +4083,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>microsoftlearndocsmcpserver</c> connector.
     /// </summary>
-    public const string MicrosoftLearnDocsMCP = "microsoftlearndocsmcpserver";
+    public const string MicrosoftLearnDocsMcp = "microsoftlearndocsmcpserver";
 
     /// <summary>
     /// The <c>microsoftschooldatas</c> connector.
@@ -4093,7 +4103,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>minisouphtmlparser</c> connector.
     /// </summary>
-    public const string MiniSoupHTMLParserIndependentPublisher = "minisouphtmlparser";
+    public const string MiniSoupHtmlParserIndependentPublisher = "minisouphtmlparser";
 
     /// <summary>
     /// The <c>mintlifyip</c> connector.
@@ -4123,7 +4133,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mobiletextalertsmcps</c> connector.
     /// </summary>
-    public const string MobileTextAlertsMCPServer = "mobiletextalertsmcps";
+    public const string MobileTextAlertsMcpServer = "mobiletextalertsmcps";
 
     /// <summary>
     /// The <c>mobilistotele</c> connector.
@@ -4138,7 +4148,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mobsimsendsms</c> connector.
     /// </summary>
-    public const string MOBSIMSendSMS = "mobsimsendsms";
+    public const string MobsimSendSms = "mobsimsendsms";
 
     /// <summary>
     /// The <c>mockarooip</c> connector.
@@ -4173,7 +4183,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>monsterapiip</c> connector.
     /// </summary>
-    public const string MonsterAPIIndependentPublisher = "monsterapiip";
+    public const string MonsterApiIndependentPublisher = "monsterapiip";
 
     /// <summary>
     /// The <c>moosendip</c> connector.
@@ -4223,12 +4233,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>msnweather</c> connector.
     /// </summary>
-    public const string MSNWeather = "msnweather";
+    public const string MsnWeather = "msnweather";
 
     /// <summary>
     /// The <c>mtarget</c> connector.
     /// </summary>
-    public const string MtargetSMS = "mtarget";
+    public const string MtargetSms = "mtarget";
 
     /// <summary>
     /// The <c>muhimbi</c> connector.
@@ -4238,17 +4248,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>muhimbipdf</c> connector.
     /// </summary>
-    public const string MuhimbiPDF = "muhimbipdf";
+    public const string MuhimbiPdf = "muhimbipdf";
 
     /// <summary>
     /// The <c>mural</c> connector.
     /// </summary>
-    public const string MURAL = "mural";
+    public const string Mural = "mural";
 
     /// <summary>
     /// The <c>myhospitalsbyaihwip</c> connector.
     /// </summary>
-    public const string AIHWMyHospitalsIndependentPublisher = "myhospitalsbyaihwip";
+    public const string AihwMyHospitalsIndependentPublisher = "myhospitalsbyaihwip";
 
     /// <summary>
     /// The <c>myhours</c> connector.
@@ -4258,7 +4268,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>mysql</c> connector.
     /// </summary>
-    public const string MySQL = "mysql";
+    public const string MySql = "mysql";
 
     /// <summary>
     /// The <c>mystromip</c> connector.
@@ -4278,7 +4288,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nameapi</c> connector.
     /// </summary>
-    public const string NameAPIIndependentPublisher = "nameapi";
+    public const string NameApiIndependentPublisher = "nameapi";
 
     /// <summary>
     /// The <c>narvar</c> connector.
@@ -4288,12 +4298,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nasafirms</c> connector.
     /// </summary>
-    public const string NASAFIRMSIndependentPublisher = "nasafirms";
+    public const string NasafirmsIndependentPublisher = "nasafirms";
 
     /// <summary>
     /// The <c>nasaivlibraryip</c> connector.
     /// </summary>
-    public const string NASAImageAndVideoLibraryIndependentPublisher = "nasaivlibraryip";
+    public const string NasaImageAndVideoLibraryIndependentPublisher = "nasaivlibraryip";
 
     /// <summary>
     /// The <c>nationalizeioip</c> connector.
@@ -4323,12 +4333,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nceiclimatedata</c> connector.
     /// </summary>
-    public const string NCEIClimateDataIndependentPublisher = "nceiclimatedata";
+    public const string NceiClimateDataIndependentPublisher = "nceiclimatedata";
 
     /// <summary>
     /// The <c>nearearthobjectwebip</c> connector.
     /// </summary>
-    public const string NEOWsIndependentPublisher = "nearearthobjectwebip";
+    public const string NeoWsIndependentPublisher = "nearearthobjectwebip";
 
     /// <summary>
     /// The <c>nederlandsespoorweip</c> connector.
@@ -4373,12 +4383,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nftmaniaip</c> connector.
     /// </summary>
-    public const string MintNFTIndependentPublisher = "nftmaniaip";
+    public const string MintNftIndependentPublisher = "nftmaniaip";
 
     /// <summary>
     /// The <c>nhtsavpicip</c> connector.
     /// </summary>
-    public const string NHTSAVPICIndependentPublisher = "nhtsavpicip";
+    public const string NhtsavpicIndependentPublisher = "nhtsavpicip";
 
     /// <summary>
     /// The <c>niftygatewayip</c> connector.
@@ -4398,7 +4408,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nistnationalvulnerip</c> connector.
     /// </summary>
-    public const string NISTNVDIndependentPublisher = "nistnationalvulnerip";
+    public const string NistnvdIndependentPublisher = "nistnationalvulnerip";
 
     /// <summary>
     /// The <c>nistnvdip</c> connector.
@@ -4413,7 +4423,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nitropdfservices</c> connector.
     /// </summary>
-    public const string NitroPDFServices = "nitropdfservices";
+    public const string NitroPdfServices = "nitropdfservices";
 
     /// <summary>
     /// The <c>nitrosignenterprisev</c> connector.
@@ -4458,12 +4468,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nrelip</c> connector.
     /// </summary>
-    public const string NRELIndependentPublisher = "nrelip";
+    public const string NrelIndependentPublisher = "nrelip";
 
     /// <summary>
     /// The <c>numlookupapiip</c> connector.
     /// </summary>
-    public const string NumlookupAPIIndependentPublisher = "numlookupapiip";
+    public const string NumlookupApiIndependentPublisher = "numlookupapiip";
 
     /// <summary>
     /// The <c>nunify</c> connector.
@@ -4473,22 +4483,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>nutrientconverttopdf</c> connector.
     /// </summary>
-    public const string NutrientConvertToPDF = "nutrientconverttopdf";
+    public const string NutrientConvertToPdf = "nutrientconverttopdf";
 
     /// <summary>
     /// The <c>nutrientextractfromp</c> connector.
     /// </summary>
-    public const string NutrientExtractFromPDF = "nutrientextractfromp";
+    public const string NutrientExtractFromPdf = "nutrientextractfromp";
 
     /// <summary>
     /// The <c>nutrientpdfocr</c> connector.
     /// </summary>
-    public const string NutrientPDFOCR = "nutrientpdfocr";
+    public const string NutrientPdfOcr = "nutrientpdfocr";
 
     /// <summary>
     /// The <c>nutrientwatermarktop</c> connector.
     /// </summary>
-    public const string NutrientWatermarkToPDF = "nutrientwatermarktop";
+    public const string NutrientWatermarkToPdf = "nutrientwatermarktop";
 
     /// <summary>
     /// The <c>nutrientworkflowauto</c> connector.
@@ -4513,7 +4523,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>odbc</c> connector.
     /// </summary>
-    public const string ODBCDataSource = "odbc";
+    public const string OdbcDataSource = "odbc";
 
     /// <summary>
     /// The <c>office365</c> connector.
@@ -4603,7 +4613,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>openaigpt4ip</c> connector.
     /// </summary>
-    public const string OpenAIGPTIndependentPublisher = "openaigpt4ip";
+    public const string OpenAigptIndependentPublisher = "openaigpt4ip";
 
     /// <summary>
     /// The <c>openaiip</c> connector.
@@ -4638,22 +4648,22 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>openlegacyibmias400</c> connector.
     /// </summary>
-    public const string OpenLegacyIBMIAS400 = "openlegacyibmias400";
+    public const string OpenLegacyIbmias400 = "openlegacyibmias400";
 
     /// <summary>
     /// The <c>openlegacyibmmainframe</c> connector.
     /// </summary>
-    public const string OpenLegacyIBMMainframe = "openlegacyibmmainframe";
+    public const string OpenLegacyIbmMainframe = "openlegacyibmmainframe";
 
     /// <summary>
     /// The <c>opennemip</c> connector.
     /// </summary>
-    public const string OpenNEMIndependentPublisher = "opennemip";
+    public const string OpenNemIndependentPublisher = "opennemip";
 
     /// <summary>
     /// The <c>openplz</c> connector.
     /// </summary>
-    public const string OpenPLZIndependentPublisher = "openplz";
+    public const string OpenPlzIndependentPublisher = "openplz";
 
     /// <summary>
     /// The <c>openpm</c> connector.
@@ -4683,7 +4693,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>opentextcsbyonefox</c> connector.
     /// </summary>
-    public const string OpenTextExtendedECM = "opentextcsbyonefox";
+    public const string OpenTextExtendedEcm = "opentextcsbyonefox";
 
     /// <summary>
     /// The <c>opentextdocumentum</c> connector.
@@ -4693,7 +4703,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>opentextedocsbyonefox</c> connector.
     /// </summary>
-    public const string OpenTextEDOCS = "opentextedocsbyonefox";
+    public const string OpenTextEdocs = "opentextedocsbyonefox";
 
     /// <summary>
     /// The <c>opentriviadbip</c> connector.
@@ -4703,12 +4713,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>optiapi</c> connector.
     /// </summary>
-    public const string OptiAPI = "optiapi";
+    public const string OptiApi = "optiapi";
 
     /// <summary>
     /// The <c>oqsha</c> connector.
     /// </summary>
-    public const string OQSHA = "oqsha";
+    public const string Oqsha = "oqsha";
 
     /// <summary>
     /// The <c>oracle</c> connector.
@@ -4718,7 +4728,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>orbintelligenceip</c> connector.
     /// </summary>
-    public const string ORBIntelligenceIndependentPublisher = "orbintelligenceip";
+    public const string OrbIntelligenceIndependentPublisher = "orbintelligenceip";
 
     /// <summary>
     /// The <c>orbusinfinity</c> connector.
@@ -4838,57 +4848,57 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pdf4me</c> connector.
     /// </summary>
-    public const string PDF4me = "pdf4me";
+    public const string Pdf4me = "pdf4me";
 
     /// <summary>
     /// The <c>pdf4meai</c> connector.
     /// </summary>
-    public const string PDF4meAI = "pdf4meai";
+    public const string Pdf4meAI = "pdf4meai";
 
     /// <summary>
     /// The <c>pdf4mebarcode</c> connector.
     /// </summary>
-    public const string PDF4meBarcode = "pdf4mebarcode";
+    public const string Pdf4meBarcode = "pdf4mebarcode";
 
     /// <summary>
     /// The <c>pdf4meconnect</c> connector.
     /// </summary>
-    public const string PDF4meConnect = "pdf4meconnect";
+    public const string Pdf4meConnect = "pdf4meconnect";
 
     /// <summary>
     /// The <c>pdf4meconvert</c> connector.
     /// </summary>
-    public const string PDF4meConvert = "pdf4meconvert";
+    public const string Pdf4meConvert = "pdf4meconvert";
 
     /// <summary>
     /// The <c>pdf4meexcel</c> connector.
     /// </summary>
-    public const string PDF4meExcel = "pdf4meexcel";
+    public const string Pdf4meExcel = "pdf4meexcel";
 
     /// <summary>
     /// The <c>pdf4meimage</c> connector.
     /// </summary>
-    public const string PDF4meImage = "pdf4meimage";
+    public const string Pdf4meImage = "pdf4meimage";
 
     /// <summary>
     /// The <c>pdf4mepdf</c> connector.
     /// </summary>
-    public const string PDF4mePDF = "pdf4mepdf";
+    public const string Pdf4mePdf = "pdf4mepdf";
 
     /// <summary>
     /// The <c>pdf4meswissqr</c> connector.
     /// </summary>
-    public const string PDF4meSwissQR = "pdf4meswissqr";
+    public const string Pdf4meSwissQR = "pdf4meswissqr";
 
     /// <summary>
     /// The <c>pdf4meword</c> connector.
     /// </summary>
-    public const string PDF4meWord = "pdf4meword";
+    public const string Pdf4meWord = "pdf4meword";
 
     /// <summary>
     /// The <c>pdfblocks</c> connector.
     /// </summary>
-    public const string PDFBlocks = "pdfblocks";
+    public const string PdfBlocks = "pdfblocks";
 
     /// <summary>
     /// The <c>pdfco</c> connector.
@@ -4908,12 +4918,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pdftools</c> connector.
     /// </summary>
-    public const string PDFTools = "pdftools";
+    public const string PdfTools = "pdftools";
 
     /// <summary>
     /// The <c>pdftoolsbytachytelic</c> connector.
     /// </summary>
-    public const string PDFToolsByTachytelicIndependentPublisher = "pdftoolsbytachytelic";
+    public const string PdfToolsByTachytelicIndependentPublisher = "pdftoolsbytachytelic";
 
     /// <summary>
     /// The <c>peakboard</c> connector.
@@ -4948,7 +4958,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>philipshueip</c> connector.
     /// </summary>
-    public const string PhilipsHUEIndependentPublisher = "philipshueip";
+    public const string PhilipsHueIndependentPublisher = "philipshueip";
 
     /// <summary>
     /// The <c>pilotthings</c> connector.
@@ -4973,12 +4983,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pipelinercrm</c> connector.
     /// </summary>
-    public const string PipelinerCRM = "pipelinercrm";
+    public const string PipelinerCrm = "pipelinercrm";
 
     /// <summary>
     /// The <c>pipwarekpis</c> connector.
     /// </summary>
-    public const string PIPwareKPIs = "pipwarekpis";
+    public const string PIPwareKpis = "pipwarekpis";
 
     /// <summary>
     /// The <c>pixelaip</c> connector.
@@ -5053,17 +5063,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pokeapicore</c> connector.
     /// </summary>
-    public const string PokeAPICoreIndependentPublisher = "pokeapicore";
+    public const string PokeApiCoreIndependentPublisher = "pokeapicore";
 
     /// <summary>
     /// The <c>pokeapiworld</c> connector.
     /// </summary>
-    public const string PokeAPIWorldIndependentPublisher = "pokeapiworld";
+    public const string PokeApiWorldIndependentPublisher = "pokeapiworld";
 
     /// <summary>
     /// The <c>polarispsa</c> connector.
     /// </summary>
-    public const string PolarisPSA = "polarispsa";
+    public const string PolarisPsa = "polarispsa";
 
     /// <summary>
     /// The <c>politemail</c> connector.
@@ -5078,7 +5088,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>postgresql</c> connector.
     /// </summary>
-    public const string PostgreSQL = "postgresql";
+    public const string PostgreSql = "postgresql";
 
     /// <summary>
     /// The <c>postmanip</c> connector.
@@ -5138,7 +5148,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ppmexpress</c> connector.
     /// </summary>
-    public const string PPMExpress = "ppmexpress";
+    public const string PpmExpress = "ppmexpress";
 
     /// <summary>
     /// The <c>preserve365</c> connector.
@@ -5158,7 +5168,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>prioritymatrixhipaa</c> connector.
     /// </summary>
-    public const string PriorityMatrixHIPAA = "prioritymatrixhipaa";
+    public const string PriorityMatrixHipaa = "prioritymatrixhipaa";
 
     /// <summary>
     /// The <c>processstreet</c> connector.
@@ -5168,7 +5178,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>processstreetmcpserv</c> connector.
     /// </summary>
-    public const string ProcessStreetMCPServer = "processstreetmcpserv";
+    public const string ProcessStreetMcpServer = "processstreetmcpserv";
 
     /// <summary>
     /// The <c>profisee</c> connector.
@@ -5213,17 +5223,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>prosaiforsalescopilo</c> connector.
     /// </summary>
-    public const string PROSAI = "prosaiforsalescopilo";
+    public const string Prosai = "prosaiforsalescopilo";
 
     /// <summary>
     /// The <c>prowfmauthentication</c> connector.
     /// </summary>
-    public const string UKGPROWFMAuthentication = "prowfmauthentication";
+    public const string UkgprowfmAuthentication = "prowfmauthentication";
 
     /// <summary>
     /// The <c>puggamifiedengagement</c> connector.
     /// </summary>
-    public const string PUGGamifiedEngagement = "puggamifiedengagement";
+    public const string PugGamifiedEngagement = "puggamifiedengagement";
 
     /// <summary>
     /// The <c>pureleads</c> connector.
@@ -5248,7 +5258,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>qppngintegrationhub</c> connector.
     /// </summary>
-    public const string QPPNextGen = "qppngintegrationhub";
+    public const string QppNextGen = "qppngintegrationhub";
 
     /// <summary>
     /// The <c>quickchartip</c> connector.
@@ -5273,7 +5283,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>rapidplatform</c> connector.
     /// </summary>
-    public const string RAPIdPlatform = "rapidplatform";
+    public const string RapIdPlatform = "rapidplatform";
 
     /// <summary>
     /// The <c>raptordocmanagement</c> connector.
@@ -5363,7 +5373,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>regolink</c> connector.
     /// </summary>
-    public const string RegoLinkForClarityPPM = "regolink";
+    public const string RegoLinkForClarityPpm = "regolink";
 
     /// <summary>
     /// The <c>reliefwebip</c> connector.
@@ -5428,7 +5438,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>restcountriesip</c> connector.
     /// </summary>
-    public const string RESTCountriesIndependentPublisher = "restcountriesip";
+    public const string RestCountriesIndependentPublisher = "restcountriesip";
 
     /// <summary>
     /// The <c>revai</c> connector.
@@ -5518,7 +5528,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>rss</c> connector.
     /// </summary>
-    public const string RSS = "rss";
+    public const string Rss = "rss";
 
     /// <summary>
     /// The <c>safetyculture</c> connector.
@@ -5533,7 +5543,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sap</c> connector.
     /// </summary>
-    public const string SAP = "sap";
+    public const string Sap = "sap";
 
     /// <summary>
     /// The <c>saplingai</c> connector.
@@ -5543,12 +5553,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sapodata</c> connector.
     /// </summary>
-    public const string SAPOData = "sapodata";
+    public const string SapoData = "sapodata";
 
     /// <summary>
     /// The <c>sasdecisioning</c> connector.
     /// </summary>
-    public const string SASDecisioning = "sasdecisioning";
+    public const string SasDecisioning = "sasdecisioning";
 
     /// <summary>
     /// The <c>schipholairportip</c> connector.
@@ -5583,12 +5593,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>searchapigooglesearch</c> connector.
     /// </summary>
-    public const string SearchAPIGoogleSearchIndependentPublisher = "searchapigooglesearch";
+    public const string SearchApiGoogleSearchIndependentPublisher = "searchapigooglesearch";
 
     /// <summary>
     /// The <c>secib</c> connector.
     /// </summary>
-    public const string SECIB = "secib";
+    public const string Secib = "secib";
 
     /// <summary>
     /// The <c>secplugscan</c> connector.
@@ -5693,12 +5703,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sentinelmcp</c> connector.
     /// </summary>
-    public const string MicrosoftSentinelMCP = "sentinelmcp";
+    public const string MicrosoftSentinelMcp = "sentinelmcp";
 
     /// <summary>
     /// The <c>serverless360</c> connector.
     /// </summary>
-    public const string Serverless360BAMTracking = "serverless360";
+    public const string Serverless360BamTracking = "serverless360";
 
     /// <summary>
     /// The <c>service-now</c> connector.
@@ -5718,7 +5728,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>serwersms</c> connector.
     /// </summary>
-    public const string SerwerSMS = "serwersms";
+    public const string SerwerSms = "serwersms";
 
     /// <summary>
     /// The <c>sessionizeip</c> connector.
@@ -5728,7 +5738,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sftpwithssh</c> connector.
     /// </summary>
-    public const string SFTPSSH = "sftpwithssh";
+    public const string Sftpssh = "sftpwithssh";
 
     /// <summary>
     /// The <c>shadifyip</c> connector.
@@ -5793,12 +5803,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>shorturl</c> connector.
     /// </summary>
-    public const string ShortURL = "shorturl";
+    public const string ShortUrl = "shorturl";
 
     /// <summary>
     /// The <c>shortysmsip</c> connector.
     /// </summary>
-    public const string ShortySMSIndependentPublisher = "shortysmsip";
+    public const string ShortySmsIndependentPublisher = "shortysmsip";
 
     /// <summary>
     /// The <c>showcaseworkshop</c> connector.
@@ -5808,12 +5818,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>shrtcodeip</c> connector.
     /// </summary>
-    public const string SHRTCODEIndependentPublisher = "shrtcodeip";
+    public const string ShrtcodeIndependentPublisher = "shrtcodeip";
 
     /// <summary>
     /// The <c>si3270</c> connector.
     /// </summary>
-    public const string IBM3270 = "si3270";
+    public const string Ibm3270 = "si3270";
 
     /// <summary>
     /// The <c>sigmaconsocr</c> connector.
@@ -5823,7 +5833,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>signatureapi</c> connector.
     /// </summary>
-    public const string SignatureAPI = "signatureapi";
+    public const string SignatureApi = "signatureapi";
 
     /// <summary>
     /// The <c>signhost</c> connector.
@@ -5848,7 +5858,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>signl4</c> connector.
     /// </summary>
-    public const string DerdackSIGNL4 = "signl4";
+    public const string DerdackSignl4 = "signl4";
 
     /// <summary>
     /// The <c>signnow</c> connector.
@@ -5873,7 +5883,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>simpleedi</c> connector.
     /// </summary>
-    public const string SimpleEDI = "simpleedi";
+    public const string SimpleEdi = "simpleedi";
 
     /// <summary>
     /// The <c>simplesurvey</c> connector.
@@ -5923,7 +5933,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>smartcommondemanddoc</c> connector.
     /// </summary>
-    public const string SmartCOMMDocGen = "smartcommondemanddoc";
+    public const string SmartCommDocGen = "smartcommondemanddoc";
 
     /// <summary>
     /// The <c>smartdialog</c> connector.
@@ -5953,27 +5963,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>smsapi</c> connector.
     /// </summary>
-    public const string SMSAPI = "smsapi";
+    public const string SmsApi = "smsapi";
 
     /// <summary>
     /// The <c>smsforapplications</c> connector.
     /// </summary>
-    public const string RetarusSMS = "smsforapplications";
+    public const string RetarusSms = "smsforapplications";
 
     /// <summary>
     /// The <c>smslink</c> connector.
     /// </summary>
-    public const string SMSLink = "smslink";
+    public const string SmsLink = "smslink";
 
     /// <summary>
     /// The <c>smswirelessserviceip</c> connector.
     /// </summary>
-    public const string SMSWirelessServicesIndependentPublisher = "smswirelessserviceip";
+    public const string SmsWirelessServicesIndependentPublisher = "smswirelessserviceip";
 
     /// <summary>
     /// The <c>smtp</c> connector.
     /// </summary>
-    public const string SMTP = "smtp";
+    public const string Smtp = "smtp";
 
     /// <summary>
     /// The <c>snowflakeip</c> connector.
@@ -6003,7 +6013,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>softonewebcrm</c> connector.
     /// </summary>
-    public const string SoftoneWebCRM = "softonewebcrm";
+    public const string SoftoneWebCrm = "softonewebcrm";
 
     /// <summary>
     /// The <c>softools</c> connector.
@@ -6013,12 +6023,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>solosign</c> connector.
     /// </summary>
-    public const string SoloSignHMACHashCreator = "solosign";
+    public const string SoloSignHmacHashCreator = "solosign";
 
     /// <summary>
     /// The <c>sosinventoryip</c> connector.
     /// </summary>
-    public const string SOSInventoryIndependentPublisher = "sosinventoryip";
+    public const string SosInventoryIndependentPublisher = "sosinventoryip";
 
     /// <summary>
     /// The <c>spark</c> connector.
@@ -6068,12 +6078,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>sql</c> connector.
     /// </summary>
-    public const string SQLServer = "sql";
+    public const string SqlServer = "sql";
 
     /// <summary>
     /// The <c>sqldw</c> connector.
     /// </summary>
-    public const string AzureSQLDataWarehouse = "sqldw";
+    public const string AzureSqlDataWarehouse = "sqldw";
 
     /// <summary>
     /// The <c>squarebusinessip</c> connector.
@@ -6108,7 +6118,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>starrezrestv1</c> connector.
     /// </summary>
-    public const string StarRezRESTV1 = "starrezrestv1";
+    public const string StarRezRestV1 = "starrezrestv1";
 
     /// <summary>
     /// The <c>starwarsip</c> connector.
@@ -6198,12 +6208,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tabscannerreceiptocr</c> connector.
     /// </summary>
-    public const string TabscannerReceiptOCRIndependentPublisher = "tabscannerreceiptocr";
+    public const string TabscannerReceiptOcrIndependentPublisher = "tabscannerreceiptocr";
 
     /// <summary>
     /// The <c>taggunreceiptocrscip</c> connector.
     /// </summary>
-    public const string TAGGUNReceiptOCRScanningIndependentPublisher = "taggunreceiptocrscip";
+    public const string TaggunReceiptOcrScanningIndependentPublisher = "taggunreceiptocrscip";
 
     /// <summary>
     /// The <c>taktikalcore</c> connector.
@@ -6223,7 +6233,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>talxisdatafeed</c> connector.
     /// </summary>
-    public const string TALXISDataFeed = "talxisdatafeed";
+    public const string TalxisDataFeed = "talxisdatafeed";
 
     /// <summary>
     /// The <c>taqnyat</c> connector.
@@ -6238,7 +6248,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tavilymcp</c> connector.
     /// </summary>
-    public const string TavilyMCP = "tavilymcp";
+    public const string TavilyMcp = "tavilymcp";
 
     /// <summary>
     /// The <c>taxidpro</c> connector.
@@ -6278,7 +6288,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tegolysign</c> connector.
     /// </summary>
-    public const string TegolySIGN = "tegolysign";
+    public const string TegolySign = "tegolysign";
 
     /// <summary>
     /// The <c>telephonyxtendedsrv</c> connector.
@@ -6288,7 +6298,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>telesignsms</c> connector.
     /// </summary>
-    public const string TeleSignSMS = "telesignsms";
+    public const string TeleSignSms = "telesignsms";
 
     /// <summary>
     /// The <c>templafy</c> connector.
@@ -6358,7 +6368,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>thegoodapiip</c> connector.
     /// </summary>
-    public const string TheGoodAPIIndependentPublisher = "thegoodapiip";
+    public const string TheGoodApiIndependentPublisher = "thegoodapiip";
 
     /// <summary>
     /// The <c>theguardian</c> connector.
@@ -6383,7 +6393,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>thesmsworksip</c> connector.
     /// </summary>
-    public const string TheSMSWorksIndependentPublisher = "thesmsworksip";
+    public const string TheSmsWorksIndependentPublisher = "thesmsworksip";
 
     /// <summary>
     /// The <c>theweatherchannelip</c> connector.
@@ -6423,7 +6433,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>timeapi</c> connector.
     /// </summary>
-    public const string TimeAPIIndependentPublisher = "timeapi";
+    public const string TimeApiIndependentPublisher = "timeapi";
 
     /// <summary>
     /// The <c>timeghost</c> connector.
@@ -6438,12 +6448,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tldrip</c> connector.
     /// </summary>
-    public const string TLDR = "tldrip";
+    public const string Tldr = "tldrip";
 
     /// <summary>
     /// The <c>tly</c> connector.
     /// </summary>
-    public const string TLYIndependentPublisher = "tly";
+    public const string TlyIndependentPublisher = "tly";
 
     /// <summary>
     /// The <c>todayinhistoryip</c> connector.
@@ -6488,12 +6498,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>touchsmsv2documentat</c> connector.
     /// </summary>
-    public const string TouchSMS = "touchsmsv2documentat";
+    public const string TouchSms = "touchsmsv2documentat";
 
     /// <summary>
     /// The <c>tpcportal</c> connector.
     /// </summary>
-    public const string TPCPortal = "tpcportal";
+    public const string TpcPortal = "tpcportal";
 
     /// <summary>
     /// The <c>tractionguest</c> connector.
@@ -6538,17 +6548,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tribalsits</c> connector.
     /// </summary>
-    public const string TribalSITS = "tribalsits";
+    public const string TribalSits = "tribalsits";
 
     /// <summary>
     /// The <c>triggercmd</c> connector.
     /// </summary>
-    public const string TRIGGERcmd = "triggercmd";
+    public const string TriggeRcmd = "triggercmd";
 
     /// <summary>
     /// The <c>truedialogsms</c> connector.
     /// </summary>
-    public const string TrueDialogSMS = "truedialogsms";
+    public const string TrueDialogSms = "truedialogsms";
 
     /// <summary>
     /// The <c>trustual</c> connector.
@@ -6603,7 +6613,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>tyntecsms</c> connector.
     /// </summary>
-    public const string TyntecSMSBusiness = "tyntecsms";
+    public const string TyntecSmsBusiness = "tyntecsms";
 
     /// <summary>
     /// The <c>tyntecviber</c> connector.
@@ -6658,27 +6668,27 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ukgovtcheckvatip</c> connector.
     /// </summary>
-    public const string UKCheckVATIndependentPublisher = "ukgovtcheckvatip";
+    public const string UKCheckVatIndependentPublisher = "ukgovtcheckvatip";
 
     /// <summary>
     /// The <c>ukgprohcm</c> connector.
     /// </summary>
-    public const string UKGProHCM = "ukgprohcm";
+    public const string UkgProHcm = "ukgprohcm";
 
     /// <summary>
     /// The <c>ukgprowfmemployee</c> connector.
     /// </summary>
-    public const string UKGProWFMEmployee = "ukgprowfmemployee";
+    public const string UkgProWfmEmployee = "ukgprowfmemployee";
 
     /// <summary>
     /// The <c>ukgprowfmpeople</c> connector.
     /// </summary>
-    public const string UKGProWFMPeople = "ukgprowfmpeople";
+    public const string UkgProWfmPeople = "ukgprowfmpeople";
 
     /// <summary>
     /// The <c>ukgprowfmtimekeeping</c> connector.
     /// </summary>
-    public const string UKGProWFMTimekeeping = "ukgprowfmtimekeeping";
+    public const string UkgProWfmTimekeeping = "ukgprowfmtimekeeping";
 
     /// <summary>
     /// The <c>universalprint</c> connector.
@@ -6713,7 +6723,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ups</c> connector.
     /// </summary>
-    public const string UPS = "ups";
+    public const string Ups = "ups";
 
     /// <summary>
     /// The <c>urlbaeip</c> connector.
@@ -6723,17 +6733,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>urldevip</c> connector.
     /// </summary>
-    public const string URLDevIndependentPublisher = "urldevip";
+    public const string UrlDevIndependentPublisher = "urldevip";
 
     /// <summary>
     /// The <c>usajobs</c> connector.
     /// </summary>
-    public const string USAJOBSIndependentPublisher = "usajobs";
+    public const string UsajobsIndependentPublisher = "usajobs";
 
     /// <summary>
     /// The <c>usb4sap</c> connector.
     /// </summary>
-    public const string USB4SAP = "usb4sap";
+    public const string Usb4Sap = "usb4sap";
 
     /// <summary>
     /// The <c>usbanktreasurymanage</c> connector.
@@ -6743,7 +6753,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>uscongresscrs</c> connector.
     /// </summary>
-    public const string USCongressCRSIndependentPublisher = "uscongresscrs";
+    public const string USCongressCrsIndependentPublisher = "uscongresscrs";
 
     /// <summary>
     /// The <c>uservoice</c> connector.
@@ -6768,7 +6778,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>vatcheckapiip</c> connector.
     /// </summary>
-    public const string VATCheckApi = "vatcheckapiip";
+    public const string VatCheckApi = "vatcheckapiip";
 
     /// <summary>
     /// The <c>vena</c> connector.
@@ -6818,7 +6828,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>viesip</c> connector.
     /// </summary>
-    public const string VIESIndependentPublisher = "viesip";
+    public const string ViesIndependentPublisher = "viesip";
 
     /// <summary>
     /// The <c>vimeo</c> connector.
@@ -6863,7 +6873,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>voicerss</c> connector.
     /// </summary>
-    public const string VoiceRSSIndependentPubisher = "voicerss";
+    public const string VoiceRssIndependentPubisher = "voicerss";
 
     /// <summary>
     /// The <c>vome</c> connector.
@@ -6893,7 +6903,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>wdatp</c> connector.
     /// </summary>
-    public const string MicrosoftDefenderATP = "wdatp";
+    public const string MicrosoftDefenderAtp = "wdatp";
 
     /// <summary>
     /// The <c>weatherforecastip</c> connector.
@@ -6908,12 +6918,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>webcontents</c> connector.
     /// </summary>
-    public const string HTTPWithMicrosoftEntraIdPreauthorized = "webcontents";
+    public const string HttpWithMicrosoftEntraIdPreauthorized = "webcontents";
 
     /// <summary>
     /// The <c>webcontentsv2</c> connector.
     /// </summary>
-    public const string HTTPWithMicrosoftEntraId = "webcontentsv2";
+    public const string HttpWithMicrosoftEntraId = "webcontentsv2";
 
     /// <summary>
     /// The <c>webex</c> connector.
@@ -6928,7 +6938,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>webhoodurlscanner</c> connector.
     /// </summary>
-    public const string WebhoodURLScanner = "webhoodurlscanner";
+    public const string WebhoodUrlScanner = "webhoodurlscanner";
 
     /// <summary>
     /// The <c>webmerge</c> connector.
@@ -6978,7 +6988,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>wmata</c> connector.
     /// </summary>
-    public const string WMATAIndependentPublisher = "wmata";
+    public const string WmataIndependentPublisher = "wmata";
 
     /// <summary>
     /// The <c>woocommerce</c> connector.
@@ -7018,7 +7028,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>workdayhcm</c> connector.
     /// </summary>
-    public const string WorkdayHCM = "workdayhcm";
+    public const string WorkdayHcm = "workdayhcm";
 
     /// <summary>
     /// The <c>workdaysoap</c> connector.
@@ -7033,12 +7043,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>workiqonedrive</c> connector.
     /// </summary>
-    public const string WorkIQOneDriveMCP = "workiqonedrive";
+    public const string WorkIQOneDriveMcp = "workiqonedrive";
 
     /// <summary>
     /// The <c>workiqsharepoint</c> connector.
     /// </summary>
-    public const string WorkIQSharePointMCP = "workiqsharepoint";
+    public const string WorkIQSharePointMcp = "workiqsharepoint";
 
     /// <summary>
     /// The <c>workmobile</c> connector.
@@ -7093,12 +7103,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>wpformsbyreenhancedl</c> connector.
     /// </summary>
-    public const string WPFormsByReenhancedLLC = "wpformsbyreenhancedl";
+    public const string WPFormsByReenhancedLlc = "wpformsbyreenhancedl";
 
     /// <summary>
     /// The <c>wqrmriskforecastserv</c> connector.
     /// </summary>
-    public const string WQRMRiskForecastServices = "wqrmriskforecastserv";
+    public const string WqrmRiskForecastServices = "wqrmriskforecastserv";
 
     /// <summary>
     /// The <c>writesonicip</c> connector.
@@ -7148,17 +7158,17 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>xsoarip</c> connector.
     /// </summary>
-    public const string XSOARIndependentPublisher = "xsoarip";
+    public const string XsoarIndependentPublisher = "xsoarip";
 
     /// <summary>
     /// The <c>xsspdfsolutionsinteg</c> connector.
     /// </summary>
-    public const string XSSPDFSolutionsIntegrations = "xsspdfsolutionsinteg";
+    public const string XsspdfSolutionsIntegrations = "xsspdfsolutionsinteg";
 
     /// <summary>
     /// The <c>xssqrcodesolutions</c> connector.
     /// </summary>
-    public const string XSSQRCodeSolutions = "xssqrcodesolutions";
+    public const string XssqrCodeSolutions = "xssqrcodesolutions";
 
     /// <summary>
     /// The <c>yakchat</c> connector.
@@ -7218,12 +7228,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>zapiermcp</c> connector.
     /// </summary>
-    public const string ZapierMCP = "zapiermcp";
+    public const string ZapierMcp = "zapiermcp";
 
     /// <summary>
     /// The <c>zapiernlaip</c> connector.
     /// </summary>
-    public const string ZapierNLAIndependentPublisher = "zapiernlaip";
+    public const string ZapierNlaIndependentPublisher = "zapiernlaip";
 
     /// <summary>
     /// The <c>zellis</c> connector.
@@ -7273,7 +7283,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>zippydoc</c> connector.
     /// </summary>
-    public const string ZIPPYDOC = "zippydoc";
+    public const string Zippydoc = "zippydoc";
 
     /// <summary>
     /// The <c>zohocalendar</c> connector.
@@ -7298,7 +7308,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>zoominfogtm</c> connector.
     /// </summary>
-    public const string ZoomInfoGTMMCP = "zoominfogtm";
+    public const string ZoomInfoGtmmcp = "zoominfogtm";
 
     /// <summary>
     /// The <c>zoommeetingsip</c> connector.

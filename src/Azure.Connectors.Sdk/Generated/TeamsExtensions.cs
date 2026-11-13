@@ -116,7 +116,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>A URL for an online meeting</summary>
         [JsonPropertyName("onlineMeetingUrl")]
-        public string OnlineMeetingURL { get; set; }
+        public string OnlineMeetingUrl { get; set; }
 
         /// <summary>True if the meeting organizer allows invitees to propose a new time when responding</summary>
         [JsonPropertyName("allowNewTimeProposals")]
@@ -250,7 +250,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The SharePoint folder URL of the channel</summary>
         [JsonPropertyName("filesFolderWebUrl")]
-        public string SharePointFolderURLForChannel { get; set; }
+        public string SharePointFolderUrlForChannel { get; set; }
 
         /// <summary>Timestamp at which the channel was created. Read only</summary>
         [JsonPropertyName("createdDateTime")]
@@ -381,7 +381,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The SharePoint folder URL of the channel</summary>
         [JsonPropertyName("filesFolderWebUrl")]
-        public string SharePointFolderURLForChannel { get; set; }
+        public string SharePointFolderUrlForChannel { get; set; }
 
         /// <summary>Timestamp at which the channel was created. Read only</summary>
         [JsonPropertyName("createdDateTime")]
@@ -636,7 +636,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>URL to download the transcript content</summary>
         [JsonPropertyName("transcriptContentUrl")]
-        public string TranscriptContentURL { get; set; }
+        public string TranscriptContentUrl { get; set; }
 
         /// <summary>When the transcript was created (UTC)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -760,7 +760,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>URL to download the recording content</summary>
         [JsonPropertyName("recordingContentUrl")]
-        public string RecordingContentURL { get; set; }
+        public string RecordingContentUrl { get; set; }
 
         /// <summary>When the recording was created (UTC)</summary>
         [JsonPropertyName("createdDateTime")]
@@ -862,7 +862,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>A hyperlink that will go to the team in the Microsoft Teams client</summary>
         [JsonPropertyName("webUrl")]
-        public string TeamSWebUrl { get; set; }
+        public string TeamWebUrl { get; set; }
 
         /// <summary>Whether this team is in read-only mode</summary>
         [JsonPropertyName("isArchived")]
@@ -984,7 +984,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>If set to true, the team is visible via search and suggestions from the Teams client</summary>
         [JsonPropertyName("showInTeamsSearchAndSuggestions")]
-        public bool? ShowInTeamSSearchAndSuggestions { get; set; }
+        public bool? ShowInTeamsSearchAndSuggestions { get; set; }
     }
 
     /// <summary>
@@ -1167,7 +1167,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The URL used to join the meeting online</summary>
         [JsonPropertyName("joinWebUrl")]
-        public string JoinWebURL { get; set; }
+        public string JoinWebUrl { get; set; }
 
         /// <summary>Settings related to the join meeting ID</summary>
         [JsonPropertyName("joinMeetingIdSettings")]
@@ -1203,7 +1203,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>A URL for the organizer to change settings for the meeting</summary>
         [JsonPropertyName("meetingOptionsWebUrl")]
-        public string MeetingOptionsWebURL { get; set; }
+        public string MeetingOptionsWebUrl { get; set; }
     }
 
     /// <summary>
@@ -1236,7 +1236,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The URL to access the transcript content</summary>
         [JsonPropertyName("transcriptContentUrl")]
-        public string TranscriptContentURL { get; set; }
+        public string TranscriptContentUrl { get; set; }
 
         /// <summary>The meeting ID</summary>
         [JsonPropertyName("meetingId")]
@@ -1281,7 +1281,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>The URL to access the recording content</summary>
         [JsonPropertyName("recordingContentUrl")]
-        public string RecordingContentURL { get; set; }
+        public string RecordingContentUrl { get; set; }
 
         /// <summary>The meeting ID</summary>
         [JsonPropertyName("meetingId")]
@@ -1491,7 +1491,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of users&apos; IDs separated by semi-colons, identifier must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
         [JsonPropertyName("members")]
-        public string MembersIDs { get; set; }
+        public string MembersIds { get; set; }
     }
 
     /// <summary>
@@ -1537,7 +1537,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
         [JsonPropertyName("userId")]
-        public string UserSId { get; set; }
+        public string UserId { get; set; }
     }
 
     /// <summary>
@@ -1635,7 +1635,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>Deep link that opens the meeting recap for this AI insight, surfaced from the underlying callAiInsight resource returned by the fetch. Present when the underlying resource provides it; otherwise absent.</summary>
         [JsonPropertyName("recapUrl")]
-        public string RecapURL { get; set; }
+        public string RecapUrl { get; set; }
 
         /// <summary>Detailed notes of the meeting discussion generated by Microsoft Teams Copilot.</summary>
         [JsonPropertyName("meetingNotes")]
@@ -2595,7 +2595,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string showAs = default,
             string type = default,
             string webLast = default,
-            string onlineMeetingURL = default,
+            string onlineMeetingUrl = default,
             bool? allowNewTimeProposals = default,
             JsonElement? recurrence = default,
             JsonElement? responseStatus = default,
@@ -2628,7 +2628,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 ShowAs = showAs,
                 Type = type,
                 WebLast = webLast,
-                OnlineMeetingURL = onlineMeetingURL,
+                OnlineMeetingUrl = onlineMeetingUrl,
                 AllowNewTimeProposals = allowNewTimeProposals,
                 Recurrence = recurrence,
                 ResponseStatus = responseStatus,
@@ -2710,7 +2710,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string theEmailAddressForTheChannel = default,
             string teamTenantId = default,
             string aHyperlinkForTheChannelInMicrosoftTeams = default,
-            string sharePointFolderURLForChannel = default,
+            string sharePointFolderUrlForChannel = default,
             DateTime? channelCreationTime = default,
             string theTypeOfTheChannel = default)
         {
@@ -2722,7 +2722,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
                 TeamTenantId = teamTenantId,
                 AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
-                SharePointFolderURLForChannel = sharePointFolderURLForChannel,
+                SharePointFolderUrlForChannel = sharePointFolderUrlForChannel,
                 ChannelCreationTime = channelCreationTime,
                 TheTypeOfTheChannel = theTypeOfTheChannel,
             };
@@ -2824,7 +2824,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string theEmailAddressForTheChannel = default,
             string teamTenantId = default,
             string aHyperlinkForTheChannelInMicrosoftTeams = default,
-            string sharePointFolderURLForChannel = default,
+            string sharePointFolderUrlForChannel = default,
             DateTime? channelCreationTime = default,
             string theTypeOfTheChannel = default,
             string ownerTeamId = default)
@@ -2837,7 +2837,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 TheEmailAddressForTheChannel = theEmailAddressForTheChannel,
                 TeamTenantId = teamTenantId,
                 AHyperlinkForTheChannelInMicrosoftTeams = aHyperlinkForTheChannelInMicrosoftTeams,
-                SharePointFolderURLForChannel = sharePointFolderURLForChannel,
+                SharePointFolderUrlForChannel = sharePointFolderUrlForChannel,
                 ChannelCreationTime = channelCreationTime,
                 TheTypeOfTheChannel = theTypeOfTheChannel,
                 OwnerTeamId = ownerTeamId,
@@ -2992,7 +2992,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string callId = default,
             string contentCorrelationId = default,
             TeamsIdentitySetNotification meetingOrganizer = default,
-            string transcriptContentURL = default,
+            string transcriptContentUrl = default,
             DateTime? createdDateTime = default,
             DateTime? endDateTime = default)
         {
@@ -3004,7 +3004,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 CallId = callId,
                 ContentCorrelationId = contentCorrelationId,
                 MeetingOrganizer = meetingOrganizer,
-                TranscriptContentURL = transcriptContentURL,
+                TranscriptContentUrl = transcriptContentUrl,
                 CreatedDateTime = createdDateTime,
                 EndDateTime = endDateTime,
             };
@@ -3088,7 +3088,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string callId = default,
             string contentCorrelationId = default,
             TeamsIdentitySetNotification meetingOrganizer = default,
-            string recordingContentURL = default,
+            string recordingContentUrl = default,
             DateTime? createdDateTime = default,
             DateTime? endDateTime = default)
         {
@@ -3100,7 +3100,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 CallId = callId,
                 ContentCorrelationId = contentCorrelationId,
                 MeetingOrganizer = meetingOrganizer,
-                RecordingContentURL = recordingContentURL,
+                RecordingContentUrl = recordingContentUrl,
                 CreatedDateTime = createdDateTime,
                 EndDateTime = endDateTime,
             };
@@ -3154,7 +3154,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string displayName = default,
             string descriptionOfTeam = default,
             string internalId = default,
-            string teamSWebUrl = default,
+            string teamWebUrl = default,
             bool? archived = default,
             MemberSettings memberSettings = default,
             GuestSettings guestSettings = default,
@@ -3168,7 +3168,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 DisplayName = displayName,
                 DescriptionOfTeam = descriptionOfTeam,
                 InternalId = internalId,
-                TeamSWebUrl = teamSWebUrl,
+                TeamWebUrl = teamWebUrl,
                 Archived = archived,
                 MemberSettings = memberSettings,
                 GuestSettings = guestSettings,
@@ -3254,11 +3254,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="DiscoverySettings"/>.
         /// </summary>
         public static DiscoverySettings DiscoverySettings(
-            bool? showInTeamSSearchAndSuggestions = default)
+            bool? showInTeamsSearchAndSuggestions = default)
         {
             return new DiscoverySettings
             {
-                ShowInTeamSSearchAndSuggestions = showInTeamSSearchAndSuggestions,
+                ShowInTeamsSearchAndSuggestions = showInTeamsSearchAndSuggestions,
             };
         }
 
@@ -3397,7 +3397,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             DateTime? startTime = default,
             DateTime? endTime = default,
             DateTime? creationTime = default,
-            string joinWebURL = default,
+            string joinWebUrl = default,
             JsonElement? joinMeetingIdSettings = default,
             JsonElement? participants = default,
             JsonElement? audioConferencing = default,
@@ -3406,7 +3406,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             JsonElement? lobbyBypassSettings = default,
             bool? recordAutomatically = default,
             string allowMeetingChat = default,
-            string meetingOptionsWebURL = default)
+            string meetingOptionsWebUrl = default)
         {
             return new GetOnlineMeetingResponse
             {
@@ -3415,7 +3415,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 StartTime = startTime,
                 EndTime = endTime,
                 CreationTime = creationTime,
-                JoinWebURL = joinWebURL,
+                JoinWebUrl = joinWebUrl,
                 JoinMeetingIdSettings = joinMeetingIdSettings,
                 Participants = participants,
                 AudioConferencing = audioConferencing,
@@ -3424,7 +3424,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 LobbyBypassSettings = lobbyBypassSettings,
                 RecordAutomatically = recordAutomatically,
                 AllowMeetingChat = allowMeetingChat,
-                MeetingOptionsWebURL = meetingOptionsWebURL,
+                MeetingOptionsWebUrl = meetingOptionsWebUrl,
             };
         }
 
@@ -3448,7 +3448,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static CallTranscriptResponse CallTranscriptResponse(
             string transcriptId = default,
             DateTime? createdDateTime = default,
-            string transcriptContentURL = default,
+            string transcriptContentUrl = default,
             string meetingId = default,
             string meetingOrganizerId = default,
             string callId = default)
@@ -3457,7 +3457,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 TranscriptId = transcriptId,
                 CreatedDateTime = createdDateTime,
-                TranscriptContentURL = transcriptContentURL,
+                TranscriptContentUrl = transcriptContentUrl,
                 MeetingId = meetingId,
                 MeetingOrganizerId = meetingOrganizerId,
                 CallId = callId,
@@ -3484,7 +3484,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
         public static CallRecordingResponse CallRecordingResponse(
             string recordingId = default,
             DateTime? createdDateTime = default,
-            string recordingContentURL = default,
+            string recordingContentUrl = default,
             string meetingId = default,
             string meetingOrganizerId = default,
             string callId = default)
@@ -3493,7 +3493,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 RecordingId = recordingId,
                 CreatedDateTime = createdDateTime,
-                RecordingContentURL = recordingContentURL,
+                RecordingContentUrl = recordingContentUrl,
                 MeetingId = meetingId,
                 MeetingOrganizerId = meetingOrganizerId,
                 CallId = callId,
@@ -3657,12 +3657,12 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static CreateTagInput CreateTagInput(
             string displayName = default,
-            string membersIDs = default)
+            string membersIds = default)
         {
             return new CreateTagInput
             {
                 DisplayName = displayName,
-                MembersIDs = membersIDs,
+                MembersIds = membersIds,
             };
         }
 
@@ -3702,11 +3702,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
         /// </summary>
         public static AddMemberToTagInput AddMemberToTagInput(
-            string userSId = default)
+            string userId = default)
         {
             return new AddMemberToTagInput
             {
-                UserSId = userSId,
+                UserId = userId,
             };
         }
 
@@ -3778,7 +3778,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string contentCorrelationId = default,
             DateTime? createdDateTime = default,
             DateTime? endDateTime = default,
-            string recapURL = default,
+            string recapUrl = default,
             List<AiInsightMeetingNote> meetingNotes = default,
             List<AiInsightActionItem> actionItems = default,
             AiInsightViewpoint viewpoint = default)
@@ -3791,7 +3791,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 ContentCorrelationId = contentCorrelationId,
                 CreatedDateTime = createdDateTime,
                 EndDateTime = endDateTime,
-                RecapURL = recapURL,
+                RecapUrl = recapUrl,
                 MeetingNotes = meetingNotes,
                 ActionItems = actionItems,
                 Viewpoint = viewpoint,
@@ -4093,9 +4093,9 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
     /// <summary>
     /// Typed trigger payload for the OnRecordingTrigger trigger (Teams "When a recording is available", operationId: RecordingTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnRecordingTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnRecordingTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnRecordingTriggerTriggerPayload : TriggerCallbackPayload<RecordingWebhookResponseSchemaNotification>
+    public class TeamsOnRecordingTriggerPayload : TriggerCallbackPayload<RecordingWebhookResponseSchemaNotification>
     {
     }
 
@@ -4117,49 +4117,49 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
     /// <summary>
     /// Typed trigger payload for the OnTranscriptTrigger trigger (Teams "When a transcript is available", operationId: TranscriptTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTranscriptTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTranscriptTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnTranscriptTriggerTriggerPayload : TriggerCallbackPayload<TranscriptWebhookResponseSchemaNotification>
+    public class TeamsOnTranscriptTriggerPayload : TriggerCallbackPayload<TranscriptWebhookResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookAtMentionTrigger trigger (Teams "When I&apos;m @mentioned", operationId: WebhookAtMentionTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookAtMentionTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookAtMentionTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookAtMentionTriggerTriggerPayload : TriggerCallbackPayload<DynamicAtMentionWebhookTriggerResponseSchemaNotification>
+    public class TeamsOnWebhookAtMentionTriggerPayload : TriggerCallbackPayload<DynamicAtMentionWebhookTriggerResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookChatMessageTrigger trigger (Teams "When a new chat message is added", operationId: WebhookChatMessageTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookChatMessageTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookChatMessageTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookChatMessageTriggerTriggerPayload : TriggerCallbackPayload<ChatMessageWebhookResponseSchemaNotificationValueItem>
+    public class TeamsOnWebhookChatMessageTriggerPayload : TriggerCallbackPayload<ChatMessageWebhookResponseSchemaNotificationValueItem>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookKeywordTrigger trigger (Teams "When keywords are mentioned", operationId: WebhookKeywordTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookKeywordTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookKeywordTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookKeywordTriggerTriggerPayload : TriggerCallbackPayload<DynamicKeywordWebhookTriggerResponseSchemaNotification>
+    public class TeamsOnWebhookKeywordTriggerPayload : TriggerCallbackPayload<DynamicKeywordWebhookTriggerResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookMessageReactionTrigger trigger (Teams "When someone reacted to a message in chat", operationId: WebhookMessageReactionTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookMessageReactionTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookMessageReactionTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookMessageReactionTriggerTriggerPayload : TriggerCallbackPayload<MessageReactionWebhookResponseSchemaNotification>
+    public class TeamsOnWebhookMessageReactionTriggerPayload : TriggerCallbackPayload<MessageReactionWebhookResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookNewMessageTrigger trigger (Teams "When a new message is added to a chat or channel", operationId: WebhookNewMessageTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookNewMessageTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookNewMessageTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookNewMessageTriggerTriggerPayload : TriggerCallbackPayload<DynamicNewMessageWebhookTriggerResponseSchemaNotification>
+    public class TeamsOnWebhookNewMessageTriggerPayload : TriggerCallbackPayload<DynamicNewMessageWebhookTriggerResponseSchemaNotification>
     {
     }
 
@@ -4181,15 +4181,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 ["OnNewChannelMessage"] = typeof(TeamsOnNewChannelMessageTriggerPayload),
                 ["OnNewChannelMessageMentioningMe"] = typeof(TeamsOnNewChannelMessageMentioningMeTriggerPayload),
-                ["RecordingTrigger"] = typeof(TeamsOnRecordingTriggerTriggerPayload),
+                ["RecordingTrigger"] = typeof(TeamsOnRecordingTriggerPayload),
                 ["OnGroupMembershipAdd"] = typeof(TeamsOnTeamMemberAddedTriggerPayload),
                 ["OnGroupMembershipRemoval"] = typeof(TeamsOnTeamMemberRemovedTriggerPayload),
-                ["TranscriptTrigger"] = typeof(TeamsOnTranscriptTriggerTriggerPayload),
-                ["WebhookAtMentionTrigger"] = typeof(TeamsOnWebhookAtMentionTriggerTriggerPayload),
-                ["WebhookChatMessageTrigger"] = typeof(TeamsOnWebhookChatMessageTriggerTriggerPayload),
-                ["WebhookKeywordTrigger"] = typeof(TeamsOnWebhookKeywordTriggerTriggerPayload),
-                ["WebhookMessageReactionTrigger"] = typeof(TeamsOnWebhookMessageReactionTriggerTriggerPayload),
-                ["WebhookNewMessageTrigger"] = typeof(TeamsOnWebhookNewMessageTriggerTriggerPayload),
+                ["TranscriptTrigger"] = typeof(TeamsOnTranscriptTriggerPayload),
+                ["WebhookAtMentionTrigger"] = typeof(TeamsOnWebhookAtMentionTriggerPayload),
+                ["WebhookChatMessageTrigger"] = typeof(TeamsOnWebhookChatMessageTriggerPayload),
+                ["WebhookKeywordTrigger"] = typeof(TeamsOnWebhookKeywordTriggerPayload),
+                ["WebhookMessageReactionTrigger"] = typeof(TeamsOnWebhookMessageReactionTriggerPayload),
+                ["WebhookNewMessageTrigger"] = typeof(TeamsOnWebhookNewMessageTriggerPayload),
             });
     }
 
@@ -4223,7 +4223,7 @@ namespace Azure.Connectors.Sdk.Teams
 
         /// <summary>
         /// When a recording is available.
-        /// Payload type: <see cref="TeamsOnRecordingTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnRecordingTriggerPayload"/>.
         /// </summary>
         public const string OnRecordingTrigger = "RecordingTrigger";
 
@@ -4241,37 +4241,37 @@ namespace Azure.Connectors.Sdk.Teams
 
         /// <summary>
         /// When a transcript is available.
-        /// Payload type: <see cref="TeamsOnTranscriptTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnTranscriptTriggerPayload"/>.
         /// </summary>
         public const string OnTranscriptTrigger = "TranscriptTrigger";
 
         /// <summary>
         /// When I&apos;m @mentioned.
-        /// Payload type: <see cref="TeamsOnWebhookAtMentionTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookAtMentionTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
 
         /// <summary>
         /// When a new chat message is added.
-        /// Payload type: <see cref="TeamsOnWebhookChatMessageTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookChatMessageTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
 
         /// <summary>
         /// When keywords are mentioned.
-        /// Payload type: <see cref="TeamsOnWebhookKeywordTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookKeywordTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
 
         /// <summary>
         /// When someone reacted to a message in chat.
-        /// Payload type: <see cref="TeamsOnWebhookMessageReactionTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookMessageReactionTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
 
         /// <summary>
         /// When a new message is added to a chat or channel.
-        /// Payload type: <see cref="TeamsOnWebhookNewMessageTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookNewMessageTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
 
@@ -6611,19 +6611,19 @@ namespace Azure.Connectors.Sdk.Teams
         /// </summary>
         /// <remarks>Gets a specific AI-generated insight for an online meeting. Requires Microsoft 365 Copilot license.</remarks>
         /// <param name="meetingId">Meeting ID</param>
-        /// <param name="aIInsightId">AI Insight ID</param>
+        /// <param name="aiInsightId">AI Insight ID</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get AI insight response.</returns>
-        public virtual async Task<AiInsightDetailResponse> GetAIInsightAsync(string meetingId, string aIInsightId, CancellationToken cancellationToken = default)
+        public virtual async Task<AiInsightDetailResponse> GetAIInsightAsync(string meetingId, string aiInsightId, CancellationToken cancellationToken = default)
         {
             using var activity = TeamsClient.ConnectorActivitySource.StartActivity("TeamsClient.GetAIInsightAsync");
             try
             {
                 if (meetingId is null)
                     throw new ArgumentNullException(nameof(meetingId));
-                if (aIInsightId is null)
-                    throw new ArgumentNullException(nameof(aIInsightId));
-                var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId)}/aiInsights/{Uri.EscapeDataString(aIInsightId)}";
+                if (aiInsightId is null)
+                    throw new ArgumentNullException(nameof(aiInsightId));
+                var path = $"/v1.0/copilot/me/onlineMeetings/{Uri.EscapeDataString(meetingId)}/aiInsights/{Uri.EscapeDataString(aiInsightId)}";
                 return await this
                     .CallConnectorAsync<AiInsightDetailResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);

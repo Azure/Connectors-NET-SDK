@@ -34,7 +34,7 @@ namespace Azure.Connectors.Sdk.Slack.Models
     /// <summary>
     /// Response for Set do not disturb
     /// </summary>
-    public class SetDNDResponse
+    public class SetDndResponse
     {
         /// <summary>Whether snooze is enabled.</summary>
         [JsonPropertyName("snooze_enabled")]
@@ -233,12 +233,12 @@ namespace Azure.Connectors.Sdk.Slack.Models
     public static class SlackModelFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="SetDNDResponse"/>.
+        /// Creates a new instance of <see cref="SetDndResponse"/>.
         /// </summary>
-        public static SetDNDResponse SetDNDResponse(
+        public static SetDndResponse SetDndResponse(
             bool? snoozeEnabled = default)
         {
-            return new SetDNDResponse
+            return new SetDndResponse
             {
                 SnoozeEnabled = snoozeEnabled,
             };
@@ -508,9 +508,9 @@ namespace Azure.Connectors.Sdk.Slack
         /// <param name="numberOfMinutes">Number of minutes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Set do not disturb response.</returns>
-        public virtual async Task<SetDNDResponse> SetDNDAsync(string numberOfMinutes = default, CancellationToken cancellationToken = default)
+        public virtual async Task<SetDndResponse> SetDndAsync(string numberOfMinutes = default, CancellationToken cancellationToken = default)
         {
-            using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.SetDNDAsync");
+            using var activity = SlackClient.ConnectorActivitySource.StartActivity("SlackClient.SetDndAsync");
             try
             {
                 var queryParams = new List<string>();
@@ -518,7 +518,7 @@ namespace Azure.Connectors.Sdk.Slack
                     queryParams.Add($"num_minutes={Uri.EscapeDataString(numberOfMinutes)}");
                 var path = $"/dnd.setSnooze" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
-                    .CallConnectorAsync<SetDNDResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync<SetDndResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -632,4 +632,3 @@ namespace Azure.Connectors.Sdk.Slack
 
     #endregion Client
 }
-

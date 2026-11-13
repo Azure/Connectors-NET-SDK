@@ -113,7 +113,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .ListIssuesAsync(jQLQuery: "project = SDK", nextPageToken: "current-token", cancellationToken: CancellationToken.None)
+                .ListIssuesAsync(jqlQuery: "project = SDK", nextPageToken: "current-token", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(expected: "next-token", actual: result.NextPageToken);
