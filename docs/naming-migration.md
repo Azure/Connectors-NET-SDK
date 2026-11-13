@@ -460,12 +460,15 @@ was inconsistent or when a wire `guid` field was previously rewritten to `Id`:
   `SenderName` / `SenderEmailAddress` / `SenderUserId` / `SenderAccountId`; Etsy
   `BuyerSEmailAddress` / `SellerSEmailAddress` become `BuyerEmailAddress` /
   `SellerEmailAddress`; Mailchimp `SenderSName` / `SenderSEmailAddress` become
-  `SenderName` / `SenderEmailAddress`; Teams `UserSId`, `TeamSWebUrl` and
-  `ShowInTeamSSearchAndSuggestions` become `UserId`, `TeamWebUrl` and
-  `ShowInTeamSearchAndSuggestions`; TextRequest parameters
+  `SenderName` / `SenderEmailAddress`; Teams `UserSId` and `TeamSWebUrl` become
+  `UserId` and `TeamWebUrl`; TextRequest parameters
   `contactSPhoneNumberToSearchBy` / `whetherContactSConversationIsResolved` become
   `contactPhoneNumberToSearchBy` / `whetherContactConversationIsResolved`; and the
-  MeetingRoomMap search parameter drops `UserS` for `User`.
+  MeetingRoomMap search parameter drops `UserS` for `User`. The wire name decides
+  ambiguous cases: Teams `ShowInTeamSSearchAndSuggestions` becomes
+  `ShowInTeamsSearchAndSuggestions`, because its wire name
+  `showInTeamsSearchAndSuggestions` names the Teams product even though the summary
+  reads "team's".
 - **Separator word boundaries**: uppercase runs separated in the source keep their
   boundary. GitHub parameter `ldapdn` becomes `ldapDN`, Plumsail `EnUSPOSIX`
   becomes `EnUSPosix`, and Infusionsoft `DueDateFormatYYYYMMDdThhMmSsFffZ`

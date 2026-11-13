@@ -984,7 +984,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>If set to true, the team is visible via search and suggestions from the Teams client</summary>
         [JsonPropertyName("showInTeamsSearchAndSuggestions")]
-        public bool? ShowInTeamSearchAndSuggestions { get; set; }
+        public bool? ShowInTeamsSearchAndSuggestions { get; set; }
     }
 
     /// <summary>
@@ -3254,11 +3254,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="DiscoverySettings"/>.
         /// </summary>
         public static DiscoverySettings DiscoverySettings(
-            bool? showInTeamSearchAndSuggestions = default)
+            bool? showInTeamsSearchAndSuggestions = default)
         {
             return new DiscoverySettings
             {
-                ShowInTeamSearchAndSuggestions = showInTeamSearchAndSuggestions,
+                ShowInTeamsSearchAndSuggestions = showInTeamsSearchAndSuggestions,
             };
         }
 
