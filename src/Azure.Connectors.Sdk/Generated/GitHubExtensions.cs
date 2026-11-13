@@ -1006,7 +1006,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>Distinguished Name (DN) that team maps to within LDAP environment</summary>
         [JsonPropertyName("ldap_dn")]
-        public string Ldapdn { get; set; }
+        public string LdapDN { get; set; }
     }
 
     /// <summary>
@@ -1760,7 +1760,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
         /// <summary>Distinguished Name (DN) that team maps to within LDAP environment</summary>
         [JsonPropertyName("ldap_dn")]
-        public string Ldapdn { get; set; }
+        public string LdapDN { get; set; }
     }
 
     /// <summary>
@@ -3118,7 +3118,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
             string htmlUrl = default,
             string repositoriesUrl = default,
             string slug = default,
-            string ldapdn = default)
+            string ldapDN = default)
         {
             return new TeamDetails
             {
@@ -3133,7 +3133,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 HtmlUrl = htmlUrl,
                 RepositoriesUrl = repositoriesUrl,
                 Slug = slug,
-                Ldapdn = ldapdn,
+                LdapDN = ldapDN,
             };
         }
 
@@ -3572,7 +3572,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
             string htmlUrl = default,
             string repositoriesUrl = default,
             string slug = default,
-            string ldapdn = default)
+            string ldapDN = default)
         {
             return new TeamDetailsNotification
             {
@@ -3587,7 +3587,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 HtmlUrl = htmlUrl,
                 RepositoriesUrl = repositoriesUrl,
                 Slug = slug,
-                Ldapdn = ldapdn,
+                LdapDN = ldapDN,
             };
         }
 

@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
-using Azure.Connectors.Sdk.Docuware;
+using Azure.Connectors.Sdk.DocuWare;
 using Azure.Connectors.Sdk.ServiceNow;
 using Azure.Connectors.Sdk.ZohoSign;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -62,12 +62,12 @@ namespace Azure.Connectors.Sdk.Tests
         [Owner("swapnilnagar")]
         [DataRow(false)]
         [DataRow(true)]
-        public async Task DocuwareUpload_PreservesDefaultsAndOptionalFields(bool includeOptionalFields)
+        public async Task DocuWareUpload_PreservesDefaultsAndOptionalFields(bool includeOptionalFields)
         {
             var content = new byte[] { 0, 255 };
             var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
                 () => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"DocumentId\":123}") });
-            using var client = new DocuwareClient(new Uri("https://example.test/connection"), credential, options);
+            using var client = new DocuWareClient(new Uri("https://example.test/connection"), credential, options);
 
             var response = await client
                 .StoreToFileCabinetAsync(
@@ -107,12 +107,12 @@ namespace Azure.Connectors.Sdk.Tests
         [DataRow("r\u00e9sum\u00e9-\u6587\u4ef6.docx", false)]
         [DataRow("invoice%20paid%.docx", false)]
         [DataRow("my \"invoice\".docx", false)]
-        public async Task DocuwareUpload_PreservesFilename(string fileName, bool useExtendedFileName)
+        public async Task DocuWareUpload_PreservesFilename(string fileName, bool useExtendedFileName)
         {
             var content = new byte[] { 0, 127, 128, 255, 13, 10 };
             var (credential, options, capture) = ConnectorTestHelpers.CreateContentCapturingClientSetup(
                 () => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"DocumentId\":123}") });
-            using var client = new DocuwareClient(new Uri("https://example.test/connection"), credential, options);
+            using var client = new DocuWareClient(new Uri("https://example.test/connection"), credential, options);
 
             var response = await client
                 .StoreToFileCabinetAsync(

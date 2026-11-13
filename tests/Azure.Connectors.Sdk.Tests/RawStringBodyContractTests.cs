@@ -16,7 +16,7 @@ using Azure.Connectors.Sdk.AzureTables;
 using Azure.Connectors.Sdk.AzureTables.Models;
 using Azure.Connectors.Sdk.DocumentDB;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
-using Azure.Connectors.Sdk.Onenote;
+using Azure.Connectors.Sdk.OneNote;
 using Azure.Connectors.Sdk.PowerBI;
 using Azure.Connectors.Sdk.Teams;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -84,7 +84,7 @@ namespace Azure.Connectors.Sdk.Tests
                     }
                     break;
                 case "CreatePageInSection":
-                    using (var client = new OnenoteClient(endpoint, setup.Credential, setup.Options))
+                    using (var client = new OneNoteClient(endpoint, setup.Credential, setup.Options))
                     {
                         await client
                             .CreatePageInSectionAsync(input: payload, notebookKey: "notebook", notebookSection: "section", cancellationToken: CancellationToken.None)
@@ -92,7 +92,7 @@ namespace Azure.Connectors.Sdk.Tests
                     }
                     break;
                 case "CreatePageInQuickNotes":
-                    using (var client = new OnenoteClient(endpoint, setup.Credential, setup.Options))
+                    using (var client = new OneNoteClient(endpoint, setup.Credential, setup.Options))
                     {
                         await client
                             .CreatePageInQuickNotesAsync(input: payload, cancellationToken: CancellationToken.None)

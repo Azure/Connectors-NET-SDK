@@ -699,11 +699,11 @@ namespace Azure.Connectors.Sdk.Mailchimp.Models
     {
         /// <summary>The default from name for campaigns sent to this list</summary>
         [JsonPropertyName("from_name")]
-        public string SenderSName { get; set; }
+        public string SenderName { get; set; }
 
         /// <summary>The default from email for campaigns sent to this list</summary>
         [JsonPropertyName("from_email")]
-        public string SenderSEmailAddress { get; set; }
+        public string SenderEmailAddress { get; set; }
 
         /// <summary>The default subject line for campaigns sent to this list</summary>
         [JsonPropertyName("subject")]
@@ -2256,15 +2256,15 @@ namespace Azure.Connectors.Sdk.Mailchimp.Models
         /// Creates a new instance of <see cref="CampaignDefaults"/>.
         /// </summary>
         public static CampaignDefaults CampaignDefaults(
-            string senderSName = default,
-            string senderSEmailAddress = default,
+            string senderName = default,
+            string senderEmailAddress = default,
             string subject = default,
             Language? language = default)
         {
             return new CampaignDefaults
             {
-                SenderSName = senderSName,
-                SenderSEmailAddress = senderSEmailAddress,
+                SenderName = senderName,
+                SenderEmailAddress = senderEmailAddress,
                 Subject = subject,
                 Language = language,
             };

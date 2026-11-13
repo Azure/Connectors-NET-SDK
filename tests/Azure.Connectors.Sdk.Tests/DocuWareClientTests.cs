@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Docuware;
+using Azure.Connectors.Sdk.DocuWare;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +17,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class DocuwareClientTests
+    public class DocuWareClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static DocuwareClient CreateMockedClient(HttpResponseMessage response)
+        private static DocuWareClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -38,33 +38,33 @@ namespace Azure.Connectors.Sdk.Tests
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
-            return new DocuwareClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
+            return new DocuWareClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
         }
 
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new DocuwareClient("https://test.azure.com/conn");
+            using var client = new DocuWareClient("https://test.azure.com/conn");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNull_ShouldThrow()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new DocuwareClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new DocuWareClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new DocuwareClient("https://test.azure.com/conn");
+            var client = new DocuWareClient("https://test.azure.com/conn");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new DocuwareClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
+            var client = new DocuWareClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
         }

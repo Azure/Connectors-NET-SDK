@@ -303,7 +303,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The email address string for the seller of the listing.</summary>
         [JsonPropertyName("seller_email")]
-        public string SellerSEmailAddress { get; set; }
+        public string SellerEmailAddress { get; set; }
 
         /// <summary>The numeric ID for the user making the purchase.</summary>
         [JsonPropertyName("buyer_user_id")]
@@ -311,7 +311,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The email address string for the buyer of the listing.</summary>
         [JsonPropertyName("buyer_email")]
-        public string BuyerSEmailAddress { get; set; }
+        public string BuyerEmailAddress { get; set; }
 
         /// <summary>The name string for the recipient in the shipping address.</summary>
         [JsonPropertyName("name")]
@@ -3489,9 +3489,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             int? receiptId = default,
             int? receiptType = default,
             int? sellerUserId = default,
-            string sellerSEmailAddress = default,
+            string sellerEmailAddress = default,
             int? buyerUserId = default,
-            string buyerSEmailAddress = default,
+            string buyerEmailAddress = default,
             string name = default,
             string firstAddressLine = default,
             string secondAddressLine = default,
@@ -3525,9 +3525,9 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 ReceiptId = receiptId,
                 ReceiptType = receiptType,
                 SellerUserId = sellerUserId,
-                SellerSEmailAddress = sellerSEmailAddress,
+                SellerEmailAddress = sellerEmailAddress,
                 BuyerUserId = buyerUserId,
-                BuyerSEmailAddress = buyerSEmailAddress,
+                BuyerEmailAddress = buyerEmailAddress,
                 Name = name,
                 FirstAddressLine = firstAddressLine,
                 SecondAddressLine = secondAddressLine,

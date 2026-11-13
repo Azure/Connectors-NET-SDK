@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Cloudconvert;
-using Azure.Connectors.Sdk.Cloudconvert.Models;
+using Azure.Connectors.Sdk.CloudConvert;
+using Azure.Connectors.Sdk.CloudConvert.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,7 +20,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class CloudconvertClientTests
+    public class CloudConvertClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -32,7 +32,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static CloudconvertClient CreateMockedClient(
+        private static CloudConvertClient CreateMockedClient(
             HttpResponseMessage response,
             Action<HttpRequestMessage>? requestCallback = null)
         {
@@ -50,7 +50,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new CloudconvertClient(
+            return new CloudConvertClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -59,7 +59,7 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidUrl_CreatesInstance()
         {
-            using var client = new CloudconvertClient("https://test.azure.com/connection");
+            using var client = new CloudConvertClient("https://test.azure.com/connection");
 
             Assert.IsNotNull(client);
             Assert.AreEqual(expected: "cloudconvert", actual: client.ConnectorName, ignoreCase: false);
@@ -68,13 +68,13 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithNullUrl_ThrowsArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new CloudconvertClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new CloudConvertClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_DoesNotThrow()
         {
-            var client = new CloudconvertClient(
+            var client = new CloudConvertClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
 
@@ -85,26 +85,26 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void DiscoveryHelpers_AliasRetention_DeclaresAllFiveMethods()
         {
-            var helperNames = typeof(CloudconvertClient)
+            var helperNames = typeof(CloudConvertClient)
                 .GetMethods()
                 .Select(method => method.Name)
                 .Where(name => name is
-                    nameof(CloudconvertClient.GetConvertOptionsAsync) or
-                    nameof(CloudconvertClient.GetOptimizeOptionsAsync) or
-                    nameof(CloudconvertClient.GetCaptureWebsiteOptionsAsync) or
-                    nameof(CloudconvertClient.GetMergeInputsAsync) or
-                    nameof(CloudconvertClient.GetMergeOptionsAsync))
+                    nameof(CloudConvertClient.GetConvertOptionsAsync) or
+                    nameof(CloudConvertClient.GetOptimizeOptionsAsync) or
+                    nameof(CloudConvertClient.GetCaptureWebsiteOptionsAsync) or
+                    nameof(CloudConvertClient.GetMergeInputsAsync) or
+                    nameof(CloudConvertClient.GetMergeOptionsAsync))
                 .OrderBy(name => name, StringComparer.Ordinal)
                 .ToArray();
 
             CollectionAssert.AreEqual(
                 expected: new[]
                 {
-                    nameof(CloudconvertClient.GetCaptureWebsiteOptionsAsync),
-                    nameof(CloudconvertClient.GetConvertOptionsAsync),
-                    nameof(CloudconvertClient.GetMergeInputsAsync),
-                    nameof(CloudconvertClient.GetMergeOptionsAsync),
-                    nameof(CloudconvertClient.GetOptimizeOptionsAsync),
+                    nameof(CloudConvertClient.GetCaptureWebsiteOptionsAsync),
+                    nameof(CloudConvertClient.GetConvertOptionsAsync),
+                    nameof(CloudConvertClient.GetMergeInputsAsync),
+                    nameof(CloudConvertClient.GetMergeOptionsAsync),
+                    nameof(CloudConvertClient.GetOptimizeOptionsAsync),
                 },
                 actual: helperNames);
         }
@@ -189,7 +189,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void GetConvertOptionsResponse_JsonRoundTrip_PreservesWireData()
         {
             using var document = JsonDocument.Parse("{\"quality\":\"high\"}");
-            var model = CloudconvertModelFactory.GetConvertOptionsResponse(document.RootElement.Clone());
+            var model = CloudConvertModelFactory.GetConvertOptionsResponse(document.RootElement.Clone());
 
             var json = JsonSerializer.Serialize(model);
             var roundTripped = JsonSerializer.Deserialize<GetConvertOptionsResponse>(json);

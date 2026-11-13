@@ -261,7 +261,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | Rev.ai | 🔄 SDK Generated | TranscriptionGet, TranscriptionsGet, TranscriptionDelete |
 | Zoho Sign | 🔄 SDK Generated | InvokeApi, DownloadCompletionCertificate (trigger: OnZohoSignTriggers) |
 | Zoho ZeptoMail | 🔄 SDK Generated | GetMailAgent, GetProcessedEmails, SendMail, SendTemplateMail, ProcessedMailStats |
-| Docuware | 🔄 SDK Generated | GetOrganization, StoreToFileCabinet |
+| DocuWare | 🔄 SDK Generated | GetOrganization, StoreToFileCabinet |
 | Elfsquad Data | 🔄 SDK Generated | GetSchemas, GetEntities |
 | Impexium | 🔄 SDK Generated | GetAbandonedCheckouts, ListAllExhibitors |
 | Jedox OData Hub | 🔄 SDK Generated | Databases, GetCubes |

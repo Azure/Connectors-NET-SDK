@@ -18,7 +18,7 @@ using Azure.Connectors.Sdk.Campfire;
 using Azure.Connectors.Sdk.ClickSendSms;
 using Azure.Connectors.Sdk.CloudmersiveConvert;
 using Azure.Connectors.Sdk.DocumentDB;
-using Azure.Connectors.Sdk.Docuware;
+using Azure.Connectors.Sdk.DocuWare;
 using Azure.Connectors.Sdk.ElfsquadData;
 using Azure.Connectors.Sdk.Etsy;
 using Azure.Connectors.Sdk.EventHubs;
@@ -42,7 +42,7 @@ using Azure.Connectors.Sdk.Office365Groups;
 using Azure.Connectors.Sdk.Office365GroupsMail;
 using Azure.Connectors.Sdk.Office365Users;
 using Azure.Connectors.Sdk.OneDriveForBusiness;
-using Azure.Connectors.Sdk.Onenote;
+using Azure.Connectors.Sdk.OneNote;
 using Azure.Connectors.Sdk.Orderful;
 using Azure.Connectors.Sdk.Outlook;
 using Azure.Connectors.Sdk.PdfCo;
@@ -68,7 +68,7 @@ using Azure.Connectors.Sdk.TextRequest;
 using Azure.Connectors.Sdk.Ticketmaster;
 using Azure.Connectors.Sdk.Todo;
 using Azure.Connectors.Sdk.UniversalPrint;
-using Azure.Connectors.Sdk.Waywedo;
+using Azure.Connectors.Sdk.WayWeDo;
 using Azure.Connectors.Sdk.Wdatp;
 using Azure.Connectors.Sdk.WordOnlineBusiness;
 using Azure.Connectors.Sdk.Yammer;
@@ -297,7 +297,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="DocuwareClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="DocuWareClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -305,11 +305,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocuwareClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<DocuWareClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.DocuWare,
-                factory: (connectionRuntimeUrl, credential) => new DocuwareClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new DocuWareClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -953,7 +953,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="WaywedoClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="WayWeDoClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -961,11 +961,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<WaywedoClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<WayWeDoClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.WayWeDo,
-                factory: (connectionRuntimeUrl, credential) => new WaywedoClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new WayWeDoClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>
@@ -1193,7 +1193,7 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="OnenoteClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="OneNoteClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
@@ -1201,11 +1201,11 @@ namespace Azure.Connectors.Sdk
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<OnenoteClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<OneNoteClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.OneNoteBusiness,
-                factory: (connectionRuntimeUrl, credential) => new OnenoteClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new OneNoteClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

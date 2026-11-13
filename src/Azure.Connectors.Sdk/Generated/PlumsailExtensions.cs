@@ -1796,7 +1796,7 @@ namespace Azure.Connectors.Sdk.Plumsail.Models
         public static Locale EnUS { get; } = new("en-US");
 
         /// <summary>en-US-POSIX</summary>
-        public static Locale EnUsposix { get; } = new("en-US-POSIX");
+        public static Locale EnUSPosix { get; } = new("en-US-POSIX");
 
         /// <summary>en-VC</summary>
         public static Locale EnVC { get; } = new("en-VC");

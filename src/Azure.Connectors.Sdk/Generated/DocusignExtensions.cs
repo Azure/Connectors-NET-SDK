@@ -169,19 +169,19 @@ namespace Azure.Connectors.Sdk.Docusign.Models
     {
         /// <summary>userName</summary>
         [JsonPropertyName("userName")]
-        public string SenderSName { get; set; }
+        public string SenderName { get; set; }
 
         /// <summary>userId</summary>
         [JsonPropertyName("userId")]
-        public string SenderSUserId { get; set; }
+        public string SenderUserId { get; set; }
 
         /// <summary>accountId</summary>
         [JsonPropertyName("accountId")]
-        public string SenderSAccountId { get; set; }
+        public string SenderAccountId { get; set; }
 
         /// <summary>email</summary>
         [JsonPropertyName("email")]
-        public string SenderSEmailAddress { get; set; }
+        public string SenderEmailAddress { get; set; }
     }
 
     /// <summary>
@@ -988,19 +988,19 @@ namespace Azure.Connectors.Sdk.Docusign.Models
     {
         /// <summary>userName</summary>
         [JsonPropertyName("userName")]
-        public string SenderSName { get; set; }
+        public string SenderName { get; set; }
 
         /// <summary>userId</summary>
         [JsonPropertyName("userId")]
-        public string SenderSUserId { get; set; }
+        public string SenderUserId { get; set; }
 
         /// <summary>accountId</summary>
         [JsonPropertyName("accountId")]
-        public string SenderSAccountId { get; set; }
+        public string SenderAccountId { get; set; }
 
         /// <summary>email</summary>
         [JsonPropertyName("email")]
-        public string SenderSEmailAddress { get; set; }
+        public string SenderEmailAddress { get; set; }
     }
 
     /// <summary>
@@ -1699,17 +1699,17 @@ namespace Azure.Connectors.Sdk.Docusign.Models
         /// Creates a new instance of <see cref="WebhookOrganizationResponseNotificationDataEnvelopeSummarySender"/>.
         /// </summary>
         public static WebhookOrganizationResponseNotificationDataEnvelopeSummarySender WebhookOrganizationResponseNotificationDataEnvelopeSummarySender(
-            string senderSName = default,
-            string senderSUserId = default,
-            string senderSAccountId = default,
-            string senderSEmailAddress = default)
+            string senderName = default,
+            string senderUserId = default,
+            string senderAccountId = default,
+            string senderEmailAddress = default)
         {
             return new WebhookOrganizationResponseNotificationDataEnvelopeSummarySender
             {
-                SenderSName = senderSName,
-                SenderSUserId = senderSUserId,
-                SenderSAccountId = senderSAccountId,
-                SenderSEmailAddress = senderSEmailAddress,
+                SenderName = senderName,
+                SenderUserId = senderUserId,
+                SenderAccountId = senderAccountId,
+                SenderEmailAddress = senderEmailAddress,
             };
         }
 
@@ -2325,17 +2325,17 @@ namespace Azure.Connectors.Sdk.Docusign.Models
         /// Creates a new instance of <see cref="WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender"/>.
         /// </summary>
         public static WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender(
-            string senderSName = default,
-            string senderSUserId = default,
-            string senderSAccountId = default,
-            string senderSEmailAddress = default)
+            string senderName = default,
+            string senderUserId = default,
+            string senderAccountId = default,
+            string senderEmailAddress = default)
         {
             return new WebhookEnvelopeResponseNotificationDataEnvelopeSummarySender
             {
-                SenderSName = senderSName,
-                SenderSUserId = senderSUserId,
-                SenderSAccountId = senderSAccountId,
-                SenderSEmailAddress = senderSEmailAddress,
+                SenderName = senderName,
+                SenderUserId = senderUserId,
+                SenderAccountId = senderAccountId,
+                SenderEmailAddress = senderEmailAddress,
             };
         }
 

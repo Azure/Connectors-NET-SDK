@@ -948,7 +948,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Project Visibility.</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public Visibleto? ProjectVisibility { get; set; }
+        public VisibleTo? ProjectVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1003,7 +1003,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Lead Visibility</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public Visibleto? LeadVisibility { get; set; }
+        public VisibleTo? LeadVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1085,7 +1085,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Contact Visibility</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public Visibleto? ContactVisibility { get; set; }
+        public VisibleTo? ContactVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1119,7 +1119,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Organization visibility.</summary>
         [JsonPropertyName("VISIBLE_TO")]
-        public Visibleto? OrganizationVisibility { get; set; }
+        public VisibleTo? OrganizationVisibility { get; set; }
 
         /// <summary>Visible Team Id (Required when team visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_TEAM_ID")]
@@ -1201,60 +1201,60 @@ namespace Azure.Connectors.Sdk.Insightly.Models
     }
 
     /// <summary>
-    /// Extensible enum for known Visibleto values.
+    /// Extensible enum for known VisibleTo values.
     /// </summary>
-    [JsonConverter(typeof(Visibleto.VisibletoJsonConverter))]
-    public readonly struct Visibleto : IEquatable<Visibleto>
+    [JsonConverter(typeof(VisibleTo.VisibleToJsonConverter))]
+    public readonly struct VisibleTo : IEquatable<VisibleTo>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Visibleto"/> struct.
+        /// Initializes a new instance of the <see cref="VisibleTo"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public Visibleto(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public VisibleTo(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>Everyone</summary>
-        public static Visibleto Everyone { get; } = new("Everyone");
+        public static VisibleTo Everyone { get; } = new("Everyone");
 
         /// <summary>Individuals</summary>
-        public static Visibleto Individuals { get; } = new("Individuals");
+        public static VisibleTo Individuals { get; } = new("Individuals");
 
         /// <summary>Owner</summary>
-        public static Visibleto Owner { get; } = new("Owner");
+        public static VisibleTo Owner { get; } = new("Owner");
 
         /// <summary>Team</summary>
-        public static Visibleto Team { get; } = new("Team");
+        public static VisibleTo Team { get; } = new("Team");
 
-        /// <summary>Converts a string to <see cref="Visibleto"/>.</summary>
-        public static implicit operator Visibleto(string value) => new(value);
+        /// <summary>Converts a string to <see cref="VisibleTo"/>.</summary>
+        public static implicit operator VisibleTo(string value) => new(value);
 
-        /// <summary>Converts a <see cref="Visibleto"/> to its string representation.</summary>
-        public static implicit operator string(Visibleto value) => value.ToString();
+        /// <summary>Converts a <see cref="VisibleTo"/> to its string representation.</summary>
+        public static implicit operator string(VisibleTo value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(Visibleto other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(VisibleTo other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is Visibleto other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is VisibleTo other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(Visibleto left, Visibleto right) => left.Equals(right);
+        public static bool operator ==(VisibleTo left, VisibleTo right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(Visibleto left, Visibleto right) => !left.Equals(right);
+        public static bool operator !=(VisibleTo left, VisibleTo right) => !left.Equals(right);
 
-        internal sealed class VisibletoJsonConverter : JsonConverter<Visibleto>
+        internal sealed class VisibleToJsonConverter : JsonConverter<VisibleTo>
         {
-            public VisibletoJsonConverter() { }
-            public override Visibleto Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for Visibleto, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, Visibleto value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public VisibleToJsonConverter() { }
+            public override VisibleTo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for VisibleTo, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, VisibleTo value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -1825,7 +1825,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string projectDetails = default,
             string projectStatus = default,
             string imageUrl = default,
-            Visibleto? projectVisibility = default,
+            VisibleTo? projectVisibility = default,
             int? visibleTeamId = default,
             int? visibleUserIds = default,
             int? opportunityId = default,
@@ -1858,7 +1858,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string lastName = default,
             string leadDescription = default,
             string convertedDateTime = default,
-            Visibleto? leadVisibility = default,
+            VisibleTo? leadVisibility = default,
             int? visibleTeamId = default,
             int? visibleUserIds = default,
             string organizationName = default,
@@ -1907,7 +1907,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string firstName = default,
             string lastName = default,
             string background = default,
-            Visibleto? contactVisibility = default,
+            VisibleTo? contactVisibility = default,
             int? visibleTeamId = default,
             int? visibleUserIds = default,
             List<ContactInfo> contactInformation = default,
@@ -1933,7 +1933,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
         public static OrganizationRequest OrganizationRequest(
             string organizationName = default,
             string organizationBackground = default,
-            Visibleto? organizationVisibility = default,
+            VisibleTo? organizationVisibility = default,
             int? visibleTeamId = default,
             int? visibleUserIds = default,
             List<Address> organizationAddress = default,

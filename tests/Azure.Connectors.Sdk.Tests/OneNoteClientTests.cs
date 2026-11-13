@@ -4,12 +4,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Onenote;
+using Azure.Connectors.Sdk.OneNote;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +19,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class OnenoteClientTests
+    public class OneNoteClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -34,32 +34,32 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new OnenoteClient("https://test.azure.com/conn");
+            using var client = new OneNoteClient("https://test.azure.com/conn");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNull_ShouldThrow()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new OnenoteClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new OneNoteClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new OnenoteClient("https://test.azure.com/conn");
+            var client = new OneNoteClient("https://test.azure.com/conn");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new OnenoteClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
+            var client = new OneNoteClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
         }
 
-        private static OnenoteClient CreateMockedClient(HttpResponseMessage response)
+        private static OneNoteClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -68,7 +68,7 @@ namespace Azure.Connectors.Sdk.Tests
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
-            return new OnenoteClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
+            return new OneNoteClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
         }
 
         [TestMethod]
@@ -130,7 +130,7 @@ namespace Azure.Connectors.Sdk.Tests
             };
             options.Retry.MaxRetries = 0;
 
-            using var client = new OnenoteClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
+            using var client = new OneNoteClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
 
             var pageable = client.GetPagesInSectionAsync(notebookKey: "nb/1", notebookSection: "sec+1");
             Assert.AreEqual(expected: 0, actual: requestedUris.Count);

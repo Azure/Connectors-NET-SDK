@@ -862,7 +862,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>A hyperlink that will go to the team in the Microsoft Teams client</summary>
         [JsonPropertyName("webUrl")]
-        public string TeamSWebUrl { get; set; }
+        public string TeamWebUrl { get; set; }
 
         /// <summary>Whether this team is in read-only mode</summary>
         [JsonPropertyName("isArchived")]
@@ -984,7 +984,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>If set to true, the team is visible via search and suggestions from the Teams client</summary>
         [JsonPropertyName("showInTeamsSearchAndSuggestions")]
-        public bool? ShowInTeamSSearchAndSuggestions { get; set; }
+        public bool? ShowInTeamSearchAndSuggestions { get; set; }
     }
 
     /// <summary>
@@ -1537,7 +1537,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
         [JsonPropertyName("userId")]
-        public string UserSId { get; set; }
+        public string UserId { get; set; }
     }
 
     /// <summary>
@@ -3154,7 +3154,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
             string displayName = default,
             string descriptionOfTeam = default,
             string internalId = default,
-            string teamSWebUrl = default,
+            string teamWebUrl = default,
             bool? archived = default,
             MemberSettings memberSettings = default,
             GuestSettings guestSettings = default,
@@ -3168,7 +3168,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
                 DisplayName = displayName,
                 DescriptionOfTeam = descriptionOfTeam,
                 InternalId = internalId,
-                TeamSWebUrl = teamSWebUrl,
+                TeamWebUrl = teamWebUrl,
                 Archived = archived,
                 MemberSettings = memberSettings,
                 GuestSettings = guestSettings,
@@ -3254,11 +3254,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="DiscoverySettings"/>.
         /// </summary>
         public static DiscoverySettings DiscoverySettings(
-            bool? showInTeamSSearchAndSuggestions = default)
+            bool? showInTeamSearchAndSuggestions = default)
         {
             return new DiscoverySettings
             {
-                ShowInTeamSSearchAndSuggestions = showInTeamSSearchAndSuggestions,
+                ShowInTeamSearchAndSuggestions = showInTeamSearchAndSuggestions,
             };
         }
 
@@ -3702,11 +3702,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
         /// </summary>
         public static AddMemberToTagInput AddMemberToTagInput(
-            string userSId = default)
+            string userId = default)
         {
             return new AddMemberToTagInput
             {
-                UserSId = userSId,
+                UserId = userId,
             };
         }
 

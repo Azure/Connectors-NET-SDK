@@ -619,17 +619,17 @@ namespace Azure.Connectors.Sdk.MeetingRoomMap
         /// Search coworker
         /// </summary>
         /// <remarks>Search coworker by name/email</remarks>
-        /// <param name="theStringToUseForSearchingUsersSearchesInUserSEmailAndName">The string to use for searching users. Searches in user&apos;s email and name</param>
+        /// <param name="theStringToUseForSearchingUsersSearchesInUserEmailAndName">The string to use for searching users. Searches in user&apos;s email and name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Search coworker response.</returns>
-        public virtual async Task<List<JsonElement?>> SearchCoworkersAsync(string theStringToUseForSearchingUsersSearchesInUserSEmailAndName, CancellationToken cancellationToken = default)
+        public virtual async Task<List<JsonElement?>> SearchCoworkersAsync(string theStringToUseForSearchingUsersSearchesInUserEmailAndName, CancellationToken cancellationToken = default)
         {
             using var activity = MeetingRoomMapClient.ConnectorActivitySource.StartActivity("MeetingRoomMapClient.SearchCoworkersAsync");
             try
             {
-                if (theStringToUseForSearchingUsersSearchesInUserSEmailAndName is null)
-                    throw new ArgumentNullException(nameof(theStringToUseForSearchingUsersSearchesInUserSEmailAndName));
-                var path = $"/api/officelocations/searchCoworkers/{Uri.EscapeDataString(theStringToUseForSearchingUsersSearchesInUserSEmailAndName)}";
+                if (theStringToUseForSearchingUsersSearchesInUserEmailAndName is null)
+                    throw new ArgumentNullException(nameof(theStringToUseForSearchingUsersSearchesInUserEmailAndName));
+                var path = $"/api/officelocations/searchCoworkers/{Uri.EscapeDataString(theStringToUseForSearchingUsersSearchesInUserEmailAndName)}";
                 return await this
                     .CallConnectorAsync<List<JsonElement?>>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
