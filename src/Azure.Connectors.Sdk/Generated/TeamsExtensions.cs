@@ -1537,7 +1537,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
     {
         /// <summary>The user&apos;s ID of the member to add to the tag, must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
         [JsonPropertyName("userId")]
-        public string UserSid { get; set; }
+        public string UserSId { get; set; }
     }
 
     /// <summary>
@@ -3702,11 +3702,11 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// Creates a new instance of <see cref="AddMemberToTagInput"/>.
         /// </summary>
         public static AddMemberToTagInput AddMemberToTagInput(
-            string userSid = default)
+            string userSId = default)
         {
             return new AddMemberToTagInput
             {
-                UserSid = userSid,
+                UserSId = userSId,
             };
         }
 

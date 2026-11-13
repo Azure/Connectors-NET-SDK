@@ -766,7 +766,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="stateCode">State Code</param>
         /// <param name="classificationName">Classification Name</param>
         /// <param name="classificationId">Classification ID</param>
-        /// <param name="dmaid">DMA ID</param>
+        /// <param name="dmaId">DMA ID</param>
         /// <param name="localStartDateTime">Local Start Date Time</param>
         /// <param name="localStartEndDateTime">Local Start End Date Time</param>
         /// <param name="startEndDateTime">Start End Date Time</param>
@@ -789,7 +789,7 @@ namespace Azure.Connectors.Sdk.Ticketmaster
         /// <param name="domain">Domain</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Event search response.</returns>
-        public virtual async Task<EventsGetResponse> EventsGetAsync(int? size = default, string id = default, string keyword = default, string attractionId = default, string venueId = default, string postalCode = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string marketId = default, string startDateTime = default, string endDateTime = default, string includeTba = default, string includeTbd = default, string includeTest = default, string page = default, string sort = default, string onsaleStartDateTime = default, string onsaleEndDateTime = default, object[] city = default, string countryCode = default, string stateCode = default, object[] classificationName = default, object[] classificationId = default, string dmaid = default, object[] localStartDateTime = default, object[] localStartEndDateTime = default, object[] startEndDateTime = default, object[] publicVisibilityStartDateTime = default, object[] preSaleDateTime = default, string onsaleOnStartDate = default, string onsaleOnAfterStartDate = default, object[] collectionId = default, object[] segmentId = default, object[] segmentName = default, string includeFamily = default, string promoterId = default, object[] genreId = default, object[] subGenreId = default, object[] typeId = default, object[] subTypeId = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
+        public virtual async Task<EventsGetResponse> EventsGetAsync(int? size = default, string id = default, string keyword = default, string attractionId = default, string venueId = default, string postalCode = default, string latitudeLongitude = default, string radius = default, string unit = default, string source = default, string locale = default, string marketId = default, string startDateTime = default, string endDateTime = default, string includeTba = default, string includeTbd = default, string includeTest = default, string page = default, string sort = default, string onsaleStartDateTime = default, string onsaleEndDateTime = default, object[] city = default, string countryCode = default, string stateCode = default, object[] classificationName = default, object[] classificationId = default, string dmaId = default, object[] localStartDateTime = default, object[] localStartEndDateTime = default, object[] startEndDateTime = default, object[] publicVisibilityStartDateTime = default, object[] preSaleDateTime = default, string onsaleOnStartDate = default, string onsaleOnAfterStartDate = default, object[] collectionId = default, object[] segmentId = default, object[] segmentName = default, string includeFamily = default, string promoterId = default, object[] genreId = default, object[] subGenreId = default, object[] typeId = default, object[] subTypeId = default, string geoPoint = default, string preferredCountry = default, string includeSpellcheck = default, object[] domain = default, CancellationToken cancellationToken = default)
         {
             using var activity = TicketmasterClient.ConnectorActivitySource.StartActivity("TicketmasterClient.EventsGetAsync");
             try
@@ -847,8 +847,8 @@ namespace Azure.Connectors.Sdk.Ticketmaster
                     queryParams.Add($"classificationName={Uri.EscapeDataString(JsonSerializer.Serialize(classificationName))}");
                 if (classificationId != default)
                     queryParams.Add($"classificationId={Uri.EscapeDataString(JsonSerializer.Serialize(classificationId))}");
-                if (dmaid != default)
-                    queryParams.Add($"dmaId={Uri.EscapeDataString(dmaid)}");
+                if (dmaId != default)
+                    queryParams.Add($"dmaId={Uri.EscapeDataString(dmaId)}");
                 if (localStartDateTime != default)
                     queryParams.Add($"localStartDateTime={Uri.EscapeDataString(JsonSerializer.Serialize(localStartDateTime))}");
                 if (localStartEndDateTime != default)

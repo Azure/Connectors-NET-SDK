@@ -35,7 +35,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string Apiid { get; set; }
+        public string ApiId { get; set; }
 
         /// <summary>Response obtained when the call was made.</summary>
         [JsonPropertyName("message")]
@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string Apiid { get; set; }
+        public string ApiId { get; set; }
 
         /// <summary>Meta information about the response.</summary>
         [JsonPropertyName("meta")]
@@ -71,7 +71,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string Apiid { get; set; }
+        public string ApiId { get; set; }
 
         /// <summary>Response of the sent message.</summary>
         [JsonPropertyName("message")]
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
     {
         /// <summary>Unique ID of the API request.</summary>
         [JsonPropertyName("api_id")]
-        public string Apiid { get; set; }
+        public string ApiId { get; set; }
 
         /// <summary>Delivery error code if the message isn&apos;t delivered.</summary>
         [JsonPropertyName("error_code")]
@@ -196,13 +196,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="MakeCallResponse"/>.
         /// </summary>
         public static MakeCallResponse MakeCallResponse(
-            string apiid = default,
+            string apiId = default,
             string response = default,
             string callUuid = default)
         {
             return new MakeCallResponse
             {
-                Apiid = apiid,
+                ApiId = apiId,
                 Response = response,
                 CallUuid = callUuid,
             };
@@ -212,13 +212,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="ListMessagesResponse"/>.
         /// </summary>
         public static ListMessagesResponse ListMessagesResponse(
-            string apiid = default,
+            string apiId = default,
             JsonElement? metaInformation = default,
             List<JsonElement?> messageList = default)
         {
             return new ListMessagesResponse
             {
-                Apiid = apiid,
+                ApiId = apiId,
                 MetaInformation = metaInformation,
                 MessageList = messageList,
             };
@@ -228,13 +228,13 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="SendSmsResponse"/>.
         /// </summary>
         public static SendSmsResponse SendSmsResponse(
-            string apiid = default,
+            string apiId = default,
             string response = default,
             List<string> messageUuid = default)
         {
             return new SendSmsResponse
             {
-                Apiid = apiid,
+                ApiId = apiId,
                 Response = response,
                 MessageUuid = messageUuid,
             };
@@ -244,7 +244,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         /// Creates a new instance of <see cref="GetMessageResponse"/>.
         /// </summary>
         public static GetMessageResponse GetMessageResponse(
-            string apiid = default,
+            string apiId = default,
             string errorCode = default,
             string from = default,
             string messageDirection = default,
@@ -260,7 +260,7 @@ namespace Azure.Connectors.Sdk.Plivo.Models
         {
             return new GetMessageResponse
             {
-                Apiid = apiid,
+                ApiId = apiId,
                 ErrorCode = errorCode,
                 From = from,
                 MessageDirection = messageDirection,

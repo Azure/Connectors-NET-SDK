@@ -100,7 +100,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .ConfigureAwait(continueOnCapturedContext: false);
 
             Assert.AreEqual(expected: 1, actual: attempts);
-            Assert.AreEqual(expected: "request-123", actual: sentMessage.Apiid);
+            Assert.AreEqual(expected: "request-123", actual: sentMessage.ApiId);
             Assert.AreEqual(expected: "queued", actual: sentMessage.Response);
             CollectionAssert.AreEqual(expected: new[] { "message-123" }, actual: sentMessage.MessageUuid);
         }
