@@ -4072,9 +4072,9 @@ namespace Azure.Connectors.Sdk.GitHub.Models
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookPullRequestTrigger trigger (GitHub "When a pull request is created or modified", operationId: WebhookPullRequestTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnWebhookPullRequestTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;GitHubOnWebhookPullRequestTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class GitHubOnWebhookPullRequestTriggerTriggerPayload : TriggerCallbackPayload<WebhookPullRequestResponseNotification>
+    public class GitHubOnWebhookPullRequestTriggerPayload : TriggerCallbackPayload<WebhookPullRequestResponseNotification>
     {
     }
 
@@ -4097,7 +4097,7 @@ namespace Azure.Connectors.Sdk.GitHub.Models
                 ["IssueAssigned"] = typeof(GitHubOnIssueAssignedTriggerPayload),
                 ["IssueClosed"] = typeof(GitHubOnIssueClosedTriggerPayload),
                 ["IssueOpened"] = typeof(GitHubOnIssueOpenedTriggerPayload),
-                ["WebhookPullRequestTrigger"] = typeof(GitHubOnWebhookPullRequestTriggerTriggerPayload),
+                ["WebhookPullRequestTrigger"] = typeof(GitHubOnWebhookPullRequestTriggerPayload),
             });
     }
 
@@ -4137,7 +4137,7 @@ namespace Azure.Connectors.Sdk.GitHub
 
         /// <summary>
         /// When a pull request is created or modified.
-        /// Payload type: <see cref="GitHubOnWebhookPullRequestTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="GitHubOnWebhookPullRequestTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookPullRequestTrigger = "WebhookPullRequestTrigger";
 

@@ -24,7 +24,7 @@ namespace Azure.Connectors.Sdk.Tests
         {
             var item = """{"conversationId":"chat-id","messageId":"message-id","linkToMessage":"https://example.test/message"}""";
             var payload = splitItem ? "{\"body\":" + item + "}" : "{\"body\":{\"value\":[" + item + "]}}";
-            var result = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerTriggerPayload>(payload);
+            var result = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerPayload>(payload);
 
             var messages = result?.Body?.Value;
             Assert.IsNotNull(messages);
@@ -38,7 +38,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void Deserialize_ReactionWebhook_UsesNotificationFields()
         {
             var payload = """{"body":{"threadType":"groupchat","chatId":"chat-id","messageId":"message-id","userId":"user-id","messageReaction":"like"}}""";
-            var result = JsonSerializer.Deserialize<TeamsOnWebhookMessageReactionTriggerTriggerPayload>(payload);
+            var result = JsonSerializer.Deserialize<TeamsOnWebhookMessageReactionTriggerPayload>(payload);
 
             var reactions = result?.Body?.Value;
             Assert.IsNotNull(reactions);
@@ -52,10 +52,10 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Deserialize_RecordingAndTranscriptWebhooks_RetainsNestedIdentity()
         {
-            var recording = JsonSerializer.Deserialize<TeamsOnRecordingTriggerTriggerPayload>("""
+            var recording = JsonSerializer.Deserialize<TeamsOnRecordingTriggerPayload>("""
                 {"body":{"id":"recording-id","recordingContentUrl":"https://example.test/recording","meetingOrganizer":{"user":{"id":"organizer-id","userPrincipalName":"user@example.test"}}}}
                 """);
-            var transcript = JsonSerializer.Deserialize<TeamsOnTranscriptTriggerTriggerPayload>("""
+            var transcript = JsonSerializer.Deserialize<TeamsOnTranscriptTriggerPayload>("""
                 {"body":{"id":"transcript-id","transcriptContentUrl":"https://example.test/transcript","meetingOrganizer":{"user":{"id":"organizer-id"}}}}
                 """);
 
@@ -77,9 +77,9 @@ namespace Azure.Connectors.Sdk.Tests
         public void Deserialize_DynamicWebhooks_PreservesRuntimeFields()
         {
             var payload = """{"body":{"messageId":"message-id","threadType":"groupchat","extra":{"enabled":true}}}""";
-            var mention = JsonSerializer.Deserialize<TeamsOnWebhookAtMentionTriggerTriggerPayload>(payload);
-            var keyword = JsonSerializer.Deserialize<TeamsOnWebhookKeywordTriggerTriggerPayload>(payload);
-            var message = JsonSerializer.Deserialize<TeamsOnWebhookNewMessageTriggerTriggerPayload>(payload);
+            var mention = JsonSerializer.Deserialize<TeamsOnWebhookAtMentionTriggerPayload>(payload);
+            var keyword = JsonSerializer.Deserialize<TeamsOnWebhookKeywordTriggerPayload>(payload);
+            var message = JsonSerializer.Deserialize<TeamsOnWebhookNewMessageTriggerPayload>(payload);
 
             var mentions = mention?.Body?.Value;
             var keywords = keyword?.Body?.Value;

@@ -1552,7 +1552,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>An array of taxonomy IDs including this node and all of its direct parents in the seller taxonomy tree up to a root node. They are listed in order from root to leaf.</summary>
         [JsonPropertyName("full_path_taxonomy_ids")]
-        public List<int?> TaxonomyPathIDs { get; set; }
+        public List<int?> TaxonomyPathIds { get; set; }
     }
 
     /// <summary>
@@ -2037,7 +2037,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
 
         /// <summary>The numeric IDs of the property values</summary>
         [JsonPropertyName("value_ids")]
-        public List<int?> ValueIDs { get; set; }
+        public List<int?> ValueIds { get; set; }
 
         /// <summary>The property values</summary>
         [JsonPropertyName("values")]
@@ -4331,7 +4331,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string name = default,
             int? parentId = default,
             List<SellerTaxonomyNode> children = default,
-            List<int?> taxonomyPathIDs = default)
+            List<int?> taxonomyPathIds = default)
         {
             return new SellerTaxonomyNode
             {
@@ -4340,7 +4340,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Name = name,
                 ParentId = parentId,
                 Children = children,
-                TaxonomyPathIDs = taxonomyPathIDs,
+                TaxonomyPathIds = taxonomyPathIds,
             };
         }
 
@@ -4642,7 +4642,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
             string name = default,
             int? scaleId = default,
             string scaleName = default,
-            List<int?> valueIDs = default,
+            List<int?> valueIds = default,
             List<string> values = default)
         {
             return new ListingPropertyValue
@@ -4651,7 +4651,7 @@ namespace Azure.Connectors.Sdk.Etsy.Models
                 Name = name,
                 ScaleId = scaleId,
                 ScaleName = scaleName,
-                ValueIDs = valueIDs,
+                ValueIds = valueIds,
                 Values = values,
             };
         }
@@ -5209,18 +5209,18 @@ namespace Azure.Connectors.Sdk.Etsy
         /// </summary>
         /// <remarks>Get a Payment from a Payment Account Ledger Entry ID, if applicable.</remarks>
         /// <param name="shopId">Shop ID</param>
-        /// <param name="ledgerEntryIDs">Ledger Entry IDs</param>
+        /// <param name="ledgerEntryIds">Ledger Entry IDs</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get a payment from a payment account ledger entry ID response.</returns>
-        public virtual async Task<Payments> PaymentGetEntryIdAsync(int shopId, string ledgerEntryIDs, CancellationToken cancellationToken = default)
+        public virtual async Task<Payments> PaymentGetEntryIdAsync(int shopId, string ledgerEntryIds, CancellationToken cancellationToken = default)
         {
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.PaymentGetEntryIdAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (ledgerEntryIDs is null)
-                    throw new ArgumentNullException(nameof(ledgerEntryIDs));
-                queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIDs)}");
+                if (ledgerEntryIds is null)
+                    throw new ArgumentNullException(nameof(ledgerEntryIds));
+                queryParams.Add($"ledger_entry_ids={Uri.EscapeDataString(ledgerEntryIds)}");
                 var path = $"/shops/{Uri.EscapeDataString(Convert.ToString(shopId, CultureInfo.InvariantCulture))}/payment-account/ledger-entries/payments" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<Payments>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -6434,19 +6434,19 @@ namespace Azure.Connectors.Sdk.Etsy
         /// Get listings by ID
         /// </summary>
         /// <remarks>Allows to query multiple listing IDs at once. Limit 100 IDs maximum per query.</remarks>
-        /// <param name="listingIDs">Listing IDs</param>
+        /// <param name="listingIds">Listing IDs</param>
         /// <param name="includes">Includes</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by ID response.</returns>
-        public virtual async Task<ShopListingsWithAssociations> ListingGetByIdAsync(string listingIDs, string includes = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListingsWithAssociations> ListingGetByIdAsync(string listingIds, string includes = default, CancellationToken cancellationToken = default)
         {
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetByIdAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (listingIDs is null)
-                    throw new ArgumentNullException(nameof(listingIDs));
-                queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIDs)}");
+                if (listingIds is null)
+                    throw new ArgumentNullException(nameof(listingIds));
+                queryParams.Add($"listing_ids={Uri.EscapeDataString(listingIds)}");
                 if (includes != default)
                     queryParams.Add($"includes={Uri.EscapeDataString(includes)}");
                 var path = $"/listings/batch" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
@@ -6665,22 +6665,22 @@ namespace Azure.Connectors.Sdk.Etsy
         /// </summary>
         /// <remarks>Retrieves all the listings from the section of a specific shop.</remarks>
         /// <param name="shopId">Shop ID</param>
-        /// <param name="shopSectionIDs">Shop Section IDs</param>
+        /// <param name="shopSectionIds">Shop Section IDs</param>
         /// <param name="limit">Limit</param>
         /// <param name="offset">Offset</param>
         /// <param name="sortOn">Sort On</param>
         /// <param name="sortOrder">Sort Order</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get listings by shop section ID response.</returns>
-        public virtual async Task<ShopListings> ListingGetBySectionIdAsync(int shopId, string shopSectionIDs, int? limit = default, int? offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ShopListings> ListingGetBySectionIdAsync(int shopId, string shopSectionIds, int? limit = default, int? offset = default, string sortOn = default, string sortOrder = default, CancellationToken cancellationToken = default)
         {
             using var activity = EtsyClient.ConnectorActivitySource.StartActivity("EtsyClient.ListingGetBySectionIdAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (shopSectionIDs is null)
-                    throw new ArgumentNullException(nameof(shopSectionIDs));
-                queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIDs)}");
+                if (shopSectionIds is null)
+                    throw new ArgumentNullException(nameof(shopSectionIds));
+                queryParams.Add($"shop_section_ids={Uri.EscapeDataString(shopSectionIds)}");
                 if (limit.HasValue)
                     queryParams.Add($"limit={Uri.EscapeDataString(Convert.ToString(limit.Value, CultureInfo.InvariantCulture))}");
                 if (offset.HasValue)

@@ -10823,12 +10823,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeLink">Include Link</param>
         /// <param name="includeCustomFields">Include Custom Fields</param>
         /// <param name="includeCategories">Include Categories</param>
-        /// <param name="includeMembershipRenewalURLs">Include Membership Renewal URLs</param>
+        /// <param name="includeMembershipRenewalUrls">Include Membership Renewal URLs</param>
         /// <param name="expireDateFrom">Expire Date - From:</param>
         /// <param name="expireDateTo">Expire Date - To:</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List of All Individual Members response.</returns>
-        public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeLink = default, bool? includeCustomFields = default, bool? includeCategories = default, bool? includeMembershipRenewalURLs = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeLink = default, bool? includeCustomFields = default, bool? includeCategories = default, bool? includeMembershipRenewalUrls = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
         {
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfAllIndividualMembersAsync");
             try
@@ -10858,8 +10858,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     queryParams.Add($"includeCustomFields={Uri.EscapeDataString(Convert.ToString(includeCustomFields.Value, CultureInfo.InvariantCulture))}");
                 if (includeCategories.HasValue)
                     queryParams.Add($"includeCategories={Uri.EscapeDataString(Convert.ToString(includeCategories.Value, CultureInfo.InvariantCulture))}");
-                if (includeMembershipRenewalURLs.HasValue)
-                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(Convert.ToString(includeMembershipRenewalURLs.Value, CultureInfo.InvariantCulture))}");
+                if (includeMembershipRenewalUrls.HasValue)
+                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(Convert.ToString(includeMembershipRenewalUrls.Value, CultureInfo.InvariantCulture))}");
                 if (expireDateFrom != default)
                     queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom)}");
                 if (expireDateTo != default)

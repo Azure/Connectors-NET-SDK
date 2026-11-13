@@ -508,7 +508,7 @@ namespace Azure.Connectors.Sdk.Shifts.Models
 
         /// <summary>List of IDs of users in the Scheduling Group.</summary>
         [JsonPropertyName("userIds")]
-        public List<string> UserIDs { get; set; }
+        public List<string> UserIds { get; set; }
     }
 
     /// <summary>
@@ -1615,14 +1615,14 @@ namespace Azure.Connectors.Sdk.Shifts.Models
             string id = default,
             string displayName = default,
             bool? isActive = default,
-            List<string> userIDs = default)
+            List<string> userIds = default)
         {
             return new SchedulingGroupResponse
             {
                 Id = id,
                 DisplayName = displayName,
                 IsActive = isActive,
-                UserIDs = userIDs,
+                UserIds = userIds,
             };
         }
 

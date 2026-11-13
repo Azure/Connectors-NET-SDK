@@ -10,8 +10,8 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Connectors.Sdk;
-using Azure.Connectors.Sdk.AzureIotCentral;
-using Azure.Connectors.Sdk.AzureIotCentral.Models;
+using Azure.Connectors.Sdk.AzureIoTCentral;
+using Azure.Connectors.Sdk.AzureIoTCentral.Models;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,10 +21,10 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated AzureIotCentralClient class.
+    /// Tests for the generated AzureIoTCentralClient class.
     /// </summary>
     [TestClass]
-    public class AzureIotCentralClientTests
+    public class AzureIoTCentralClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -37,7 +37,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static AzureIotCentralClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
+        private static AzureIoTCentralClient CreateMockedClient(HttpResponseMessage response, Action<HttpRequestMessage>? requestCallback = null)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.Tests
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
 
-            return new AzureIotCentralClient(
+            return new AzureIoTCentralClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object,
                 options: options);
@@ -64,7 +64,7 @@ namespace Azure.Connectors.Sdk.Tests
         public void WebhookActionBodyNotification_TimestampFactory_PreservesWireName()
         {
             var timestamp = new DateTime(2026, 10, 30, 12, 0, 0, DateTimeKind.Utc);
-            var model = AzureIotCentralModelFactory.WebhookActionBodyNotification(webhookTimestamp: timestamp);
+            var model = AzureIoTCentralModelFactory.WebhookActionBodyNotification(webhookTimestamp: timestamp);
             var json = JsonSerializer.Serialize(model);
             using var document = JsonDocument.Parse(json);
             Assert.AreEqual(expected: timestamp, actual: document.RootElement.GetProperty("timestamp").GetDateTime());
@@ -77,27 +77,27 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
-            using var client = new AzureIotCentralClient("https://test.azure.com/connection");
+            using var client = new AzureIoTCentralClient("https://test.azure.com/connection");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureIotCentralClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new AzureIoTCentralClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new AzureIotCentralClient("https://test.azure.com/connection");
+            var client = new AzureIoTCentralClient("https://test.azure.com/connection");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new AzureIotCentralClient(
+            var client = new AzureIoTCentralClient(
                 connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
                 credential: SharedMockCredential.Object);
             client.Dispose();

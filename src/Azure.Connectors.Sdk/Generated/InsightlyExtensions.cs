@@ -270,7 +270,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Can edit</summary>
         [JsonPropertyName("CAN_EDIT")]
@@ -433,7 +433,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Lead Image URL</summary>
         [JsonPropertyName("IMAGE_URL")]
@@ -567,7 +567,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Can edit</summary>
         [JsonPropertyName("CAN_EDIT")]
@@ -817,7 +817,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>The unique identifiers of the users.</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
     }
 
     /// <summary>
@@ -956,7 +956,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>The unique identifier of the opportunity.</summary>
         [JsonPropertyName("OPPORTUNITY_ID")]
@@ -1011,7 +1011,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>The name of the organization.</summary>
         [JsonPropertyName("ORGANIZATION_NAME")]
@@ -1093,7 +1093,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Contact Information</summary>
         [JsonPropertyName("CONTACTINFOS")]
@@ -1127,7 +1127,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
 
         /// <summary>Visible User IDs (Required when individuals visibility state is selected)</summary>
         [JsonPropertyName("VISIBLE_USER_IDS")]
-        public int? VisibleUserIDs { get; set; }
+        public int? VisibleUserIds { get; set; }
 
         /// <summary>Organization Addresses</summary>
         [JsonPropertyName("ADDRESSES")]
@@ -1388,7 +1388,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             int? stageId = default,
             int? categoryId = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             bool? canEdit = default,
             bool? canDelete = default)
         {
@@ -1411,7 +1411,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 StageId = stageId,
                 CategoryId = categoryId,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 CanEdit = canEdit,
                 CanDelete = canDelete,
             };
@@ -1466,7 +1466,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             int? convertedOpportunityId = default,
             int? leadSourceId = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             string imageUrl = default,
             bool? canEdit = default,
             bool? canDelete = default)
@@ -1506,7 +1506,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ConvertedOpportunityId = convertedOpportunityId,
                 LeadSourceId = leadSourceId,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 ImageUrl = imageUrl,
                 CanEdit = canEdit,
                 CanDelete = canDelete,
@@ -1554,7 +1554,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             int? ownerUserId = default,
             string updatedDateTime = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             bool? canEdit = default,
             bool? canDelete = default,
             string socialLinkedIn = default,
@@ -1588,7 +1588,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 OwnerUserId = ownerUserId,
                 UpdatedDateTime = updatedDateTime,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 CanEdit = canEdit,
                 CanDelete = canDelete,
                 SocialLinkedIn = socialLinkedIn,
@@ -1717,7 +1717,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string background = default,
             string imageUrl = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default)
+            int? visibleUserIds = default)
         {
             return new Organization
             {
@@ -1733,7 +1733,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 Background = background,
                 ImageUrl = imageUrl,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
             };
         }
 
@@ -1827,7 +1827,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string imageUrl = default,
             Visibleto? projectVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             int? opportunityId = default,
             int? pipelineId = default,
             int? stageId = default,
@@ -1841,7 +1841,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ImageUrl = imageUrl,
                 ProjectVisibility = projectVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 OpportunityId = opportunityId,
                 PipelineId = pipelineId,
                 StageId = stageId,
@@ -1860,7 +1860,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string convertedDateTime = default,
             Visibleto? leadVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             string organizationName = default,
             string phoneNumber = default,
             string mobilePhoneNumber = default,
@@ -1883,7 +1883,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 ConvertedDateTime = convertedDateTime,
                 LeadVisibility = leadVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 OrganizationName = organizationName,
                 PhoneNumber = phoneNumber,
                 MobilePhoneNumber = mobilePhoneNumber,
@@ -1909,7 +1909,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string background = default,
             Visibleto? contactVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             List<ContactInfo> contactInformation = default,
             List<Tag> tag = default)
         {
@@ -1921,7 +1921,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 Background = background,
                 ContactVisibility = contactVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 ContactInformation = contactInformation,
                 Tag = tag,
             };
@@ -1935,7 +1935,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
             string organizationBackground = default,
             Visibleto? organizationVisibility = default,
             int? visibleTeamId = default,
-            int? visibleUserIDs = default,
+            int? visibleUserIds = default,
             List<Address> organizationAddress = default,
             List<ContactInfo> contactInformation = default,
             List<Tag> tags = default)
@@ -1946,7 +1946,7 @@ namespace Azure.Connectors.Sdk.Insightly.Models
                 OrganizationBackground = organizationBackground,
                 OrganizationVisibility = organizationVisibility,
                 VisibleTeamId = visibleTeamId,
-                VisibleUserIDs = visibleUserIDs,
+                VisibleUserIds = visibleUserIds,
                 OrganizationAddress = organizationAddress,
                 ContactInformation = contactInformation,
                 Tags = tags,

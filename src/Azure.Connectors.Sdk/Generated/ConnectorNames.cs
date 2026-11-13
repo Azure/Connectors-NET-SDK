@@ -758,7 +758,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>azureiotcentral</c> connector.
     /// </summary>
-    public const string AzureIotCentralV3 = "azureiotcentral";
+    public const string AzureIoTCentralV3 = "azureiotcentral";
 
     /// <summary>
     /// The <c>azureloganalyticsdatacollector</c> connector.
@@ -1984,6 +1984,11 @@ public static class ConnectorNames
     /// The <c>docurain</c> connector.
     /// </summary>
     public const string Docurain = "docurain";
+
+    /// <summary>
+    /// The <c>docusign</c> connector.
+    /// </summary>
+    public const string Docusign = "docusign";
 
     /// <summary>
     /// The <c>docusignmcpdemo</c> connector.
@@ -3498,7 +3503,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>iotcentral</c> connector.
     /// </summary>
-    public const string AzureIotCentralV2 = "iotcentral";
+    public const string AzureIoTCentralV2 = "iotcentral";
 
     /// <summary>
     /// The <c>ip2locationip</c> connector.
@@ -3554,6 +3559,11 @@ public static class ConnectorNames
     /// The <c>jgintegrations</c> connector.
     /// </summary>
     public const string JGIntegrations = "jgintegrations";
+
+    /// <summary>
+    /// The <c>jira</c> connector.
+    /// </summary>
+    public const string Jira = "jira";
 
     /// <summary>
     /// The <c>jirasearch</c> connector.
@@ -4978,7 +4988,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pipwarekpis</c> connector.
     /// </summary>
-    public const string PIPwareKPIs = "pipwarekpis";
+    public const string PIPwareKpis = "pipwarekpis";
 
     /// <summary>
     /// The <c>pixelaip</c> connector.

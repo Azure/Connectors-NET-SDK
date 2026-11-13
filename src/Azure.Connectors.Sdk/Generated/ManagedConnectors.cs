@@ -446,9 +446,9 @@
 //   using Azure.Connectors.Sdk.Azurefile;
 //   using Azure.Connectors.Sdk.Azurefile.Models;
 //   var client = new AzurefileClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.AzureIotCentral;
-//   using Azure.Connectors.Sdk.AzureIotCentral.Models;
-//   var client = new AzureIotCentralClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.AzureIoTCentral;
+//   using Azure.Connectors.Sdk.AzureIoTCentral.Models;
+//   var client = new AzureIoTCentralClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Azureloganalyticsdatacollector;
 //   using Azure.Connectors.Sdk.Azureloganalyticsdatacollector.Models;
 //   var client = new AzureloganalyticsdatacollectorClient(connectionRuntimeUrl);
@@ -1184,6 +1184,9 @@
 //   using Azure.Connectors.Sdk.Docurain;
 //   using Azure.Connectors.Sdk.Docurain.Models;
 //   var client = new DocurainClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Docusign;
+//   using Azure.Connectors.Sdk.Docusign.Models;
+//   var client = new DocusignClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Docusignmcpdemo;
 //   using Azure.Connectors.Sdk.Docusignmcpdemo.Models;
 //   var client = new DocusignmcpdemoClient(connectionRuntimeUrl);
@@ -2126,6 +2129,9 @@
 //   using Azure.Connectors.Sdk.Jgintegrations;
 //   using Azure.Connectors.Sdk.Jgintegrations.Models;
 //   var client = new JgintegrationsClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.Jira;
+//   using Azure.Connectors.Sdk.Jira.Models;
+//   var client = new JiraClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Jirasearch;
 //   using Azure.Connectors.Sdk.Jirasearch.Models;
 //   var client = new JirasearchClient(connectionRuntimeUrl);
@@ -4792,6 +4798,7 @@ public static class SdkConnectors
         "documentscorepackapi",
         "documotor",
         "docurain",
+        "docusign",
         "docusignmcpdemo",
         "docuware",
         "dokobitportal",
@@ -5106,6 +5113,7 @@ public static class SdkConnectors
         "jbhunt",
         "jedoxodatahub",
         "jgintegrations",
+        "jira",
         "jirasearch",
         "jotform",
         "jotformenterprise",

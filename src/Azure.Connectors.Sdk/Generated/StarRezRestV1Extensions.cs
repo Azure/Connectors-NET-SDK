@@ -116,23 +116,23 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID1")]
-        public string ID1 { get; set; }
+        public string Id1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID2")]
-        public string ID2 { get; set; }
+        public string Id2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID3")]
-        public string ID3 { get; set; }
+        public string Id3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID4")]
-        public int? ID4 { get; set; }
+        public int? Id4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID5")]
-        public int? ID5 { get; set; }
+        public int? Id5 { get; set; }
 
         /// <summary>LastCheckInOutDate</summary>
         [JsonPropertyName("LastCheckInOutDate")]
@@ -258,23 +258,23 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID1")]
-        public string ID1 { get; set; }
+        public string Id1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID2")]
-        public string ID2 { get; set; }
+        public string Id2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID3")]
-        public string ID3 { get; set; }
+        public string Id3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID4")]
-        public int? ID4 { get; set; }
+        public int? Id4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID5")]
-        public int? ID5 { get; set; }
+        public int? Id5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
         [JsonPropertyName("LastCheckInOutDate")]
@@ -404,23 +404,23 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID1")]
-        public string ID1 { get; set; }
+        public string Id1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID2")]
-        public string ID2 { get; set; }
+        public string Id2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID3")]
-        public string ID3 { get; set; }
+        public string Id3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID4")]
-        public int? ID4 { get; set; }
+        public int? Id4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID5")]
-        public int? ID5 { get; set; }
+        public int? Id5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
         [JsonPropertyName("LastCheckInOutDate")]
@@ -550,23 +550,23 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID1")]
-        public string ID1 { get; set; }
+        public string Id1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID2")]
-        public string ID2 { get; set; }
+        public string Id2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID3")]
-        public string ID3 { get; set; }
+        public string Id3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID4")]
-        public int? ID4 { get; set; }
+        public int? Id4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID5")]
-        public int? ID5 { get; set; }
+        public int? Id5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
         [JsonPropertyName("LastCheckInOutDate")]
@@ -696,23 +696,23 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID1")]
-        public string ID1 { get; set; }
+        public string Id1 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID2")]
-        public string ID2 { get; set; }
+        public string Id2 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID3")]
-        public string ID3 { get; set; }
+        public string Id3 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID4")]
-        public int? ID4 { get; set; }
+        public int? Id4 { get; set; }
 
         /// <summary>Generic ID field.</summary>
         [JsonPropertyName("ID5")]
-        public int? ID5 { get; set; }
+        public int? Id5 { get; set; }
 
         /// <summary>The last date a check-in or check-out was performed.</summary>
         [JsonPropertyName("LastCheckInOutDate")]
@@ -9496,11 +9496,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
             EntryStatusEnum? entryStatusEnum = default,
             int? eventId = default,
             GenderEnum? genderEnum = default,
-            string iD1 = default,
-            string iD2 = default,
-            string iD3 = default,
-            int? iD4 = default,
-            int? iD5 = default,
+            string id1 = default,
+            string id2 = default,
+            string id3 = default,
+            int? id4 = default,
+            int? id5 = default,
             JsonElement? lastCheckInOutDate = default,
             string nameFirst = default,
             string nameInitials = default,
@@ -9540,11 +9540,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
                 EntryStatusEnum = entryStatusEnum,
                 EventId = eventId,
                 GenderEnum = genderEnum,
-                ID1 = iD1,
-                ID2 = iD2,
-                ID3 = iD3,
-                ID4 = iD4,
-                ID5 = iD5,
+                Id1 = id1,
+                Id2 = id2,
+                Id3 = id3,
+                Id4 = id4,
+                Id5 = id5,
                 LastCheckInOutDate = lastCheckInOutDate,
                 NameFirst = nameFirst,
                 NameInitials = nameInitials,
@@ -9581,11 +9581,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
             EntryStatusEnum? entryStatusEnum = default,
             int? eventId = default,
             GenderEnum? genderEnum = default,
-            string iD1 = default,
-            string iD2 = default,
-            string iD3 = default,
-            int? iD4 = default,
-            int? iD5 = default,
+            string id1 = default,
+            string id2 = default,
+            string id3 = default,
+            int? id4 = default,
+            int? id5 = default,
             DateTime? lastCheckInOutDate = default,
             string nameFirst = default,
             string nameInitials = default,
@@ -9619,11 +9619,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
                 EntryStatusEnum = entryStatusEnum,
                 EventId = eventId,
                 GenderEnum = genderEnum,
-                ID1 = iD1,
-                ID2 = iD2,
-                ID3 = iD3,
-                ID4 = iD4,
-                ID5 = iD5,
+                Id1 = id1,
+                Id2 = id2,
+                Id3 = id3,
+                Id4 = id4,
+                Id5 = id5,
                 LastCheckInOutDate = lastCheckInOutDate,
                 NameFirst = nameFirst,
                 NameInitials = nameInitials,
@@ -9661,11 +9661,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
             string entryStatusEnum = default,
             int? eventId = default,
             string genderEnum = default,
-            string iD1 = default,
-            string iD2 = default,
-            string iD3 = default,
-            int? iD4 = default,
-            int? iD5 = default,
+            string id1 = default,
+            string id2 = default,
+            string id3 = default,
+            int? id4 = default,
+            int? id5 = default,
             string lastCheckInOutDate = default,
             string nameFirst = default,
             string nameInitials = default,
@@ -9699,11 +9699,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
                 EntryStatusEnum = entryStatusEnum,
                 EventId = eventId,
                 GenderEnum = genderEnum,
-                ID1 = iD1,
-                ID2 = iD2,
-                ID3 = iD3,
-                ID4 = iD4,
-                ID5 = iD5,
+                Id1 = id1,
+                Id2 = id2,
+                Id3 = id3,
+                Id4 = id4,
+                Id5 = id5,
                 LastCheckInOutDate = lastCheckInOutDate,
                 NameFirst = nameFirst,
                 NameInitials = nameInitials,
@@ -9741,11 +9741,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
             EntryStatusEnum? entryStatusEnum = default,
             int? eventId = default,
             GenderEnum? genderEnum = default,
-            string iD1 = default,
-            string iD2 = default,
-            string iD3 = default,
-            int? iD4 = default,
-            int? iD5 = default,
+            string id1 = default,
+            string id2 = default,
+            string id3 = default,
+            int? id4 = default,
+            int? id5 = default,
             DateTime? lastCheckInOutDate = default,
             string nameFirst = default,
             string nameInitials = default,
@@ -9779,11 +9779,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
                 EntryStatusEnum = entryStatusEnum,
                 EventId = eventId,
                 GenderEnum = genderEnum,
-                ID1 = iD1,
-                ID2 = iD2,
-                ID3 = iD3,
-                ID4 = iD4,
-                ID5 = iD5,
+                Id1 = id1,
+                Id2 = id2,
+                Id3 = id3,
+                Id4 = id4,
+                Id5 = id5,
                 LastCheckInOutDate = lastCheckInOutDate,
                 NameFirst = nameFirst,
                 NameInitials = nameInitials,
@@ -9821,11 +9821,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
             string entryStatusEnum = default,
             int? eventId = default,
             string genderEnum = default,
-            string iD1 = default,
-            string iD2 = default,
-            string iD3 = default,
-            int? iD4 = default,
-            int? iD5 = default,
+            string id1 = default,
+            string id2 = default,
+            string id3 = default,
+            int? id4 = default,
+            int? id5 = default,
             string lastCheckInOutDate = default,
             string nameFirst = default,
             string nameInitials = default,
@@ -9859,11 +9859,11 @@ namespace Azure.Connectors.Sdk.StarRezRestV1.Models
                 EntryStatusEnum = entryStatusEnum,
                 EventId = eventId,
                 GenderEnum = genderEnum,
-                ID1 = iD1,
-                ID2 = iD2,
-                ID3 = iD3,
-                ID4 = iD4,
-                ID5 = iD5,
+                Id1 = id1,
+                Id2 = id2,
+                Id3 = id3,
+                Id4 = id4,
+                Id5 = id5,
                 LastCheckInOutDate = lastCheckInOutDate,
                 NameFirst = nameFirst,
                 NameInitials = nameInitials,

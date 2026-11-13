@@ -59,7 +59,7 @@ Azure provides a rich ecosystem of [managed connectors](https://learn.microsoft.
 ```
 
 For users upgrading generated client names from earlier previews, see the
-[systematic naming migration guide](docs/systematic-naming-migration.md) for updated
+[naming migration guide](docs/naming-migration.md) for updated
 namespaces, types, methods, and `ConnectorNames` constants.
 
 ## Installation
@@ -299,7 +299,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
 | To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
 | Box | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
-| DocuSign | 🔄 SDK Generated | CreateEnvelopeFromTemplate, SendEnvelope, GetRecipientStatus, ListEnvelopes |
+| Docusign | 🔄 SDK Generated | CreateEnvelopeFromTemplate, SendEnvelope, GetRecipientStatus, ListEnvelopes |
 | Dropbox | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
 | Dynamics AX | 🔄 SDK Generated | GetTable, GetItems, PostItem, ExecuteProcedure |
 | Eventbrite | 🔄 SDK Generated | GetCategories, GetOrganizations, GetOrganizationEvents, CreateEvent |

@@ -1491,7 +1491,7 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
         /// <summary>List of users&apos; IDs separated by semi-colons, identifier must be in a format like &apos;550e8400-e29b-41d4-a716-446655440000&apos;.</summary>
         [JsonPropertyName("members")]
-        public string MembersIDs { get; set; }
+        public string MembersIds { get; set; }
     }
 
     /// <summary>
@@ -3657,12 +3657,12 @@ namespace Azure.Connectors.Sdk.Teams.Models
         /// </summary>
         public static CreateTagInput CreateTagInput(
             string displayName = default,
-            string membersIDs = default)
+            string membersIds = default)
         {
             return new CreateTagInput
             {
                 DisplayName = displayName,
-                MembersIDs = membersIDs,
+                MembersIds = membersIds,
             };
         }
 
@@ -4093,9 +4093,9 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
     /// <summary>
     /// Typed trigger payload for the OnRecordingTrigger trigger (Teams "When a recording is available", operationId: RecordingTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnRecordingTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnRecordingTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnRecordingTriggerTriggerPayload : TriggerCallbackPayload<RecordingWebhookResponseSchemaNotification>
+    public class TeamsOnRecordingTriggerPayload : TriggerCallbackPayload<RecordingWebhookResponseSchemaNotification>
     {
     }
 
@@ -4117,49 +4117,49 @@ namespace Azure.Connectors.Sdk.Teams.Models
 
     /// <summary>
     /// Typed trigger payload for the OnTranscriptTrigger trigger (Teams "When a transcript is available", operationId: TranscriptTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTranscriptTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnTranscriptTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnTranscriptTriggerTriggerPayload : TriggerCallbackPayload<TranscriptWebhookResponseSchemaNotification>
+    public class TeamsOnTranscriptTriggerPayload : TriggerCallbackPayload<TranscriptWebhookResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookAtMentionTrigger trigger (Teams "When I&apos;m @mentioned", operationId: WebhookAtMentionTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookAtMentionTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookAtMentionTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookAtMentionTriggerTriggerPayload : TriggerCallbackPayload<DynamicAtMentionWebhookTriggerResponseSchemaNotification>
+    public class TeamsOnWebhookAtMentionTriggerPayload : TriggerCallbackPayload<DynamicAtMentionWebhookTriggerResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookChatMessageTrigger trigger (Teams "When a new chat message is added", operationId: WebhookChatMessageTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookChatMessageTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookChatMessageTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookChatMessageTriggerTriggerPayload : TriggerCallbackPayload<ChatMessageWebhookResponseSchemaNotificationValueItem>
+    public class TeamsOnWebhookChatMessageTriggerPayload : TriggerCallbackPayload<ChatMessageWebhookResponseSchemaNotificationValueItem>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookKeywordTrigger trigger (Teams "When keywords are mentioned", operationId: WebhookKeywordTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookKeywordTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookKeywordTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookKeywordTriggerTriggerPayload : TriggerCallbackPayload<DynamicKeywordWebhookTriggerResponseSchemaNotification>
+    public class TeamsOnWebhookKeywordTriggerPayload : TriggerCallbackPayload<DynamicKeywordWebhookTriggerResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookMessageReactionTrigger trigger (Teams "When someone reacted to a message in chat", operationId: WebhookMessageReactionTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookMessageReactionTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookMessageReactionTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookMessageReactionTriggerTriggerPayload : TriggerCallbackPayload<MessageReactionWebhookResponseSchemaNotification>
+    public class TeamsOnWebhookMessageReactionTriggerPayload : TriggerCallbackPayload<MessageReactionWebhookResponseSchemaNotification>
     {
     }
 
     /// <summary>
     /// Typed trigger payload for the OnWebhookNewMessageTrigger trigger (Teams "When a new message is added to a chat or channel", operationId: WebhookNewMessageTrigger).
-    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookNewMessageTriggerTriggerPayload&gt;(body)</c>.
+    /// Deserialize Connector Namespace callbacks directly: <c>JsonSerializer.Deserialize&lt;TeamsOnWebhookNewMessageTriggerPayload&gt;(body)</c>.
     /// </summary>
-    public class TeamsOnWebhookNewMessageTriggerTriggerPayload : TriggerCallbackPayload<DynamicNewMessageWebhookTriggerResponseSchemaNotification>
+    public class TeamsOnWebhookNewMessageTriggerPayload : TriggerCallbackPayload<DynamicNewMessageWebhookTriggerResponseSchemaNotification>
     {
     }
 
@@ -4181,15 +4181,15 @@ namespace Azure.Connectors.Sdk.Teams.Models
             {
                 ["OnNewChannelMessage"] = typeof(TeamsOnNewChannelMessageTriggerPayload),
                 ["OnNewChannelMessageMentioningMe"] = typeof(TeamsOnNewChannelMessageMentioningMeTriggerPayload),
-                ["RecordingTrigger"] = typeof(TeamsOnRecordingTriggerTriggerPayload),
+                ["RecordingTrigger"] = typeof(TeamsOnRecordingTriggerPayload),
                 ["OnGroupMembershipAdd"] = typeof(TeamsOnTeamMemberAddedTriggerPayload),
                 ["OnGroupMembershipRemoval"] = typeof(TeamsOnTeamMemberRemovedTriggerPayload),
-                ["TranscriptTrigger"] = typeof(TeamsOnTranscriptTriggerTriggerPayload),
-                ["WebhookAtMentionTrigger"] = typeof(TeamsOnWebhookAtMentionTriggerTriggerPayload),
-                ["WebhookChatMessageTrigger"] = typeof(TeamsOnWebhookChatMessageTriggerTriggerPayload),
-                ["WebhookKeywordTrigger"] = typeof(TeamsOnWebhookKeywordTriggerTriggerPayload),
-                ["WebhookMessageReactionTrigger"] = typeof(TeamsOnWebhookMessageReactionTriggerTriggerPayload),
-                ["WebhookNewMessageTrigger"] = typeof(TeamsOnWebhookNewMessageTriggerTriggerPayload),
+                ["TranscriptTrigger"] = typeof(TeamsOnTranscriptTriggerPayload),
+                ["WebhookAtMentionTrigger"] = typeof(TeamsOnWebhookAtMentionTriggerPayload),
+                ["WebhookChatMessageTrigger"] = typeof(TeamsOnWebhookChatMessageTriggerPayload),
+                ["WebhookKeywordTrigger"] = typeof(TeamsOnWebhookKeywordTriggerPayload),
+                ["WebhookMessageReactionTrigger"] = typeof(TeamsOnWebhookMessageReactionTriggerPayload),
+                ["WebhookNewMessageTrigger"] = typeof(TeamsOnWebhookNewMessageTriggerPayload),
             });
     }
 
@@ -4223,7 +4223,7 @@ namespace Azure.Connectors.Sdk.Teams
 
         /// <summary>
         /// When a recording is available.
-        /// Payload type: <see cref="TeamsOnRecordingTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnRecordingTriggerPayload"/>.
         /// </summary>
         public const string OnRecordingTrigger = "RecordingTrigger";
 
@@ -4241,37 +4241,37 @@ namespace Azure.Connectors.Sdk.Teams
 
         /// <summary>
         /// When a transcript is available.
-        /// Payload type: <see cref="TeamsOnTranscriptTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnTranscriptTriggerPayload"/>.
         /// </summary>
         public const string OnTranscriptTrigger = "TranscriptTrigger";
 
         /// <summary>
         /// When I&apos;m @mentioned.
-        /// Payload type: <see cref="TeamsOnWebhookAtMentionTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookAtMentionTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookAtMentionTrigger = "WebhookAtMentionTrigger";
 
         /// <summary>
         /// When a new chat message is added.
-        /// Payload type: <see cref="TeamsOnWebhookChatMessageTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookChatMessageTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookChatMessageTrigger = "WebhookChatMessageTrigger";
 
         /// <summary>
         /// When keywords are mentioned.
-        /// Payload type: <see cref="TeamsOnWebhookKeywordTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookKeywordTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookKeywordTrigger = "WebhookKeywordTrigger";
 
         /// <summary>
         /// When someone reacted to a message in chat.
-        /// Payload type: <see cref="TeamsOnWebhookMessageReactionTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookMessageReactionTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookMessageReactionTrigger = "WebhookMessageReactionTrigger";
 
         /// <summary>
         /// When a new message is added to a chat or channel.
-        /// Payload type: <see cref="TeamsOnWebhookNewMessageTriggerTriggerPayload"/>.
+        /// Payload type: <see cref="TeamsOnWebhookNewMessageTriggerPayload"/>.
         /// </summary>
         public const string OnWebhookNewMessageTrigger = "WebhookNewMessageTrigger";
 

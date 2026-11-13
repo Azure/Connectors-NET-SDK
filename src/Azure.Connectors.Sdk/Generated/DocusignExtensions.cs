@@ -1265,7 +1265,7 @@ namespace Azure.Connectors.Sdk.Docusign.Models
     {
         /// <summary>Workflow ID</summary>
         [JsonPropertyName("workflowIds")]
-        public List<WorkflowId> WorkflowIDs { get; set; }
+        public List<WorkflowId> WorkflowIds { get; set; }
     }
 
     /// <summary>
@@ -2603,11 +2603,11 @@ namespace Azure.Connectors.Sdk.Docusign.Models
         /// Creates a new instance of <see cref="GetWorkFlowIdsResponse"/>.
         /// </summary>
         public static GetWorkFlowIdsResponse GetWorkFlowIdsResponse(
-            List<WorkflowId> workflowIDs = default)
+            List<WorkflowId> workflowIds = default)
         {
             return new GetWorkFlowIdsResponse
             {
-                WorkflowIDs = workflowIDs,
+                WorkflowIds = workflowIds,
             };
         }
 
@@ -4745,9 +4745,9 @@ namespace Azure.Connectors.Sdk.Docusign
         /// <param name="account">Account</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get All Workflow Ids response.</returns>
-        public virtual async Task<GetWorkFlowIdsResponse> GetAllWorkflowIDsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
+        public virtual async Task<GetWorkFlowIdsResponse> GetAllWorkflowIdsAsync([DynamicValues("GetLoginAccounts")] string account, CancellationToken cancellationToken = default)
         {
-            using var activity = DocusignClient.ConnectorActivitySource.StartActivity("DocusignClient.GetAllWorkflowIDsAsync");
+            using var activity = DocusignClient.ConnectorActivitySource.StartActivity("DocusignClient.GetAllWorkflowIdsAsync");
             try
             {
                 if (account is null)

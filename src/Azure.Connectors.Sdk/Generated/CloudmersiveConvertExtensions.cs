@@ -2138,7 +2138,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>Optional: The height of the image in EMUs</summary>
         [JsonPropertyName("HeightInEMUs")]
-        public long? HeightInEMUs { get; set; }
+        public long? HeightInEmus { get; set; }
 
         /// <summary>Optional: Image to add; if you supply in this object, do not supply InputImageFileBytes or InputImageFileUrl.</summary>
         [JsonPropertyName("ImageToAdd")]
@@ -2170,7 +2170,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>Optional: The width of the image in EMUs</summary>
         [JsonPropertyName("WidthInEMUs")]
-        public long? WidthInEMUs { get; set; }
+        public long? WidthInEmus { get; set; }
     }
 
     /// <summary>
@@ -4736,7 +4736,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxInsertImageRequest"/>.
         /// </summary>
         public static DocxInsertImageRequest DocxInsertImageRequest(
-            long? heightInEMUs = default,
+            long? heightInEmus = default,
             DocxImage imageToAdd = default,
             string inputDocumentFileBytes = default,
             string inputDocumentFileUrl = default,
@@ -4744,11 +4744,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             string inputImageFileUrl = default,
             string insertPath = default,
             string insertPlacement = default,
-            long? widthInEMUs = default)
+            long? widthInEmus = default)
         {
             return new DocxInsertImageRequest
             {
-                HeightInEMUs = heightInEMUs,
+                HeightInEmus = heightInEmus,
                 ImageToAdd = imageToAdd,
                 InputDocumentFileBytes = inputDocumentFileBytes,
                 InputDocumentFileUrl = inputDocumentFileUrl,
@@ -4756,7 +4756,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
                 InputImageFileUrl = inputImageFileUrl,
                 InsertPath = insertPath,
                 InsertPlacement = insertPlacement,
-                WidthInEMUs = widthInEMUs,
+                WidthInEmus = widthInEmus,
             };
         }
 

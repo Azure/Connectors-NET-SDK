@@ -9,7 +9,7 @@ using Azure.Connectors.Sdk.AzureBlob;
 using Azure.Connectors.Sdk.AzureDataFactory;
 using Azure.Connectors.Sdk.AzureDigitalTwins;
 using Azure.Connectors.Sdk.AzureEventGrid;
-using Azure.Connectors.Sdk.AzureIotCentral;
+using Azure.Connectors.Sdk.AzureIoTCentral;
 using Azure.Connectors.Sdk.AzureMonitorLogs;
 using Azure.Connectors.Sdk.AzureQueues;
 using Azure.Connectors.Sdk.AzureTables;
@@ -185,19 +185,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="AzureIotCentralClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="AzureIoTCentralClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddAzureIotCentralClient(
+        public static IServiceCollection AddAzureIoTCentralClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIotCentralClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<AzureIoTCentralClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.AzureIotCentralV3,
-                factory: (connectionRuntimeUrl, credential) => new AzureIotCentralClient(connectionRuntimeUrl, credential));
+                connectorName: ConnectorNames.AzureIoTCentralV3,
+                factory: (connectionRuntimeUrl, credential) => new AzureIoTCentralClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

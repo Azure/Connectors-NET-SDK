@@ -10542,17 +10542,17 @@ namespace Azure.Connectors.Sdk.SigningHub
         /// </summary>
         /// <remarks>Business applications can use this service API to download the document package in binary format.               The package ID is provided in the resource URL.               If the package contains only one document, the download is the binary PDF document.               Alternatively, if the package has more than one document, the download is the binary zip file of all documents.               The x-password and x-otp headers are optional.  They are required if the document owner set them during the workflow creation phase.</remarks>
         /// <param name="packageId">Package ID</param>
-        /// <param name="documentIDs">Document IDs</param>
+        /// <param name="documentIds">Document IDs</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Download Package response.</returns>
-        public virtual async Task<PackageDownloadPackageBytesResponse> PackageDownloadPackageBytesAsync(int packageId, object[] documentIDs = default, CancellationToken cancellationToken = default)
+        public virtual async Task<PackageDownloadPackageBytesResponse> PackageDownloadPackageBytesAsync(int packageId, object[] documentIds = default, CancellationToken cancellationToken = default)
         {
             using var activity = SigningHubClient.ConnectorActivitySource.StartActivity("SigningHubClient.PackageDownloadPackageBytesAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (documentIDs != default)
-                    queryParams.Add($"document-ids={Uri.EscapeDataString(JsonSerializer.Serialize(documentIDs))}");
+                if (documentIds != default)
+                    queryParams.Add($"document-ids={Uri.EscapeDataString(JsonSerializer.Serialize(documentIds))}");
                 var path = $"/v4/packages/{Uri.EscapeDataString(Convert.ToString(packageId, CultureInfo.InvariantCulture))}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<PackageDownloadPackageBytesResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
