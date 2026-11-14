@@ -51,7 +51,7 @@ using Azure.Connectors.Sdk.Planner;
 using Azure.Connectors.Sdk.Plivo;
 using Azure.Connectors.Sdk.Plumsail;
 using Azure.Connectors.Sdk.PowerBI;
-using Azure.Connectors.Sdk.Projectplace;
+using Azure.Connectors.Sdk.ProjectPlace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.RevAI;
 using Azure.Connectors.Sdk.SeismicPlanner;
@@ -660,7 +660,7 @@ namespace Azure.Connectors.Sdk
             return ConnectorServiceCollectionExtensions.AddConnectorClient<PdfCoClient>(
                 services,
                 configurationSection,
-                connectorName: ConnectorNames.PDFco,
+                connectorName: ConnectorNames.PdfCo,
                 factory: (connectionRuntimeUrl, credential) => new PdfCoClient(connectionRuntimeUrl, credential));
         }
 
@@ -713,19 +713,19 @@ namespace Azure.Connectors.Sdk
         }
 
         /// <summary>
-        /// Registers <see cref="ProjectplaceClient"/> as a singleton using connection settings from the specified configuration section.
+        /// Registers <see cref="ProjectPlaceClient"/> as a singleton using connection settings from the specified configuration section.
         /// </summary>
         /// <param name="services">The service collection.</param>
         /// <param name="configurationSection">Configuration section containing <c>ConnectionRuntimeUrl</c> and optional <c>ManagedIdentityClientId</c>.</param>
-        public static IServiceCollection AddProjectplaceClient(
+        public static IServiceCollection AddProjectPlaceClient(
             this IServiceCollection services,
             IConfiguration configurationSection)
         {
-            return ConnectorServiceCollectionExtensions.AddConnectorClient<ProjectplaceClient>(
+            return ConnectorServiceCollectionExtensions.AddConnectorClient<ProjectPlaceClient>(
                 services,
                 configurationSection,
                 connectorName: ConnectorNames.ProjectPlace,
-                factory: (connectionRuntimeUrl, credential) => new ProjectplaceClient(connectionRuntimeUrl, credential));
+                factory: (connectionRuntimeUrl, credential) => new ProjectPlaceClient(connectionRuntimeUrl, credential));
         }
 
         /// <summary>

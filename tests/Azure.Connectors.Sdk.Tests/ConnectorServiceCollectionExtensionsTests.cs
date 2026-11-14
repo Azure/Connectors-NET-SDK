@@ -44,7 +44,7 @@ using Azure.Connectors.Sdk.Planner;
 using Azure.Connectors.Sdk.Plivo;
 using Azure.Connectors.Sdk.Plumsail;
 using Azure.Connectors.Sdk.PowerBI;
-using Azure.Connectors.Sdk.Projectplace;
+using Azure.Connectors.Sdk.ProjectPlace;
 using Azure.Connectors.Sdk.Replicon;
 using Azure.Connectors.Sdk.RevAI;
 using Azure.Connectors.Sdk.SeismicPlanner;
@@ -366,7 +366,7 @@ namespace Azure.Connectors.Sdk.Tests
                 .AddMeetingRoomMapClient(configuration)
                 .AddOrderfulClient(configuration)
                 .AddPdfCoClient(configuration)
-                .AddProjectplaceClient(configuration)
+                .AddProjectPlaceClient(configuration)
                 .AddSeismicPlannerClient(configuration)
                 .AddStarmindClient(configuration)
                 .AddStarRezRestV1Client(configuration)
@@ -420,7 +420,7 @@ namespace Azure.Connectors.Sdk.Tests
             Assert.AreEqual("pipedrive", provider.GetRequiredService<PipedriveClient>().ConnectorName);
             Assert.AreEqual("plivo", provider.GetRequiredService<PlivoClient>().ConnectorName);
             Assert.AreEqual("plumsail", provider.GetRequiredService<PlumsailClient>().ConnectorName);
-            Assert.AreEqual("projectplace", provider.GetRequiredService<ProjectplaceClient>().ConnectorName);
+            Assert.AreEqual("projectplace", provider.GetRequiredService<ProjectPlaceClient>().ConnectorName);
             Assert.AreEqual("replicon", provider.GetRequiredService<RepliconClient>().ConnectorName);
             Assert.AreEqual("revai", provider.GetRequiredService<RevAIClient>().ConnectorName);
             Assert.AreEqual("seismicplanner", provider.GetRequiredService<SeismicPlannerClient>().ConnectorName);

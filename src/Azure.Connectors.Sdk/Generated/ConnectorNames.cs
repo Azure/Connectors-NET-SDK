@@ -2988,7 +2988,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>harnesspdfx</c> connector.
     /// </summary>
-    public const string HarnessPDFx = "harnesspdfx";
+    public const string HarnessPdfx = "harnesspdfx";
 
     /// <summary>
     /// The <c>harvest</c> connector.
@@ -3298,7 +3298,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>ilovepdfv2</c> connector.
     /// </summary>
-    public const string ILovePDFv2 = "ilovepdfv2";
+    public const string ILovePdfV2 = "ilovepdfv2";
 
     /// <summary>
     /// The <c>ilovesign</c> connector.
@@ -4903,12 +4903,12 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pdfco</c> connector.
     /// </summary>
-    public const string PDFco = "pdfco";
+    public const string PdfCo = "pdfco";
 
     /// <summary>
     /// The <c>pdfcross</c> connector.
     /// </summary>
-    public const string PDFcross = "pdfcross";
+    public const string PdfCross = "pdfcross";
 
     /// <summary>
     /// The <c>pdfless</c> connector.
@@ -5008,7 +5008,7 @@ public static class ConnectorNames
     /// <summary>
     /// The <c>pkisigning</c> connector.
     /// </summary>
-    public const string PKIsigning = "pkisigning";
+    public const string PkiSigning = "pkisigning";
 
     /// <summary>
     /// The <c>placedogip</c> connector.

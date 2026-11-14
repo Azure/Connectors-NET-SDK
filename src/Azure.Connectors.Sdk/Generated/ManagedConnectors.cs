@@ -3110,9 +3110,9 @@
 //   using Azure.Connectors.Sdk.Projectonline;
 //   using Azure.Connectors.Sdk.Projectonline.Models;
 //   var client = new ProjectonlineClient(connectionRuntimeUrl);
-//   using Azure.Connectors.Sdk.Projectplace;
-//   using Azure.Connectors.Sdk.Projectplace.Models;
-//   var client = new ProjectplaceClient(connectionRuntimeUrl);
+//   using Azure.Connectors.Sdk.ProjectPlace;
+//   using Azure.Connectors.Sdk.ProjectPlace.Models;
+//   var client = new ProjectPlaceClient(connectionRuntimeUrl);
 //   using Azure.Connectors.Sdk.Projectum;
 //   using Azure.Connectors.Sdk.Projectum.Models;
 //   var client = new ProjectumClient(connectionRuntimeUrl);

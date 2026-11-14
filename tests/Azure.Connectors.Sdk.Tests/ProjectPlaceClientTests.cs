@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Azure.Connectors.Sdk.Projectplace;
+using Azure.Connectors.Sdk.ProjectPlace;
 using global::Azure.Core;
 using global::Azure.Core.Pipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +17,7 @@ using Moq.Protected;
 namespace Azure.Connectors.Sdk.Tests
 {
     [TestClass]
-    public class ProjectplaceClientTests
+    public class ProjectPlaceClientTests
     {
         private static readonly Mock<TokenCredential> SharedMockCredential = CreateMockCredential();
 
@@ -29,7 +29,7 @@ namespace Azure.Connectors.Sdk.Tests
             return mock;
         }
 
-        private static ProjectplaceClient CreateMockedClient(HttpResponseMessage response)
+        private static ProjectPlaceClient CreateMockedClient(HttpResponseMessage response)
         {
             var mockHandler = new Mock<HttpMessageHandler>();
             mockHandler.Protected()
@@ -38,33 +38,33 @@ namespace Azure.Connectors.Sdk.Tests
             var options = new ConnectorClientOptions();
             options.Transport = new HttpClientTransport(new HttpClient(mockHandler.Object));
             options.Retry.MaxRetries = 0;
-            return new ProjectplaceClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
+            return new ProjectPlaceClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object, options);
         }
 
         [TestMethod]
         public void Constructor_WithValidUrl_ShouldCreateInstance()
         {
-            using var client = new ProjectplaceClient("https://test.azure.com/conn");
+            using var client = new ProjectPlaceClient("https://test.azure.com/conn");
             Assert.IsNotNull(client);
         }
 
         [TestMethod]
         public void Constructor_WithNull_ShouldThrow()
         {
-            Assert.ThrowsExactly<ArgumentNullException>(() => new ProjectplaceClient((string)null!));
+            Assert.ThrowsExactly<ArgumentNullException>(() => new ProjectPlaceClient((string)null!));
         }
 
         [TestMethod]
         public void Dispose_ShouldNotThrow()
         {
-            var client = new ProjectplaceClient("https://test.azure.com/conn");
+            var client = new ProjectPlaceClient("https://test.azure.com/conn");
             client.Dispose();
         }
 
         [TestMethod]
         public void Dispose_CalledTwice_ShouldNotThrow()
         {
-            var client = new ProjectplaceClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
+            var client = new ProjectPlaceClient(new Uri("https://test.azure.com/conn"), SharedMockCredential.Object);
             client.Dispose();
             client.Dispose();
         }

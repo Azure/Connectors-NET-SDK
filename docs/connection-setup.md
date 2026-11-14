@@ -290,7 +290,7 @@ Add the runtime URL to your application settings:
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
     "Office365ConnectionRuntimeUrl": "<your-office365-runtime-url>",
-    "SharepointonlineConnectionRuntimeUrl": "<your-sharepoint-runtime-url>"
+    "SharePointOnlineConnectionRuntimeUrl": "<your-sharepoint-runtime-url>"
   }
 }
 ```
@@ -301,7 +301,7 @@ Add the runtime URL to your application settings:
 {
   "ConnectionRuntimeUrls": {
     "Office365": "<your-office365-runtime-url>",
-    "Sharepointonline": "<your-sharepoint-runtime-url>"
+    "SharePointOnline": "<your-sharepoint-runtime-url>"
   }
 }
 ```

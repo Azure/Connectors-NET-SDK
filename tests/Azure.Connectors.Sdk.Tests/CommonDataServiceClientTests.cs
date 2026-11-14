@@ -17,7 +17,7 @@ using Moq;
 namespace Azure.Connectors.Sdk.Tests
 {
     /// <summary>
-    /// Tests for the generated <see cref="CommondataserviceClient"/> class (Microsoft Dataverse).
+    /// Tests for the generated <see cref="CommonDataServiceClient"/> class (Microsoft Dataverse).
     /// </summary>
     [TestClass]
     public class CommonDataServiceClientTests
@@ -49,7 +49,7 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
-        public void ConnectorName_ReturnsCommondataservice()
+        public void ConnectorName_ReturnsRawConnectorId()
         {
             // Arrange
             using var client = new CommonDataServiceClient("https://test.azure.com/connection");

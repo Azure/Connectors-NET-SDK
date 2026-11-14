@@ -269,7 +269,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | Orderful | 🔄 SDK Generated | ListTransactions |
 | Outlook | 🔄 SDK Generated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
 | PDF.co | 🔄 SDK Generated | HtmlToPdf, UrlToPdf, PdfFiller |
-| Projectplace | 🔄 SDK Generated | ListBoards, CreateCard |
+| ProjectPlace | 🔄 SDK Generated | ListBoards, CreateCard |
 | Seismic Planner | 🔄 SDK Generated | GetComments, CreateComment |
 | Service Bus | 🔄 SDK Generated | GetQueuesAsync, GetTopicsAsync |
 | Starmind | 🔄 SDK Generated | FindExperts, FindQuestions |
