@@ -65,7 +65,7 @@ namespace Azure.Connectors.Sdk.Tests
             }
             else
             {
-                AiInsightDetailResponse result = await client
+                AIInsightDetailResponse result = await client
                     .GetAIInsightAsync(meetingId: "meeting-1", aiInsightId: "insight-1")
                     .ConfigureAwait(continueOnCapturedContext: false);
                 Assert.AreEqual(expected: "insight-1", actual: result.AIInsightId);
@@ -122,7 +122,7 @@ namespace Azure.Connectors.Sdk.Tests
                 credential: setup.Credential,
                 options: setup.Options);
 
-            AiInsightDetailResponse result = await client
+            AIInsightDetailResponse result = await client
                 .GetAIInsightAsync(meetingId: "meeting/1", aiInsightId: "insight-1", cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 

@@ -467,7 +467,7 @@ operations with new routes, so those methods change rather than being renamed:
 `FlowV1ProcessesFlowJobsExecuteProcessWithGeneratedDataMultipleOutputsAsync`.
 
 <details>
-<summary>All 189 renamed public types</summary>
+<summary>All 195 renamed public types</summary>
 
 | Before | After | Connector |
 | --- | --- | --- |
@@ -475,6 +475,12 @@ operations with new routes, so those methods change rather than being renamed:
 | `AADMeetingRoomCollection` | `AadMeetingRoomCollection` | `meetingroommap` |
 | `AccessSecurityTOTPResponse` | `AccessSecurityTotpResponse` | `signinghub` |
 | `AdditionalURLForSenderView` | `AdditionalUrlForSenderView` | `docusign` |
+| `AiInsightActionItem` | `AIInsightActionItem` | `teams` |
+| `AiInsightDetailResponse` | `AIInsightDetailResponse` | `teams` |
+| `AiInsightMeetingNote` | `AIInsightMeetingNote` | `teams` |
+| `AiInsightMeetingNoteSubpoint` | `AIInsightMeetingNoteSubpoint` | `teams` |
+| `AiInsightMentionEvent` | `AIInsightMentionEvent` | `teams` |
+| `AiInsightViewpoint` | `AIInsightViewpoint` | `teams` |
 | `AzureIoTCentralOnWorkflowCreateTriggerTriggerPayload` | `AzureIoTCentralOnWorkflowCreateTriggerPayload` | `azureiotcentral` |
 | `AzureiotcentralType` | `AzureIoTCentralType` | `azureiotcentral` |
 | `ChecklistStepNotification` | `CompletedStepNotificationStep` | `waywedo` |

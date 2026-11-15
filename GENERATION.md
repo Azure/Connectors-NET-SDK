@@ -588,7 +588,7 @@ attachments.
 
 All 103 generated connector clients, `ConnectorNames.cs`, and `ManagedConnectors.cs`
 were regenerated from consolidated generator commit
-`deb3465d97d6f2797e0b617a115aaec313e6aebc` in
+`380765c2ec0a8519fba541fefe2dc022cff601f7` in
 [BPM PR 17922280](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17922280)
 (merging prerequisites [#17885819](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17885819),
 [#17895210](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17895210), and

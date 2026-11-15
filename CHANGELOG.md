@@ -20,8 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Teams `GetAIInsightAsync` now returns `AiInsightDetailResponse` rather than
-  `AiInsightResponse`, matching the current connector contract. The detail model
+- Teams `GetAIInsightAsync` now returns `AIInsightDetailResponse` rather than
+  `AIInsightResponse`, matching the current connector contract. The detail model
   includes `@odata.context`, optional `recapUrl`, meeting notes and subpoints,
   action items, and participant-specific mention events.
 <!-- MAINTAINER NOTE: Cut pending changes into a versioned section before tagging,
@@ -60,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **PDF.co public API casing** - rename `PDFFromXLSXLSXAsync` to `PdfFromXlsXlsxAsync`, `PDFUnSearchableAsync` to `PdfUnsearchableAsync`, and `XLStoCSVAsync`, `XLStoHTMLAsync`, `XLStoJSONAsync`, `XLStoTXTAsync`, and `XLStoXMLAsync` to `XlsToCsvAsync`, `XlsToHtmlAsync`, `XlsToJsonAsync`, `XlsToTxtAsync`, and `XlsToXmlAsync`. Corresponding `Input` and `Response` types and model-factory members use the same corrected stems, including `PdfFromXlsXlsxResponse`. HTTP routes and JSON fields are unchanged.
 
-- **Teams AI insight API casing** - rename `GetAiInsightAsync` to `GetAIInsightAsync` and `ListAiInsightsAsync` to `ListAIInsightsAsync`. `AiInsightResponse` and `AiInsightCollectionResponse` become `AIInsightResponse` and `AIInsightCollectionResponse`, including their `TeamsModelFactory` members. Update method calls, explicit model references, and factory calls; JSON fields and HTTP routes are unchanged.
+- **Teams AI insight API casing** - rename `GetAiInsightAsync` to `GetAIInsightAsync` and `ListAiInsightsAsync` to `ListAIInsightsAsync`. `AiInsightResponse` and `AiInsightCollectionResponse` become `AIInsightResponse` and `AIInsightCollectionResponse`, including their `TeamsModelFactory` members; every other Teams AI insight model, such as `AIInsightDetailResponse`, uses the same `AIInsight` spelling. Update method calls, explicit model references, and factory calls; JSON fields and HTTP routes are unchanged.
 
 ## [0.15.0-preview.1] - 2026-10-29
 
