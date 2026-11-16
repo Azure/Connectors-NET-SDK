@@ -1,12 +1,34 @@
 ## What's Changed
 
-### Unreleased
+### 1.0.0 (2026-11-16)
 
 #### Added
 
+- **General availability** - first stable release of `Azure.Connectors.Sdk`.
+
+- **Multipart form-data operations** - adds file uploads for Cloudmersive Convert,
+  DocuWare, Zoho Sign, and ServiceNow, plus DocuWare's bodyless file delete.
+  `MultipartFile` preserves filenames and media types and accepts plain bytes
+  with default metadata, including filenames with embedded quotes. Existing
+  operation signatures remain unchanged. UTF-8 disposition headers also preserve
+  Unicode for receivers reading plain `filename` rather than `filename*`.
+
 - **Webhook callback models** - regenerated 25 existing connector clients from their notification schemas, including Teams chat messages, reactions, recordings, transcripts, and extensible dynamic webhook payloads. Registration models remain available. See [webhook callback schemas](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/triggers.md#webhook-callback-schemas).
 
+#### Changed
+
+- Teams `GetAIInsightAsync` now returns `AIInsightDetailResponse` rather than
+  `AIInsightResponse`, matching the current connector contract. The detail model
+  includes `@odata.context`, optional `recapUrl`, meeting notes and subpoints,
+  action items, and participant-specific mention events.
+
 #### Fixed
+
+- Regenerated Azure Monitor Logs, Azure Queues, Azure Tables, Azure Cosmos DB,
+  OneNote, Power BI, and Teams clients to send string request bodies as unquoted UTF-8
+  content, preserving declared media types. This corrects invalid Azure Table
+  names and JSON-quoted queue messages; object and binary body encoding remains
+  unchanged.
 
 - **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
 
@@ -19,6 +41,11 @@
 #### Breaking Changes
 
 - **Systematic connector naming migration** - generated client types, namespaces, model factories, methods, models, and `ConnectorNames` constants now follow consistent .NET casing and published product spelling. For example, `DocuSignClient` becomes `DocusignClient`, `MailChimpClient` becomes `MailchimpClient`, `OnenoteClient` becomes `OneNoteClient`, and `ConnectorNames.DataFlowsSMS` becomes `ConnectorNames.DataFlowsSms`. Update direct imports, dependency-injection registrations, named arguments, and type references. Raw connector IDs and serialized wire names remain unchanged. See the [naming migration guide](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/naming-migration.md).
+
+- Plivo uses `SendSmsAsync`, `Sms`, and `SendSmsResponse` instead of
+  `SendSMSAsync`, `SMS`, and `SendSMSResponse`. Model-factory method names follow
+  the same casing. Request routes, JSON fields, HTTP methods, and response values
+  remain unchanged.
 
 - **Automatic pagination and typed map properties across 14 additional connectors** - 32 list/query operations in `AzureBlob`, `AzureTables`, `DocumentDB`, `ExcelOnline`, `ExcelOnlineBusiness`, `Insightly`, `Jira`, `Office365`, `OneNote`, `Salesforce`, `SharePointOnline`, `Sql`, `Yammer`, and `Zendesk` now return `AsyncPageable<T>` instead of `Task<TPage>`, and page-envelope collection properties normalize to `Value` (including `AzureTables.Models.GetEntitiesResponse.Value`, `DocumentDB.Models.QueryDocumentsResponse.Value`, and `OneNote.Models.GetPagesInSectionResponse.Value`). Each `AsPages()` element is a `ConnectorPage<TPage, TItem>` exposing `PageModel` and a buffered `GetRawResponse()` so page-level sibling metadata such as `ItemsList.SensitivityLabelInfo` remains accessible. Static Swagger object-map properties (`Tags`, `Properties`, `CustomProperties`, `Headers`, `QueryParameters`, `FormalParameters`, and `DynamicProperties`) now use `Dictionary<string, string>` or `Dictionary<string, ObjectEntity>` instead of `JsonElement?`. See the [naming and paging migration guide](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/naming-migration.md).
 

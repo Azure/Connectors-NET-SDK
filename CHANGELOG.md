@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-16
+
 ### Added
+
+- **General availability** - first stable release of `Azure.Connectors.Sdk`.
 
 - **Multipart form-data operations** - adds file uploads for Cloudmersive Convert,
   DocuWare, Zoho Sign, and ServiceNow, plus DocuWare's bodyless file delete.
@@ -449,7 +453,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SharePoint connector client (generated)
 - Teams connector client (generated)
 
-[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.15.0-preview.1...HEAD
+[Unreleased]: https://github.com/Azure/Connectors-NET-SDK/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.15.0-preview.1...v1.0.0
 [0.15.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.14.0-preview.1...v0.15.0-preview.1
 [0.14.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.13.0-preview.1...v0.14.0-preview.1
 [0.13.0-preview.1]: https://github.com/Azure/Connectors-NET-SDK/compare/v0.12.0-preview.1...v0.13.0-preview.1
