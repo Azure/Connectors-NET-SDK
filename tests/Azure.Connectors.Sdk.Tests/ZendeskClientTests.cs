@@ -3,6 +3,7 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -157,15 +158,46 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetItemsAsync_TargetsDefaultDatasetRoute()
         {
-            var request = await CaptureRequestAsync(
-                    responseJson: "{\"value\":[]}",
-                    invoke: client => client.GetItemsAsync(tableName: "tickets", cancellationToken: CancellationToken.None))
-                .ConfigureAwait(continueOnCapturedContext: false);
+            const string firstUrl = "https://test.azure.com/connection/datasets/default/tables/tickets/items";
+            const string nextUrl = "https://test.azure.com/connection/datasets/default/tables/tickets/items?$skiptoken=second";
+            var responses = new Queue<string>(new[]
+            {
+                $$"""{"value":[{"ticketId":"first"}],"@odata.nextLink":"{{nextUrl}}"}""",
+                """{"value":[{"ticketId":"second"}]}""",
+            });
+            var setup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(responses.Dequeue()),
+                });
+            using var client = new ZendeskClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: setup.Credential,
+                options: setup.Options);
+            var pageable = client.GetItemsAsync(tableName: "tickets", cancellationToken: CancellationToken.None);
+            Assert.IsNull(setup.GetLastRequest(), "Page requests should be deferred until enumeration.");
 
-            Assert.AreEqual(
-                expected: "/connection/datasets/default/tables/tickets/items",
-                actual: request.RequestUri!.AbsolutePath,
+            var requestedUrls = new List<string>();
+            var identifiers = new List<string>();
+            var continuations = new List<string?>();
+            await foreach (var page in pageable.AsPages().ConfigureAwait(continueOnCapturedContext: false))
+            {
+                var request = setup.GetLastRequest();
+                Assert.IsNotNull(request);
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                requestedUrls.Add(request.RequestUri!.AbsoluteUri);
+                Assert.HasCount(1, page.Values);
+                identifiers.Add(page.Values[0].AdditionalProperties["ticketId"].GetString()!);
+                continuations.Add(page.ContinuationToken);
+            }
+
+            CollectionAssert.AreEqual(
+                expected: new[] { firstUrl, nextUrl },
+                actual: requestedUrls,
                 message: "GetItems is a public important operation on the default dataset, previously lost to its internal GetItemsV2 sibling.");
+            CollectionAssert.AreEqual(expected: new[] { "first", "second" }, actual: identifiers);
+            CollectionAssert.AreEqual(expected: new string?[] { nextUrl, null }, actual: continuations);
+            Assert.AreEqual(expected: 0, actual: responses.Count);
         }
 
         [TestMethod]

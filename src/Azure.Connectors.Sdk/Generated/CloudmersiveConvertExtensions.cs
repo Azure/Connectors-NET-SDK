@@ -106,7 +106,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>URL to the PNG file of this page; file is stored in an in-memory cache and will be deleted</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
     }
 
     /// <summary>
@@ -130,7 +130,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -144,7 +144,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -158,7 +158,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -676,7 +676,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the image contents; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the contents.</summary>
         [JsonPropertyName("ImageContentsURL")]
-        public string ImageContentsURL { get; set; }
+        public string ImageContentsUrl { get; set; }
 
         /// <summary>Read-only; image data MIME content-type</summary>
         [JsonPropertyName("ImageDataContentType")]
@@ -870,7 +870,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -884,7 +884,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -898,7 +898,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -912,7 +912,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -926,7 +926,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -940,7 +940,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL of the resulting edited document; this is a secure URL and cannot be downloaded without adding the Apikey header; it is also temporary, stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -954,7 +954,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -968,7 +968,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -982,7 +982,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -996,7 +996,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1010,7 +1010,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited DOCX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1024,7 +1024,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1038,7 +1038,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1052,7 +1052,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1174,7 +1174,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the image contents; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the contents.</summary>
         [JsonPropertyName("ImageContentsURL")]
-        public string ImageContentsURL { get; set; }
+        public string ImageContentsUrl { get; set; }
 
         /// <summary>Read-only; image data MIME content-type</summary>
         [JsonPropertyName("ImageDataContentType")]
@@ -1292,7 +1292,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1306,7 +1306,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1320,7 +1320,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the edited XLSX file; file is stored in an in-memory cache and will be deleted.  Call Finish-Editing to get the result document contents.</summary>
         [JsonPropertyName("EditedDocumentURL")]
-        public string EditedDocumentURL { get; set; }
+        public string EditedDocumentUrl { get; set; }
 
         /// <summary>True if successful, false otherwise</summary>
         [JsonPropertyName("Successful")]
@@ -1370,7 +1370,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>File name of the image in the converted file format</summary>
         [JsonPropertyName("Filename")]
-        public string Filename { get; set; }
+        public string FileName { get; set; }
     }
 
     /// <summary>
@@ -1404,11 +1404,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>DPI (pixels per unit, e.g. pixels per inch) of the image</summary>
         [JsonPropertyName("DPI")]
-        public double? DPI { get; set; }
+        public double? Dpi { get; set; }
 
         /// <summary>Units of the DPI measurement; can be either in Inches or Centimeters</summary>
         [JsonPropertyName("DPIUnit")]
-        public string DPIUnit { get; set; }
+        public string DpiUnit { get; set; }
 
         /// <summary>Name of the EXIF profile used</summary>
         [JsonPropertyName("ExifProfileName")]
@@ -1518,7 +1518,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>URL to the DOCX file of this slide; file is stored in an in-memory cache and will be deleted</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
     }
 
     /// <summary>
@@ -1550,7 +1550,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>URL to the PDF file of this worksheet; file is stored in an in-memory cache and will be deleted</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
     }
 
     /// <summary>
@@ -1582,7 +1582,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>URL to the PPTX file of this slide; file is stored in an in-memory cache and will be deleted</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
     }
 
     /// <summary>
@@ -1670,7 +1670,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>URL to the XLSX file of this worksheet; file is stored in an in-memory cache and will be deleted</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>Contents of the worksheet in bytes</summary>
         [JsonPropertyName("WorksheetContents")]
@@ -2138,7 +2138,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
     {
         /// <summary>Optional: The height of the image in EMUs</summary>
         [JsonPropertyName("HeightInEMUs")]
-        public long? HeightInEMUs { get; set; }
+        public long? HeightInEmus { get; set; }
 
         /// <summary>Optional: Image to add; if you supply in this object, do not supply InputImageFileBytes or InputImageFileUrl.</summary>
         [JsonPropertyName("ImageToAdd")]
@@ -2170,7 +2170,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
 
         /// <summary>Optional: The width of the image in EMUs</summary>
         [JsonPropertyName("WidthInEMUs")]
-        public long? WidthInEMUs { get; set; }
+        public long? WidthInEmus { get; set; }
     }
 
     /// <summary>
@@ -3054,7 +3054,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             return new ConvertedPngPage
             {
                 PageNumber = pageNumber,
-                URL = url,
+                Url = url,
             };
         }
 
@@ -3076,12 +3076,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="CreateBlankDocxResponse"/>.
         /// </summary>
         public static CreateBlankDocxResponse CreateBlankDocxResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new CreateBlankDocxResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3090,12 +3090,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DeleteDocxTableRowResponse"/>.
         /// </summary>
         public static DeleteDocxTableRowResponse DeleteDocxTableRowResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new DeleteDocxTableRowResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3104,12 +3104,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DeleteDocxTableRowRangeResponse"/>.
         /// </summary>
         public static DeleteDocxTableRowRangeResponse DeleteDocxTableRowRangeResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new DeleteDocxTableRowRangeResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3482,7 +3482,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxImage"/>.
         /// </summary>
         public static DocxImage DocxImage(
-            string imageContentsURL = default,
+            string imageContentsUrl = default,
             string imageDataContentType = default,
             string imageDataEmbedId = default,
             string imageDescription = default,
@@ -3498,7 +3498,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         {
             return new DocxImage
             {
-                ImageContentsURL = imageContentsURL,
+                ImageContentsUrl = imageContentsUrl,
                 ImageDataContentType = imageDataContentType,
                 ImageDataEmbedId = imageDataEmbedId,
                 ImageDescription = imageDescription,
@@ -3642,12 +3642,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="InsertDocxCommentOnParagraphResponse"/>.
         /// </summary>
         public static InsertDocxCommentOnParagraphResponse InsertDocxCommentOnParagraphResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new InsertDocxCommentOnParagraphResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3656,12 +3656,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxInsertImageResponse"/>.
         /// </summary>
         public static DocxInsertImageResponse DocxInsertImageResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new DocxInsertImageResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3670,12 +3670,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="InsertDocxInsertParagraphResponse"/>.
         /// </summary>
         public static InsertDocxInsertParagraphResponse InsertDocxInsertParagraphResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new InsertDocxInsertParagraphResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3684,12 +3684,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="InsertDocxTablesResponse"/>.
         /// </summary>
         public static InsertDocxTablesResponse InsertDocxTablesResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new InsertDocxTablesResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3698,12 +3698,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="InsertDocxTableRowResponse"/>.
         /// </summary>
         public static InsertDocxTableRowResponse InsertDocxTableRowResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new InsertDocxTableRowResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3712,12 +3712,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="RemoveDocxHeadersAndFootersResponse"/>.
         /// </summary>
         public static RemoveDocxHeadersAndFootersResponse RemoveDocxHeadersAndFootersResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new RemoveDocxHeadersAndFootersResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3726,12 +3726,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxRemoveObjectResponse"/>.
         /// </summary>
         public static DocxRemoveObjectResponse DocxRemoveObjectResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new DocxRemoveObjectResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3740,12 +3740,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxSetFooterResponse"/>.
         /// </summary>
         public static DocxSetFooterResponse DocxSetFooterResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new DocxSetFooterResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3754,12 +3754,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxSetHeaderResponse"/>.
         /// </summary>
         public static DocxSetHeaderResponse DocxSetHeaderResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new DocxSetHeaderResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3768,12 +3768,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="UpdateDocxTableCellResponse"/>.
         /// </summary>
         public static UpdateDocxTableCellResponse UpdateDocxTableCellResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new UpdateDocxTableCellResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3782,12 +3782,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="UpdateDocxTableRowResponse"/>.
         /// </summary>
         public static UpdateDocxTableRowResponse UpdateDocxTableRowResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new UpdateDocxTableRowResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3796,12 +3796,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="ClearXlsxCellResponse"/>.
         /// </summary>
         public static ClearXlsxCellResponse ClearXlsxCellResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new ClearXlsxCellResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3810,12 +3810,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="CreateBlankSpreadsheetResponse"/>.
         /// </summary>
         public static CreateBlankSpreadsheetResponse CreateBlankSpreadsheetResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new CreateBlankSpreadsheetResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3824,12 +3824,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="CreateSpreadsheetFromDataResponse"/>.
         /// </summary>
         public static CreateSpreadsheetFromDataResponse CreateSpreadsheetFromDataResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new CreateSpreadsheetFromDataResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -3928,7 +3928,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="XlsxImage"/>.
         /// </summary>
         public static XlsxImage XlsxImage(
-            string imageContentsURL = default,
+            string imageContentsUrl = default,
             string imageDataContentType = default,
             string imageDataEmbedId = default,
             string imageInternalFileName = default,
@@ -3936,7 +3936,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         {
             return new XlsxImage
             {
-                ImageContentsURL = imageContentsURL,
+                ImageContentsUrl = imageContentsUrl,
                 ImageDataContentType = imageDataContentType,
                 ImageDataEmbedId = imageDataEmbedId,
                 ImageInternalFileName = imageInternalFileName,
@@ -4036,12 +4036,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="InsertXlsxWorksheetResponse"/>.
         /// </summary>
         public static InsertXlsxWorksheetResponse InsertXlsxWorksheetResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new InsertXlsxWorksheetResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -4050,12 +4050,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="SetXlsxCellByIdentifierResponse"/>.
         /// </summary>
         public static SetXlsxCellByIdentifierResponse SetXlsxCellByIdentifierResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new SetXlsxCellByIdentifierResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -4064,12 +4064,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="SetXlsxCellResponse"/>.
         /// </summary>
         public static SetXlsxCellResponse SetXlsxCellResponse(
-            string editedDocumentURL = default,
+            string editedDocumentUrl = default,
             bool? successful = default)
         {
             return new SetXlsxCellResponse
             {
-                EditedDocumentURL = editedDocumentURL,
+                EditedDocumentUrl = editedDocumentUrl,
                 Successful = successful,
             };
         }
@@ -4109,12 +4109,12 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// </summary>
         public static PageConversionResult PageConversionResult(
             string fileBytes = default,
-            string filename = default)
+            string fileName = default)
         {
             return new PageConversionResult
             {
                 FileBytes = fileBytes,
-                Filename = filename,
+                FileName = fileName,
             };
         }
 
@@ -4148,8 +4148,8 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
                 ColorType = colorType,
                 Comment = comment,
                 CompressionLevel = compressionLevel,
-                DPI = dpi,
-                DPIUnit = dpiUnit,
+                Dpi = dpi,
+                DpiUnit = dpiUnit,
                 ExifProfileName = exifProfileName,
                 ExifValues = exifValues,
                 HasTransparency = hasTransparency,
@@ -4204,7 +4204,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             {
                 DocumentContents = documentContents,
                 PageNumber = pageNumber,
-                URL = url,
+                Url = url,
             };
         }
 
@@ -4234,7 +4234,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             {
                 DocumentContents = documentContents,
                 PageNumber = pageNumber,
-                URL = url,
+                Url = url,
             };
         }
 
@@ -4264,7 +4264,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             {
                 PresentationContents = presentationContents,
                 SlideNumber = slideNumber,
-                URL = url,
+                Url = url,
             };
         }
 
@@ -4353,7 +4353,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         {
             return new WorksheetResult
             {
-                URL = url,
+                Url = url,
                 WorksheetContents = worksheetContents,
                 WorksheetName = worksheetName,
                 WorksheetNumber = worksheetNumber,
@@ -4736,7 +4736,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
         /// Creates a new instance of <see cref="DocxInsertImageRequest"/>.
         /// </summary>
         public static DocxInsertImageRequest DocxInsertImageRequest(
-            long? heightInEMUs = default,
+            long? heightInEmus = default,
             DocxImage imageToAdd = default,
             string inputDocumentFileBytes = default,
             string inputDocumentFileUrl = default,
@@ -4744,11 +4744,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
             string inputImageFileUrl = default,
             string insertPath = default,
             string insertPlacement = default,
-            long? widthInEMUs = default)
+            long? widthInEmus = default)
         {
             return new DocxInsertImageRequest
             {
-                HeightInEMUs = heightInEMUs,
+                HeightInEmus = heightInEmus,
                 ImageToAdd = imageToAdd,
                 InputDocumentFileBytes = inputDocumentFileBytes,
                 InputDocumentFileUrl = inputDocumentFileUrl,
@@ -4756,7 +4756,7 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert.Models
                 InputImageFileUrl = inputImageFileUrl,
                 InsertPath = insertPath,
                 InsertPlacement = insertPlacement,
-                WidthInEMUs = widthInEMUs,
+                WidthInEmus = widthInEmus,
             };
         }
 
@@ -7478,16 +7478,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Change image DPI
         /// </summary>
         /// <remarks>Resize an image to have a different DPI</remarks>
-        /// <param name="newDPIInPixelsPerInchForExample300DPIOr600DPI">New DPI in pixels-per-inch, for example 300 DPI or 600 DPI</param>
+        /// <param name="newDpiInPixelsPerInchForExample300DpiOr600Dpi">New DPI in pixels-per-inch, for example 300 DPI or 600 DPI</param>
         /// <param name="inputFileToPerformTheOperationOn">Input file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Change image DPI response.</returns>
-        public virtual async Task<byte[]> ConvertImageImageSetDPIAsync(int newDPIInPixelsPerInchForExample300DPIOr600DPI, MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> ConvertImageImageSetDpiAsync(int newDpiInPixelsPerInchForExample300DpiOr600Dpi, MultipartFile inputFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
-            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageSetDPIAsync");
+            using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertImageImageSetDpiAsync");
             try
             {
-                var path = $"/convert/image/set-dpi/{Uri.EscapeDataString(Convert.ToString(newDPIInPixelsPerInchForExample300DPIOr600DPI, CultureInfo.InvariantCulture))}";
+                var path = $"/convert/image/set-dpi/{Uri.EscapeDataString(Convert.ToString(newDpiInPixelsPerInchForExample300DpiOr600Dpi, CultureInfo.InvariantCulture))}";
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
@@ -10489,10 +10489,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Adds an attribute to all XML nodes matching XPath expression
         /// </summary>
         /// <remarks>Return the reuslts of editing an XML document by adding an attribute to all of the nodes that match an input XPath expression.</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Adds an attribute to all XML nodes matching XPath expression response.</returns>
-        public virtual async Task<XmlAddAttributeWithXPathResult> ConvertDataXmlEditAddAttributeWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlAddAttributeWithXPathResult> ConvertDataXmlEditAddAttributeWithXPathAsync(MultipartFile inputXmlFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditAddAttributeWithXPathAsync");
             try
@@ -10501,16 +10501,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -10533,10 +10533,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Adds an XML node as a child to XML nodes matching XPath expression
         /// </summary>
         /// <remarks>Return the reuslts of editing an XML document by adding an XML node as a child to all of the nodes that match an input XPath expression.</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Adds an XML node as a child to XML nodes matching XPath expression response.</returns>
-        public virtual async Task<XmlAddChildWithXPathResult> ConvertDataXmlEditAddChildWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlAddChildWithXPathResult> ConvertDataXmlEditAddChildWithXPathAsync(MultipartFile inputXmlFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditAddChildWithXPathAsync");
             try
@@ -10545,16 +10545,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -10621,10 +10621,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Removes, deletes all children of nodes matching XPath expression, but
         /// </summary>
         /// <remarks>Return the reuslts of editing an XML document by removing all child nodes of the nodes that match an input XPath expression.</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Removes, deletes all children of nodes matching XPath expression, but response.</returns>
-        public virtual async Task<XmlRemoveAllChildrenWithXPathResult> ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlRemoveAllChildrenWithXPathResult> ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync(MultipartFile inputXmlFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditRemoveAllChildNodesWithXPathAsync");
             try
@@ -10633,16 +10633,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -10665,10 +10665,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Replaces XML nodes matching XPath expression with new node
         /// </summary>
         /// <remarks>Return the reuslts of editing an XML document by replacing all of the nodes that match an input XPath expression with a new XML node expression.</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Replaces XML nodes matching XPath expression with new node response.</returns>
-        public virtual async Task<XmlReplaceWithXPathResult> ConvertDataXmlEditReplaceWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlReplaceWithXPathResult> ConvertDataXmlEditReplaceWithXPathAsync(MultipartFile inputXmlFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditReplaceWithXPathAsync");
             try
@@ -10677,16 +10677,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -10709,10 +10709,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Sets the value contents of XML nodes matching XPath expression
         /// </summary>
         /// <remarks>Return the reuslts of editing an XML document by setting the contents of all of the nodes that match an input XPath expression.  Supports elements and attributes.</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Sets the value contents of XML nodes matching XPath expression response.</returns>
-        public virtual async Task<XmlSetValueWithXPathResult> ConvertDataXmlEditSetValueWithXPathAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlSetValueWithXPathResult> ConvertDataXmlEditSetValueWithXPathAsync(MultipartFile inputXmlFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlEditSetValueWithXPathAsync");
             try
@@ -10721,16 +10721,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -10753,10 +10753,10 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Query an XML file using XQuery query, get results
         /// </summary>
         /// <remarks>Return the reuslts of querying a single XML document with an XQuery expression.  Supports XQuery 3.1 and earlier.  This API is optimized for a single XML document as input.  Provided XML document is automatically loaded as the default context; to access elements in the document, simply refer to them without a document reference, such as bookstore/book</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Query an XML file using XQuery query, get results response.</returns>
-        public virtual async Task<XmlQueryWithXQueryResult> ConvertDataXmlQueryWithXQueryAsync(MultipartFile inputXMLFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlQueryWithXQueryResult> ConvertDataXmlQueryWithXQueryAsync(MultipartFile inputXmlFileToPerformTheOperationOn, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlQueryWithXQueryAsync");
             try
@@ -10765,16 +10765,16 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -10797,19 +10797,19 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Query multiple XML files using XQuery query, get results
         /// </summary>
         /// <remarks>Return the reuslts of querying an XML document with an XQuery expression.  Supports XQuery 3.1 and earlier.  This API is optimized for multiple XML documents as input.  You can refer to the contents of a given document by name, for example doc(&quot;books.xml&quot;) or doc(&quot;restaurants.xml&quot;) if you included two input files named books.xml and restaurants.xml.  If input files contain no file name, they will default to file names input1.xml, input2.xml and so on.</remarks>
-        /// <param name="firstInputXMLFileToPerformTheOperationOn">First input XML file to perform the operation on.</param>
-        /// <param name="secondInputXMLFileToPerformTheOperationOn">Second input XML file to perform the operation on.</param>
-        /// <param name="thirdInputXMLFileToPerformTheOperationOn">Third input XML file to perform the operation on.</param>
-        /// <param name="fourthInputXMLFileToPerformTheOperationOn">Fourth input XML file to perform the operation on.</param>
-        /// <param name="fifthInputXMLFileToPerformTheOperationOn">Fifth input XML file to perform the operation on.</param>
-        /// <param name="sixthInputXMLFileToPerformTheOperationOn">Sixth input XML file to perform the operation on.</param>
-        /// <param name="seventhInputXMLFileToPerformTheOperationOn">Seventh input XML file to perform the operation on.</param>
-        /// <param name="eighthInputXMLFileToPerformTheOperationOn">Eighth input XML file to perform the operation on.</param>
-        /// <param name="ninthInputXMLFileToPerformTheOperationOn">Ninth input XML file to perform the operation on.</param>
-        /// <param name="tenthInputXMLFileToPerformTheOperationOn">Tenth input XML file to perform the operation on.</param>
+        /// <param name="firstInputXmlFileToPerformTheOperationOn">First input XML file to perform the operation on.</param>
+        /// <param name="secondInputXmlFileToPerformTheOperationOn">Second input XML file to perform the operation on.</param>
+        /// <param name="thirdInputXmlFileToPerformTheOperationOn">Third input XML file to perform the operation on.</param>
+        /// <param name="fourthInputXmlFileToPerformTheOperationOn">Fourth input XML file to perform the operation on.</param>
+        /// <param name="fifthInputXmlFileToPerformTheOperationOn">Fifth input XML file to perform the operation on.</param>
+        /// <param name="sixthInputXmlFileToPerformTheOperationOn">Sixth input XML file to perform the operation on.</param>
+        /// <param name="seventhInputXmlFileToPerformTheOperationOn">Seventh input XML file to perform the operation on.</param>
+        /// <param name="eighthInputXmlFileToPerformTheOperationOn">Eighth input XML file to perform the operation on.</param>
+        /// <param name="ninthInputXmlFileToPerformTheOperationOn">Ninth input XML file to perform the operation on.</param>
+        /// <param name="tenthInputXmlFileToPerformTheOperationOn">Tenth input XML file to perform the operation on.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Query multiple XML files using XQuery query, get results response.</returns>
-        public virtual async Task<XmlQueryWithXQueryMultiResult> ConvertDataXmlQueryWithXQueryMultiAsync(MultipartFile firstInputXMLFileToPerformTheOperationOn, MultipartFile secondInputXMLFileToPerformTheOperationOn = default, MultipartFile thirdInputXMLFileToPerformTheOperationOn = default, MultipartFile fourthInputXMLFileToPerformTheOperationOn = default, MultipartFile fifthInputXMLFileToPerformTheOperationOn = default, MultipartFile sixthInputXMLFileToPerformTheOperationOn = default, MultipartFile seventhInputXMLFileToPerformTheOperationOn = default, MultipartFile eighthInputXMLFileToPerformTheOperationOn = default, MultipartFile ninthInputXMLFileToPerformTheOperationOn = default, MultipartFile tenthInputXMLFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
+        public virtual async Task<XmlQueryWithXQueryMultiResult> ConvertDataXmlQueryWithXQueryMultiAsync(MultipartFile firstInputXmlFileToPerformTheOperationOn, MultipartFile secondInputXmlFileToPerformTheOperationOn = default, MultipartFile thirdInputXmlFileToPerformTheOperationOn = default, MultipartFile fourthInputXmlFileToPerformTheOperationOn = default, MultipartFile fifthInputXmlFileToPerformTheOperationOn = default, MultipartFile sixthInputXmlFileToPerformTheOperationOn = default, MultipartFile seventhInputXmlFileToPerformTheOperationOn = default, MultipartFile eighthInputXmlFileToPerformTheOperationOn = default, MultipartFile ninthInputXmlFileToPerformTheOperationOn = default, MultipartFile tenthInputXmlFileToPerformTheOperationOn = default, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlQueryWithXQueryMultiAsync");
             try
@@ -10818,124 +10818,124 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(firstInputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(firstInputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(firstInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(firstInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(firstInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile1",
-                        FileNameStar = firstInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = firstInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + firstInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (secondInputXMLFileToPerformTheOperationOn != null)
+                if (secondInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(secondInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(secondInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(secondInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile2",
-                        FileNameStar = secondInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = secondInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + secondInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (thirdInputXMLFileToPerformTheOperationOn != null)
+                if (thirdInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(thirdInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(thirdInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(thirdInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile3",
-                        FileNameStar = thirdInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = thirdInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + thirdInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (fourthInputXMLFileToPerformTheOperationOn != null)
+                if (fourthInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(fourthInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(fourthInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fourthInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile4",
-                        FileNameStar = fourthInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = fourthInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fourthInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (fifthInputXMLFileToPerformTheOperationOn != null)
+                if (fifthInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(fifthInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(fifthInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(fifthInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile5",
-                        FileNameStar = fifthInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = fifthInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + fifthInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (sixthInputXMLFileToPerformTheOperationOn != null)
+                if (sixthInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(sixthInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(sixthInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(sixthInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile6",
-                        FileNameStar = sixthInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = sixthInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + sixthInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (seventhInputXMLFileToPerformTheOperationOn != null)
+                if (seventhInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(seventhInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(seventhInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(seventhInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile7",
-                        FileNameStar = seventhInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = seventhInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + seventhInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (eighthInputXMLFileToPerformTheOperationOn != null)
+                if (eighthInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(eighthInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(eighthInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(eighthInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile8",
-                        FileNameStar = eighthInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = eighthInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + eighthInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (ninthInputXMLFileToPerformTheOperationOn != null)
+                if (ninthInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(ninthInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(ninthInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(ninthInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile9",
-                        FileNameStar = ninthInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = ninthInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + ninthInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                if (tenthInputXMLFileToPerformTheOperationOn != null)
+                if (tenthInputXmlFileToPerformTheOperationOn != null)
                 {
-                    var multipartFileContent = new ByteArrayContent(tenthInputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(tenthInputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(tenthInputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile10",
-                        FileNameStar = tenthInputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = tenthInputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + tenthInputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -11046,11 +11046,11 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
         /// Transform XML document file with XSLT into a new XML document
         /// </summary>
         /// <remarks>Convert an XML string or file into JSON</remarks>
-        /// <param name="inputXMLFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
-        /// <param name="inputXSLTFileToUseToTransformTheInputXMLFile">Input XSLT file to use to transform the input XML file.</param>
+        /// <param name="inputXmlFileToPerformTheOperationOn">Input XML file to perform the operation on.</param>
+        /// <param name="inputXsltFileToUseToTransformTheInputXmlFile">Input XSLT file to use to transform the input XML file.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Transform XML document file with XSLT into a new XML document response.</returns>
-        public virtual async Task<string> ConvertDataXmlTransformWithXsltToXmlAsync(MultipartFile inputXMLFileToPerformTheOperationOn, MultipartFile inputXSLTFileToUseToTransformTheInputXMLFile, CancellationToken cancellationToken = default)
+        public virtual async Task<string> ConvertDataXmlTransformWithXsltToXmlAsync(MultipartFile inputXmlFileToPerformTheOperationOn, MultipartFile inputXsltFileToUseToTransformTheInputXmlFile, CancellationToken cancellationToken = default)
         {
             using var activity = CloudmersiveConvertClient.ConnectorActivitySource.StartActivity("CloudmersiveConvertClient.ConvertDataXmlTransformWithXsltToXmlAsync");
             try
@@ -11059,28 +11059,28 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
                 using var multipartContent = new MultipartFormDataContent();
                 multipartContent.HeaderEncodingSelector = (headerName, _) =>
                     string.Equals(headerName, "Content-Disposition", StringComparison.OrdinalIgnoreCase) ? Encoding.UTF8 : null;
-                ArgumentNullException.ThrowIfNull(inputXMLFileToPerformTheOperationOn);
+                ArgumentNullException.ThrowIfNull(inputXmlFileToPerformTheOperationOn);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXMLFileToPerformTheOperationOn.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXMLFileToPerformTheOperationOn.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXmlFileToPerformTheOperationOn.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXmlFileToPerformTheOperationOn.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "inputFile",
-                        FileNameStar = inputXMLFileToPerformTheOperationOn.FileName,
+                        FileNameStar = inputXmlFileToPerformTheOperationOn.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXMLFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXmlFileToPerformTheOperationOn.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
-                ArgumentNullException.ThrowIfNull(inputXSLTFileToUseToTransformTheInputXMLFile);
+                ArgumentNullException.ThrowIfNull(inputXsltFileToUseToTransformTheInputXmlFile);
                 {
-                    var multipartFileContent = new ByteArrayContent(inputXSLTFileToUseToTransformTheInputXMLFile.Content);
-                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXSLTFileToUseToTransformTheInputXMLFile.ContentType);
+                    var multipartFileContent = new ByteArrayContent(inputXsltFileToUseToTransformTheInputXmlFile.Content);
+                    multipartFileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(inputXsltFileToUseToTransformTheInputXmlFile.ContentType);
                     multipartFileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = "transformFile",
-                        FileNameStar = inputXSLTFileToUseToTransformTheInputXMLFile.FileName,
+                        FileNameStar = inputXsltFileToUseToTransformTheInputXmlFile.FileName,
                     };
-                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXSLTFileToUseToTransformTheInputXMLFile.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
+                    multipartFileContent.Headers.ContentDisposition.Parameters.Add(new NameValueHeaderValue("filename", "\"" + inputXsltFileToUseToTransformTheInputXmlFile.FileName.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\""));
                     multipartContent.Add(multipartFileContent);
                 }
                 var multipartBody = await multipartContent
@@ -11103,4 +11103,3 @@ namespace Azure.Connectors.Sdk.CloudmersiveConvert
 
     #endregion Client
 }
-

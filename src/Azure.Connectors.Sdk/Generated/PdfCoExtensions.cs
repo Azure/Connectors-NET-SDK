@@ -599,7 +599,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Search Text
     /// </summary>
-    public class PDFSearchTextInput
+    public class PdfSearchTextInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -645,7 +645,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Search Text
     /// </summary>
-    public class PDFSearchTextResponse
+    public class PdfSearchTextResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -851,7 +851,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
 
         /// <summary>Set the barcode type, QRCode By default.</summary>
         [JsonPropertyName("type")]
-        public PdfcoType? Type { get; set; }
+        public PdfCoType? Type { get; set; }
 
         /// <summary>Set this to the image that you want to be inserted the logo inside the QR-Code barcode.</summary>
         [JsonPropertyName("decorationImage")]
@@ -983,7 +983,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Info Reader
     /// </summary>
-    public class PDFInfoReaderInput
+    public class PdfInfoReaderInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1005,7 +1005,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Info Reader
     /// </summary>
-    public class PDFInfoReaderResponse
+    public class PdfInfoReaderResponse
     {
         /// <summary>jobId</summary>
         [JsonPropertyName("jobId")]
@@ -1043,7 +1043,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Forms Info Reader
     /// </summary>
-    public class PDFFormsInfoReaderInput
+    public class PdfFormsInfoReaderInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1065,7 +1065,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Forms Info Reader
     /// </summary>
-    public class PDFFormsInfoReaderResponse
+    public class PdfFormsInfoReaderResponse
     {
         /// <summary>jobId</summary>
         [JsonPropertyName("jobId")]
@@ -1103,7 +1103,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Find Table
     /// </summary>
-    public class PDFFindTableInput
+    public class PdfFindTableInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1137,7 +1137,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Find Table
     /// </summary>
-    public class PDFFindTableResponse
+    public class PdfFindTableResponse
     {
         /// <summary>jobId</summary>
         [JsonPropertyName("jobId")]
@@ -1455,7 +1455,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Make Scanned PDF to Text Searchable
     /// </summary>
-    public class PDFSearchableInput
+    public class PdfSearchableInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1485,7 +1485,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Make Scanned PDF to Text Searchable
     /// </summary>
-    public class PDFSearchableResponse
+    public class PdfSearchableResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -1595,7 +1595,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To CSV
     /// </summary>
-    public class PDFToCSVInput
+    public class PdfToCsvInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1649,7 +1649,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To CSV
     /// </summary>
-    public class PDFToCSVResponse
+    public class PdfToCsvResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -1691,7 +1691,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To JSON
     /// </summary>
-    public class PDFToJSONInput
+    public class PdfToJsonInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1745,7 +1745,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To JSON
     /// </summary>
-    public class PDFToJSONResponse
+    public class PdfToJsonResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -1791,7 +1791,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To JSON (AI Powered)
     /// </summary>
-    public class PDFToJSONMetaInput
+    public class PdfToJsonMetaInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1845,7 +1845,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To JSON (AI Powered)
     /// </summary>
-    public class PDFToJSONMetaResponse
+    public class PdfToJsonMetaResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -1891,7 +1891,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To Text (with layout and ocr)
     /// </summary>
-    public class PDFToTextInput
+    public class PdfToTextInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -1945,7 +1945,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To Text (with layout and ocr)
     /// </summary>
-    public class PDFToTextResponse
+    public class PdfToTextResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -1991,7 +1991,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To Text (without layout and ocr)
     /// </summary>
-    public class PDFToTextSimpleInput
+    public class PdfToTextSimpleInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2025,7 +2025,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To Text (without layout and ocr)
     /// </summary>
-    public class PDFToTextSimpleResponse
+    public class PdfToTextSimpleResponse
     {
         /// <summary>body</summary>
         [JsonPropertyName("body")]
@@ -2071,7 +2071,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To XLS
     /// </summary>
-    public class PDFToXLSInput
+    public class PdfToXlsInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2121,7 +2121,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To XLS
     /// </summary>
-    public class PDFToXLSResponse
+    public class PdfToXlsResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2163,7 +2163,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To XLSX
     /// </summary>
-    public class PDFToXLSXInput
+    public class PdfToXlsxInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2213,7 +2213,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To XLSX
     /// </summary>
-    public class PDFToXLSXResponse
+    public class PdfToXlsxResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2255,7 +2255,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF To XML
     /// </summary>
-    public class PDFToXMLInput
+    public class PdfToXmlInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2309,7 +2309,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF To XML
     /// </summary>
-    public class PDFToXMLResponse
+    public class PdfToXmlResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2355,7 +2355,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF to JPG
     /// </summary>
-    public class PDFToJPGInput
+    public class PdfToJpgInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2389,7 +2389,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF to JPG
     /// </summary>
-    public class PDFToJPGResponse
+    public class PdfToJpgResponse
     {
         /// <summary>urls</summary>
         [JsonPropertyName("urls")]
@@ -2431,7 +2431,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF to PNG
     /// </summary>
-    public class PDFToPNGInput
+    public class PdfToPngInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2465,7 +2465,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF to PNG
     /// </summary>
-    public class PDFToPNGResponse
+    public class PdfToPngResponse
     {
         /// <summary>urls</summary>
         [JsonPropertyName("urls")]
@@ -2507,7 +2507,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF to WEBP
     /// </summary>
-    public class PDFToWEBPInput
+    public class PdfToWebpInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2541,7 +2541,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF to WEBP
     /// </summary>
-    public class PDFToWEBPResponse
+    public class PdfToWebpResponse
     {
         /// <summary>urls</summary>
         [JsonPropertyName("urls")]
@@ -2583,7 +2583,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF to TIFF
     /// </summary>
-    public class PDFToTIFFInput
+    public class PdfToTiffInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2617,7 +2617,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF to TIFF
     /// </summary>
-    public class PDFToTIFFResponse
+    public class PdfToTiffResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2659,7 +2659,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF from CSV
     /// </summary>
-    public class PDFFromCSVInput
+    public class PdfFromCsvInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2689,7 +2689,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF from CSV
     /// </summary>
-    public class PDFFromCSVResponse
+    public class PdfFromCsvResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2731,7 +2731,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF from Document (Doc, DocX, RTF, TXT, XPS)
     /// </summary>
-    public class PDFFromDocInput
+    public class PdfFromDocInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2761,7 +2761,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF from Document (Doc, DocX, RTF, TXT, XPS)
     /// </summary>
-    public class PDFFromDocResponse
+    public class PdfFromDocResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2803,7 +2803,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF from Image
     /// </summary>
-    public class PDFFromImagesInput
+    public class PdfFromImagesInput
     {
         /// <summary>URL to the source file. Provide multiple URLS in comma separated format. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2829,7 +2829,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF from Image
     /// </summary>
-    public class PDFFromImagesResponse
+    public class PdfFromImagesResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2871,7 +2871,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF from Email
     /// </summary>
-    public class PDFFromEmailInput
+    public class PdfFromEmailInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -2917,7 +2917,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF from Email
     /// </summary>
-    public class PDFFromEmailResponse
+    public class PdfFromEmailResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -2959,7 +2959,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Add Security
     /// </summary>
-    public class PDFAddSecurityInput
+    public class PdfAddSecurityInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3029,7 +3029,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Add Security
     /// </summary>
-    public class PDFAddSecurityResponse
+    public class PdfAddSecurityResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3071,7 +3071,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Remove Security
     /// </summary>
-    public class PDFSecurityRemoveInput
+    public class PdfSecurityRemoveInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3101,7 +3101,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Remove Security
     /// </summary>
-    public class PDFSecurityRemoveResponse
+    public class PdfSecurityRemoveResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3563,7 +3563,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Rotate PDF Pages
     /// </summary>
-    public class PDFRotatePagesInput
+    public class PdfRotatePagesInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3597,7 +3597,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Rotate PDF Pages
     /// </summary>
-    public class PDFRotatePagesResponse
+    public class PdfRotatePagesResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3639,7 +3639,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Rotate PDF Pages (Auto)
     /// </summary>
-    public class PDFAutoRotatePagesInput
+    public class PdfAutoRotatePagesInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3669,7 +3669,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Rotate PDF Pages (Auto)
     /// </summary>
-    public class PDFAutoRotatePagesResponse
+    public class PdfAutoRotatePagesResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3711,7 +3711,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Delete Pages
     /// </summary>
-    public class PDFDeletePagesInput
+    public class PdfDeletePagesInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3741,7 +3741,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Delete Pages
     /// </summary>
-    public class PDFDeletePagesResponse
+    public class PdfDeletePagesResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3783,7 +3783,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Compress and Optimize
     /// </summary>
-    public class PDFCompressInput
+    public class PdfCompressInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3813,7 +3813,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Compress and Optimize
     /// </summary>
-    public class PDFCompressResponse
+    public class PdfCompressResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -3855,7 +3855,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Document Classifier
     /// </summary>
-    public class PDFClassifierInput
+    public class PdfClassifierInput
     {
         /// <summary>URL to the source file. Supports links from Google Drive, Dropbox, and PDF.co built-in files storage.</summary>
         [JsonPropertyName("url")]
@@ -3897,7 +3897,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for Document Classifier
     /// </summary>
-    public class PDFClassifierResponse
+    public class PdfClassifierResponse
     {
         /// <summary>url</summary>
         [JsonPropertyName("url")]
@@ -4147,7 +4147,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// PDF Attachment Extraction
     /// </summary>
-    public class PDFAttachmentExtractionInput
+    public class PdfAttachmentExtractionInput
     {
         /// <summary>Url to the source PDF document</summary>
         [JsonPropertyName("url")]
@@ -4177,7 +4177,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     /// <summary>
     /// Response for PDF Attachment Extraction
     /// </summary>
-    public class PDFAttachmentExtractionResponse
+    public class PdfAttachmentExtractionResponse
     {
         /// <summary>urls</summary>
         [JsonPropertyName("urls")]
@@ -4241,10 +4241,10 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         public static EncryptionAlgorithm RC4128bit { get; } = new("RC4_128bit");
 
         /// <summary>AES_128bit</summary>
-        public static EncryptionAlgorithm AES128bit { get; } = new("AES_128bit");
+        public static EncryptionAlgorithm Aes128bit { get; } = new("AES_128bit");
 
         /// <summary>AES_256bit</summary>
-        public static EncryptionAlgorithm AES256bit { get; } = new("AES_256bit");
+        public static EncryptionAlgorithm Aes256bit { get; } = new("AES_256bit");
 
         /// <summary>Converts a string to <see cref="EncryptionAlgorithm"/>.</summary>
         public static implicit operator EncryptionAlgorithm(string value) => new(value);
@@ -4413,219 +4413,219 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
     }
 
     /// <summary>
-    /// Extensible enum for known PdfcoType values.
+    /// Extensible enum for known PdfCoType values.
     /// </summary>
-    [JsonConverter(typeof(PdfcoType.PdfcoTypeJsonConverter))]
-    public readonly struct PdfcoType : IEquatable<PdfcoType>
+    [JsonConverter(typeof(PdfCoType.PdfCoTypeJsonConverter))]
+    public readonly struct PdfCoType : IEquatable<PdfCoType>
     {
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PdfcoType"/> struct.
+        /// Initializes a new instance of the <see cref="PdfCoType"/> struct.
         /// </summary>
         /// <param name="value">The string value.</param>
-        public PdfcoType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
+        public PdfCoType(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>Code128</summary>
-        public static PdfcoType Code128 { get; } = new("Code128");
+        public static PdfCoType Code128 { get; } = new("Code128");
 
         /// <summary>Code39</summary>
-        public static PdfcoType Code39 { get; } = new("Code39");
+        public static PdfCoType Code39 { get; } = new("Code39");
 
         /// <summary>Postnet</summary>
-        public static PdfcoType Postnet { get; } = new("Postnet");
+        public static PdfCoType Postnet { get; } = new("Postnet");
 
         /// <summary>UPCA</summary>
-        public static PdfcoType Upca { get; } = new("UPCA");
+        public static PdfCoType Upca { get; } = new("UPCA");
 
         /// <summary>EAN8</summary>
-        public static PdfcoType Ean8 { get; } = new("EAN8");
+        public static PdfCoType Ean8 { get; } = new("EAN8");
 
         /// <summary>ISBN</summary>
-        public static PdfcoType Isbn { get; } = new("ISBN");
+        public static PdfCoType Isbn { get; } = new("ISBN");
 
         /// <summary>Codabar</summary>
-        public static PdfcoType Codabar { get; } = new("Codabar");
+        public static PdfCoType Codabar { get; } = new("Codabar");
 
         /// <summary>I2of5</summary>
-        public static PdfcoType I2of5 { get; } = new("I2of5");
+        public static PdfCoType I2of5 { get; } = new("I2of5");
 
         /// <summary>Code93</summary>
-        public static PdfcoType Code93 { get; } = new("Code93");
+        public static PdfCoType Code93 { get; } = new("Code93");
 
         /// <summary>EAN13</summary>
-        public static PdfcoType Ean13 { get; } = new("EAN13");
+        public static PdfCoType Ean13 { get; } = new("EAN13");
 
         /// <summary>JAN13</summary>
-        public static PdfcoType Jan13 { get; } = new("JAN13");
+        public static PdfCoType Jan13 { get; } = new("JAN13");
 
         /// <summary>Bookland</summary>
-        public static PdfcoType Bookland { get; } = new("Bookland");
+        public static PdfCoType Bookland { get; } = new("Bookland");
 
         /// <summary>UPCE</summary>
-        public static PdfcoType Upce { get; } = new("UPCE");
+        public static PdfCoType Upce { get; } = new("UPCE");
 
         /// <summary>PDF417</summary>
-        public static PdfcoType Pdf417 { get; } = new("PDF417");
+        public static PdfCoType Pdf417 { get; } = new("PDF417");
 
         /// <summary>PDF417Truncated</summary>
-        public static PdfcoType PDF417Truncated { get; } = new("PDF417Truncated");
+        public static PdfCoType Pdf417Truncated { get; } = new("PDF417Truncated");
 
         /// <summary>DataMatrix</summary>
-        public static PdfcoType DataMatrix { get; } = new("DataMatrix");
+        public static PdfCoType DataMatrix { get; } = new("DataMatrix");
 
         /// <summary>QRCode</summary>
-        public static PdfcoType QRCode { get; } = new("QRCode");
+        public static PdfCoType QRCode { get; } = new("QRCode");
 
         /// <summary>Aztec</summary>
-        public static PdfcoType Aztec { get; } = new("Aztec");
+        public static PdfCoType Aztec { get; } = new("Aztec");
 
         /// <summary>Planet</summary>
-        public static PdfcoType Planet { get; } = new("Planet");
+        public static PdfCoType Planet { get; } = new("Planet");
 
         /// <summary>EAN128</summary>
-        public static PdfcoType Ean128 { get; } = new("EAN128");
+        public static PdfCoType Ean128 { get; } = new("EAN128");
 
         /// <summary>GS1_128</summary>
-        public static PdfcoType Gs1128 { get; } = new("GS1_128");
+        public static PdfCoType Gs1128 { get; } = new("GS1_128");
 
         /// <summary>USPSSackLabel</summary>
-        public static PdfcoType USPSSackLabel { get; } = new("USPSSackLabel");
+        public static PdfCoType UspsSackLabel { get; } = new("USPSSackLabel");
 
         /// <summary>USPSTrayLabel</summary>
-        public static PdfcoType USPSTrayLabel { get; } = new("USPSTrayLabel");
+        public static PdfCoType UspsTrayLabel { get; } = new("USPSTrayLabel");
 
         /// <summary>DeutschePostIdentcode</summary>
-        public static PdfcoType DeutschePostIdentcode { get; } = new("DeutschePostIdentcode");
+        public static PdfCoType DeutschePostIdentcode { get; } = new("DeutschePostIdentcode");
 
         /// <summary>DeutschePostLeitcode</summary>
-        public static PdfcoType DeutschePostLeitcode { get; } = new("DeutschePostLeitcode");
+        public static PdfCoType DeutschePostLeitcode { get; } = new("DeutschePostLeitcode");
 
         /// <summary>Numly</summary>
-        public static PdfcoType Numly { get; } = new("Numly");
+        public static PdfCoType Numly { get; } = new("Numly");
 
         /// <summary>PZN</summary>
-        public static PdfcoType Pzn { get; } = new("PZN");
+        public static PdfCoType Pzn { get; } = new("PZN");
 
         /// <summary>OpticalProduct</summary>
-        public static PdfcoType OpticalProduct { get; } = new("OpticalProduct");
+        public static PdfCoType OpticalProduct { get; } = new("OpticalProduct");
 
         /// <summary>SwissPostParcel</summary>
-        public static PdfcoType SwissPostParcel { get; } = new("SwissPostParcel");
+        public static PdfCoType SwissPostParcel { get; } = new("SwissPostParcel");
 
         /// <summary>RoyalMail</summary>
-        public static PdfcoType RoyalMail { get; } = new("RoyalMail");
+        public static PdfCoType RoyalMail { get; } = new("RoyalMail");
 
         /// <summary>DutchKix</summary>
-        public static PdfcoType DutchKix { get; } = new("DutchKix");
+        public static PdfCoType DutchKix { get; } = new("DutchKix");
 
         /// <summary>SingaporePostalCode</summary>
-        public static PdfcoType SingaporePostalCode { get; } = new("SingaporePostalCode");
+        public static PdfCoType SingaporePostalCode { get; } = new("SingaporePostalCode");
 
         /// <summary>EAN2</summary>
-        public static PdfcoType Ean2 { get; } = new("EAN2");
+        public static PdfCoType Ean2 { get; } = new("EAN2");
 
         /// <summary>EAN5</summary>
-        public static PdfcoType Ean5 { get; } = new("EAN5");
+        public static PdfCoType Ean5 { get; } = new("EAN5");
 
         /// <summary>EAN14</summary>
-        public static PdfcoType Ean14 { get; } = new("EAN14");
+        public static PdfCoType Ean14 { get; } = new("EAN14");
 
         /// <summary>MacroPDF417</summary>
-        public static PdfcoType MacroPDF417 { get; } = new("MacroPDF417");
+        public static PdfCoType MacroPdf417 { get; } = new("MacroPDF417");
 
         /// <summary>MicroPDF417</summary>
-        public static PdfcoType MicroPDF417 { get; } = new("MicroPDF417");
+        public static PdfCoType MicroPdf417 { get; } = new("MicroPDF417");
 
         /// <summary>GS1_DataMatrix</summary>
-        public static PdfcoType GS1DataMatrix { get; } = new("GS1_DataMatrix");
+        public static PdfCoType GS1DataMatrix { get; } = new("GS1_DataMatrix");
 
         /// <summary>Telepen</summary>
-        public static PdfcoType Telepen { get; } = new("Telepen");
+        public static PdfCoType Telepen { get; } = new("Telepen");
 
         /// <summary>IntelligentMail</summary>
-        public static PdfcoType IntelligentMail { get; } = new("IntelligentMail");
+        public static PdfCoType IntelligentMail { get; } = new("IntelligentMail");
 
         /// <summary>GS1_DataBar_Omnidirectional</summary>
-        public static PdfcoType GS1DataBarOmnidirectional { get; } = new("GS1_DataBar_Omnidirectional");
+        public static PdfCoType GS1DataBarOmnidirectional { get; } = new("GS1_DataBar_Omnidirectional");
 
         /// <summary>GS1_DataBar_Truncated</summary>
-        public static PdfcoType GS1DataBarTruncated { get; } = new("GS1_DataBar_Truncated");
+        public static PdfCoType GS1DataBarTruncated { get; } = new("GS1_DataBar_Truncated");
 
         /// <summary>GS1_DataBar_Stacked</summary>
-        public static PdfcoType GS1DataBarStacked { get; } = new("GS1_DataBar_Stacked");
+        public static PdfCoType GS1DataBarStacked { get; } = new("GS1_DataBar_Stacked");
 
         /// <summary>GS1_DataBar_Stacked_Omnidirectional</summary>
-        public static PdfcoType GS1DataBarStackedOmnidirectional { get; } = new("GS1_DataBar_Stacked_Omnidirectional");
+        public static PdfCoType GS1DataBarStackedOmnidirectional { get; } = new("GS1_DataBar_Stacked_Omnidirectional");
 
         /// <summary>GS1_DataBar_Limited</summary>
-        public static PdfcoType GS1DataBarLimited { get; } = new("GS1_DataBar_Limited");
+        public static PdfCoType GS1DataBarLimited { get; } = new("GS1_DataBar_Limited");
 
         /// <summary>GS1_DataBar_Expanded</summary>
-        public static PdfcoType GS1DataBarExpanded { get; } = new("GS1_DataBar_Expanded");
+        public static PdfCoType GS1DataBarExpanded { get; } = new("GS1_DataBar_Expanded");
 
         /// <summary>GS1_DataBar_Expanded_Stacked</summary>
-        public static PdfcoType GS1DataBarExpandedStacked { get; } = new("GS1_DataBar_Expanded_Stacked");
+        public static PdfCoType GS1DataBarExpandedStacked { get; } = new("GS1_DataBar_Expanded_Stacked");
 
         /// <summary>MaxiCode</summary>
-        public static PdfcoType MaxiCode { get; } = new("MaxiCode");
+        public static PdfCoType MaxiCode { get; } = new("MaxiCode");
 
         /// <summary>Plessey</summary>
-        public static PdfcoType Plessey { get; } = new("Plessey");
+        public static PdfCoType Plessey { get; } = new("Plessey");
 
         /// <summary>MSI</summary>
-        public static PdfcoType Msi { get; } = new("MSI");
+        public static PdfCoType Msi { get; } = new("MSI");
 
         /// <summary>ITF14</summary>
-        public static PdfcoType Itf14 { get; } = new("ITF14");
+        public static PdfCoType Itf14 { get; } = new("ITF14");
 
         /// <summary>GTIN12</summary>
-        public static PdfcoType Gtin12 { get; } = new("GTIN12");
+        public static PdfCoType Gtin12 { get; } = new("GTIN12");
 
         /// <summary>GTIN8</summary>
-        public static PdfcoType Gtin8 { get; } = new("GTIN8");
+        public static PdfCoType Gtin8 { get; } = new("GTIN8");
 
         /// <summary>GTIN13</summary>
-        public static PdfcoType Gtin13 { get; } = new("GTIN13");
+        public static PdfCoType Gtin13 { get; } = new("GTIN13");
 
         /// <summary>GTIN14</summary>
-        public static PdfcoType Gtin14 { get; } = new("GTIN14");
+        public static PdfCoType Gtin14 { get; } = new("GTIN14");
 
         /// <summary>GS1_QRCode</summary>
-        public static PdfcoType GS1QRCode { get; } = new("GS1_QRCode");
+        public static PdfCoType GS1QRCode { get; } = new("GS1_QRCode");
 
         /// <summary>PharmaCode</summary>
-        public static PdfcoType PharmaCode { get; } = new("PharmaCode");
+        public static PdfCoType PharmaCode { get; } = new("PharmaCode");
 
-        /// <summary>Converts a string to <see cref="PdfcoType"/>.</summary>
-        public static implicit operator PdfcoType(string value) => new(value);
+        /// <summary>Converts a string to <see cref="PdfCoType"/>.</summary>
+        public static implicit operator PdfCoType(string value) => new(value);
 
-        /// <summary>Converts a <see cref="PdfcoType"/> to its string representation.</summary>
-        public static implicit operator string(PdfcoType value) => value.ToString();
+        /// <summary>Converts a <see cref="PdfCoType"/> to its string representation.</summary>
+        public static implicit operator string(PdfCoType value) => value.ToString();
 
         /// <inheritdoc/>
         public override string ToString() => this._value;
 
         /// <inheritdoc/>
-        public bool Equals(PdfcoType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
+        public bool Equals(PdfCoType other) => string.Equals(this._value, other._value, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj) => obj is PdfcoType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is PdfCoType other ? this.Equals(other) : obj is string text && string.Equals(this._value, text, StringComparison.OrdinalIgnoreCase);
 
         /// <inheritdoc/>
         public override int GetHashCode() => this._value?.GetHashCode(StringComparison.OrdinalIgnoreCase) ?? 0;
 
         /// <summary>Equality operator.</summary>
-        public static bool operator ==(PdfcoType left, PdfcoType right) => left.Equals(right);
+        public static bool operator ==(PdfCoType left, PdfCoType right) => left.Equals(right);
 
         /// <summary>Inequality operator.</summary>
-        public static bool operator !=(PdfcoType left, PdfcoType right) => !left.Equals(right);
+        public static bool operator !=(PdfCoType left, PdfCoType right) => !left.Equals(right);
 
-        internal sealed class PdfcoTypeJsonConverter : JsonConverter<PdfcoType>
+        internal sealed class PdfCoTypeJsonConverter : JsonConverter<PdfCoType>
         {
-            public PdfcoTypeJsonConverter() { }
-            public override PdfcoType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for PdfcoType, got '{reader.TokenType}'.");
-            public override void Write(Utf8JsonWriter writer, PdfcoType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
+            public PdfCoTypeJsonConverter() { }
+            public override PdfCoType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => reader.TokenType == JsonTokenType.String ? new(reader.GetString()) : throw new JsonException($"Expected string for PdfCoType, got '{reader.TokenType}'.");
+            public override void Write(Utf8JsonWriter writer, PdfCoType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToString());
         }
     }
 
@@ -5182,9 +5182,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSearchTextInput"/>.
+        /// Creates a new instance of <see cref="PdfSearchTextInput"/>.
         /// </summary>
-        public static PDFSearchTextInput PDFSearchTextInput(
+        public static PdfSearchTextInput PdfSearchTextInput(
             string url = default,
             string searchString = default,
             bool? regexSearch = default,
@@ -5196,7 +5196,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFSearchTextInput
+            return new PdfSearchTextInput
             {
                 Url = url,
                 SearchString = searchString,
@@ -5212,9 +5212,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSearchTextResponse"/>.
+        /// Creates a new instance of <see cref="PdfSearchTextResponse"/>.
         /// </summary>
-        public static PDFSearchTextResponse PDFSearchTextResponse(
+        public static PdfSearchTextResponse PdfSearchTextResponse(
             List<JsonElement?> body = default,
             string url = default,
             string jobId = default,
@@ -5226,7 +5226,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFSearchTextResponse
+            return new PdfSearchTextResponse
             {
                 Body = body,
                 Url = url,
@@ -5349,7 +5349,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         public static BarcodeGeneratorInput BarcodeGeneratorInput(
             string name = default,
             string value = default,
-            PdfcoType? type = default,
+            PdfCoType? type = default,
             string decorationImage = default,
             bool? async = default,
             int? expiration = default,
@@ -5444,15 +5444,15 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFInfoReaderInput"/>.
+        /// Creates a new instance of <see cref="PdfInfoReaderInput"/>.
         /// </summary>
-        public static PDFInfoReaderInput PDFInfoReaderInput(
+        public static PdfInfoReaderInput PdfInfoReaderInput(
             string url = default,
             bool? async = default,
             string password = default,
             string profiles = default)
         {
-            return new PDFInfoReaderInput
+            return new PdfInfoReaderInput
             {
                 Url = url,
                 Async = async,
@@ -5462,9 +5462,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFInfoReaderResponse"/>.
+        /// Creates a new instance of <see cref="PdfInfoReaderResponse"/>.
         /// </summary>
-        public static PDFInfoReaderResponse PDFInfoReaderResponse(
+        public static PdfInfoReaderResponse PdfInfoReaderResponse(
             string jobId = default,
             string url = default,
             JsonElement? info = default,
@@ -5474,7 +5474,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFInfoReaderResponse
+            return new PdfInfoReaderResponse
             {
                 JobId = jobId,
                 Url = url,
@@ -5488,15 +5488,15 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFormsInfoReaderInput"/>.
+        /// Creates a new instance of <see cref="PdfFormsInfoReaderInput"/>.
         /// </summary>
-        public static PDFFormsInfoReaderInput PDFFormsInfoReaderInput(
+        public static PdfFormsInfoReaderInput PdfFormsInfoReaderInput(
             string url = default,
             bool? async = default,
             string password = default,
             string profiles = default)
         {
-            return new PDFFormsInfoReaderInput
+            return new PdfFormsInfoReaderInput
             {
                 Url = url,
                 Async = async,
@@ -5506,9 +5506,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFormsInfoReaderResponse"/>.
+        /// Creates a new instance of <see cref="PdfFormsInfoReaderResponse"/>.
         /// </summary>
-        public static PDFFormsInfoReaderResponse PDFFormsInfoReaderResponse(
+        public static PdfFormsInfoReaderResponse PdfFormsInfoReaderResponse(
             string jobId = default,
             string url = default,
             JsonElement? info = default,
@@ -5518,7 +5518,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFormsInfoReaderResponse
+            return new PdfFormsInfoReaderResponse
             {
                 JobId = jobId,
                 Url = url,
@@ -5532,9 +5532,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFindTableInput"/>.
+        /// Creates a new instance of <see cref="PdfFindTableInput"/>.
         /// </summary>
-        public static PDFFindTableInput PDFFindTableInput(
+        public static PdfFindTableInput PdfFindTableInput(
             string url = default,
             string pages = default,
             bool? inline = default,
@@ -5543,7 +5543,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             bool? async = default)
         {
-            return new PDFFindTableInput
+            return new PdfFindTableInput
             {
                 Url = url,
                 Pages = pages,
@@ -5556,9 +5556,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFindTableResponse"/>.
+        /// Creates a new instance of <see cref="PdfFindTableResponse"/>.
         /// </summary>
-        public static PDFFindTableResponse PDFFindTableResponse(
+        public static PdfFindTableResponse PdfFindTableResponse(
             string jobId = default,
             string url = default,
             JsonElement? body = default,
@@ -5570,7 +5570,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFindTableResponse
+            return new PdfFindTableResponse
             {
                 JobId = jobId,
                 Url = url,
@@ -5764,9 +5764,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSearchableInput"/>.
+        /// Creates a new instance of <see cref="PdfSearchableInput"/>.
         /// </summary>
-        public static PDFSearchableInput PDFSearchableInput(
+        public static PdfSearchableInput PdfSearchableInput(
             string url = default,
             string lang = default,
             string pages = default,
@@ -5774,7 +5774,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFSearchableInput
+            return new PdfSearchableInput
             {
                 Url = url,
                 Lang = lang,
@@ -5786,9 +5786,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSearchableResponse"/>.
+        /// Creates a new instance of <see cref="PdfSearchableResponse"/>.
         /// </summary>
-        public static PDFSearchableResponse PDFSearchableResponse(
+        public static PdfSearchableResponse PdfSearchableResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -5799,7 +5799,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFSearchableResponse
+            return new PdfSearchableResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -5862,9 +5862,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToCSVInput"/>.
+        /// Creates a new instance of <see cref="PdfToCsvInput"/>.
         /// </summary>
-        public static PDFToCSVInput PDFToCSVInput(
+        public static PdfToCsvInput PdfToCsvInput(
             string url = default,
             string lang = default,
             bool? inline = default,
@@ -5878,7 +5878,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToCSVInput
+            return new PdfToCsvInput
             {
                 Url = url,
                 Lang = lang,
@@ -5896,9 +5896,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToCSVResponse"/>.
+        /// Creates a new instance of <see cref="PdfToCsvResponse"/>.
         /// </summary>
-        public static PDFToCSVResponse PDFToCSVResponse(
+        public static PdfToCsvResponse PdfToCsvResponse(
             string body = default,
             string url = default,
             string jobId = default,
@@ -5909,7 +5909,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToCSVResponse
+            return new PdfToCsvResponse
             {
                 Body = body,
                 Url = url,
@@ -5924,9 +5924,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToJSONInput"/>.
+        /// Creates a new instance of <see cref="PdfToJsonInput"/>.
         /// </summary>
-        public static PDFToJSONInput PDFToJSONInput(
+        public static PdfToJsonInput PdfToJsonInput(
             string url = default,
             string lang = default,
             bool? inline = default,
@@ -5940,7 +5940,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToJSONInput
+            return new PdfToJsonInput
             {
                 Url = url,
                 Lang = lang,
@@ -5958,9 +5958,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToJSONResponse"/>.
+        /// Creates a new instance of <see cref="PdfToJsonResponse"/>.
         /// </summary>
-        public static PDFToJSONResponse PDFToJSONResponse(
+        public static PdfToJsonResponse PdfToJsonResponse(
             JsonElement? body = default,
             string url = default,
             string jobId = default,
@@ -5972,7 +5972,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToJSONResponse
+            return new PdfToJsonResponse
             {
                 Body = body,
                 Url = url,
@@ -5988,9 +5988,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToJSONMetaInput"/>.
+        /// Creates a new instance of <see cref="PdfToJsonMetaInput"/>.
         /// </summary>
-        public static PDFToJSONMetaInput PDFToJSONMetaInput(
+        public static PdfToJsonMetaInput PdfToJsonMetaInput(
             string url = default,
             string lang = default,
             bool? inline = default,
@@ -6004,7 +6004,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToJSONMetaInput
+            return new PdfToJsonMetaInput
             {
                 Url = url,
                 Lang = lang,
@@ -6022,9 +6022,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToJSONMetaResponse"/>.
+        /// Creates a new instance of <see cref="PdfToJsonMetaResponse"/>.
         /// </summary>
-        public static PDFToJSONMetaResponse PDFToJSONMetaResponse(
+        public static PdfToJsonMetaResponse PdfToJsonMetaResponse(
             JsonElement? body = default,
             string url = default,
             string jobId = default,
@@ -6036,7 +6036,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToJSONMetaResponse
+            return new PdfToJsonMetaResponse
             {
                 Body = body,
                 Url = url,
@@ -6052,9 +6052,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToTextInput"/>.
+        /// Creates a new instance of <see cref="PdfToTextInput"/>.
         /// </summary>
-        public static PDFToTextInput PDFToTextInput(
+        public static PdfToTextInput PdfToTextInput(
             string url = default,
             string lang = default,
             bool? inline = default,
@@ -6068,7 +6068,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToTextInput
+            return new PdfToTextInput
             {
                 Url = url,
                 Lang = lang,
@@ -6086,9 +6086,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToTextResponse"/>.
+        /// Creates a new instance of <see cref="PdfToTextResponse"/>.
         /// </summary>
-        public static PDFToTextResponse PDFToTextResponse(
+        public static PdfToTextResponse PdfToTextResponse(
             string body = default,
             string url = default,
             string jobId = default,
@@ -6100,7 +6100,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToTextResponse
+            return new PdfToTextResponse
             {
                 Body = body,
                 Url = url,
@@ -6116,9 +6116,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToTextSimpleInput"/>.
+        /// Creates a new instance of <see cref="PdfToTextSimpleInput"/>.
         /// </summary>
-        public static PDFToTextSimpleInput PDFToTextSimpleInput(
+        public static PdfToTextSimpleInput PdfToTextSimpleInput(
             string url = default,
             bool? inline = default,
             string pages = default,
@@ -6127,7 +6127,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string password = default,
             int? expiration = default)
         {
-            return new PDFToTextSimpleInput
+            return new PdfToTextSimpleInput
             {
                 Url = url,
                 Inline = inline,
@@ -6140,9 +6140,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToTextSimpleResponse"/>.
+        /// Creates a new instance of <see cref="PdfToTextSimpleResponse"/>.
         /// </summary>
-        public static PDFToTextSimpleResponse PDFToTextSimpleResponse(
+        public static PdfToTextSimpleResponse PdfToTextSimpleResponse(
             string body = default,
             string url = default,
             string jobId = default,
@@ -6154,7 +6154,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToTextSimpleResponse
+            return new PdfToTextSimpleResponse
             {
                 Body = body,
                 Url = url,
@@ -6170,9 +6170,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToXLSInput"/>.
+        /// Creates a new instance of <see cref="PdfToXlsInput"/>.
         /// </summary>
-        public static PDFToXLSInput PDFToXLSInput(
+        public static PdfToXlsInput PdfToXlsInput(
             string url = default,
             string lang = default,
             Unwrap? unwrap = default,
@@ -6185,7 +6185,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToXLSInput
+            return new PdfToXlsInput
             {
                 Url = url,
                 Lang = lang,
@@ -6202,9 +6202,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToXLSResponse"/>.
+        /// Creates a new instance of <see cref="PdfToXlsResponse"/>.
         /// </summary>
-        public static PDFToXLSResponse PDFToXLSResponse(
+        public static PdfToXlsResponse PdfToXlsResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6215,7 +6215,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToXLSResponse
+            return new PdfToXlsResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6230,9 +6230,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToXLSXInput"/>.
+        /// Creates a new instance of <see cref="PdfToXlsxInput"/>.
         /// </summary>
-        public static PDFToXLSXInput PDFToXLSXInput(
+        public static PdfToXlsxInput PdfToXlsxInput(
             string url = default,
             string lang = default,
             Unwrap? unwrap = default,
@@ -6245,7 +6245,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToXLSXInput
+            return new PdfToXlsxInput
             {
                 Url = url,
                 Lang = lang,
@@ -6262,9 +6262,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToXLSXResponse"/>.
+        /// Creates a new instance of <see cref="PdfToXlsxResponse"/>.
         /// </summary>
-        public static PDFToXLSXResponse PDFToXLSXResponse(
+        public static PdfToXlsxResponse PdfToXlsxResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6275,7 +6275,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToXLSXResponse
+            return new PdfToXlsxResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6290,9 +6290,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToXMLInput"/>.
+        /// Creates a new instance of <see cref="PdfToXmlInput"/>.
         /// </summary>
-        public static PDFToXMLInput PDFToXMLInput(
+        public static PdfToXmlInput PdfToXmlInput(
             string url = default,
             bool? inline = default,
             string lang = default,
@@ -6306,7 +6306,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? expiration = default,
             string profiles = default)
         {
-            return new PDFToXMLInput
+            return new PdfToXmlInput
             {
                 Url = url,
                 Inline = inline,
@@ -6324,9 +6324,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToXMLResponse"/>.
+        /// Creates a new instance of <see cref="PdfToXmlResponse"/>.
         /// </summary>
-        public static PDFToXMLResponse PDFToXMLResponse(
+        public static PdfToXmlResponse PdfToXmlResponse(
             string url = default,
             string body = default,
             string jobId = default,
@@ -6338,7 +6338,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToXMLResponse
+            return new PdfToXmlResponse
             {
                 Url = url,
                 Body = body,
@@ -6354,9 +6354,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToJPGInput"/>.
+        /// Creates a new instance of <see cref="PdfToJpgInput"/>.
         /// </summary>
-        public static PDFToJPGInput PDFToJPGInput(
+        public static PdfToJpgInput PdfToJpgInput(
             string url = default,
             bool? inline = default,
             string pages = default,
@@ -6365,7 +6365,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFToJPGInput
+            return new PdfToJpgInput
             {
                 Url = url,
                 Inline = inline,
@@ -6378,9 +6378,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToJPGResponse"/>.
+        /// Creates a new instance of <see cref="PdfToJpgResponse"/>.
         /// </summary>
-        public static PDFToJPGResponse PDFToJPGResponse(
+        public static PdfToJpgResponse PdfToJpgResponse(
             List<string> urls = default,
             string jobId = default,
             int? pageCount = default,
@@ -6391,7 +6391,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToJPGResponse
+            return new PdfToJpgResponse
             {
                 Urls = urls,
                 JobId = jobId,
@@ -6406,9 +6406,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToPNGInput"/>.
+        /// Creates a new instance of <see cref="PdfToPngInput"/>.
         /// </summary>
-        public static PDFToPNGInput PDFToPNGInput(
+        public static PdfToPngInput PdfToPngInput(
             string url = default,
             bool? inline = default,
             string pages = default,
@@ -6417,7 +6417,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFToPNGInput
+            return new PdfToPngInput
             {
                 Url = url,
                 Inline = inline,
@@ -6430,9 +6430,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToPNGResponse"/>.
+        /// Creates a new instance of <see cref="PdfToPngResponse"/>.
         /// </summary>
-        public static PDFToPNGResponse PDFToPNGResponse(
+        public static PdfToPngResponse PdfToPngResponse(
             List<string> urls = default,
             string jobId = default,
             int? pageCount = default,
@@ -6443,7 +6443,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToPNGResponse
+            return new PdfToPngResponse
             {
                 Urls = urls,
                 JobId = jobId,
@@ -6458,9 +6458,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToWEBPInput"/>.
+        /// Creates a new instance of <see cref="PdfToWebpInput"/>.
         /// </summary>
-        public static PDFToWEBPInput PDFToWEBPInput(
+        public static PdfToWebpInput PdfToWebpInput(
             string url = default,
             bool? inline = default,
             string pages = default,
@@ -6469,7 +6469,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFToWEBPInput
+            return new PdfToWebpInput
             {
                 Url = url,
                 Inline = inline,
@@ -6482,9 +6482,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToWEBPResponse"/>.
+        /// Creates a new instance of <see cref="PdfToWebpResponse"/>.
         /// </summary>
-        public static PDFToWEBPResponse PDFToWEBPResponse(
+        public static PdfToWebpResponse PdfToWebpResponse(
             List<string> urls = default,
             string jobId = default,
             int? pageCount = default,
@@ -6495,7 +6495,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToWEBPResponse
+            return new PdfToWebpResponse
             {
                 Urls = urls,
                 JobId = jobId,
@@ -6510,9 +6510,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToTIFFInput"/>.
+        /// Creates a new instance of <see cref="PdfToTiffInput"/>.
         /// </summary>
-        public static PDFToTIFFInput PDFToTIFFInput(
+        public static PdfToTiffInput PdfToTiffInput(
             string url = default,
             bool? inline = default,
             string pages = default,
@@ -6521,7 +6521,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFToTIFFInput
+            return new PdfToTiffInput
             {
                 Url = url,
                 Inline = inline,
@@ -6534,9 +6534,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFToTIFFResponse"/>.
+        /// Creates a new instance of <see cref="PdfToTiffResponse"/>.
         /// </summary>
-        public static PDFToTIFFResponse PDFToTIFFResponse(
+        public static PdfToTiffResponse PdfToTiffResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6547,7 +6547,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFToTIFFResponse
+            return new PdfToTiffResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6562,9 +6562,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromCSVInput"/>.
+        /// Creates a new instance of <see cref="PdfFromCsvInput"/>.
         /// </summary>
-        public static PDFFromCSVInput PDFFromCSVInput(
+        public static PdfFromCsvInput PdfFromCsvInput(
             string url = default,
             string pages = default,
             string name = default,
@@ -6572,7 +6572,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFFromCSVInput
+            return new PdfFromCsvInput
             {
                 Url = url,
                 Pages = pages,
@@ -6584,9 +6584,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromCSVResponse"/>.
+        /// Creates a new instance of <see cref="PdfFromCsvResponse"/>.
         /// </summary>
-        public static PDFFromCSVResponse PDFFromCSVResponse(
+        public static PdfFromCsvResponse PdfFromCsvResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6597,7 +6597,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFromCSVResponse
+            return new PdfFromCsvResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6612,9 +6612,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromDocInput"/>.
+        /// Creates a new instance of <see cref="PdfFromDocInput"/>.
         /// </summary>
-        public static PDFFromDocInput PDFFromDocInput(
+        public static PdfFromDocInput PdfFromDocInput(
             string url = default,
             string pages = default,
             string name = default,
@@ -6622,7 +6622,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFFromDocInput
+            return new PdfFromDocInput
             {
                 Url = url,
                 Pages = pages,
@@ -6634,9 +6634,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromDocResponse"/>.
+        /// Creates a new instance of <see cref="PdfFromDocResponse"/>.
         /// </summary>
-        public static PDFFromDocResponse PDFFromDocResponse(
+        public static PdfFromDocResponse PdfFromDocResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6647,7 +6647,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFromDocResponse
+            return new PdfFromDocResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6662,16 +6662,16 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromImagesInput"/>.
+        /// Creates a new instance of <see cref="PdfFromImagesInput"/>.
         /// </summary>
-        public static PDFFromImagesInput PDFFromImagesInput(
+        public static PdfFromImagesInput PdfFromImagesInput(
             string url = default,
             string name = default,
             int? expiration = default,
             bool? async = default,
             string profiles = default)
         {
-            return new PDFFromImagesInput
+            return new PdfFromImagesInput
             {
                 Url = url,
                 Name = name,
@@ -6682,9 +6682,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromImagesResponse"/>.
+        /// Creates a new instance of <see cref="PdfFromImagesResponse"/>.
         /// </summary>
-        public static PDFFromImagesResponse PDFFromImagesResponse(
+        public static PdfFromImagesResponse PdfFromImagesResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6695,7 +6695,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFromImagesResponse
+            return new PdfFromImagesResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6710,9 +6710,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromEmailInput"/>.
+        /// Creates a new instance of <see cref="PdfFromEmailInput"/>.
         /// </summary>
-        public static PDFFromEmailInput PDFFromEmailInput(
+        public static PdfFromEmailInput PdfFromEmailInput(
             string url = default,
             bool? embedAttachments = default,
             bool? convertAttachments = default,
@@ -6724,7 +6724,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFFromEmailInput
+            return new PdfFromEmailInput
             {
                 Url = url,
                 EmbedAttachments = embedAttachments,
@@ -6740,9 +6740,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFFromEmailResponse"/>.
+        /// Creates a new instance of <see cref="PdfFromEmailResponse"/>.
         /// </summary>
-        public static PDFFromEmailResponse PDFFromEmailResponse(
+        public static PdfFromEmailResponse PdfFromEmailResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6753,7 +6753,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFFromEmailResponse
+            return new PdfFromEmailResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6768,9 +6768,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFAddSecurityInput"/>.
+        /// Creates a new instance of <see cref="PdfAddSecurityInput"/>.
         /// </summary>
-        public static PDFAddSecurityInput PDFAddSecurityInput(
+        public static PdfAddSecurityInput PdfAddSecurityInput(
             string url = default,
             string ownerPassword = default,
             string userPassword = default,
@@ -6788,7 +6788,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFAddSecurityInput
+            return new PdfAddSecurityInput
             {
                 Url = url,
                 OwnerPassword = ownerPassword,
@@ -6810,9 +6810,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFAddSecurityResponse"/>.
+        /// Creates a new instance of <see cref="PdfAddSecurityResponse"/>.
         /// </summary>
-        public static PDFAddSecurityResponse PDFAddSecurityResponse(
+        public static PdfAddSecurityResponse PdfAddSecurityResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6823,7 +6823,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFAddSecurityResponse
+            return new PdfAddSecurityResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -6838,9 +6838,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSecurityRemoveInput"/>.
+        /// Creates a new instance of <see cref="PdfSecurityRemoveInput"/>.
         /// </summary>
-        public static PDFSecurityRemoveInput PDFSecurityRemoveInput(
+        public static PdfSecurityRemoveInput PdfSecurityRemoveInput(
             string url = default,
             string password = default,
             string name = default,
@@ -6848,7 +6848,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             bool? async = default,
             string profiles = default)
         {
-            return new PDFSecurityRemoveInput
+            return new PdfSecurityRemoveInput
             {
                 Url = url,
                 Password = password,
@@ -6860,9 +6860,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFSecurityRemoveResponse"/>.
+        /// Creates a new instance of <see cref="PdfSecurityRemoveResponse"/>.
         /// </summary>
-        public static PDFSecurityRemoveResponse PDFSecurityRemoveResponse(
+        public static PdfSecurityRemoveResponse PdfSecurityRemoveResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -6873,7 +6873,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFSecurityRemoveResponse
+            return new PdfSecurityRemoveResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7182,9 +7182,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFRotatePagesInput"/>.
+        /// Creates a new instance of <see cref="PdfRotatePagesInput"/>.
         /// </summary>
-        public static PDFRotatePagesInput PDFRotatePagesInput(
+        public static PdfRotatePagesInput PdfRotatePagesInput(
             string url = default,
             int? angle = default,
             string pages = default,
@@ -7193,7 +7193,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string profiles = default,
             bool? async = default)
         {
-            return new PDFRotatePagesInput
+            return new PdfRotatePagesInput
             {
                 Url = url,
                 Angle = angle,
@@ -7206,9 +7206,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFRotatePagesResponse"/>.
+        /// Creates a new instance of <see cref="PdfRotatePagesResponse"/>.
         /// </summary>
-        public static PDFRotatePagesResponse PDFRotatePagesResponse(
+        public static PdfRotatePagesResponse PdfRotatePagesResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -7219,7 +7219,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFRotatePagesResponse
+            return new PdfRotatePagesResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7234,9 +7234,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFAutoRotatePagesInput"/>.
+        /// Creates a new instance of <see cref="PdfAutoRotatePagesInput"/>.
         /// </summary>
-        public static PDFAutoRotatePagesInput PDFAutoRotatePagesInput(
+        public static PdfAutoRotatePagesInput PdfAutoRotatePagesInput(
             string url = default,
             string lang = default,
             int? expiration = default,
@@ -7244,7 +7244,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string profiles = default,
             bool? async = default)
         {
-            return new PDFAutoRotatePagesInput
+            return new PdfAutoRotatePagesInput
             {
                 Url = url,
                 Lang = lang,
@@ -7256,9 +7256,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFAutoRotatePagesResponse"/>.
+        /// Creates a new instance of <see cref="PdfAutoRotatePagesResponse"/>.
         /// </summary>
-        public static PDFAutoRotatePagesResponse PDFAutoRotatePagesResponse(
+        public static PdfAutoRotatePagesResponse PdfAutoRotatePagesResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -7269,7 +7269,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFAutoRotatePagesResponse
+            return new PdfAutoRotatePagesResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7284,9 +7284,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFDeletePagesInput"/>.
+        /// Creates a new instance of <see cref="PdfDeletePagesInput"/>.
         /// </summary>
-        public static PDFDeletePagesInput PDFDeletePagesInput(
+        public static PdfDeletePagesInput PdfDeletePagesInput(
             string url = default,
             string pages = default,
             string name = default,
@@ -7294,7 +7294,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string profiles = default,
             bool? async = default)
         {
-            return new PDFDeletePagesInput
+            return new PdfDeletePagesInput
             {
                 Url = url,
                 Pages = pages,
@@ -7306,9 +7306,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFDeletePagesResponse"/>.
+        /// Creates a new instance of <see cref="PdfDeletePagesResponse"/>.
         /// </summary>
-        public static PDFDeletePagesResponse PDFDeletePagesResponse(
+        public static PdfDeletePagesResponse PdfDeletePagesResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -7319,7 +7319,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFDeletePagesResponse
+            return new PdfDeletePagesResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7334,9 +7334,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFCompressInput"/>.
+        /// Creates a new instance of <see cref="PdfCompressInput"/>.
         /// </summary>
-        public static PDFCompressInput PDFCompressInput(
+        public static PdfCompressInput PdfCompressInput(
             string url = default,
             string name = default,
             int? expiration = default,
@@ -7344,7 +7344,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string profiles = default,
             bool? async = default)
         {
-            return new PDFCompressInput
+            return new PdfCompressInput
             {
                 Url = url,
                 Name = name,
@@ -7356,9 +7356,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFCompressResponse"/>.
+        /// Creates a new instance of <see cref="PdfCompressResponse"/>.
         /// </summary>
-        public static PDFCompressResponse PDFCompressResponse(
+        public static PdfCompressResponse PdfCompressResponse(
             string url = default,
             string jobId = default,
             int? pageCount = default,
@@ -7369,7 +7369,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFCompressResponse
+            return new PdfCompressResponse
             {
                 Url = url,
                 JobId = jobId,
@@ -7384,9 +7384,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFClassifierInput"/>.
+        /// Creates a new instance of <see cref="PdfClassifierInput"/>.
         /// </summary>
-        public static PDFClassifierInput PDFClassifierInput(
+        public static PdfClassifierInput PdfClassifierInput(
             string url = default,
             string rulescsv = default,
             string rulescsvurl = default,
@@ -7397,7 +7397,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string profiles = default,
             bool? async = default)
         {
-            return new PDFClassifierInput
+            return new PdfClassifierInput
             {
                 Url = url,
                 Rulescsv = rulescsv,
@@ -7412,9 +7412,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFClassifierResponse"/>.
+        /// Creates a new instance of <see cref="PdfClassifierResponse"/>.
         /// </summary>
-        public static PDFClassifierResponse PDFClassifierResponse(
+        public static PdfClassifierResponse PdfClassifierResponse(
             string url = default,
             JsonElement? body = default,
             string jobId = default,
@@ -7426,7 +7426,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? remainingCredits = default,
             int? duration = default)
         {
-            return new PDFClassifierResponse
+            return new PdfClassifierResponse
             {
                 Url = url,
                 Body = body,
@@ -7586,9 +7586,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFAttachmentExtractionInput"/>.
+        /// Creates a new instance of <see cref="PdfAttachmentExtractionInput"/>.
         /// </summary>
-        public static PDFAttachmentExtractionInput PDFAttachmentExtractionInput(
+        public static PdfAttachmentExtractionInput PdfAttachmentExtractionInput(
             string url = default,
             bool? inline = default,
             string name = default,
@@ -7596,7 +7596,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             string profiles = default,
             bool? async = default)
         {
-            return new PDFAttachmentExtractionInput
+            return new PdfAttachmentExtractionInput
             {
                 Url = url,
                 Inline = inline,
@@ -7608,9 +7608,9 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="PDFAttachmentExtractionResponse"/>.
+        /// Creates a new instance of <see cref="PdfAttachmentExtractionResponse"/>.
         /// </summary>
-        public static PDFAttachmentExtractionResponse PDFAttachmentExtractionResponse(
+        public static PdfAttachmentExtractionResponse PdfAttachmentExtractionResponse(
             List<string> urls = default,
             string url = default,
             string jobId = default,
@@ -7622,7 +7622,7 @@ namespace Azure.Connectors.Sdk.PdfCo.Models
             int? duration = default,
             int? remainingCredits = default)
         {
-            return new PDFAttachmentExtractionResponse
+            return new PdfAttachmentExtractionResponse
             {
                 Urls = urls,
                 Url = url,
@@ -7893,14 +7893,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Search Text response.</returns>
-        public virtual async Task<PDFSearchTextResponse> PDFSearchTextAsync(PDFSearchTextInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfSearchTextResponse> PdfSearchTextAsync(PdfSearchTextInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSearchTextAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfSearchTextAsync");
             try
             {
                 var path = $"/v1/pdf/find";
                 return await this
-                    .CallConnectorAsync<PDFSearchTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfSearchTextResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8018,14 +8018,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Info Reader response.</returns>
-        public virtual async Task<PDFInfoReaderResponse> PDFInfoReaderAsync(PDFInfoReaderInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfInfoReaderResponse> PdfInfoReaderAsync(PdfInfoReaderInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFInfoReaderAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfInfoReaderAsync");
             try
             {
                 var path = $"/v1/pdf/info";
                 return await this
-                    .CallConnectorAsync<PDFInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8043,14 +8043,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Forms Info Reader response.</returns>
-        public virtual async Task<PDFFormsInfoReaderResponse> PDFFormsInfoReaderAsync(PDFFormsInfoReaderInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFormsInfoReaderResponse> PdfFormsInfoReaderAsync(PdfFormsInfoReaderInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFormsInfoReaderAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFormsInfoReaderAsync");
             try
             {
                 var path = $"/v1/pdf/info/fields";
                 return await this
-                    .CallConnectorAsync<PDFFormsInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFormsInfoReaderResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8068,14 +8068,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Find Table response.</returns>
-        public virtual async Task<PDFFindTableResponse> PDFFindTableAsync(PDFFindTableInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFindTableResponse> PdfFindTableAsync(PdfFindTableInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFindTableAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFindTableAsync");
             try
             {
                 var path = $"/v1/pdf/find/table";
                 return await this
-                    .CallConnectorAsync<PDFFindTableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFindTableResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8168,14 +8168,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Make Scanned PDF to Text Searchable response.</returns>
-        public virtual async Task<PDFSearchableResponse> PDFSearchableAsync(PDFSearchableInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfSearchableResponse> PdfSearchableAsync(PdfSearchableInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSearchableAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfSearchableAsync");
             try
             {
                 var path = $"/v1/pdf/makesearchable";
                 return await this
-                    .CallConnectorAsync<PDFSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfSearchableResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8218,14 +8218,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To CSV response.</returns>
-        public virtual async Task<PDFToCSVResponse> PDFToCSVAsync(PDFToCSVInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToCsvResponse> PdfToCsvAsync(PdfToCsvInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToCSVAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToCsvAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/csv";
                 return await this
-                    .CallConnectorAsync<PDFToCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToCsvResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8243,14 +8243,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To JSON response.</returns>
-        public virtual async Task<PDFToJSONResponse> PDFToJSONAsync(PDFToJSONInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToJsonResponse> PdfToJsonAsync(PdfToJsonInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToJSONAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToJsonAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/json2";
                 return await this
-                    .CallConnectorAsync<PDFToJSONResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToJsonResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8268,14 +8268,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To JSON (AI Powered) response.</returns>
-        public virtual async Task<PDFToJSONMetaResponse> PDFToJSONMetaAsync(PDFToJSONMetaInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToJsonMetaResponse> PdfToJsonMetaAsync(PdfToJsonMetaInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToJSONMetaAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToJsonMetaAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/json-meta";
                 return await this
-                    .CallConnectorAsync<PDFToJSONMetaResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToJsonMetaResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8293,14 +8293,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To Text (with layout and ocr) response.</returns>
-        public virtual async Task<PDFToTextResponse> PDFToTextAsync(PDFToTextInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToTextResponse> PdfToTextAsync(PdfToTextInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToTextAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToTextAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/text";
                 return await this
-                    .CallConnectorAsync<PDFToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToTextResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8318,14 +8318,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To Text (without layout and ocr) response.</returns>
-        public virtual async Task<PDFToTextSimpleResponse> PDFToTextSimpleAsync(PDFToTextSimpleInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToTextSimpleResponse> PdfToTextSimpleAsync(PdfToTextSimpleInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToTextSimpleAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToTextSimpleAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/text-simple";
                 return await this
-                    .CallConnectorAsync<PDFToTextSimpleResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToTextSimpleResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8343,14 +8343,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To XLS response.</returns>
-        public virtual async Task<PDFToXLSResponse> PDFToXLSAsync(PDFToXLSInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToXlsResponse> PdfToXlsAsync(PdfToXlsInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToXLSAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToXlsAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/xls";
                 return await this
-                    .CallConnectorAsync<PDFToXLSResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToXlsResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8368,14 +8368,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To XLSX response.</returns>
-        public virtual async Task<PDFToXLSXResponse> PDFToXLSXAsync(PDFToXLSXInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToXlsxResponse> PdfToXlsxAsync(PdfToXlsxInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToXLSXAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToXlsxAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/xlsx";
                 return await this
-                    .CallConnectorAsync<PDFToXLSXResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToXlsxResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8393,14 +8393,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF To XML response.</returns>
-        public virtual async Task<PDFToXMLResponse> PDFToXMLAsync(PDFToXMLInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToXmlResponse> PdfToXmlAsync(PdfToXmlInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToXMLAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToXmlAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/xml";
                 return await this
-                    .CallConnectorAsync<PDFToXMLResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToXmlResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8418,14 +8418,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF to JPG response.</returns>
-        public virtual async Task<PDFToJPGResponse> PDFToJPGAsync(PDFToJPGInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToJpgResponse> PdfToJpgAsync(PdfToJpgInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToJPGAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToJpgAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/jpg";
                 return await this
-                    .CallConnectorAsync<PDFToJPGResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToJpgResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8443,14 +8443,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF to PNG response.</returns>
-        public virtual async Task<PDFToPNGResponse> PDFToPNGAsync(PDFToPNGInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToPngResponse> PdfToPngAsync(PdfToPngInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToPNGAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToPngAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/png";
                 return await this
-                    .CallConnectorAsync<PDFToPNGResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToPngResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8468,14 +8468,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF to WEBP response.</returns>
-        public virtual async Task<PDFToWEBPResponse> PDFToWEBPAsync(PDFToWEBPInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToWebpResponse> PdfToWebpAsync(PdfToWebpInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToWEBPAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToWebpAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/webp";
                 return await this
-                    .CallConnectorAsync<PDFToWEBPResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToWebpResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8493,14 +8493,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF to TIFF response.</returns>
-        public virtual async Task<PDFToTIFFResponse> PDFToTIFFAsync(PDFToTIFFInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfToTiffResponse> PdfToTiffAsync(PdfToTiffInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFToTIFFAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfToTiffAsync");
             try
             {
                 var path = $"/v1/pdf/convert/to/tiff";
                 return await this
-                    .CallConnectorAsync<PDFToTIFFResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfToTiffResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8518,14 +8518,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF from CSV response.</returns>
-        public virtual async Task<PDFFromCSVResponse> PDFFromCSVAsync(PDFFromCSVInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFromCsvResponse> PdfFromCsvAsync(PdfFromCsvInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromCSVAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFromCsvAsync");
             try
             {
                 var path = $"/v1/pdf/convert/from/csv";
                 return await this
-                    .CallConnectorAsync<PDFFromCSVResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFromCsvResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8543,14 +8543,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF from Document (Doc, DocX, RTF, TXT, XPS) response.</returns>
-        public virtual async Task<PDFFromDocResponse> PDFFromDocAsync(PDFFromDocInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFromDocResponse> PdfFromDocAsync(PdfFromDocInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromDocAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFromDocAsync");
             try
             {
                 var path = $"/v1/pdf/convert/from/doc";
                 return await this
-                    .CallConnectorAsync<PDFFromDocResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFromDocResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8568,14 +8568,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF from Image response.</returns>
-        public virtual async Task<PDFFromImagesResponse> PDFFromImagesAsync(PDFFromImagesInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFromImagesResponse> PdfFromImagesAsync(PdfFromImagesInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromImagesAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFromImagesAsync");
             try
             {
                 var path = $"/v1/pdf/convert/from/image";
                 return await this
-                    .CallConnectorAsync<PDFFromImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFromImagesResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8593,14 +8593,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF from Email response.</returns>
-        public virtual async Task<PDFFromEmailResponse> PDFFromEmailAsync(PDFFromEmailInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfFromEmailResponse> PdfFromEmailAsync(PdfFromEmailInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFFromEmailAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfFromEmailAsync");
             try
             {
                 var path = $"/v1/pdf/convert/from/email";
                 return await this
-                    .CallConnectorAsync<PDFFromEmailResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfFromEmailResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8618,14 +8618,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Add Security response.</returns>
-        public virtual async Task<PDFAddSecurityResponse> PDFAddSecurityAsync(PDFAddSecurityInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfAddSecurityResponse> PdfAddSecurityAsync(PdfAddSecurityInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFAddSecurityAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfAddSecurityAsync");
             try
             {
                 var path = $"/v1/pdf/security/add";
                 return await this
-                    .CallConnectorAsync<PDFAddSecurityResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfAddSecurityResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8643,14 +8643,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Remove Security response.</returns>
-        public virtual async Task<PDFSecurityRemoveResponse> PDFSecurityRemoveAsync(PDFSecurityRemoveInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfSecurityRemoveResponse> PdfSecurityRemoveAsync(PdfSecurityRemoveInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFSecurityRemoveAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfSecurityRemoveAsync");
             try
             {
                 var path = $"/v1/pdf/security/remove";
                 return await this
-                    .CallConnectorAsync<PDFSecurityRemoveResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfSecurityRemoveResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8818,14 +8818,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Rotate PDF Pages response.</returns>
-        public virtual async Task<PDFRotatePagesResponse> PDFRotatePagesAsync(PDFRotatePagesInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfRotatePagesResponse> PdfRotatePagesAsync(PdfRotatePagesInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFRotatePagesAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfRotatePagesAsync");
             try
             {
                 var path = $"/v1/pdf/edit/rotate";
                 return await this
-                    .CallConnectorAsync<PDFRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8843,14 +8843,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Rotate PDF Pages (Auto) response.</returns>
-        public virtual async Task<PDFAutoRotatePagesResponse> PDFAutoRotatePagesAsync(PDFAutoRotatePagesInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfAutoRotatePagesResponse> PdfAutoRotatePagesAsync(PdfAutoRotatePagesInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFAutoRotatePagesAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfAutoRotatePagesAsync");
             try
             {
                 var path = $"/v1/pdf/edit/rotate/auto";
                 return await this
-                    .CallConnectorAsync<PDFAutoRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfAutoRotatePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8868,14 +8868,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Delete Pages response.</returns>
-        public virtual async Task<PDFDeletePagesResponse> PDFDeletePagesAsync(PDFDeletePagesInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfDeletePagesResponse> PdfDeletePagesAsync(PdfDeletePagesInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFDeletePagesAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfDeletePagesAsync");
             try
             {
                 var path = $"/v1/pdf/edit/delete-pages";
                 return await this
-                    .CallConnectorAsync<PDFDeletePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfDeletePagesResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8893,14 +8893,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Compress and Optimize response.</returns>
-        public virtual async Task<PDFCompressResponse> PDFCompressAsync(PDFCompressInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfCompressResponse> PdfCompressAsync(PdfCompressInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFCompressAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfCompressAsync");
             try
             {
                 var path = $"/v1/pdf/optimize";
                 return await this
-                    .CallConnectorAsync<PDFCompressResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfCompressResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -8918,14 +8918,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Document Classifier response.</returns>
-        public virtual async Task<PDFClassifierResponse> PDFClassifierAsync(PDFClassifierInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfClassifierResponse> PdfClassifierAsync(PdfClassifierInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFClassifierAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfClassifierAsync");
             try
             {
                 var path = $"/v1/pdf/classifier";
                 return await this
-                    .CallConnectorAsync<PDFClassifierResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfClassifierResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -9018,14 +9018,14 @@ namespace Azure.Connectors.Sdk.PdfCo
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The PDF Attachment Extraction response.</returns>
-        public virtual async Task<PDFAttachmentExtractionResponse> PDFAttachmentExtractionAsync(PDFAttachmentExtractionInput input, CancellationToken cancellationToken = default)
+        public virtual async Task<PdfAttachmentExtractionResponse> PdfAttachmentExtractionAsync(PdfAttachmentExtractionInput input, CancellationToken cancellationToken = default)
         {
-            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PDFAttachmentExtractionAsync");
+            using var activity = PdfCoClient.ConnectorActivitySource.StartActivity("PdfCoClient.PdfAttachmentExtractionAsync");
             try
             {
                 var path = $"/v1/pdf/attachments/extract";
                 return await this
-                    .CallConnectorAsync<PDFAttachmentExtractionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<PdfAttachmentExtractionResponse>(HttpMethod.Post, path, input, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -9040,4 +9040,3 @@ namespace Azure.Connectors.Sdk.PdfCo
 
     #endregion Client
 }
-

@@ -327,4 +327,3 @@ namespace Azure.Connectors.Sdk.Orderful
 
     #endregion Client
 }
-

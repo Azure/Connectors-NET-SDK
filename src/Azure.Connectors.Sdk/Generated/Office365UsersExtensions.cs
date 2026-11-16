@@ -81,7 +81,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
 
         /// <summary>A URL leading to the preview image for the item</summary>
         [JsonPropertyName("previewImageUrl")]
-        public string PreviewImageURL { get; set; }
+        public string PreviewImageUrl { get; set; }
 
         /// <summary>A preview text for the item</summary>
         [JsonPropertyName("previewText")]
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
 
         /// <summary>A path leading to the folder in which the item is stored</summary>
         [JsonPropertyName("containerWebUrl")]
-        public string ContainerWebURL { get; set; }
+        public string ContainerWebUrl { get; set; }
 
         /// <summary>A string describing where the item is stored</summary>
         [JsonPropertyName("containerDisplayName")]
@@ -211,7 +211,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
 
         /// <summary>The user principal name(UPN) of the user.The UPN is an Internet-style login name for the user based on the Internet standard RFC 822. By convention, this should map to the user&apos;s email name.The general format is alias @domain, where domain must be present in the tenant&apos;s collection of verified domains.</summary>
         [JsonPropertyName("userPrincipalName")]
-        public string UserPrincipalNameUPN { get; set; }
+        public string UserPrincipalNameUpn { get; set; }
 
         /// <summary>The person&apos;s VOIP SIP address</summary>
         [JsonPropertyName("imAddress")]
@@ -533,7 +533,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
 
         /// <summary>The user principal name (UPN) of the user. The UPN is an Internet-style login name for the user based on the Internet standard RFC 822. By convention, this should map to the user’s email name. The general format is alias@domain, where domain must be present in the tenant’s collection of verified domains.</summary>
         [JsonPropertyName("UserPrincipalName")]
-        public string UserPrincipalNameUPN { get; set; }
+        public string UserPrincipalNameUpn { get; set; }
     }
 
     /// <summary>
@@ -618,9 +618,9 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
             string title = default,
             string type = default,
             string mediaType = default,
-            string previewImageURL = default,
+            string previewImageUrl = default,
             string previewText = default,
-            string containerWebURL = default,
+            string containerWebUrl = default,
             string containerDisplayName = default,
             string containerType = default)
         {
@@ -629,9 +629,9 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
                 Title = title,
                 Type = type,
                 MediaType = mediaType,
-                PreviewImageURL = previewImageURL,
+                PreviewImageUrl = previewImageUrl,
                 PreviewText = previewText,
-                ContainerWebURL = containerWebURL,
+                ContainerWebUrl = containerWebUrl,
                 ContainerDisplayName = containerDisplayName,
                 ContainerType = containerType,
             };
@@ -695,7 +695,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
             string department = default,
             string officeLocation = default,
             string profession = default,
-            string userPrincipalNameUPN = default,
+            string userPrincipalNameUpn = default,
             string imAddress = default,
             List<ScoredEmailAddress> scoredEmailAddresses = default,
             List<Phone> phones = default)
@@ -714,7 +714,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
                 Department = department,
                 OfficeLocation = officeLocation,
                 Profession = profession,
-                UserPrincipalNameUPN = userPrincipalNameUPN,
+                UserPrincipalNameUpn = userPrincipalNameUpn,
                 IMAddress = imAddress,
                 ScoredEmailAddresses = scoredEmailAddresses,
                 Phones = phones,
@@ -900,7 +900,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
             string postalCode = default,
             string surname = default,
             string telephoneNumber = default,
-            string userPrincipalNameUPN = default)
+            string userPrincipalNameUpn = default)
         {
             return new User
             {
@@ -921,7 +921,7 @@ namespace Azure.Connectors.Sdk.Office365Users.Models
                 PostalCode = postalCode,
                 Surname = surname,
                 TelephoneNumber = telephoneNumber,
-                UserPrincipalNameUPN = userPrincipalNameUPN,
+                UserPrincipalNameUpn = userPrincipalNameUpn,
             };
         }
 
@@ -1109,17 +1109,17 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get relevant people
         /// </summary>
         /// <remarks>Get relevant people.</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get relevant people response.</returns>
-        public virtual async Task<LinklessEntityListResponseListPerson> RelevantPeopleAsync(string userUPN, CancellationToken cancellationToken = default)
+        public virtual async Task<LinklessEntityListResponseListPerson> RelevantPeopleAsync(string userUpn, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.RelevantPeopleAsync");
             try
             {
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
-                var path = $"/users/{Uri.EscapeDataString(userUPN)}/relevantpeople";
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
+                var path = $"/users/{Uri.EscapeDataString(userUpn)}/relevantpeople";
                 return await this
                     .CallConnectorAsync<LinklessEntityListResponseListPerson>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1136,18 +1136,18 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get user photo metadata
         /// </summary>
         /// <remarks>Get user photo metadata.</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user photo metadata response.</returns>
-        public virtual async Task<ClientPhotoMetadata> UserPhotoMetadataAsync(string userUPN, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientPhotoMetadata> UserPhotoMetadataAsync(string userUpn, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserPhotoMetadataAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
-                queryParams.Add($"userId={Uri.EscapeDataString(userUPN)}");
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
+                queryParams.Add($"userId={Uri.EscapeDataString(userUpn)}");
                 var path = $"/users/photo" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<ClientPhotoMetadata>(HttpMethod.Get, path, cancellationToken: cancellationToken)
@@ -1165,19 +1165,19 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get trending documents
         /// </summary>
         /// <remarks>Retrieves the trending documents for a user</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="filterQuery">Filter query</param>
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get trending documents response.</returns>
-        public virtual async Task<TrendingDocumentsResponse> TrendingDocumentsAsync(string userUPN, string filterQuery = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<TrendingDocumentsResponse> TrendingDocumentsAsync(string userUpn, string filterQuery = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.TrendingDocumentsAsync");
             try
             {
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
                 var queryParams = new List<string>();
                 if (filterQuery != default)
                     queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
@@ -1185,7 +1185,7 @@ namespace Azure.Connectors.Sdk.Office365Users
                     queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
                 if (sensitivityLabelMetadata.HasValue)
                     queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/beta/users/{Uri.EscapeDataString(userUPN)}/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/beta/users/{Uri.EscapeDataString(userUpn)}/insights/trending" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<TrendingDocumentsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1227,24 +1227,24 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get direct reports
         /// </summary>
         /// <remarks>Retrieves the user profiles of the specified user&apos;s direct reports. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="selectFields">Select fields</param>
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get direct reports response.</returns>
-        public virtual async Task<DirectReportsResponse> DirectReportsAsync(string userUPN, string selectFields = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual async Task<DirectReportsResponse> DirectReportsAsync(string userUpn, string selectFields = default, int? top = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.DirectReportsAsync");
             try
             {
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
                 var queryParams = new List<string>();
                 if (selectFields != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectFields)}");
                 if (top.HasValue)
                     queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(top.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN)}/directReports" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUpn)}/directReports" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<DirectReportsResponse>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1261,21 +1261,21 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get manager
         /// </summary>
         /// <remarks>Retrieves the profile of the specified user&apos;s manager. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="selectFields">Select fields</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get manager response.</returns>
-        public virtual async Task<GraphUser> ManagerAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GraphUser> ManagerAsync(string userUpn, string selectFields = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.ManagerAsync");
             try
             {
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
                 var queryParams = new List<string>();
                 if (selectFields != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectFields)}");
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN)}/manager" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUpn)}/manager" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1345,17 +1345,17 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get user photo
         /// </summary>
         /// <remarks>Retrieves the photo of the specified user if they have one</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user photo response.</returns>
-        public virtual async Task<byte[]> UserPhotoAsync(string userUPN, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> UserPhotoAsync(string userUpn, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserPhotoAsync");
             try
             {
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN)}/photo/$value";
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUpn)}/photo/$value";
                 return await this
                     .CallConnectorAsync<byte[]>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1372,21 +1372,21 @@ namespace Azure.Connectors.Sdk.Office365Users
         /// Get user profile
         /// </summary>
         /// <remarks>Retrieves the profile of a specific user. Learn more about available fields to select: https://developer.microsoft.com/en-us/graph/docs/api-reference/v1.0/resources/user#properties</remarks>
-        /// <param name="userUPN">User (UPN)</param>
+        /// <param name="userUpn">User (UPN)</param>
         /// <param name="selectFields">Select fields</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get user profile response.</returns>
-        public virtual async Task<GraphUser> UserProfileAsync(string userUPN, string selectFields = default, CancellationToken cancellationToken = default)
+        public virtual async Task<GraphUser> UserProfileAsync(string userUpn, string selectFields = default, CancellationToken cancellationToken = default)
         {
             using var activity = Office365UsersClient.ConnectorActivitySource.StartActivity("Office365UsersClient.UserProfileAsync");
             try
             {
-                if (userUPN is null)
-                    throw new ArgumentNullException(nameof(userUPN));
+                if (userUpn is null)
+                    throw new ArgumentNullException(nameof(userUpn));
                 var queryParams = new List<string>();
                 if (selectFields != default)
                     queryParams.Add($"$select={Uri.EscapeDataString(selectFields)}");
-                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUPN)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+                var path = $"/codeless/v1.0/users/{Uri.EscapeDataString(userUpn)}" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
                 return await this
                     .CallConnectorAsync<GraphUser>(HttpMethod.Get, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -1403,4 +1403,3 @@ namespace Azure.Connectors.Sdk.Office365Users
 
     #endregion Client
 }
-

@@ -589,21 +589,21 @@ namespace Azure.Connectors.Sdk.Dropbox
         /// Copy file
         /// </summary>
         /// <remarks>This operation copies a file to Dropbox.</remarks>
-        /// <param name="sourceURL">Source URL</param>
+        /// <param name="sourceUrl">Source URL</param>
         /// <param name="destinationFilePath">Destination File Path</param>
         /// <param name="overwrite">Overwrite</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Copy file response.</returns>
-        public virtual async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BlobMetadata> CopyFileAsync(string sourceUrl, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
             using var activity = DropboxClient.ConnectorActivitySource.StartActivity("DropboxClient.CopyFileAsync");
             try
             {
                 var queryParams = new List<string>();
                 queryParams.Add("queryParametersSingleEncoded=true");
-                if (sourceURL is null)
-                    throw new ArgumentNullException(nameof(sourceURL));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceURL)}");
+                if (sourceUrl is null)
+                    throw new ArgumentNullException(nameof(sourceUrl));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl)}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath)}");
@@ -714,4 +714,3 @@ namespace Azure.Connectors.Sdk.Dropbox
 
     #endregion Client
 }
-

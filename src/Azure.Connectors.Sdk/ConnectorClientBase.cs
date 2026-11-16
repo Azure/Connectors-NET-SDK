@@ -40,6 +40,8 @@ namespace Azure.Connectors.Sdk
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
+        private static readonly ConditionalWeakTable<object, Response> PageRawResponses = new();
+
         private readonly HttpPipeline _pipeline;
         private readonly string _connectionRuntimeUrl;
         private bool _disposed;
@@ -207,7 +209,18 @@ namespace Azure.Connectors.Sdk
                 return default!;
             }
 
-            return JsonSerializer.Deserialize<TResponse>(responseBody, ConnectorClientBase.JsonOptions)!;
+            var deserialized = JsonSerializer.Deserialize<TResponse>(responseBody, ConnectorClientBase.JsonOptions)!;
+            if (deserialized is object pageObject &&
+                typeof(TResponse).GetInterfaces().Any(
+                    interfaceType => interfaceType.IsGenericType &&
+                    interfaceType.GetGenericTypeDefinition() == typeof(IPageable<>)))
+            {
+                ConnectorClientBase.PageRawResponses.AddOrUpdate(
+                    pageObject,
+                    BufferedPageResponse.Capture(response, responseBody));
+            }
+
+            return deserialized;
         }
 
         /// <summary>
@@ -259,9 +272,23 @@ namespace Azure.Connectors.Sdk
             }
 
             var responseBody = response.Content.ToString();
-            return string.IsNullOrEmpty(responseBody)
-                ? default!
-                : JsonSerializer.Deserialize<TResponse>(responseBody, ConnectorClientBase.JsonOptions)!;
+            if (string.IsNullOrEmpty(responseBody))
+            {
+                return default!;
+            }
+
+            var deserialized = JsonSerializer.Deserialize<TResponse>(responseBody, ConnectorClientBase.JsonOptions)!;
+            if (deserialized is object pageObject &&
+                typeof(TResponse).GetInterfaces().Any(
+                    interfaceType => interfaceType.IsGenericType &&
+                    interfaceType.GetGenericTypeDefinition() == typeof(IPageable<>)))
+            {
+                ConnectorClientBase.PageRawResponses.AddOrUpdate(
+                    pageObject,
+                    BufferedPageResponse.Capture(response, responseBody));
+            }
+
+            return deserialized;
         }
 
         /// <summary>
@@ -526,40 +553,123 @@ namespace Azure.Connectors.Sdk
                     var values = page.Value != null
                         ? (IReadOnlyList<TItem>)page.Value
                         : (IReadOnlyList<TItem>)Array.Empty<TItem>();
+                    var nextLink = page.NextLink;
+                    var rawResponse = ConnectorClientBase.PageRawResponses.TryGetValue(page, out var capturedResponse)
+                        ? capturedResponse
+                        : ConnectorClientBase.NoOpResponse.Instance;
 
-                    yield return new ConnectorPage<TItem>(values, page.NextLink);
+                    yield return new ConnectorPage<TPage, TItem>(values, nextLink, page, rawResponse);
 
-                    if (string.IsNullOrEmpty(page.NextLink))
+                    if (string.IsNullOrEmpty(nextLink))
                     {
                         break;
                     }
 
-                    page = await this._nextPageFunc(page.NextLink!, cancellationToken)
+                    page = await this._nextPageFunc(nextLink!, cancellationToken)
                         .ConfigureAwait(continueOnCapturedContext: false);
                 }
             }
         }
 
         /// <summary>
-        /// A <see cref="Page{T}"/> implementation for connector pagination responses.
+        /// A buffered <see cref="Response"/> snapshot captured before the transport message is disposed.
         /// </summary>
-        private sealed class ConnectorPage<T> : Page<T>
-            where T : notnull
+        private sealed class BufferedPageResponse : Response
         {
-            private readonly IReadOnlyList<T> _values;
-            private readonly string? _continuationToken;
+            private readonly int _status;
+            private readonly string _reasonPhrase;
+            private readonly byte[] _contentBytes;
+            private readonly HttpHeader[] _headers;
+            private string _clientRequestId;
+            private MemoryStream? _contentStream;
 
-            internal ConnectorPage(IReadOnlyList<T> values, string? continuationToken)
+            private BufferedPageResponse(
+                int status,
+                string reasonPhrase,
+                string clientRequestId,
+                byte[] contentBytes,
+                HttpHeader[] headers)
             {
-                this._values = values;
-                this._continuationToken = continuationToken;
+                this._status = status;
+                this._reasonPhrase = reasonPhrase;
+                this._clientRequestId = clientRequestId;
+                this._contentBytes = contentBytes;
+                this._headers = headers;
+                this._contentStream = new MemoryStream(contentBytes, writable: false);
             }
 
-            public override IReadOnlyList<T> Values => this._values;
+            public override int Status => this._status;
 
-            public override string? ContinuationToken => this._continuationToken;
+            public override string ReasonPhrase => this._reasonPhrase;
 
-            public override Response GetRawResponse() => ConnectorClientBase.NoOpResponse.Instance;
+            public override Stream? ContentStream
+            {
+                get => this._contentStream;
+                set => this._contentStream = value as MemoryStream ?? (value == null ? null : new MemoryStream(BinaryData.FromStream(value).ToArray(), writable: false));
+            }
+
+            public override string ClientRequestId
+            {
+                get => this._clientRequestId;
+                set => this._clientRequestId = value;
+            }
+
+            internal static BufferedPageResponse Capture(Response response, string responseBody)
+            {
+                var headers = response.Headers.ToArray();
+                var contentBytes = Encoding.UTF8.GetBytes(responseBody);
+                return new BufferedPageResponse(
+                    status: response.Status,
+                    reasonPhrase: response.ReasonPhrase,
+                    clientRequestId: response.ClientRequestId,
+                    contentBytes: contentBytes,
+                    headers: headers);
+            }
+
+            public override void Dispose()
+            {
+                this._contentStream?.Dispose();
+            }
+
+            protected override bool TryGetHeader(string name, [NotNullWhen(true)] out string? value)
+            {
+                var matches = this._headers
+                    .Where(header => string.Equals(header.Name, name, StringComparison.OrdinalIgnoreCase))
+                    .Select(header => header.Value)
+                    .ToArray();
+                if (matches.Length == 0)
+                {
+                    value = null;
+                    return false;
+                }
+
+                value = string.Join(",", matches);
+                return true;
+            }
+
+            protected override bool TryGetHeaderValues(string name, [NotNullWhen(true)] out IEnumerable<string>? values)
+            {
+                var matches = this._headers
+                    .Where(header => string.Equals(header.Name, name, StringComparison.OrdinalIgnoreCase))
+                    .Select(header => header.Value)
+                    .ToArray();
+                if (matches.Length == 0)
+                {
+                    values = null;
+                    return false;
+                }
+
+                values = matches;
+                return true;
+            }
+
+            protected override bool ContainsHeader(string name)
+            {
+                return this._headers.Any(
+                    header => string.Equals(header.Name, name, StringComparison.OrdinalIgnoreCase));
+            }
+
+            protected override IEnumerable<HttpHeader> EnumerateHeaders() => this._headers;
         }
 
         /// <summary>
@@ -598,5 +708,50 @@ namespace Azure.Connectors.Sdk
 
             protected override IEnumerable<HttpHeader> EnumerateHeaders() => [];
         }
+    }
+
+    /// <summary>
+    /// A <see cref="Page{T}"/> implementation for connector pagination responses that preserves
+    /// both the deserialized page envelope model (<typeparamref name="TPage"/>) and the buffered
+    /// raw <see cref="Response"/> for each page.
+    /// </summary>
+    /// <typeparam name="TPage">The deserialized page-envelope model type.</typeparam>
+    /// <typeparam name="TItem">The type of items contained in the page.</typeparam>
+    public sealed class ConnectorPage<TPage, TItem> : Page<TItem>
+        where TPage : class
+        where TItem : notnull
+    {
+        private readonly IReadOnlyList<TItem> _values;
+        private readonly string? _continuationToken;
+        private readonly TPage _pageModel;
+        private readonly Response _rawResponse;
+
+        internal ConnectorPage(
+            IReadOnlyList<TItem> values,
+            string? continuationToken,
+            TPage pageModel,
+            Response rawResponse)
+        {
+            this._values = values;
+            this._continuationToken = continuationToken;
+            this._pageModel = pageModel;
+            this._rawResponse = rawResponse;
+        }
+
+        /// <inheritdoc />
+        public override IReadOnlyList<TItem> Values => this._values;
+
+        /// <inheritdoc />
+        public override string? ContinuationToken => this._continuationToken;
+
+        /// <summary>
+        /// Gets the deserialized page-envelope model for this page, including any sibling metadata
+        /// properties (such as <c>SensitivityLabelInfo</c>, <c>RequestCharge</c>, or <c>Count</c>)
+        /// returned alongside the page items.
+        /// </summary>
+        public TPage PageModel => this._pageModel;
+
+        /// <inheritdoc />
+        public override Response GetRawResponse() => this._rawResponse;
     }
 }

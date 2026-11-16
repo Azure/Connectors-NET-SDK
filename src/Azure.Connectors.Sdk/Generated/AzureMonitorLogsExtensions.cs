@@ -707,4 +707,3 @@ namespace Azure.Connectors.Sdk.AzureMonitorLogs
 
     #endregion Client
 }
-

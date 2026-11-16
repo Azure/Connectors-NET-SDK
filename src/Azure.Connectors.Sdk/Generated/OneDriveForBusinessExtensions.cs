@@ -112,7 +112,7 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
     {
         /// <summary>A URL that points to the file or folder.</summary>
         [JsonPropertyName("WebUrl")]
-        public string WebURL { get; set; }
+        public string WebUrl { get; set; }
     }
 
     /// <summary>
@@ -195,11 +195,11 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness.Models
         /// Creates a new instance of <see cref="SharingLink"/>.
         /// </summary>
         public static SharingLink SharingLink(
-            string webURL = default)
+            string webUrl = default)
         {
             return new SharingLink
             {
-                WebURL = webURL,
+                WebUrl = webUrl,
             };
         }
 
@@ -740,20 +740,20 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
         /// Upload file from URL
         /// </summary>
         /// <remarks>This operation uploads a file from a URL to OneDrive.</remarks>
-        /// <param name="sourceURL">Source URL</param>
+        /// <param name="sourceUrl">Source URL</param>
         /// <param name="destinationFilePath">Destination File Path</param>
         /// <param name="overwrite">Overwrite</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Upload file from URL response.</returns>
-        public virtual async Task<BlobMetadata> CopyFileAsync(string sourceURL, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BlobMetadata> CopyFileAsync(string sourceUrl, string destinationFilePath, bool? overwrite = default, CancellationToken cancellationToken = default)
         {
             using var activity = OneDriveForBusinessClient.ConnectorActivitySource.StartActivity("OneDriveForBusinessClient.CopyFileAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (sourceURL is null)
-                    throw new ArgumentNullException(nameof(sourceURL));
-                queryParams.Add($"source={Uri.EscapeDataString(sourceURL)}");
+                if (sourceUrl is null)
+                    throw new ArgumentNullException(nameof(sourceUrl));
+                queryParams.Add($"source={Uri.EscapeDataString(sourceUrl)}");
                 if (destinationFilePath is null)
                     throw new ArgumentNullException(nameof(destinationFilePath));
                 queryParams.Add($"destination={Uri.EscapeDataString(destinationFilePath)}");
@@ -1243,4 +1243,3 @@ namespace Azure.Connectors.Sdk.OneDriveForBusiness
 
     #endregion Client
 }
-

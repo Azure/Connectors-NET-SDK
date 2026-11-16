@@ -80,7 +80,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
                 client.GetMessagesByContactPhoneAsync(idOfTheDashboardToMakeThisCallOn: 1,
-                    contactSPhoneNumberToSearchBy: "555-0100",
+                    contactPhoneNumberToSearchBy: "555-0100",
                     numberPageToGet: 1,
                     amountOfEachEntityToGetPerPage: 10,
                     cancellationToken: CancellationToken.None))

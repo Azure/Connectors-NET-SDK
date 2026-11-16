@@ -1435,4 +1435,3 @@ namespace Azure.Connectors.Sdk.DynamicsAX
 
     #endregion Client
 }
-

@@ -247,7 +247,7 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <summary>
         /// Create a Microsoft Word document with the given content
         /// </summary>
-        /// <remarks>Creates a Microsoft Word file with the given content in the root directory (use only from Copilot Studio)</remarks>
+        /// <remarks>Creates or replaces a Microsoft Word document in the root folder of the connected user&apos;s OneDrive and returns a URL to the document. Use a unique file name because an existing file with the same name is replaced when this action runs. Accessing the returned URL may require signing in with an account that has permission to the file; do not rely on anonymous access.</remarks>
         /// <param name="input">The request body.</param>
         /// <param name="fileName">File Name</param>
         /// <param name="cancellationToken">Cancellation token.</param>
@@ -284,9 +284,9 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Convert Word Document to PDF response.</returns>
-        public virtual async Task<byte[]> GetFilePDFAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        public virtual async Task<byte[]> GetFilePdfAsync([DynamicValues("GetSources")] string location, [DynamicValues("GetDrives")] string documentLibrary, string @file, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
-            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFilePDFAsync");
+            using var activity = WordOnlineBusinessClient.ConnectorActivitySource.StartActivity("WordOnlineBusinessClient.GetFilePdfAsync");
             try
             {
                 var queryParams = new List<string>();
@@ -408,4 +408,3 @@ namespace Azure.Connectors.Sdk.WordOnlineBusiness
 
     #endregion Client
 }
-

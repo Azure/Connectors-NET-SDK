@@ -19,6 +19,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.ExcelOnlineBusiness.Models;
 using Azure.Core;
@@ -154,7 +155,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
     /// <summary>
     /// List of Items
     /// </summary>
-    public class ItemsList
+    public class ItemsList : IPageable<Item>
     {
         /// <summary>List of Items</summary>
         [JsonPropertyName("value")]
@@ -163,6 +164,10 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
         /// <summary>sensitivityLabelInfo</summary>
         [JsonPropertyName("sensitivityLabelInfo")]
         public List<SensitivityLabelMetadata> SensitivityLabelInfo { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -180,7 +185,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -272,7 +277,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
 
         /// <summary>sensitivityLabelInfo</summary>
         [JsonPropertyName("sensitivityLabelInfo")]
@@ -545,12 +550,14 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
         /// </summary>
         public static ItemsList ItemsList(
             List<Item> value = default,
-            List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
+            List<SensitivityLabelMetadata> sensitivityLabelInfo = default,
+            string nextLink = default)
         {
             return new ItemsList
             {
                 Value = value,
                 SensitivityLabelInfo = sensitivityLabelInfo,
+                NextLink = nextLink,
             };
         }
 
@@ -558,7 +565,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Item
             {
@@ -628,7 +635,7 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness.Models
         /// Creates a new instance of <see cref="GetItemResponse"/>.
         /// </summary>
         public static GetItemResponse GetItemResponse(
-            JsonElement? dynamicProperties = default,
+            Dictionary<string, ObjectEntity> dynamicProperties = default,
             List<SensitivityLabelMetadata> sensitivityLabelInfo = default)
         {
             return new GetItemResponse
@@ -942,49 +949,40 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
         /// <param name="extractSensitivityLabel">Extract Sensitivity Label</param>
         /// <param name="sensitivityLabelMetadata">Sensitivity Label Metadata</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The List rows present in a table response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, string dateTimeFormat = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsAsync([DynamicValues("GetDrives")] string documentLibrary, string @file, [DynamicValues("GetTables")] string table, [DynamicValues("GetSources")] string location, string filterQuery = default, string orderBy = default, int? topCount = default, int? skipCount = default, string selectQuery = default, string dateTimeFormat = default, bool? extractSensitivityLabel = default, bool? sensitivityLabelMetadata = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ExcelOnlineBusinessClient.ConnectorActivitySource.StartActivity("ExcelOnlineBusinessClient.GetItemsAsync");
-            try
-            {
-                if (documentLibrary is null)
-                    throw new ArgumentNullException(nameof(documentLibrary));
-                if (@file is null)
-                    throw new ArgumentNullException(nameof(@file));
-                if (table is null)
-                    throw new ArgumentNullException(nameof(table));
-                var queryParams = new List<string>();
-                if (location is null)
-                    throw new ArgumentNullException(nameof(location));
-                queryParams.Add($"source={Uri.EscapeDataString(location)}");
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (topCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                if (dateTimeFormat != default)
-                    queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
-                if (extractSensitivityLabel.HasValue)
-                    queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
-                if (sensitivityLabelMetadata.HasValue)
-                    queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
-                var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (documentLibrary is null)
+                throw new ArgumentNullException(nameof(documentLibrary));
+            if (@file is null)
+                throw new ArgumentNullException(nameof(@file));
+            if (table is null)
+                throw new ArgumentNullException(nameof(table));
+            var queryParams = new List<string>();
+            if (location is null)
+                throw new ArgumentNullException(nameof(location));
+            queryParams.Add($"source={Uri.EscapeDataString(location)}");
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (topCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(topCount.Value, CultureInfo.InvariantCulture))}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            if (dateTimeFormat != default)
+                queryParams.Add($"dateTimeFormat={Uri.EscapeDataString(dateTimeFormat)}");
+            if (extractSensitivityLabel.HasValue)
+                queryParams.Add($"extractSensitivityLabel={Uri.EscapeDataString(Convert.ToString(extractSensitivityLabel.Value, CultureInfo.InvariantCulture))}");
+            if (sensitivityLabelMetadata.HasValue)
+                queryParams.Add($"fetchSensitivityLabelMetadata={Uri.EscapeDataString(Convert.ToString(sensitivityLabelMetadata.Value, CultureInfo.InvariantCulture))}");
+            var path = $"/drives/{Uri.EscapeDataString(documentLibrary)}/files/{Uri.EscapeDataString(Uri.EscapeDataString(@file))}/tables/{Uri.EscapeDataString(table)}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -1623,4 +1621,3 @@ namespace Azure.Connectors.Sdk.ExcelOnlineBusiness
 
     #endregion Client
 }
-

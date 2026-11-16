@@ -293,20 +293,20 @@ namespace Azure.Connectors.Sdk.Rss
         /// List all RSS feed items
         /// </summary>
         /// <remarks>This operation retrieves all items from an RSS feed.</remarks>
-        /// <param name="theRSSFeedURL">The RSS feed URL</param>
+        /// <param name="theRssFeedUrl">The RSS feed URL</param>
         /// <param name="since">since</param>
         /// <param name="chosenPropertyWillBeUsedToDetermineWhichItemsAreNew">Chosen property will be used to determine which items are new.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List all RSS feed items response.</returns>
-        public virtual async Task<List<FeedItem>> ListFeedItemsAsync(string theRSSFeedURL, string since = default, string chosenPropertyWillBeUsedToDetermineWhichItemsAreNew = default, CancellationToken cancellationToken = default)
+        public virtual async Task<List<FeedItem>> ListFeedItemsAsync(string theRssFeedUrl, string since = default, string chosenPropertyWillBeUsedToDetermineWhichItemsAreNew = default, CancellationToken cancellationToken = default)
         {
             using var activity = RssClient.ConnectorActivitySource.StartActivity("RssClient.ListFeedItemsAsync");
             try
             {
                 var queryParams = new List<string>();
-                if (theRSSFeedURL is null)
-                    throw new ArgumentNullException(nameof(theRSSFeedURL));
-                queryParams.Add($"feedUrl={Uri.EscapeDataString(theRSSFeedURL)}");
+                if (theRssFeedUrl is null)
+                    throw new ArgumentNullException(nameof(theRssFeedUrl));
+                queryParams.Add($"feedUrl={Uri.EscapeDataString(theRssFeedUrl)}");
                 if (since != default)
                     queryParams.Add($"since={Uri.EscapeDataString(since)}");
                 if (chosenPropertyWillBeUsedToDetermineWhichItemsAreNew != default)
@@ -328,4 +328,3 @@ namespace Azure.Connectors.Sdk.Rss
 
     #endregion Client
 }
-

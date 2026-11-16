@@ -196,7 +196,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
     /// <summary>
     /// UpdateCalendarEvent_HTMLRequest
     /// </summary>
-    public class UpdateCalendarEventHTMLRequest
+    public class UpdateCalendarEventHtmlRequest
     {
         /// <summary>Title of the event.</summary>
         [JsonPropertyName("subject")]
@@ -484,9 +484,9 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="UpdateCalendarEventHTMLRequest"/>.
+        /// Creates a new instance of <see cref="UpdateCalendarEventHtmlRequest"/>.
         /// </summary>
-        public static UpdateCalendarEventHTMLRequest UpdateCalendarEventHTMLRequest(
+        public static UpdateCalendarEventHtmlRequest UpdateCalendarEventHtmlRequest(
             string subject = default,
             JsonElement? start = default,
             JsonElement? end = default,
@@ -499,7 +499,7 @@ namespace Azure.Connectors.Sdk.Office365Groups.Models
             ShowAs? showAs = default,
             bool? responseRequested = default)
         {
-            return new UpdateCalendarEventHTMLRequest
+            return new UpdateCalendarEventHtmlRequest
             {
                 Subject = subject,
                 Start = start,
@@ -794,7 +794,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Update a group event response.</returns>
-        public virtual async Task<CreateCalendarEventResponse> UpdateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string id, UpdateCalendarEventHTMLRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateCalendarEventResponse> UpdateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, string id, UpdateCalendarEventHtmlRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.UpdateCalendarEventAsync");
             try
@@ -940,7 +940,7 @@ namespace Azure.Connectors.Sdk.Office365Groups
         /// <param name="input">The request body.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Create a group event response.</returns>
-        public virtual async Task<CreateCalendarEventResponse> CreateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, UpdateCalendarEventHTMLRequest input, CancellationToken cancellationToken = default)
+        public virtual async Task<CreateCalendarEventResponse> CreateCalendarEventAsync([DynamicValues("ListOwnedGroups_V2")] string groupId, UpdateCalendarEventHtmlRequest input, CancellationToken cancellationToken = default)
         {
             using var activity = Office365GroupsClient.ConnectorActivitySource.StartActivity("Office365GroupsClient.CreateCalendarEventAsync");
             try
@@ -1020,4 +1020,3 @@ namespace Azure.Connectors.Sdk.Office365Groups
 
     #endregion Client
 }
-

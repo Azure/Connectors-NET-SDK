@@ -469,4 +469,3 @@ namespace Azure.Connectors.Sdk.Campfire
 
     #endregion Client
 }
-

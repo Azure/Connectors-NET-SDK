@@ -140,7 +140,7 @@ ID, and link properties:
 using System.Text.Json;
 using Azure.Connectors.Sdk.Teams.Models;
 
-var payload = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerTriggerPayload>(
+var payload = JsonSerializer.Deserialize<TeamsOnWebhookChatMessageTriggerPayload>(
     """
     {"body":{"value":[{"conversationId":"chat-id","messageId":"message-id","linkToMessage":"https://example.test/message"}]}}
     """);

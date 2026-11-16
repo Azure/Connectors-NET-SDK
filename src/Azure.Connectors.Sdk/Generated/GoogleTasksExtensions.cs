@@ -53,7 +53,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
 
         /// <summary>A link to this task list.</summary>
         [JsonPropertyName("selfLink")]
-        public string HTMLLink { get; set; }
+        public string HtmlLink { get; set; }
 
         /// <summary>The time the task list was last updated.</summary>
         [JsonPropertyName("updated")]
@@ -89,7 +89,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
 
         /// <summary>A link to the task.</summary>
         [JsonPropertyName("selfLink")]
-        public string HTMLLink { get; set; }
+        public string HtmlLink { get; set; }
 
         /// <summary>The parent of the task.</summary>
         [JsonPropertyName("parent")]
@@ -180,7 +180,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
             {
                 TaskListId = taskListId,
                 Title = title,
-                HTMLLink = htmlLink,
+                HtmlLink = htmlLink,
                 UpdatedTime = updatedTime,
             };
         }
@@ -217,7 +217,7 @@ namespace Azure.Connectors.Sdk.GoogleTasks.Models
                 TaskId = taskId,
                 Title = title,
                 Updated = updated,
-                HTMLLink = htmlLink,
+                HtmlLink = htmlLink,
                 Parent = parent,
                 Position = position,
                 Notes = notes,
@@ -554,4 +554,3 @@ namespace Azure.Connectors.Sdk.GoogleTasks
 
     #endregion Client
 }
-

@@ -1087,7 +1087,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Can Manage PAC.</summary>
         [JsonPropertyName("canManagePAC")]
-        public bool? CanManagePAC { get; set; }
+        public bool? CanManagePac { get; set; }
 
         /// <summary>Can Manage Organization.</summary>
         [JsonPropertyName("canManageOrganization")]
@@ -3019,7 +3019,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3099,7 +3099,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3121,7 +3121,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3197,7 +3197,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3317,7 +3317,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3475,7 +3475,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3599,7 +3599,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3711,7 +3711,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3849,7 +3849,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -3925,7 +3925,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -4001,7 +4001,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -4097,7 +4097,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -4235,7 +4235,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -4397,7 +4397,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -4513,7 +4513,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -4539,7 +4539,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
 
         /// <summary>Callback URL.</summary>
         [JsonPropertyName("callBackUrl")]
-        public string CallBackUrl { get; set; }
+        public string CallbackUrl { get; set; }
 
         /// <summary>Description.</summary>
         [JsonPropertyName("description")]
@@ -6022,7 +6022,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string relationshipType = default,
             bool? allowPrimary = default,
             bool? canPurchaseForOrganization = default,
-            bool? canManagePAC = default,
+            bool? canManagePac = default,
             bool? canManageOrganization = default)
         {
             return new RelationshipTypeData
@@ -6032,7 +6032,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 RelationshipType = relationshipType,
                 AllowPrimary = allowPrimary,
                 CanPurchaseForOrganization = canPurchaseForOrganization,
-                CanManagePAC = canManagePAC,
+                CanManagePac = canManagePac,
                 CanManageOrganization = canManageOrganization,
             };
         }
@@ -7453,14 +7453,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenIndividualCreatedInput WhenIndividualCreatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenIndividualCreatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7521,14 +7521,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenIndividualDeletedInput WhenIndividualDeletedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenIndividualDeletedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7539,14 +7539,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenIndividualRequestForgottenInput WhenIndividualRequestForgottenInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenIndividualRequestForgottenInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7603,7 +7603,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string typeName = default,
             List<string> filters = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenProductPurchasedInput
@@ -7612,7 +7612,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 TypeName = typeName,
                 Filters = filters,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7693,14 +7693,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenCommitteeMemberUpdatedInput WhenCommitteeMemberUpdatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenCommitteeMemberUpdatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7805,7 +7805,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string typeName = default,
             List<string> filters = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenPurchaseCancelledInput
@@ -7814,7 +7814,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 TypeName = typeName,
                 Filters = filters,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7897,14 +7897,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenRequestUpdatedInput WhenRequestUpdatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenRequestUpdatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -7981,14 +7981,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenEmailUpdatedInput WhenEmailUpdatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenEmailUpdatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8084,7 +8084,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string typeName = default,
             List<string> filters = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenCustomerCustomFieldValueUpdatedInput
@@ -8092,7 +8092,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 TypeName = typeName,
                 Filters = filters,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8151,14 +8151,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenCustomerIsMergedInput WhenCustomerIsMergedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenCustomerIsMergedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8217,14 +8217,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenCustomerRelationshipUpdatedInput WhenCustomerRelationshipUpdatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenCustomerRelationshipUpdatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8293,14 +8293,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenCustomerPhoneUpdatedInput WhenCustomerPhoneUpdatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenCustomerPhoneUpdatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8397,14 +8397,14 @@ namespace Azure.Connectors.Sdk.Impexium.Models
         public static WhenCustomerAddressUpdatedInput WhenCustomerAddressUpdatedInput(
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenCustomerAddressUpdatedInput
             {
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8512,7 +8512,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string typeName = default,
             List<string> filters = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenEventRegistrationSubstitutedInput
@@ -8520,7 +8520,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 TypeName = typeName,
                 Filters = filters,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8598,7 +8598,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string typeName = default,
             List<string> filters = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenPurchasePaidInput
@@ -8606,7 +8606,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 TypeName = typeName,
                 Filters = filters,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -8618,7 +8618,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
             string id = default,
             string typeName = default,
             string secret = default,
-            string callBackUrl = default,
+            string callbackUrl = default,
             string description = default)
         {
             return new WhenMembershipTerminatedInput
@@ -8626,7 +8626,7 @@ namespace Azure.Connectors.Sdk.Impexium.Models
                 Id = id,
                 TypeName = typeName,
                 Secret = secret,
-                CallBackUrl = callBackUrl,
+                CallbackUrl = callbackUrl,
                 Description = description,
             };
         }
@@ -10823,12 +10823,12 @@ namespace Azure.Connectors.Sdk.Impexium
         /// <param name="includeLink">Include Link</param>
         /// <param name="includeCustomFields">Include Custom Fields</param>
         /// <param name="includeCategories">Include Categories</param>
-        /// <param name="includeMembershipRenewalURLs">Include Membership Renewal URLs</param>
+        /// <param name="includeMembershipRenewalUrls">Include Membership Renewal URLs</param>
         /// <param name="expireDateFrom">Expire Date - From:</param>
         /// <param name="expireDateTo">Expire Date - To:</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The List of All Individual Members response.</returns>
-        public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeLink = default, bool? includeCustomFields = default, bool? includeCategories = default, bool? includeMembershipRenewalURLs = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ListOfAllIndividualMembersResponse> ListOfAllIndividualMembersAsync(int pageNumber, string zipCode = default, double? radius = default, string membershipTypeCode = default, string membershipTypeCategory = default, string tag = default, bool? includeMembership = default, bool? includeAddress = default, bool? includePhone = default, bool? includeEmail = default, bool? includeLink = default, bool? includeCustomFields = default, bool? includeCategories = default, bool? includeMembershipRenewalUrls = default, string expireDateFrom = default, string expireDateTo = default, CancellationToken cancellationToken = default)
         {
             using var activity = ImpexiumClient.ConnectorActivitySource.StartActivity("ImpexiumClient.ListOfAllIndividualMembersAsync");
             try
@@ -10858,8 +10858,8 @@ namespace Azure.Connectors.Sdk.Impexium
                     queryParams.Add($"includeCustomFields={Uri.EscapeDataString(Convert.ToString(includeCustomFields.Value, CultureInfo.InvariantCulture))}");
                 if (includeCategories.HasValue)
                     queryParams.Add($"includeCategories={Uri.EscapeDataString(Convert.ToString(includeCategories.Value, CultureInfo.InvariantCulture))}");
-                if (includeMembershipRenewalURLs.HasValue)
-                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(Convert.ToString(includeMembershipRenewalURLs.Value, CultureInfo.InvariantCulture))}");
+                if (includeMembershipRenewalUrls.HasValue)
+                    queryParams.Add($"includeMembershipRenewalUrl={Uri.EscapeDataString(Convert.ToString(includeMembershipRenewalUrls.Value, CultureInfo.InvariantCulture))}");
                 if (expireDateFrom != default)
                     queryParams.Add($"expiringFrom={Uri.EscapeDataString(expireDateFrom)}");
                 if (expireDateTo != default)
@@ -12730,4 +12730,3 @@ namespace Azure.Connectors.Sdk.Impexium
 
     #endregion Client
 }
-

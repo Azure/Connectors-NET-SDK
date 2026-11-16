@@ -216,7 +216,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
 
         /// <summary>The tags attached to the resource group.</summary>
         [JsonPropertyName("tags")]
-        public JsonElement? Tags { get; set; }
+        public Dictionary<string, string> Tags { get; set; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -602,7 +602,7 @@ namespace Azure.Connectors.Sdk.AzureDataFactory.Models
             string name = default,
             string location = default,
             string managedBy = default,
-            JsonElement? tags = default,
+            Dictionary<string, string> tags = default,
             ResourceGroupProperties properties = default)
         {
             return new ResourceGroup
@@ -985,4 +985,3 @@ namespace Azure.Connectors.Sdk.AzureDataFactory
 
     #endregion Client
 }
-

@@ -93,7 +93,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             var result = await client
-                .ListFeedItemsAsync(theRSSFeedURL: "https://test.com/feed",
+                .ListFeedItemsAsync(theRssFeedUrl: "https://test.com/feed",
                     cancellationToken: CancellationToken.None)
                 .ConfigureAwait(continueOnCapturedContext: false);
 
@@ -112,7 +112,7 @@ namespace Azure.Connectors.Sdk.Tests
             using var client = CreateMockedClient(responseMessage);
 
             await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.ListFeedItemsAsync(theRSSFeedURL: "https://test.com/feed",
+                client.ListFeedItemsAsync(theRssFeedUrl: "https://test.com/feed",
                     cancellationToken: CancellationToken.None))
                 .ConfigureAwait(continueOnCapturedContext: false);
         }

@@ -549,4 +549,3 @@ namespace Azure.Connectors.Sdk.GoogleDrive
 
     #endregion Client
 }
-

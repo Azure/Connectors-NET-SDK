@@ -10,7 +10,7 @@
 
 - **Array callback bodies** - `TriggerCallbackPayload<T>` accepts `{"body":[...]}` notifications alongside single-object and `value`-wrapped batches.
 
-- **DataFlows SMS retry safety** - both `SendSmsAsync` and `SendSmsGetAsync` remain callable. The standard retry pipeline blocks retries for the GET send route on transient responses and transport failures, even with `RetryUnsafeHttpMethods` enabled. Ordinary GET reads retain retries; caller-supplied retry policies remain authoritative.
+- **DataFlows SMS retry safety** - `SendSmsGetAsync` (`GET /sms/send`) and `SendSmsAsync` (`POST /sms/send`) are both exposed; standard retries are blocked for `GET /sms/send` even when `RetryUnsafeHttpMethods` is enabled, while ordinary GET reads such as `ListSmsAsync` retain retries.
 
 - **Connector error diagnostics** - operation labels use the HTTP method and resolved path without query strings, keeping SMS query values out of the exception operation and generated activity status. Outgoing requests are unchanged.
 
@@ -18,11 +18,15 @@
 
 #### Breaking Changes
 
+- **Systematic connector naming migration** - generated client types, namespaces, model factories, methods, models, and `ConnectorNames` constants now follow consistent .NET casing and published product spelling. For example, `DocuSignClient` becomes `DocusignClient`, `MailChimpClient` becomes `MailchimpClient`, `OnenoteClient` becomes `OneNoteClient`, and `ConnectorNames.DataFlowsSMS` becomes `ConnectorNames.DataFlowsSms`. Update direct imports, dependency-injection registrations, named arguments, and type references. Raw connector IDs and serialized wire names remain unchanged. See the [naming migration guide](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/naming-migration.md).
+
+- **Automatic pagination and typed map properties across 14 additional connectors** - 32 list/query operations in `AzureBlob`, `AzureTables`, `DocumentDB`, `ExcelOnline`, `ExcelOnlineBusiness`, `Insightly`, `Jira`, `Office365`, `OneNote`, `Salesforce`, `SharePointOnline`, `Sql`, `Yammer`, and `Zendesk` now return `AsyncPageable<T>` instead of `Task<TPage>`, and page-envelope collection properties normalize to `Value` (including `AzureTables.Models.GetEntitiesResponse.Value`, `DocumentDB.Models.QueryDocumentsResponse.Value`, and `OneNote.Models.GetPagesInSectionResponse.Value`). Each `AsPages()` element is a `ConnectorPage<TPage, TItem>` exposing `PageModel` and a buffered `GetRawResponse()` so page-level sibling metadata such as `ItemsList.SensitivityLabelInfo` remains accessible. Static Swagger object-map properties (`Tags`, `Properties`, `CustomProperties`, `Headers`, `QueryParameters`, `FormalParameters`, and `DynamicProperties`) now use `Dictionary<string, string>` or `Dictionary<string, ObjectEntity>` instead of `JsonElement?`. See the [naming and paging migration guide](https://github.com/Azure/Connectors-NET-SDK/blob/main/docs/naming-migration.md).
+
 - **Shifts and Dynamics AX lists now page automatically** - all twelve Shifts list methods and `DynamicsAXClient.GetItemsAsync` return `AsyncPageable<T>` instead of `Task<TPage>`. Replace single-page `await` calls with `await foreach`, or use `AsPages()` for page boundaries and continuation-token resumption. Shifts page-model collections now use `Value`; page-model factories also change to expose the paging contract, including the Dynamics AX `nextLink` parameter. JSON `value` and `@odata.nextLink` fields are unchanged. These clients no longer stop after the first page.
 
 - **PDF.co public API casing** - rename `PDFFromXLSXLSXAsync` to `PdfFromXlsXlsxAsync`, `PDFUnSearchableAsync` to `PdfUnsearchableAsync`, and `XLStoCSVAsync`, `XLStoHTMLAsync`, `XLStoJSONAsync`, `XLStoTXTAsync`, and `XLStoXMLAsync` to `XlsToCsvAsync`, `XlsToHtmlAsync`, `XlsToJsonAsync`, `XlsToTxtAsync`, and `XlsToXmlAsync`. Corresponding `Input` and `Response` types and model-factory members use the same corrected stems, including `PdfFromXlsXlsxResponse`. HTTP routes and JSON fields are unchanged.
 
-- **Teams AI insight API casing** - rename `GetAiInsightAsync` to `GetAIInsightAsync` and `ListAiInsightsAsync` to `ListAIInsightsAsync`. `AiInsightResponse` and `AiInsightCollectionResponse` become `AIInsightResponse` and `AIInsightCollectionResponse`, including their `TeamsModelFactory` members. Update method calls, explicit model references, and factory calls; JSON fields and HTTP routes are unchanged.
+- **Teams AI insight API casing** - rename `GetAiInsightAsync` to `GetAIInsightAsync` and `ListAiInsightsAsync` to `ListAIInsightsAsync`. `AiInsightResponse` and `AiInsightCollectionResponse` become `AIInsightResponse` and `AIInsightCollectionResponse`, including their `TeamsModelFactory` members; every other Teams AI insight model, such as `AIInsightDetailResponse`, uses the same `AIInsight` spelling. Update method calls, explicit model references, and factory calls; JSON fields and HTTP routes are unchanged.
 
 ### 0.15.0-preview.1 (2026-10-29)
 

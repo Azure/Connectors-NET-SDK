@@ -1,0 +1,278 @@
+//------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+//------------------------------------------------------------
+
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure.Connectors.Sdk.MSGraphGroupsAndUsers;
+using Azure.Connectors.Sdk.MSGraphGroupsAndUsers.Models;
+using global::Azure.Core;
+using global::Azure.Core.Pipeline;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using Moq.Protected;
+
+namespace Azure.Connectors.Sdk.Tests
+{
+    /// <summary>
+    /// Tests for the generated MSGraphGroupsAndUsersClient class.
+    /// </summary>
+    [TestClass]
+    public class MSGraphGroupsAndUsersClientTests
+    {
+        private static MSGraphGroupsAndUsersClient CreateMockedClient(Func<HttpResponseMessage> responseFactory)
+        {
+            var (credential, options) = ConnectorTestHelpers.CreateMockedClientSetup(responseFactory);
+            return new MSGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: credential,
+                options: options);
+        }
+
+        [TestMethod]
+        public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
+        {
+            // Arrange & Act
+            using var client = new MSGraphGroupsAndUsersClient("https://test.azure.com/connection");
+
+            // Assert
+            Assert.IsNotNull(client);
+        }
+
+        [TestMethod]
+        public void Constructor_WithNullConnectionRuntimeUrl_ShouldThrowArgumentNullException()
+        {
+            // Arrange & Act & Assert
+            Assert.ThrowsExactly<ArgumentNullException>(() => new MSGraphGroupsAndUsersClient((string)null!));
+        }
+
+        [TestMethod]
+        public void Dispose_ShouldNotThrow()
+        {
+            // Arrange
+            var client = new MSGraphGroupsAndUsersClient("https://test.azure.com/connection");
+
+            // Act & Assert - should not throw
+            client.Dispose();
+        }
+
+        [TestMethod]
+        public void Dispose_CalledTwice_ShouldNotThrow()
+        {
+            // Arrange
+            var mockCredential = new Mock<TokenCredential>();
+            var client = new MSGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object);
+
+            // Act & Assert - calling Dispose twice should not throw (idempotent)
+            client.Dispose();
+            client.Dispose();
+        }
+
+        [TestMethod]
+        public void Dispose_WithInternallyCreatedHttpClient_ShouldDisposeIt()
+        {
+            // Arrange - no httpClient provided, so client creates its own
+            var mockCredential = new Mock<TokenCredential>();
+            var client = new MSGraphGroupsAndUsersClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: mockCredential.Object);
+
+            // Act
+            client.Dispose();
+
+            // Assert - calling Dispose again should not throw (idempotent)
+            client.Dispose();
+        }
+
+        [TestMethod]
+        public async Task ListUsersAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange — construct via JSON so List<JsonElement?> has actual items
+            var expectedResponse = JsonSerializer.Deserialize<ListUsersResponse>(
+                "{\"@odata.context\":\"https://graph.microsoft.com/v1.0/$metadata#users\",\"value\":[{\"displayName\":\"Alice\"},{\"displayName\":\"Bob\"}]}");
+
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            });
+
+            // Act
+            var result = await client
+                .ListUsersAsync(cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Value.Count);
+            Assert.AreEqual("Alice", result.Value[0]!.Value.GetProperty("displayName").GetString());
+        }
+
+        [TestMethod]
+        public async Task GetGroupPropertiesAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            // Arrange
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.NotFound,
+                Content = new StringContent("{\"error\": \"Group not found\"}")
+            });
+
+            // Act & Assert
+            var exception = await Assert
+                .ThrowsExactlyAsync<ConnectorException>(async () =>
+                    await client
+                        .GetGroupPropertiesAsync(objectIdOfTheMicrosoftEntraIdGroup: "test-group-id", cancellationToken: CancellationToken.None)
+                        .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(404, exception.Status);
+            Assert.IsTrue(exception.ResponseBody.Contains("Group not found", StringComparison.Ordinal));
+        }
+
+        [TestMethod]
+        public void GetGroupPropertiesResponse_ShouldHaveExpectedProperties()
+        {
+            // Arrange & Act
+            var group = new GetGroupPropertiesResponse
+            {
+                Id = "group-123",
+                DisplayName = "Engineering Team",
+                Description = "The engineering team group",
+                Mail = "engineering@contoso.com",
+                MailEnabled = true,
+                SecurityEnabled = true,
+                Visibility = "Private"
+            };
+
+            // Assert
+            Assert.AreEqual("group-123", group.Id);
+            Assert.AreEqual("Engineering Team", group.DisplayName);
+            Assert.AreEqual("engineering@contoso.com", group.Mail);
+            Assert.AreEqual(true, group.MailEnabled);
+            Assert.AreEqual(true, group.SecurityEnabled);
+        }
+
+        [TestMethod]
+        public void GetGroupPropertiesResponse_JsonSerialization_RoundTrips()
+        {
+            // Arrange
+            var group = new GetGroupPropertiesResponse
+            {
+                Id = "group-abc",
+                DisplayName = "Test Group",
+                Description = "A test group",
+                Mail = "test@contoso.com",
+                MailEnabled = false,
+                SecurityEnabled = true,
+                Visibility = "Public"
+            };
+
+            // Act
+            var json = JsonSerializer.Serialize(group);
+            var deserialized = JsonSerializer.Deserialize<GetGroupPropertiesResponse>(json);
+
+            // Assert
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual(group.Id, deserialized.Id);
+            Assert.AreEqual(group.DisplayName, deserialized.DisplayName);
+            Assert.AreEqual(group.Description, deserialized.Description);
+            Assert.AreEqual(group.Mail, deserialized.Mail);
+            Assert.AreEqual(group.MailEnabled, deserialized.MailEnabled);
+            Assert.AreEqual(group.SecurityEnabled, deserialized.SecurityEnabled);
+        }
+
+        [TestMethod]
+        public void GetMemberGroupsInput_JsonSerialization_RoundTrips()
+        {
+            // Arrange
+            var input = new GetMemberGroupsInput
+            {
+                SecurityEnabledOnly = true
+            };
+
+            // Act
+            var json = JsonSerializer.Serialize(input);
+            var deserialized = JsonSerializer.Deserialize<GetMemberGroupsInput>(json);
+
+            // Assert
+            Assert.IsNotNull(deserialized);
+            Assert.AreEqual(input.SecurityEnabledOnly, deserialized.SecurityEnabledOnly);
+        }
+
+        [TestMethod]
+        public async Task ListGroupsByDisplayNameSearchAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange — construct via JSON so List<JsonElement?> has actual items
+            var expectedResponse = JsonSerializer.Deserialize<ListGroupsByDisplayNameSearchResponse>(
+                "{\"@odata.context\":\"https://graph.microsoft.com/v1.0/$metadata#groups\",\"@odata.count\":1,\"value\":[{\"displayName\":\"Engineering\"}]}");
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
+            });
+
+            // Act
+            var result = await client
+                .ListGroupsByDisplayNameSearchAsync(
+                    searchByDisplayName: "Engineering",
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(1, result.Value.Count);
+        }
+
+        [TestMethod]
+        public async Task GetMemberGroupsAsync_WithMockedResponse_ReturnsExpectedResult()
+        {
+            // Arrange
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = new StringContent("{\"@odata.context\":\"https://graph.microsoft.com/v1.0\",\"value\":[\"group-abc\"]}")
+            });
+
+            // Act
+            var result = await client
+                .GetMemberGroupsAsync(
+                    objectIdOfTheMicrosoftEntraIdMemberUser: "user-123",
+                    input: new GetMemberGroupsInput { SecurityEnabledOnly = true },
+                    cancellationToken: CancellationToken.None)
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(1, result.Value.Count);
+        }
+
+        [TestMethod]
+        public async Task ListSubscribedSkusAsync_WithErrorResponse_ThrowsConnectorException()
+        {
+            // Arrange
+            using var client = CreateMockedClient(() => new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError,
+                Content = new StringContent("{\"error\": \"Internal server error\"}")
+            });
+
+            // Act & Assert
+            var exception = await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
+                    await client.ListSubscribedSkusAsync(cancellationToken: CancellationToken.None)
+                        .ConfigureAwait(continueOnCapturedContext: false))
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual((int)HttpStatusCode.InternalServerError, exception.Status);
+        }
+    }
+}

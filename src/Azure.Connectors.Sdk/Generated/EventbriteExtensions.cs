@@ -49,7 +49,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
 
         /// <summary>The URL of the event.</summary>
         [JsonPropertyName("url")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>start</summary>
         [JsonPropertyName("start")]
@@ -164,7 +164,7 @@ namespace Azure.Connectors.Sdk.Eventbrite.Models
                 Name = name,
                 Description = description,
                 Id = id,
-                URL = url,
+                Url = url,
                 Start = start,
                 End = end,
                 CreatedDateTime = createdDateTime,
@@ -752,4 +752,3 @@ namespace Azure.Connectors.Sdk.Eventbrite
 
     #endregion Client
 }
-

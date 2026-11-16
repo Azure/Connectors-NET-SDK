@@ -20,6 +20,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Connectors.Sdk;
 using Azure.Connectors.Sdk.Zendesk.Models;
 using Azure.Core;
@@ -57,11 +58,15 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
     /// <summary>
     /// Response for Get items
     /// </summary>
-    public class ItemsList
+    public class ItemsList : IPageable<Item>
     {
         /// <summary>value</summary>
         [JsonPropertyName("value")]
         public List<Item> Value { get; set; }
+
+        /// <summary>The URL to retrieve the next page.</summary>
+        [JsonPropertyName("@odata.nextLink")]
+        public string NextLink { get; set; }
     }
 
     /// <summary>
@@ -79,7 +84,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
 
         /// <summary>dynamicProperties</summary>
         [JsonPropertyName("dynamicProperties")]
-        public JsonElement? DynamicProperties { get; set; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; set; }
     }
 
     /// <summary>
@@ -247,11 +252,13 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
         /// Creates a new instance of <see cref="ItemsList"/>.
         /// </summary>
         public static ItemsList ItemsList(
-            List<Item> value = default)
+            List<Item> value = default,
+            string nextLink = default)
         {
             return new ItemsList
             {
                 Value = value,
+                NextLink = nextLink,
             };
         }
 
@@ -259,7 +266,7 @@ namespace Azure.Connectors.Sdk.Zendesk.Models
         /// Creates a new instance of <see cref="Item"/>.
         /// </summary>
         public static Item Item(
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Item
             {
@@ -620,36 +627,27 @@ namespace Azure.Connectors.Sdk.Zendesk
         /// <param name="maximumGetCount">Maximum Get Count</param>
         /// <param name="selectQuery">Select Query</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The Get items response.</returns>
-        public virtual async Task<ItemsList> GetItemsAsync([DynamicValues("GetTables")] string tableName, string filterQuery = default, string orderBy = default, int? skipCount = default, int? maximumGetCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
+        /// <returns>An async enumerable of <see cref="Item"/> items across all pages.</returns>
+        public virtual AsyncPageable<Item> GetItemsAsync([DynamicValues("GetTables")] string tableName, string filterQuery = default, string orderBy = default, int? skipCount = default, int? maximumGetCount = default, string selectQuery = default, CancellationToken cancellationToken = default)
         {
-            using var activity = ZendeskClient.ConnectorActivitySource.StartActivity("ZendeskClient.GetItemsAsync");
-            try
-            {
-                if (tableName is null)
-                    throw new ArgumentNullException(nameof(tableName));
-                var queryParams = new List<string>();
-                if (filterQuery != default)
-                    queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
-                if (orderBy != default)
-                    queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
-                if (skipCount.HasValue)
-                    queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
-                if (maximumGetCount.HasValue)
-                    queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(maximumGetCount.Value, CultureInfo.InvariantCulture))}");
-                if (selectQuery != default)
-                    queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
-                var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
-                return await this
-                    .CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: cancellationToken)
-                    .ConfigureAwait(continueOnCapturedContext: false);
-
-            }
-            catch (Exception ex) when (!ex.IsFatal())
-            {
-                activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, ex.Message);
-                throw;
-            }
+            if (tableName is null)
+                throw new ArgumentNullException(nameof(tableName));
+            var queryParams = new List<string>();
+            if (filterQuery != default)
+                queryParams.Add($"$filter={Uri.EscapeDataString(filterQuery)}");
+            if (orderBy != default)
+                queryParams.Add($"$orderby={Uri.EscapeDataString(orderBy)}");
+            if (skipCount.HasValue)
+                queryParams.Add($"$skip={Uri.EscapeDataString(Convert.ToString(skipCount.Value, CultureInfo.InvariantCulture))}");
+            if (maximumGetCount.HasValue)
+                queryParams.Add($"$top={Uri.EscapeDataString(Convert.ToString(maximumGetCount.Value, CultureInfo.InvariantCulture))}");
+            if (selectQuery != default)
+                queryParams.Add($"$select={Uri.EscapeDataString(selectQuery)}");
+            var path = $"/datasets/default/tables/{Uri.EscapeDataString(Uri.EscapeDataString(tableName))}/items" + (queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "");
+            return this.CreatePageable<ItemsList, Item>(
+                ct => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, path, cancellationToken: ct),
+                (nextLink, ct) => this.CallConnectorAsync<ItemsList>(HttpMethod.Get, nextLink, cancellationToken: ct),
+                cancellationToken);
         }
 
         /// <summary>
@@ -848,4 +846,3 @@ namespace Azure.Connectors.Sdk.Zendesk
 
     #endregion Client
 }
-

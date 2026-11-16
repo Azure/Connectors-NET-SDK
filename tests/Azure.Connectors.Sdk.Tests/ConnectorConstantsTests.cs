@@ -86,6 +86,35 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        public void ConnectorNames_AllGeneratedClientsAreRegistered()
+        {
+            var constants = typeof(ConnectorNames)
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Where(field => field.IsLiteral && field.FieldType == typeof(string))
+                .Select(field => (string)field.GetRawConstantValue()!)
+                .ToHashSet(System.StringComparer.Ordinal);
+            var registered = SdkConnectors.AvailableConnectors.ToHashSet(System.StringComparer.Ordinal);
+            var clientTypes = typeof(ConnectorClientBase).Assembly
+                .GetExportedTypes()
+                .Where(type => !type.IsAbstract && typeof(ConnectorClientBase).IsAssignableFrom(type))
+                .ToList();
+
+            Assert.IsTrue(clientTypes.Count >= 103, "Expected at least 103 generated connector clients.");
+            foreach (var clientType in clientTypes)
+            {
+                using var instance = (ConnectorClientBase)System.Activator.CreateInstance(
+                    clientType,
+                    "https://example.test/connections/conn-1")!;
+                Assert.IsTrue(
+                    constants.Contains(instance.ConnectorName),
+                    $"Generated client '{clientType.Name}' has ConnectorName '{instance.ConnectorName}' missing from ConnectorNames.");
+                Assert.IsTrue(
+                    registered.Contains(instance.ConnectorName),
+                    $"Generated client '{clientType.Name}' has ConnectorName '{instance.ConnectorName}' missing from SdkConnectors.AvailableConnectors.");
+            }
+        }
+
+        [TestMethod]
         public void ConnectorNames_ValuesAreLowercase()
         {
             // Assert — connector API names are lowercase identifiers

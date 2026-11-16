@@ -654,4 +654,3 @@ namespace Azure.Connectors.Sdk.Box
 
     #endregion Client
 }
-

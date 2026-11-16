@@ -277,7 +277,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The properties.</summary>
         [JsonPropertyName("properties")]
-        public JsonElement? Properties { get; set; }
+        public Dictionary<string, string> Properties { get; set; }
     }
 
     /// <summary>
@@ -367,7 +367,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>URI referencing the template.</summary>
         [JsonPropertyName("uri")]
-        public string TemplateURI { get; set; }
+        public string TemplateUri { get; set; }
 
         /// <summary>If included it must match the ContentVersion in the template.</summary>
         [JsonPropertyName("contentVersion")]
@@ -381,7 +381,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
     {
         /// <summary>URI referencing the template.</summary>
         [JsonPropertyName("uri")]
-        public string ParametersURI { get; set; }
+        public string ParametersUri { get; set; }
 
         /// <summary>If included it must match the ContentVersion in the template.</summary>
         [JsonPropertyName("contentVersion")]
@@ -625,7 +625,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>Resource tags</summary>
         [JsonPropertyName("tags")]
-        public JsonElement? Tags { get; set; }
+        public Dictionary<string, string> Tags { get; set; }
 
         /// <summary>plan</summary>
         [JsonPropertyName("plan")]
@@ -751,7 +751,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
 
         /// <summary>The tags attached to the resource group.</summary>
         [JsonPropertyName("tags")]
-        public JsonElement? Tags { get; set; }
+        public Dictionary<string, string> Tags { get; set; }
 
         /// <summary>properties</summary>
         [JsonPropertyName("properties")]
@@ -1367,7 +1367,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             List<ObjectWithoutType> locations = default,
             List<AliasType> aliases = default,
             List<string> apiVersions = default,
-            JsonElement? properties = default)
+            Dictionary<string, string> properties = default)
         {
             return new ProviderResourceType
             {
@@ -1445,12 +1445,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// Creates a new instance of <see cref="TemplateLink"/>.
         /// </summary>
         public static TemplateLink TemplateLink(
-            string templateURI = default,
+            string templateUri = default,
             string templateContentVersion = default)
         {
             return new TemplateLink
             {
-                TemplateURI = templateURI,
+                TemplateUri = templateUri,
                 TemplateContentVersion = templateContentVersion,
             };
         }
@@ -1459,12 +1459,12 @@ namespace Azure.Connectors.Sdk.Arm.Models
         /// Creates a new instance of <see cref="ParametersLink"/>.
         /// </summary>
         public static ParametersLink ParametersLink(
-            string parametersURI = default,
+            string parametersUri = default,
             string parametersContentVersion = default)
         {
             return new ParametersLink
             {
-                ParametersURI = parametersURI,
+                ParametersUri = parametersUri,
                 ParametersContentVersion = parametersContentVersion,
             };
         }
@@ -1659,7 +1659,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             string name = default,
             string type = default,
             string location = default,
-            JsonElement? tags = default,
+            Dictionary<string, string> tags = default,
             Plan plan = default,
             string kind = default,
             string managedBy = default,
@@ -1747,7 +1747,7 @@ namespace Azure.Connectors.Sdk.Arm.Models
             string name = default,
             string location = default,
             string managedBy = default,
-            JsonElement? tags = default,
+            Dictionary<string, string> tags = default,
             ResourceGroupProperties properties = default)
         {
             return new ResourceGroup
@@ -3147,4 +3147,3 @@ namespace Azure.Connectors.Sdk.Arm
 
     #endregion Client
 }
-

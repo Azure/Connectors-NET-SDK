@@ -125,25 +125,48 @@ namespace Azure.Connectors.Sdk.Tests
         [TestMethod]
         public async Task GetItemsAsync_WithMockedResponse_ReturnsExpectedResult()
         {
-            var expectedResponse = new ItemsList();
-
-            using var responseMessage = new HttpResponseMessage
+            const string firstUrl = "https://test.azure.com/connection/drives/testlib/files/testfile.xlsx/tables/Table1/items?source=me";
+            const string nextUrl = "https://test.azure.com/connection/drives/testlib/files/testfile.xlsx/tables/Table1/items?$skiptoken=second";
+            var responses = new Queue<string>(new[]
             {
-                StatusCode = HttpStatusCode.OK,
-                Content = new StringContent(JsonSerializer.Serialize(expectedResponse))
-            };
+                $$"""{"value":[{"Name":"first"}],"@odata.nextLink":"{{nextUrl}}"}""",
+                """{"value":[{"Name":"second"}]}""",
+            });
+            var setup = ConnectorTestHelpers.CreateCapturingClientSetup(
+                () => new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(responses.Dequeue()),
+                });
+            using var client = new ExcelOnlineClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: setup.Credential,
+                options: setup.Options);
 
-            using var client = CreateMockedClient(responseMessage);
+            var pageable = client.GetItemsAsync(
+                documentLibrary: "testlib",
+                file: "testfile.xlsx",
+                table: "Table1",
+                cancellationToken: CancellationToken.None);
+            Assert.IsNull(setup.GetLastRequest(), "Page requests should be deferred until enumeration.");
 
-            var result = await client
-                .GetItemsAsync(
-                    documentLibrary: "testlib",
-                    file: "testfile.xlsx",
-                    table: "Table1",
-                    cancellationToken: CancellationToken.None)
-                .ConfigureAwait(continueOnCapturedContext: false);
+            var names = new List<string>();
+            var requestedUrls = new List<string>();
+            var continuations = new List<string?>();
+            await foreach (var page in pageable.AsPages().ConfigureAwait(continueOnCapturedContext: false))
+            {
+                var request = setup.GetLastRequest();
+                Assert.IsNotNull(request);
+                Assert.AreEqual(expected: HttpMethod.Get, actual: request.Method);
+                requestedUrls.Add(request.RequestUri!.AbsoluteUri);
+                Assert.HasCount(1, page.Values);
+                names.Add(page.Values[0].AdditionalProperties["Name"].GetString()!);
+                continuations.Add(page.ContinuationToken);
+            }
 
-            Assert.IsNotNull(result);
+            CollectionAssert.AreEqual(expected: new[] { firstUrl, nextUrl }, actual: requestedUrls);
+            CollectionAssert.AreEqual(expected: new[] { "first", "second" }, actual: names);
+            CollectionAssert.AreEqual(expected: new string?[] { nextUrl, null }, actual: continuations);
+            Assert.AreEqual(expected: 0, actual: responses.Count);
         }
 
         [TestMethod]
@@ -157,13 +180,19 @@ namespace Azure.Connectors.Sdk.Tests
 
             using var client = CreateMockedClient(responseMessage);
 
-            await Assert.ThrowsExactlyAsync<ConnectorException>(() =>
-                client.GetItemsAsync(
+            await Assert.ThrowsExactlyAsync<ConnectorException>(async () =>
+            {
+                await foreach (var page in client.GetItemsAsync(
                     documentLibrary: "testlib",
                     file: "testfile.xlsx",
                     table: "Table1",
-                    cancellationToken: CancellationToken.None))
-                .ConfigureAwait(continueOnCapturedContext: false);
+                    cancellationToken: CancellationToken.None)
+                    .AsPages()
+                    .ConfigureAwait(continueOnCapturedContext: false))
+                {
+                    Assert.Fail($"Unexpected page with {page.Values.Count} items.");
+                }
+            }).ConfigureAwait(continueOnCapturedContext: false);
         }
     }
 }

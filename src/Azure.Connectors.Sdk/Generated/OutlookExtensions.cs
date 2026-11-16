@@ -49,7 +49,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>The Bcc recipients for the message</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
         [JsonPropertyName("ReplyTo")]
@@ -101,7 +101,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Is Html?</summary>
         [JsonPropertyName("IsHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>The Bcc recipients for the message</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>The email addresses to use when replying</summary>
         [JsonPropertyName("ReplyTo")]
@@ -214,7 +214,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Is Html?</summary>
         [JsonPropertyName("IsHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
     }
 
     /// <summary>
@@ -265,7 +265,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         /// <summary>Additional table properties provided by the connector to the clients.</summary>
         [JsonPropertyName("DynamicProperties")]
         [JsonInclude]
-        public JsonElement? DynamicProperties { get; init; }
+        public Dictionary<string, ObjectEntity> DynamicProperties { get; init; }
     }
 
     /// <summary>
@@ -560,7 +560,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Set to true if the body is Html</summary>
         [JsonPropertyName("IsHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
 
         /// <summary>Location of the event</summary>
         [JsonPropertyName("Location")]
@@ -691,7 +691,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Set to true if the body is Html</summary>
         [JsonPropertyName("IsHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
 
         /// <summary>Location of the event</summary>
         [JsonPropertyName("Location")]
@@ -834,7 +834,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Set to true if the body is Html</summary>
         [JsonPropertyName("IsHtml")]
-        public bool? IsHTML { get; set; }
+        public bool? IsHtml { get; set; }
 
         /// <summary>Location of the event</summary>
         [JsonPropertyName("Location")]
@@ -893,6 +893,18 @@ namespace Azure.Connectors.Sdk.Outlook.Models
     }
 
     /// <summary>
+    /// Object
+    /// </summary>
+    public class ObjectEntity
+    {
+        /// <summary>
+        /// Arbitrary properties. This type has no static schema; any JSON properties will be captured here.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> AdditionalProperties { get; set; } = new();
+    }
+
+    /// <summary>
     /// Attachment
     /// </summary>
     public class ClientSendAttachment
@@ -933,7 +945,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Specify email addresses separated by semicolons like someone@contoso.com</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>Attachments</summary>
         [JsonPropertyName("Attachments")]
@@ -963,7 +975,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Example: recipient1@domain.com; recipient2@domain.com</summary>
         [JsonPropertyName("Bcc")]
-        public string BCC { get; set; }
+        public string Bcc { get; set; }
 
         /// <summary>Email subject (if empty, the original subject used).</summary>
         [JsonPropertyName("Subject")]
@@ -1039,15 +1051,15 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Use only HTML message</summary>
         [JsonPropertyName("UseOnlyHTMLMessage")]
-        public bool? UseOnlyHTMLMessage { get; set; }
+        public bool? UseOnlyHtmlMessage { get; set; }
 
         /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
         [JsonPropertyName("HideHTMLMessage")]
-        public bool? HideHTMLMessage { get; set; }
+        public bool? HideHtmlMessage { get; set; }
 
         /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
         [JsonPropertyName("ShowHTMLConfirmationDialog")]
-        public bool? ShowHTMLConfirmationDialog { get; set; }
+        public bool? ShowHtmlConfirmationDialog { get; set; }
     }
 
     /// <summary>
@@ -1103,15 +1115,15 @@ namespace Azure.Connectors.Sdk.Outlook.Models
 
         /// <summary>Use only HTML message</summary>
         [JsonPropertyName("UseOnlyHTMLMessage")]
-        public bool? UseOnlyHTMLMessage { get; set; }
+        public bool? UseOnlyHtmlMessage { get; set; }
 
         /// <summary>If set to Yes, then the email body is hidden and only message card is displayed. Email clients which do not support actionable messages will display HTML message regardless of the parameter value.</summary>
         [JsonPropertyName("HideHTMLMessage")]
-        public bool? HideHTMLMessage { get; set; }
+        public bool? HideHtmlMessage { get; set; }
 
         /// <summary>If set to Yes then a dialog wil be shown to confirm selected option of HTML message</summary>
         [JsonPropertyName("ShowHTMLConfirmationDialog")]
-        public bool? ShowHTMLConfirmationDialog { get; set; }
+        public bool? ShowHtmlConfirmationDialog { get; set; }
     }
 
     /// <summary>
@@ -1489,412 +1501,412 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         public OutlookTimeZone(string value) => this._value = value ?? throw new ArgumentNullException(nameof(value));
 
         /// <summary>(UTC-12:00) International Date Line West</summary>
-        public static OutlookTimeZone UTC1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
+        public static OutlookTimeZone Utc1200InternationalDateLineWest { get; } = new("(UTC-12:00) International Date Line West");
 
         /// <summary>(UTC-11:00) Coordinated Universal Time-11</summary>
-        public static OutlookTimeZone UTC1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
+        public static OutlookTimeZone Utc1100CoordinatedUniversalTime11 { get; } = new("(UTC-11:00) Coordinated Universal Time-11");
 
         /// <summary>(UTC-10:00) Aleutian Islands</summary>
-        public static OutlookTimeZone UTC1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
+        public static OutlookTimeZone Utc1000AleutianIslands { get; } = new("(UTC-10:00) Aleutian Islands");
 
         /// <summary>(UTC-10:00) Hawaii</summary>
-        public static OutlookTimeZone UTC1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
+        public static OutlookTimeZone Utc1000Hawaii { get; } = new("(UTC-10:00) Hawaii");
 
         /// <summary>(UTC-09:30) Marquesas Islands</summary>
-        public static OutlookTimeZone UTC0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
+        public static OutlookTimeZone Utc0930MarquesasIslands { get; } = new("(UTC-09:30) Marquesas Islands");
 
         /// <summary>(UTC-09:00) Alaska</summary>
-        public static OutlookTimeZone UTC0900Alaska { get; } = new("(UTC-09:00) Alaska");
+        public static OutlookTimeZone Utc0900Alaska { get; } = new("(UTC-09:00) Alaska");
 
         /// <summary>(UTC-09:00) Coordinated Universal Time-09</summary>
-        public static OutlookTimeZone UTC0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
+        public static OutlookTimeZone Utc0900CoordinatedUniversalTime09 { get; } = new("(UTC-09:00) Coordinated Universal Time-09");
 
         /// <summary>(UTC-08:00) Baja California</summary>
-        public static OutlookTimeZone UTC0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
+        public static OutlookTimeZone Utc0800BajaCalifornia { get; } = new("(UTC-08:00) Baja California");
 
         /// <summary>(UTC-08:00) Coordinated Universal Time-08</summary>
-        public static OutlookTimeZone UTC0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
+        public static OutlookTimeZone Utc0800CoordinatedUniversalTime08 { get; } = new("(UTC-08:00) Coordinated Universal Time-08");
 
         /// <summary>(UTC-08:00) Pacific Time (US &amp; Canada)</summary>
-        public static OutlookTimeZone UTC0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
+        public static OutlookTimeZone Utc0800PacificTimeUSCanada { get; } = new("(UTC-08:00) Pacific Time (US & Canada)");
 
         /// <summary>(UTC-07:00) Arizona</summary>
-        public static OutlookTimeZone UTC0700Arizona { get; } = new("(UTC-07:00) Arizona");
+        public static OutlookTimeZone Utc0700Arizona { get; } = new("(UTC-07:00) Arizona");
 
         /// <summary>(UTC-07:00) Chihuahua, La Paz, Mazatlan</summary>
-        public static OutlookTimeZone UTC0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
+        public static OutlookTimeZone Utc0700ChihuahuaLaPazMazatlan { get; } = new("(UTC-07:00) Chihuahua, La Paz, Mazatlan");
 
         /// <summary>(UTC-07:00) Mountain Time (US &amp; Canada)</summary>
-        public static OutlookTimeZone UTC0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
+        public static OutlookTimeZone Utc0700MountainTimeUSCanada { get; } = new("(UTC-07:00) Mountain Time (US & Canada)");
 
         /// <summary>(UTC-06:00) Central America</summary>
-        public static OutlookTimeZone UTC0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
+        public static OutlookTimeZone Utc0600CentralAmerica { get; } = new("(UTC-06:00) Central America");
 
         /// <summary>(UTC-06:00) Central Time (US &amp; Canada)</summary>
-        public static OutlookTimeZone UTC0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
+        public static OutlookTimeZone Utc0600CentralTimeUSCanada { get; } = new("(UTC-06:00) Central Time (US & Canada)");
 
         /// <summary>(UTC-06:00) Easter Island</summary>
-        public static OutlookTimeZone UTC0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
+        public static OutlookTimeZone Utc0600EasterIsland { get; } = new("(UTC-06:00) Easter Island");
 
         /// <summary>(UTC-06:00) Guadalajara, Mexico City, Monterrey</summary>
-        public static OutlookTimeZone UTC0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
+        public static OutlookTimeZone Utc0600GuadalajaraMexicoCityMonterrey { get; } = new("(UTC-06:00) Guadalajara, Mexico City, Monterrey");
 
         /// <summary>(UTC-06:00) Saskatchewan</summary>
-        public static OutlookTimeZone UTC0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
+        public static OutlookTimeZone Utc0600Saskatchewan { get; } = new("(UTC-06:00) Saskatchewan");
 
         /// <summary>(UTC-05:00) Bogota, Lima, Quito, Rio Branco</summary>
-        public static OutlookTimeZone UTC0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
+        public static OutlookTimeZone Utc0500BogotaLimaQuitoRioBranco { get; } = new("(UTC-05:00) Bogota, Lima, Quito, Rio Branco");
 
         /// <summary>(UTC-05:00) Chetumal</summary>
-        public static OutlookTimeZone UTC0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
+        public static OutlookTimeZone Utc0500Chetumal { get; } = new("(UTC-05:00) Chetumal");
 
         /// <summary>(UTC-05:00) Eastern Time (US &amp; Canada)</summary>
-        public static OutlookTimeZone UTC0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
+        public static OutlookTimeZone Utc0500EasternTimeUSCanada { get; } = new("(UTC-05:00) Eastern Time (US & Canada)");
 
         /// <summary>(UTC-05:00) Haiti</summary>
-        public static OutlookTimeZone UTC0500Haiti { get; } = new("(UTC-05:00) Haiti");
+        public static OutlookTimeZone Utc0500Haiti { get; } = new("(UTC-05:00) Haiti");
 
         /// <summary>(UTC-05:00) Havana</summary>
-        public static OutlookTimeZone UTC0500Havana { get; } = new("(UTC-05:00) Havana");
+        public static OutlookTimeZone Utc0500Havana { get; } = new("(UTC-05:00) Havana");
 
         /// <summary>(UTC-05:00) Indiana (East)</summary>
-        public static OutlookTimeZone UTC0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
+        public static OutlookTimeZone Utc0500IndianaEast { get; } = new("(UTC-05:00) Indiana (East)");
 
         /// <summary>(UTC-04:00) Asuncion</summary>
-        public static OutlookTimeZone UTC0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
+        public static OutlookTimeZone Utc0400Asuncion { get; } = new("(UTC-04:00) Asuncion");
 
         /// <summary>(UTC-04:00) Atlantic Time (Canada)</summary>
-        public static OutlookTimeZone UTC0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
+        public static OutlookTimeZone Utc0400AtlanticTimeCanada { get; } = new("(UTC-04:00) Atlantic Time (Canada)");
 
         /// <summary>(UTC-04:00) Caracas</summary>
-        public static OutlookTimeZone UTC0400Caracas { get; } = new("(UTC-04:00) Caracas");
+        public static OutlookTimeZone Utc0400Caracas { get; } = new("(UTC-04:00) Caracas");
 
         /// <summary>(UTC-04:00) Cuiaba</summary>
-        public static OutlookTimeZone UTC0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
+        public static OutlookTimeZone Utc0400Cuiaba { get; } = new("(UTC-04:00) Cuiaba");
 
         /// <summary>(UTC-04:00) Georgetown, La Paz, Manaus, San Juan</summary>
-        public static OutlookTimeZone UTC0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
+        public static OutlookTimeZone Utc0400GeorgetownLaPazManausSanJuan { get; } = new("(UTC-04:00) Georgetown, La Paz, Manaus, San Juan");
 
         /// <summary>(UTC-04:00) Santiago</summary>
-        public static OutlookTimeZone UTC0400Santiago { get; } = new("(UTC-04:00) Santiago");
+        public static OutlookTimeZone Utc0400Santiago { get; } = new("(UTC-04:00) Santiago");
 
         /// <summary>(UTC-04:00) Turks and Caicos</summary>
-        public static OutlookTimeZone UTC0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
+        public static OutlookTimeZone Utc0400TurksAndCaicos { get; } = new("(UTC-04:00) Turks and Caicos");
 
         /// <summary>(UTC-03:30) Newfoundland</summary>
-        public static OutlookTimeZone UTC0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
+        public static OutlookTimeZone Utc0330Newfoundland { get; } = new("(UTC-03:30) Newfoundland");
 
         /// <summary>(UTC-03:00) Araguaina</summary>
-        public static OutlookTimeZone UTC0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
+        public static OutlookTimeZone Utc0300Araguaina { get; } = new("(UTC-03:00) Araguaina");
 
         /// <summary>(UTC-03:00) Brasilia</summary>
-        public static OutlookTimeZone UTC0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
+        public static OutlookTimeZone Utc0300Brasilia { get; } = new("(UTC-03:00) Brasilia");
 
         /// <summary>(UTC-03:00) Cayenne, Fortaleza</summary>
-        public static OutlookTimeZone UTC0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
+        public static OutlookTimeZone Utc0300CayenneFortaleza { get; } = new("(UTC-03:00) Cayenne, Fortaleza");
 
         /// <summary>(UTC-03:00) City of Buenos Aires</summary>
-        public static OutlookTimeZone UTC0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
+        public static OutlookTimeZone Utc0300CityOfBuenosAires { get; } = new("(UTC-03:00) City of Buenos Aires");
 
         /// <summary>(UTC-03:00) Greenland</summary>
-        public static OutlookTimeZone UTC0300Greenland { get; } = new("(UTC-03:00) Greenland");
+        public static OutlookTimeZone Utc0300Greenland { get; } = new("(UTC-03:00) Greenland");
 
         /// <summary>(UTC-03:00) Montevideo</summary>
-        public static OutlookTimeZone UTC0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
+        public static OutlookTimeZone Utc0300Montevideo { get; } = new("(UTC-03:00) Montevideo");
 
         /// <summary>(UTC-03:00) Punta Arenas</summary>
-        public static OutlookTimeZone UTC0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
+        public static OutlookTimeZone Utc0300PuntaArenas { get; } = new("(UTC-03:00) Punta Arenas");
 
         /// <summary>(UTC-03:00) Saint Pierre and Miquelon</summary>
-        public static OutlookTimeZone UTC0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
+        public static OutlookTimeZone Utc0300SaintPierreAndMiquelon { get; } = new("(UTC-03:00) Saint Pierre and Miquelon");
 
         /// <summary>(UTC-03:00) Salvador</summary>
-        public static OutlookTimeZone UTC0300Salvador { get; } = new("(UTC-03:00) Salvador");
+        public static OutlookTimeZone Utc0300Salvador { get; } = new("(UTC-03:00) Salvador");
 
         /// <summary>(UTC-02:00) Coordinated Universal Time-02</summary>
-        public static OutlookTimeZone UTC0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
+        public static OutlookTimeZone Utc0200CoordinatedUniversalTime02 { get; } = new("(UTC-02:00) Coordinated Universal Time-02");
 
         /// <summary>(UTC-02:00) Mid-Atlantic - Old</summary>
-        public static OutlookTimeZone UTC0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
+        public static OutlookTimeZone Utc0200MidAtlanticOld { get; } = new("(UTC-02:00) Mid-Atlantic - Old");
 
         /// <summary>(UTC-01:00) Azores</summary>
-        public static OutlookTimeZone UTC0100Azores { get; } = new("(UTC-01:00) Azores");
+        public static OutlookTimeZone Utc0100Azores { get; } = new("(UTC-01:00) Azores");
 
         /// <summary>(UTC-01:00) Cabo Verde Is.</summary>
-        public static OutlookTimeZone UTC0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
+        public static OutlookTimeZone Utc0100CaboVerdeIs { get; } = new("(UTC-01:00) Cabo Verde Is.");
 
         /// <summary>(UTC) Coordinated Universal Time</summary>
-        public static OutlookTimeZone UTCCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
+        public static OutlookTimeZone UtcCoordinatedUniversalTime { get; } = new("(UTC) Coordinated Universal Time");
 
         /// <summary>(UTC+00:00) Casablanca</summary>
-        public static OutlookTimeZone UTC0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
+        public static OutlookTimeZone Utc0000Casablanca { get; } = new("(UTC+00:00) Casablanca");
 
         /// <summary>(UTC+00:00) Dublin, Edinburgh, Lisbon, London</summary>
-        public static OutlookTimeZone UTC0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
+        public static OutlookTimeZone Utc0000DublinEdinburghLisbonLondon { get; } = new("(UTC+00:00) Dublin, Edinburgh, Lisbon, London");
 
         /// <summary>(UTC+00:00) Monrovia, Reykjavik</summary>
-        public static OutlookTimeZone UTC0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
+        public static OutlookTimeZone Utc0000MonroviaReykjavik { get; } = new("(UTC+00:00) Monrovia, Reykjavik");
 
         /// <summary>(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</summary>
-        public static OutlookTimeZone UTC0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
+        public static OutlookTimeZone Utc0100AmsterdamBerlinBernRomeStockholmVienna { get; } = new("(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna");
 
         /// <summary>(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</summary>
-        public static OutlookTimeZone UTC0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
+        public static OutlookTimeZone Utc0100BelgradeBratislavaBudapestLjubljanaPrague { get; } = new("(UTC+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague");
 
         /// <summary>(UTC+01:00) Brussels, Copenhagen, Madrid, Paris</summary>
-        public static OutlookTimeZone UTC0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
+        public static OutlookTimeZone Utc0100BrusselsCopenhagenMadridParis { get; } = new("(UTC+01:00) Brussels, Copenhagen, Madrid, Paris");
 
         /// <summary>(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb</summary>
-        public static OutlookTimeZone UTC0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
+        public static OutlookTimeZone Utc0100SarajevoSkopjeWarsawZagreb { get; } = new("(UTC+01:00) Sarajevo, Skopje, Warsaw, Zagreb");
 
         /// <summary>(UTC+01:00) West Central Africa</summary>
-        public static OutlookTimeZone UTC0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
+        public static OutlookTimeZone Utc0100WestCentralAfrica { get; } = new("(UTC+01:00) West Central Africa");
 
         /// <summary>(UTC+01:00) Windhoek</summary>
-        public static OutlookTimeZone UTC0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
+        public static OutlookTimeZone Utc0100Windhoek { get; } = new("(UTC+01:00) Windhoek");
 
         /// <summary>(UTC+02:00) Amman</summary>
-        public static OutlookTimeZone UTC0200Amman { get; } = new("(UTC+02:00) Amman");
+        public static OutlookTimeZone Utc0200Amman { get; } = new("(UTC+02:00) Amman");
 
         /// <summary>(UTC+02:00) Athens, Bucharest</summary>
-        public static OutlookTimeZone UTC0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
+        public static OutlookTimeZone Utc0200AthensBucharest { get; } = new("(UTC+02:00) Athens, Bucharest");
 
         /// <summary>(UTC+02:00) Beirut</summary>
-        public static OutlookTimeZone UTC0200Beirut { get; } = new("(UTC+02:00) Beirut");
+        public static OutlookTimeZone Utc0200Beirut { get; } = new("(UTC+02:00) Beirut");
 
         /// <summary>(UTC+02:00) Cairo</summary>
-        public static OutlookTimeZone UTC0200Cairo { get; } = new("(UTC+02:00) Cairo");
+        public static OutlookTimeZone Utc0200Cairo { get; } = new("(UTC+02:00) Cairo");
 
         /// <summary>(UTC+02:00) Chisinau</summary>
-        public static OutlookTimeZone UTC0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
+        public static OutlookTimeZone Utc0200Chisinau { get; } = new("(UTC+02:00) Chisinau");
 
         /// <summary>(UTC+02:00) Damascus</summary>
-        public static OutlookTimeZone UTC0200Damascus { get; } = new("(UTC+02:00) Damascus");
+        public static OutlookTimeZone Utc0200Damascus { get; } = new("(UTC+02:00) Damascus");
 
         /// <summary>(UTC+02:00) Gaza, Hebron</summary>
-        public static OutlookTimeZone UTC0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
+        public static OutlookTimeZone Utc0200GazaHebron { get; } = new("(UTC+02:00) Gaza, Hebron");
 
         /// <summary>(UTC+02:00) Harare, Pretoria</summary>
-        public static OutlookTimeZone UTC0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
+        public static OutlookTimeZone Utc0200HararePretoria { get; } = new("(UTC+02:00) Harare, Pretoria");
 
         /// <summary>(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</summary>
-        public static OutlookTimeZone UTC0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
+        public static OutlookTimeZone Utc0200HelsinkiKyivRigaSofiaTallinnVilnius { get; } = new("(UTC+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius");
 
         /// <summary>(UTC+02:00) Jerusalem</summary>
-        public static OutlookTimeZone UTC0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
+        public static OutlookTimeZone Utc0200Jerusalem { get; } = new("(UTC+02:00) Jerusalem");
 
         /// <summary>(UTC+02:00) Kaliningrad</summary>
-        public static OutlookTimeZone UTC0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
+        public static OutlookTimeZone Utc0200Kaliningrad { get; } = new("(UTC+02:00) Kaliningrad");
 
         /// <summary>(UTC+02:00) Tripoli</summary>
-        public static OutlookTimeZone UTC0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
+        public static OutlookTimeZone Utc0200Tripoli { get; } = new("(UTC+02:00) Tripoli");
 
         /// <summary>(UTC+03:00) Baghdad</summary>
-        public static OutlookTimeZone UTC0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
+        public static OutlookTimeZone Utc0300Baghdad { get; } = new("(UTC+03:00) Baghdad");
 
         /// <summary>(UTC+03:00) Istanbul</summary>
-        public static OutlookTimeZone UTC0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
+        public static OutlookTimeZone Utc0300Istanbul { get; } = new("(UTC+03:00) Istanbul");
 
         /// <summary>(UTC+03:00) Kuwait, Riyadh</summary>
-        public static OutlookTimeZone UTC0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
+        public static OutlookTimeZone Utc0300KuwaitRiyadh { get; } = new("(UTC+03:00) Kuwait, Riyadh");
 
         /// <summary>(UTC+03:00) Minsk</summary>
-        public static OutlookTimeZone UTC0300Minsk { get; } = new("(UTC+03:00) Minsk");
+        public static OutlookTimeZone Utc0300Minsk { get; } = new("(UTC+03:00) Minsk");
 
         /// <summary>(UTC+03:00) Moscow, St. Petersburg</summary>
-        public static OutlookTimeZone UTC0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
+        public static OutlookTimeZone Utc0300MoscowStPetersburg { get; } = new("(UTC+03:00) Moscow, St. Petersburg");
 
         /// <summary>(UTC+03:00) Nairobi</summary>
-        public static OutlookTimeZone UTC0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
+        public static OutlookTimeZone Utc0300Nairobi { get; } = new("(UTC+03:00) Nairobi");
 
         /// <summary>(UTC+03:30) Tehran</summary>
-        public static OutlookTimeZone UTC0330Tehran { get; } = new("(UTC+03:30) Tehran");
+        public static OutlookTimeZone Utc0330Tehran { get; } = new("(UTC+03:30) Tehran");
 
         /// <summary>(UTC+04:00) Abu Dhabi, Muscat</summary>
-        public static OutlookTimeZone UTC0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
+        public static OutlookTimeZone Utc0400AbuDhabiMuscat { get; } = new("(UTC+04:00) Abu Dhabi, Muscat");
 
         /// <summary>(UTC+04:00) Astrakhan, Ulyanovsk</summary>
-        public static OutlookTimeZone UTC0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
+        public static OutlookTimeZone Utc0400AstrakhanUlyanovsk { get; } = new("(UTC+04:00) Astrakhan, Ulyanovsk");
 
         /// <summary>(UTC+04:00) Baku</summary>
-        public static OutlookTimeZone UTC0400Baku { get; } = new("(UTC+04:00) Baku");
+        public static OutlookTimeZone Utc0400Baku { get; } = new("(UTC+04:00) Baku");
 
         /// <summary>(UTC+04:00) Izhevsk, Samara</summary>
-        public static OutlookTimeZone UTC0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
+        public static OutlookTimeZone Utc0400IzhevskSamara { get; } = new("(UTC+04:00) Izhevsk, Samara");
 
         /// <summary>(UTC+04:00) Port Louis</summary>
-        public static OutlookTimeZone UTC0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
+        public static OutlookTimeZone Utc0400PortLouis { get; } = new("(UTC+04:00) Port Louis");
 
         /// <summary>(UTC+04:00) Saratov</summary>
-        public static OutlookTimeZone UTC0400Saratov { get; } = new("(UTC+04:00) Saratov");
+        public static OutlookTimeZone Utc0400Saratov { get; } = new("(UTC+04:00) Saratov");
 
         /// <summary>(UTC+04:00) Tbilisi</summary>
-        public static OutlookTimeZone UTC0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
+        public static OutlookTimeZone Utc0400Tbilisi { get; } = new("(UTC+04:00) Tbilisi");
 
         /// <summary>(UTC+04:00) Volgograd</summary>
-        public static OutlookTimeZone UTC0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
+        public static OutlookTimeZone Utc0400Volgograd { get; } = new("(UTC+04:00) Volgograd");
 
         /// <summary>(UTC+04:00) Yerevan</summary>
-        public static OutlookTimeZone UTC0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
+        public static OutlookTimeZone Utc0400Yerevan { get; } = new("(UTC+04:00) Yerevan");
 
         /// <summary>(UTC+04:30) Kabul</summary>
-        public static OutlookTimeZone UTC0430Kabul { get; } = new("(UTC+04:30) Kabul");
+        public static OutlookTimeZone Utc0430Kabul { get; } = new("(UTC+04:30) Kabul");
 
         /// <summary>(UTC+05:00) Ashgabat, Tashkent</summary>
-        public static OutlookTimeZone UTC0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
+        public static OutlookTimeZone Utc0500AshgabatTashkent { get; } = new("(UTC+05:00) Ashgabat, Tashkent");
 
         /// <summary>(UTC+05:00) Ekaterinburg</summary>
-        public static OutlookTimeZone UTC0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
+        public static OutlookTimeZone Utc0500Ekaterinburg { get; } = new("(UTC+05:00) Ekaterinburg");
 
         /// <summary>(UTC+05:00) Islamabad, Karachi</summary>
-        public static OutlookTimeZone UTC0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
+        public static OutlookTimeZone Utc0500IslamabadKarachi { get; } = new("(UTC+05:00) Islamabad, Karachi");
 
         /// <summary>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</summary>
-        public static OutlookTimeZone UTC0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
+        public static OutlookTimeZone Utc0530ChennaiKolkataMumbaiNewDelhi { get; } = new("(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi");
 
         /// <summary>(UTC+05:30) Sri Jayawardenepura</summary>
-        public static OutlookTimeZone UTC0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
+        public static OutlookTimeZone Utc0530SriJayawardenepura { get; } = new("(UTC+05:30) Sri Jayawardenepura");
 
         /// <summary>(UTC+05:45) Kathmandu</summary>
-        public static OutlookTimeZone UTC0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
+        public static OutlookTimeZone Utc0545Kathmandu { get; } = new("(UTC+05:45) Kathmandu");
 
         /// <summary>(UTC+06:00) Astana</summary>
-        public static OutlookTimeZone UTC0600Astana { get; } = new("(UTC+06:00) Astana");
+        public static OutlookTimeZone Utc0600Astana { get; } = new("(UTC+06:00) Astana");
 
         /// <summary>(UTC+06:00) Dhaka</summary>
-        public static OutlookTimeZone UTC0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
+        public static OutlookTimeZone Utc0600Dhaka { get; } = new("(UTC+06:00) Dhaka");
 
         /// <summary>(UTC+06:00) Omsk</summary>
-        public static OutlookTimeZone UTC0600Omsk { get; } = new("(UTC+06:00) Omsk");
+        public static OutlookTimeZone Utc0600Omsk { get; } = new("(UTC+06:00) Omsk");
 
         /// <summary>(UTC+06:30) Yangon (Rangoon)</summary>
-        public static OutlookTimeZone UTC0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
+        public static OutlookTimeZone Utc0630YangonRangoon { get; } = new("(UTC+06:30) Yangon (Rangoon)");
 
         /// <summary>(UTC+07:00) Bangkok, Hanoi, Jakarta</summary>
-        public static OutlookTimeZone UTC0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
+        public static OutlookTimeZone Utc0700BangkokHanoiJakarta { get; } = new("(UTC+07:00) Bangkok, Hanoi, Jakarta");
 
         /// <summary>(UTC+07:00) Barnaul, Gorno-Altaysk</summary>
-        public static OutlookTimeZone UTC0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
+        public static OutlookTimeZone Utc0700BarnaulGornoAltaysk { get; } = new("(UTC+07:00) Barnaul, Gorno-Altaysk");
 
         /// <summary>(UTC+07:00) Hovd</summary>
-        public static OutlookTimeZone UTC0700Hovd { get; } = new("(UTC+07:00) Hovd");
+        public static OutlookTimeZone Utc0700Hovd { get; } = new("(UTC+07:00) Hovd");
 
         /// <summary>(UTC+07:00) Krasnoyarsk</summary>
-        public static OutlookTimeZone UTC0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
+        public static OutlookTimeZone Utc0700Krasnoyarsk { get; } = new("(UTC+07:00) Krasnoyarsk");
 
         /// <summary>(UTC+07:00) Novosibirsk</summary>
-        public static OutlookTimeZone UTC0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
+        public static OutlookTimeZone Utc0700Novosibirsk { get; } = new("(UTC+07:00) Novosibirsk");
 
         /// <summary>(UTC+07:00) Tomsk</summary>
-        public static OutlookTimeZone UTC0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
+        public static OutlookTimeZone Utc0700Tomsk { get; } = new("(UTC+07:00) Tomsk");
 
         /// <summary>(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi</summary>
-        public static OutlookTimeZone UTC0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
+        public static OutlookTimeZone Utc0800BeijingChongqingHongKongUrumqi { get; } = new("(UTC+08:00) Beijing, Chongqing, Hong Kong, Urumqi");
 
         /// <summary>(UTC+08:00) Irkutsk</summary>
-        public static OutlookTimeZone UTC0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
+        public static OutlookTimeZone Utc0800Irkutsk { get; } = new("(UTC+08:00) Irkutsk");
 
         /// <summary>(UTC+08:00) Kuala Lumpur, Singapore</summary>
-        public static OutlookTimeZone UTC0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
+        public static OutlookTimeZone Utc0800KualaLumpurSingapore { get; } = new("(UTC+08:00) Kuala Lumpur, Singapore");
 
         /// <summary>(UTC+08:00) Perth</summary>
-        public static OutlookTimeZone UTC0800Perth { get; } = new("(UTC+08:00) Perth");
+        public static OutlookTimeZone Utc0800Perth { get; } = new("(UTC+08:00) Perth");
 
         /// <summary>(UTC+08:00) Taipei</summary>
-        public static OutlookTimeZone UTC0800Taipei { get; } = new("(UTC+08:00) Taipei");
+        public static OutlookTimeZone Utc0800Taipei { get; } = new("(UTC+08:00) Taipei");
 
         /// <summary>(UTC+08:00) Ulaanbaatar</summary>
-        public static OutlookTimeZone UTC0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
+        public static OutlookTimeZone Utc0800Ulaanbaatar { get; } = new("(UTC+08:00) Ulaanbaatar");
 
         /// <summary>(UTC+08:30) Pyongyang</summary>
-        public static OutlookTimeZone UTC0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
+        public static OutlookTimeZone Utc0830Pyongyang { get; } = new("(UTC+08:30) Pyongyang");
 
         /// <summary>(UTC+08:45) Eucla</summary>
-        public static OutlookTimeZone UTC0845Eucla { get; } = new("(UTC+08:45) Eucla");
+        public static OutlookTimeZone Utc0845Eucla { get; } = new("(UTC+08:45) Eucla");
 
         /// <summary>(UTC+09:00) Chita</summary>
-        public static OutlookTimeZone UTC0900Chita { get; } = new("(UTC+09:00) Chita");
+        public static OutlookTimeZone Utc0900Chita { get; } = new("(UTC+09:00) Chita");
 
         /// <summary>(UTC+09:00) Osaka, Sapporo, Tokyo</summary>
-        public static OutlookTimeZone UTC0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
+        public static OutlookTimeZone Utc0900OsakaSapporoTokyo { get; } = new("(UTC+09:00) Osaka, Sapporo, Tokyo");
 
         /// <summary>(UTC+09:00) Seoul</summary>
-        public static OutlookTimeZone UTC0900Seoul { get; } = new("(UTC+09:00) Seoul");
+        public static OutlookTimeZone Utc0900Seoul { get; } = new("(UTC+09:00) Seoul");
 
         /// <summary>(UTC+09:00) Yakutsk</summary>
-        public static OutlookTimeZone UTC0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
+        public static OutlookTimeZone Utc0900Yakutsk { get; } = new("(UTC+09:00) Yakutsk");
 
         /// <summary>(UTC+09:30) Adelaide</summary>
-        public static OutlookTimeZone UTC0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
+        public static OutlookTimeZone Utc0930Adelaide { get; } = new("(UTC+09:30) Adelaide");
 
         /// <summary>(UTC+09:30) Darwin</summary>
-        public static OutlookTimeZone UTC0930Darwin { get; } = new("(UTC+09:30) Darwin");
+        public static OutlookTimeZone Utc0930Darwin { get; } = new("(UTC+09:30) Darwin");
 
         /// <summary>(UTC+10:00) Brisbane</summary>
-        public static OutlookTimeZone UTC1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
+        public static OutlookTimeZone Utc1000Brisbane { get; } = new("(UTC+10:00) Brisbane");
 
         /// <summary>(UTC+10:00) Canberra, Melbourne, Sydney</summary>
-        public static OutlookTimeZone UTC1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
+        public static OutlookTimeZone Utc1000CanberraMelbourneSydney { get; } = new("(UTC+10:00) Canberra, Melbourne, Sydney");
 
         /// <summary>(UTC+10:00) Guam, Port Moresby</summary>
-        public static OutlookTimeZone UTC1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
+        public static OutlookTimeZone Utc1000GuamPortMoresby { get; } = new("(UTC+10:00) Guam, Port Moresby");
 
         /// <summary>(UTC+10:00) Hobart</summary>
-        public static OutlookTimeZone UTC1000Hobart { get; } = new("(UTC+10:00) Hobart");
+        public static OutlookTimeZone Utc1000Hobart { get; } = new("(UTC+10:00) Hobart");
 
         /// <summary>(UTC+10:00) Vladivostok</summary>
-        public static OutlookTimeZone UTC1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
+        public static OutlookTimeZone Utc1000Vladivostok { get; } = new("(UTC+10:00) Vladivostok");
 
         /// <summary>(UTC+10:30) Lord Howe Island</summary>
-        public static OutlookTimeZone UTC1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
+        public static OutlookTimeZone Utc1030LordHoweIsland { get; } = new("(UTC+10:30) Lord Howe Island");
 
         /// <summary>(UTC+11:00) Bougainville Island</summary>
-        public static OutlookTimeZone UTC1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
+        public static OutlookTimeZone Utc1100BougainvilleIsland { get; } = new("(UTC+11:00) Bougainville Island");
 
         /// <summary>(UTC+11:00) Chokurdakh</summary>
-        public static OutlookTimeZone UTC1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
+        public static OutlookTimeZone Utc1100Chokurdakh { get; } = new("(UTC+11:00) Chokurdakh");
 
         /// <summary>(UTC+11:00) Magadan</summary>
-        public static OutlookTimeZone UTC1100Magadan { get; } = new("(UTC+11:00) Magadan");
+        public static OutlookTimeZone Utc1100Magadan { get; } = new("(UTC+11:00) Magadan");
 
         /// <summary>(UTC+11:00) Norfolk Island</summary>
-        public static OutlookTimeZone UTC1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
+        public static OutlookTimeZone Utc1100NorfolkIsland { get; } = new("(UTC+11:00) Norfolk Island");
 
         /// <summary>(UTC+11:00) Sakhalin</summary>
-        public static OutlookTimeZone UTC1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
+        public static OutlookTimeZone Utc1100Sakhalin { get; } = new("(UTC+11:00) Sakhalin");
 
         /// <summary>(UTC+11:00) Solomon Is., New Caledonia</summary>
-        public static OutlookTimeZone UTC1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
+        public static OutlookTimeZone Utc1100SolomonIsNewCaledonia { get; } = new("(UTC+11:00) Solomon Is., New Caledonia");
 
         /// <summary>(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky</summary>
-        public static OutlookTimeZone UTC1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
+        public static OutlookTimeZone Utc1200AnadyrPetropavlovskKamchatsky { get; } = new("(UTC+12:00) Anadyr, Petropavlovsk-Kamchatsky");
 
         /// <summary>(UTC+12:00) Auckland, Wellington</summary>
-        public static OutlookTimeZone UTC1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
+        public static OutlookTimeZone Utc1200AucklandWellington { get; } = new("(UTC+12:00) Auckland, Wellington");
 
         /// <summary>(UTC+12:00) Coordinated Universal Time+12</summary>
-        public static OutlookTimeZone UTC1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
+        public static OutlookTimeZone Utc1200CoordinatedUniversalTime12 { get; } = new("(UTC+12:00) Coordinated Universal Time+12");
 
         /// <summary>(UTC+12:00) Fiji</summary>
-        public static OutlookTimeZone UTC1200Fiji { get; } = new("(UTC+12:00) Fiji");
+        public static OutlookTimeZone Utc1200Fiji { get; } = new("(UTC+12:00) Fiji");
 
         /// <summary>(UTC+12:00) Petropavlovsk-Kamchatsky - Old</summary>
-        public static OutlookTimeZone UTC1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
+        public static OutlookTimeZone Utc1200PetropavlovskKamchatskyOld { get; } = new("(UTC+12:00) Petropavlovsk-Kamchatsky - Old");
 
         /// <summary>(UTC+12:45) Chatham Islands</summary>
-        public static OutlookTimeZone UTC1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
+        public static OutlookTimeZone Utc1245ChathamIslands { get; } = new("(UTC+12:45) Chatham Islands");
 
         /// <summary>(UTC+13:00) Coordinated Universal Time+13</summary>
-        public static OutlookTimeZone UTC1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
+        public static OutlookTimeZone Utc1300CoordinatedUniversalTime13 { get; } = new("(UTC+13:00) Coordinated Universal Time+13");
 
         /// <summary>(UTC+13:00) Nuku&apos;alofa</summary>
-        public static OutlookTimeZone UTC1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
+        public static OutlookTimeZone Utc1300NukuAlofa { get; } = new("(UTC+13:00) Nuku'alofa");
 
         /// <summary>(UTC+13:00) Samoa</summary>
-        public static OutlookTimeZone UTC1300Samoa { get; } = new("(UTC+13:00) Samoa");
+        public static OutlookTimeZone Utc1300Samoa { get; } = new("(UTC+13:00) Samoa");
 
         /// <summary>(UTC+14:00) Kiritimati Island</summary>
-        public static OutlookTimeZone UTC1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
+        public static OutlookTimeZone Utc1400KiritimatiIsland { get; } = new("(UTC+14:00) Kiritimati Island");
 
         /// <summary>Converts a string to <see cref="OutlookTimeZone"/>.</summary>
         public static implicit operator OutlookTimeZone(string value) => new(value);
@@ -2148,14 +2160,14 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             DateTime? receivedTime = default,
             bool? isRead = default,
             List<ClientReceiveFileAttachment> attachments = default,
-            bool? isHTML = default)
+            bool? isHtml = default)
         {
             return new ClientReceiveMessage
             {
                 From = from,
                 To = to,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 ReplyTo = replyTo,
                 Subject = subject,
                 Body = body,
@@ -2168,7 +2180,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 ReceivedTime = receivedTime,
                 IsRead = isRead,
                 Attachments = attachments,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
             };
         }
 
@@ -2218,7 +2230,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             DateTime? receivedTime = default,
             bool? isRead = default,
             List<ClientReceiveFileAttachment> attachments = default,
-            bool? isHTML = default)
+            bool? isHtml = default)
         {
             return new ClientReceiveMessageStringEnums
             {
@@ -2226,7 +2238,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 From = from,
                 To = to,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 ReplyTo = replyTo,
                 Subject = subject,
                 Body = body,
@@ -2238,7 +2250,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 ReceivedTime = receivedTime,
                 IsRead = isRead,
                 Attachments = attachments,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
             };
         }
 
@@ -2278,7 +2290,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
         public static Table Table(
             string name = default,
             string displayName = default,
-            JsonElement? dynamicProperties = default)
+            Dictionary<string, ObjectEntity> dynamicProperties = default)
         {
             return new Table
             {
@@ -2439,7 +2451,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             string optionalAttendees = default,
             string resourceAttendees = default,
             string body = default,
-            bool? isHTML = default,
+            bool? isHtml = default,
             string location = default,
             bool? isAllDayEvent = default,
             DateTime? recurrenceEndTime = default,
@@ -2470,7 +2482,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 OptionalAttendees = optionalAttendees,
                 ResourceAttendees = resourceAttendees,
                 Body = body,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
                 Location = location,
                 IsAllDayEvent = isAllDayEvent,
                 RecurrenceEndTime = recurrenceEndTime,
@@ -2517,7 +2529,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             string optionalAttendees = default,
             string resourceAttendees = default,
             string body = default,
-            bool? isHTML = default,
+            bool? isHtml = default,
             string location = default,
             bool? isAllDayEvent = default,
             DateTime? recurrenceEndTime = default,
@@ -2548,7 +2560,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 OptionalAttendees = optionalAttendees,
                 ResourceAttendees = resourceAttendees,
                 Body = body,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
                 Location = location,
                 IsAllDayEvent = isAllDayEvent,
                 RecurrenceEndTime = recurrenceEndTime,
@@ -2598,7 +2610,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             string optionalAttendees = default,
             string resourceAttendees = default,
             string body = default,
-            bool? isHTML = default,
+            bool? isHtml = default,
             string location = default,
             bool? isAllDayEvent = default,
             DateTime? recurrenceEndTime = default,
@@ -2632,7 +2644,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 OptionalAttendees = optionalAttendees,
                 ResourceAttendees = resourceAttendees,
                 Body = body,
-                IsHTML = isHTML,
+                IsHtml = isHtml,
                 Location = location,
                 IsAllDayEvent = isAllDayEvent,
                 RecurrenceEndTime = recurrenceEndTime,
@@ -2713,7 +2725,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 Body = body,
                 FromSendAs = fromSendAs,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 Attachments = attachments,
                 ReplyTo = replyTo,
                 Importance = importance,
@@ -2737,7 +2749,7 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             {
                 To = to,
                 CC = cc,
-                BCC = bcc,
+                Bcc = bcc,
                 Subject = subject,
                 Body = body,
                 ReplyAll = replyAll,
@@ -2772,9 +2784,9 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             string body = default,
             Importance? importance = default,
             List<ClientSendAttachment> attachments = default,
-            bool? useOnlyHTMLMessage = default,
-            bool? hideHTMLMessage = default,
-            bool? showHTMLConfirmationDialog = default)
+            bool? useOnlyHtmlMessage = default,
+            bool? hideHtmlMessage = default,
+            bool? showHtmlConfirmationDialog = default)
         {
             return new MessageWithOptions
             {
@@ -2786,9 +2798,9 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 Body = body,
                 Importance = importance,
                 Attachments = attachments,
-                UseOnlyHTMLMessage = useOnlyHTMLMessage,
-                HideHTMLMessage = hideHTMLMessage,
-                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+                UseOnlyHtmlMessage = useOnlyHtmlMessage,
+                HideHtmlMessage = hideHtmlMessage,
+                ShowHtmlConfirmationDialog = showHtmlConfirmationDialog,
             };
         }
 
@@ -2818,9 +2830,9 @@ namespace Azure.Connectors.Sdk.Outlook.Models
             string body = default,
             Importance? importance = default,
             List<ClientSendAttachment> attachments = default,
-            bool? useOnlyHTMLMessage = default,
-            bool? hideHTMLMessage = default,
-            bool? showHTMLConfirmationDialog = default)
+            bool? useOnlyHtmlMessage = default,
+            bool? hideHtmlMessage = default,
+            bool? showHtmlConfirmationDialog = default)
         {
             return new ApprovalMessage
             {
@@ -2832,9 +2844,9 @@ namespace Azure.Connectors.Sdk.Outlook.Models
                 Body = body,
                 Importance = importance,
                 Attachments = attachments,
-                UseOnlyHTMLMessage = useOnlyHTMLMessage,
-                HideHTMLMessage = hideHTMLMessage,
-                ShowHTMLConfirmationDialog = showHTMLConfirmationDialog,
+                UseOnlyHtmlMessage = useOnlyHtmlMessage,
+                HideHtmlMessage = hideHtmlMessage,
+                ShowHtmlConfirmationDialog = showHtmlConfirmationDialog,
             };
         }
 
@@ -4162,7 +4174,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <remarks>This operation gets emails from a folder.</remarks>
         /// <param name="folder">Folder</param>
         /// <param name="to">To</param>
-        /// <param name="cC">CC</param>
+        /// <param name="cc">CC</param>
         /// <param name="toOrCC">To or CC</param>
         /// <param name="from">From</param>
         /// <param name="importance">Importance</param>
@@ -4174,7 +4186,7 @@ namespace Azure.Connectors.Sdk.Outlook
         /// <param name="top">Top</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The Get emails response.</returns>
-        public virtual async Task<BatchResponseClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cC = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
+        public virtual async Task<BatchResponseClientReceiveMessage> GetEmailsAsync(string folder = default, string to = default, string cc = default, string toOrCC = default, string from = default, string importance = default, bool? onlyWithAttachments = default, string subjectFilter = default, bool? fetchOnlyUnreadMessages = default, bool? includeAttachments = default, string searchQuery = default, int? top = default, CancellationToken cancellationToken = default)
         {
             using var activity = OutlookClient.ConnectorActivitySource.StartActivity("OutlookClient.GetEmailsAsync");
             try
@@ -4185,8 +4197,8 @@ namespace Azure.Connectors.Sdk.Outlook
                     queryParams.Add($"folderPath={Uri.EscapeDataString(folder)}");
                 if (to != default)
                     queryParams.Add($"to={Uri.EscapeDataString(to)}");
-                if (cC != default)
-                    queryParams.Add($"cc={Uri.EscapeDataString(cC)}");
+                if (cc != default)
+                    queryParams.Add($"cc={Uri.EscapeDataString(cc)}");
                 if (toOrCC != default)
                     queryParams.Add($"toOrCc={Uri.EscapeDataString(toOrCC)}");
                 if (from != default)
@@ -4325,4 +4337,3 @@ namespace Azure.Connectors.Sdk.Outlook
 
     #endregion Client
 }
-

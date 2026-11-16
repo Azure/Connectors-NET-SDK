@@ -227,4 +227,3 @@ namespace Azure.Connectors.Sdk.UniversalPrint
 
     #endregion Client
 }
-

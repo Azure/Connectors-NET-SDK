@@ -765,4 +765,3 @@ namespace Azure.Connectors.Sdk.Starmind
 
     #endregion Client
 }
-

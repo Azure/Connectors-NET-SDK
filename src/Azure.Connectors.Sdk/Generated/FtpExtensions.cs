@@ -623,4 +623,3 @@ namespace Azure.Connectors.Sdk.Ftp
 
     #endregion Client
 }
-

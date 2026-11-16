@@ -69,7 +69,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>URL</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>slug</summary>
         [JsonPropertyName("slug")]
@@ -77,7 +77,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>guid</summary>
         [JsonPropertyName("guid")]
-        public string Id2 { get; set; }
+        public string Guid { get; set; }
 
         /// <summary>type</summary>
         [JsonPropertyName("type")]
@@ -209,11 +209,11 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>URL</summary>
         [JsonPropertyName("URL")]
-        public string URL { get; set; }
+        public string Url { get; set; }
 
         /// <summary>short_URL</summary>
         [JsonPropertyName("short_URL")]
-        public string ShortURL { get; set; }
+        public string ShortUrl { get; set; }
 
         /// <summary>content</summary>
         [JsonPropertyName("content")]
@@ -229,7 +229,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>guid</summary>
         [JsonPropertyName("guid")]
-        public string Id2 { get; set; }
+        public string Guid { get; set; }
 
         /// <summary>status</summary>
         [JsonPropertyName("status")]
@@ -357,7 +357,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
 
         /// <summary>Is VIP</summary>
         [JsonPropertyName("is_vip")]
-        public bool? IsVIP { get; set; }
+        public bool? IsVip { get; set; }
 
         /// <summary>Is Following</summary>
         [JsonPropertyName("is_following")]
@@ -485,7 +485,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             string title = default,
             string url = default,
             string slug = default,
-            string id2 = default,
+            string guid = default,
             string type = default,
             int? likeCount = default)
         {
@@ -497,9 +497,9 @@ namespace Azure.Connectors.Sdk.WordPress.Models
                 Date = date,
                 Modified = modified,
                 Title = title,
-                URL = url,
+                Url = url,
                 Slug = slug,
-                Id2 = id2,
+                Guid = guid,
                 Type = type,
                 LikeCount = likeCount,
             };
@@ -569,11 +569,11 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             string modified = default,
             string title = default,
             string url = default,
-            string shortURL = default,
+            string shortUrl = default,
             string content = default,
             string excerpt = default,
             string slug = default,
-            string id2 = default,
+            string guid = default,
             string status = default,
             bool? sticky = default,
             string password = default,
@@ -598,12 +598,12 @@ namespace Azure.Connectors.Sdk.WordPress.Models
                 Date = date,
                 Modified = modified,
                 Title = title,
-                URL = url,
-                ShortURL = shortURL,
+                Url = url,
+                ShortUrl = shortUrl,
                 Content = content,
                 Excerpt = excerpt,
                 Slug = slug,
-                Id2 = id2,
+                Guid = guid,
                 Status = status,
                 Sticky = sticky,
                 Password = password,
@@ -650,7 +650,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
             bool? visible = default,
             bool? isPrivate = default,
             bool? isSingleUserSite = default,
-            bool? isVIP = default,
+            bool? isVip = default,
             bool? isFollowing = default)
         {
             return new Site
@@ -666,7 +666,7 @@ namespace Azure.Connectors.Sdk.WordPress.Models
                 Visible = visible,
                 IsPrivate = isPrivate,
                 IsSingleUserSite = isSingleUserSite,
-                IsVIP = isVIP,
+                IsVip = isVip,
                 IsFollowing = isFollowing,
             };
         }
@@ -898,4 +898,3 @@ namespace Azure.Connectors.Sdk.WordPress
 
     #endregion Client
 }
-
