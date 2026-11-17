@@ -112,6 +112,35 @@ az rest --method GET `
 
 Expected: `Connected`.
 
+> **Consent confirmation page:** After the identity provider's consent, the API Hub can show a "Confirmation required" page that names the account that created the connection. Confirm that it is your own connection, select **I have verified this request and trust the source**, and then **Allow access**. The consent does not complete until you do.
+
+#### ServiceNow (OAuth 2.0)
+
+The `service-now` connector offers three parameter sets: `oauth2ServiceNow`, `basicAuthentication`, and `entraIDUserLogin`. To use OAuth 2.0:
+
+1. In the ServiceNow instance, create an **OAuth API endpoint for external clients** (table `oauth_entity`). Set its redirect URL to the connector's consent redirect, which `managedApis/service-now` returns in `connectionParameterSets` (for example, `https://logic-apis-eastus.consent.azure-apim.net/redirect`).
+2. Create the connection with `parameterValueSet`, passing the client ID, client secret, and the instance name (`dev12345` for `https://dev12345.service-now.com`):
+
+   ```json
+   {
+     "properties": {
+       "connectorName": "service-now",
+       "parameterValueSet": {
+         "name": "oauth2ServiceNow",
+         "values": {
+           "token:ClientId": { "value": "<client-id>" },
+           "token:ClientSecret": { "value": "<client-secret>" },
+           "token:InstanceName": { "value": "<instance-name>" }
+         }
+       }
+     }
+   }
+   ```
+
+3. Complete consent with the link from `listConsentLinks`, signing in to the ServiceNow instance and allowing access.
+
+Build the body in a script from a stored credential; never paste the client secret into a terminal command or chat.
+
 ### Step 3b: Credential-Based Authentication
 
 For connectors that use connection strings or API keys (not OAuth), include `parameterValues` directly in the PUT body. The connection becomes `Connected` immediately without browser consent.
@@ -196,7 +225,7 @@ az rest --method PUT `
 Remove-Item $tempFile -ErrorAction SilentlyContinue
 ```
 
-> ACL propagation takes 1-5 minutes. If you get 403 errors immediately after adding, wait and retry.
+> ACL propagation usually takes 1-5 minutes. If the identity already made a call that was denied (`Permission denied due to missing connection ACL`), the new policy took 30-40 minutes to take effect in validation. Always resolve the principal ID from the host itself, as above, rather than copying it from another connection's policy: a policy for a different managed identity also produces this error.
 
 ### Step 6: Configure App Settings
 
