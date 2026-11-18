@@ -604,11 +604,12 @@ payload, `AsyncPageable<T>`, and typed-dictionary updates.
 ## 2026-11-17 Conditional entity paths and If-Match defaults
 
 `AzureTablesExtensions.cs` and `TeamsExtensions.cs` were regenerated from
-generator commit `91ade590d455d45ff8dc797e2af3e0523575874d` in
+generator commit `aefd045e0d60018972196fd9154fdddb8e5cf53d` in
 [BPM PR 17987723](https://msazure.visualstudio.com/One/_git/AzureUX-BPM/pullrequest/17987723),
 based on AzureUX-BPM `58f86d69805332d26be8d6f41b7de7c412de97a4`. The generator
 keeps the Swagger `/entities/etag(...)` paths and sends the `If-Match` header
-default: the Swagger default, else `*` when the header is required. The inputs
+default (the Swagger default, else `*` when the header is required) through a shared,
+read-only header collection from `ConnectorClientBase`. The inputs
 are the shared 103-connector Swagger capture used by the 2026-11-12 refresh.
 Regenerating all 103 connectors changed only these two C# files; the Python and
 TypeScript outputs were byte-identical to the shipped SDKs.

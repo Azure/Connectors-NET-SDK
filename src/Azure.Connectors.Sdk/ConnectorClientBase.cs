@@ -2,6 +2,8 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -43,6 +45,8 @@ namespace Azure.Connectors.Sdk
         private static readonly ConditionalWeakTable<object, Response> PageRawResponses = new();
 
         private static readonly AsyncLocal<PendingRequestHeaders?> PendingHeaders = new();
+
+        private static readonly ConcurrentDictionary<string, IReadOnlyDictionary<string, string>> IfMatchRequestHeadersByValue = new(StringComparer.Ordinal);
 
         private readonly HttpPipeline _pipeline;
         private readonly string _connectionRuntimeUrl;
@@ -429,6 +433,19 @@ namespace Azure.Connectors.Sdk
                 .ConfigureAwait(continueOnCapturedContext: false);
         }
 
+        /// <summary>
+        /// Gets a shared, read-only request header collection that sets <c>If-Match</c> to the specified value.
+        /// Generated conditional operations reuse it instead of allocating a header collection on every call.
+        /// </summary>
+        /// <param name="value">The <c>If-Match</c> header value, such as <c>*</c>.</param>
+        /// <returns>The cached header collection for the value.</returns>
+        private protected static IReadOnlyDictionary<string, string> GetIfMatchRequestHeaders(string value)
+        {
+            return ConnectorClientBase.IfMatchRequestHeadersByValue.GetOrAdd(
+                key: value,
+                valueFactory: static ifMatch => new ReadOnlyDictionary<string, string>(
+                    new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = ifMatch }));
+        }
         /// <summary>
         /// Sets headers supplied by a header overload when the request matches the operation that supplied them.
         /// </summary>

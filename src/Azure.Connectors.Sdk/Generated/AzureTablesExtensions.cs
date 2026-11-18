@@ -773,9 +773,8 @@ namespace Azure.Connectors.Sdk.AzureTables
                 if (rowKey is null)
                     throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities/etag(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
-                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 await this
-                    .CallConnectorAsync(HttpMethod.Patch, path, input, requestHeaders, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -810,9 +809,8 @@ namespace Azure.Connectors.Sdk.AzureTables
                 if (rowKey is null)
                     throw new ArgumentNullException(nameof(rowKey));
                 var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities/etag(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
-                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 await this
-                    .CallConnectorAsync(HttpMethod.Put, path, input, requestHeaders, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Put, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
