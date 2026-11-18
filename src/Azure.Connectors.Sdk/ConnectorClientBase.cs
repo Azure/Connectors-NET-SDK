@@ -42,6 +42,8 @@ namespace Azure.Connectors.Sdk
 
         private static readonly ConditionalWeakTable<object, Response> PageRawResponses = new();
 
+        private static readonly AsyncLocal<PendingRequestHeaders?> PendingHeaders = new();
+
         private readonly HttpPipeline _pipeline;
         private readonly string _connectionRuntimeUrl;
         private bool _disposed;
@@ -185,6 +187,8 @@ namespace Azure.Connectors.Sdk
                 request.Headers.Add("Content-Type", "application/json; charset=utf-8");
             }
 
+            ConnectorClientBase.ApplyPendingRequestHeaders(request, method, path);
+
             await this._pipeline
                 .SendAsync(message, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -321,6 +325,8 @@ namespace Azure.Connectors.Sdk
                 request.Headers.Add("Content-Type", "application/json; charset=utf-8");
             }
 
+            ConnectorClientBase.ApplyPendingRequestHeaders(request, method, path);
+
             await this._pipeline
                 .SendAsync(message, cancellationToken)
                 .ConfigureAwait(continueOnCapturedContext: false);
@@ -375,6 +381,73 @@ namespace Azure.Connectors.Sdk
             }
         }
 
+        /// <summary>
+        /// Sends a connector API request with additional request headers and deserializes the JSON response.
+        /// Dispatches through the virtual <see cref="CallConnectorAsync{TResponse}(HttpMethod, string, object?, CancellationToken)"/>
+        /// overload, so derived clients and mocks that override it continue to intercept the call.
+        /// </summary>
+        /// <typeparam name="TResponse">The response type.</typeparam>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="path">The relative path or absolute URL.</param>
+        /// <param name="body">Optional request body (will be JSON-serialized).</param>
+        /// <param name="headers">The request headers to set.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The deserialized response.</returns>
+        private protected async Task<TResponse> CallConnectorAsync<TResponse>(
+            HttpMethod method,
+            string path,
+            object? body,
+            IReadOnlyDictionary<string, string> headers,
+            CancellationToken cancellationToken = default)
+        {
+            ConnectorClientBase.PendingHeaders.Value = new PendingRequestHeaders(method: method, path: path, headers: headers);
+            return await this
+                .CallConnectorAsync<TResponse>(method, path, body, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Sends a connector API request with additional request headers and no response body.
+        /// Dispatches through the virtual <see cref="CallConnectorAsync(HttpMethod, string, object?, CancellationToken)"/>
+        /// overload, so derived clients and mocks that override it continue to intercept the call.
+        /// </summary>
+        /// <param name="method">The HTTP method.</param>
+        /// <param name="path">The relative path or absolute URL.</param>
+        /// <param name="body">Optional request body (will be JSON-serialized).</param>
+        /// <param name="headers">The request headers to set.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        private protected async Task CallConnectorAsync(
+            HttpMethod method,
+            string path,
+            object? body,
+            IReadOnlyDictionary<string, string> headers,
+            CancellationToken cancellationToken = default)
+        {
+            ConnectorClientBase.PendingHeaders.Value = new PendingRequestHeaders(method: method, path: path, headers: headers);
+            await this
+                .CallConnectorAsync(method, path, body, cancellationToken)
+                .ConfigureAwait(continueOnCapturedContext: false);
+        }
+
+        /// <summary>
+        /// Sets headers supplied by a header overload when the request matches the operation that supplied them.
+        /// </summary>
+        /// <param name="request">The request to update.</param>
+        /// <param name="method">The request HTTP method.</param>
+        /// <param name="path">The relative path or absolute URL passed to the request method.</param>
+        private static void ApplyPendingRequestHeaders(Request request, HttpMethod method, string path)
+        {
+            var headers = ConnectorClientBase.PendingHeaders.Value?.Take(method, path);
+            if (headers == null)
+            {
+                return;
+            }
+
+            foreach (var header in headers)
+            {
+                request.Headers.SetValue(header.Key, header.Value);
+            }
+        }
         /// <summary>
         /// Resolves a relative path or validates an absolute URL against the connection runtime URL.
         /// When the NextLink host matches the connection URL, it's used as-is.
@@ -707,6 +780,31 @@ namespace Azure.Connectors.Sdk
             protected override bool ContainsHeader(string name) => false;
 
             protected override IEnumerable<HttpHeader> EnumerateHeaders() => [];
+        }
+
+        /// <summary>
+        /// Request headers that a header overload hands to the virtual JSON request method in the same async flow.
+        /// The headers apply once, and only to a request with the same method and path as the operation that supplied them.
+        /// </summary>
+        private sealed class PendingRequestHeaders
+        {
+            private readonly HttpMethod _method;
+            private readonly string _path;
+            private IReadOnlyDictionary<string, string>? _headers;
+
+            public PendingRequestHeaders(HttpMethod method, string path, IReadOnlyDictionary<string, string> headers)
+            {
+                this._method = method;
+                this._path = path;
+                this._headers = headers;
+            }
+
+            public IReadOnlyDictionary<string, string>? Take(HttpMethod method, string path)
+            {
+                return this._method == method && string.Equals(this._path, path, StringComparison.Ordinal)
+                    ? Interlocked.Exchange(ref this._headers, null)
+                    : null;
+            }
         }
     }
 

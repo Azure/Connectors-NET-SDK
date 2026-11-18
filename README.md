@@ -283,7 +283,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | Azure Digital Twins | 🔄 SDK Generated | AddTwin, GetTwinById, QueryTwins |
 | Azure Event Hubs | 🔄 SDK Generated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
 | Azure Queues | ✅ E2E Validated | GetStorageAccountsAsync, ListQueuesAsync, PutQueueAsync, PutMessageAsync, GetMessagesAsync, DeleteMessageAsync (plain-text message round-tripped unchanged) |
-| Azure Tables | ✅ E2E Validated | GetStorageAccountsAsync, CreateTableAsync, GetTableAsync, DeleteTableAsync, CreateEntityAsync, GetEntityAsync, GetEntitiesAsync, InsertMergeEntityAsync, InsertReplaceEntityAsync. DeleteEntityAsync, MergeEntityAsync and ReplaceEntityAsync have a known issue ([#294](https://github.com/Azure/Connectors-NET-SDK/issues/294)) |
+| Azure Tables | ✅ E2E Validated | GetStorageAccountsAsync, CreateTableAsync, GetTableAsync, DeleteTableAsync, CreateEntityAsync, GetEntityAsync, GetEntitiesAsync, InsertMergeEntityAsync, InsertReplaceEntityAsync, DeleteEntityAsync, MergeEntityAsync, ReplaceEntityAsync |
 | Azure VM | ✅ E2E Validated | SubscriptionsListAsync (subscription discovery only) |
 | Key Vault | 🔄 SDK Generated | GetSecret, ListSecrets, EncryptData |
 | Microsoft Bookings | ✅ E2E Validated | ListBookingsBusinessUserAsAdminAsync (business discovery only) |

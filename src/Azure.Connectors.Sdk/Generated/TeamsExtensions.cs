@@ -5879,8 +5879,9 @@ namespace Azure.Connectors.Sdk.Teams
             try
             {
                 var path = $"/beta/me/teamwork/sections";
+                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 return await this
-                    .CallConnectorAsync<SectionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Post, path, input, requestHeaders, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5934,8 +5935,9 @@ namespace Azure.Connectors.Sdk.Teams
                 if (sectionId is null)
                     throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}";
+                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 return await this
-                    .CallConnectorAsync<SectionResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Patch, path, input, requestHeaders, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5960,8 +5962,9 @@ namespace Azure.Connectors.Sdk.Teams
                 if (sectionId is null)
                     throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}";
+                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 await this
-                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Delete, path, body: null, requestHeaders, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6015,8 +6018,9 @@ namespace Azure.Connectors.Sdk.Teams
                 if (sectionId is null)
                     throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}/items";
+                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 return await this
-                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, requestHeaders, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6044,8 +6048,9 @@ namespace Azure.Connectors.Sdk.Teams
                 if (sectionItemId is null)
                     throw new ArgumentNullException(nameof(sectionItemId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}/items/{Uri.EscapeDataString(sectionItemId)}";
+                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 await this
-                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Delete, path, body: null, requestHeaders, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6075,8 +6080,9 @@ namespace Azure.Connectors.Sdk.Teams
                 if (sectionItemId is null)
                     throw new ArgumentNullException(nameof(sectionItemId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}/items/{Uri.EscapeDataString(sectionItemId)}/move";
+                var requestHeaders = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) { ["If-Match"] = "*" };
                 return await this
-                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, requestHeaders, cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Azure Tables conditional entity operations** - `DeleteEntityAsync`,
+  `MergeEntityAsync`, and `ReplaceEntityAsync` now call the connector's
+  `/entities/etag(...)` operations instead of failing with 404
+  `OperationNotFound` or falling through to the insert-or-update operations.
+  `MergeEntityAsync` and `ReplaceEntityAsync` send `If-Match: *`, so they update
+  only an existing entity and return 404 when it is missing. This matches the
+  Python SDK's default and the Node.js SDK when the caller passes `"*"`. Use
+  `InsertMergeEntityAsync` or `InsertReplaceEntityAsync` to create or update. ([#294](https://github.com/Azure/Connectors-NET-SDK/issues/294))
+
+- **Teams section operations send the required `If-Match` header** - the six
+  section create, update, delete, and item operations send `If-Match: *`.
+
 ## [1.0.0] - 2026-11-16
 
 ### Added
