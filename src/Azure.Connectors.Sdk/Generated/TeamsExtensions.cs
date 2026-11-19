@@ -5880,7 +5880,7 @@ namespace Azure.Connectors.Sdk.Teams
             {
                 var path = $"/beta/me/teamwork/sections";
                 return await this
-                    .CallConnectorAsync<SectionResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Post, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5935,7 +5935,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}";
                 return await this
-                    .CallConnectorAsync<SectionResponse>(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionResponse>(HttpMethod.Patch, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -5961,7 +5961,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}";
                 await this
-                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Delete, path, body: null, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6016,7 +6016,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(sectionId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}/items";
                 return await this
-                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6045,7 +6045,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(sectionItemId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}/items/{Uri.EscapeDataString(sectionItemId)}";
                 await this
-                    .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Delete, path, body: null, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -6076,7 +6076,7 @@ namespace Azure.Connectors.Sdk.Teams
                     throw new ArgumentNullException(nameof(sectionItemId));
                 var path = $"/beta/me/teamwork/sections/{Uri.EscapeDataString(sectionId)}/items/{Uri.EscapeDataString(sectionItemId)}/move";
                 return await this
-                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, cancellationToken)
+                    .CallConnectorAsync<SectionItemResponse>(HttpMethod.Post, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

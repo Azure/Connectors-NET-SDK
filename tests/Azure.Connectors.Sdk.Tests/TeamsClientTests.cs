@@ -35,6 +35,208 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        [DataRow("CreateSection", "POST", "/beta/me/teamwork/sections")]
+        [DataRow("UpdateSection", "PATCH", "/beta/me/teamwork/sections/section-1")]
+        [DataRow("DeleteSection", "DELETE", "/beta/me/teamwork/sections/section-1")]
+        [DataRow("AddSectionItem", "POST", "/beta/me/teamwork/sections/section-1/items")]
+        [DataRow("RemoveSectionItem", "DELETE", "/beta/me/teamwork/sections/section-1/items/item-1")]
+        [DataRow("MoveSectionItem", "POST", "/beta/me/teamwork/sections/section-1/items/item-1/move")]
+        public async Task SectionOperation_SendsTheRequiredIfMatchHeader(string operation, string expectedMethod, string expectedPath)
+        {
+            var requests = new List<(string Method, string Path, string? IfMatch)>();
+            var (credential, options) = TeamsClientTests.CreateRecordingSetup(requests);
+            using var client = new TeamsClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: credential,
+                options: options);
+
+            Task call = operation switch
+            {
+                "CreateSection" => client.CreateSectionAsync(new CreateSectionInput { DisplayName = "Sample" }),
+                "UpdateSection" => client.UpdateSectionAsync(sectionId: "section-1", input: new UpdateSectionInput()),
+                "DeleteSection" => client.DeleteSectionAsync(sectionId: "section-1"),
+                "AddSectionItem" => client.AddSectionItemAsync(sectionId: "section-1", input: new AddSectionItemInput()),
+                "RemoveSectionItem" => client.RemoveSectionItemAsync(sectionId: "section-1", sectionItemId: "item-1"),
+                "MoveSectionItem" => client.MoveSectionItemAsync(sectionId: "section-1", sectionItemId: "item-1", input: new MoveSectionItemInput()),
+                _ => throw new ArgumentOutOfRangeException(paramName: nameof(operation), actualValue: operation, message: "Unknown section operation."),
+            };
+            await call.ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: requests.Count);
+            Assert.AreEqual(expected: expectedMethod, actual: requests[0].Method);
+            Assert.AreEqual(expected: "/connection" + expectedPath, actual: requests[0].Path);
+            Assert.AreEqual(expected: "*", actual: requests[0].IfMatch);
+        }
+
+        [TestMethod]
+        public async Task SectionOperations_DispatchThroughTheOriginalVirtualOverloads()
+        {
+            var requests = new List<(string Method, string Path, string? IfMatch)>();
+            var (credential, options) = TeamsClientTests.CreateRecordingSetup(requests);
+            using var client = new InterceptingTeamsClient(credential: credential, options: options);
+
+            await client
+                .CreateSectionAsync(new CreateSectionInput { DisplayName = "Sample" })
+                .ConfigureAwait(continueOnCapturedContext: false);
+            await client
+                .DeleteSectionAsync(sectionId: "section-1")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            CollectionAssert.AreEqual(
+                expected: new[] { "POST /beta/me/teamwork/sections", "DELETE /beta/me/teamwork/sections/section-1" },
+                actual: client.InterceptedCalls);
+            CollectionAssert.AreEqual(
+                expected: new[] { "*", "*", null },
+                actual: requests.Select(request => request.IfMatch).ToArray(),
+                message: "Headers apply to the first request only; the override's second base call sends none.");
+        }
+
+        [TestMethod]
+        public async Task SectionOperation_OverrideSendingAnUnrelatedRequestFirst_KeepsIfMatchOnTheSectionRequest()
+        {
+            var requests = new List<(string Method, string Path, string? IfMatch)>();
+            var (credential, options) = TeamsClientTests.CreateRecordingSetup(requests);
+            using var client = new ForwardingTeamsClient(credential: credential, options: options)
+            {
+                PreflightPath = "/beta/me/teamwork/sections/section-1",
+            };
+
+            await client
+                .DeleteSectionAsync(sectionId: "section-1")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            CollectionAssert.AreEqual(
+                expected: new[] { "GET", "DELETE" },
+                actual: requests.Select(request => request.Method).ToArray());
+            CollectionAssert.AreEqual(
+                expected: new[] { null, "*" },
+                actual: requests.Select(request => request.IfMatch).ToArray());
+        }
+
+        [TestMethod]
+        public async Task SectionOperation_OverrideDelegatingToAnotherClient_SendsIfMatch()
+        {
+            var requests = new List<(string Method, string Path, string? IfMatch)>();
+            var (credential, options) = TeamsClientTests.CreateRecordingSetup(requests);
+            using var target = new ForwardingTeamsClient(credential: credential, options: options);
+            using var client = new ForwardingTeamsClient(credential: credential, options: options)
+            {
+                ForwardTo = target,
+            };
+
+            await client
+                .DeleteSectionAsync(sectionId: "section-1")
+                .ConfigureAwait(continueOnCapturedContext: false);
+
+            Assert.AreEqual(expected: 1, actual: requests.Count);
+            Assert.AreEqual(expected: "*", actual: requests[0].IfMatch);
+        }
+        private static (TokenCredential Credential, ConnectorClientOptions Options) CreateRecordingSetup(
+            List<(string Method, string Path, string? IfMatch)> requests)
+        {
+            var handler = new Mock<HttpMessageHandler>();
+            handler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns((HttpRequestMessage request, CancellationToken cancellationToken) =>
+                {
+                    requests.Add((
+                        request.Method.Method,
+                        request.RequestUri!.AbsolutePath,
+                        request.Headers.TryGetValues("If-Match", out var values) ? string.Join(",", values) : null));
+                    return Task.FromResult(request.Method == HttpMethod.Delete
+                        ? new HttpResponseMessage(HttpStatusCode.NoContent)
+                        : new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("{\"id\":\"section-1\"}") });
+                });
+            var (credential, options) = ConnectorTestHelpers.CreateMockedClientSetup(() => throw new InvalidOperationException("Unexpected fallback request."));
+            options.Transport = new HttpClientTransport(new HttpClient(handler.Object));
+            return (credential, options);
+        }
+
+        /// <summary>
+        /// A derived client whose void override can first send an unrelated request or forward to another client.
+        /// </summary>
+        private sealed class ForwardingTeamsClient : TeamsClient
+        {
+            public ForwardingTeamsClient(TokenCredential credential, ConnectorClientOptions options)
+                : base(connectionRuntimeUrl: new Uri("https://test.azure.com/connection"), credential: credential, options: options)
+            {
+            }
+
+            public string? PreflightPath { get; init; }
+
+            public ForwardingTeamsClient? ForwardTo { get; init; }
+
+            protected override async Task CallConnectorAsync(
+                HttpMethod method,
+                string path,
+                object? body = null,
+                CancellationToken cancellationToken = default)
+            {
+                if (this.PreflightPath != null)
+                {
+                    await base
+                        .CallConnectorAsync<JsonElement>(HttpMethod.Get, this.PreflightPath, body: null, cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                }
+
+                if (this.ForwardTo != null)
+                {
+                    await this.ForwardTo
+                        .CallConnectorAsync(method, path, body, cancellationToken)
+                        .ConfigureAwait(continueOnCapturedContext: false);
+                    return;
+                }
+
+                await base
+                    .CallConnectorAsync(method, path, body, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+        }
+        /// <summary>
+        /// A derived client compiled against the 1.0.0 surface: it overrides only the original JSON overloads.
+        /// The void override calls the base twice to show that request headers apply once.
+        /// </summary>
+        private sealed class InterceptingTeamsClient : TeamsClient
+        {
+            public InterceptingTeamsClient(TokenCredential credential, ConnectorClientOptions options)
+                : base(connectionRuntimeUrl: new Uri("https://test.azure.com/connection"), credential: credential, options: options)
+            {
+            }
+
+            public List<string> InterceptedCalls { get; } = new();
+
+            protected override async Task<TResponse> CallConnectorAsync<TResponse>(
+                HttpMethod method,
+                string path,
+                object? body = null,
+                CancellationToken cancellationToken = default)
+            {
+                this.InterceptedCalls.Add($"{method.Method} {path}");
+                return await base
+                    .CallConnectorAsync<TResponse>(method, path, body, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+
+            protected override async Task CallConnectorAsync(
+                HttpMethod method,
+                string path,
+                object? body = null,
+                CancellationToken cancellationToken = default)
+            {
+                this.InterceptedCalls.Add($"{method.Method} {path}");
+                await base
+                    .CallConnectorAsync(method, path, body, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+                await base
+                    .CallConnectorAsync(method, path, body, cancellationToken)
+                    .ConfigureAwait(continueOnCapturedContext: false);
+            }
+        }
+
+        [TestMethod]
         [Owner("daviburg")]
         [DataRow(false)]
         [DataRow(true)]

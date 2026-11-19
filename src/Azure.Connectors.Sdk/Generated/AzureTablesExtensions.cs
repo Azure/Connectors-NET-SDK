@@ -510,7 +510,7 @@ namespace Azure.Connectors.Sdk.AzureTables
                     throw new ArgumentNullException(nameof(partitionKey));
                 if (rowKey is null)
                     throw new ArgumentNullException(nameof(rowKey));
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities/etag(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
                 await this
                     .CallConnectorAsync(HttpMethod.Delete, path, cancellationToken: cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
@@ -772,9 +772,9 @@ namespace Azure.Connectors.Sdk.AzureTables
                     throw new ArgumentNullException(nameof(partitionKey));
                 if (rowKey is null)
                     throw new ArgumentNullException(nameof(rowKey));
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities/etag(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
                 await this
-                    .CallConnectorAsync(HttpMethod.Patch, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Patch, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }
@@ -808,9 +808,9 @@ namespace Azure.Connectors.Sdk.AzureTables
                     throw new ArgumentNullException(nameof(partitionKey));
                 if (rowKey is null)
                     throw new ArgumentNullException(nameof(rowKey));
-                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
+                var path = $"/v2/storageAccounts/{Uri.EscapeDataString(Uri.EscapeDataString(storageAccountNameOrTableEndpoint))}/tables/{Uri.EscapeDataString(table)}/entities/etag(PartitionKey='{Uri.EscapeDataString(partitionKey)}',RowKey='{Uri.EscapeDataString(rowKey)}')";
                 await this
-                    .CallConnectorAsync(HttpMethod.Put, path, input, cancellationToken)
+                    .CallConnectorAsync(HttpMethod.Put, path, input, ConnectorClientBase.GetIfMatchRequestHeaders("*"), cancellationToken)
                     .ConfigureAwait(continueOnCapturedContext: false);
 
             }

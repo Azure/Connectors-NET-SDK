@@ -115,6 +115,57 @@ namespace Azure.Connectors.Sdk.Tests
         }
 
         [TestMethod]
+        [DataRow("Delete", "DELETE", null, DisplayName = "DeleteEntityAsync uses the etag path without If-Match")]
+        [DataRow("Merge", "PATCH", "*", DisplayName = "MergeEntityAsync uses the etag path with If-Match *")]
+        [DataRow("Replace", "PUT", "*", DisplayName = "ReplaceEntityAsync uses the etag path with If-Match *")]
+        [DataRow("InsertMerge", "PATCH", null, DisplayName = "InsertMergeEntityAsync keeps the upsert path")]
+        [DataRow("InsertReplace", "PUT", null, DisplayName = "InsertReplaceEntityAsync keeps the upsert path")]
+        public async Task EntityOperation_SendsTheConnectorOperationPathAndIfMatch(string operation, string expectedMethod, string? expectedIfMatch)
+        {
+            string? requestMethod = null;
+            string? requestPath = null;
+            string? requestIfMatch = null;
+            var handler = new Mock<HttpMessageHandler>();
+            handler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .Returns((HttpRequestMessage request, CancellationToken cancellationToken) =>
+                {
+                    requestMethod = request.Method.Method;
+                    requestPath = request.RequestUri!.AbsolutePath;
+                    requestIfMatch = request.Headers.TryGetValues("If-Match", out var values) ? string.Join(",", values) : null;
+                    return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NoContent));
+                });
+            var options = new ConnectorClientOptions();
+            options.Transport = new HttpClientTransport(new HttpClient(handler.Object));
+            options.Retry.MaxRetries = 0;
+            using var client = new AzureTablesClient(
+                connectionRuntimeUrl: new Uri("https://test.azure.com/connection"),
+                credential: AzureTablesClientTests.SharedMockCredential.Object,
+                options: options);
+
+            var call = operation switch
+            {
+                "Delete" => client.DeleteEntityAsync(storageAccountNameOrTableEndpoint: "account", table: "SdkTable", partitionKey: "p1", rowKey: "r1"),
+                "Merge" => client.MergeEntityAsync(storageAccountNameOrTableEndpoint: "account", table: "SdkTable", partitionKey: "p1", rowKey: "r1", input: new MergeEntityInput()),
+                "Replace" => client.ReplaceEntityAsync(storageAccountNameOrTableEndpoint: "account", table: "SdkTable", partitionKey: "p1", rowKey: "r1", input: new ReplaceEntityInput()),
+                "InsertMerge" => client.InsertMergeEntityAsync(storageAccountNameOrTableEndpoint: "account", table: "SdkTable", partitionKey: "p1", rowKey: "r1", input: new InsertMergeEntityInput()),
+                "InsertReplace" => client.InsertReplaceEntityAsync(storageAccountNameOrTableEndpoint: "account", table: "SdkTable", partitionKey: "p1", rowKey: "r1", input: new InsertReplaceEntityInput()),
+                _ => throw new ArgumentException(message: $"Unknown operation '{operation}'.", paramName: nameof(operation)),
+            };
+            await call.ConfigureAwait(continueOnCapturedContext: false);
+
+            var expectedSegment = operation.StartsWith("Insert", StringComparison.Ordinal) ? "/entities(" : "/entities/etag(";
+            Assert.AreEqual(expected: expectedMethod, actual: requestMethod);
+            Assert.AreEqual(
+                expected: $"/connection/v2/storageAccounts/account/tables/SdkTable{expectedSegment}PartitionKey='p1',RowKey='r1')",
+                actual: Uri.UnescapeDataString(requestPath!));
+            Assert.AreEqual(expected: expectedIfMatch, actual: requestIfMatch);
+        }
+
+        [TestMethod]
         public void Constructor_WithValidConnectionRuntimeUrl_ShouldCreateInstance()
         {
             using var client = new AzureTablesClient("https://test.azure.com/connection");

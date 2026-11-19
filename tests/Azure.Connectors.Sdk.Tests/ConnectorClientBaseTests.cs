@@ -2,6 +2,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 //------------------------------------------------------------
 
+using System.Collections.ObjectModel;
 using System.Net;
 using global::Azure.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -220,6 +221,20 @@ namespace Azure.Connectors.Sdk.Tests
             CollectionAssert.AreEqual(expected: expectedBody, actual: capture.Body);
         }
 
+        [TestMethod]
+        public void GetIfMatchRequestHeaders_ReturnsOneSharedReadOnlyCollectionPerValue()
+        {
+            var first = TestConnectorClientWithUri.GetIfMatchHeaders(value: "*");
+            var second = TestConnectorClientWithUri.GetIfMatchHeaders(value: "*");
+            var other = TestConnectorClientWithUri.GetIfMatchHeaders(value: "W/\"etag\"");
+
+            Assert.AreSame(expected: first, actual: second);
+            Assert.AreNotSame(notExpected: first, actual: other);
+            Assert.AreEqual(expected: "*", actual: first["if-match"]);
+            Assert.AreEqual(expected: "W/\"etag\"", actual: other["If-Match"]);
+            Assert.AreEqual(expected: 1, actual: first.Count);
+            Assert.IsInstanceOfType(value: first, expectedType: typeof(ReadOnlyDictionary<string, string>));
+        }
         private class TestConnectorClientWithUri : ConnectorClientBase
         {
             public TestConnectorClientWithUri(Uri connectionRuntimeUrl)
@@ -230,6 +245,8 @@ namespace Azure.Connectors.Sdk.Tests
             public override string ConnectorName => "TestConnector";
 
             public string TestResolveUrl(string path) => this.ResolveUrl(path);
+
+            public static IReadOnlyDictionary<string, string> GetIfMatchHeaders(string value) => ConnectorClientBase.GetIfMatchRequestHeaders(value);
         }
 
         private class TestConnectorClientWithUriAndCredential : ConnectorClientBase
