@@ -217,24 +217,24 @@ The connector inventory below records shipped SDK coverage. Use [GitHub issues](
 
 ## Validated Connectors
 
-The SDK includes 103 generated typed connector clients. Catalog entries alone do not imply that a typed client is included. Rows marked SDK Generated have not been validated end-to-end.
+The SDK includes 103 generated typed connector clients. Catalog entries alone do not imply that a typed client is included. Rows marked SDK Generated have not been validated end-to-end. For validated rows, the operations column lists the methods that succeeded against a live Connector Namespace connection; "discovery only" means only that read was validated. The rows updated for 1.0.0 were validated with `Azure.Connectors.Sdk` 1.0.0 through the [Connectors-NET-Samples](https://github.com/Azure/Connectors-NET-Samples) functions.
 
 | Connector | Status | Validated Operations |
 |-----------|--------|----------------------|
 | Azure AD | 🔄 SDK Generated | GetUser, CreateUser, GetGroup, GetGroupMembers, CreateGroup, UpdateUser, CheckMemberGroups |
 | Azure DevOps (VSTS) | 🔄 SDK Generated | ListProjectsAsync, QueueNewBuildAsync, GetBuildAsync, CreateWorkItemAsync, GetQueryResultsAsync (pageable; trigger: OnBuildCompleted) |
 | [DataFlows SMS](https://learn.microsoft.com/connectors/dataflowssms/) | 🔄 SDK Generated | SendSmsAsync, GetSmsAsync, ListSmsAsync, GetProfileAsync, GetBalanceAsync |
-| [ServiceNow](https://learn.microsoft.com/connectors/service-now/) | 🔄 SDK Generated | GetRecordsAsync, CreateRecordAsync, GetRecordAsync, UpdateRecordAsync, UploadAttachmentFileAsync |
+| [ServiceNow](https://learn.microsoft.com/connectors/service-now/) | ✅ E2E Validated | CreateRecordAsync, UploadAttachmentAsync (multipart `MultipartFile`), RetrieveAttachmentContentAsync, DeleteAttachmentAsync, DeleteRecordAsync (OAuth 2.0 connection; uploaded bytes matched the download) |
 | Azure IoT Central | 🔄 SDK Generated | ApplicationsList, DeviceGroupsList, DeviceGroupsGet, DeviceGroupsSet, DevicesGetCloudProperties (pageable) |
 | Azure Monitor Logs | ✅ E2E Validated | ListSubscriptions, ListResourceGroups, ListResources, QueryData, QuerySchema |
 | Azure Resource Manager | ✅ E2E Validated | SubscriptionsList, ResourceGroupsList, ResourceGroupsListResources, ResourceGroupsGet, ResourceGroupsCreateOrUpdate, ResourceGroupsDelete, ResourcesGetById |
 | IBM MQ | 🔄 SDK Generated | SendAsync, ReadAsync, ReadAllAsync, ReceiveAsync, ReceiveAllAsync, DeleteAsync, DeleteAllAsync |
 | Office365 | ✅ Validated | SendEmail, GetOutlookCategoryNames, ExportEmail, CalendarPostItem |
 | Office365 Users | ✅ Validated | MyProfile, UserProfile, Manager, DirectReports, SearchUser |
-| OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink |
+| OneDrive for Business | ✅ Validated | ListRootFolder, ListFolder, GetFileContentByPath, CreateFile, FindFilesByPath, CreateShareLink, GetFileMetadata, DeleteFile |
 | SharePoint | ✅ E2E Validated | GetDataSets -> GetAllTables, GetFileItems, GetFileContentByPath, CreateFile |
 | MS Graph Groups & Users | ✅ Validated | ListUsers, ListGroupsByDisplayNameSearch, GetGroupProperties |
-| Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation |
+| Teams | ✅ Validated | GetAllTeams, GetChannelsForGroup, PostMessageToConversation (trigger: WebhookChatMessageTrigger typed webhook callback) |
 | SMTP | ✅ Validated | SendEmail |
 | Azure Event Grid | ✅ E2E Validated | TopicTypesList, SubscriptionsList (trigger: CreateSubscription) |
 | Excel Online | ✅ E2E Validated | GetTables (connectivity confirmed via sdk-test-gateway-prod) |
@@ -247,7 +247,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | CloudConvert | 🔄 SDK Generated | ConvertFile, OptimizeFile, CaptureWebsite, MergeFiles; five dynamic-options discovery helpers |
 | Cloudmersive Convert | 🔄 SDK Generated | ConvertDocumentAutodetectGetInfo, ConvertDocumentAutodetectToPdf |
 | Etsy | 🔄 SDK Generated | Ping, PaymentLedgerEntries, PaymentGetEntryId |
-| Excel Online (Business) | 🔄 SDK Generated | CreateTableAsync |
+| Excel Online (Business) | ✅ E2E Validated | GetSourcesAsync (source discovery only) |
 | Formstack Forms | 🔄 SDK Generated | GetAvailableForms (trigger: OnFormstackFormSubmitted) |
 | Freshservice | 🔄 SDK Generated | AddNote, CreateTicket, UpdateTicket (trigger: OnTicketCreated) |
 | Infusionsoft (Keap) | 🔄 SDK Generated | CreateTask, UpdateTask, ListTasks (trigger: OnNewTask) |
@@ -265,7 +265,7 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | Jedox OData Hub | 🔄 SDK Generated | Databases, GetCubes |
 | Meeting Room Map | 🔄 SDK Generated | GetCategories, GetCustomLocations |
 | Orderful | 🔄 SDK Generated | ListTransactions |
-| Outlook | 🔄 SDK Generated | GetEmailAsync, SendEmailAsync, DeleteEmailAsync, CalendarGetItemsAsync, ContactGetItemsAsync |
+| Outlook | ✅ E2E Validated | CalendarGetTablesAsync, ContactGetTablesAsync (calendar and contact-folder discovery only) |
 | PDF.co | 🔄 SDK Generated | HtmlToPdf, UrlToPdf, PdfFiller |
 | ProjectPlace | 🔄 SDK Generated | ListBoards, CreateCard |
 | Seismic Planner | 🔄 SDK Generated | GetComments, CreateComment |
@@ -276,26 +276,26 @@ The SDK includes 103 generated typed connector clients. Catalog entries alone do
 | TextRequest | 🔄 SDK Generated | GetMessagesByContactPhone, SendMessageByPhoneNumber |
 | Ticketmaster | 🔄 SDK Generated | EventsGet, EventsGetDetails |
 | Way We Do | 🔄 SDK Generated | GetAllChecklistInstances, CommentAdd |
-| Word Online (Business) | ✅ E2E Validated | GetSourcesAsync, GetDrivesAsync |
-| Azure Automation | 🔄 SDK Generated | CreateJob, GetStatusOfJob, GetJobOutput |
-| Azure Cosmos DB | 🔄 SDK Generated | GetCosmosDbAccountsAsync, CreateDocumentAsync |
+| Word Online (Business) | ✅ E2E Validated | GetSourcesAsync, GetDrivesAsync, CreateWordFileWithContentAsync, GetFilePdfAsync |
+| Azure Automation | ✅ E2E Validated | SubscriptionsListAsync (subscription discovery only) |
+| Azure Cosmos DB | ✅ E2E Validated | GetCosmosDbAccountsAsync (account discovery only) |
 | Azure Data Factory | 🔄 SDK Generated | CreatePipelineRun, GetPipelineRun, CancelPipelineRun |
 | Azure Digital Twins | 🔄 SDK Generated | AddTwin, GetTwinById, QueryTwins |
 | Azure Event Hubs | 🔄 SDK Generated | GetEventHubsAsync, SendEventAsync, SendEventsAsync |
-| Azure Queues | ✅ E2E Validated | GetStorageAccountsAsync (storage-account discovery only) |
-| Azure Tables | 🔄 SDK Generated | GetTableAsync, GetEntitiesAsync, CreateEntityAsync, MergeEntityAsync, DeleteEntityAsync |
-| Azure VM | 🔄 SDK Generated | VirtualMachineGet, VirtualMachineStart, VirtualMachineDeallocate |
+| Azure Queues | ✅ E2E Validated | GetStorageAccountsAsync, ListQueuesAsync, PutQueueAsync, PutMessageAsync, GetMessagesAsync, DeleteMessageAsync (plain-text message round-tripped unchanged) |
+| Azure Tables | ✅ E2E Validated | GetStorageAccountsAsync, CreateTableAsync, GetTableAsync, DeleteTableAsync, CreateEntityAsync, GetEntityAsync, GetEntitiesAsync, InsertMergeEntityAsync, InsertReplaceEntityAsync. DeleteEntityAsync, MergeEntityAsync and ReplaceEntityAsync have a known issue ([#294](https://github.com/Azure/Connectors-NET-SDK/issues/294)) |
+| Azure VM | ✅ E2E Validated | SubscriptionsListAsync (subscription discovery only) |
 | Key Vault | 🔄 SDK Generated | GetSecret, ListSecrets, EncryptData |
-| Microsoft Bookings | 🔄 SDK Generated | ListBookingsBusinessUserAsAdmin |
+| Microsoft Bookings | ✅ E2E Validated | ListBookingsBusinessUserAsAdminAsync (business discovery only) |
 | Microsoft Forms | 🔄 SDK Generated | ListForms, GetFormDetailsById, GetFormResponseById, GetQuestions |
-| Office 365 Groups | 🔄 SDK Generated | ListGroups, AddMemberToGroup, CreateCalendarEvent |
-| Office 365 Groups Mail | 🔄 SDK Generated | ListConversations, CreateConversation, ReplyToAThread |
-| OneNote | 🔄 SDK Generated | GetNotebooks, CreatePageInSection, GetPageContent |
-| Planner | 🔄 SDK Generated | ListMyTasks, CreateTask, UpdateTask |
-| Power BI | 🔄 SDK Generated | ExecuteDatasetQuery, AddRows, RefreshDataset |
+| Office 365 Groups | ✅ E2E Validated | ListGroupsAsync (first page) |
+| Office 365 Groups Mail | ✅ E2E Validated | ListGroupsAsync |
+| OneNote | ✅ E2E Validated | GetNotebooksAsync |
+| Planner | ✅ E2E Validated | ListGroupsAsync, ListMyTasksAsync |
+| Power BI | ✅ E2E Validated | ListGroupsAsync (workspace discovery only) |
 | SigningHub | 🔄 SDK Generated | AttachmentGetAttachments, AttachmentDeleteAttachment |
-| Shifts | 🔄 SDK Generated | ListShifts, ListOpenShifts, GetSchedule |
-| To Do | 🔄 SDK Generated | GetAllTodoLists, CreateToDo, GetToDo |
+| Shifts | ✅ E2E Validated | GetAllTeamsAsync (team discovery only) |
+| To Do | ✅ E2E Validated | GetAllTodoListsAsync |
 | Box | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
 | Docusign | 🔄 SDK Generated | CreateEnvelopeFromTemplate, SendEnvelope, GetRecipientStatus, ListEnvelopes |
 | Dropbox | 🔄 SDK Generated | GetFileMetadata, CreateFile, CopyFile, ExtractFolder |
